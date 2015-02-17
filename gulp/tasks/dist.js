@@ -26,7 +26,7 @@ gulp.task('dist:lib', function() {
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
     .pipe(tap(function(file) {
-      var relativePath = file.path.match(/availity-angular-sdk(.*)/)[1];
+      var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
@@ -55,7 +55,7 @@ gulp.task('dist:ui', function() {
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
     .pipe(tap(function(file) {
-      var relativePath = file.path.match(/availity-angular-sdk(.*)/)[1];
+      var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
