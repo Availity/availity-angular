@@ -1,6 +1,6 @@
 # availity-angular
 
-> 
+> Availity Angular SDK
 
 ## Table of Contents
 * [Intro](#intro)

@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.2.0 -- February-16
+ * availity-angular v0.2.1 -- February-17
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1169,6 +1169,13 @@
 
         avDatepicker.init();
         avDatepicker.setNgModel(ngModel);
+
+        element.on('dp.change', function(e) {
+          scope.$apply(function() {
+            ngModel.$setViewValue($.trim(element.val()));
+          });
+          $log.info(e);
+        });
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
