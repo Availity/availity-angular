@@ -19,7 +19,7 @@
     "angular": "1.2.28",
     "angular-sanitize": "1.2.28",
     "angular-ui-router": "0.2.13",
-    "availity-uikit": "ssh://git@github.com:Availity/availity-angular.git#v0.2.2",
+    "availity-uikit": "git@github.com:Availity/availity-uikit.git#v0.2.3",
     "lodash": "~3.0.0"
   },
   "devDependencies": {
@@ -28,5 +28,8 @@
   "ignore": [
     ".*",
     "node_modules"
-  ]
+  ],
+  "resolutions": {
+    "bootstrap": "~3.3.2"
+  }
 }
