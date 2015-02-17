@@ -5,3 +5,4 @@ node_modules
 /.deprc
 
 /build/
+.DS_Store
