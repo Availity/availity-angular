@@ -30,7 +30,7 @@ gulp.task('concat:lib', function() {
     .pipe(replace(config.regex.GLOBAL, ''))
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(tap(function(file) {
-      var relativePath = file.path.match(/availity-angular-sdk(.*)/)[1];
+      var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
@@ -47,7 +47,7 @@ gulp.task('concat:ui', function() {
     .pipe(replace(config.regex.GLOBAL, ''))
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(tap(function(file) {
-      var relativePath = file.path.match(/availity-angular-sdk(.*)/)[1];
+      var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
@@ -63,7 +63,7 @@ gulp.task('concat:docs:js', function() {
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
     .pipe(tap(function(file) {
-      var relativePath = file.path.match(/availity-angular-sdk(.*)/)[1];
+      var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
