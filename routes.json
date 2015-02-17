@@ -1,0 +1,10 @@
+{
+
+  "v1/users/me": {
+    "file": "me.json"
+  },
+
+  "v1/permissions": {
+    "file": "permissions.json"
+  }
+}

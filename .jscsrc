@@ -1,0 +1,42 @@
+{
+    "fileExtensions": "jscs",
+
+    "disallowMultipleVarDecl": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowEmptyBlocks": true,
+    "disallowKeywords": ["with"],
+    "disallowKeywordsOnNewLine": ["else"],
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+
+    "disallowSpacesInsideArrayBrackets": true,
+    "disallowTrailingWhitespace": true,
+    "disallowYodaConditions": true,
+    "disallowSpaceAfterKeywords": [
+        "if",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "try",
+        "catch"
+    ],
+
+    "maximumLineLength": 200,
+
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCapitalizedConstructors": true,
+    "requireCommaBeforeLineBreak": true,
+    "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch", "case", "default"],
+    "requireSpaceBeforeBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
+    "requireSpaceBeforeBlockStatements": true,
+    "validateLineBreaks": "LF",
+    "validateIndentation": 2,
+    "validateQuoteMarks":  {
+      "mark": "'",
+      "escape": true
+    },
+    "requireParenthesesAroundIIFE": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingComma": true
+}

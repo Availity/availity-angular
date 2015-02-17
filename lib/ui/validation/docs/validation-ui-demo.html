@@ -1,0 +1,103 @@
+---
+title: Validation
+---
+<div class="guide-example" data-ng-controller="ValidationController">
+  <form name="demoForm" data-av-val-form>
+    <div class="form-group">
+      <label for="demoFirstName1">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="demoFirstName1"
+        placeholder="..."
+        data-ng-model="demo.firstName"
+        data-av-val-field="firstName"
+      >
+        <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="demoLastName1">Last Name</label>
+      <input type="text"
+        class="form-control"
+        name="demoLastName1"
+        placeholder="..."
+        data-ng-model="demo.lastName"
+        data-av-val-field="lastName"
+        data-av-val-on="blur"
+      >
+        <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="demoSSN">SSN</label>
+      <input
+        type="text"
+        name="demoSSN"
+        placeholder="###-##-####"
+        class="form-control"
+        data-ng-model="demo.ssn"
+        data-av-val-field="ssn"
+        data-av-val-debounce="1000"
+      >
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="demoIcd9">ICD-9</label>
+      <input type="text"
+        class="form-control"
+        name="demoIcd9"
+        placeholder="..."
+        data-ng-model="demo.icd9"
+        data-av-val-field="icd9"
+      >
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="demoTaxID">Tax ID</label>
+      <input type="text"
+        class="form-control"
+        name="demoTaxID"
+        placeholder="..."
+        data-ng-model="demo.taxId"
+        data-av-val-field="taxId"
+      >
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="dropdownStates3">States</label>
+      <select
+        id="dropdownStates3"
+        class="form-control select2"
+        data-av-dropdown
+        data-ng-model="selectedState"
+        data-ng-options="state.name for state in states"
+        data-placeholder="Select State"
+        data-av-val-field="states"
+        data-allow-clear="true"
+        >
+      </select>
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="noIcon">Birthdate</label>
+      <input type="text"
+       class="form-control"
+       id="noIcon"
+       data-ng-model="demo.date"
+       data-av-datepicker
+       data-av-val-field="date"
+      />
+      <p data-av-val-container></p>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" data-ng-model="demo.check"> Check me out
+      </label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+<code class="language-markup">
+
+<!-- Javascript -->
+
+</code>

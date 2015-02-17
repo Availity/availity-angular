@@ -1,0 +1,7 @@
+.idea
+bower_components
+node_modules
+
+/.deprc
+
+/build/

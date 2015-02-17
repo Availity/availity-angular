@@ -1,0 +1,34 @@
+---
+title: Datepicker
+---
+<div data-ng-controller="DatepickerController">
+
+  <h3 class="guide-subsection-title">Datepicker</h3>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="withIcon">With Icon</label>
+        <div class='input-group date' data-av-datepicker>
+          <input type="text"
+           class="form-control"
+           id="withIcon"
+           data-ng-model="demo.dateTime1"
+          />
+          <span class="input-group-addon">
+            <span class="icon icon-calendar"></span>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="noIcon">No Icon</label>
+        <input type="text"
+         class="form-control"
+         id="noIcon"
+         data-ng-model="demo.dateTime2"
+         data-av-datepicker
+        />
+      </div>
+    </form>
+  </div>
+
+</div>
