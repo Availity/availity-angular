@@ -20,7 +20,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "availity-ekko": "git+ssh://git@github.com:Availity/availity-ekko.git#v0.0.3",
+    "availity-ekko": "Availity/availity-ekko#v0.0.3",
     "browser-sync": "^1.8.3",
     "chalk": "^0.5.1",
     "cheerio": "^0.18.0",
