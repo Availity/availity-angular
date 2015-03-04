@@ -1,6 +1,6 @@
 # availity-angular
 
-> 
+> Availity Angular SDK
 
 ## Table of Contents
 * [Intro](#intro)
@@ -29,13 +29,14 @@ Install the Availity Angular SDK with Bower.
 
 >
 ```bash
-$ bower install availity-angular-sdk --save
+$ bower install availity-angular --save
 ```
 
 or with NPM:
 
->```bash
-$ npm install availity-angular-sdk --save
+>
+```bash
+$ npm install availity-angular --save
 ```
 
 
@@ -44,9 +45,7 @@ $ npm install availity-angular-sdk --save
 **Robert McGuinness**
 + [rob.mcguinness@availity.com](rob.mcguinness@availity.com)
 
-## Disclaimer
 
-Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
 
 ## License
 Copyright (c) 2015 Availity, LLC
