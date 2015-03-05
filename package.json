@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,7 +20,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "availity-ekko": "git+ssh://git@github.com:Availity/availity-ekko.git#v0.0.3",
+    "availity-ekko": "0.0.5",
     "browser-sync": "^1.8.3",
     "chalk": "^0.5.1",
     "cheerio": "^0.18.0",
