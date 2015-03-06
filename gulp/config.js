@@ -174,21 +174,5 @@ module.exports = {
       'test/matchers.js',
       'test/helpers.js'
     ]
-  },
-  dotfiles: {
-    src: [
-      {
-        url: 'https://git.availity.com/projects/API/repos/availity-dotfiles/browse/jshint/.jshintrc?raw',
-        dest: './.jshintrc'
-      },
-      {
-        url: 'https://git.availity.com/projects/API/repos/availity-dotfiles/browse/jshint/.jshintignore?raw',
-        dest: './.jshintignore'
-      },
-      {
-        url: 'https://git.availity.com/projects/API/repos/availity-dotfiles/browse/jscs/.jscsrc?raw',
-        dest: './.jscsrc'
-      }
-    ]
   }
 };
