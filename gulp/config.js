@@ -168,7 +168,7 @@ module.exports = {
       'bower_components/angular/angular.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/lodash/lodash.js',
+      'bower_components/lodash-compat/lodash.js',
       'bower_components/moment/moment.js',
       'test/index.js',
       'test/matchers.js',
