@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '0.10'
+env:
+  global:
+    - secure: ndT0XptES+gtbKOMyYaEV9WEzBde0CpTJ8SqLNQkCl2eyLVGNw6XctaGy3gpH5LsDSfVS8Jdrgqqzm4EJ7DPX8ikbpQP2jJ8YHjx4rKMb9VmkTbX/rhTM2UcNwUcQEd4ORg8UeyLIHbIFRNYEWYPZCCrGanWkaoIx4ntnK6hisE=
+    - secure: qWVUEI3zhBk6hUUa1MorcQt6PeEkbR6LgGUo3CDDv0KKeMvBHOANV1wPBdhK+z7Cy88G9dVWeEizjFSf6ngAjLd7SYmRlhM6u0e1kXFBsdEJXPyrEWjQLBVrZxUmPHV9M7tu5v0oRBGLszd84U/TL0DxJR+lEq8NS0D0DtM3avo=
+addons:
+  sauce_connect: true
+notifications:
+  email: false
+before_install:
+  - npm install --quiet -g gulp
+script:
+  - gulp test:sauce
