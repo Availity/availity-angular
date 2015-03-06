@@ -98,7 +98,7 @@ module.exports = {
     name: 'vendor.js',
     src: [
       './bower_components/bootstrap/dist/js/bootstrap.js',
-      './bower_components/lodash/lodash.js',
+      './bower_components/lodash-compat/lodash.js',
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
