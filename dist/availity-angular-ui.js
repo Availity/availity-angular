@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.3.1 -- March-05
+ * availity-angular v0.4.0 -- March-07
  * Copyright 2015 Availity, LLC 
  */
 
@@ -293,9 +293,11 @@
  * 2. If field is modified an invalid the field should be marked with an error
  *
  */
-(function() {
+(function(root) {
 
   'use strict';
+
+  var availity = root.availity;
 
   availity.ui.controller('avValFormController', function() {
 
@@ -356,7 +358,7 @@
   // form.$invalid = false;
   // form.$submitted = false;
 
-  availity.ui.directive('avValForm', function($log, $timeout, $parse, AV_VAL) {
+  availity.ui.directive('avValForm', function($log, $timeout, $parse, AV_VAL, avValAdapter) {
     return {
       restrict: 'A',
       priority: 10,
@@ -398,9 +400,12 @@
             var avForm = controllers[1];
             iEl.bind('submit', function(event) {
 
+              scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
               avForm.$setSubmitted();
 
               if(ngForm.$invalid) {
+
+                scope.$broadcast(AV_VAL.EVENTS.FAILED);
 
                 $log.info('avValForm invalid.  preventing default submit action');
 
@@ -408,8 +413,7 @@
                 event.stopImmediatePropagation();
                 scope.$broadcast(event);
 
-                scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
-
+                avValAdapter.scroll(iEl);
                 return;
               }
 
@@ -435,12 +439,14 @@
   });
 
 
-})();
+})(window);
 
 // Source: /lib/ui/validation/field.js
-(function() {
+(function(root) {
 
   'use strict';
+
+  var availity = root.availity;
 
   availity.ui.controller('AvValFieldController', function($element, avValAdapter, avVal, $log, $timeout, $scope) {
 
@@ -492,7 +498,7 @@
       // remove violation keys that are no longer falsy
       angular.forEach(this.ngModel.$error, function(value, key) {
 
-        if(validationKeys.indexOf(key) === -1 && key.lastIndexOf('av-', 0) === 0) {
+        if(_.indexOf(validationKeys, key) === -1 && key.lastIndexOf('av-', 0) === 0) {
           self.ngModel.$setValidity(key, true);
         }
       });
@@ -602,17 +608,19 @@
   });
 
 
-})();
+})(window);
 
 // Source: /lib/ui/validation/messages.js
-(function() {
+(function(root) {
 
   'use strict';
+
+  var availity = root.availity;
 
   availity.ui.controller('avValContainerController', function($scope, $timeout) {
 
     $scope.messages = {
-      message: '&nbsp;'
+      message: null
     };
 
     this.message = function(ngModel) {
@@ -621,7 +629,7 @@
       if(ngModel.avResults.violations.length && ngModel.avResults.violations[0].message) {
         message = ngModel.avResults.violations[0].message;
       }else {
-        message = '&nbsp;';
+        message = null;
       }
 
       // $timeout is needed to update the UI from $broadcast events
@@ -645,11 +653,13 @@
   });
 
 
-})();
+})(window);
 
 // Source: /lib/ui/validation/adapter-bootstrap.js
-(function() {
+(function(root) {
   'use strict';
+
+  var availity = root.availity;
 
   availity.ui.constant('AV_BOOTSTRAP_ADAPTER', {
     CLASSES: {
@@ -657,12 +667,13 @@
       WARNING: 'has-warning',
       ERROR: 'has-error',
       FEEDBACK: 'has-feedback',
-      HELP: 'help-block'
+      HELP: 'help-block',
+      NAVBAR: 'navbar-fixed-top'
     },
     CONTROLLER: '$avValContainerController'
   });
 
-  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER) {
+  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout) {
 
     return {
 
@@ -696,19 +707,44 @@
         }
       },
 
-      scroll: function() {
+      scroll: function(form) {
 
+        // Bootstrap fixed navbars causes bad scroll-to offsets so find them all
+        var navbarSelector = [
+          '.',
+          AV_BOOTSTRAP_ADAPTER.CLASSES.NAVBAR
+        ].join('');
+
+        // Add up all the heights to find the true offset
+        var offset = 0;
+        $(navbarSelector).each(function() {
+          offset += $(this).outerHeight();
+        });
+
+        var selector = [
+          '.',
+          AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR,
+          ':first'
+        ].join('');
+
+        var $target = $(form).find(selector);
+        $timeout(function(){
+          // scroll to offset top of first error minus the offset of the navbars
+          $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
+        });
       }
     };
   });
 
 
-})();
+})(window);
 
 // Source: /lib/ui/validation/adapter.js
-(function() {
+(function(root) {
 
   'use strict';
+
+  var availity = root.availity;
 
   availity.ui.constant('AV_VAL_ADAPTER', {
     DEFAULT: 'avValBootstrapAdapter'
@@ -739,15 +775,15 @@
         this.adapter.message(element, ngModel);
       },
 
-      proto.scroll = function() {
-
+      proto.scroll = function(form) {
+        this.adapter.scroll(form);
       };
 
       return new Adapter();
     };
   });
 
-})();
+})(window);
 
 // Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
@@ -1035,56 +1071,51 @@
 
   var availity = root.availity;
 
+  // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
   availity.ui.constant('AV_DATEPICKER', {
     CONTROLLER: '$ngModelController',
+
     OPTIONS: [
-      'language',
-      'useCurrent',
-      'dayViewHeaderFormat',
-      'extraFormats',
-      'stepping',
-      'minDate',
-      'maxDate',
-      'useCurrent',
-      'collapse',
-      'locale',
-      'defaultDate',
-      'disabledDates',
-      'enabledDates',
-      'useStrict',
-      'sideBySide',
-      'daysOfWeekDisabled',
-      'icons',
+      'autoclose',
+      'beforeShowDay',
+      'beforeShowMonth',
       'calendarWeeks',
-      'viewMode',
-      'toolbarPlacement',
-      'showTodayButton',
-      'showClear',
-      'widgetPositioning',
-      'widgetParent',
-      'keepOpen'
+      'clearBtn',
+      'toggleActive',
+      'container',
+      'daysOfWeekDisabled',
+      'datesDisabled',
+      'defaultViewDate',
+      'endDate',
+      'forceParse',
+      'format',
+      'inputs',
+      'keyboardNavigation',
+      'language',
+      'minViewMode',
+      'multidate',
+      'multidateSeparator',
+      'orientation',
+      'startDate',
+      'startView',
+      'todayBtn',
+      'todayHighlight',
+      'weekStart',
+      'showOnFocus',
+      'disableTouchKeyboard',
+      'enableOnReadonly'
     ],
     DEFUALTS: {
-      FORMAT: 'MM/DD/YYYY ',
-      FORMAT_LONG: 'dddd, MMMM Do YYYY, h:mm:ss a',
-      ICONS: {
-        time: 'icon icon-clock',
-        date: 'icon icon-calendar',
-        up: 'icon icon-up-dir',
-        down: 'icon icon-down-dir',
-        previous: 'icon icon-left-dir',
-        next: 'icon icon-right-dir',
-        today: 'icon icon-screenshot',
-        clear: 'icon icon-trash'
-      }
+      FORMAT: 'mm/dd/yyyy',
+      CLOSE: true,
+      TODAY: true
     }
-
   });
 
   availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_DATEPICKER, $scope) {
 
     var self = this;
-    this.options = [];
+    this.options = {};
 
     this.setValue = function() {
 
@@ -1123,8 +1154,8 @@
         }
       });
 
-      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFUALTS.FORMAT;
-      self.options.icons = self.options.icons ? self.options.icons : AV_DATEPICKER.DEFUALTS.ICONS;
+      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFUALTS.CLOSE;
+      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFUALTS.TODAY;
 
     };
 
@@ -1194,7 +1225,7 @@
         });
 
         $timeout(function() {
-          element.datetimepicker(avDatepicker.options);
+          element.datepicker(avDatepicker.options);
         });
       }
     };
