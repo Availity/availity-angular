@@ -30,6 +30,6 @@
     "node_modules"
   ],
   "resolutions": {
-    "bootstrap": ">= 3.0.0"
+    "bootstrap": ">= 3.2.2"
   }
 }
