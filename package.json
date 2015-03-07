@@ -65,6 +65,7 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.3",
     "karma-phantomjs-launcher": "^0.1.4",
+    "karma-sauce-launcher": "^0.2.10",
     "lodash": "^2.4.1",
     "metalsmith": "^1.0.1",
     "metalsmith-collections": "^0.6.0",
