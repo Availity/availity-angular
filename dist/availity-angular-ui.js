@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.4.1 -- March-09
+ * availity-angular v0.4.2 -- March-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1120,12 +1120,12 @@
     this.setValue = function() {
 
       var viewValue = self.ngModel.$viewValue;
+      var plugin = this.plugin();
 
-      if(!viewValue) {
+      if(!viewValue || !plugin) {
         return;
       }
 
-      var plugin = this.plugin();
       plugin.setDate(viewValue);
     };
 
@@ -1146,6 +1146,10 @@
       return ngModel;
     };
 
+    this.modelToView = function() {
+      return $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+    };
+
     this.init = function() {
 
       _.forEach($attrs, function(value, key) {
@@ -1156,6 +1160,7 @@
 
       self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFUALTS.CLOSE;
       self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFUALTS.TODAY;
+      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFUALTS.FORMAT;
 
     };
 
@@ -1208,6 +1213,8 @@
           $log.info(e);
         });
 
+        ngModel.$formatters.unshift(avDatepicker.modelToView);
+
         var _$render = ngModel.$render;
         ngModel.$render = function() {
           _$render();
@@ -1225,6 +1232,7 @@
         });
 
         $timeout(function() {
+          avDatepicker.setValue();
           element.datepicker(avDatepicker.options);
         });
       }
