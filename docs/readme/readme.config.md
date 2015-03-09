@@ -16,6 +16,9 @@
 ## Quickstart
 {%= docs("quickstart") %}
 
+## Acknowledgments
+{%= docs("acknowledgements") %}
+
 ## Authors
 {%= docs("authors") %}
 
