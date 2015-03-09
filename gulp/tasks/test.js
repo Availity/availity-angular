@@ -27,7 +27,10 @@ gulp.task('test:sauce', ['lint'], function (done) {
     configFile: path.join(config.project.path, 'karma.conf-ci.js'),
     singleRun: true,
     files: files
-  }, done);
+  }, function(exitCode) {
+    done(exitCode);
+    process.exit(exitCode);
+  });
 });
 
 gulp.task('test:server', ['lint'], function() {
