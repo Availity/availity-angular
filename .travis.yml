@@ -10,6 +10,7 @@ addons:
 notifications:
   email: false
 before_install:
+  - npm install --quiet -g bower
   - npm install --quiet -g gulp
 script:
   - gulp test:sauce
