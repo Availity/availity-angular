@@ -21,6 +21,18 @@ gulp.task('test:ci', ['lint'], function (done) {
   }, done);
 });
 
+gulp.task('test:sauce', ['lint'], function (done) {
+  var karma = require('karma').server;
+  karma.start({
+    configFile: path.join(config.project.path, 'karma.conf-ci.js'),
+    singleRun: true,
+    files: files
+  }, function(exitCode) {
+    done(exitCode);
+    process.exit(exitCode);
+  });
+});
+
 gulp.task('test:server', ['lint'], function() {
   var karma = require('karma').server;
   karma.start({

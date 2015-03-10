@@ -2,9 +2,15 @@
 
 > Availity Angular SDK
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=windows)](http://opensource.org/licenses/MIT)
+[![Bower](https://img.shields.io/bower/v/availity-angular.svg)]()
+[![Dependency Status](https://img.shields.io/david/dev/Availity/availity-angular.svg?style=flat-square)](https://david-dm.org/Availity/availity-angular)
+[![Build](https://img.shields.io/travis/Availity/availity-angular.svg?style=flat-square&label=build)](https://travis-ci.org/Availity/availity-angular)
+
 ## Table of Contents
 * [Intro](#intro)
 * [Quickstart](#quickstart)
+* [Acknowledgments](#acknowledgments)
 * [Authors](#authors)
 * [License](#license)
 
@@ -29,14 +35,23 @@ Install the Availity Angular SDK with Bower.
 
 >
 ```bash
-$ bower install availity-angular-sdk --save
+$ bower install availity-angular --save
 ```
 
 or with NPM:
 
->```bash
-$ npm install availity-angular-sdk --save
+>
+```bash
+$ npm install availity-angular --save
 ```
+
+
+## Acknowledgments
+The Availity Angular lib was heavily inspired by multiple open source frameworks.  If for some reason a library could not be used directly (IE8 limitation), we've reused that projects code directly in this project.  Please check out the libs below for some beautifully written code.  
+
++ [Angular Strap](https://github.com/mgcrea/angular-strap)
++ [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
++ [Valdr](https://github.com/netceteragroup/valdr)
 
 
 ## Authors

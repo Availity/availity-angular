@@ -41,8 +41,8 @@ gulp.task('server:sync', ['server:rest'], function() {
   //  route: /api
   //
   // }
-  var _url = _.template('http://localhost:<%= port %>/', {port: servers.web.port});
-  var proxyOptions = url.parse(_url);
+  var _url = _.template('http://localhost:<%= port %>/');
+  var proxyOptions = url.parse(_url({port: servers.web.port}));
   proxyOptions.route = '/api';
 
   browserSync({

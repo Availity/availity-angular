@@ -1,17 +1,12 @@
 var gulp = require('gulp');
-
-var config = require('../config');
-var handlebarsPaths = require('../utils/handlebars.paths');
-var handlebarsPartials = require('../utils/handlebars.partials');
-var metalsmithHighlight = require('../utils/metalsmith.highlight');
-var metalsmithMock = require('../utils/metalsmith.mock');
-
 var frontMatter = require('gulp-front-matter');
 var _ = require('lodash');
 var fs = require('fs');
 var gulpsmith = require('gulpsmith');
 var templates = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
+var metalsmithPrism = require('metalsmith-prism');
+var metalsmithMock = require('metalsmith-mock');
 var metalsmithPaths = require('metalsmith-path');
 var filter = require('gulp-filter');
 var gulpif = require('gulp-if');
@@ -21,6 +16,10 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+
+var config = require('../config');
+var handlebarsPaths = require('../utils/handlebars.paths');
+var handlebarsPartials = require('../utils/handlebars.partials');
 
 var Handlebars = require('handlebars');
 
@@ -64,7 +63,7 @@ gulp.task('build:docs', function() {
         examples: {} // empty pattern because the pages are tagged with collection attribute in YAML front matter
       }))
       .use(metalsmithPaths())
-      .use(metalsmithHighlight())
+      .use(metalsmithPrism())
       .use(metalsmithMock())
       .use(templates({
         engine: 'handlebars',

@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.2.2 -- February-17
+ * availity-angular v0.4.2 -- March-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -949,7 +949,8 @@
   availity.core.constant('AV_VAL', {
     EVENTS: {
       REVALIDATE: 'av:val:revalidate',
-      SUBMITTED: 'av:val:submitted'
+      SUBMITTED: 'av:val:submitted',
+      FAILED: 'av:val:failed'
     },
     DEBOUNCE: 500,
     DATE_FORMAT: {
@@ -1130,8 +1131,18 @@
         }
       },
       validate: function(value, rule) {
-        var pattern = validator.asRegExp(rule.value);
-        return pattern.test(value);
+        var values = _.isArray(rule.value) ? rule.value : [rule.value];
+
+        var valid = false;
+
+        _.each(values, function(expresion) {
+          var pattern = validator.asRegExp(expresion);
+          if(pattern.test(value)) {
+            valid = true;
+          }
+        });
+
+        return valid;
       }
     };
 
