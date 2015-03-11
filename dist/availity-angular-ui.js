@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.4.2 -- March-09
+ * availity-angular v0.4.3 -- March-11
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1065,6 +1065,9 @@
 })(window);
 
 // Source: /lib/ui/datepicker/datepicker.js
+/**
+ * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
+ */
 (function(root) {
 
   'use strict';
@@ -1074,7 +1077,7 @@
   // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
   availity.ui.constant('AV_DATEPICKER', {
     CONTROLLER: '$ngModelController',
-
+    ADD_ON_SELECTOR: '[data-toggle="datepicker"]',
     OPTIONS: [
       'autoclose',
       'beforeShowDay',
@@ -1150,6 +1153,20 @@
       return $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
     };
 
+    this.viewToModel = function() {
+
+      var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
+      var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
+
+      var plugin = self.plugin();
+
+      if(!plugin) {
+        return;
+      }
+
+      return plugin._utc_to_local(utcDate);
+    };
+
     this.init = function() {
 
       _.forEach($attrs, function(value, key) {
@@ -1172,7 +1189,9 @@
       var plugin = this.plugin();
       if(plugin) {
         plugin.remove();
+        $element.data('datepicker', null);
       }
+
     };
 
     this.hide = function() {
@@ -1184,7 +1203,7 @@
 
   });
 
-  availity.ui.directive('avDatepicker', function($timeout, $window, $log) {
+  availity.ui.directive('avDatepicker', function($timeout, $window, $log, AV_DATEPICKER) {
     return {
       restrict: 'A',
       require: ['?ngModel', 'avDatepicker'],
@@ -1213,7 +1232,8 @@
           $log.info(e);
         });
 
-        ngModel.$formatters.unshift(avDatepicker.modelToView);
+        ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
+        ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
@@ -1227,8 +1247,20 @@
           avDatepicker.hide();
         });
 
+        var target = element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);
+        if(target.length) {
+          target.on('click.datepicker', function() {
+            if (!element.prop('disabled')) { // Hack check for IE 8
+              element.focus();
+            }
+          });
+        }
+
         scope.$on('destroy', function() {
            avDatepicker.destroy();
+           if(target.length) {
+             target.off('click.datepicker');
+           }
         });
 
         $timeout(function() {
