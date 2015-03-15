@@ -7,7 +7,8 @@ module.exports = {
   },
   regex: {
     JSHINT: /([\/][\*][\s]*jshint\s.+[\*\/])/g,
-    GLOBAL: /([\/][\*][\s]*global\s.+[\*\/])/g
+    GLOBAL: /([\/][\*][\s]*global\s.+[\*\/])/g,
+    VERSION: /(availity.VERSION = ')(v\d+.\d+.\d+)(')/g
   },
   project: {
     path: path.resolve(__dirname, '..')
@@ -62,7 +63,6 @@ module.exports = {
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
     jshintrc: 'lib/.jshintrc'
-
   },
   ui: {
     name: 'availity-angular-ui.js',
