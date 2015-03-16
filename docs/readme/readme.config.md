@@ -19,6 +19,9 @@
 ## Acknowledgments
 {%= docs("acknowledgements") %}
 
+## Supported Browsers
+{%= docs("supported") %}
+
 ## Authors
 {%= docs("authors") %}
 
