@@ -11,6 +11,7 @@
 * [Intro](#intro)
 * [Quickstart](#quickstart)
 * [Acknowledgments](#acknowledgments)
+* [Supported Browsers](#supported-browsers)
 * [Authors](#authors)
 * [License](#license)
 
@@ -52,6 +53,16 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 + [Angular Strap](https://github.com/mgcrea/angular-strap)
 + [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
 + [Valdr](https://github.com/netceteragroup/valdr)
+
+
+## Supported Browsers
+availity-angular is tested using the following browsers:
+
+* Internet Explorer 8 and newer
+* Google Chrome (latest version)
+* Mozilla Firefox (latest version)
+
+availity-angular should likely work fine with other browsers as well, though you may experience some issues.
 
 
 ## Authors
