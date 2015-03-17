@@ -28,12 +28,12 @@ gulp.task('concat:lib', function() {
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:lib] using'})))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
-    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(tap(function(file) {
       var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(concat(config.lib.name))
     .pipe(sourcemaps.write(config.lib.destMaps))
     .pipe(gulp.dest(config.lib.dest))
@@ -45,12 +45,12 @@ gulp.task('concat:ui', function() {
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:ui] using'})))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
-    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(tap(function(file) {
       var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;
     }))
     .pipe(header('// Source: <%= file.relativePath %>\n'))
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(concat(config.ui.name))
     .pipe(sourcemaps.write(config.ui.destMaps))
     .pipe(gulp.dest(config.ui.dest))
