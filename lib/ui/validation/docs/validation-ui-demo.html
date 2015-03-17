@@ -1,8 +1,9 @@
 ---
 title: Validation
 ---
+
 <div class="guide-example" data-ng-controller="ValidationController">
-  <form name="demoForm" data-av-val-form>
+  <form name="demoForm" data-av-val-form="demo.rule">
     <div class="form-group">
       <label for="demoFirstName1">First Name</label>
       <input
@@ -68,8 +69,8 @@ title: Validation
         id="dropdownStates3"
         class="form-control select2"
         data-av-dropdown
-        data-ng-model="selectedState"
-        data-ng-options="state.name for state in states"
+        data-ng-model="demo.selectedState"
+        data-ng-options="state.name for state in demo.states"
         data-placeholder="Select State"
         data-av-val-field="states"
         data-allow-clear="true"
@@ -93,7 +94,8 @@ title: Validation
         <input type="checkbox" data-ng-model="demo.check"> Check me out
       </label>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-default" data-ng-click="demo.onChangeRules()">Change Rules</button>
   </form>
 </div>
 <code class="language-markup">
