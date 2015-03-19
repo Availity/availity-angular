@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.4.3 -- March-11
+ * availity-angular v0.5.0 -- March-18
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.0.1';
+  availity.VERSION = 'v0.4.3';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -950,7 +950,8 @@
     EVENTS: {
       REVALIDATE: 'av:val:revalidate',
       SUBMITTED: 'av:val:submitted',
-      FAILED: 'av:val:failed'
+      FAILED: 'av:val:failed',
+      RESET: 'av:val:reset'
     },
     DEBOUNCE: 500,
     DATE_FORMAT: {
@@ -1001,17 +1002,33 @@
         $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
       };
 
-      proto.validate = function(element, value, ruleName) {
+      proto.validate = function(key, element, value, ruleName) {
 
         var self = this;
-        var rules = this.rules[ruleName];
+
+        var rules = this.rules[key];
+        if(!rules) {
+          $log.error('Failed to get rules key [' + key + '].  Forms must be tagged with a rules set name for validation to work.');
+          return;
+        }
+        var contraints = rules[ruleName];
+        if(!contraints) {
+          $log.info('Failed to retrieve constraints for rule named [' + ruleName + '].  This is fine during instances where rule constraints change dynamically.');
+          contraints = [];
+        }
 
         var el = element[0];
         var results  = [];
         var violations = [];
         var _valid = true;
 
-        angular.forEach(rules, function(rule, contraintName) {
+        angular.forEach(contraints, function(rule, contraintName) {
+
+          if(!rule) {
+            // when extended rule sets, a user can pass nulls to cancel out a rule so if
+            // one doesn't exist just continue
+            return;
+          }
 
           var validator = self.validators[contraintName];
 
@@ -1087,7 +1104,7 @@
 
   var availity = root.availity;
 
-  availity.core.factory('avValSize', function() {
+  availity.core.factory('avValSize', function(avValUtils) {
 
     var validator =  {
       name: 'size',
@@ -1096,7 +1113,7 @@
         var maxLength = rule.max;
 
         value = value || '';
-        return value.length >= minLength && (maxLength === undefined || value.length <= maxLength);
+        return avValUtils.isEmpty(value) || value.length >= minLength && (maxLength === undefined || value.length <= maxLength);
       }
     };
 
@@ -1111,7 +1128,7 @@
 
   var availity = root.availity;
 
-  availity.core.factory('avValPattern', function() {
+  availity.core.factory('avValPattern', function(avValUtils) {
 
     var validator =  {
       name: 'pattern',
@@ -1137,7 +1154,7 @@
 
         _.each(values, function(expresion) {
           var pattern = validator.asRegExp(expresion);
-          if(pattern.test(value)) {
+          if(avValUtils.isEmpty(value) || pattern.test(value)) {
             valid = true;
           }
         });
@@ -1179,7 +1196,7 @@
 
   var availity = root.availity;
 
-  availity.core.factory('avValDateRange', function(AV_VAL) {
+  availity.core.factory('avValDateRange', function(AV_VAL, avValUtils) {
 
     var validator = {
       name: 'dateRange',
@@ -1210,7 +1227,7 @@
         return !value.isBefore(minDate) && !value.isAfter(maxDate);
       },
       validate: function(value, rule) {
-        return validator.validation(value, rule);
+        return avValUtils.isEmpty(value) || validator.validation(value, rule);
       }
     };
 
@@ -1225,7 +1242,7 @@
 
   var availity = root.availity;
 
-  availity.core.factory('avValDate', function(AV_VAL) {
+  availity.core.factory('avValDate', function(AV_VAL, avValUtils) {
 
     var validator = {
       name: 'dateFormat',
@@ -1233,11 +1250,234 @@
 
         var format = rules && rules.format ? rules.format : AV_VAL.DATE_FORMAT.SIMPLE;
 
-        return moment(value, format, true).isValid();
+        return avValUtils.isEmpty(value) || moment(value, format, true).isValid();
       }
     };
     return validator;
   });
+})(window);
+
+// Source: /lib/core/utils/globals.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_GLOBALS', function() {
+
+    return {
+
+      STATES: [
+        {
+          'name': 'Alabama',
+          'code': 'AL'
+        },
+        {
+          'name': 'Alaska',
+          'code': 'AK'
+        },
+        {
+          'name': 'Arizona',
+          'code': 'AZ'
+        },
+        {
+          'name': 'Arkansas',
+          'code': 'AR'
+        },
+        {
+          'name': 'California',
+          'code': 'CA'
+        },
+        {
+          'name': 'Colorado',
+          'code': 'CO'
+        },
+        {
+          'name': 'Connecticut',
+          'code': 'CT'
+        },
+        {
+          'name': 'Delaware',
+          'code': 'DE'
+        },
+        {
+          'name': 'District Of Columbia',
+          'code': 'DC'
+        },
+        {
+          'name': 'Florida',
+          'code': 'FL'
+        },
+        {
+          'name': 'Georgia',
+          'code': 'GA'
+        },
+        {
+          'name': 'Hawaii',
+          'code': 'HI'
+        },
+        {
+          'name': 'Idaho',
+          'code': 'ID'
+        },
+        {
+          'name': 'Illinois',
+          'code': 'IL'
+        },
+        {
+          'name': 'Indiana',
+          'code': 'IN'
+        },
+        {
+          'name': 'Iowa',
+          'code': 'IA'
+        },
+        {
+          'name': 'Kansas',
+          'code': 'KS'
+        },
+        {
+          'name': 'Kentucky',
+          'code': 'KY'
+        },
+        {
+          'name': 'Louisiana',
+          'code': 'LA'
+        },
+        {
+          'name': 'Maine',
+          'code': 'ME'
+        },
+        {
+          'name': 'Maryland',
+          'code': 'MD'
+        },
+        {
+          'name': 'Massachusetts',
+          'code': 'MA'
+        },
+        {
+          'name': 'Michigan',
+          'code': 'MI'
+        },
+        {
+          'name': 'Minnesota',
+          'code': 'MN'
+        },
+        {
+          'name': 'Mississippi',
+          'code': 'MS'
+        },
+        {
+          'name': 'Missouri',
+          'code': 'MO'
+        },
+        {
+          'name': 'Montana',
+          'code': 'MT'
+        },
+        {
+          'name': 'Nebraska',
+          'code': 'NE'
+        },
+        {
+          'name': 'Nevada',
+          'code': 'NV'
+        },
+        {
+          'name': 'New Hampshire',
+          'code': 'NH'
+        },
+        {
+          'name': 'New Jersey',
+          'code': 'NJ'
+        },
+        {
+          'name': 'New Mexico',
+          'code': 'NM'
+        },
+        {
+          'name': 'New York',
+          'code': 'NY'
+        },
+        {
+          'name': 'North Carolina',
+          'code': 'NC'
+        },
+        {
+          'name': 'North Dakota',
+          'code': 'ND'
+        },
+        {
+          'name': 'Ohio',
+          'code': 'OH'
+        },
+        {
+          'name': 'Oklahoma',
+          'code': 'OK'
+        },
+        {
+          'name': 'Oregon',
+          'code': 'OR'
+        },
+        {
+          'name': 'Pennsylvania',
+          'code': 'PA'
+        },
+        {
+          'name': 'Rhode Island',
+          'code': 'RI'
+        },
+        {
+          'name': 'South Carolina',
+          'code': 'SC'
+        },
+        {
+          'name': 'South Dakota',
+          'code': 'SD'
+        },
+        {
+          'name': 'Tennessee',
+          'code': 'TN'
+        },
+        {
+          'name': 'Texas',
+          'code': 'TX'
+        },
+        {
+          'name': 'Utah',
+          'code': 'UT'
+        },
+        {
+          'name': 'Vermont',
+          'code': 'VT'
+        },
+        {
+          'name': 'Virginia',
+          'code': 'VA'
+        },
+        {
+          'name': 'Washington',
+          'code': 'WA'
+        },
+        {
+          'name': 'West Virginia',
+          'code': 'WV'
+        },
+        {
+          'name': 'Wisconsin',
+          'code': 'WI'
+        },
+        {
+          'name': 'Wyoming',
+          'code': 'WY'
+        }
+      ]
+    };
+
+  });
+
 })(window);
 
 //# sourceMappingURL=maps/availity-angular.js.map
