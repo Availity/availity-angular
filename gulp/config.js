@@ -45,6 +45,7 @@ module.exports = {
       './lib/core/api/api-users.js',
       './lib/core/api/api-permissions.js',
       './lib/core/api/api-coverages.js',
+      './lib/core/api/api-codes.js',
       './lib/core/api/api-configurations.js',
       './lib/core/api/api-log-messages.js',
       './lib/core/api/api-documents.js',
