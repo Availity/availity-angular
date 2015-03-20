@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.5.0 -- March-18
+ * availity-angular v0.5.1 -- March-19
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.4.3';
+  availity.VERSION = 'v0.5.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -862,6 +862,19 @@
 
 })(window);
 
+// Source: /lib/core/api/api-codes.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avCodesResource', function(AvApiResource) {
+    return new AvApiResource({version: '/v1', url: '/codes'});
+  });
+
+})(window);
+
 // Source: /lib/core/session/session.js
 (function(root) {
   'use strict';
@@ -893,7 +906,6 @@
         self.user = user;
         return self.user;
       });
-
     };
 
     proto.getPermissions = function() {
@@ -907,7 +919,27 @@
         self.permissions = permissions;
         return self.permissions;
       });
+    };
 
+    proto.hasPermission = function(permissionId, orgId, geography) {
+      return this.getPermissions().then(function(permissions) {
+        var permission = _.find(permissions, function(p) {
+          return p.id === permissionId;
+        });
+        if(permission === undefined) {
+          return false;
+        }
+
+        if(orgId !== undefined && orgId !== null && !_.contains(permission.organizationIds, orgId)) {
+          return false;
+        }
+
+        if(geography !== undefined && geography !== null && !_.contains(permission.geographies, geography)) {
+          return false;
+        }
+
+        return true;
+      });
     };
 
     proto.destroy = function() {
