@@ -1,6 +1,16 @@
 ---
 title: Dropdowns
 ---
+
+
+<div data-markdown>
+> The dropdown directives requires `ng-model` to function properly.  The model must be present in scope _(value can be `undefinded` or `null`)_ else **Angular** renders and empty `&lt;option&gt;` tag that confuses **Select2** and causes it to render an empty div
+</div>
+
+<div data-markdown>
+> For a complete listing of options supported Select2, please checkout the docs at [http://select2.github.io/select2/](http://select2.github.io/select2/)
+</div>
+
 <div data-ng-controller="DropdownController">
 
   <h3 class="guide-subsection-title">Single</h3>
