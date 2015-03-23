@@ -19,6 +19,10 @@
 ## Quickstart
 {%= docs("quickstart") %}
 
+## Angular
+{%= docs("core") %}
+{%= docs("ui") %}
+
 ## Acknowledgments
 {%= docs("acknowledgements") %}
 
