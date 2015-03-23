@@ -57,7 +57,13 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
-      './lib/core/utils/globals.js'
+      './lib/core/utils/globals.js',
+      './lib/core/analytics/analytics-directive.js',
+      './lib/core/analytics/analytics-consoel-service.js',
+      './lib/core/analytics/analytics-service.js',
+      './lib/core/analytics/analytics-services.js',
+      './lib/core/analytics/analytics-splunk-service.js',
+      './lib/core/analytics/analytics-util.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
