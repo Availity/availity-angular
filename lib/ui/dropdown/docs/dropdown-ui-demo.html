@@ -21,6 +21,7 @@ title: Dropdowns
         <select
           id="dropdownStates1"
           class="form-control select2"
+          placeholder="Select a state"
           data-av-dropdown
           data-ng-model="selectedState"
           data-ng-options="state.name for state in states"
@@ -31,18 +32,28 @@ title: Dropdowns
         </select>
       </div>
       <div class="form-controls">
-        <input
+        <button
           type="submit"
           class="btn btn-default"
-          value="Add States"
           data-ng-click="addStates()"
         >
-        <input
+          Add States
+        </button>
+        <button
           type="submit"
           class="btn btn-default"
-          value="Set State"
           data-ng-click="setState()"
         >
+          Set State
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          data-ng-click="resetSingle()"
+        >
+          Reset
+        </button>
       </div>
     </form>
   </div>
@@ -64,13 +75,19 @@ title: Dropdowns
   </div>
   <div class="form-controls">
     <input
-      type="submit"
+      type="button"
       class="btn btn-default"
       value="Add States"
       data-ng-click="addStates()"
     >
     <input
-      type="submit"
+      type="button"
+      class="btn btn-default"
+      value="Set State"
+      data-ng-click="setState()"
+    >
+    <input
+      type="button"
       class="btn btn-default"
       value="Set State"
       data-ng-click="setState()"
@@ -126,6 +143,14 @@ demo.controller('DropdownController', function($scope, $log) {
           data-allow-clear="true"
           >
         </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          data-ng-click="resetMultiple()"
+        >Set Null</button>
       </div>
     </form>
   </div>
