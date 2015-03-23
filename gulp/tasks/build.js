@@ -20,6 +20,7 @@ var reload = browserSync.reload;
 var config = require('../config');
 var handlebarsPaths = require('../utils/handlebars.paths');
 var handlebarsPartials = require('../utils/handlebars.partials');
+var metalsmithMarkdown = require('../utils/metalsmith.data.markdown');
 
 var Handlebars = require('handlebars');
 
@@ -84,6 +85,7 @@ gulp.task('build:docs', function() {
       .use(metalsmithPaths())
       .use(metalsmithPrism())
       .use(metalsmithMock())
+      .use(metalsmithMarkdown())
       .use(templates({
         engine: 'handlebars',
         directory: config.docs.templates.src
