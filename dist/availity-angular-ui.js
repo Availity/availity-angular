@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.5.1 -- March-19
+ * availity-angular v0.5.2 -- March-23
  * Copyright 2015 Availity, LLC 
  */
 
@@ -908,16 +908,16 @@
     this.setValue = function() {
 
       var viewValue = self.ngModel.$viewValue;
+      var selected = null;
 
-      if(!viewValue) {
-        return;
+      if(viewValue) {
+        selected = this.getSelected(viewValue);
       }
 
-      var selected = this.getSelected(viewValue);
-
+      // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
-          .select2('val', selected)
+          .select2('val',  (selected === null || selected === 'undefined') ? '' : selected) // null === '' for Select2
           .trigger('change');
       });
     };
@@ -925,10 +925,11 @@
     this.setValues = function() {
       var viewValue = self.ngModel.$viewValue;
 
-      if(!viewValue && !angular.isArray(viewValue)) {
-        return;
+      if(!angular.isArray(viewValue)) {
+        viewValue = [];
       }
 
+      // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
           .select2('val', viewValue)
@@ -1058,7 +1059,6 @@
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
-
           _$render();
 
           if(avDropdown.multiple) {
