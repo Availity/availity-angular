@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.5.2 -- March-23
+ * availity-angular v0.5.3 -- March-24
  * Copyright 2015 Availity, LLC 
  */
 
@@ -917,8 +917,7 @@
       // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
-          .select2('val',  (selected === null || selected === 'undefined') ? '' : selected) // null === '' for Select2
-          .trigger('change');
+          .select2('val',  (selected === null || selected === 'undefined') ? '' : selected); // null === '' for Select2
       });
     };
 
@@ -932,8 +931,7 @@
       // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
-          .select2('val', viewValue)
-          .trigger('change');
+          .select2('val', viewValue);
       });
     };
 
@@ -1022,7 +1020,7 @@
           avDropdown.ngOptions();
         }
 
-        ngModel.$parsers.push(function (value) {
+        ngModel.$parsers.push(function(value) {
           var parent = element.prev();
           parent
             .toggleClass('ng-invalid', !ngModel.$valid)
