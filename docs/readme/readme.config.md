@@ -13,14 +13,18 @@
 ## Intro
 {%= docs("intro") %}
 
+## Supported Browsers
+{%= docs("supported") %}
+
 ## Quickstart
 {%= docs("quickstart") %}
 
+## Angular
+{%= docs("core") %}
+{%= docs("ui") %}
+
 ## Acknowledgments
 {%= docs("acknowledgements") %}
-
-## Supported Browsers
-{%= docs("supported") %}
 
 ## Authors
 {%= docs("authors") %}

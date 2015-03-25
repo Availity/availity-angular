@@ -4,10 +4,3 @@ Install the Availity Angular SDK with Bower.
 ```bash
 $ bower install availity-angular --save
 ```
-
-or with NPM:
-
->
-```bash
-$ npm install availity-angular --save
-```

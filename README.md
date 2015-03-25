@@ -9,9 +9,10 @@
 
 ## Table of Contents
 * [Intro](#intro)
-* [Quickstart](#quickstart)
-* [Acknowledgments](#acknowledgments)
 * [Supported Browsers](#supported-browsers)
+* [Quickstart](#quickstart)
+* [Angular](#angular)
+* [Acknowledgments](#acknowledgments)
 * [Authors](#authors)
 * [License](#license)
 
@@ -31,6 +32,15 @@
 └── package.json                # NPM list of 3rd party libraries and utilities
 
 
+## Supported Browsers
+
+* Internet Explorer 8 and newer
+* Google Chrome (latest version)
+* Mozilla Firefox (latest version)
+
+> Other browsers should be supported as well but you may experience some issues.
+
+
 ## Quickstart
 Install the Availity Angular SDK with Bower.
 
@@ -39,12 +49,23 @@ Install the Availity Angular SDK with Bower.
 $ bower install availity-angular --save
 ```
 
-or with NPM:
 
->
-```bash
-$ npm install availity-angular --save
-```
+## Angular
+#### Core Module
+
+The module `availity` are Angular services and utilities for building web applications.  These include:
+
++ [Factories](./lib/core/api) for creating REST service calls for the Availity API.
++ User [session management](./lib/core/session) services
++ [Validation framework](./lib/core/validation)
+
+
+#### UI Module
+
+The module `availity.ui` is a set of Angular services and directive wrappers around jQuery plugins.  These include:
+
++ [Select2 3.5.2](http://select2.github.io/select2/)
++ [Bootstrap Datepicker 1.3.1](https://github.com/eternicode/bootstrap-datepicker)
 
 
 ## Acknowledgments
@@ -53,16 +74,6 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 + [Angular Strap](https://github.com/mgcrea/angular-strap)
 + [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
 + [Valdr](https://github.com/netceteragroup/valdr)
-
-
-## Supported Browsers
-availity-angular is tested using the following browsers:
-
-* Internet Explorer 8 and newer
-* Google Chrome (latest version)
-* Mozilla Firefox (latest version)
-
-availity-angular should likely work fine with other browsers as well, though you may experience some issues.
 
 
 ## Authors

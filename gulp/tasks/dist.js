@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
+var fs = require('fs');
 var using = require('gulp-using');
 var filter = require('gulp-filter');
 var rename = require('gulp-rename');
@@ -22,14 +23,16 @@ gulp.task('dist', ['dist:lib', 'dist:ui', 'dist:templates']);
 
 gulp.task('dist:lib', function() {
 
-  var pkg = require(path.join(config.project.path, 'package.json'));
-  var version = '$1v' + pkg.version + '$3';
+  var getPkgRegex = function() {
+    var pkg = JSON.parse(fs.readFileSync(path.join(config.project.path, 'package.json'), 'utf8'));
+    return '$1v' + pkg.version + '$3';
+  };
 
   return gulp.src(config.lib.src)
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
-    .pipe(replace(config.regex.VERSION, version))
+    .pipe(replace(config.regex.VERSION, getPkgRegex()))
     .pipe(tap(function(file) {
       var relativePath = file.path.match(/availity-angular(.*)/)[1];
       file.relativePath = relativePath;

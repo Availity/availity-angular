@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.4.3 -- March-11
+ * availity-angular v0.5.3 -- March-24
  * Copyright 2015 Availity, LLC 
  */
 
@@ -302,6 +302,7 @@
   availity.ui.controller('avValFormController', function() {
 
     this.ngForm  = null;
+    this.rulesKey = null;
 
     // Object that stores the unique id (key) and violation count (value) of all the form fields
     //
@@ -346,6 +347,10 @@
       // parentForm.$setSubmitted();
     };
 
+    this.setRulesKey = function(key) {
+      this.rulesKey = key;
+    };
+
   });
 
   // form.$error = {};
@@ -358,7 +363,7 @@
   // form.$invalid = false;
   // form.$submitted = false;
 
-  availity.ui.directive('avValForm', function($log, $timeout, $parse, AV_VAL, avValAdapter) {
+  availity.ui.directive('avValForm', function($log, $timeout, $parse, AV_VAL, avValAdapter, $rootScope) {
     return {
       restrict: 'A',
       priority: 10,
@@ -368,12 +373,29 @@
         return {
           pre: function(scope, iEl, iAttrs, controllers) {
 
+            var ruleFn = $parse(iAttrs.avValForm);
+            var rulesKey = ruleFn(scope);
+            rulesKey = rulesKey || iAttrs.avValForm; // interpolated rule from scope || fixed string
 
-            $log.info('avValForm pre');
+            if(!rulesKey) {
+              $log.error('avValForm requires a rules key in order to run the proper validation rules.');
+              return;
+            }
+
+            scope.$watch(ruleFn, function(_rulesKey){
+              if(_rulesKey) {
+                avForm.setRulesKey(_rulesKey);
+                $timeout(function() {
+                  $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
+                });
+              }
+
+            });
 
             var ngForm = controllers[0];
             var avForm = controllers[1];
             avForm.init(ngForm);
+            avForm.setRulesKey(rulesKey);
 
             $log.info('avValForm setting form to invalid state');
 
@@ -512,8 +534,11 @@
     };
 
     this.validate = function(value) {
+
       $log.info('validating: ' + value);
-      var results = avVal.validate($element, value, self.rule);
+
+      var rulesKey = self.avValForm.rulesKey;
+      var results = avVal.validate(rulesKey, $element, value, self.rule);
 
       // validate function is called within the context of angular so fn.call
       self.updateModel.call(self, results);
@@ -573,7 +598,7 @@
         avValField.setRule(rule);
         avValField.createId();
 
-        var debounceAllowed = !(attrs.type === 'radio' || attrs.type === 'checkbox');
+        var debounceAllowed = (element.is("input") && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
 
         if(debounceAllowed) {
           avValField.debounce(avValDebounce);
@@ -587,6 +612,7 @@
 
         // (view to model)
         ngModel.$parsers.push(avValField.validate);
+
         // (model to view) - potentially allow other formatter to run first
         ngModel.$formatters.unshift(avValField.validate);
 
@@ -882,31 +908,30 @@
     this.setValue = function() {
 
       var viewValue = self.ngModel.$viewValue;
+      var selected = null;
 
-      if(!viewValue) {
-        return;
+      if(viewValue) {
+        selected = this.getSelected(viewValue);
       }
 
-      var selected = this.getSelected(viewValue);
-
+      // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
-          .select2('val', selected)
-          .trigger('change');
+          .select2('val',  (selected === null || selected === 'undefined') ? '' : selected); // null === '' for Select2
       });
     };
 
     this.setValues = function() {
       var viewValue = self.ngModel.$viewValue;
 
-      if(!viewValue && !angular.isArray(viewValue)) {
-        return;
+      if(!angular.isArray(viewValue)) {
+        viewValue = [];
       }
 
+      // var apply = scope.$evalAsync || $timeout;
       $timeout(function() {
         $element
-          .select2('val', viewValue)
-          .trigger('change');
+          .select2('val', viewValue);
       });
     };
 
@@ -948,6 +973,16 @@
       // 6: undefined
       // 7: "states"
       // 8: "state.id"
+      //
+      // 0: "person.fullName as (person.lastName + ', ' + person.firstName) for person in feeScheduleModel.persons"
+      // 1: "person.fullName"
+      // 2: "(person.lastName + ', ' + person.firstName)"
+      // 3: undefined
+      // 4: "person"
+      // 5: undefined
+      // 6: undefined
+      // 7: "feeScheduleModel.persons"
+      // 8: undefined
 
       this.displayFn = $parse(this.match[2] || this.match[1]); // this is the function to retrieve the text to show as
       this.collection = $parse(this.match[7]);
@@ -985,7 +1020,7 @@
           avDropdown.ngOptions();
         }
 
-        ngModel.$parsers.push(function (value) {
+        ngModel.$parsers.push(function(value) {
           var parent = element.prev();
           parent
             .toggleClass('ng-invalid', !ngModel.$valid)
@@ -1022,7 +1057,6 @@
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
-
           _$render();
 
           if(avDropdown.multiple) {
