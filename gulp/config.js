@@ -36,7 +36,7 @@ module.exports = {
   lib: {
     name: 'availity-angular.js',
     src: [
-      './lib/core/index.js',
+     './lib/core/index.js',
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
@@ -59,11 +59,12 @@ module.exports = {
       './lib/core/validation/validators/validator-date-format.js',
       './lib/core/utils/globals.js',
       './lib/core/analytics/analytics-directive.js',
-      './lib/core/analytics/analytics-consoel-service.js',
-      './lib/core/analytics/analytics-service.js',
       './lib/core/analytics/analytics-services.js',
+      './lib/core/analytics/analytics-util.js',
+      './lib/core/analytics/analytics-console-service.js',
+      './lib/core/analytics/analytics-service.js',
       './lib/core/analytics/analytics-splunk-service.js',
-      './lib/core/analytics/analytics-util.js'
+      './lib/core/analytics/analytics-piwik-service.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
