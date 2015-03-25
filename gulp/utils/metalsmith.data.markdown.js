@@ -1,6 +1,7 @@
 // Modified from: https://github.com/majodev/metalsmith-data-markdown
 
-var marked = require('marked');
+var MarkdownIt = require('markdown-it');
+var md = new MarkdownIt();
 var cheerio = require('cheerio');
 var he = require('he');
 var _ = require('lodash');
@@ -33,12 +34,9 @@ function plugin(options) {
 
   var opts = options || {};
 
-  // set default options or args
-  opts.marked = opts.marked || {};
   opts.removeAttributeAfterwards = opts.removeAttributeAfterwards || false;
 
   // hand opts to marked
-  marked.setOptions(opts.marked);
 
   return function(files, metalsmith, done) {
     setImmediate(done);
@@ -58,9 +56,9 @@ function plugin(options) {
       $('[data-markdown]').each(function() {
 
         // grab the html of the node and
-        // decode all html entities (as marked doesn't have to know about them)
+        // decode all html entities
         // decoding fixes problems with smartypants
-        var markedText = marked(he.decode($(this).html()));
+        var markedText = md.render(he.decode($(this).html()));
 
         // set compiled markdown content to node
         $(this).html(markedText);

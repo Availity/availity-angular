@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",
@@ -61,7 +61,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sauce-launcher": "^0.2.10",
     "lodash": "^3.5.0",
-    "marked": "^0.3.3",
+    "markdown-it": "^4.0.2",
     "metalsmith": "^1.0.1",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-mock": "^1.0.0",
