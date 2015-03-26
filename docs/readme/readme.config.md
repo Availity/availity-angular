@@ -13,6 +13,9 @@
 ## Intro
 {%= docs("intro") %}
 
+## Demo
+{%= docs("demo") %}
+
 ## Supported Browsers
 {%= docs("supported") %}
 
