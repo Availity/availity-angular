@@ -50,6 +50,7 @@ module.exports = {
       './lib/core/api/api-documents.js',
       './lib/core/api/api-organizations.js',
       './lib/core/api/api-codes.js',
+      './lib/core/api/api-user-permissions.js',
       './lib/core/session/session.js',
       './lib/core/validation/validator.js',
       './lib/core/validation/validators/validator-utils.js',
