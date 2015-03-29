@@ -40,6 +40,8 @@ module.exports = {
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
+      './lib/logger/logger.js',
+      './lib/logger/logger-config.js',
       './lib/core/polling/polling.js',
       './lib/core/api/api-factory.js',
       './lib/core/api/api-users.js',
