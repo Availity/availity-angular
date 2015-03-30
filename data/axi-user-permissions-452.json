@@ -1,0 +1,368 @@
+{
+  "totalCount" : 1,
+  "count" : 1,
+  "offset" : 0,
+  "limit" : 1000,
+  "links" : {
+    "self" : {
+      "href" : "https://test-apps.availity.com/api/internal/v1/axi-user-permissions?limit=1000&offset=0&permissionId=452&region=KY"
+    }
+  },
+  "axiUserPermissions" : [ {
+    "id" : "452",
+    "description" : "Eligibility and Benefits Inquiry",
+    "organizations" : [ {
+      "id" : "1435",
+      "customerId" : "1194",
+      "name" : "Availity Test Org",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "5634",
+        "payerId" : "160",
+        "payerName" : "ANTHEM - KY"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "9662",
+        "payerId" : "KYCS1",
+        "payerName" : "HUMANA-CARESOURCE"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6504",
+        "payerId" : "KYMEDICAID",
+        "payerName" : "KYMEDICAID"
+      }, {
+        "id" : "6008",
+        "payerId" : "MMO00211A",
+        "payerName" : "MEDICAL MUTUAL OF OHIO"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "9092",
+        "payerId" : "OTHERBLUEPLANS-KY",
+        "payerName" : "OTHER BLUE PLANS ANTHEM - KY"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "3965",
+        "payerId" : "UNITED HEALTHCARE",
+        "payerName" : "UNITED HEALTHCARE"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      }, {
+        "id" : "5797",
+        "payerId" : "14163",
+        "payerName" : "WELLCARE HEALTH PLANS"
+      } ]
+    }, {
+      "id" : "85234",
+      "customerId" : "15515",
+      "name" : "Gemini Sitoy Test Corp",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "5634",
+        "payerId" : "160",
+        "payerName" : "ANTHEM - KY"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "9662",
+        "payerId" : "KYCS1",
+        "payerName" : "HUMANA-CARESOURCE"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6504",
+        "payerId" : "KYMEDICAID",
+        "payerName" : "KYMEDICAID"
+      }, {
+        "id" : "6008",
+        "payerId" : "MMO00211A",
+        "payerName" : "MEDICAL MUTUAL OF OHIO"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "9092",
+        "payerId" : "OTHERBLUEPLANS-KY",
+        "payerName" : "OTHER BLUE PLANS ANTHEM - KY"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "3965",
+        "payerId" : "UNITED HEALTHCARE",
+        "payerName" : "UNITED HEALTHCARE"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      }, {
+        "id" : "5797",
+        "payerId" : "14163",
+        "payerName" : "WELLCARE HEALTH PLANS"
+      } ]
+    }, {
+      "id" : "100441",
+      "customerId" : "15679",
+      "name" : "JS - BayCare Alliant Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    }, {
+      "id" : "100708",
+      "customerId" : "15711",
+      "name" : "JS - Morton Plant Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    }, {
+      "id" : "100082",
+      "customerId" : "250332",
+      "name" : "JS - St. Anthony's Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    }, {
+      "id" : "100081",
+      "customerId" : "250329",
+      "name" : "JS - St. Joseph's Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    }, {
+      "id" : "100083",
+      "customerId" : "250330",
+      "name" : "JS - St. Joseph's Women's Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    }, {
+      "id" : "122470",
+      "customerId" : "251318",
+      "name" : "Michele Weed Test Clinical Hospital",
+      "resources" : [ {
+        "id" : "1946",
+        "payerId" : "AETNA",
+        "payerName" : "AETNA"
+      }, {
+        "id" : "9073",
+        "payerId" : "CCStpa",
+        "payerName" : "CCStpa"
+      }, {
+        "id" : "1947",
+        "payerId" : "CIGNA",
+        "payerName" : "CIGNA"
+      }, {
+        "id" : "340",
+        "payerId" : "HUMANA",
+        "payerName" : "HUMANA"
+      }, {
+        "id" : "10339",
+        "payerId" : "HMA01",
+        "payerName" : "Healthcare Management Administrators"
+      }, {
+        "id" : "6074",
+        "payerId" : "CMS",
+        "payerName" : "NATIONAL MEDICARE/CMS"
+      }, {
+        "id" : "10382",
+        "payerId" : "RGA01",
+        "payerName" : "REGENCE GROUP ADMINISTRATORS"
+      }, {
+        "id" : "8137",
+        "payerId" : "USFHP",
+        "payerName" : "US FAMILY HEALTH PLAN (USFHP)"
+      } ]
+    } ]
+  } ]
+}
