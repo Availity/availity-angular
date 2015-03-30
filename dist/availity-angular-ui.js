@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.5.3 -- March-24
+ * availity-angular v0.6.0 -- March-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -44,7 +44,7 @@
           throw new Error("Either options.template or options.templateUrl must be defined");
         }
 
-        return options.template ? $q.when(options.template) :
+        return options.template ? $q.when($templateCache.get(options.template)) :
           $http.get(options.templateUrl, {cache: $templateCache})
             .then(function(result) {
               return result.data;
@@ -127,9 +127,9 @@
       $compile(this.$element)(scope);
       $timeout(function() {
         self.init();
-      });
+      }, 0, true);
 
-      // Create scope functions and event producers/listeners
+      // Append to container or <body>
       this.options.container ? this.$element.appendTo(this.options.container) : this.$element.appendTo('body');
 
     };
@@ -198,9 +198,8 @@
         scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 
         $timeout(function() {
-          scope.$apply();
           self.destroy();
-        });
+        }, 0, true);
 
       });
 
@@ -382,12 +381,17 @@
               return;
             }
 
-            scope.$watch(ruleFn, function(_rulesKey){
+            scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey){
               if(_rulesKey) {
                 avForm.setRulesKey(_rulesKey);
-                $timeout(function() {
-                  $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
-                });
+
+                if(_rulesKey !== _oldRulesKey) {
+                  $timeout(function() {
+                    $log.info('avValForm revalidate');
+                    $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
+                  });
+                }
+
               }
 
             });
@@ -397,12 +401,9 @@
             avForm.init(ngForm);
             avForm.setRulesKey(rulesKey);
 
-            $log.info('avValForm setting form to invalid state');
 
           },
           post: function(scope, iEl, iAttrs, controllers) {
-
-            $log.info('avValForm post');
 
             iEl.attr('novalidate', 'novalidate');  // prevent HTML5 validation from kicking in
 
@@ -439,7 +440,6 @@
                 return;
               }
 
-              $log.info('avValForm $setPristine');
               ngForm.$setPristine();
 
               if(!fn) {
@@ -535,7 +535,7 @@
 
     this.validate = function(value) {
 
-      $log.info('validating: ' + value);
+      $log.info('validating value [' + value + ']');
 
       var rulesKey = self.avValForm.rulesKey;
       var results = avVal.validate(rulesKey, $element, value, self.rule);
@@ -575,8 +575,6 @@
         avValOn: '@?'
       },
       link: function(scope, element, attrs, controllers) {
-
-        $log.info('avValField link');
 
         var avValDebounce = parseInt(scope.avValDebounce || AV_VAL.DEBOUNCE, 10);
         avValDebounce = _.isNumber(avValDebounce) ? avValDebounce : AV_VAL.DEBOUNCE;
@@ -1156,7 +1154,7 @@
 
     this.setValue = function() {
 
-      var viewValue = self.ngModel.$viewValue;
+      var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
 
       if(!viewValue || !plugin) {
@@ -1250,7 +1248,7 @@
         if(!ngModel) {
           ngModel = avDatepicker.findModel();
           if(!ngModel) {
-            $log.info('avDatepicker requires ngModel');
+            $log.error('avDatepicker requires ngModel');
             return;
           }
         }
@@ -1258,13 +1256,6 @@
 
         avDatepicker.init();
         avDatepicker.setNgModel(ngModel);
-
-        element.on('changeDate', function(e) {
-          scope.$apply(function() {
-            ngModel.$setViewValue($.trim(element.val()));
-          });
-          $log.info(e);
-        });
 
         ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
         ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
@@ -1298,11 +1289,156 @@
         });
 
         $timeout(function() {
-          avDatepicker.setValue();
           element.datepicker(avDatepicker.options);
         });
       }
     };
+  });
+
+})(window);
+
+// Source: /lib/ui/idle/idle-notifier.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_UI_IDLE', {
+    TEMPLATES: {
+      BASE: 'ui/idle/idle-tpl.html',
+      SESSION: 'ui/idle/idle-session-tpl.html',
+      WARNING: 'ui/idle/idle-warning-tpl.html'
+    }
+  });
+
+  availity.ui.provider('avIdleNotifier', function() {
+
+    var sessionTemplate;
+    var warningTemplate;
+    var $scope;
+
+    this.setSessionTemplate = function(template) {
+      sessionTemplate = template;
+    };
+
+    this.setWarningTemplate = function(template) {
+      warningTemplate = template;
+    };
+
+    this.$get = function(AV_IDLE, AV_UI_IDLE, $rootScope, AvModal, $document, $timeout) {
+
+      var AvIdleNotifier = function() {
+        this.listeners = [];
+        this.modal = null;
+      };
+
+      var proto = AvIdleNotifier.prototype;
+
+      proto.init = function() {
+
+        $scope = $rootScope.$new(true);
+        $scope.idle = {};
+
+        this.initListeners();
+      };
+
+      proto.initListeners = function() {
+
+        var self = this;
+        var listener = null;
+
+        // ACTIVATE
+        listener = $rootScope.$on(AV_IDLE.EVENTS.ACTIVE, function() {
+          self.showWarning();
+        });
+        this.listeners.push(listener);
+
+        // INACTIVE
+        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
+          self.hideWarning();
+        });
+        this.listeners.push(listener);
+
+        // SESSION TIMEOUT
+        listener = $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE, function() {
+          self.showSession();
+        });
+        this.listeners.push(listener);
+
+      };
+
+      proto.destroyListeners = function() {
+        // turn off each listener => http://stackoverflow.com/a/14898795
+        _.each(this.listeners, function(listener) {
+          listener();
+        });
+      };
+
+
+      proto.showWarning = function() {
+
+        var self = this;
+
+        if(this.modal !== null) {
+          return;
+        }
+
+        $scope = $rootScope.$new(true);
+        $scope.idle = {};
+        $scope.idle.template = AV_UI_IDLE.TEMPLATES.WARNING;
+
+        this.modal = new AvModal({
+          show: true,
+          scope: $scope,
+          backdrop: 'static',
+          template: AV_UI_IDLE.TEMPLATES.BASE
+        });
+
+        $document.on('click', function() {
+          self.hideWarning();
+          $rootScope.$broadcast(AV_IDLE.EVENTS.INACTIVE);
+        });
+
+      };
+
+      proto.hideWarning = function() {
+        this.disableBackDrop();
+
+        if(this.modal) {
+          this.modal.destroy();
+        }
+
+        this.modal = null;
+      };
+
+      proto.disableBackDrop = function() {
+        $document.off('click');
+      };
+
+      proto.showSession = function() {
+        var self = this;
+        this.disableBackDrop();
+
+        $timeout(function() {
+          $scope.idle.template = AV_UI_IDLE.TEMPLATES.SESSION;
+          $scope.idle.onSessionInactive = self.onSessionInactive;
+        }, 0, true);
+
+      };
+
+      proto.onSessionInactive = function() {
+        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE);
+      };
+
+      return new AvIdleNotifier();
+
+    };
+
+  });
+
+  availity.ui.run(function(avIdleNotifier) {
+    avIdleNotifier.init();
   });
 
 })(window);

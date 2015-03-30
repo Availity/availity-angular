@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.5.3 -- March-24
+ * availity-angular v0.6.0 -- March-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.5.3';
+  availity.VERSION = 'v0.6.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -114,6 +114,220 @@
 
 })(window);
 
+// Source: /lib/core/utils/throttle.js
+// Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
+
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_THROTTLE', {
+    OPTIONS: {
+      wait: 1000,
+      update: false,
+      trailing: true,
+      leading: false
+    }
+  });
+
+  availity.core.factory('avThrottle', function(AV_THROTTLE, $timeout) {
+
+    return function(fn, wait, options) {
+
+      options = _.merge({}, AV_THROTTLE.OPTIONS, options);
+
+      wait = wait ? wait : AV_THROTTLE.THRESHOLD;
+      var update = angular.isDefined(options.update) ? options.update : AV_THROTTLE.UPDATE;
+      var timer = null;
+
+      return function() {
+        var context = options.context || this;
+        var args = arguments;
+
+        if(!timer) {
+          if(options.leading !== false) {
+            fn.apply(context, args);
+          }
+
+          var later = function() {
+            timer = null;
+            if(options.trailing !== false) {
+              fn.apply(context, args);
+            }
+          };
+
+          timer = $timeout(later, wait, update);
+        }
+
+        return timer;
+
+      };
+    };
+  });
+
+})(window);
+
+// Source: /lib/logger/logger.js
+// Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('AvLogger', function() {
+
+    var _enabled = false;
+
+    this.enabled = function(enabled) {
+      _enabled = !!enabled;
+    };
+
+    this.$get = function($injector) {
+
+      var AvLogger = function(context, $delegate) {
+
+        this.context = context || '';
+        this.$log = $delegate;
+
+      };
+
+      var proto = AvLogger.prototype;
+
+      AvLogger.supplant = function(str, o) {
+
+        var _supplant = function (a, b) {
+          var r = o[b];
+          return typeof r === 'string' || typeof r === 'number' ? r : a;
+        };
+
+        return str.replace(/\{([^{}]*)\}/g, _supplant);
+      };
+
+      AvLogger.isObject = function(element) {
+        var elemStr = ( !angular.isUndefined(element) && !angular.isUndefined(element.constructor) ) ? element.constructor.toString() : '';
+        return (elemStr.indexOf('Object') > -1);
+      };
+
+      AvLogger.getFormattedTimestamp = function(date) {
+
+        return AvLogger.supplant('{0}:{1}:{2}:{3}', [
+          date.getHours(),
+          date.getMinutes(),
+          date.getSeconds(),
+          date.getMilliseconds()
+        ]);
+
+      };
+
+      proto._log = function(originalFn, args) {
+
+        // Allow enabling logger through query params
+        // Ex:
+        //
+        // http://localhost:3000/ui.html#avLogger
+
+        var hash = window.location.hash;
+        hash = hash || '';
+
+        if(!_enabled && hash.indexOf('avLogger') < 0) {
+          return;
+        }
+
+        var now  = AvLogger.getFormattedTimestamp(new Date());
+        var message = '';
+        var supplantData = [];
+
+        var context = this.context ? ' [' + this.context + '] ' : '';
+
+        switch(args.length) {
+          case 1:
+            // (1) If the user supplied one argument, then the argument must be
+            // the message itself and _log()
+            // will print: <timestamp> - <context>: <message>
+            supplantData = args[0];
+            message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
+            break;
+          case 3:
+            // (3) If the user supplied three arguments, then the first argument
+            // is a method name, the second is the message and the third is an
+            // object of variables to interpolate with the message. For this, _log()
+            // will print: <timestamp> - <context> - <method name>('<message>')
+            supplantData = args[2];
+            message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+            break;
+          case 2:
+            // (2) If the user provided two arguments, we need to find out whether
+            // they supplied a method name or an interpolation object.
+            // In order to figure that out, we’ll check the type of the last argument.
+            // If it is a string, then it has to be the message itself while the
+            // first argument is the method name. Otherwise consider the first argument
+            // as the message and the second as array of interpolation variables.
+            // The output print will be according to this check.
+            if(typeof args[1] === 'string') {
+              message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+            } else {
+              supplantData = args[1];
+              message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
+            }
+            break;
+        }
+
+        var $log = this.$log || $injector.get('$log');
+
+        var params = (AvLogger.isObject(supplantData)) ? [message, supplantData] : [AvLogger.supplant(message, supplantData)];
+        $log[originalFn].apply(null, params);
+
+      };
+
+      proto.log = function() {
+        this._log('log', arguments);
+      };
+
+      proto.info = function() {
+        this._log('info', arguments);
+      };
+
+      proto.warn = function() {
+        this._log('warn', arguments);
+      };
+
+      proto.debug = function() {
+        this._log('debug', arguments);
+      };
+
+      proto.error = function() {
+        this._log('error', arguments);
+      };
+
+      return AvLogger;
+
+    };
+
+  });
+
+
+})(window);
+
+// Source: /lib/logger/logger-config.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.config(function($provide) {
+
+    $provide.decorator('$log', function($delegate, AvLogger) {
+      return new AvLogger(null, $delegate);
+    });
+
+  });
+
+})(window);
+
 // Source: /lib/core/polling/polling.js
 (function(root) {
   'use strict';
@@ -127,7 +341,7 @@
     DECAY: 1.2, // % the polling interval decays after every retry
     // maximum time polling is allowed before rejecting the request
     EVENTS: {
-      MAX_RETRY: 'polling:max:retry'
+      MAX_RETRY: 'av:polling:max:retry'
     },
     REGEX_URL: /^.*?api.availity.com(.*)$/ // capture the relative url from API
   });
@@ -882,8 +1096,8 @@
   var availity = root.availity;
 
   availity.core.constant('AV_SESSION', {
-    SESSION_TIMEOUT: 'auth:session:timeout',
-    NOT_AUTHORIZED: 'auth:not:authorized'
+    SESSION_TIMEOUT: 'av:auth:session:timeout',
+    NOT_AUTHORIZED: 'av:auth:not:authorized'
   });
 
   availity.core.factory('avSession', function($q, avUsersResource, avPermissionsResource) {
@@ -948,6 +1162,279 @@
     };
 
     return new AvSession();
+  });
+
+})(window);
+
+// Source: /lib/core/idle/idle.js
+// Inspiration => https://github.com/HackedByChinese/ng-idle
+
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_IDLE', {
+    EVENTS: {
+      INACTIVE: 'av:idle:inactive',
+      ACTIVE: 'av:idle:active',
+      SESSION_TIMEOUT_ACTIVE: 'av:idle:session:active',
+      SESSION_TIMEOUT_INACTIVE: 'av:idle:session:inactive',
+      HUMAN: 'keydown mousemove DOMMouseScroll mousewheel mousedown scroll',
+      MACHINE: '$locationChangeSuccess'
+    },
+    INTERVALS: {
+      PING: 3 * 60 * 1000, // 3 minutes
+      IDLE: 25 * 60 * 1000, // 25 minutes
+      SESSION: 30 * 60 * 1000 // 30 minutes
+      // PING: 2000
+      // PING: 3 * 60 * 1000, // 3 minutes
+      // IDLE: 5000
+      // IDLE: 25 * 60 * 1000, // 25 minutes
+      // SESSION: 10000
+      // SESSION: 30 * 60 * 1000 // 30 minutes
+    },
+    URLS: {
+      HOME: '/availity/web/public.elegant.login',
+      PING: '/api/v1/users/me'
+    }
+  });
+
+  // Rules:
+  //
+  //  * ping after 3 minutes from last human activity
+  //  * reset session after api success except 401
+  //  * idle show after 25 of inactivity
+  //
+  availity.core.provider('avIdle', function() {
+
+    var enabled = true;
+    var pingUrl;
+
+
+    this.enable = function(value) {
+      if(arguments.length) {
+        enabled = !!value;
+      }
+      return enabled;
+    };
+
+    this.setPingUrl = function(url) {
+      pingUrl = url;
+    };
+
+    this.$get = function(AV_IDLE, $log, $document, $rootScope, $timeout, avThrottle, $q, $injector) {
+
+      var AvIdle = function() {
+
+        pingUrl = pingUrl || AV_IDLE.URLS.PING;
+
+        this._idleTimer = null;
+        this._sessionTimer = null;
+        this._pingTimer = null;
+        this.idleActive = false;
+
+        this.listeners = [];
+
+        this.init();
+
+      };
+
+      var proto = AvIdle.prototype;
+
+      proto.init = function() {
+
+        if(!enabled) {
+          this.onDisabled();
+          return;
+        }
+
+        $rootScope.$on('$destroy', function() {
+          proto.onDisabled();
+        });
+
+        this.onEnabled();
+      };
+
+      proto.onEnabled = function() {
+        var self = this;
+
+        var listener;
+
+        $document.find('body').on(AV_IDLE.EVENTS.HUMAN, function(event) {
+          self.onEvent(event);
+        });
+
+        listener = $rootScope.$on(AV_IDLE.EVENTS.MACHINE, function(event) {
+          self.onEvent(event);
+        });
+        this.listeners.push(listener);
+
+        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
+          self.idleTimerInActive();
+        });
+        this.listeners.push(listener);
+
+        $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE, function() {
+          self.onSessionInactive();
+        });
+
+
+        this.idleTimer();
+        this.sessionTimer();
+      };
+
+      proto.onDisabled = function() {
+
+        $document.find('body').off(AV_IDLE.EVENTS.HUMAN);
+
+        // turns off Angular event listeners => http://stackoverflow.com/a/14898795
+        _.each(this.listeners, function(listener) {
+          listener();
+        });
+
+        $timeout.cancel(this._sessionTimer);
+        $timeout.cancel(this._idleTimer);
+        this.cancelIdleTimer();
+      };
+
+      proto.cancelIdleTimer = function() {
+        $timeout.cancel(this._idleTimer);
+      };
+
+      proto.isEnabled = function() {
+        return enabled;
+      };
+
+      proto.enable = function(value) {
+        if(arguments.length) {
+          enabled = !!value;
+        }
+
+        return this;
+      };
+
+      proto.response = function(response) {
+        this.sessionTimer();
+        return response;
+      };
+
+      proto.responseError = function(response) {
+
+        if(response.status !== 401) {
+          this.sessionTimer();
+        }
+
+        return $q.reject(response);
+      };
+
+      proto.sessionTimer = function() {
+
+        var self = this;
+        $timeout.cancel(this._sessionTimer);
+
+        var later = function() {
+          self.onSessionActive();
+        };
+
+        this._sessionTimer = $timeout(later, AV_IDLE.INTERVALS.SESSION, false);
+
+      };
+
+      proto.idleTimer = function() {
+        var self = this;
+        $timeout.cancel(this._idleTimer);
+
+        var later = function() {
+          self.idleTimerActive();
+        };
+
+        this._idleTimer = $timeout(later, AV_IDLE.INTERVALS.IDLE, false);
+      };
+
+      proto.onSessionActive = function() {
+        $log.info('idle session active');
+        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE);
+      };
+
+      proto.idleTimerActive = function() {
+        $log.info('idle active');
+        this.idleActive = true;
+        $rootScope.$broadcast(AV_IDLE.EVENTS.ACTIVE);
+      };
+
+      proto.idleTimerInActive = function() {
+        $log.info('idle inactive');
+        this.idleActive = false;
+      };
+
+      proto.onSessionInactive = function() {
+        $log.info('idle session inactive');
+        this.onDisabled();
+        document.location.href = AV_IDLE.URLS.HOME;
+      };
+
+      proto.ping = function() {
+
+        if(this.idleActive) {
+          this.unPing();
+          return;
+        }
+
+        if(!this._send) {
+          this._send = avThrottle(this.send, AV_IDLE.INTERVALS.PING, {context: this});
+        }
+
+        this._pingTimer = this._send();
+      };
+
+      proto.unPing = function() {
+        if(this._pingTimer) {
+          $timeout.cancel(this._pingTimer);
+        }
+      };
+
+      proto.send = function() {
+        $log.info('sending ping');
+        var $http = $injector.get('$http');
+        $http.get(pingUrl);
+      };
+
+      proto.onEvent = function() {
+        this.idleTimer();
+        this.ping();
+      };
+
+      return new AvIdle();
+
+    };
+
+  });
+
+})(window);
+
+// Source: /lib/core/idle/idle-interceptor.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avIdleInterceptor', function(avIdle) {
+    return {
+      response: function(response) {
+        return avIdle.response(response);
+      },
+      responseError: function(response) {
+        return avIdle.responseError(response);
+      }
+    };
+
+  });
+
+  availity.core.config(function($httpProvider) {
+    $httpProvider.interceptors.push('avIdleInterceptor');
   });
 
 })(window);
@@ -1045,7 +1532,7 @@
         }
         var contraints = rules[ruleName];
         if(!contraints) {
-          $log.info('Failed to retrieve constraints for rule named [' + ruleName + '].  This is fine during instances where rule constraints change dynamically.');
+          $log.info('Rule named [' + ruleName + '] could not be found in the current schema.');
           contraints = [];
         }
 
@@ -1080,7 +1567,7 @@
             field: el.name || el.id
           };
 
-          $log.info(validationResult);
+          // $log.info(validationResult);
 
           var result = angular.extend({}, rule, validationResult);
 
