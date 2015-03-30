@@ -109,3 +109,60 @@ title: User Authorizations
 
 
 </div>
+
+<div data-ng-controller="AuthIsAuthorizedController">
+
+  <h3 class="guide-subsection-title">Is Authorized</h3>
+
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group" ng-class="{'has-success': model.isAuthorized, 'has-error': !model.isAuthorized}">
+        <label for="dropdownOrg">Permissions</label>
+        <input
+          id="permission"
+          class="form-control"
+          ng-change="checkIsAuthorized()"
+          data-ng-model="model.permissionId"
+          data-allow-clear="true"
+          >
+        </input>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+    <form name="dropdownForm">
+      <div class="form-group" ng-class="success: model.isAuthorized">
+        <label for="dropdownOrg">Permissions</label>
+        <input
+          id="permission"
+          class="form-control"
+          ng-change="checkIsAuthorized()"
+          data-ng-model="model.permissionId"
+          data-allow-clear="true"
+          >
+        </input>
+      </div>
+    </form>
+
+    <!-- Javascript -->
+    <script>
+      availity.demo.controller('AuthIsAuthorizedController', function($scope, $log, avUserAuthorizations) {
+        var model = {
+          permissionId: 452,
+          isAuthorized: null
+        };
+        $scope.model = model;
+        $scope.checkIsAuthorized = function() {
+          avUserAuthorizations.isAuthorizedTo(model.permissionId).then(function(isAuthorized) {
+            $log.info(model);
+            model.isAuthorized = isAuthorized;
+          });
+        };
+
+        $scope.checkIsAuthorized();
+      });
+    </script>
+  </code>
+
+
+</div>
