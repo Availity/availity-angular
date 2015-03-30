@@ -27,7 +27,7 @@
     "requireCamelCaseOrUpperCaseIdentifiers": true,
     "requireCapitalizedConstructors": true,
     "requireCommaBeforeLineBreak": true,
-    "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch", "case", "default"],
+    "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch", "default"],
     "requireSpaceBeforeBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
     "requireSpaceBeforeBlockStatements": true,
     "validateLineBreaks": "LF",
