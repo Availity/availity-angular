@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.0 -- March-30
+ * availity-angular v0.6.1 -- March-31
  * Copyright 2015 Availity, LLC 
  */
 
@@ -587,7 +587,7 @@
         var avValField = controllers[2];
 
         if(!ngModel && !rule) {
-          $log.info('avValField requires ngModel and a validation rule to run.');
+          $log.error('avValField requires ngModel and a validation rule to run.');
           return;
         }
 
@@ -615,12 +615,12 @@
         ngModel.$formatters.unshift(avValField.validate);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
-          avValField.validate(ngModel.$modelValue);
+          avValField.validate(ngModel.$viewValue);
         });
 
         scope.$on(AV_VAL.EVENTS.SUBMITTED, function() {
           ngModel.$dirty = true;
-          avValField.validate(ngModel.$modelValue);
+          avValField.validate(ngModel.$viewValue);
         });
 
         scope.$on('$destroy', function () {
@@ -1253,9 +1253,14 @@
           }
         }
 
-
         avDatepicker.init();
         avDatepicker.setNgModel(ngModel);
+
+        element.on('changeDate', function() {
+          scope.$apply(function() {
+            ngModel.$setViewValue($.trim(element.val()));
+          });
+        });
 
         ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
         ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
@@ -1290,7 +1295,7 @@
 
         $timeout(function() {
           element.datepicker(avDatepicker.options);
-        });
+        }, 0, false);
       }
     };
   });

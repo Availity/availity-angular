@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.0 -- March-30
+ * availity-angular v0.6.1 -- March-31
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.0';
+  availity.VERSION = 'v0.6.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -200,7 +200,7 @@
 
         var _supplant = function (a, b) {
           var r = o[b];
-          return typeof r === 'string' || typeof r === 'number' ? r : a;
+          return r;
         };
 
         return str.replace(/\{([^{}]*)\}/g, _supplant);
@@ -232,7 +232,7 @@
         var hash = window.location.hash;
         hash = hash || '';
 
-        if(!_enabled && hash.indexOf('avLogger') < 0) {
+        if(!_enabled && hash.indexOf('avLogger') < 0 && originalFn !== 'error') {
           return;
         }
 
