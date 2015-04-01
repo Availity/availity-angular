@@ -53,6 +53,8 @@ module.exports = {
       './lib/core/api/api-documents.js',
       './lib/core/api/api-organizations.js',
       './lib/core/api/api-codes.js',
+      './lib/core/api/api-user-permissions.js',
+      './lib/core/authorizations/user-authorizations.js',
       './lib/core/session/session.js',
       './lib/core/idle/idle.js',
       './lib/core/idle/idle-interceptor.js',

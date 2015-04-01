@@ -1,0 +1,168 @@
+---
+title: User Authorizations
+---
+
+
+<div data-markdown>
+  > The following is example of different authorization questions that typical are needed relative to roles and permissions.
+</div>
+
+<div data-ng-controller="AuthPayerOrgController">
+
+  <h3 class="guide-subsection-title">Organization/Payer Dropdowns</h3>
+
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownOrg">Organization</label>
+        <select
+          id="dropdownOrg"
+          class="form-control select2"
+          placeholder="Select an Organization"
+          data-av-dropdown
+          data-ng-model="model.selectedOrg"
+          data-ng-options="org.id as org.name for org in organizations"
+          data-ng-change="onSelectOrg()"
+          data-placeholder="Select an Organization"
+          data-allow-clear="true"
+          >
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dropdownPayer">Payer</label>
+        <select
+          id="dropdownPayer"
+          class="form-control select2"
+          placeholder="Select a Payer"
+          data-av-dropdown
+          data-ng-model="model.selectedPayer"
+          data-ng-options="payer.payerId as payer.payerName for payer in payers"
+          data-ng-change="onSelectPayer()"
+          data-placeholder="Select an Payer"
+          data-allow-clear="true"
+          >
+        </select>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownOrg">Organization</label>
+        <select
+          id="dropdownOrg"
+          class="form-control select2"
+          placeholder="Select an Organization"
+          data-av-dropdown
+          data-ng-model="model.selectedOrg"
+          data-ng-options="org.id as org.name for org in organizations"
+          data-ng-change="onSelectOrg()"
+          data-placeholder="Select an Organization"
+          data-allow-clear="true"
+          >
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dropdownPayer">Payer</label>
+        <select
+          id="dropdownPayer"
+          class="form-control select2"
+          placeholder="Select a Payer"
+          data-av-dropdown
+          data-ng-model="model.selectedPayer"
+          data-ng-options="payer.payerId as payer.payerName for payer in payers"
+          data-ng-change="onSelectPayer()"
+          data-placeholder="Select an Payer"
+          data-allow-clear="true"
+          >
+        </select>
+      </div>
+    </form>
+    <!-- Javascript -->
+    <script>
+      availity.demo.controller('AuthPayerOrgController', function($scope, $log, avUserAuthorizations) {
+        var model = {
+          permissionId: 452,
+          selectedOrg: null,
+          selectedPayer: null
+        };
+        $scope.model = model;
+
+        avUserAuthorizations.getOrganizationsByPermissionId(model.permissionId).then(function(orgs) {
+          $scope.organizations = orgs;
+        });
+
+        $scope.onSelectOrg = function() {
+          $log.info(model);
+          avUserAuthorizations.getPayersByPermissionIdAndOrgId(model.permissionId, model.selectedOrg).then(function(payers) {
+            $scope.payers = payers;
+          });
+        };
+
+        $scope.onSelectPayer = function() {
+          $log.info(model);
+        };
+
+      });
+    </script>
+  </code>
+
+
+</div>
+
+<div data-ng-controller="AuthIsAuthorizedController">
+
+  <h3 class="guide-subsection-title">Is Authorized</h3>
+
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group" ng-class="{'has-success': model.isAuthorized, 'has-error': !model.isAuthorized}">
+        <label for="dropdownOrg">Permissions</label>
+        <input
+          id="permission"
+          class="form-control"
+          ng-change="checkIsAuthorized()"
+          data-ng-model="model.permissionId"
+          data-allow-clear="true"
+          >
+        </input>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+    <form name="dropdownForm">
+      <div class="form-group" ng-class="success: model.isAuthorized">
+        <label for="dropdownOrg">Permissions</label>
+        <input
+          id="permission"
+          class="form-control"
+          ng-change="checkIsAuthorized()"
+          data-ng-model="model.permissionId"
+          data-allow-clear="true"
+          >
+        </input>
+      </div>
+    </form>
+
+    <!-- Javascript -->
+    <script>
+      availity.demo.controller('AuthIsAuthorizedController', function($scope, $log, avUserAuthorizations) {
+        var model = {
+          permissionId: 452,
+          isAuthorized: null
+        };
+        $scope.model = model;
+        $scope.checkIsAuthorized = function() {
+          avUserAuthorizations.isAuthorizedTo(model.permissionId).then(function(isAuthorized) {
+            $log.info(model);
+            model.isAuthorized = isAuthorized;
+          });
+        };
+
+        $scope.checkIsAuthorized();
+      });
+    </script>
+  </code>
+
+
+</div>
