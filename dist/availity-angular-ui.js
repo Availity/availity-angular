@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.1 -- March-31
+ * availity-angular v0.6.2 -- March-31
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1154,6 +1154,7 @@
 
     this.setValue = function() {
 
+
       var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
 
@@ -1182,10 +1183,12 @@
     };
 
     this.modelToView = function() {
-      return $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+      var viewValue = $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+      return viewValue;
     };
 
     this.viewToModel = function() {
+
 
       var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
       var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
@@ -1235,10 +1238,10 @@
 
   });
 
-  availity.ui.directive('avDatepicker', function($timeout, $window, $log, AV_DATEPICKER) {
+  availity.ui.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
     return {
       restrict: 'A',
-      require: ['?ngModel', 'avDatepicker'],
+      require: ['ngModel', 'avDatepicker'],
       controller: 'AvDatepickerController',
       link: function(scope, element, attrs, controllers) {
 
@@ -1256,10 +1259,8 @@
         avDatepicker.init();
         avDatepicker.setNgModel(ngModel);
 
-        element.on('changeDate', function() {
-          scope.$apply(function() {
-            ngModel.$setViewValue($.trim(element.val()));
-          });
+        element.on('changeDate', function(e) {
+          $log.info('avDatepicker changeDate {0}', [e]);
         });
 
         ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
@@ -1293,9 +1294,10 @@
            }
         });
 
-        $timeout(function() {
+        scope.$evalAsync(function() {
           element.datepicker(avDatepicker.options);
-        }, 0, false);
+        });
+
       }
     };
   });

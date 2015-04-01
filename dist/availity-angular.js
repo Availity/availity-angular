@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.1 -- March-31
+ * availity-angular v0.6.2 -- March-31
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.1';
+  availity.VERSION = 'v0.6.2';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -23,10 +23,9 @@
     if(deps && _.indexOf(modules, name) !== -1 ) {
       throw new Error('redefining module: ' + name);
     }
+
     modules.push(name);
-    if(window.console && window.console.log) {
-      window.console.log(modules);
-    }
+
     return originalModule(name, deps);
   };
 
@@ -56,7 +55,7 @@
 
   // https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/isBlank.js
   availity.isBlank = function(str) {
-    availity._stringify(str);
+    return (/^\s*$/).test(availity._stringify(str));
   };
 
 })(window);
