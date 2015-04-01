@@ -14,4 +14,8 @@ var availity = window.availity || {};
 
   });
 
+  availity.demo.config(function(avIdleProvider) {
+    avIdleProvider.enable(false);
+  });
+
 })();

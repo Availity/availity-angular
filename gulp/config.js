@@ -40,6 +40,9 @@ module.exports = {
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
+      './lib/core/utils/throttle.js',
+      './lib/logger/logger.js',
+      './lib/logger/logger-config.js',
       './lib/core/polling/polling.js',
       './lib/core/api/api-factory.js',
       './lib/core/api/api-users.js',
@@ -53,6 +56,8 @@ module.exports = {
       './lib/core/api/api-user-permissions.js',
       './lib/core/authorizations/user-authorizations.js',
       './lib/core/session/session.js',
+      './lib/core/idle/idle.js',
+      './lib/core/idle/idle-interceptor.js',
       './lib/core/validation/validator.js',
       './lib/core/validation/validators/validator-utils.js',
       './lib/core/validation/validators/validator-size.js',
@@ -81,7 +86,8 @@ module.exports = {
       './lib/ui/validation/adapter-bootstrap.js',
       './lib/ui/validation/adapter.js',
       './lib/ui/dropdown/dropdown.js',
-      './lib/ui/datepicker/datepicker.js'
+      './lib/ui/datepicker/datepicker.js',
+      './lib/ui/idle/idle-notifier.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
