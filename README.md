@@ -9,6 +9,7 @@
 
 ## Table of Contents
 * [Intro](#intro)
+* [Demo](#demo)
 * [Supported Browsers](#supported-browsers)
 * [Quickstart](#quickstart)
 * [Angular](#angular)
@@ -30,6 +31,10 @@
 │── gulpfile.js                 # Configuration file for automated builds
 │── bower.json                  # Bower list of 3rd party libraries
 └── package.json                # NPM list of 3rd party libraries and utilities
+
+
+## Demo
+[http://demo.availity.com/public/apps/availity-angular](http://demo.availity.com/public/apps/availity-angular)
 
 
 ## Supported Browsers
