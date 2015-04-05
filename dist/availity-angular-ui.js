@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.2 -- March-31
+ * availity-angular v0.6.3 -- April-05
  * Copyright 2015 Availity, LLC 
  */
 
@@ -41,10 +41,10 @@
         var valid = !options.template || !options.templateUrl;
 
         if(!valid) {
-          throw new Error("Either options.template or options.templateUrl must be defined");
+          throw new Error("Either options.template or options.templateUrl must be defined for avTemplateCache");
         }
 
-        return options.template ? $q.when($templateCache.get(options.template)) :
+        return options.template ? $q.when(options.template) :
           $http.get(options.templateUrl, {cache: $templateCache})
             .then(function(result) {
               return result.data;
@@ -1399,7 +1399,7 @@
           show: true,
           scope: $scope,
           backdrop: 'static',
-          template: AV_UI_IDLE.TEMPLATES.BASE
+          templateUrl: AV_UI_IDLE.TEMPLATES.BASE
         });
 
         $document.on('click', function() {
