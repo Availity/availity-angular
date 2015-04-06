@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.2 -- March-31
+ * availity-angular v0.6.2 -- April-03
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1995,6 +1995,392 @@
     };
 
   });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-directive.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.directive('avAnalyticsOn', function(analyticsServices, avAnalyticsUtils) {
+
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs) {
+        var eventType = $attrs.avAnalyticsOn || 'click';
+        // debugger;
+        // bind the element to the `av-analytic-on` value which should be
+        // and event like `click`
+        angular.element($element[0]).bind(eventType, function ($event) {
+          var self = this;
+
+          if(avAnalyticsUtils.isExternalLink($attrs)) {
+            $event.preventDefault();
+            $event.stopPropagation();
+          }
+
+          if($attrs.avAnalyticsIf && !$scope.$eval($attrs.analyticsIf)) {
+            // Cancel this event if we don't pass the av-analytics-if condition
+            return;
+          }
+
+          // convert the directive attributes into object with properties
+          var properties = avAnalyticsUtils.getProperties($attrs);
+          // store the actual dom event in action if non supplied
+          properties.event = $event.type;
+
+          // add info level by default to the properties object
+          if(!properties.level) {
+            properties.level = 'info';
+          }
+
+          // send the properties object to all analytics plugins: splunk, piwik, etc.
+          var promise = analyticsServices.trackEvent(properties); //trackEvent is not defined
+
+          // stupid old browser reserved word trick
+          promise['finally'](function() {
+            if(avAnalyticsUtils.isExternalLink($attrs)) {
+              document.location = self.href;
+            }
+          });
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-services.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('analyticsServices', function() {
+    var that = this;
+
+    this.config = {
+      plugins: []
+    };
+
+    this.registerPlugins = function(plugins) {
+      if(angular.isString(plugins)) {
+        plugins = [plugins];
+      }
+
+      angular.forEach(plugins, function(plugin) {
+        that.config.plugins.push(plugin);
+      });
+    };
+
+    this.$get = function($injector, $q) {
+
+      var AvAnalyticPlugins = function() {
+
+        var self = this;
+        this.services = [];
+
+        // register the plugins
+        angular.forEach(that.config.plugins, function(plugin) {
+          self.services.push($injector.get(plugin));
+        });
+
+      };
+
+      var proto = AvAnalyticPlugins.prototype;
+
+      proto.trackEvent = function(properties) {
+        var promises = [];
+        angular.forEach(this.services, function(handler) {
+          promises.push(handler.trackEvent(properties));
+        });
+        return $q.all(promises);
+      };
+
+      proto.trackPageView = function(url) {
+        angular.forEach(this.services, function(handler) {
+          handler.trackPageView(url);
+        });
+      };
+
+      return new AvAnalyticPlugins();
+    };
+
+  }).run(function($injector){
+    $injector.invoke(['$location', function ($location) {
+      /* Only track the 'first page' if there are no routes or states on the page */
+       // var noRoutesOrStates = true;
+       console.log('has routes', $injector.has('$route'));
+       console.log('has states', $injector.has('$state'));
+       console.log('path', root.location.pathname);
+       // if ($injector.has('$route')) {
+       //     var $route = $injector.get('$route');
+       //     for (var route in $route.routes) {
+       //       noRoutesOrStates = false;
+       //       break;
+       //     }
+       //  } else if ($injector.has('$state')) {
+       //    var $state = $injector.get('$state');
+       //    for (var state in $state.get()) {
+       //      noRoutesOrStates = false;
+       //      break;
+       //    }
+       //  }
+       //  if (noRoutesOrStates) {
+       //    if ($analytics.settings.pageTracking.autoBasePath) {
+       //      $analytics.settings.pageTracking.basePath = $window.location.pathname;
+       //    }
+       //    if ($analytics.settings.pageTracking.trackRelativePath) {
+       //      var url = $analytics.settings.pageTracking.basePath + $location.url();
+       //      $analytics.pageTrack(url, $location);
+       //    } else {
+       //      $analytics.pageTrack($location.absUrl(), $location);
+       //    }
+       //  }
+    }]);
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-util.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('ANALYTICS_CONFIG', {
+    PRE_FIX: /^avAnalytics(.*)$/,
+    // should ignore these since they are part of the directives API
+    IGNORE: ['avAnalyticsOn', 'avAnalyticsIf']
+  });
+
+  var AnalyticsUtilsFactory = function(ANALYTICS_CONFIG) {
+
+    var AnalyticsUtils = function() {};
+
+    var proto = AnalyticsUtils.prototype;
+
+    proto.getProperties = function(attributes) {
+      var self = this;
+      var props = {};
+      _.forEach(attributes, function(value, key) {
+        if(self.isValidAttribute(key) && self.isNotIgnored(key)) {
+          var result = self.getAttribute(key, value);
+          props[result.key] = result.value;
+        }
+      });
+
+      return props;
+    };
+
+    proto.isExternalLink = function(attrs) {
+      return attrs.href && !attrs.ngClick;
+    };
+
+    proto.isNotIgnored = function(key) {
+      var ignored = _.includes(ANALYTICS_CONFIG.IGNORE, key);
+      return !ignored;
+    };
+
+    proto.isValidAttribute = function(key) {
+      return ANALYTICS_CONFIG.PRE_FIX.test(key);
+    };
+
+    proto.lowercase = function(str) {
+      return str.substr(0, 1).toLowerCase() + str.substr(1);
+    };
+
+    proto.isNotIgnored = function(key) {
+      var ignored = _.includes(ANALYTICS_CONFIG.IGNORE, key);
+      return !ignored;
+    };
+
+    proto.getAttribute = function(key, value) {
+      var simpleKey = key.match(ANALYTICS_CONFIG.PRE_FIX);
+      if(simpleKey && simpleKey[1]) {
+        return {
+          key: this.lowercase(simpleKey[1]),
+          value: value
+        };
+      }
+    };
+
+    return new AnalyticsUtils();
+  };
+
+  availity.core.factory('avAnalyticsUtils', AnalyticsUtilsFactory);
+})(window);
+// Source: /lib/core/analytics/analytics-console-service.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AnalyticsLogServiceFactory = function($log) {
+
+    var AnalyticsLogResource = function() {
+      this.trackEvent = function(properties) {
+        $log.log('Event tracked', properties);
+      };
+
+      this.trackPageView  = function(url) {
+        $log.log('URL visited', url);
+      };
+    };
+
+    return new AnalyticsLogResource();
+  };
+
+  availity.core.factory('avAnalyticsLogResource', AnalyticsLogServiceFactory);
+
+})(window);
+// Source: /lib/core/analytics/analytics-resource.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AnalyticsResourceFactory = function(avLogMessagesResource) {
+
+    var AnalyticsResource = function() {
+      this.Logger = avLogMessagesResource;
+      this.attributeMap = {
+        ALL_EVENTS: {}
+      };
+    };
+
+    var proto = AnalyticsResource.prototype;
+
+    proto.mergeAttributes = function(map, events) {
+      var self = this;
+      _.each(_.keys(map), function(attribute) {
+        self.setAttributeValue(attribute, map[attribute], events);
+      });
+    };
+
+    proto.setAttributeValue = function(attribute, value, events) {
+      if(!events) {
+        events = ['ALL_EVENTS'];
+      }else if(!_.isArray(events)) {
+        events = [events];
+      }
+      var self = this;
+      _.each(events, function(event) {
+        if(!self.attributeMap[event]) {
+          self.attributeMap[event] = {};
+        }
+        self.attributeMap[event][attribute] = value;
+      });
+    };
+
+    proto.createEventsMap = function(events) {
+      var self = this;
+      _.each(_.keys(events), function(eventKey) {
+        self.setAttributeValue('event', events[eventKey], eventKey);
+      });
+    };
+
+    proto.clearAttribute = function(attribute, events) {
+      if(!events) {
+        events = ['ALL_EVENTS'];
+      }else if(!_.isArray(events)) {
+        events = [events];
+      }
+      var self = this;
+      _.each(events, function(event) {
+        if(self.attributeMap[event] && self.attributeMap[event][attribute] !== undefined) {
+          delete self.attributeMap[event][attribute];
+        }
+      });
+    };
+
+    proto.submitEvent = function(event, level) {
+      if(!level || !this.Logger[level]) {
+        level = 'info';
+      }
+      var attributes = {};
+      _.extend(attributes, this.attributeMap.ALL_EVENTS, this.attributeMap[event]);
+      this.Logger[level](attributes);
+    };
+
+    proto.submitEventAndClearEventAttributes = function(event, level) {
+      this.submitEvent(event, level);
+      var self = this;
+      _.each(_.keys(this.attributeMap[event]), function(attribute) {
+        if(attribute !== 'event') {
+          delete self.attributeMap[event][attribute];
+        }
+      });
+    };
+
+    return new AnalyticsResource();
+  };
+
+  availity.core.factory('avAnalyticsResource', AnalyticsResourceFactory);
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-splunk-service.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AnalyticsSplunkServiceFactory = function($log, AvApiResource) {
+
+    var SplunkAnalyticService = function() {};
+    var proto = SplunkAnalyticService.prototype;
+
+    proto.trackEvent = function(properties) {
+      return AvApiResource[properties.level](properties);
+    };
+
+    proto.trackPageView  = function(url) {
+      $log.log('URL visited', url);
+    };
+
+    return new SplunkAnalyticService();
+  };
+
+  availity.core.factory('analyticsSplunkService', AnalyticsSplunkServiceFactory);
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-piwik-service.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AnalyticsPiwikServiceFactory = function() {
+
+    var PiwikAnalyticService = function() {};
+
+    var proto = PiwikAnalyticService.prototype;
+
+    proto.trackEvent = function(properties) {
+      // PAQ requires that eventValue be an integer, see:
+      // http://piwik.org/docs/event-tracking/
+      if(properties.value) {
+        var parsed = parseInt(properties.value, 10);
+        properties.value = isNaN(parsed) ? 0 : parsed;
+      }
+
+      if(root._paq) {
+        root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]);
+      }
+    };
+
+    // proto.trackPageView  = functionl(url) {
+    //   // $log.log('URL visited', url);
+    // };
+
+    return new PiwikAnalyticService();
+  };
+
+  availity.core.factory('piwikAnalyticService', AnalyticsPiwikServiceFactory);
 
 })(window);
 
