@@ -24,6 +24,7 @@
 
 ## Angular
 {%= docs("core") %}
+{%= docs("core-async") %}
 {%= docs("ui") %}
 
 ## Acknowledgments
