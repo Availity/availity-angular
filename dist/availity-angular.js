@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.2 -- April-03
+ * availity-angular v0.6.2 -- April-06
  * Copyright 2015 Availity, LLC 
  */
 
@@ -2038,7 +2038,7 @@
 
           // send the properties object to all analytics plugins: splunk, piwik, etc.
           var promise = analyticsServices.trackEvent(properties); //trackEvent is not defined
-
+          
           // stupid old browser reserved word trick
           promise['finally'](function() {
             if(avAnalyticsUtils.isExternalLink($attrs)) {
@@ -2082,7 +2082,6 @@
         var self = this;
         this.services = [];
 
-        // register the plugins
         angular.forEach(that.config.plugins, function(plugin) {
           self.services.push($injector.get(plugin));
         });
@@ -2100,46 +2099,22 @@
       };
 
       proto.trackPageView = function(url) {
+        console.log('url', url);
+        var promises = [];
         angular.forEach(this.services, function(handler) {
-          handler.trackPageView(url);
+          promises.push(handler.trackPageView(url));
         });
+        return $q.all(promises);
       };
 
       return new AvAnalyticPlugins();
     };
 
-  }).run(function($injector){
-    $injector.invoke(['$location', function ($location) {
-      /* Only track the 'first page' if there are no routes or states on the page */
-       // var noRoutesOrStates = true;
-       console.log('has routes', $injector.has('$route'));
-       console.log('has states', $injector.has('$state'));
-       console.log('path', root.location.pathname);
-       // if ($injector.has('$route')) {
-       //     var $route = $injector.get('$route');
-       //     for (var route in $route.routes) {
-       //       noRoutesOrStates = false;
-       //       break;
-       //     }
-       //  } else if ($injector.has('$state')) {
-       //    var $state = $injector.get('$state');
-       //    for (var state in $state.get()) {
-       //      noRoutesOrStates = false;
-       //      break;
-       //    }
-       //  }
-       //  if (noRoutesOrStates) {
-       //    if ($analytics.settings.pageTracking.autoBasePath) {
-       //      $analytics.settings.pageTracking.basePath = $window.location.pathname;
-       //    }
-       //    if ($analytics.settings.pageTracking.trackRelativePath) {
-       //      var url = $analytics.settings.pageTracking.basePath + $location.url();
-       //      $analytics.pageTrack(url, $location);
-       //    } else {
-       //      $analytics.pageTrack($location.absUrl(), $location);
-       //    }
-       //  }
-    }]);
+  })
+  .run(function ($rootScope, analyticsServices, $location) {
+    $rootScope.$on('$locationChangeSuccess', function(){
+      analyticsServices.trackPageView($location.absUrl());
+    });
   });
 
 })(window);
@@ -2156,10 +2131,9 @@
     IGNORE: ['avAnalyticsOn', 'avAnalyticsIf']
   });
 
-  var AnalyticsUtilsFactory = function(ANALYTICS_CONFIG) {
+  var AnalyticsUtilsFactory = function(ANALYTICS_CONFIG, $log) {
 
     var AnalyticsUtils = function() {};
-
     var proto = AnalyticsUtils.prototype;
 
     proto.getProperties = function(attributes) {
@@ -2171,7 +2145,6 @@
           props[result.key] = result.value;
         }
       });
-
       return props;
     };
 
@@ -2192,19 +2165,34 @@
       return str.substr(0, 1).toLowerCase() + str.substr(1);
     };
 
-    proto.isNotIgnored = function(key) {
-      var ignored = _.includes(ANALYTICS_CONFIG.IGNORE, key);
-      return !ignored;
-    };
-
     proto.getAttribute = function(key, value) {
       var simpleKey = key.match(ANALYTICS_CONFIG.PRE_FIX);
+
       if(simpleKey && simpleKey[1]) {
         return {
           key: this.lowercase(simpleKey[1]),
           value: value
         };
       }
+    };
+
+    proto.checkIsNum = function(value) {
+      var parsed = parseInt(value, 10);
+      value = isNaN(parsed) ? 0 : parsed;
+      return value;
+    };
+
+    proto.isValid = function(trackingValues) {
+      if(trackingValues.value || trackingValues.value === 0) {
+        delete trackingValues.value;
+      }
+      for(var key in trackingValues) {
+        if(availity.isBlank(trackingValues[key]) || trackingValues[key] === undefined) {
+          $log.warn('The analytic tracking value for ' + key.toUpperCase() +' is not defined. ' + '\n' + 'http://availity.github.io/availity-uikit/');
+          return false;
+        }
+      }
+      return true;
     };
 
     return new AnalyticsUtils();
@@ -2236,105 +2224,19 @@
   availity.core.factory('avAnalyticsLogResource', AnalyticsLogServiceFactory);
 
 })(window);
-// Source: /lib/core/analytics/analytics-resource.js
-(function(root) {
-  'use strict';
-
-  var availity = root.availity;
-
-  var AnalyticsResourceFactory = function(avLogMessagesResource) {
-
-    var AnalyticsResource = function() {
-      this.Logger = avLogMessagesResource;
-      this.attributeMap = {
-        ALL_EVENTS: {}
-      };
-    };
-
-    var proto = AnalyticsResource.prototype;
-
-    proto.mergeAttributes = function(map, events) {
-      var self = this;
-      _.each(_.keys(map), function(attribute) {
-        self.setAttributeValue(attribute, map[attribute], events);
-      });
-    };
-
-    proto.setAttributeValue = function(attribute, value, events) {
-      if(!events) {
-        events = ['ALL_EVENTS'];
-      }else if(!_.isArray(events)) {
-        events = [events];
-      }
-      var self = this;
-      _.each(events, function(event) {
-        if(!self.attributeMap[event]) {
-          self.attributeMap[event] = {};
-        }
-        self.attributeMap[event][attribute] = value;
-      });
-    };
-
-    proto.createEventsMap = function(events) {
-      var self = this;
-      _.each(_.keys(events), function(eventKey) {
-        self.setAttributeValue('event', events[eventKey], eventKey);
-      });
-    };
-
-    proto.clearAttribute = function(attribute, events) {
-      if(!events) {
-        events = ['ALL_EVENTS'];
-      }else if(!_.isArray(events)) {
-        events = [events];
-      }
-      var self = this;
-      _.each(events, function(event) {
-        if(self.attributeMap[event] && self.attributeMap[event][attribute] !== undefined) {
-          delete self.attributeMap[event][attribute];
-        }
-      });
-    };
-
-    proto.submitEvent = function(event, level) {
-      if(!level || !this.Logger[level]) {
-        level = 'info';
-      }
-      var attributes = {};
-      _.extend(attributes, this.attributeMap.ALL_EVENTS, this.attributeMap[event]);
-      this.Logger[level](attributes);
-    };
-
-    proto.submitEventAndClearEventAttributes = function(event, level) {
-      this.submitEvent(event, level);
-      var self = this;
-      _.each(_.keys(this.attributeMap[event]), function(attribute) {
-        if(attribute !== 'event') {
-          delete self.attributeMap[event][attribute];
-        }
-      });
-    };
-
-    return new AnalyticsResource();
-  };
-
-  availity.core.factory('avAnalyticsResource', AnalyticsResourceFactory);
-
-})(window);
-
 // Source: /lib/core/analytics/analytics-splunk-service.js
 (function(root) {
   'use strict';
 
   var availity = root.availity;
 
-  var AnalyticsSplunkServiceFactory = function($log, AvApiResource) {
+  var AnalyticsSplunkServiceFactory = function($log, avLogMessagesResource) {
 
     var SplunkAnalyticService = function() {};
     var proto = SplunkAnalyticService.prototype;
 
     proto.trackEvent = function(properties) {
-      return AvApiResource[properties.level](properties);
+      return avLogMessagesResource[properties.level](properties);
     };
 
     proto.trackPageView  = function(url) {
@@ -2354,7 +2256,7 @@
 
   var availity = root.availity;
 
-  var AnalyticsPiwikServiceFactory = function() {
+  var AnalyticsPiwikServiceFactory = function($log, avAnalyticsUtils) {
 
     var PiwikAnalyticService = function() {};
 
@@ -2363,19 +2265,30 @@
     proto.trackEvent = function(properties) {
       // PAQ requires that eventValue be an integer, see:
       // http://piwik.org/docs/event-tracking/
+
+      // check to make sure value is a number if not convert it to 0 see link above for reason
       if(properties.value) {
-        var parsed = parseInt(properties.value, 10);
-        properties.value = isNaN(parsed) ? 0 : parsed;
+        properties.value = avAnalyticsUtils.checkIsNum(properties.event);
       }
 
+      // check to make sure that data being sent to piwik is a string and not null, empty or undefined
+      if(!avAnalyticsUtils.isValid(properties)) {
+        return;
+      }
+
+      // send call off to Piwik to track if the object tracking code is present
       if(root._paq) {
+        console.log('click root._paq', root._paq);
         root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]);
       }
     };
 
-    // proto.trackPageView  = functionl(url) {
-    //   // $log.log('URL visited', url);
-    // };
+    proto.trackPageView  = function(url) {
+      if(root._paq) {
+        console.log('page root._paq', root._paq);
+        root._paq.push(['trackPageView', url]);
+      }
+    };
 
     return new PiwikAnalyticService();
   };
