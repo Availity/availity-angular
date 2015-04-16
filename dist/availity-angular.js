@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.2 -- April-06
+ * availity-angular v0.6.2 -- April-16
  * Copyright 2015 Availity, LLC 
  */
 
@@ -2010,7 +2010,6 @@
       restrict: 'A',
       link: function($scope, $element, $attrs) {
         var eventType = $attrs.avAnalyticsOn || 'click';
-        // debugger;
         // bind the element to the `av-analytic-on` value which should be
         // and event like `click`
         angular.element($element[0]).bind(eventType, function ($event) {
@@ -2021,6 +2020,7 @@
             $event.stopPropagation();
           }
 
+          // Ask Rob M what this was used for
           if($attrs.avAnalyticsIf && !$scope.$eval($attrs.analyticsIf)) {
             // Cancel this event if we don't pass the av-analytics-if condition
             return;
@@ -2031,20 +2031,27 @@
           // store the actual dom event in action if non supplied
           properties.event = $event.type;
 
-          // add info level by default to the properties object
+          // add info level by default to the properties object - only used for splunk
           if(!properties.level) {
             properties.level = 'info';
           }
 
           // send the properties object to all analytics plugins: splunk, piwik, etc.
-          var promise = analyticsServices.trackEvent(properties); //trackEvent is not defined
-          
+          var promise;
+          if(properties.tracker) {
+            promise = analyticsServices.trackSingleEvent(properties);
+          } else {
+            promise = analyticsServices.trackAllEvents(properties);
+          }
+
           // stupid old browser reserved word trick
-          promise['finally'](function() {
-            if(avAnalyticsUtils.isExternalLink($attrs)) {
-              document.location = self.href;
-            }
-          });
+          if(promise) {
+            promise['finally'](function() {
+              if(avAnalyticsUtils.isExternalLink($attrs)) {
+                document.location = self.href;
+              }
+            });
+          }
         });
       }
     };
@@ -2058,51 +2065,91 @@
 
   var availity = root.availity;
 
-  availity.core.provider('analyticsServices', function() {
-    var that = this;
+  availity.core.constant('AV_ANALYTIC', {
+    VIRTUALPAGETRACKING: false,
+    DEFAULTSERVICES: true,
+    SERVICES: {
+      PIWIK: 'PiwikAnalyticService',
+      SPLUNK: 'SplunkAnalyticsService'
+    }
+  });
 
+  availity.core.provider('analyticsServices', function(AV_ANALYTIC) {
+    var self = this;
     this.config = {
       plugins: []
+    };
+
+    this.getServiceName = function(service) {
+      service = service.split(/(?=[A-Z])/);
+      return service[0].toUpperCase();
     };
 
     this.registerPlugins = function(plugins) {
       if(angular.isString(plugins)) {
         plugins = [plugins];
       }
-
       angular.forEach(plugins, function(plugin) {
-        that.config.plugins.push(plugin);
+        var service = self.getServiceName(plugin);
+        AV_ANALYTIC.SERVICES[service] = plugin;
       });
     };
 
-    this.$get = function($injector, $q) {
+    this.deregisterPlugins = function(plugins) {
+      angular.forEach(plugins, function(plugin) {
+        var service = self.getServiceName(plugin);
+        delete AV_ANALYTIC.SERVICES[service];
+      });
+    };
+
+    this.virtualPageTracking = function(value) {
+      AV_ANALYTIC.VIRTUALPAGETRACKING = value;
+    };
+
+    this.$get = function($injector, $q, avAnalyticsUtils, AV_ANALYTIC) {
 
       var AvAnalyticPlugins = function() {
 
         var self = this;
-        this.services = [];
-
-        angular.forEach(that.config.plugins, function(plugin) {
-          self.services.push($injector.get(plugin));
+        this.services = {};
+        angular.forEach(AV_ANALYTIC.SERVICES, function(plugin) {
+          self.services[plugin] = $injector.get(plugin);
         });
 
       };
 
       var proto = AvAnalyticPlugins.prototype;
 
-      proto.trackEvent = function(properties) {
+      proto.trackSingleEvent = function(properties) {
+        var promis;
+        var service;
+        service = AV_ANALYTIC.SERVICES[properties.tracker.toUpperCase()];
+        promis = this.services[service].trackEvent(properties);
+        if(promis) {
+          return promis;
+        }
+      };
+
+      proto.trackAllEvents = function(properties) {
         var promises = [];
+        var promis;
         angular.forEach(this.services, function(handler) {
-          promises.push(handler.trackEvent(properties));
+          promis = handler.trackEvent(properties);
+          if(promis) {
+            promises.push(promis);
+          }
         });
         return $q.all(promises);
       };
 
       proto.trackPageView = function(url) {
-        console.log('url', url);
         var promises = [];
+        var promis;
         angular.forEach(this.services, function(handler) {
-          promises.push(handler.trackPageView(url));
+          promis = handler.trackPageView(url);
+          if(promis) {
+            promises.push(promis);
+          }
         });
         return $q.all(promises);
       };
@@ -2111,10 +2158,12 @@
     };
 
   })
-  .run(function ($rootScope, analyticsServices, $location) {
-    $rootScope.$on('$locationChangeSuccess', function(){
-      analyticsServices.trackPageView($location.absUrl());
-    });
+  .run(function ($rootScope, analyticsServices, $location, $injector, $window, AV_ANALYTIC) {
+    if(AV_ANALYTIC.VIRTUALPAGETRACKING) {
+      $rootScope.$on('$locationChangeSuccess', function() {
+        analyticsServices.trackPageView($location.absUrl());
+      });
+    }
   });
 
 })(window);
@@ -2145,6 +2194,7 @@
           props[result.key] = result.value;
         }
       });
+
       return props;
     };
 
@@ -2200,30 +2250,6 @@
 
   availity.core.factory('avAnalyticsUtils', AnalyticsUtilsFactory);
 })(window);
-// Source: /lib/core/analytics/analytics-console-service.js
-(function(root) {
-  'use strict';
-
-  var availity = root.availity;
-
-  var AnalyticsLogServiceFactory = function($log) {
-
-    var AnalyticsLogResource = function() {
-      this.trackEvent = function(properties) {
-        $log.log('Event tracked', properties);
-      };
-
-      this.trackPageView  = function(url) {
-        $log.log('URL visited', url);
-      };
-    };
-
-    return new AnalyticsLogResource();
-  };
-
-  availity.core.factory('avAnalyticsLogResource', AnalyticsLogServiceFactory);
-
-})(window);
 // Source: /lib/core/analytics/analytics-splunk-service.js
 (function(root) {
   'use strict';
@@ -2240,13 +2266,18 @@
     };
 
     proto.trackPageView  = function(url) {
-      $log.log('URL visited', url);
+      var properties = {};
+      properties.event = 'URL visited';
+      properties.level = 'info';
+      properties.url = url;
+      return avLogMessagesResource[properties.level](properties);
+      // // $log.log('URL visited', url);
     };
 
     return new SplunkAnalyticService();
   };
 
-  availity.core.factory('analyticsSplunkService', AnalyticsSplunkServiceFactory);
+  availity.core.factory('SplunkAnalyticsService', AnalyticsSplunkServiceFactory);
 
 })(window);
 
@@ -2261,11 +2292,9 @@
     var PiwikAnalyticService = function() {};
 
     var proto = PiwikAnalyticService.prototype;
-
     proto.trackEvent = function(properties) {
       // PAQ requires that eventValue be an integer, see:
       // http://piwik.org/docs/event-tracking/
-
       // check to make sure value is a number if not convert it to 0 see link above for reason
       if(properties.value) {
         properties.value = avAnalyticsUtils.checkIsNum(properties.event);
@@ -2273,19 +2302,17 @@
 
       // check to make sure that data being sent to piwik is a string and not null, empty or undefined
       if(!avAnalyticsUtils.isValid(properties)) {
+        $log.info('Piwik not tracking.');
         return;
       }
-
       // send call off to Piwik to track if the object tracking code is present
       if(root._paq) {
-        console.log('click root._paq', root._paq);
         root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]);
       }
     };
 
     proto.trackPageView  = function(url) {
       if(root._paq) {
-        console.log('page root._paq', root._paq);
         root._paq.push(['trackPageView', url]);
       }
     };
@@ -2293,7 +2320,7 @@
     return new PiwikAnalyticService();
   };
 
-  availity.core.factory('piwikAnalyticService', AnalyticsPiwikServiceFactory);
+  availity.core.factory('PiwikAnalyticService', AnalyticsPiwikServiceFactory);
 
 })(window);
 
