@@ -1,0 +1,63 @@
+---
+title: Analytics
+---
+<div data-ng-controller="AnalyticsController">
+  <p>Analytics is a way for you to track how users interact with your data. To use our analytics services some configuration needs to take place. By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.</p>
+
+  <h3>Virtual Page Tracking</h3>
+  <p>Virtual page tracking is disabled by default, to enable virtual page tracking you will need to set to call <code>analyticsServicesProvider.virtualPageTracking()</code> and pass in true. Once this is enabled all page visits will be tracked.</p>
+  <code class="language-markup">
+  <script>
+    myapp.config(function($scope,analyticsServicesProvider) {
+      analyticsServicesProvider.virtualPageTracking(true);
+    });
+  </script>
+  </code>
+
+  <h3>Event Tracking</h3>
+  <p>To add a tracking event to a element on the page you will need to use the avAnalyticsOn directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.</p>
+  <ol>
+    <li>av-analytics-on - required</li>
+    <li>av-analytics-event - required</li>
+    <li>av-analytics-category - required</li>
+    <li>av-analytics-label - optional</li>
+    <li>av-analytics-service - optional </li>
+    <li>av-analytics-value - optional - numeric only</li>
+  </ol>
+
+  <code class="language-markup">
+  <button
+    data-av-analytics-on="click"
+    data-av-analytics-event="Play"
+    data-av-analytics-category="Availity Home"
+    data-av-analytics-label="Intro Movie"
+    data-av-analytics-value="0"
+    >Button</button>
+  </code>
+<!--   <p>To enable virtual page tracking you will need to set <code>AV_ANALYTIC.VIRTUALPAGETRACKING</code> to true. By default this is set to false. To set <code>AV_ANALYTIC.VIRTUALPAGETRACKING</code> to true you will need to call <code>analyticsServicesProvider.virtualPageTracking()</code> and pass in true.</p> -->
+
+  <p>You can register or deregister analytic services in the configuration of your application. To do so follow the examples below.</p>
+
+  <p>To register a new analytic service you would call <code>analyticsServicesProvider.registerPlugins()</code> passing in a array of services you want to register</p>
+  <code class="language-markup">
+  <script>
+    myapp.config(function($scope,analyticsServicesProvider) {
+      analyticsServicesProvider.registerPlugins(['test1AnalyticService', 'test2AnalyticService']);
+    });
+  </script>
+  </code>
+
+  <p>If you want to turn off any of the analytic services you can do so by calling analyticsServicesProvider.deregisterPlugins() and passing in a array of services you do not want to use.</p>
+
+  <code class="language-markup">
+  <script>
+    myapp.config(function($scope,analyticsServicesProvider) {
+      analyticsServicesProvider.deregisterPlugins(['test1AnalyticService', 'test2AnalyticService']);
+    });
+  </script>
+  </code>
+
+
+  <p>The two analytic services that we provide are Piwik and Splunk.</p>
+
+</div>
