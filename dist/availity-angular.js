@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.4 -- April-06
+ * availity-angular v0.6.5 -- April-21
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.4';
+  availity.VERSION = 'v0.6.5';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -372,7 +372,7 @@
         pollingStartTime: new Date().getTime()
       };
 
-      config = _.extend(defaultOptions, config);
+      return _.extend(defaultOptions, config);
     };
 
     proto.responseError = function(response) {
@@ -399,7 +399,7 @@
 
     proto.onAsyncReponse = function(response) {
 
-      this.setDefaults(response.config);
+      response.config = this.setDefaults(response.config);
 
       var deferred = $q.defer();
 
@@ -409,7 +409,7 @@
       $timeout(function() {
         // Notify deferred listeners with the original server response
         deferred.notify(response);
-      });
+      }, 0, false);
 
       return deferred.promise;
     };
@@ -456,7 +456,7 @@
       // each async request should run on its own timer
       var timer = $timeout(function() {
         self.retryRequest(request.id);
-      }, timeout);
+      }, timeout, false);
 
       request.timer = timer;
 
@@ -488,7 +488,7 @@
     };
 
     proto.getPollingTimeout = function(config) {
-      return config.pollingDecay * config.pollingMaxInterval;
+      return config.pollingDecay * config.pollingInterval;
     };
 
     proto.isPollingMaxTimeout = function(config) {
@@ -521,7 +521,7 @@
       var deferred = request.deferred;
 
       if(!this.isPollable(config)) {
-        $log.info('Rejecting pollable response due to timeout constraint');
+        $log.info('Rejecting pollable response due to timeout');
         return deferred.reject(request);
       }
 
