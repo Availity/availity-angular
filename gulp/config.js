@@ -67,7 +67,6 @@ module.exports = {
       './lib/core/analytics/analytics-directive.js',
       './lib/core/analytics/analytics-services.js',
       './lib/core/analytics/analytics-util.js',
-      './lib/core/analytics/analytics-console-service.js',
       './lib/core/analytics/analytics-splunk-service.js',
       './lib/core/analytics/analytics-piwik-service.js'
     ],
