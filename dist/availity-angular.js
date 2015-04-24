@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.5 -- April-21
+ * availity-angular v0.6.6 -- April-24
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.5';
+  availity.VERSION = 'v0.6.6';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -168,7 +168,7 @@
 
 })(window);
 
-// Source: /lib/logger/logger.js
+// Source: /lib/core/logger/logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -310,7 +310,7 @@
 
 })(window);
 
-// Source: /lib/logger/logger-config.js
+// Source: /lib/core/logger/logger-config.js
 (function(root) {
 
   'use strict';
