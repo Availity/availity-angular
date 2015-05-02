@@ -24,7 +24,6 @@ title: User Authorizations
           data-ng-options="org.id as org.name for org in organizations"
           data-ng-change="onSelectOrg()"
           data-placeholder="Select an Organization"
-          data-allow-clear="true"
           >
         </select>
       </div>
@@ -39,73 +38,71 @@ title: User Authorizations
           data-ng-options="payer.payerId as payer.payerName for payer in payers"
           data-ng-change="onSelectPayer()"
           data-placeholder="Select an Payer"
-          data-allow-clear="true"
           >
         </select>
       </div>
     </form>
   </div>
-  <code class="language-markup">
-    <form name="dropdownForm">
-      <div class="form-group">
-        <label for="dropdownOrg">Organization</label>
-        <select
-          id="dropdownOrg"
-          class="form-control select2"
-          placeholder="Select an Organization"
-          data-av-dropdown
-          data-ng-model="model.selectedOrg"
-          data-ng-options="org.id as org.name for org in organizations"
-          data-ng-change="onSelectOrg()"
-          data-placeholder="Select an Organization"
-          data-allow-clear="true"
-          >
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="dropdownPayer">Payer</label>
-        <select
-          id="dropdownPayer"
-          class="form-control select2"
-          placeholder="Select a Payer"
-          data-av-dropdown
-          data-ng-model="model.selectedPayer"
-          data-ng-options="payer.payerId as payer.payerName for payer in payers"
-          data-ng-change="onSelectPayer()"
-          data-placeholder="Select an Payer"
-          data-allow-clear="true"
-          >
-        </select>
-      </div>
-    </form>
-    <!-- Javascript -->
-    <script>
-      availity.demo.controller('AuthPayerOrgController', function($scope, $log, avUserAuthorizations) {
-        var model = {
-          permissionId: 452,
-          selectedOrg: null,
-          selectedPayer: null
-        };
-        $scope.model = model;
+<code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group">
+    <label for="dropdownOrg">Organization</label>
+    <select
+      id="dropdownOrg"
+      class="form-control select2"
+      placeholder="Select an Organization"
+      data-av-dropdown
+      data-ng-model="model.selectedOrg"
+      data-ng-options="org.id as org.name for org in organizations"
+      data-ng-change="onSelectOrg()"
+      data-placeholder="Select an Organization"
+      >
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="dropdownPayer">Payer</label>
+    <select
+      id="dropdownPayer"
+      class="form-control select2"
+      placeholder="Select a Payer"
+      data-av-dropdown
+      data-ng-model="model.selectedPayer"
+      data-ng-options="payer.payerId as payer.payerName for payer in payers"
+      data-ng-change="onSelectPayer()"
+      data-placeholder="Select an Payer"
+      >
+    </select>
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  availity.demo.controller('AuthPayerOrgController', function($scope, $log, avUserAuthorizations) {
+    var model = {
+      permissionId: 452,
+      selectedOrg: null,
+      selectedPayer: null
+    };
 
-        avUserAuthorizations.getOrganizationsByPermissionId(model.permissionId).then(function(orgs) {
-          $scope.organizations = orgs;
-        });
+    $scope.model = model;
 
-        $scope.onSelectOrg = function() {
-          $log.info(model);
-          avUserAuthorizations.getPayersByPermissionIdAndOrgId(model.permissionId, model.selectedOrg).then(function(payers) {
-            $scope.payers = payers;
-          });
-        };
+    avUserAuthorizations.getOrganizationsByPermissionId(model.permissionId).then(function(orgs) {
+      $scope.organizations = orgs;
+    });
 
-        $scope.onSelectPayer = function() {
-          $log.info(model);
-        };
-
+    $scope.onSelectOrg = function() {
+      $log.info(model);
+      avUserAuthorizations.getPayersByPermissionIdAndOrgId(model.permissionId, model.selectedOrg).then(function(payers) {
+        $scope.payers = payers;
       });
-    </script>
-  </code>
+    };
+
+    $scope.onSelectPayer = function() {
+      $log.info(model);
+    };
+
+  });
+</script>
+</code>
 
 
 </div>
@@ -123,46 +120,46 @@ title: User Authorizations
           class="form-control"
           ng-change="checkIsAuthorized()"
           data-ng-model="model.permissionId"
-          data-allow-clear="true"
-          >
-        </input>
+          />
       </div>
     </form>
   </div>
-  <code class="language-markup">
-    <form name="dropdownForm">
-      <div class="form-group" ng-class="success: model.isAuthorized">
-        <label for="dropdownOrg">Permissions</label>
-        <input
-          id="permission"
-          class="form-control"
-          ng-change="checkIsAuthorized()"
-          data-ng-model="model.permissionId"
-          data-allow-clear="true"
-          >
-        </input>
-      </div>
-    </form>
+<code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group" ng-class="success: model.isAuthorized">
+    <label for="dropdownOrg">Permissions</label>
+    <input
+      id="permission"
+      class="form-control"
+      ng-change="checkIsAuthorized()"
+      data-ng-model="model.permissionId"
+      >
+  </div>
+</form>
 
-    <!-- Javascript -->
-    <script>
-      availity.demo.controller('AuthIsAuthorizedController', function($scope, $log, avUserAuthorizations) {
-        var model = {
-          permissionId: 452,
-          isAuthorized: null
-        };
-        $scope.model = model;
-        $scope.checkIsAuthorized = function() {
-          avUserAuthorizations.isAuthorizedTo(model.permissionId).then(function(isAuthorized) {
-            $log.info(model);
-            model.isAuthorized = isAuthorized;
-          });
-        };
+<!-- Javascript -->
+<script>
+  availity.demo.controller('AuthIsAuthorizedController', function($scope, $log, avUserAuthorizations) {
 
-        $scope.checkIsAuthorized();
+    var model = {
+      permissionId: 452,
+      isAuthorized: null
+    };
+
+    $scope.model = model;
+
+    $scope.checkIsAuthorized = function() {
+      avUserAuthorizations.isAuthorizedTo(model.permissionId).then(function(isAuthorized) {
+        $log.info(model);
+        model.isAuthorized = isAuthorized;
       });
-    </script>
-  </code>
+    };
+
+    $scope.checkIsAuthorized();
+
+  });
+</script>
+</code>
 
 
 </div>
