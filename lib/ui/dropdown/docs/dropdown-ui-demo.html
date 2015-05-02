@@ -8,6 +8,10 @@ title: Dropdowns
 </div>
 
 <div data-markdown>
+> Select2 requires an empty `<option></option>` tag in order for the directive option `data-allow-clear=true` to work properly.
+</div>
+
+<div data-markdown>
 > For a complete listing of options supported Select2, please checkout the docs at [http://select2.github.io/select2/](http://select2.github.io/select2/)
 </div>
 
@@ -29,6 +33,7 @@ title: Dropdowns
           data-placeholder="Select State"
           data-allow-clear="true"
           >
+          <option></option>
         </select>
       </div>
       <div class="form-controls">
