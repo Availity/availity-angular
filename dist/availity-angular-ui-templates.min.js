@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.6 -- April-24
+ * availity-angular v0.7.0 -- May-04
  * Copyright 2015 Availity, LLC 
  */
 

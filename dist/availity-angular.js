@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.6 -- April-24
+ * availity-angular v0.7.0 -- May-04
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.6';
+  availity.VERSION = 'v0.7.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -645,13 +645,13 @@
       return angular.extend({}, this.options, (config || {}));
     },
 
-      proto._getUrl = function(id) {
-        if(this.options.api) {
-          return this._getApiUrl(id);
-        }
+    proto._getUrl = function(id) {
+      if(this.options.api) {
+        return this._getApiUrl(id);
+      }
 
-        return this.options.url;
-      };
+      return this.options.url;
+    };
 
     proto._createResponse = function(data, status, headers, config) {
       return {
@@ -683,23 +683,21 @@
           defer.notify(_response);
 
           // handle the polling service promise
-          _promise.then(
-            function(successResponse) {
+          _promise.then(function(successResponse) {
 
-              // if service has a callback then call it
-              // var response = self._createResponse(data, status, headers, _config);
-              if(afterCallback) {
-                successResponse = afterCallback.call(self, successResponse);
-              }
-              defer.resolve(successResponse);
-            }, function(errorResponse) {
-              defer.reject(errorResponse);
-            }, function(notifyResponse) {
-              defer.notify(notifyResponse);
-            });
+            // if service has a callback then call it
+            // var response = self._createResponse(data, status, headers, _config);
+            if(afterCallback) {
+              successResponse = afterCallback.call(self, successResponse);
+            }
+            defer.resolve(successResponse);
+          }, function(errorResponse) {
+            defer.reject(errorResponse);
+          }, function(notifyResponse) {
+            defer.notify(notifyResponse);
+          });
 
-        })
-        .error(function(data, status, headers, _config) {
+        }).error(function(data, status, headers, _config) {
           var response = self._createResponse(data, status, headers, _config);
           defer.reject(response);
         });
@@ -732,19 +730,6 @@
       return this.options.prefix + this.options.path + this.options.level + this.options.version + this.options.url + id + this.options.suffix;
     };
 
-    proto.all = function(config) {
-
-      config = this._config(config);
-      config.method = 'GET';
-      config.url = this._getUrl();
-
-      return this._request(config, this.afterAll);
-
-    };
-
-    // alias `all` since it was a bad name to being with
-    proto.query = proto.all;
-
     proto.create = function(data, config) {
 
       if(!data) {
@@ -765,36 +750,32 @@
     },
 
 
-      proto.get = function(id, config) {
+    proto.get = function(id, config) {
 
-        if(!id) {
-          throw new Error('called method without [id]');
-        }
-
-        config = this._config(config);
-        config.method = 'GET';
-        config.url = this._getUrl(id);
-
-        return this._request(config, this.afterGet);
-
-      };
-
-    proto.query = function(params) {
-
-      if(!params) {
-        throw new Error('called query without parameters');
+      if(!id) {
+        throw new Error('called method without [id]');
       }
 
-      var config = this._config(config);
-      config.params = params;
+      config = this._config(config);
       config.method = 'GET';
-      config.url = this._getUrl();
+      config.url = this._getUrl(id);
 
       return this._request(config, this.afterGet);
 
     };
 
+    proto.query = function(config) {
+
+      config = this._config(config);
+      config.method = 'GET';
+      config.url = this._getUrl();
+
+      return this._request(config, this.afterQuery);
+
+    };
+
     proto.update = function(id, data, config) {
+
       if(!id || !data) {
         throw new Error('called method without [id] or [data]');
       }
@@ -813,23 +794,6 @@
 
     };
 
-    proto.updateWithoutId = function(data, config) {
-      if(!data) {
-        throw new Error('called method without [data]');
-      }
-
-      config = this._config(config);
-      config.method = 'PUT';
-      config.url = this._getUrl();
-      config.data = data;
-
-      if(this.beforeUpdate) {
-        data = this.beforeUpdate(data);
-      }
-
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
-    };
-
     proto.remove = function(id, config) {
       if(!id) {
         throw new Error('called method without [id]');
@@ -844,7 +808,7 @@
 
     proto.beforeCreate = null;
     proto.afterCreate = null;
-    proto.afterAll = null;
+    proto.afterQuery = null;
     proto.afterGet = null;
     proto.beforeUpdate = null;
     proto.afterUpdate = null;
@@ -1085,6 +1049,193 @@
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
+
+})(window);
+
+// Source: /lib/core/api/api-user-permissions.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  var AvUserPermissionsResourceFactory = function(AvApiResource) {
+
+    var AvUserPermissionsResource = function() {
+      AvApiResource.call(this, {
+        level: '/internal',
+        version: '/v1',
+        url: '/axi-user-permissions'
+      });
+      this.sessionDate = moment().toISOString();
+    };
+
+    angular.extend(AvUserPermissionsResource.prototype, AvApiResource.prototype, {
+
+      afterQuery: function(response) {
+        return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+      },
+
+      getPermissions: function(permissionIds, region) {
+        var self = this;
+        return this.query({
+          params: {
+            permissionId: permissionIds,
+            region: region,
+            sessionDate: self.sessionDate
+          }
+        });
+      }
+
+    });
+
+    return new AvUserPermissionsResource();
+
+  };
+
+  availity.core.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+
+})(window);
+
+// Source: /lib/core/authorizations/user-authorizations.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AvUserAuthorizationsFactory = function($q, $log, avUserPermissionsResource) {
+
+    /**
+     *
+     * @constructor
+     */
+    var AvUserAuthorizations = function() {
+      /**
+       * Region is used to return permission/resources relative to region. If null service will
+       * return all permission relative to current.  If value 'ALL' used it will return value relative
+       * to all regions the user has access to.
+       * @type {string}
+       */
+      this.region = null;
+      /**
+       * PermissionIds contains the set of permissionIds to request from service. If user of service calls
+       * setPermissionIds() or call getPermissions() with complete set of permissionIds needed by application,
+       * then service should only make that one hit to retrieve permission information.
+       * @type {Array}
+       */
+      this.permissionIds = [];
+    };
+
+    var proto = AvUserAuthorizations.prototype;
+
+    proto.setRegion = function(region) {
+      this.region = region;
+      return this;
+    };
+
+    proto.setPermissionIds = function(permissionIds) {
+      if(!angular.isArray(permissionIds)) {
+        throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#addPermissionIds');
+      }
+      this.permissionIds = permissionIds;
+      return this;
+    };
+
+    proto.isAuthorized = function(permissionId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        return permission.isAuthorized;
+      });
+    };
+
+    proto.isAnyAuthorized = function(permissionIds) {
+      return this.getPermissions(permissionIds).then(function(permissions) {
+        var permission = _.findWhere(permissions, {isAuthorized: true});
+        return permission !== undefined;
+      });
+    };
+
+    proto.getPermission = function(permissionId) {
+      if(!angular.isString(permissionId)) {
+        throw new Error('permissionsId must be a string ID for avUserAuthorizations#getPermission');
+      }
+
+      return this.getPermissions([permissionId])
+        .then(function(_permissions) {
+          return _permissions[permissionId];
+        });
+    };
+
+    proto.getPermissions = function(permissionIds) {
+      var self = this;
+
+      if(!angular.isArray(permissionIds)) {
+        throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#getPermissions');
+      }
+      // merge permission ids to reduce calls to backend
+      self.permissionIds = _.union(self.permissionIds, permissionIds);
+
+      return avUserPermissionsResource
+        .getPermissions(self.permissionIds, self.region)
+        .then(function(_permissions) {
+          return self.toPermissionMap(permissionIds, _permissions);
+        });
+    };
+
+    proto.getOrganizations = function(permissionId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        return permission.organizations;
+      });
+    };
+
+    proto.getPayers = function(permissionId, organizationId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        var organization = _.findWhere(permission.organizations, {id: organizationId});
+
+        if(organization && organization.resources) {
+          return organization.resources;
+        }
+        return [];
+      });
+
+    };
+
+    /**
+     * Converts array permissions to map with value for each permissionId, creating empty permission
+     * if can't find permission in array
+     * @private
+     */
+    proto.toPermissionMap = function(permissionIds, permissions) {
+      var self = this;
+      var map = {};
+      permissions = _.slice(permissions);
+      _.forEach(permissionIds, function(permissionId) {
+        var key = {id: permissionId};
+        var permission = _.findWhere(permissions, key);
+        permission = permission ? self.toPermission(permission) : self.toPermission(key);
+        map[permission.id] = permission;
+      });
+      return map;
+    };
+
+    /**
+     * Convert a permission resource into a structure that is easier to work with.
+     * @private
+     */
+    proto.toPermission = function(permission) {
+      return {
+        id: permission.id,
+        description: permission.description ? permission.description : '',
+        geographies: permission.geographies ? permission.geographies : [],
+        organizations: permission.organizations ? permission.organizations : [],
+        isAuthorized: permission.organizations ? permission.organizations.length > 0 : false
+      };
+    };
+
+    return new AvUserAuthorizations();
+
+  };
+
+  availity.core.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
 
 })(window);
 
