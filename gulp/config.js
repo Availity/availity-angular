@@ -46,7 +46,6 @@ module.exports = {
       './lib/core/polling/polling.js',
       './lib/core/api/api-factory.js',
       './lib/core/api/api-users.js',
-      './lib/core/api/api-permissions.js',
       './lib/core/api/api-coverages.js',
       './lib/core/api/api-configurations.js',
       './lib/core/api/api-log-messages.js',
