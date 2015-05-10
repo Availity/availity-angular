@@ -1,4 +1,4 @@
-/*global inject, jasmine, spyOn, beforeEach, afterEach*/
+/*global inject, jasmine, module, spyOn, beforeEach, afterEach*/
 (function() {
 
   'use strict';
@@ -70,10 +70,41 @@
 
     },
 
-    flush: function() {
+
+    /**
+     * MUST BE CALLED BEFORE HELPER METHODS ABOVE
+     *
+     * @see  http://stackoverflow.com/a/29805373
+     */
+
+    providerSpecHelper: function() {
+
+      beforeEach(function() {
+        availity.mock.sandboxEl = $('<div>').attr('id', 'sandbox').appendTo($('body'));
+      });
+
+      afterEach(function() {
+        availity.mock.sandboxEl.remove();
+      });
+    },
+
+    provider: function(moduleName, providerName) {
+
+      var provider;
+      module(moduleName, [providerName, function(Provider) {
+        provider = Provider;
+      }]);
+
+      return function() {
+        inject();
+        return provider;
+      }; // inject calls the above
+    },
+
+    flush: function(ms) {
 
       try {
-        availity.mock.$timeout.flush();
+        availity.mock.$timeout.flush(ms);
       }
       catch(e) {}
     },
