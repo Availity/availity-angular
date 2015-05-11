@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.7.0 -- May-04
+ * availity-angular v0.7.1 -- May-10
  * Copyright 2015 Availity, LLC 
  */
 
@@ -97,7 +97,7 @@
     }
   });
 
-  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache) {
+  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q) {
 
     var Modal = function(options) {
 
@@ -214,7 +214,14 @@
     };
 
     proto.hide = function() {
+      var deferred = $q.defer();
+
       this.$element.modal('hide');
+      this.$element.on('hidden.bs.modal', function() {
+        deferred.resolve(true);
+      });
+
+      return deferred.promise;
     };
 
     proto.toggle = function() {
@@ -1381,6 +1388,9 @@
   var availity = root.availity;
 
   availity.ui.constant('AV_UI_IDLE', {
+    EVENTS: {
+      OK: 'mousedown.av.idle.notifier'
+    },
     TEMPLATES: {
       BASE: 'ui/idle/idle-tpl.html',
       SESSION: 'ui/idle/idle-session-tpl.html',
@@ -1424,19 +1434,19 @@
         var self = this;
         var listener = null;
 
-        // ACTIVATE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.ACTIVE, function() {
+        // ACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_ACTIVE, function() {
           self.showWarning();
         });
         this.listeners.push(listener);
 
-        // INACTIVE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
+        // INACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_INACTIVE, function() {
           self.hideWarning();
         });
         this.listeners.push(listener);
 
-        // SESSION TIMEOUT
+        // SESSION TIMEOUT OUT
         listener = $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE, function() {
           self.showSession();
         });
@@ -1445,12 +1455,11 @@
       };
 
       proto.destroyListeners = function() {
-        // turn off each listener => http://stackoverflow.com/a/14898795
+        // turn off each listener @see http://stackoverflow.com/a/14898795
         _.each(this.listeners, function(listener) {
           listener();
         });
       };
-
 
       proto.showWarning = function() {
 
@@ -1471,25 +1480,23 @@
           templateUrl: AV_UI_IDLE.TEMPLATES.BASE
         });
 
-        $document.on('click', function() {
+        $document.find('body').on(AV_UI_IDLE.EVENTS.OK, function() {
           self.hideWarning();
-          $rootScope.$broadcast(AV_IDLE.EVENTS.INACTIVE);
         });
 
       };
 
       proto.hideWarning = function() {
-        this.disableBackDrop();
-
         if(this.modal) {
-          this.modal.destroy();
+          this.disableBackDrop();
+          this.modal.hide();
         }
 
         this.modal = null;
       };
 
       proto.disableBackDrop = function() {
-        $document.off('click');
+        $document.find('body').off(AV_UI_IDLE.EVENTS.OK);
       };
 
       proto.showSession = function() {
@@ -1498,13 +1505,13 @@
 
         $timeout(function() {
           $scope.idle.template = AV_UI_IDLE.TEMPLATES.SESSION;
-          $scope.idle.onSessionInactive = self.onSessionInactive;
+          $scope.idle.onSessionTimeout = _.bind(self.onSessionTimeout, self);
         }, 0, true);
 
       };
 
-      proto.onSessionInactive = function() {
-        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE);
+      proto.onSessionTimeout = function() {
+        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_REDIRECT);
       };
 
       return new AvIdleNotifier();
