@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.6.0",
+  "version": "0.7.1",
   "keywords": [
     "availity",
     "angular",
@@ -19,7 +19,7 @@
     "angular": "1.2.28",
     "angular-sanitize": "1.2.28",
     "angular-ui-router": "0.2.13",
-    "availity-uikit": "~0.4.5"
+    "availity-uikit": "~0.6.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.28",

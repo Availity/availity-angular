@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.0 -- March-30
+ * availity-angular v0.7.1 -- May-10
  * Copyright 2015 Availity, LLC 
  */
 
@@ -41,10 +41,10 @@
         var valid = !options.template || !options.templateUrl;
 
         if(!valid) {
-          throw new Error("Either options.template or options.templateUrl must be defined");
+          throw new Error("Either options.template or options.templateUrl must be defined for avTemplateCache");
         }
 
-        return options.template ? $q.when($templateCache.get(options.template)) :
+        return options.template ? $q.when(options.template) :
           $http.get(options.templateUrl, {cache: $templateCache})
             .then(function(result) {
               return result.data;
@@ -97,7 +97,7 @@
     }
   });
 
-  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache) {
+  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q) {
 
     var Modal = function(options) {
 
@@ -214,7 +214,14 @@
     };
 
     proto.hide = function() {
+      var deferred = $q.defer();
+
       this.$element.modal('hide');
+      this.$element.on('hidden.bs.modal', function() {
+        deferred.resolve(true);
+      });
+
+      return deferred.promise;
     };
 
     proto.toggle = function() {
@@ -587,7 +594,7 @@
         var avValField = controllers[2];
 
         if(!ngModel && !rule) {
-          $log.info('avValField requires ngModel and a validation rule to run.');
+          $log.error('avValField requires ngModel and a validation rule to run.');
           return;
         }
 
@@ -615,12 +622,12 @@
         ngModel.$formatters.unshift(avValField.validate);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
-          avValField.validate(ngModel.$modelValue);
+          avValField.validate(ngModel.$viewValue);
         });
 
         scope.$on(AV_VAL.EVENTS.SUBMITTED, function() {
           ngModel.$dirty = true;
-          avValField.validate(ngModel.$modelValue);
+          avValField.validate(ngModel.$viewValue);
         });
 
         scope.$on('$destroy', function () {
@@ -631,6 +638,75 @@
     };
   });
 
+
+})(window);
+
+// Source: /lib/ui/popover/popover.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_POPOVER', {
+    NAME: 'bs.popover'
+  });
+
+  availity.ui.controller('AvPopoverController', function($element, $scope, AV_POPOVER) {
+
+    this.listeners = function() {
+
+      var self = this;
+
+      angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {
+        $element.on(name + '.bs.popover', function(ev) {
+          $scope.$emit('av:popover:' + name, ev);
+        });
+      });
+
+      $scope.$on('destroy', function() {
+        self.destroy();
+      });
+    };
+
+    this.plugin = function() {
+      return $element.data(AV_POPOVER.NAME);
+    };
+
+    this.show = function() {
+      $element.popover('show');
+    };
+
+    this.hide = function() {
+      $element.popover('hide');
+    };
+
+    this.toggle= function() {
+      $element.popover('toggle');
+    };
+
+    this.destroy = function() {
+      $element.popover('destroy');
+    };
+  });
+
+  availity.ui.directive('avPopover', function() {
+    return {
+      restrict: 'A',
+      controller: 'AvPopoverController',
+      link: function(scope, element) {
+
+        var options = {};
+
+        scope.$evalAsync(function() {
+          element.popover(angular.extend({}, options, {
+            html: true
+          }));
+        });
+
+      }
+    };
+  });
 
 })(window);
 
@@ -1154,6 +1230,7 @@
 
     this.setValue = function() {
 
+
       var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
 
@@ -1182,10 +1259,12 @@
     };
 
     this.modelToView = function() {
-      return $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+      var viewValue = $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+      return viewValue;
     };
 
     this.viewToModel = function() {
+
 
       var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
       var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
@@ -1235,10 +1314,10 @@
 
   });
 
-  availity.ui.directive('avDatepicker', function($timeout, $window, $log, AV_DATEPICKER) {
+  availity.ui.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
     return {
       restrict: 'A',
-      require: ['?ngModel', 'avDatepicker'],
+      require: ['ngModel', 'avDatepicker'],
       controller: 'AvDatepickerController',
       link: function(scope, element, attrs, controllers) {
 
@@ -1253,9 +1332,12 @@
           }
         }
 
-
         avDatepicker.init();
         avDatepicker.setNgModel(ngModel);
+
+        element.on('changeDate', function(e) {
+          $log.info('avDatepicker changeDate {0}', [e]);
+        });
 
         ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
         ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
@@ -1288,9 +1370,10 @@
            }
         });
 
-        $timeout(function() {
+        scope.$evalAsync(function() {
           element.datepicker(avDatepicker.options);
         });
+
       }
     };
   });
@@ -1305,6 +1388,9 @@
   var availity = root.availity;
 
   availity.ui.constant('AV_UI_IDLE', {
+    EVENTS: {
+      OK: 'mousedown.av.idle.notifier'
+    },
     TEMPLATES: {
       BASE: 'ui/idle/idle-tpl.html',
       SESSION: 'ui/idle/idle-session-tpl.html',
@@ -1348,19 +1434,19 @@
         var self = this;
         var listener = null;
 
-        // ACTIVATE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.ACTIVE, function() {
+        // ACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_ACTIVE, function() {
           self.showWarning();
         });
         this.listeners.push(listener);
 
-        // INACTIVE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
+        // INACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_INACTIVE, function() {
           self.hideWarning();
         });
         this.listeners.push(listener);
 
-        // SESSION TIMEOUT
+        // SESSION TIMEOUT OUT
         listener = $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE, function() {
           self.showSession();
         });
@@ -1369,12 +1455,11 @@
       };
 
       proto.destroyListeners = function() {
-        // turn off each listener => http://stackoverflow.com/a/14898795
+        // turn off each listener @see http://stackoverflow.com/a/14898795
         _.each(this.listeners, function(listener) {
           listener();
         });
       };
-
 
       proto.showWarning = function() {
 
@@ -1392,28 +1477,26 @@
           show: true,
           scope: $scope,
           backdrop: 'static',
-          template: AV_UI_IDLE.TEMPLATES.BASE
+          templateUrl: AV_UI_IDLE.TEMPLATES.BASE
         });
 
-        $document.on('click', function() {
+        $document.find('body').on(AV_UI_IDLE.EVENTS.OK, function() {
           self.hideWarning();
-          $rootScope.$broadcast(AV_IDLE.EVENTS.INACTIVE);
         });
 
       };
 
       proto.hideWarning = function() {
-        this.disableBackDrop();
-
         if(this.modal) {
-          this.modal.destroy();
+          this.disableBackDrop();
+          this.modal.hide();
         }
 
         this.modal = null;
       };
 
       proto.disableBackDrop = function() {
-        $document.off('click');
+        $document.find('body').off(AV_UI_IDLE.EVENTS.OK);
       };
 
       proto.showSession = function() {
@@ -1422,13 +1505,13 @@
 
         $timeout(function() {
           $scope.idle.template = AV_UI_IDLE.TEMPLATES.SESSION;
-          $scope.idle.onSessionInactive = self.onSessionInactive;
+          $scope.idle.onSessionTimeout = _.bind(self.onSessionTimeout, self);
         }, 0, true);
 
       };
 
-      proto.onSessionInactive = function() {
-        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE);
+      proto.onSessionTimeout = function() {
+        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_REDIRECT);
       };
 
       return new AvIdleNotifier();

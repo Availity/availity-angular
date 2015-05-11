@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.0 -- March-30
+ * availity-angular v0.7.1 -- May-10
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.6.0';
+  availity.VERSION = 'v0.7.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -23,10 +23,9 @@
     if(deps && _.indexOf(modules, name) !== -1 ) {
       throw new Error('redefining module: ' + name);
     }
+
     modules.push(name);
-    if(window.console && window.console.log) {
-      window.console.log(modules);
-    }
+
     return originalModule(name, deps);
   };
 
@@ -56,7 +55,7 @@
 
   // https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/isBlank.js
   availity.isBlank = function(str) {
-    availity._stringify(str);
+    return (/^\s*$/).test(availity._stringify(str));
   };
 
 })(window);
@@ -169,7 +168,7 @@
 
 })(window);
 
-// Source: /lib/logger/logger.js
+// Source: /lib/core/logger/logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -200,7 +199,7 @@
 
         var _supplant = function (a, b) {
           var r = o[b];
-          return typeof r === 'string' || typeof r === 'number' ? r : a;
+          return r;
         };
 
         return str.replace(/\{([^{}]*)\}/g, _supplant);
@@ -232,7 +231,7 @@
         var hash = window.location.hash;
         hash = hash || '';
 
-        if(!_enabled && hash.indexOf('avLogger') < 0) {
+        if(!_enabled && hash.indexOf('avLogger') < 0 && originalFn !== 'error') {
           return;
         }
 
@@ -311,7 +310,7 @@
 
 })(window);
 
-// Source: /lib/logger/logger-config.js
+// Source: /lib/core/logger/logger-config.js
 (function(root) {
 
   'use strict';
@@ -346,7 +345,7 @@
     REGEX_URL: /^.*?api.availity.com(.*)$/ // capture the relative url from API
   });
 
-  var PollingServiceFactory = function($rootScope, $q, $injector, $timeout, $log, AV_POLLING) {
+  var PollingServiceFactory = function($rootScope, $q, $injector, $timeout, $log, AV_POLLING, AV_API) {
 
     var AvPollingService = function() {
       this.pendingRequests = []; // stores all request for polling
@@ -373,7 +372,7 @@
         pollingStartTime: new Date().getTime()
       };
 
-      config = _.extend(defaultOptions, config);
+      return _.extend(defaultOptions, config);
     };
 
     proto.responseError = function(response) {
@@ -395,12 +394,12 @@
         response.config.api &&
         response.status &&
         response.status === 202 &&
-        angular.isFunction(response.headers) && !availity.isBlank(response.headers('location'));
+        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.LOCATION));
     };
 
     proto.onAsyncReponse = function(response) {
 
-      this.setDefaults(response.config);
+      response.config = this.setDefaults(response.config);
 
       var deferred = $q.defer();
 
@@ -410,7 +409,7 @@
       $timeout(function() {
         // Notify deferred listeners with the original server response
         deferred.notify(response);
-      });
+      }, 0, false);
 
       return deferred.promise;
     };
@@ -428,8 +427,8 @@
     proto.queueRequest = function(deferred, response) {
 
       var self = this;
-      // server replies with poll href so set the url into config
-      var _url = availity.getRelativeUrl(response.headers('location'));
+      // server replies with location header so set the url into config
+      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.LOCATION));
       var _config = response.config;
 
       var config = {
@@ -457,7 +456,7 @@
       // each async request should run on its own timer
       var timer = $timeout(function() {
         self.retryRequest(request.id);
-      }, timeout);
+      }, timeout, false);
 
       request.timer = timer;
 
@@ -489,7 +488,7 @@
     };
 
     proto.getPollingTimeout = function(config) {
-      return config.pollingDecay * config.pollingMaxInterval;
+      return config.pollingDecay * config.pollingInterval;
     };
 
     proto.isPollingMaxTimeout = function(config) {
@@ -522,7 +521,7 @@
       var deferred = request.deferred;
 
       if(!this.isPollable(config)) {
-        $log.info('Rejecting pollable response due to timeout constraint');
+        $log.info('Rejecting pollable response due to timeout');
         return deferred.reject(request);
       }
 
@@ -588,6 +587,18 @@
 
   var availity = root.availity;
 
+  availity.core.constant('AV_API', {
+    HEADERS: {
+      ID: 'X-API-ID',
+      GLOBAL_ID: 'X-Global-Transaction-ID',
+      SESSION_ID: 'X-Session-ID',
+      LOCATION: 'Location',
+      OVERRIDE: 'X-HTTP-Method-Override',
+      CALLBACK_URL: 'X-Callback-URL',
+      CUSTOMER_ID: 'X-Availity-Customer-ID'
+    }
+  });
+
   var defaultOptions = {
     // pre-prend the url with a value like `/public` so we can build urls like `public/api/v1/*`
     prefix: '',
@@ -646,13 +657,13 @@
       return angular.extend({}, this.options, (config || {}));
     },
 
-      proto._getUrl = function(id) {
-        if(this.options.api) {
-          return this._getApiUrl(id);
-        }
+    proto._getUrl = function(id) {
+      if(this.options.api) {
+        return this._getApiUrl(id);
+      }
 
-        return this.options.url;
-      };
+      return this.options.url;
+    };
 
     proto._createResponse = function(data, status, headers, config) {
       return {
@@ -684,23 +695,21 @@
           defer.notify(_response);
 
           // handle the polling service promise
-          _promise.then(
-            function(successResponse) {
+          _promise.then(function(successResponse) {
 
-              // if service has a callback then call it
-              // var response = self._createResponse(data, status, headers, _config);
-              if(afterCallback) {
-                successResponse = afterCallback.call(self, successResponse);
-              }
-              defer.resolve(successResponse);
-            }, function(errorResponse) {
-              defer.reject(errorResponse);
-            }, function(notifyResponse) {
-              defer.notify(notifyResponse);
-            });
+            // if service has a callback then call it
+            // var response = self._createResponse(data, status, headers, _config);
+            if(afterCallback) {
+              successResponse = afterCallback.call(self, successResponse);
+            }
+            defer.resolve(successResponse);
+          }, function(errorResponse) {
+            defer.reject(errorResponse);
+          }, function(notifyResponse) {
+            defer.notify(notifyResponse);
+          });
 
-        })
-        .error(function(data, status, headers, _config) {
+        }).error(function(data, status, headers, _config) {
           var response = self._createResponse(data, status, headers, _config);
           defer.reject(response);
         });
@@ -733,19 +742,6 @@
       return this.options.prefix + this.options.path + this.options.level + this.options.version + this.options.url + id + this.options.suffix;
     };
 
-    proto.all = function(config) {
-
-      config = this._config(config);
-      config.method = 'GET';
-      config.url = this._getUrl();
-
-      return this._request(config, this.afterAll);
-
-    };
-
-    // alias `all` since it was a bad name to being with
-    proto.query = proto.all;
-
     proto.create = function(data, config) {
 
       if(!data) {
@@ -766,36 +762,32 @@
     },
 
 
-      proto.get = function(id, config) {
+    proto.get = function(id, config) {
 
-        if(!id) {
-          throw new Error('called method without [id]');
-        }
-
-        config = this._config(config);
-        config.method = 'GET';
-        config.url = this._getUrl(id);
-
-        return this._request(config, this.afterGet);
-
-      };
-
-    proto.query = function(params) {
-
-      if(!params) {
-        throw new Error('called query without parameters');
+      if(!id) {
+        throw new Error('called method without [id]');
       }
 
-      var config = this._config(config);
-      config.params = params;
+      config = this._config(config);
       config.method = 'GET';
-      config.url = this._getUrl();
+      config.url = this._getUrl(id);
 
       return this._request(config, this.afterGet);
 
     };
 
+    proto.query = function(config) {
+
+      config = this._config(config);
+      config.method = 'GET';
+      config.url = this._getUrl();
+
+      return this._request(config, this.afterQuery);
+
+    };
+
     proto.update = function(id, data, config) {
+
       if(!id || !data) {
         throw new Error('called method without [id] or [data]');
       }
@@ -814,23 +806,6 @@
 
     };
 
-    proto.updateWithoutId = function(data, config) {
-      if(!data) {
-        throw new Error('called method without [data]');
-      }
-
-      config = this._config(config);
-      config.method = 'PUT';
-      config.url = this._getUrl();
-      config.data = data;
-
-      if(this.beforeUpdate) {
-        data = this.beforeUpdate(data);
-      }
-
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
-    };
-
     proto.remove = function(id, config) {
       if(!id) {
         throw new Error('called method without [id]');
@@ -845,7 +820,7 @@
 
     proto.beforeCreate = null;
     proto.afterCreate = null;
-    proto.afterAll = null;
+    proto.afterQuery = null;
     proto.afterGet = null;
     proto.beforeUpdate = null;
     proto.afterUpdate = null;
@@ -917,7 +892,7 @@
       },
 
       getPermissions: function(permissionId) {
-        return this.all({params: {permissionId: permissionId}}).then(function(response) {
+        return this.query({params: {permissionId: permissionId}}).then(function(response) {
           var result = response.data.permissions ? response.data.permissions : [];
           return result;
         });
@@ -1062,7 +1037,7 @@
     angular.extend(OrganizationResource.prototype, AvApiResource.prototype, {
 
       getOrganizations: function() {
-        return this.all().then(function(response) {
+        return this.query().then(function(response) {
           return response.data.organizations ? response.data.organizations : response.data;
         });
       }
@@ -1086,6 +1061,193 @@
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
+
+})(window);
+
+// Source: /lib/core/api/api-user-permissions.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  var AvUserPermissionsResourceFactory = function(AvApiResource) {
+
+    var AvUserPermissionsResource = function() {
+      AvApiResource.call(this, {
+        level: '/internal',
+        version: '/v1',
+        url: '/axi-user-permissions'
+      });
+      this.sessionDate = moment().toISOString();
+    };
+
+    angular.extend(AvUserPermissionsResource.prototype, AvApiResource.prototype, {
+
+      afterQuery: function(response) {
+        return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+      },
+
+      getPermissions: function(permissionIds, region) {
+        var self = this;
+        return this.query({
+          params: {
+            permissionId: permissionIds,
+            region: region,
+            sessionDate: self.sessionDate
+          }
+        });
+      }
+
+    });
+
+    return new AvUserPermissionsResource();
+
+  };
+
+  availity.core.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+
+})(window);
+
+// Source: /lib/core/authorizations/user-authorizations.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  var AvUserAuthorizationsFactory = function($q, $log, avUserPermissionsResource) {
+
+    /**
+     *
+     * @constructor
+     */
+    var AvUserAuthorizations = function() {
+      /**
+       * Region is used to return permission/resources relative to region. If null service will
+       * return all permission relative to current.  If value 'ALL' used it will return value relative
+       * to all regions the user has access to.
+       * @type {string}
+       */
+      this.region = null;
+      /**
+       * PermissionIds contains the set of permissionIds to request from service. If user of service calls
+       * setPermissionIds() or call getPermissions() with complete set of permissionIds needed by application,
+       * then service should only make that one hit to retrieve permission information.
+       * @type {Array}
+       */
+      this.permissionIds = [];
+    };
+
+    var proto = AvUserAuthorizations.prototype;
+
+    proto.setRegion = function(region) {
+      this.region = region;
+      return this;
+    };
+
+    proto.setPermissionIds = function(permissionIds) {
+      if(!angular.isArray(permissionIds)) {
+        throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#addPermissionIds');
+      }
+      this.permissionIds = permissionIds;
+      return this;
+    };
+
+    proto.isAuthorized = function(permissionId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        return permission.isAuthorized;
+      });
+    };
+
+    proto.isAnyAuthorized = function(permissionIds) {
+      return this.getPermissions(permissionIds).then(function(permissions) {
+        var permission = _.findWhere(permissions, {isAuthorized: true});
+        return permission !== undefined;
+      });
+    };
+
+    proto.getPermission = function(permissionId) {
+      if(!angular.isString(permissionId)) {
+        throw new Error('permissionsId must be a string ID for avUserAuthorizations#getPermission');
+      }
+
+      return this.getPermissions([permissionId])
+        .then(function(_permissions) {
+          return _permissions[permissionId];
+        });
+    };
+
+    proto.getPermissions = function(permissionIds) {
+      var self = this;
+
+      if(!angular.isArray(permissionIds)) {
+        throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#getPermissions');
+      }
+      // merge permission ids to reduce calls to backend
+      self.permissionIds = _.union(self.permissionIds, permissionIds);
+
+      return avUserPermissionsResource
+        .getPermissions(self.permissionIds, self.region)
+        .then(function(_permissions) {
+          return self.toPermissionMap(permissionIds, _permissions);
+        });
+    };
+
+    proto.getOrganizations = function(permissionId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        return permission.organizations;
+      });
+    };
+
+    proto.getPayers = function(permissionId, organizationId) {
+      return this.getPermission(permissionId).then(function(permission) {
+        var organization = _.findWhere(permission.organizations, {id: organizationId});
+
+        if(organization && organization.resources) {
+          return organization.resources;
+        }
+        return [];
+      });
+
+    };
+
+    /**
+     * Converts array permissions to map with value for each permissionId, creating empty permission
+     * if can't find permission in array
+     * @private
+     */
+    proto.toPermissionMap = function(permissionIds, permissions) {
+      var self = this;
+      var map = {};
+      permissions = _.slice(permissions);
+      _.forEach(permissionIds, function(permissionId) {
+        var key = {id: permissionId};
+        var permission = _.findWhere(permissions, key);
+        permission = permission ? self.toPermission(permission) : self.toPermission(key);
+        map[permission.id] = permission;
+      });
+      return map;
+    };
+
+    /**
+     * Convert a permission resource into a structure that is easier to work with.
+     * @private
+     */
+    proto.toPermission = function(permission) {
+      return {
+        id: permission.id,
+        description: permission.description ? permission.description : '',
+        geographies: permission.geographies ? permission.geographies : [],
+        organizations: permission.organizations ? permission.organizations : [],
+        isAuthorized: permission.organizations ? permission.organizations.length > 0 : false
+      };
+    };
+
+    return new AvUserAuthorizations();
+
+  };
+
+  availity.core.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
 
 })(window);
 
@@ -1129,7 +1291,7 @@
         return $q.when(this.permissions);
       }
 
-      return avPermissionsResource.all().then(function(permissions) {
+      return avPermissionsResource.query().then(function(permissions) {
         self.permissions = permissions;
         return self.permissions;
       });
@@ -1168,7 +1330,13 @@
 
 // Source: /lib/core/idle/idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
-
+//
+// Rules:
+//
+//  * ping after 3 minutes from last human activity
+//  * reset session after api success except 401
+//  * idle show after 25 of inactivity
+//
 (function(root) {
 
   'use strict';
@@ -1177,23 +1345,17 @@
 
   availity.core.constant('AV_IDLE', {
     EVENTS: {
-      INACTIVE: 'av:idle:inactive',
-      ACTIVE: 'av:idle:active',
+      IDLE_INACTIVE: 'av:idle:inactive',
+      IDLE_ACTIVE: 'av:idle:active',
       SESSION_TIMEOUT_ACTIVE: 'av:idle:session:active',
-      SESSION_TIMEOUT_INACTIVE: 'av:idle:session:inactive',
-      HUMAN: 'keydown mousemove DOMMouseScroll mousewheel mousedown scroll',
+      SESSION_TIMEOUT_REDIRECT: 'av:idle:session:redirect',
+      HUMAN: 'keydown.av.idle mousedown.av.idle keydown.av.idle',
       MACHINE: '$locationChangeSuccess'
     },
     INTERVALS: {
       PING: 3 * 60 * 1000, // 3 minutes
       IDLE: 25 * 60 * 1000, // 25 minutes
       SESSION: 30 * 60 * 1000 // 30 minutes
-      // PING: 2000
-      // PING: 3 * 60 * 1000, // 3 minutes
-      // IDLE: 5000
-      // IDLE: 25 * 60 * 1000, // 25 minutes
-      // SESSION: 10000
-      // SESSION: 30 * 60 * 1000 // 30 minutes
     },
     URLS: {
       HOME: '/availity/web/public.elegant.login',
@@ -1201,17 +1363,14 @@
     }
   });
 
-  // Rules:
-  //
-  //  * ping after 3 minutes from last human activity
-  //  * reset session after api success except 401
-  //  * idle show after 25 of inactivity
-  //
-  availity.core.provider('avIdle', function() {
+  availity.core.provider('avIdle', function(AV_IDLE) {
 
     var enabled = true;
     var pingUrl;
-
+    var redirectUrl;
+    var sessionTimeout;
+    var idleTimeout;
+    var pingTimeout;
 
     this.enable = function(value) {
       if(arguments.length) {
@@ -1220,20 +1379,35 @@
       return enabled;
     };
 
+    this.setSessionTimeout = function(timeout) {
+      sessionTimeout = timeout || AV_IDLE.INTERVALS.SESSION;
+    };
+
+    this.setIdleTimeout = function(timeout) {
+      idleTimeout = timeout || AV_IDLE.INTERVALS.IDLE;
+    };
+
+    this.setPingTimeout = function(timeout) {
+      pingTimeout = timeout || AV_IDLE.INTERVALS.PING;
+    };
+
     this.setPingUrl = function(url) {
-      pingUrl = url;
+      pingUrl = url || AV_IDLE.URLS.PING;
     };
 
     this.$get = function(AV_IDLE, $log, $document, $rootScope, $timeout, avThrottle, $q, $injector) {
 
       var AvIdle = function() {
 
-        pingUrl = pingUrl || AV_IDLE.URLS.PING;
-
+        // $timeout references
         this._idleTimer = null;
         this._sessionTimer = null;
         this._pingTimer = null;
+        this._keepAlive = null;
+
+        // flag used to track if the if user is idle or session expired
         this.idleActive = false;
+        this.sessionActive = false;
 
         this.listeners = [];
 
@@ -1246,61 +1420,61 @@
       proto.init = function() {
 
         if(!enabled) {
-          this.onDisabled();
+          this.stop();
           return;
         }
 
-        $rootScope.$on('$destroy', function() {
-          proto.onDisabled();
-        });
-
-        this.onEnabled();
+        this.start();
       };
 
-      proto.onEnabled = function() {
-        var self = this;
+      proto.start = function() {
 
+        $log.info('avIdle start');
+
+        var self = this;
         var listener;
+
+        !sessionTimeout && this.setSessionTimeout();
+        !idleTimeout && this.setIdleTimeout();
+        !pingTimeout && this.setPingTimeout();
+        !pingUrl && this.setPingUrl();
+        !redirectUrl && this.setRedirectUrl();
+
+        $rootScope.$on('$destroy', function() {
+          self.stop();
+        });
 
         $document.find('body').on(AV_IDLE.EVENTS.HUMAN, function(event) {
           self.onEvent(event);
         });
 
-        listener = $rootScope.$on(AV_IDLE.EVENTS.MACHINE, function(event) {
-          self.onEvent(event);
+        listener = $rootScope.$on(AV_IDLE.EVENTS.MACHINE, function(event, oldUrl, newUrl) {
+          if(oldUrl !== newUrl) {
+            self.onEvent(event);
+          }
         });
         this.listeners.push(listener);
 
-        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
-          self.idleTimerInActive();
-        });
-        this.listeners.push(listener);
-
-        $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE, function() {
-          self.onSessionInactive();
+        $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_REDIRECT, function() {
+          document.location.href = redirectUrl;
         });
 
-
-        this.idleTimer();
-        this.sessionTimer();
+        this.startIdleTimer();
+        this.startSessionTimer();
       };
 
-      proto.onDisabled = function() {
+      proto.stop = function() {
 
         $document.find('body').off(AV_IDLE.EVENTS.HUMAN);
 
-        // turns off Angular event listeners => http://stackoverflow.com/a/14898795
+        // turns off Angular event listeners @see http://stackoverflow.com/a/14898795
         _.each(this.listeners, function(listener) {
           listener();
         });
 
-        $timeout.cancel(this._sessionTimer);
-        $timeout.cancel(this._idleTimer);
-        this.cancelIdleTimer();
-      };
-
-      proto.cancelIdleTimer = function() {
-        $timeout.cancel(this._idleTimer);
+        this.stopPing();
+        this.stopSessionTimer();
+        this.stopIdleTimer();
       };
 
       proto.isEnabled = function() {
@@ -1315,95 +1489,137 @@
         return this;
       };
 
+      proto.setSessionTimeout = function(timeout) {
+        sessionTimeout = timeout || AV_IDLE.INTERVALS.SESSION;
+        return this;
+      };
+
+      proto.setIdleTimeout = function(timeout) {
+        idleTimeout = timeout || AV_IDLE.INTERVALS.IDLE;
+        return this;
+      };
+
+      proto.setPingTimeout = function(timeout) {
+        pingTimeout = timeout || AV_IDLE.INTERVALS.PING;
+        return this;
+      };
+
+      proto.setPingUrl = function(url) {
+        pingUrl = url || AV_IDLE.URLS.PING;
+        return this;
+      };
+
+      proto.setRedirectUrl = function(url) {
+        redirectUrl = url || AV_IDLE.URLS.HOME;
+        return this;
+      };
+
       proto.response = function(response) {
-        this.sessionTimer();
+
+        if(this.isApiRequest(response)) {
+          this.startSessionTimer();
+        }
+
         return response;
+      };
+
+      proto.isApiRequest = function(response) {
+        return response && response.config && response.config.api;
       };
 
       proto.responseError = function(response) {
 
-        if(response.status !== 401) {
-          this.sessionTimer();
+        if(this.isApiRequest(response) && response.status !== 401) {
+          this.startSessionTimer();
+        }
+
+        if(this.isApiRequest() && response.status === 401) {
+          this.stopPing();
         }
 
         return $q.reject(response);
       };
 
-      proto.sessionTimer = function() {
+      proto.startSessionTimer = function() {
 
         var self = this;
+
+        this.stopSessionTimer();
+
+        var later = function() {
+          $log.info('avIdle session has TIMED OUT');
+          self.stop();
+          $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE);
+        };
+
+        $log.info('avIdle session timer has STARTED');
+        this._sessionTimer = $timeout(later, sessionTimeout, false);
+
+      };
+
+      proto.stopSessionTimer = function() {
+        $log.info('avIdle session timer has STOPPED');
         $timeout.cancel(this._sessionTimer);
-
-        var later = function() {
-          self.onSessionActive();
-        };
-
-        this._sessionTimer = $timeout(later, AV_IDLE.INTERVALS.SESSION, false);
-
       };
 
-      proto.idleTimer = function() {
+      proto.startIdleTimer = function() {
+
         var self = this;
-        $timeout.cancel(this._idleTimer);
+
+        this.stopIdleTimer();
 
         var later = function() {
-          self.idleTimerActive();
+          self.stopIdleTimer();
+          $log.info('avIdle is IDLING');
+          $rootScope.$broadcast(AV_IDLE.EVENTS.IDLE_ACTIVE);
         };
 
-        this._idleTimer = $timeout(later, AV_IDLE.INTERVALS.IDLE, false);
+        $log.info('avIdle idle timer has STARTED');
+        this._idleTimer = $timeout(later, idleTimeout, false);
       };
 
-      proto.onSessionActive = function() {
-        $log.info('idle session active');
-        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE);
+      proto.stopIdleTimer = function() {
+        $log.info('avIdle idle timer has STOPPED');
+        $timeout.cancel(this._idleTimer);
       };
 
-      proto.idleTimerActive = function() {
-        $log.info('idle active');
-        this.idleActive = true;
-        $rootScope.$broadcast(AV_IDLE.EVENTS.ACTIVE);
-      };
+      proto.startPing = function() {
 
-      proto.idleTimerInActive = function() {
-        $log.info('idle inactive');
-        this.idleActive = false;
-      };
-
-      proto.onSessionInactive = function() {
-        $log.info('idle session inactive');
-        this.onDisabled();
-        document.location.href = AV_IDLE.URLS.HOME;
-      };
-
-      proto.ping = function() {
-
-        if(this.idleActive) {
-          this.unPing();
-          return;
+        if(!this._keepAlive) {
+          $log.info('avIdle ping timer has STARTED');
+          this._keepAlive = avThrottle(this.keepAlive, pingTimeout, {context: this});
         }
 
-        if(!this._send) {
-          this._send = avThrottle(this.send, AV_IDLE.INTERVALS.PING, {context: this});
-        }
-
-        this._pingTimer = this._send();
+        this._pingTimer = this._keepAlive();
       };
 
-      proto.unPing = function() {
+      proto.stopPing = function() {
+        $log.info('avIdle ping timer has STOPPED');
         if(this._pingTimer) {
           $timeout.cancel(this._pingTimer);
         }
       };
 
-      proto.send = function() {
-        $log.info('sending ping');
+      proto.keepAlive = function() {
+
+        // destroy the reference to that a new throttle gets created upon
+        // next user or system event
+        this._keepAlive = null;
         var $http = $injector.get('$http');
-        $http.get(pingUrl);
+
+        $http.get(pingUrl, {
+          cache: false,
+          api: true
+        }).success(function() {
+          $log.info('avIdle keep-alive SUCCESS');
+        }).error(function() {
+          $log.error('avIdle keep-alive FAILURE');
+        });
       };
 
       proto.onEvent = function() {
-        this.idleTimer();
-        this.ping();
+        this.startIdleTimer();
+        this.startPing();
       };
 
       return new AvIdle();

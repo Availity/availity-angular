@@ -77,6 +77,9 @@ gulp.task('build:docs', function() {
           sortBy: 'menu',
           reverse: false
         },
+        core: {
+          pattern: '**/*-core-demo.html'
+        },
         ui: {
           pattern: '**/*-ui-demo.html'
         },
@@ -93,7 +96,7 @@ gulp.task('build:docs', function() {
       .on('error', console.log.bind(console))
     )
     // only include full pages and ignore page snippets in dest build folder
-    .pipe(filter(['*', '!**/*-ui-demo.html']))
+    .pipe(filter(['*', '!**/*-demo.html']))
     .pipe(gulpif(config.args.verbose, using({prefix:'`build:docs` [dest] using'})))
     .pipe(rename(function(file) {
       if(!/\.hbs/.test(file.extname)) {
