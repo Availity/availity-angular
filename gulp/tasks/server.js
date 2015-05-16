@@ -24,7 +24,7 @@ gulp.task('server:rest', function () {
   });
 });
 
-gulp.task('server:sync', ['server:rest'], function() {
+gulp.task('server:sync', ['server:rest'], function(cb) {
   var browserSync = require('browser-sync');
   var url = require('url');
   var path = require('path');
@@ -45,7 +45,9 @@ gulp.task('server:sync', ['server:rest'], function() {
   var proxyOptions = url.parse(_url({port: servers.web.port}));
   proxyOptions.route = '/api';
 
-  browserSync({
+  var bs = browserSync.create();
+
+  bs.init({
     notify: true,
     logPrefix: 'browersync',
     server: {
@@ -63,6 +65,7 @@ gulp.task('server:sync', ['server:rest'], function() {
         proxy(proxyOptions)
       ]
     }
-  });
+  }, cb);
+
 });
 

@@ -40,7 +40,7 @@ module.exports = function(config) {
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
     frameworks: ['jasmine'],
-    reporters: ['progress', 'saucelabs'],
+    reporters: ['mocha', 'saucelabs'],
     port: 9876,
     colors: true,
     sauceLabs: sauceLabs,
