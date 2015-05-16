@@ -17,14 +17,14 @@ gulp.task('concat', [
   'concat:docs:js']);
 
 gulp.task('concat:vendor', function() {
-  gulp.src(config.vendor.src)
+  return gulp.src(config.vendor.src)
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:vendor] using'})))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(config.vendor.dest));
 });
 
 gulp.task('concat:lib', function() {
-  gulp.src(config.lib.src)
+  return gulp.src(config.lib.src)
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:lib] using'})))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
@@ -41,7 +41,7 @@ gulp.task('concat:lib', function() {
 });
 
 gulp.task('concat:ui', function() {
-  gulp.src(config.ui.src)
+  return gulp.src(config.ui.src)
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:ui] using'})))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))
@@ -58,7 +58,7 @@ gulp.task('concat:ui', function() {
 });
 
 gulp.task('concat:docs:js', function() {
-  gulp.src(config.docs.js.src)
+  return gulp.src(config.docs.js.src)
     .pipe(gulpif(config.args.verbose, using({prefix:'Task [concat:docs:js] using'})))
     .pipe(replace(config.regex.JSHINT, ''))
     .pipe(replace(config.regex.GLOBAL, ''))

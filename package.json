@@ -76,7 +76,7 @@
     "proxy-middleware": "^0.11.0",
     "request": "^2.55.0",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.0.2",
+    "run-sequence": "^1.1.0",
     "semver": "^4.3.3",
     "sinon": "^1.14.1",
     "underscore.string": "^3.0.3"
