@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",
@@ -58,6 +58,7 @@
     "karma": "^0.12.30",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.3",
+    "karma-mocha-reporter": "^1.0.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sauce-launcher": "^0.2.10",
     "lodash": "^3.6.0",
@@ -75,7 +76,7 @@
     "proxy-middleware": "^0.11.0",
     "request": "^2.55.0",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.0.2",
+    "run-sequence": "^1.1.0",
     "semver": "^4.3.3",
     "sinon": "^1.14.1",
     "underscore.string": "^3.0.3"

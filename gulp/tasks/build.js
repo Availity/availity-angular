@@ -60,7 +60,6 @@ gulp.task('build:handlebars:partials', function() {
     }
     return out;
   });
-
 });
 
 gulp.task('build:docs', function() {
@@ -114,7 +113,7 @@ gulp.task('build:templates', function() {
   var htmlify = require('gulp-angular-htmlify');
   var htmlmin = require('gulp-htmlmin');
 
-  gulp.src(config.templates.src)
+  return gulp.src(config.templates.src)
     .pipe(htmlmin({removeComments: true, collapseWhitespace: true}))
     .pipe(htmlify())
     .pipe(templateCache(config.templates.name, {
