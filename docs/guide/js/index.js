@@ -7,7 +7,9 @@ var availity = window.availity || {};
   availity.demo = angular.module('availity.demo', [
     'availity',
     'availity.ui',
-    'availity.ui.templates'
+    'availity.ui.templates',
+    'ngAnimate',
+    'angular-velocity'
   ]);
 
   availity.demo.controller('PageController', function() {

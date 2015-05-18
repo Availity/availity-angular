@@ -1,0 +1,22 @@
+---
+title: Animation
+---
+
+<div data-ng-controller="AnimationController">
+
+  <div class="guide-example">
+    <p>
+      <button data-ng-click="animate.onClick()" class="btn btn-default">{{animate.message}}</button>
+    </p>
+    <div class="velocity-opposites-transition-expandIn" ng-show="animate.visible">
+      <div class="alert alert-warning">
+      A website in motion stays in motion and is <em><strong>way more awesome</strong></em>.
+      </div>
+    </div>
+  </div>
+  <code class="language-markup">
+    <div class="velocity-opposites-transition-tada" ng-show="animate.visible">
+        ...
+    </div>
+  </code>
+</div>
