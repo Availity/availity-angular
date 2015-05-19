@@ -2,7 +2,7 @@
 title: Has Permision
 ---
 <div data-ng-controller="HasPermissionController">
-  <h3 class="guide-subsection-title">Check Single Permission </h3>
+  <h3 class="guide-subsection-title">Check One Or More Permissions</h3>
 
   <div class="guide-example">
     <p>
@@ -15,19 +15,19 @@ title: Has Permision
       <button type="button"
               class="btn btn-lg btn-success"
               ng-cloak
-              data-av-has-permission="{{DEMO_PERMISSIONS.GOOD}}"
+              data-av-has-permission="DEMO_PERMISSIONS.GOOD"
         >
         Is Authorized to 452
       </button>
       <button type="button"
               class="btn btn-lg btn-danger"
-              data-av-has-permission="{{DEMO_PERMISSIONS.BAD}}"
+              data-av-has-permission="DEMO_PERMISSIONS.BAD"
         >
         Not Authorized to 999
       </button>
       <button type="button"
               class="btn btn-lg btn-success"
-              data-av-has-any-permission="{{}}"
+              data-av-has-permission="either"
         >
         Is Authorized to 452 or 999
       </button>
@@ -35,34 +35,44 @@ title: Has Permision
 
   </div>
   <code class="language-markup">
-    <button type="button"
-            class="btn btn-lg btn-success"
-            ng-cloak
-            data-av-has-permission="{{DEMO_PERMISSIONS.GOOD}}"
-      >
-      Is Authorized to 452
-    </button>
-    <button type="button"
-            class="btn btn-lg btn-danger"
-            data-av-has-permission="{{DEMO_PERMISSIONS.BAD}}"
-      >
-      Not Authorized to 999
-    </button>
+    <p ng-cloak>
+      <button type="button"
+              class="btn btn-lg btn-success ng-hide"
+              ng-cloak
+              data-av-has-permission="DEMO_PERMISSIONS.GOOD"
+        >
+        Is Authorized to 452
+      </button>
+      <button type="button"
+              class="btn btn-lg btn-danger"
+              data-av-has-permission="DEMO_PERMISSIONS.BAD"
+        >
+        Not Authorized to 999
+      </button>
+      <button type="button"
+              class="btn btn-lg btn-success"
+              data-av-has-permission="either"
+        >
+        Is Authorized to 452 or 999
+      </button>
+    </p>
+
+    <!-- Javascript -->
+    <script>
+      var availity = root.availity;
+
+      availity.demo.constant('DEMO_PERMISSIONS', {
+        GOOD: '452',
+        BAD: '999'
+      });
+
+      availity.demo.controller('HasPermissionController', function($scope, DEMO_PERMISSIONS, avUserAuthorizations) {
+        $scope.DEMO_PERMISSIONS = DEMO_PERMISSIONS;
+        $scope.either = _.values(DEMO_PERMISSIONS);
+        // This is not required but does prevent multiple hits bad to server
+        avUserAuthorizations.getPermissions(_.values(DEMO_PERMISSIONS));
+      });
+    </script>
+
   </code>
-<!-- Javascript -->
-  <script>
-  var availity = root.availity;
-
-  availity.demo.constant('DEMO_PERMISSIONS', {
-  GOOD: '452',
-  BAD: '999'
-  });
-
-  availity.demo.controller('HasPermissionController', function($scope, DEMO_PERMISSIONS, avUserAuthorizations) {
-  $scope.DEMO_PERMISSIONS = DEMO_PERMISSIONS;
-  // This is not required but does prevent multiple hits bad to server
-  avUserAuthorizations.getPermissions(_.values(DEMO_PERMISSIONS));
-
-  });
-</script>
 </div>
