@@ -1,0 +1,68 @@
+---
+title: Has Permision
+---
+<div data-ng-controller="HasPermissionController">
+  <h3 class="guide-subsection-title">Check Single Permission </h3>
+
+  <div class="guide-example">
+    <p>
+      The following gives example of how to hide a section based on whether or not user has permission. There should be
+      only one button showing below. Best Practice is to define all permissions used in your app in constant. Also best
+      to issue get for all permissions on load of app to avoid multiple hits to service.
+    </p>
+
+    <p ng-cloak>
+      <button type="button"
+              class="btn btn-lg btn-success"
+              ng-cloak
+              data-av-has-permission="{{DEMO_PERMISSIONS.GOOD}}"
+        >
+        Is Authorized to 452
+      </button>
+      <button type="button"
+              class="btn btn-lg btn-danger"
+              data-av-has-permission="{{DEMO_PERMISSIONS.BAD}}"
+        >
+        Not Authorized to 999
+      </button>
+      <button type="button"
+              class="btn btn-lg btn-success"
+              data-av-has-permission="{{}}"
+        >
+        Is Authorized to 452 or 999
+      </button>
+    </p>
+
+  </div>
+  <code class="language-markup">
+    <button type="button"
+            class="btn btn-lg btn-success"
+            ng-cloak
+            data-av-has-permission="{{DEMO_PERMISSIONS.GOOD}}"
+      >
+      Is Authorized to 452
+    </button>
+    <button type="button"
+            class="btn btn-lg btn-danger"
+            data-av-has-permission="{{DEMO_PERMISSIONS.BAD}}"
+      >
+      Not Authorized to 999
+    </button>
+  </code>
+<!-- Javascript -->
+  <script>
+  var availity = root.availity;
+
+  availity.demo.constant('DEMO_PERMISSIONS', {
+  GOOD: '452',
+  BAD: '999'
+  });
+
+  availity.demo.controller('HasPermissionController', function($scope, DEMO_PERMISSIONS, avUserAuthorizations) {
+  $scope.DEMO_PERMISSIONS = DEMO_PERMISSIONS;
+  // This is not required but does prevent multiple hits bad to server
+  avUserAuthorizations.getPermissions(_.values(DEMO_PERMISSIONS));
+
+  });
+</script>
+</div>
