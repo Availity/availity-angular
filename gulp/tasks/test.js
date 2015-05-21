@@ -12,7 +12,7 @@ var files = config.test.src
 
 gulp.task('test', ['test:ci']);
 
-gulp.task('test:ci', ['lint'], function (done) {
+gulp.task('test:ci', ['av:lint'], function (done) {
   var karma = require('karma').server;
   karma.start({
     configFile: path.join(config.project.path, 'karma.conf.js'),
@@ -21,7 +21,7 @@ gulp.task('test:ci', ['lint'], function (done) {
   }, done);
 });
 
-gulp.task('test:sauce', ['lint'], function (done) {
+gulp.task('test:sauce', ['av:lint'], function (done) {
   var karma = require('karma').server;
   karma.start({
     configFile: path.join(config.project.path, 'karma.conf-ci.js'),
@@ -33,7 +33,7 @@ gulp.task('test:sauce', ['lint'], function (done) {
   });
 });
 
-gulp.task('test:server', ['lint'], function() {
+gulp.task('test:server', ['av:lint'], function() {
   var karma = require('karma').server;
   karma.start({
     configFile: path.join(config.project.path, 'karma.conf.js'),

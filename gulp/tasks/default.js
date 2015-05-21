@@ -1,9 +1,16 @@
 var gulp = require('gulp');
+var runSequence = require('run-sequence').use(gulp);
 
-gulp.task('default', [
-  'copy',
-  'concat',
-  'build',
-  'server:sync',
-  'watch'
-]);
+var config = require('../config');
+require('availity-limo')(gulp, config);
+
+gulp.task('default', function() {
+
+  runSequence(
+    'clean',
+    ['copy', 'concat', 'build'],
+    'server:sync',
+    'watch'
+  );
+
+});
