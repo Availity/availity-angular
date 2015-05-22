@@ -9,7 +9,7 @@ gulp.task('lint', ['lint:js', 'lint:lib']);
 
 gulp.task('lint:lib', function() {
 
-  gulp.src(config.lib.src)
+  gulp.src(config.lib.src.concat(config.lib.specs))
     .pipe(jscs())
     .pipe(jshint(config.lib.jshintrc))
     .pipe(jshint.reporter(stylish));
