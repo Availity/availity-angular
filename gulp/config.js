@@ -112,7 +112,8 @@ module.exports = {
       './bower_components/lodash-compat/lodash.js',
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
-      './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js'
+      './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      './bower_components/angular-ui-utils/mask.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',

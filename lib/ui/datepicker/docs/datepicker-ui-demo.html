@@ -4,6 +4,11 @@ title: Datepicker
 <div data-ng-controller="DatepickerController">
 
   <h3 class="guide-subsection-title">Datepicker</h3>
+
+  <div data-markdown>
+> Datepickers can incorporate a mask by setting `data-ui-mask="99/99/9999"` on the date input field, as shown in the examples below. To use the mask, you must import `bower-components/angular-ui-utils/mask.js` and include the `ui.mask` module into your AngularJS application.
+  </div>
+
   <div class="guide-example">
     <form name="datepickerForm">
       <div class="form-group">
@@ -13,6 +18,7 @@ title: Datepicker
            class="form-control"
            id="withIcon"
            data-ng-model="demo.dateTime1"
+           data-ui-mask="99/99/9999"
            data-av-datepicker
           />
           <span class="input-group-btn" data-toggle="datepicker">
@@ -26,6 +32,7 @@ title: Datepicker
          class="form-control"
          id="noIcon"
          data-ng-model="demo.dateTime2"
+         data-ui-mask="99/99/9999"
          data-av-datepicker
         />
       </div>
@@ -40,6 +47,7 @@ title: Datepicker
        class="form-control"
        id="withIcon"
        data-ng-model="demo.dateTime1"
+       data-ui-mask="99/99/9999"
        data-av-datepicker
       />
       <span class="input-group-btn" data-toggle="datepicker">
