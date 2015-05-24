@@ -88,7 +88,8 @@ module.exports = {
       './lib/ui/validation/adapter.js',
       './lib/ui/dropdown/dropdown.js',
       './lib/ui/datepicker/datepicker.js',
-      './lib/ui/idle/idle-notifier.js'
+      './lib/ui/idle/idle-notifier.js',
+      './lib/ui/mask/mask.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
