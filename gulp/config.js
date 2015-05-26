@@ -185,6 +185,7 @@ module.exports = {
       'bower_components/select2/select2.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
+      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
