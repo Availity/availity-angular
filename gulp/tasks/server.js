@@ -45,9 +45,7 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
   var proxyOptions = url.parse(_url({port: servers.web.port}));
   proxyOptions.route = '/api';
 
-  var bs = browserSync.create();
-
-  bs.init({
+  browserSync({
     notify: true,
     logPrefix: 'browersync',
     server: {

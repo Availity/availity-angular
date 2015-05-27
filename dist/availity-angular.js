@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.7.1 -- May-10
+ * availity-angular v0.8.0 -- May-22
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.7.1';
+  availity.VERSION = 'v0.8.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -874,39 +874,6 @@
 
 })(window);
 
-// Source: /lib/core/api/api-permissions.js
-(function(root) {
-
-  'use strict';
-
-  var PermissionFactory = function(AvApiResource) {
-
-    var AvPermissionsResource = function() {
-      AvApiResource.call(this, {version: '/v1', url: '/permissions'});
-    };
-
-    angular.extend(AvPermissionsResource.prototype, AvApiResource.prototype, {
-
-      afterAll: function(response) {
-        return response.data.permissions ? response.data.permissions : response.data;
-      },
-
-      getPermissions: function(permissionId) {
-        return this.query({params: {permissionId: permissionId}}).then(function(response) {
-          var result = response.data.permissions ? response.data.permissions : [];
-          return result;
-        });
-      }
-
-    });
-    return new AvPermissionsResource();
-  };
-
-
-  root.availity.core.factory('avPermissionsResource', PermissionFactory);
-
-})(window);
-
 // Source: /lib/core/api/api-coverages.js
 (function(root) {
 
@@ -1262,7 +1229,7 @@
     NOT_AUTHORIZED: 'av:auth:not:authorized'
   });
 
-  availity.core.factory('avSession', function($q, avUsersResource, avPermissionsResource) {
+  availity.core.factory('avSession', function($q, avUsersResource) {
 
     var AvSession = function() {
       this.user = null;
@@ -1284,39 +1251,6 @@
       });
     };
 
-    proto.getPermissions = function() {
-      var self = this;
-
-      if(this.permissions) {
-        return $q.when(this.permissions);
-      }
-
-      return avPermissionsResource.query().then(function(permissions) {
-        self.permissions = permissions;
-        return self.permissions;
-      });
-    };
-
-    proto.hasPermission = function(permissionId, orgId, geography) {
-      return this.getPermissions().then(function(permissions) {
-        var permission = _.find(permissions, function(p) {
-          return p.id === permissionId;
-        });
-        if(permission === undefined) {
-          return false;
-        }
-
-        if(orgId !== undefined && orgId !== null && !_.contains(permission.organizationIds, orgId)) {
-          return false;
-        }
-
-        if(geography !== undefined && geography !== null && !_.contains(permission.geographies, geography)) {
-          return false;
-        }
-
-        return true;
-      });
-    };
 
     proto.destroy = function() {
       this.user = null;
@@ -1934,36 +1868,62 @@
   availity.core.factory('avValDateRange', function(AV_VAL, avValUtils) {
 
     var validator = {
-      name: 'dateRange',
-      getMinDate: function(minDate) {
-        var period = minDate.replace(AV_VAL.PATTERNS.ALPHA_ONLY, '');
-        var val = parseInt( minDate.replace(AV_VAL.PATTERNS.NUMERIC_ONLY, ''), 10);
-        var min = moment().subtract(val, period);
-        return min;
-      },
-      getMaxDate: function(maxDate) {
-        var max = moment();
-        var period = maxDate.replace(AV_VAL.PATTERNS.ALPHA_ONLY, '');
-        var val = parseInt( maxDate.replace(AV_VAL.PATTERNS.NUMERIC_ONLY, ''), 10);
 
-        if(maxDate !== 'today') {
-          max = moment().add(val, period);
-        } else {
-          max.set('hours', 23);
-          max.set('minutes', 59);
-          max.set('seconds', 59);
-        }
-        return max;
+      name: 'dateRange',
+
+      getStartDate: function(start) {
+        return validator.setMin(moment().add(start.value, start.units));
       },
+
+      getEndDate: function(end) {
+        return validator.setMax(moment().add(end.value, end.units) );
+      },
+
+      setMin: function(value) {
+
+        // [fix]: if time is provided this may cause issues.
+        value.set('hours', 0);
+        value.set('minutes', 0);
+        value.set('seconds', 0);
+
+        return value;
+      },
+
+      setMax: function(value) {
+
+        // [fix]: if time is provided this may cause issues.
+        value.set('hours', 23);
+        value.set('minutes', 59);
+        value.set('seconds', 59);
+
+        return value;
+      },
+
       validation: function(value, rules) {
-        var minDate = validator.getMinDate(rules.min);
-        var maxDate = validator.getMaxDate(rules.max);
-        value = moment(value, rules.format);
-        return !value.isBefore(minDate) && !value.isAfter(maxDate);
+
+        var date;
+        var startDate;
+        var endDate;
+
+        date = moment(value, rules.format || AV_VAL.DATE_FORMAT.SIMPLE);
+        date.set('hours', 0);
+        date.set('minutes', 0);
+        date.set('seconds', 0);
+
+        if(!avValUtils.isEmpty(rules.start.units) && !avValUtils.isEmpty(rules.end.units)) {
+          startDate = validator.getStartDate(rules.start);
+          endDate = validator.getEndDate(rules.end);
+        } else {
+          startDate = moment(rules.start.value, rules.format);
+          endDate = validator.setMax(moment(rules.end.value, rules.format));
+        }
+        return date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
       },
+
       validate: function(value, rule) {
         return avValUtils.isEmpty(value) || validator.validation(value, rule);
       }
+
     };
 
     return validator;
@@ -1982,9 +1942,7 @@
     var validator = {
       name: 'dateFormat',
       validate: function(value, rules) {
-
         var format = rules && rules.format ? rules.format : AV_VAL.DATE_FORMAT.SIMPLE;
-
         return avValUtils.isEmpty(value) || moment(value, format, true).isValid();
       }
     };
@@ -1999,218 +1957,213 @@
 
   var availity = root.availity;
 
-  availity.core.constant('AV_GLOBALS', function() {
-
-    return {
-
-      STATES: [
-        {
-          'name': 'Alabama',
-          'code': 'AL'
-        },
-        {
-          'name': 'Alaska',
-          'code': 'AK'
-        },
-        {
-          'name': 'Arizona',
-          'code': 'AZ'
-        },
-        {
-          'name': 'Arkansas',
-          'code': 'AR'
-        },
-        {
-          'name': 'California',
-          'code': 'CA'
-        },
-        {
-          'name': 'Colorado',
-          'code': 'CO'
-        },
-        {
-          'name': 'Connecticut',
-          'code': 'CT'
-        },
-        {
-          'name': 'Delaware',
-          'code': 'DE'
-        },
-        {
-          'name': 'District Of Columbia',
-          'code': 'DC'
-        },
-        {
-          'name': 'Florida',
-          'code': 'FL'
-        },
-        {
-          'name': 'Georgia',
-          'code': 'GA'
-        },
-        {
-          'name': 'Hawaii',
-          'code': 'HI'
-        },
-        {
-          'name': 'Idaho',
-          'code': 'ID'
-        },
-        {
-          'name': 'Illinois',
-          'code': 'IL'
-        },
-        {
-          'name': 'Indiana',
-          'code': 'IN'
-        },
-        {
-          'name': 'Iowa',
-          'code': 'IA'
-        },
-        {
-          'name': 'Kansas',
-          'code': 'KS'
-        },
-        {
-          'name': 'Kentucky',
-          'code': 'KY'
-        },
-        {
-          'name': 'Louisiana',
-          'code': 'LA'
-        },
-        {
-          'name': 'Maine',
-          'code': 'ME'
-        },
-        {
-          'name': 'Maryland',
-          'code': 'MD'
-        },
-        {
-          'name': 'Massachusetts',
-          'code': 'MA'
-        },
-        {
-          'name': 'Michigan',
-          'code': 'MI'
-        },
-        {
-          'name': 'Minnesota',
-          'code': 'MN'
-        },
-        {
-          'name': 'Mississippi',
-          'code': 'MS'
-        },
-        {
-          'name': 'Missouri',
-          'code': 'MO'
-        },
-        {
-          'name': 'Montana',
-          'code': 'MT'
-        },
-        {
-          'name': 'Nebraska',
-          'code': 'NE'
-        },
-        {
-          'name': 'Nevada',
-          'code': 'NV'
-        },
-        {
-          'name': 'New Hampshire',
-          'code': 'NH'
-        },
-        {
-          'name': 'New Jersey',
-          'code': 'NJ'
-        },
-        {
-          'name': 'New Mexico',
-          'code': 'NM'
-        },
-        {
-          'name': 'New York',
-          'code': 'NY'
-        },
-        {
-          'name': 'North Carolina',
-          'code': 'NC'
-        },
-        {
-          'name': 'North Dakota',
-          'code': 'ND'
-        },
-        {
-          'name': 'Ohio',
-          'code': 'OH'
-        },
-        {
-          'name': 'Oklahoma',
-          'code': 'OK'
-        },
-        {
-          'name': 'Oregon',
-          'code': 'OR'
-        },
-        {
-          'name': 'Pennsylvania',
-          'code': 'PA'
-        },
-        {
-          'name': 'Rhode Island',
-          'code': 'RI'
-        },
-        {
-          'name': 'South Carolina',
-          'code': 'SC'
-        },
-        {
-          'name': 'South Dakota',
-          'code': 'SD'
-        },
-        {
-          'name': 'Tennessee',
-          'code': 'TN'
-        },
-        {
-          'name': 'Texas',
-          'code': 'TX'
-        },
-        {
-          'name': 'Utah',
-          'code': 'UT'
-        },
-        {
-          'name': 'Vermont',
-          'code': 'VT'
-        },
-        {
-          'name': 'Virginia',
-          'code': 'VA'
-        },
-        {
-          'name': 'Washington',
-          'code': 'WA'
-        },
-        {
-          'name': 'West Virginia',
-          'code': 'WV'
-        },
-        {
-          'name': 'Wisconsin',
-          'code': 'WI'
-        },
-        {
-          'name': 'Wyoming',
-          'code': 'WY'
-        }
-      ]
-    };
-
+  availity.core.constant('AV_GLOBALS', {
+    REGIONS: [
+      {
+        'name': 'Alabama',
+        'code': 'AL'
+      },
+      {
+        'name': 'Alaska',
+        'code': 'AK'
+      },
+      {
+        'name': 'Arizona',
+        'code': 'AZ'
+      },
+      {
+        'name': 'Arkansas',
+        'code': 'AR'
+      },
+      {
+        'name': 'California',
+        'code': 'CA'
+      },
+      {
+        'name': 'Colorado',
+        'code': 'CO'
+      },
+      {
+        'name': 'Connecticut',
+        'code': 'CT'
+      },
+      {
+        'name': 'Delaware',
+        'code': 'DE'
+      },
+      {
+        'name': 'District Of Columbia',
+        'code': 'DC'
+      },
+      {
+        'name': 'Florida',
+        'code': 'FL'
+      },
+      {
+        'name': 'Georgia',
+        'code': 'GA'
+      },
+      {
+        'name': 'Hawaii',
+        'code': 'HI'
+      },
+      {
+        'name': 'Idaho',
+        'code': 'ID'
+      },
+      {
+        'name': 'Illinois',
+        'code': 'IL'
+      },
+      {
+        'name': 'Indiana',
+        'code': 'IN'
+      },
+      {
+        'name': 'Iowa',
+        'code': 'IA'
+      },
+      {
+        'name': 'Kansas',
+        'code': 'KS'
+      },
+      {
+        'name': 'Kentucky',
+        'code': 'KY'
+      },
+      {
+        'name': 'Louisiana',
+        'code': 'LA'
+      },
+      {
+        'name': 'Maine',
+        'code': 'ME'
+      },
+      {
+        'name': 'Maryland',
+        'code': 'MD'
+      },
+      {
+        'name': 'Massachusetts',
+        'code': 'MA'
+      },
+      {
+        'name': 'Michigan',
+        'code': 'MI'
+      },
+      {
+        'name': 'Minnesota',
+        'code': 'MN'
+      },
+      {
+        'name': 'Mississippi',
+        'code': 'MS'
+      },
+      {
+        'name': 'Missouri',
+        'code': 'MO'
+      },
+      {
+        'name': 'Montana',
+        'code': 'MT'
+      },
+      {
+        'name': 'Nebraska',
+        'code': 'NE'
+      },
+      {
+        'name': 'Nevada',
+        'code': 'NV'
+      },
+      {
+        'name': 'New Hampshire',
+        'code': 'NH'
+      },
+      {
+        'name': 'New Jersey',
+        'code': 'NJ'
+      },
+      {
+        'name': 'New Mexico',
+        'code': 'NM'
+      },
+      {
+        'name': 'New York',
+        'code': 'NY'
+      },
+      {
+        'name': 'North Carolina',
+        'code': 'NC'
+      },
+      {
+        'name': 'North Dakota',
+        'code': 'ND'
+      },
+      {
+        'name': 'Ohio',
+        'code': 'OH'
+      },
+      {
+        'name': 'Oklahoma',
+        'code': 'OK'
+      },
+      {
+        'name': 'Oregon',
+        'code': 'OR'
+      },
+      {
+        'name': 'Pennsylvania',
+        'code': 'PA'
+      },
+      {
+        'name': 'Rhode Island',
+        'code': 'RI'
+      },
+      {
+        'name': 'South Carolina',
+        'code': 'SC'
+      },
+      {
+        'name': 'South Dakota',
+        'code': 'SD'
+      },
+      {
+        'name': 'Tennessee',
+        'code': 'TN'
+      },
+      {
+        'name': 'Texas',
+        'code': 'TX'
+      },
+      {
+        'name': 'Utah',
+        'code': 'UT'
+      },
+      {
+        'name': 'Vermont',
+        'code': 'VT'
+      },
+      {
+        'name': 'Virginia',
+        'code': 'VA'
+      },
+      {
+        'name': 'Washington',
+        'code': 'WA'
+      },
+      {
+        'name': 'West Virginia',
+        'code': 'WV'
+      },
+      {
+        'name': 'Wisconsin',
+        'code': 'WI'
+      },
+      {
+        'name': 'Wyoming',
+        'code': 'WY'
+      }
+    ]
   });
 
 })(window);

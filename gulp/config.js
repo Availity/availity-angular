@@ -46,7 +46,6 @@ module.exports = {
       './lib/core/polling/polling.js',
       './lib/core/api/api-factory.js',
       './lib/core/api/api-users.js',
-      './lib/core/api/api-permissions.js',
       './lib/core/api/api-coverages.js',
       './lib/core/api/api-configurations.js',
       './lib/core/api/api-log-messages.js',
@@ -89,7 +88,8 @@ module.exports = {
       './lib/ui/dropdown/dropdown.js',
       './lib/ui/datepicker/datepicker.js',
       './lib/ui/idle/idle-notifier.js',
-      './lib/ui/mask/mask.js'
+      './lib/ui/mask/mask.js',
+      './lib/ui/permissions/has-permission.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',

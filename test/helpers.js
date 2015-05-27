@@ -24,7 +24,7 @@
      */
     directiveSpecHelper: function() {
 
-      beforeEach(inject(function(_$rootScope_, _$compile_, _$anchorScroll_, _$window_, _$controller_, _$location_, _$q_, _$timeout_) {
+      beforeEach(inject(function(_$rootScope_, _$compile_, _$anchorScroll_, _$window_, _$controller_, _$location_, _$q_, _$timeout_, _$httpBackend_) {
         availity.mock.$scope = _$rootScope_.$new();
         availity.mock.sandboxEl = $('<div>').attr('id', 'sandbox').appendTo($('body'));
         availity.mock.$compile = _$compile_;
@@ -34,12 +34,15 @@
         availity.mock.$anchorScroll = _$anchorScroll_;
         availity.mock.$q = _$q_;
         availity.mock.$timeout = _$timeout_;
+        availity.mock.$httpBackend = _$httpBackend_;
         availity.mock.spy = jasmine.createSpy('event');
       }));
 
       afterEach(function() {
         availity.mock.$scope.$destroy();
         availity.mock.sandboxEl.remove();
+        availity.mock.$httpBackend.verifyNoOutstandingExpectation();
+        availity.mock.$httpBackend.verifyNoOutstandingRequest();
       });
 
       availity.mock.compileDirective = function(template, $elScope, appendEl) {
