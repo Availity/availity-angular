@@ -3,50 +3,64 @@ title: Mask
 ---
 
 <div data-markdown>
-  > To use a mask you must declare the `data-av-mask` attribute and assign it a type.
+  > To use a mask you must declare the `data-av-mask` attribute and assign a predefined format or a mask definition.
 </div>
 <div data-markdown>
-  > Currently the defaults types are `phone`, `date`, and `SSN`.
+
+#### Predefined formats include:
+
+* `data-av-mask="phone"` which is equivalent to `99/99/9999`
+* `data-av-mask="data"`  which is equivalent to `(999)999-9999`
+* `data-av-mask="SSN"` which is equivalent to `999-99-9999`
+
+#### Roll a custom mask definition by using:
+
+* `9` being for digit,
+* `a` for letter
+* `*` for either a digit or a letter
 </div>
 <div data-markdown>
-  > You can roll a type by simply writing it out, `9` being for digit, `a` for letter, and `*` for either.
-  > The attribute `aa9a*` can accept "ab1c1" or "ab1cd"
+
 </div>
 
 <div data-ng-controller="MaskController">
   <div class="guide-example">
     <form name="datepickerForm">
       <div class="form-group">
-        <label for="date">Date</label>
+        <label for="demoDate">Date</label>
         <input type="text"
            name="date"
+           id="demoDate"
            class="form-control"
            data-ng-model="demo.date"
            data-av-mask="date"
         />
       </div>
       <div class="form-group">
-        <label for="phone">Phone</label>
+        <label for="demoPhone">Phone</label>
         <input type="text"
            name="phone"
+           id="demoPhone"
            class="form-control"
            data-ng-model="demo.phone"
            data-av-mask="phone"
           />
       </div>
       <div class="form-group">
-        <label for="SSN">SSN</label>
+        <label for="demoSSN">SSN</label>
         <input type="text"
            name="SSN"
+           id="demoSSN"
            class="form-control"
            data-ng-model="demo.ssn"
            data-av-mask="SSN"
           />
       </div>
       <div class="form-group">
-        <label for="A">aa9a*</label>
+        <label for="demoRandom">aa9a*</label>
         <input type="text"
            name="SSN"
+           id="demoRandom"
            class="form-control"
            data-ng-model="demo.random"
            data-av-mask="aa9a*"
