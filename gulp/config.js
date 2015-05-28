@@ -78,7 +78,6 @@ module.exports = {
       './lib/ui/index.js',
       './lib/ui/templates/template.js',
       './lib/ui/modal/modal.js',
-      './lib/ui/navbar/navbar.js',
       './lib/ui/validation/form.js',
       './lib/ui/validation/field.js',
       './lib/ui/popover/popover.js',
