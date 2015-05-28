@@ -176,6 +176,7 @@ module.exports = {
     src: [
       'node_modules/sinon/pkg/sinon.js',
       'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery-mockjax/jquery.mockjax.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-mocks/angular-mocks.js',
