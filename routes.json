@@ -1,10 +1,28 @@
 {
-
   "v1/users/me": {
     "file": "me.json"
   },
-
-  "v1/permissions": {
-    "file": "permissions.json"
+  "/internal/v1/axi-user-permissions": {
+    "get": [
+      {
+        "params": {
+          "permissionId": "452"
+        },
+        "file": "axi-user-permissions-452.json"
+      },
+      {
+        "params": {
+          "permissionId": [
+            "452",
+            "999"
+          ]
+        },
+        "file": "axi-user-permissions-452.json"
+      },
+      {
+        "file": "axi-user-permissions-empty.json"
+      }
+    ]
   }
 }
+

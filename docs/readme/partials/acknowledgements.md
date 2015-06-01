@@ -3,3 +3,4 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 + [Angular Strap](https://github.com/mgcrea/angular-strap)
 + [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
 + [Valdr](https://github.com/netceteragroup/valdr)
++ [ng-idle](https://github.com/HackedByChinese/ng-idle)

@@ -60,7 +60,6 @@ gulp.task('build:handlebars:partials', function() {
     }
     return out;
   });
-
 });
 
 gulp.task('build:docs', function() {
@@ -77,11 +76,11 @@ gulp.task('build:docs', function() {
           sortBy: 'menu',
           reverse: false
         },
-        ui: {
-          pattern: '**/*-ui-demo.html'
-        },
         core: {
           pattern: '**/*-core-demo.html'
+        },
+        ui: {
+          pattern: '**/*-ui-demo.html'
         },
         examples: {} // empty pattern because the pages are tagged with collection attribute in YAML front matter
       }))
@@ -96,7 +95,7 @@ gulp.task('build:docs', function() {
       .on('error', console.log.bind(console))
     )
     // only include full pages and ignore page snippets in dest build folder
-    .pipe(filter(['*', '!**/*-ui-demo.html','!**/*-core-demo.html']))
+    .pipe(filter(['*', '!**/*-demo.html']))
     .pipe(gulpif(config.args.verbose, using({prefix:'`build:docs` [dest] using'})))
     .pipe(rename(function(file) {
       if(!/\.hbs/.test(file.extname)) {
@@ -114,7 +113,7 @@ gulp.task('build:templates', function() {
   var htmlify = require('gulp-angular-htmlify');
   var htmlmin = require('gulp-htmlmin');
 
-  gulp.src(config.templates.src)
+  return gulp.src(config.templates.src)
     .pipe(htmlmin({removeComments: true, collapseWhitespace: true}))
     .pipe(htmlify())
     .pipe(templateCache(config.templates.name, {

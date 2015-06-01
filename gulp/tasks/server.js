@@ -24,7 +24,7 @@ gulp.task('server:rest', function () {
   });
 });
 
-gulp.task('server:sync', ['server:rest'], function() {
+gulp.task('server:sync', ['server:rest'], function(cb) {
   var browserSync = require('browser-sync');
   var url = require('url');
   var path = require('path');
@@ -63,6 +63,7 @@ gulp.task('server:sync', ['server:rest'], function() {
         proxy(proxyOptions)
       ]
     }
-  });
+  }, cb);
+
 });
 

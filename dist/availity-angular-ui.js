@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.6.2 -- April-16
+ * availity-angular v0.9.0 -- May-29
  * Copyright 2015 Availity, LLC 
  */
 
@@ -16,7 +16,9 @@
   availity.ui = angular.module(availity.MODULE_UI, ['ng', 'ngSanitize']);
 
   availity.ui.constant('AV_UI', {
+    // jscs: disable
     NG_OPTIONS: /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
+    // jscs: enable
   });
 
   if(typeof module !== 'undefined' && module.exports) {
@@ -41,10 +43,10 @@
         var valid = !options.template || !options.templateUrl;
 
         if(!valid) {
-          throw new Error("Either options.template or options.templateUrl must be defined");
+          throw new Error('Either options.template or options.templateUrl must be defined for avTemplateCache');
         }
 
-        return options.template ? $q.when($templateCache.get(options.template)) :
+        return options.template ? $q.when(options.template) :
           $http.get(options.templateUrl, {cache: $templateCache})
             .then(function(result) {
               return result.data;
@@ -97,7 +99,7 @@
     }
   });
 
-  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache) {
+  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q) {
 
     var Modal = function(options) {
 
@@ -105,7 +107,7 @@
 
       this.options = angular.extend({}, AV_MODAL.OPTIONS, {scope: $rootScope.$new()}, options);
 
-      avTemplateCache.get(options).then(function(template){
+      avTemplateCache.get(options).then(function(template) {
         self.options.template = template;
         self.create();
       });
@@ -214,7 +216,14 @@
     };
 
     proto.hide = function() {
+      var deferred = $q.defer();
+
       this.$element.modal('hide');
+      this.$element.on('hidden.bs.modal', function() {
+        deferred.resolve(true);
+      });
+
+      return deferred.promise;
     };
 
     proto.toggle = function() {
@@ -248,39 +257,6 @@
       transclude: true,
       scope: {},
       templateUrl: AV_MODAL.TEMPLATES.MODAL
-    };
-  });
-
-})(window);
-
-// Source: /lib/ui/navbar/navbar.js
-
-(function(root) {
-
-  'use strict';
-
-  var availity = root.availity;
-
-  availity.ui.constant('AV_NAVBAR', {
-
-    OPTIONS: {},
-
-    TEMPLATES: {
-      NAVBAR: 'ui/navbar/navbar-tpl.html'
-    }
-  });
-
-  availity.ui.directive('avNavbar', function(AV_NAVBAR, avSession) {
-    return {
-      restrict: 'A',
-      replace: true,
-      scope: {},
-      templateUrl: AV_NAVBAR.TEMPLATES.NAVBAR,
-      controller: function($scope) {
-        avSession.getUser().then(function(user) {
-          $scope.currentUser = user;
-        });
-      }
     };
   });
 
@@ -381,7 +357,7 @@
               return;
             }
 
-            scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey){
+            scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey) {
               if(_rulesKey) {
                 avForm.setRulesKey(_rulesKey);
 
@@ -596,7 +572,7 @@
         avValField.setRule(rule);
         avValField.createId();
 
-        var debounceAllowed = (element.is("input") && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
+        var debounceAllowed = (element.is('input') && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
 
         if(debounceAllowed) {
           avValField.debounce(avValDebounce);
@@ -631,6 +607,74 @@
     };
   });
 
+
+})(window);
+
+// Source: /lib/ui/popover/popover.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_POPOVER', {
+    NAME: 'bs.popover'
+  });
+
+  availity.ui.controller('AvPopoverController', function($element, $scope, AV_POPOVER) {
+
+    this.listeners = function() {
+
+      var self = this;
+
+      angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {
+        $element.on(name + '.bs.popover', function(ev) {
+          $scope.$emit('av:popover:' + name, ev);
+        });
+      });
+
+      $scope.$on('destroy', function() {
+        self.destroy();
+      });
+    };
+
+    this.plugin = function() {
+      return $element.data(AV_POPOVER.NAME);
+    };
+
+    this.show = function() {
+      $element.popover('show');
+    };
+
+    this.hide = function() {
+      $element.popover('hide');
+    };
+
+    this.toggle = function() {
+      $element.popover('toggle');
+    };
+
+    this.destroy = function() {
+      $element.popover('destroy');
+    };
+  });
+
+  availity.ui.directive('avPopover', function() {
+    return {
+      restrict: 'A',
+      controller: 'AvPopoverController',
+      link: function(scope, element) {
+
+        var options = {};
+
+        scope.$evalAsync(function() {
+          element.popover(angular.extend({}, options, {
+            html: true
+          }));
+        });
+      }
+    };
+  });
 
 })(window);
 
@@ -705,7 +749,7 @@
         var el = element[0];
         if(ngModel.$valid) {
           angular.element(el.parentNode).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
-        }else{
+        }else {
           angular.element(el.parentNode).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }
       },
@@ -752,7 +796,7 @@
         ].join('');
 
         var $target = $(form).find(selector);
-        $timeout(function(){
+        $timeout(function() {
           // scroll to offset top of first error minus the offset of the navbars
           $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
         });
@@ -829,14 +873,14 @@
       'multiple',
       'closeOnSelect',
       'openOnEnter',
-      'id', /* Function used to get the id from the choice object or a string representing the key under which the id is stored. `id(object)`*/
-      'matcher', /* Used to determine whether or not the search term matches an option when a built-in query function is used. The built in query function is used when Select2 is attached to a select, or the local or tags helpers are used. `matcher(term, text, option)`*/
+      'id',
+      'matcher',
       'sortResults',
-      'formatSelection', /* Function used to render the current selection. `formatSelection(object, container)` */
+      'formatSelection',
       'formatResult',
       'formatResultCssClass',
-      'formatNoMatches', /* String containing 'No matches' message, or Function used to render the message */
-      'formatSearching', /* Function used to render a result that the user can select. `formatResult(object, container, query)` */
+      'formatNoMatches',
+      'formatSearching',
       'formatAjaxError',
       'formatInputTooShort',
       'formatInputTooLong',
@@ -877,7 +921,7 @@
     this.init = function() {
 
       _.forEach($attrs, function(value, key) {
-        if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))){
+        if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
@@ -937,7 +981,7 @@
 
       this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
       if(!this.match) {
-        throw new Error("Invalid ngOptions for avDropdown");
+        throw new Error('Invalid ngOptions for avDropdown');
       }
 
       // AV_UI.NG_OPTIONS regex will parse into arrays like below:
@@ -1035,7 +1079,7 @@
         });
 
         // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
-        element.on("select2-open", function () {
+        element.on('select2-open', function () {
 
           // look for .has-success, .has-warning, .has-error
           // (really look for .has-* … which is good enough for the demo page, but obviously might interfere with other CSS-classes starting with "has-")
@@ -1046,7 +1090,7 @@
 
             // go through the class names, find "has-"
             for(var i = 0; i < classNames.length; ++i) {
-              if(classNames[i].match("has-")) {
+              if(classNames[i].match('has-')) {
                 $('#select2-drop').addClass(classNames[i]);
               }
             }
@@ -1140,10 +1184,11 @@
       'disableTouchKeyboard',
       'enableOnReadonly'
     ],
-    DEFUALTS: {
+    DEFAULTS: {
       FORMAT: 'mm/dd/yyyy',
       CLOSE: true,
-      TODAY: true
+      TODAY: true,
+      FORCEPARSE: false
     }
   });
 
@@ -1153,7 +1198,6 @@
     this.options = {};
 
     this.setValue = function() {
-
 
       var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
@@ -1188,8 +1232,6 @@
     };
 
     this.viewToModel = function() {
-
-
       var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
       var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
 
@@ -1199,21 +1241,25 @@
         return;
       }
 
+      // jscs: disable
       return plugin._utc_to_local(utcDate);
+      // jscs: enable
     };
 
     this.init = function() {
 
       _.forEach($attrs, function(value, key) {
-        if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))){
+        if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
 
-      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFUALTS.CLOSE;
-      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFUALTS.TODAY;
-      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFUALTS.FORMAT;
+      // self.options = _.extend{}, optionsDefault, userOptions);
 
+      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFAULTS.CLOSE;
+      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
+      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
+      self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
     };
 
     this.plugin = function() {
@@ -1226,7 +1272,6 @@
         plugin.remove();
         $element.data('datepicker', null);
       }
-
     };
 
     this.hide = function() {
@@ -1235,7 +1280,6 @@
         plugin.hide();
       }
     };
-
   });
 
   availity.ui.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
@@ -1281,27 +1325,25 @@
         var target = element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);
         if(target.length) {
           target.on('click.datepicker', function() {
-            if (!element.prop('disabled')) { // Hack check for IE 8
+            if(!element.prop('disabled')) { // Hack check for IE 8
               element.focus();
             }
           });
         }
 
         scope.$on('destroy', function() {
-           avDatepicker.destroy();
-           if(target.length) {
-             target.off('click.datepicker');
-           }
+          avDatepicker.destroy();
+          if(target.length) {
+            target.off('click.datepicker');
+          }
         });
 
         scope.$evalAsync(function() {
           element.datepicker(avDatepicker.options);
         });
-
       }
     };
   });
-
 })(window);
 
 // Source: /lib/ui/idle/idle-notifier.js
@@ -1312,6 +1354,9 @@
   var availity = root.availity;
 
   availity.ui.constant('AV_UI_IDLE', {
+    EVENTS: {
+      OK: 'mousedown.av.idle.notifier'
+    },
     TEMPLATES: {
       BASE: 'ui/idle/idle-tpl.html',
       SESSION: 'ui/idle/idle-session-tpl.html',
@@ -1355,19 +1400,19 @@
         var self = this;
         var listener = null;
 
-        // ACTIVATE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.ACTIVE, function() {
+        // ACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_ACTIVE, function() {
           self.showWarning();
         });
         this.listeners.push(listener);
 
-        // INACTIVE
-        listener = $rootScope.$on(AV_IDLE.EVENTS.INACTIVE, function() {
+        // INACTIVE IDLING
+        listener = $rootScope.$on(AV_IDLE.EVENTS.IDLE_INACTIVE, function() {
           self.hideWarning();
         });
         this.listeners.push(listener);
 
-        // SESSION TIMEOUT
+        // SESSION TIMEOUT OUT
         listener = $rootScope.$on(AV_IDLE.EVENTS.SESSION_TIMEOUT_ACTIVE, function() {
           self.showSession();
         });
@@ -1376,12 +1421,11 @@
       };
 
       proto.destroyListeners = function() {
-        // turn off each listener => http://stackoverflow.com/a/14898795
+        // turn off each listener @see http://stackoverflow.com/a/14898795
         _.each(this.listeners, function(listener) {
           listener();
         });
       };
-
 
       proto.showWarning = function() {
 
@@ -1399,28 +1443,26 @@
           show: true,
           scope: $scope,
           backdrop: 'static',
-          template: AV_UI_IDLE.TEMPLATES.BASE
+          templateUrl: AV_UI_IDLE.TEMPLATES.BASE
         });
 
-        $document.on('click', function() {
+        $document.find('body').on(AV_UI_IDLE.EVENTS.OK, function() {
           self.hideWarning();
-          $rootScope.$broadcast(AV_IDLE.EVENTS.INACTIVE);
         });
 
       };
 
       proto.hideWarning = function() {
-        this.disableBackDrop();
-
         if(this.modal) {
-          this.modal.destroy();
+          this.disableBackDrop();
+          this.modal.hide();
         }
 
         this.modal = null;
       };
 
       proto.disableBackDrop = function() {
-        $document.off('click');
+        $document.find('body').off(AV_UI_IDLE.EVENTS.OK);
       };
 
       proto.showSession = function() {
@@ -1429,13 +1471,13 @@
 
         $timeout(function() {
           $scope.idle.template = AV_UI_IDLE.TEMPLATES.SESSION;
-          $scope.idle.onSessionInactive = self.onSessionInactive;
+          $scope.idle.onSessionTimeout = _.bind(self.onSessionTimeout, self);
         }, 0, true);
 
       };
 
-      proto.onSessionInactive = function() {
-        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_INACTIVE);
+      proto.onSessionTimeout = function() {
+        $rootScope.$broadcast(AV_IDLE.EVENTS.SESSION_TIMEOUT_REDIRECT);
       };
 
       return new AvIdleNotifier();
@@ -1446,6 +1488,124 @@
 
   availity.ui.run(function(avIdleNotifier) {
     avIdleNotifier.init();
+  });
+
+})(window);
+
+// Source: /lib/ui/mask/mask.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_MASK', {
+    NAME: 'inputmask',
+    DEFAULTS: {
+      date: '99/99/9999',
+      phone: '(999)999-9999',
+      SSN:'999-99-9999'
+    }
+  });
+
+  availity.ui.controller('AvMaskController', function() {
+
+    this.setNgModel = function(ngModel) {
+      this.ngModel = ngModel;
+    };
+
+    this.modelToView = function() {
+
+    };
+
+    this.viewToModel = function() {
+
+    };
+  });
+
+  availity.ui.directive('avMask', function($window, $log, AV_MASK) {
+    return {
+      restrict: 'A',
+      controller: 'AvMaskController',
+      require: ['ngModel', 'avMask'],
+      link: function(scope, element, attrs, controllers) {
+
+        var ngModel = controllers[0];
+        var avMask = controllers[1];
+
+        avMask.setNgModel(ngModel);
+
+        var maskType = AV_MASK.DEFAULTS[attrs['avMask']];
+        if(!maskType) {
+          maskType = attrs['avMask'];
+        }
+
+        // var _$render = ngModel.$render;
+        // ngModel.$render = function() {
+        //   _$render();
+        // };
+
+        // ngModel.$parsers.push(avMask.viewToModel); // (view to model)
+        // ngModel.$formatters.unshift(avMask.modelToView);  // (model to view)
+
+        scope.$evalAsync(function() {
+          element.inputmask(maskType);
+        });
+
+        scope.$on('$destroy', function () {
+          element.inputmask('remove');
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/permissions/has-permission.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.controller('AvHasPermissionController', function($element) {
+
+    this.onSuccess = function(isAuthorized) {
+      if(isAuthorized) {
+        $element.removeClass('ng-hide');
+        $element.show();
+      } else {
+        $element.remove();
+      }
+    };
+
+    this.onError = function() {
+      $element.remove();
+    };
+
+  });
+
+  availity.ui.directive('avHasPermission', function(avUserAuthorizations) {
+    return {
+      restrict: 'EA',
+      controller: 'AvHasPermissionController',
+      require: ['avHasPermission'],
+      link: function($scope, $element, $attr, controllers) {
+
+        var avHasPermission = controllers[0];
+
+        $element.hide();
+
+        $scope.$watch($attr.avHasPermission, function(permissions) {
+
+          if(!angular.isArray(permissions)) {
+            permissions = _.words('' + permissions);
+          }
+
+          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermission.onSuccess, avHasPermission.onError);
+        });
+      }
+    };
   });
 
 })(window);
