@@ -71,9 +71,7 @@ module.exports = {
       './lib/core/analytics/analytics-splunk-service.js',
       './lib/core/analytics/analytics-piwik-service.js',
       './lib/core/error-tracking/error-directive.js',
-      './lib/core/error-tracking/error-service.js',
-      './lib/core/error-tracking/error-stacktrace.js',
-      './lib/core/error-tracking/error-tracekit.js'
+      './lib/core/error-tracking/error-service.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
