@@ -64,7 +64,8 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
-      './lib/core/utils/globals.js'
+      './lib/core/utils/globals.js',
+      './lib/core/utils/placeholder-shim.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -113,6 +114,7 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      './bower_components/jquery-placeholder/jquery.placeholder.js',
       './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
@@ -184,6 +186,7 @@ module.exports = {
       'bower_components/select2/select2.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
+      './bower_components/jquery-placeholder/jquery.placeholder.js',
       './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'test/index.js',
       'test/matchers.js',
