@@ -60,4 +60,14 @@ title: Analytics
 
   <p>The two analytic services that we provide are Piwik and Splunk.</p>
 
+  <h3>Custom Variables</h3>
+  <p>Currently custom variables are only provided via Piwik and are scoped throughout the users session.</p>
+  <p>In order to access custom variables you must go through the <code>avPiwikAnalyticsServiceProvider</code> from your configuration and use <code>.setVisitVariable</code> with parameters <code>index</code>, <code>valueName</code> and <code>value</code>.</p>
+  <p>Due to restrictions on Piwik you are currently limited to only 5 variables in index 1 through 5, reusing an index will reset the values assigned to it, but not the amount of actions associated with it.</p>
+  <code class="language-markup">
+    availity.app.config(function(avPiwikAnalyticsServiceProvider){
+      avPiwikAnalyticsServiceProvider.setVisitVariable(1, 'valName', 'valValue');
+    });
+  </code>
+  <p><b>note: <code>index</code> must be an int and <code>valueName</code> must be defined or the function will return errors</b></p>
 </div>
