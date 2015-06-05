@@ -69,7 +69,11 @@ module.exports = {
       './lib/core/analytics/analytics-services.js',
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk-service.js',
-      './lib/core/analytics/analytics-piwik-service.js'
+      './lib/core/analytics/analytics-piwik-service.js',
+      './lib/core/error-tracking/error-directive.js',
+      './lib/core/error-tracking/error-service.js',
+      './lib/core/error-tracking/error-stacktrace.js',
+      './lib/core/error-tracking/error-tracekit.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -118,7 +122,9 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
-      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
+      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      './bower_components/stacktrace-js/stacktrace.js',
+      './bower_components/tracekit/tracekit.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
