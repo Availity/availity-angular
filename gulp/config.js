@@ -66,7 +66,7 @@ module.exports = {
       './lib/core/validation/validators/validator-date-format.js',
       './lib/core/utils/globals.js',
       './lib/core/analytics/analytics-directive.js',
-      './lib/core/analytics/analytics-services.js',
+      './lib/core/analytics/analytics.js',
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk-service.js',
       './lib/core/analytics/analytics-piwik-service.js',
