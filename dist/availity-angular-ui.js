@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.9.1 -- June-08
+ * availity-angular v0.9.2 -- June-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -603,7 +603,9 @@
         // (view to model)
         ngModel.$parsers.push(avValField.validateView);
 
-        // (model to view) - potentially allow other formatter to run first
+        // (model to view) - added to beginning of array because formatters
+        // are processed in reverse order thus allowing the model to be transformed
+        // before the validation framework check for validity.
         ngModel.$formatters.unshift(avValField.validateModel);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
@@ -825,7 +827,7 @@
         $timeout(function() {
           // scroll to offset top of first error minus the offset of the navbars
           $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
-        });
+        }, 0, false);
       }
     };
   });
@@ -1333,8 +1335,15 @@
           $log.info('avDatepicker changeDate {0}', [e]);
         });
 
-        ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
-        ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
+        // (view to model)
+        ngModel.$parsers.push(avDatepicker.viewToModel);
+
+        // (model to view) - added to end of formatters array
+        // because they are processed in reverse order.
+        // if the model is in Date format and send to the validation framework
+        // prior to getting converted to the expected $viewValue format,
+        // the validation will fail.
+        ngModel.$formatters.push(avDatepicker.modelToView);
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
