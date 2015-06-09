@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.9.0 -- May-29
+ * availity-angular v0.9.1 -- June-08
  * Copyright 2015 Availity, LLC 
  */
 
@@ -520,10 +520,26 @@
       self.updateModel.call(self, results);
       self.updateView.call(self);
 
+      return results;
+    };
+
+    this.validateModel = function(value) {
+
+      self.validate(value, true);
       return value;
+
+    };
+
+    this.validateView = function(value) {
+
+      var results = self.validate(value);
+      // prevent invalid data from view to update model
+      return results.isValid ? value : undefined;
+
     };
 
     this.debounce = function(avValDebounce) {
+
       var self = this;
 
       $element.unbind('input');
@@ -585,10 +601,10 @@
         }
 
         // (view to model)
-        ngModel.$parsers.push(avValField.validate);
+        ngModel.$parsers.push(avValField.validateView);
 
         // (model to view) - potentially allow other formatter to run first
-        ngModel.$formatters.unshift(avValField.validate);
+        ngModel.$formatters.unshift(avValField.validateModel);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
           avValField.validate(ngModel.$viewValue);
@@ -687,10 +703,6 @@
 
   availity.ui.controller('avValContainerController', function($scope, $timeout) {
 
-    $scope.messages = {
-      message: null
-    };
-
     this.message = function(ngModel) {
 
       var message = null;
@@ -715,8 +727,12 @@
       controller: 'avValContainerController',
       template: '<p class="help-block" data-ng-bind-html="messages.message"></p>',
       replace: true,
-      scope: {},
-      link: function() {}
+      scope: {
+
+      },
+      link: function(scope) {
+        scope.messages = _.extend({}, scope.messages, { message: null, id: null });
+      }
     };
   });
 
@@ -736,21 +752,25 @@
       ERROR: 'has-error',
       FEEDBACK: 'has-feedback',
       HELP: 'help-block',
+      FORM_GROUP: '.form-group:first',
       NAVBAR: 'navbar-fixed-top'
+    },
+    SELECTORS: {
+      CONTAINER: 'container-id',
+      DATA_CONTAINER: 'data-container-id'
     },
     CONTROLLER: '$avValContainerController'
   });
 
-  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout) {
+  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout, $log) {
 
     return {
 
       element: function(element, ngModel) {
-        var el = element[0];
         if(ngModel.$valid) {
-          angular.element(el.parentNode).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }else {
-          angular.element(el.parentNode).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }
       },
 
@@ -761,14 +781,20 @@
           AV_BOOTSTRAP_ADAPTER.CLASSES.HELP
         ].join('');
 
-        var messageTarget = $(element).siblings(selector);
+        var $el = $(element);
 
-        if(messageTarget.length === 0) {
+        var target = $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.CONTAINER);
+        target = target || $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.DATA_CONTAINER);
+        // default to siblings
+        target = target ? $('#' + target) : $el.siblings(selector);
+
+        if(target.length === 0) {
+          $log.warn('avValBootstrapAdapter could not find validation container for {0}', [element]);
           return;
         }
 
-        var el = messageTarget[0]; // just target first sibling
-        var $el = angular.element(el);
+        var el = target[0];
+        $el = angular.element(el);
         var avValModel = $el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER); // get the av val message controller
         if(avValModel) {
           avValModel.message(ngModel);
@@ -1508,45 +1534,16 @@
     }
   });
 
-  availity.ui.controller('AvMaskController', function() {
-
-    this.setNgModel = function(ngModel) {
-      this.ngModel = ngModel;
-    };
-
-    this.modelToView = function() {
-
-    };
-
-    this.viewToModel = function() {
-
-    };
-  });
-
   availity.ui.directive('avMask', function($window, $log, AV_MASK) {
     return {
       restrict: 'A',
-      controller: 'AvMaskController',
-      require: ['ngModel', 'avMask'],
-      link: function(scope, element, attrs, controllers) {
-
-        var ngModel = controllers[0];
-        var avMask = controllers[1];
-
-        avMask.setNgModel(ngModel);
+      require: 'ngModel',
+      link: function(scope, element, attrs) {
 
         var maskType = AV_MASK.DEFAULTS[attrs['avMask']];
         if(!maskType) {
           maskType = attrs['avMask'];
         }
-
-        // var _$render = ngModel.$render;
-        // ngModel.$render = function() {
-        //   _$render();
-        // };
-
-        // ngModel.$parsers.push(avMask.viewToModel); // (view to model)
-        // ngModel.$formatters.unshift(avMask.modelToView);  // (model to view)
 
         scope.$evalAsync(function() {
           element.inputmask(maskType);
