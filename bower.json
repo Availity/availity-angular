@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "keywords": [
     "availity",
     "angular",
@@ -21,7 +21,8 @@
     "angular-ui-router": "0.2.13",
     "availity-uikit": "~0.6.0",
     "stacktrace-js": "~0.6.4",
-    "tracekit": "~0.2.1"
+    "tracekit": "~0.2.1",
+    "jquery.inputmask": "~3.1.63"
   },
   "devDependencies": {
     "angular-mocks": "1.2.28",
