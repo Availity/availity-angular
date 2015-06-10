@@ -64,7 +64,8 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
-      './lib/core/utils/globals.js'
+      './lib/core/utils/globals.js',
+      './lib/core/utils/data-polyfill.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -78,7 +79,6 @@ module.exports = {
       './lib/ui/index.js',
       './lib/ui/templates/template.js',
       './lib/ui/modal/modal.js',
-      './lib/ui/navbar/navbar.js',
       './lib/ui/validation/form.js',
       './lib/ui/validation/field.js',
       './lib/ui/popover/popover.js',
@@ -87,8 +87,9 @@ module.exports = {
       './lib/ui/validation/adapter.js',
       './lib/ui/dropdown/dropdown.js',
       './lib/ui/datepicker/datepicker.js',
-      './lib/ui/permissions/has-permission.js',
-      './lib/ui/idle/idle-notifier.js'
+      './lib/ui/idle/idle-notifier.js',
+      './lib/ui/mask/mask.js',
+      './lib/ui/permissions/has-permission.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -112,7 +113,8 @@ module.exports = {
       './bower_components/lodash-compat/lodash.js',
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
-      './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js'
+      './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
@@ -184,6 +186,7 @@ module.exports = {
       'bower_components/select2/select2.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
+      'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
