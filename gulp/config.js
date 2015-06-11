@@ -119,7 +119,6 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
-      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
