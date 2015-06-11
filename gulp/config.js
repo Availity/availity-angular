@@ -93,7 +93,8 @@ module.exports = {
       './lib/ui/datepicker/datepicker.js',
       './lib/ui/idle/idle-notifier.js',
       './lib/ui/mask/mask.js',
-      './lib/ui/permissions/has-permission.js'
+      './lib/ui/permissions/has-permission.js',
+      './lib/ui/analytics/analytics.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
