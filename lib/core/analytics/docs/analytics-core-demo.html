@@ -1,0 +1,85 @@
+---
+title: Analytics
+---
+<div data-ng-controller="AnalyticsController">
+
+  <div data-markdown>
+  Analytics is a way for you to track how users interact with your data. To use our analytics services some configuration needs to take place. By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.
+
+  The two analytic services that we provide are Piwik and Splunk.
+  </div>
+
+
+  <div data-markdown>
+  ### Virtual Page Tracking
+
+  Virtual page tracking is disabled by default, to enable virtual page tracking you will need to set to call `analyticsProvider.virtualPageTracking()` and pass in true. Once this is enabled all page visits will be tracked.
+  </div>
+
+  <code class="language-javascript">
+app.config(function($scope, analyticsProvider) {
+  analyticsProvider.virtualPageTracking(true);
+});
+  </code>
+
+  <div data-markdown>
+
+  ### Event Tracking
+
+  To add a tracking event to a element on the page you will need to use the avAnalyticsOn directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.
+
+  * **av-analytics-on** - required
+  * **av-analytics-event** - required
+  * **av-analytics-category** - required
+  * **av-analytics-label** - optional
+  * **av-analytics-service** - optional
+  * **av-analytics-value** - optional - numeric only
+  </div>
+
+  <code class="language-markup">
+<button
+  data-av-analytics-on="click"
+  data-av-analytics-event="Play"
+  data-av-analytics-category="Availity Home"
+  data-av-analytics-label="Intro Movie"
+  data-av-analytics-value="0">
+  Button
+</button>
+  </code>
+
+  <div data-markdown>
+  To register a new analytic service you would call `analyticsProvider.registerPlugins()` passing in a array of services you want to register.
+  </div>
+
+  <code class="language-javascript">
+app.config(function(analyticsProvider) {
+  analyticsProvider.registerPlugins([
+    'test1AnalyticService',
+    'test2AnalyticService'
+  ]);
+});
+  </code>
+
+  <div data-markdown>
+
+  ### Custom Variables
+
+  Currently custom variables are only provided via Piwik and are scoped throughout the users session.
+
+  In order to access custom variables you must go through the `avPiwikAnalyticsServiceProvider` from your configuration and use `.setVisitVariable` with parameters `index`, `valueName` and `value`.
+
+  Due to restrictions on Piwik you are currently limited to only 5 variables in index 1 through 5, reusing an index will reset the values assigned to it, but not the amount of actions associated with it.
+  </div>
+
+  <div data-markdown>
+  > **Note:** `index` must be an int and `valueName` must be defined or the function will return errors.
+  </div>
+
+  <code class="language-javascript">
+availity.app.config(function(avPiwikAnalyticsProvider){
+  avPiwikAnalyticsServiceProvider.setVisitVariable(1, 'name', 'value');
+});
+  </code>
+
+
+</div>

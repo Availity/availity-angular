@@ -8,7 +8,8 @@ var files = config.test.src
   .concat(config.lib.src)
   .concat(config.ui.src)
   .concat(config.lib.specs)
-  .concat(config.ui.specs);
+  .concat(config.ui.specs)
+  .concat({pattern: 'lib/**/*-fixture.html', watched: true, served: true, included: true});
 
 gulp.task('test', ['test:ci']);
 
