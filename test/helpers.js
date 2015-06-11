@@ -1,4 +1,4 @@
-/*global inject, fixture, jasmine, module, spyOn, beforeEach, afterEach*/
+/*global inject, jasmine, module, spyOn, beforeEach, afterEach*/
 (function() {
 
   'use strict';
@@ -23,8 +23,6 @@
      * @return {Object} Global variable with Angular services and scope as attributes
      */
     directiveSpecHelper: function() {
-
-      fixture.base = 'lib';
 
       beforeEach(inject(function(_$rootScope_, _$compile_, _$anchorScroll_, _$window_, _$controller_, _$location_, _$q_, _$timeout_, _$httpBackend_) {
         availity.mock.$scope = _$rootScope_.$new();
