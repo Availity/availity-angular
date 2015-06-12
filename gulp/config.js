@@ -36,7 +36,7 @@ module.exports = {
   lib: {
     name: 'availity-angular.js',
     src: [
-      './lib/core/index.js',
+     './lib/core/index.js',
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
@@ -65,7 +65,12 @@ module.exports = {
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
       './lib/core/utils/globals.js',
-      './lib/core/utils/placeholder-shim.js'
+      './lib/core/utils/placeholder-shim.js',
+      './lib/core/analytics/analytics.js',
+      './lib/core/analytics/analytics-util.js',
+      './lib/core/analytics/analytics-splunk.js',
+      './lib/core/analytics/analytics-piwik.js',
+      './lib/core/utils/data-polyfill.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -89,7 +94,8 @@ module.exports = {
       './lib/ui/datepicker/datepicker.js',
       './lib/ui/idle/idle-notifier.js',
       './lib/ui/mask/mask.js',
-      './lib/ui/permissions/has-permission.js'
+      './lib/ui/permissions/has-permission.js',
+      './lib/ui/analytics/analytics.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -115,7 +121,7 @@ module.exports = {
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       './bower_components/jquery-placeholder/jquery.placeholder.js',
-      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
+      './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
@@ -186,8 +192,8 @@ module.exports = {
       'bower_components/select2/select2.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
-      './bower_components/jquery-placeholder/jquery.placeholder.js',
-      './node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      'bower_components/jquery-placeholder/jquery.placeholder.js',
+      'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
