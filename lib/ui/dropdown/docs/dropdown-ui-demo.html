@@ -216,7 +216,7 @@ demo.controller('DropdownController', function($scope, $log) {
           data-ng-change="selectAction(selectedHosp)"
           data-placeholder="Select a hospital"
           data-allow-clear="true"
-          data-ajax="myAjax"
+          data-query="myQuery"
           data-minimum-input-length="3"
           data-format-result="myFormatResult"
           data-format-selection="myFormatResult"
@@ -272,21 +272,21 @@ demo.controller('DropdownController', function($scope, $log) {
 </form>
 <!-- Javascript -->
 <script>
-  availity.demo.controller('DropdownController', function($scope, $log) {
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
     $scope.selectedHosp = null;
 
-    $scope.resetSingleHosp = function() {
+    $scope.resetSingleHosp = function () {
       $scope.selectedHosp = null;
     };
 
-    $scope.selectAction = function(selection) {
+    $scope.selectAction = function (selection) {
       $log.info(selection);
     };
 
     //how it is viewed in the drop down
-    $scope.myFormatResult = function(code) {
+    $scope.myFormatResult = function (code) {
       var markup = '<div class="row">' +
-        '<div class="col-xs-12">'+
+        '<div class="col-xs-12">' +
         '<span class="label label-info">' +
         code.code +
         '</span> ' +
@@ -296,42 +296,49 @@ demo.controller('DropdownController', function($scope, $log) {
       return markup;
     };
 
-    $scope.myAjax = {
-      url: "/api/v1/codes.json",
-      dataType: 'json',
-      delay: 250,
-      data: function (term, page) {
-        var limit = 50;
-        return {
-          q: term, // search term
-          offset: ( (page-1) * limit )
-        };
-      },
-      results: function (data, page) {
-        // parse the results into the format expected by Select2.
-        // since we are using custom formatting functions we do not need to
-        // alter the remote JSON data
-
-        //id is required in our results for it to be selectable!
-        var myResults = data.codes;
-        if(_.isEmpty(myResults[0].id)){
-          _.each(myResults, function(code){
-            code.id = code.code;
-          });
-        }
-
-        //more allows us to do infinite scrolling
-        var more = ((page-1) * 50) < data.totalCount; // whether or not there are more results available
-        return {
-          results: myResults,
-          more: more
-        };
-      },
-      cache: true
+    $scope.myQuery = function (data) {
+      return avCodesResource.getCodes(data);
     };
-
   });
 
+  // AvCodesResourceFactory.js
+  var AvCodesResourceFactory = function(AvApiResource) {
+
+    var AvCodesResource = function () {
+      AvApiResource.call(this, 'codes');
+    };
+
+    angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
+
+      getCodes: function (data) {
+        //config for the api resource query
+        var config = {};
+        config.params = {};
+        config.params.offset = 50 * (data.page - 1);
+
+        return this.query(config).then(function (response) {
+          //format the response into something select2 can read
+          var myResults = response.data.codes;
+          if (_.isEmpty(myResults[0].id)) {
+            _.each(myResults, function (code) {
+              code.id = code.code;
+            });
+          }
+
+          //calculate if we want to continue searching
+          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          return {
+            more: moreVal,
+            results: myResults
+          };
+
+        });
+      }
+
+    });
+    return new AvCodesResource();
+  };
+  availity.core.factory('avCodesResource', AvCodesResourceFactory);
 </script>
   </code>
 </div>

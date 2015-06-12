@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.8.0 -- May-22
+ * availity-angular v0.9.2 -- June-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -257,39 +257,6 @@
       transclude: true,
       scope: {},
       templateUrl: AV_MODAL.TEMPLATES.MODAL
-    };
-  });
-
-})(window);
-
-// Source: /lib/ui/navbar/navbar.js
-
-(function(root) {
-
-  'use strict';
-
-  var availity = root.availity;
-
-  availity.ui.constant('AV_NAVBAR', {
-
-    OPTIONS: {},
-
-    TEMPLATES: {
-      NAVBAR: 'ui/navbar/navbar-tpl.html'
-    }
-  });
-
-  availity.ui.directive('avNavbar', function(AV_NAVBAR, avSession) {
-    return {
-      restrict: 'A',
-      replace: true,
-      scope: {},
-      templateUrl: AV_NAVBAR.TEMPLATES.NAVBAR,
-      controller: function($scope) {
-        avSession.getUser().then(function(user) {
-          $scope.currentUser = user;
-        });
-      }
     };
   });
 
@@ -553,10 +520,26 @@
       self.updateModel.call(self, results);
       self.updateView.call(self);
 
+      return results;
+    };
+
+    this.validateModel = function(value) {
+
+      self.validate(value, true);
       return value;
+
+    };
+
+    this.validateView = function(value) {
+
+      var results = self.validate(value);
+      // prevent invalid data from view to update model
+      return results.isValid ? value : undefined;
+
     };
 
     this.debounce = function(avValDebounce) {
+
       var self = this;
 
       $element.unbind('input');
@@ -618,10 +601,12 @@
         }
 
         // (view to model)
-        ngModel.$parsers.push(avValField.validate);
+        ngModel.$parsers.push(avValField.validateView);
 
-        // (model to view) - potentially allow other formatter to run first
-        ngModel.$formatters.unshift(avValField.validate);
+        // (model to view) - added to beginning of array because formatters
+        // are processed in reverse order thus allowing the model to be transformed
+        // before the validation framework check for validity.
+        ngModel.$formatters.unshift(avValField.validateModel);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
           avValField.validate(ngModel.$viewValue);
@@ -705,7 +690,6 @@
             html: true
           }));
         });
-
       }
     };
   });
@@ -720,10 +704,6 @@
   var availity = root.availity;
 
   availity.ui.controller('avValContainerController', function($scope, $timeout) {
-
-    $scope.messages = {
-      message: null
-    };
 
     this.message = function(ngModel) {
 
@@ -749,8 +729,12 @@
       controller: 'avValContainerController',
       template: '<p class="help-block" data-ng-bind-html="messages.message"></p>',
       replace: true,
-      scope: {},
-      link: function() {}
+      scope: {
+
+      },
+      link: function(scope) {
+        scope.messages = _.extend({}, scope.messages, { message: null, id: null });
+      }
     };
   });
 
@@ -770,21 +754,25 @@
       ERROR: 'has-error',
       FEEDBACK: 'has-feedback',
       HELP: 'help-block',
+      FORM_GROUP: '.form-group:first',
       NAVBAR: 'navbar-fixed-top'
+    },
+    SELECTORS: {
+      CONTAINER: 'container-id',
+      DATA_CONTAINER: 'data-container-id'
     },
     CONTROLLER: '$avValContainerController'
   });
 
-  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout) {
+  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout, $log) {
 
     return {
 
       element: function(element, ngModel) {
-        var el = element[0];
         if(ngModel.$valid) {
-          angular.element(el.parentNode).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }else {
-          angular.element(el.parentNode).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }
       },
 
@@ -795,14 +783,20 @@
           AV_BOOTSTRAP_ADAPTER.CLASSES.HELP
         ].join('');
 
-        var messageTarget = $(element).siblings(selector);
+        var $el = $(element);
 
-        if(messageTarget.length === 0) {
+        var target = $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.CONTAINER);
+        target = target || $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.DATA_CONTAINER);
+        // default to siblings
+        target = target ? $('#' + target) : $el.siblings(selector);
+
+        if(target.length === 0) {
+          $log.warn('avValBootstrapAdapter could not find validation container for {0}', [element]);
           return;
         }
 
-        var el = messageTarget[0]; // just target first sibling
-        var $el = angular.element(el);
+        var el = target[0];
+        $el = angular.element(el);
         var avValModel = $el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER); // get the av val message controller
         if(avValModel) {
           avValModel.message(ngModel);
@@ -833,7 +827,7 @@
         $timeout(function() {
           // scroll to offset top of first error minus the offset of the navbars
           $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
-        });
+        }, 0, false);
       }
     };
   });
@@ -1233,7 +1227,6 @@
 
     this.setValue = function() {
 
-
       var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
 
@@ -1295,7 +1288,6 @@
       self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
       self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
       self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
-
     };
 
     this.plugin = function() {
@@ -1308,7 +1300,6 @@
         plugin.remove();
         $element.data('datepicker', null);
       }
-
     };
 
     this.hide = function() {
@@ -1317,7 +1308,6 @@
         plugin.hide();
       }
     };
-
   });
 
   availity.ui.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
@@ -1345,8 +1335,15 @@
           $log.info('avDatepicker changeDate {0}', [e]);
         });
 
-        ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
-        ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
+        // (view to model)
+        ngModel.$parsers.push(avDatepicker.viewToModel);
+
+        // (model to view) - added to end of formatters array
+        // because they are processed in reverse order.
+        // if the model is in Date format and send to the validation framework
+        // prior to getting converted to the expected $viewValue format,
+        // the validation will fail.
+        ngModel.$formatters.push(avDatepicker.modelToView);
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
@@ -1382,56 +1379,6 @@
       }
     };
   });
-
-})(window);
-
-// Source: /lib/ui/permissions/has-permission.js
-(function(root) {
-
-  'use strict';
-
-  var availity = root.availity;
-
-  availity.ui.controller('AvHasPermissionController', function($element) {
-
-    this.onSuccess = function(isAuthorized) {
-      if(isAuthorized) {
-        $element.removeClass('ng-hide');
-        $element.show();
-      } else {
-        $element.remove();
-      }
-    };
-
-    this.onError = function() {
-      $element.remove();
-    };
-
-  });
-
-  availity.ui.directive('avHasPermission', function(avUserAuthorizations) {
-    return {
-      restrict: 'EA',
-      controller: 'AvHasPermissionController',
-      require: ['avHasPermission'],
-      link: function($scope, $element, $attr, controllers) {
-
-        var avHasPermission = controllers[0];
-
-        $element.hide();
-
-        $scope.$watch($attr.avHasPermission, function(permissions) {
-
-          if(!angular.isArray(permissions)) {
-            permissions = _.words('' + permissions);
-          }
-
-          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermission.onSuccess, avHasPermission.onError);
-        });
-      }
-    };
-  });
-
 })(window);
 
 // Source: /lib/ui/idle/idle-notifier.js
@@ -1576,6 +1523,95 @@
 
   availity.ui.run(function(avIdleNotifier) {
     avIdleNotifier.init();
+  });
+
+})(window);
+
+// Source: /lib/ui/mask/mask.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_MASK', {
+    NAME: 'inputmask',
+    DEFAULTS: {
+      date: '99/99/9999',
+      phone: '(999)999-9999',
+      SSN:'999-99-9999'
+    }
+  });
+
+  availity.ui.directive('avMask', function($window, $log, AV_MASK) {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attrs) {
+
+        var maskType = AV_MASK.DEFAULTS[attrs['avMask']];
+        if(!maskType) {
+          maskType = attrs['avMask'];
+        }
+
+        scope.$evalAsync(function() {
+          element.inputmask(maskType);
+        });
+
+        scope.$on('$destroy', function () {
+          element.inputmask('remove');
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/permissions/has-permission.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.controller('AvHasPermissionController', function($element) {
+
+    this.onSuccess = function(isAuthorized) {
+      if(isAuthorized) {
+        $element.removeClass('ng-hide');
+        $element.show();
+      } else {
+        $element.remove();
+      }
+    };
+
+    this.onError = function() {
+      $element.remove();
+    };
+
+  });
+
+  availity.ui.directive('avHasPermission', function(avUserAuthorizations) {
+    return {
+      restrict: 'EA',
+      controller: 'AvHasPermissionController',
+      require: ['avHasPermission'],
+      link: function($scope, $element, $attr, controllers) {
+
+        var avHasPermission = controllers[0];
+
+        $element.hide();
+
+        $scope.$watch($attr.avHasPermission, function(permissions) {
+
+          if(!angular.isArray(permissions)) {
+            permissions = _.words('' + permissions);
+          }
+
+          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermission.onSuccess, avHasPermission.onError);
+        });
+      }
+    };
   });
 
 })(window);
