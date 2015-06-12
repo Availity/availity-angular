@@ -120,8 +120,8 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
-      './bower_components/jquery-placeholder/jquery.placeholder.js',
-      './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
+      './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      './bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
@@ -192,8 +192,8 @@ module.exports = {
       'bower_components/select2/select2.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
-      'bower_components/jquery-placeholder/jquery.placeholder.js',
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
