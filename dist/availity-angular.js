@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.9.2 -- June-09
+ * availity-angular v0.10.0 -- June-11
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.9.2';
+  availity.VERSION = 'v0.10.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -909,44 +909,50 @@
 
   var LogMessagesFactory = function(AvApiResource) {
 
-    var logMessagesResource = new AvApiResource({
-      version: '/v1',
-      url: '/log-messages'
-    });
+    var AvLogMessagesResource = function() {
 
-    var buildRequest = function(level, entries) {
-
-      var requestPayload = {};
-
-      if(entries.level) {
-        delete entries.level;
-      }
-
-      requestPayload.level = level;
-      requestPayload.entries = entries;
-
-      return requestPayload;
+      AvApiResource.call(this, {
+        version: '/v1',
+        url: '/log-messages'
+      });
     };
 
-    return {
+    angular.extend(AvLogMessagesResource.prototype, AvApiResource.prototype, {
+
+      buildRequest: function(level, entries) {
+
+        var requestPayload = {};
+
+        if(entries.level) {
+          delete entries.level;
+        }
+
+        requestPayload.level = level;
+        requestPayload.entries = entries;
+
+        return requestPayload;
+      },
 
       debug: function(entries) {
-        return logMessagesResource.create(buildRequest('debug', entries));
+        return this.create(this.buildRequest('debug', entries));
       },
 
       info: function(entries) {
-        return logMessagesResource.create(buildRequest('info', entries));
+        return this.create(this.buildRequest('info', entries));
       },
 
       warn: function(entries) {
-        return logMessagesResource.create(buildRequest('warn', entries));
+        return this.create(this.buildRequest('warn', entries));
       },
 
       error: function(entries) {
-        return logMessagesResource.create(buildRequest('error', entries));
+        return this.create(this.buildRequest('error', entries));
       }
 
-    };
+    });
+
+    return new AvLogMessagesResource();
+
   };
 
   availity.core.factory('avLogMessagesResource', LogMessagesFactory);
@@ -2164,6 +2170,382 @@
         'code': 'WY'
       }
     ]
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_ANALYTICS', {
+    VIRTUAL_PAGE_TRACKING: true,
+    SERVICES: {
+      PIWIK: 'avPiwikAnalytics',
+      SPLUNK: 'avSplunkAnalytics'
+    },
+    EVENTS: {
+      PAGE: '$locationChangeSuccess',
+      DEFAULT: 'click'
+    },
+    PRE_FIX: /^avAnalytics(.*)$/,
+    // should ignore these since they are part of the directives API
+    IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
+    ENV: { // not sure if this should live here
+      PROD: {
+        URL: 'https://piwik.availity.com/piwik/'
+      },
+      QA: {
+        URL: 'https://qa-piwik.availity.com/piwik/'
+      }
+    }
+  });
+
+  availity.core.provider('avAnalytics', function(AV_ANALYTICS) {
+
+    var plugins = [];
+    var virtualPageTracking = AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;
+    var appId;
+
+    this.registerPlugins = function(_plugins) {
+
+      if(angular.isString(_plugins)) {
+        _plugins = [_plugins];
+      }
+
+      if(_.isArray(_plugins)) {
+        plugins = _plugins;
+      } else {
+        throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
+      }
+
+      return plugins;
+    };
+
+    this.setVirtualPageTracking = function(value) {
+      if(arguments.length) {
+        virtualPageTracking = !!value;
+      }
+      return virtualPageTracking;
+    };
+
+    this.setAppID = function(id) {
+      appId = id;
+      return appId;
+    };
+
+    this.$get = function($injector, $q, $log) {
+
+      var AvAnalytics = function() {
+
+        var self = this;
+        this.services = {};
+
+        if(!plugins || plugins.length === 0) {
+          plugins = [AV_ANALYTICS.SERVICES.SPLUNK];
+        }
+
+        angular.forEach(plugins, function(plugin) {
+
+          try {
+            self.services[plugin] = $injector.get(plugin);
+          } catch(err) {
+            $log.error('Could not load `{0}` plugin', [plugin]);
+          }
+        });
+
+      };
+
+      var proto = AvAnalytics.prototype;
+
+      proto.trackEvent = function(properties) {
+
+        var promises = [];
+
+        angular.forEach(this.services, function(handler) {
+          var promise = handler.trackEvent(properties);
+          promises.push(promise);
+        });
+
+        return $q.all(promises);
+      };
+
+      proto.getAppId = function() {
+        return appId;
+      };
+
+      proto.trackPageView = function(url) {
+
+        var promises = [];
+
+        angular.forEach(this.services, function(handler) {
+          var promise = handler.trackPageView(url);
+          promises.push(promise);
+        });
+
+        return $q.all(promises);
+      };
+
+      return new AvAnalytics();
+    };
+
+  });
+
+  availity.core.run(function($rootScope, AV_ANALYTICS, avAnalytics, $location ) {
+    if(avAnalytics.virtualPageTracking) {
+      $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
+        avAnalytics.trackPageView($location.absUrl());
+      });
+    }
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-util.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avAnalyticsUtils', function(AV_ANALYTICS, $log) {
+
+    var AnalyticsUtils = function() {};
+
+    var proto = AnalyticsUtils.prototype;
+
+    proto.getProperties = function(attributes) {
+
+      var self = this;
+      var props = {};
+
+      _.forEach(attributes, function(value, key) {
+        if(self.isValidAttribute(key) && self.isNotIgnored(key)) {
+          var result = self.getAttribute(key, value);
+          props[result.key] = result.value;
+        }
+      });
+
+      return props;
+    };
+
+    proto.isExternalLink = function(attrs) {
+      return attrs.href && !attrs.ngClick;
+    };
+
+    proto.isNotIgnored = function(key) {
+      var ignored = _.includes(AV_ANALYTICS.IGNORE, key);
+      return !ignored;
+    };
+
+    proto.isValidAttribute = function(key) {
+      return AV_ANALYTICS.PRE_FIX.test(key);
+    };
+
+    proto.lowercase = function(str) {
+      return str.substr(0, 1).toLowerCase() + str.substr(1);
+    };
+
+    proto.getAttribute = function(key, value) {
+      var simpleKey = key.match(AV_ANALYTICS.PRE_FIX);
+
+      if(simpleKey && simpleKey[1]) {
+        return {
+          key: this.lowercase(simpleKey[1]),
+          value: value
+        };
+      }
+    };
+
+    proto.toNum = function(value) {
+      var parsed = parseInt(value, 10);
+      value = isNaN(parsed) ? 0 : parsed;
+      return value;
+    };
+
+    proto.isValid = function(trackingValues) {
+      var valid = true;
+
+      if(trackingValues.value || trackingValues.value === 0) {
+        delete trackingValues.value;
+      }
+
+      _.forEach(trackingValues, function(key, value) {
+        if(availity.isBlank(value) || _.isUndefined(value)) {
+          $log.warn('The analytic tracking value for ' + key.toUpperCase() +' is not defined.');
+          valid = false;
+        }
+      });
+
+      return valid;
+    };
+
+    return new AnalyticsUtils();
+  });
+})(window);
+
+// Source: /lib/core/analytics/analytics-splunk.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avSplunkAnalytics', function($log, avLogMessagesResource, $location) {
+
+    var SplunkAnalyticsService = function() {};
+
+    var proto = SplunkAnalyticsService.prototype;
+
+    proto.trackEvent = function(properties) {
+      properties.url = $location.$$absUrl || 'N/A';
+      properties.level = properties.level || 'info';
+
+      return avLogMessagesResource[properties.level](properties);
+    };
+
+    proto.trackPageView  = function(url) {
+
+      var properties = {
+        event: 'page',
+        level: 'info',
+        url: url || $location.$$absUrl()
+      };
+
+      return avLogMessagesResource[properties.level](properties);
+    };
+
+    return new SplunkAnalyticsService();
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-piwik.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('avPiwikAnalytics', function() {
+
+    var that = this;
+    var siteId;
+
+    // can not push these items to `_paq` because it is defined
+    // after page has loaded
+    this._setCustomVariable = function(index, valueName, value, scope) {
+
+      root._paq = root._paq || [];
+
+      if(!index || isNaN(index)) {
+        throw new Error('index must be a number');
+      } else if(!valueName) {
+        throw new Error('valueName must be declared');
+      } else {
+        root._paq.push(['setCustomVariable', index, valueName, value, scope]);
+      }
+    };
+
+    this.setSiteID = function(_siteID) {
+      siteId = _siteID;
+    };
+
+    // allow the user to pass a array of visit variables
+    this.setVisitVariables = function(items) {
+      _.forEach(items, function(item) {
+        that._setCustomVariable(item[0], item[1], item[2], 'visit');
+      });
+    };
+
+    this.setPageVariables = function(index, name, value) {
+      this._setCustomVariable(index, name, value, 'page');
+    };
+
+    this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location, $window) {
+
+      var AvPiwikAnalytics = function() {
+        this.init();
+      };
+
+      var proto = AvPiwikAnalytics.prototype;
+
+      proto.trackEvent = function(properties) {
+
+        if(!root._paq) {
+          $log.warn('Piwik object `_paq` not found in global scope');
+          return $q.when(false);
+        }
+
+        // http://piwik.org/docs/event-tracking/
+        //
+        // PAQ requires that eventValue be an integer.
+        // Check to make sure value is a number if not convert it to 0.
+        //
+        if(properties.value) {
+          properties.value = avAnalyticsUtils.toNum(properties.event);
+        }
+
+        // check to make sure that data being sent to piwik is a string and not null, empty or undefined
+        if(!avAnalyticsUtils.isValid(properties)) {
+          $log.warn('Invalid properties being passed. Tracking info will not be sent.');
+          return $q.when(false);
+        }
+
+        return $q.when(root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]));
+      };
+
+      proto.trackPageView  = function(url) {
+
+        if(!root._paq) {
+          $log.warn('Piwik object `_paq` not found in global scope');
+          return $q.when(false);
+        }
+
+        return $q.when(root._paq.push(['trackEvent', url]));
+
+      };
+
+      proto.createScript = function() {
+        if(_.isFinite(siteId)) {
+          $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
+          return;
+        }
+
+        var url;
+
+        if($location.$$host === 'apps.availity.com') {
+          url = AV_ANALYTICS.ENV.PROD.URL;
+        } else {
+          url = AV_ANALYTICS.ENV.QA.URL;
+        }
+
+        $window._paq = $window._paq || [];
+        $window._paq.push(['enableLinkTracking']);
+        $window._paq.push(['setTrackerUrl', url + 'piwik.php']);
+        $window._paq.push(['setSiteId', siteId]);
+        $window._paq.push(['trackEvent', url]); //track initial page load even if user data is not loaded yet
+
+        var script = document.createElement('script');
+        var target = document.getElementsByTagName('script')[0];
+        script.type = 'text/javascript';
+        script.defer = true;
+        script.async = true;
+        script.src = url + 'piwik.js';
+        target.parentNode.insertBefore(script, target);
+      };
+
+      proto.init = function() {
+        // this.createScript();
+        // avUsersResource.me().then(function(user) {
+        //   $window._paq.push(['setUserId', user.id]);
+        //   self.trackPageView(); //send another page track when the user data loads
+        // });
+
+      };
+
+      return new AvPiwikAnalytics();
+    };
+
   });
 
 })(window);
