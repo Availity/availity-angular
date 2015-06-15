@@ -26,13 +26,11 @@ app.config(function($scope, analyticsProvider) {
 
   ### Event Tracking
 
-  To add a tracking event to a element on the page you will need to use the avAnalyticsOn directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.
+  To add a tracking event to a element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.
 
   * **av-analytics-on** - required
-  * **av-analytics-event** - required
   * **av-analytics-category** - required
   * **av-analytics-label** - optional
-  * **av-analytics-service** - optional
   * **av-analytics-value** - optional - numeric only
   </div>
 
@@ -80,6 +78,5 @@ availity.app.config(function(avPiwikAnalyticsProvider){
   avPiwikAnalyticsServiceProvider.setVisitVariable(1, 'name', 'value');
 });
   </code>
-
 
 </div>
