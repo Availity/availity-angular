@@ -4,6 +4,13 @@ var gutil = require('gulp-util');
 
 var config = require('../config');
 
+var hasKarmaOsxReporter = true;
+try {
+  require('karma-osx-reporter');
+} catch(err) {
+  hasKarmaOsxReporter = false;
+}
+
 var files = config.test.src
   .concat(config.lib.src)
   .concat(config.ui.src)
@@ -36,11 +43,15 @@ gulp.task('test:sauce', ['lint'], function (done) {
 
 gulp.task('test:server', ['lint'], function() {
   var karma = require('karma').server;
+  var reporters = ['progress'];
+  if(hasKarmaOsxReporter) {
+    reporters.push('osx');
+  }
   karma.start({
     configFile: path.join(config.project.path, 'karma.conf.js'),
     browsers: ['Chrome'],
     files: files,
-    reporters: ['progress'],
+    reporters: reporters,
     autoWatch: true,
     singleRun: false
   }, function(code) {
