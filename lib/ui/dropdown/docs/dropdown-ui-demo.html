@@ -198,11 +198,12 @@ demo.controller('DropdownController', function($scope, $log) {
   > Using remote data requires a **hidden** input field, rather than a select element.
   </div>
   <div data-markdown>
-  > Specify how the data is viewed in the dropdown with `data-format-result`
+   ### Options
+
+   * `data-format-result` - specify how the data is viewed in the dropdown
+   * `data-format-selection` - specify how the data is viewed when selected with
   </div>
-  <div data-markdown>
-  > Specify how the data is viewed when selected with `data-format-selection`
-  </div>
+
   <div class="guide-example">
     <form name="dropdownForm">
       <div class="form-group">
@@ -214,19 +215,13 @@ demo.controller('DropdownController', function($scope, $log) {
           data-av-dropdown
           data-ng-model="selectedHosp"
           data-ng-change="selectAction(selectedHosp)"
-          data-placeholder="Select a hospital"
+          data-placeholder="Find a procedure code"
           data-allow-clear="true"
           data-query="myQuery"
           data-minimum-input-length="3"
           data-format-result="myFormatResult"
           data-format-selection="myFormatResult"
         >
-      </div>
-      <div class="disclaimer">
-        This search just gets a static result. It will always return the same thing in this demo regardless of what you type in.
-      </div>
-      <div class="disclaimer">
-        Internet Explorer has issues with cross-site ajax calls (this demo does not have any cross-site calls)
       </div>
       <div class="form-controls">
         <button
