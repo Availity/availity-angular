@@ -24,20 +24,31 @@ app.config(function($scope, analyticsProvider) {
 
   <div data-markdown>
 
+  ### Anatomy of an Event
+
+  > The following descriptions were copied from [http://www.statstory.com/](http://www.statstory.com/tracking-events-in-google-analytics/)
+
+  * **category** - This is the name you want to give for the collection where actions you want to track will occur. An example of category could be Video’s or Datasheets.
+  * **action** - This is a string which is paired with each category, and most often is used to describe the user interaction with your content. An example could be play, click or download.
+  * **label** - This is an optional string which can be valuable in adding a dimension to the event data. Usually I use it to differentiate content. For example, if you want to know which specific video is played or which datasheet is downloaded.
+  * **value** - This is a number, which you can use to provide a numerical dimension to a user action. Normally, I leave this blank unless I have an ecommerce reason. For example if you have a form, where a user can fill in a price or quantity, you can pass this value via an event.
+
   ### Event Tracking
 
   To add a tracking event to a element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.
 
   * **av-analytics-on** - required
-  * **av-analytics-category** - required
-  * **av-analytics-label** - optional
-  * **av-analytics-value** - optional - numeric only
+  * **av-analytics-category** - required for Piwik
+  * **av-analytics-action** - required for Piwik
+  * **av-analytics-label** - optional for Piwik
+  * **av-analytics-value** - optional for Piwik - numeric only
+
   </div>
 
   <code class="language-markup">
 <button
   data-av-analytics-on="click"
-  data-av-analytics-event="Play"
+  data-av-analytics-action="Play"
   data-av-analytics-category="Availity Home"
   data-av-analytics-label="Intro Movie"
   data-av-analytics-value="0">

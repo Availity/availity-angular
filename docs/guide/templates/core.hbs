@@ -8,8 +8,13 @@
 {{> nav}}
 
 <main class="guide" data-ng-controller="PageController">
-  <div class="container">
+  <div class="container-fluid">
+    <div class="col-md-3">
+      <div id="nav" class="tocify">
 
+      </div>
+    </div>
+    <div class="col-md-9">
     {{#each collections.core}}
       <section class="guide-section">
         {{#if this.title}}
@@ -20,6 +25,7 @@
         {{{this.contents}}}
       </section>
     {{/each}}
+    </div>
 
   </div>
 </main>
