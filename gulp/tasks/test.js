@@ -40,7 +40,7 @@ gulp.task('test:server', ['lint'], function() {
     configFile: path.join(config.project.path, 'karma.conf.js'),
     browsers: ['Chrome'],
     files: files,
-    reporters: ['progress'],
+    reporters: ['progress', 'notify'],
     autoWatch: true,
     singleRun: false
   }, function(code) {
