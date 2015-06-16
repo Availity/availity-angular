@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.10.0 -- June-11
+ * availity-angular v0.11.0 -- June-15
  * Copyright 2015 Availity, LLC 
  */
 
@@ -941,13 +941,11 @@
   availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, $log, $scope, $timeout, $parse) {
 
     var self = this;
-
     this.options = [];
     this.match = null;
     this.ngModel = null;
 
     this.init = function() {
-
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
@@ -957,6 +955,11 @@
       self.multiple = angular.isDefined($attrs.multiple);
 
       self.options.closeOnResize = self.options.closeOnResize  || true;
+
+      if(self.options.query) {
+        self.queryFn = self.options.query;
+        self.options.query = self.query;
+      }
 
     };
 
@@ -975,11 +978,15 @@
 
     };
 
-    this.setValue = function() {
+    this.query = function(options) {
+      self.queryFn(options).then(function(response) {
+        options.callback({more: response.more, results: response.results});
+      });
+    };
 
+    this.setValue = function() {
       var viewValue = self.ngModel.$viewValue;
       var selected = null;
-
       if(viewValue) {
         selected = this.getSelected(viewValue);
       }
@@ -1006,12 +1013,10 @@
     };
 
     this.ngOptions = function() {
-
       this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
       if(!this.match) {
         throw new Error('Invalid ngOptions for avDropdown');
       }
-
       // AV_UI.NG_OPTIONS regex will parse into arrays like below:
       //
       // 0: "state.name for state in states"
@@ -1053,7 +1058,7 @@
       // 6: undefined
       // 7: "feeScheduleModel.persons"
       // 8: undefined
-
+      //
       this.displayFn = $parse(this.match[2] || this.match[1]); // this is the function to retrieve the text to show as
       this.collection = $parse(this.match[7]);
       this.valueName = this.match[4] || this.match[6];
@@ -1061,7 +1066,6 @@
       this.keyName = this.match[5];
 
       $scope.$watchCollection(this.collection, function(newVal, oldVal) {
-
         if(angular.equals(newVal, oldVal)) {
           return;
         }
@@ -1069,8 +1073,8 @@
         self.setValue();
 
       }, true);
-    };
 
+    };
   });
 
   availity.ui.directive('avDropdown', function($timeout, $log, $window) {
@@ -1079,7 +1083,6 @@
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
-
         var ngModel = controllers[0];
         var avDropdown = controllers[1];
 
@@ -1103,12 +1106,35 @@
         });
 
         element.on('change', function(e) {
+
+          // special case since the ajax handling doesn't bind to the model correctly
+          // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
+          if(!_.isNull(avDropdown.options.query)) {
+            $timeout(function() {
+              ngModel.$setViewValue(e.added);
+            });
+          }
+
           $log.info(e);
+
+        });
+
+        // fires ng-focus when select2-focus fires.
+        element.on('select2-focus', function() {
+          if(attrs.ngFocus) {
+            scope.$eval(scope.$eval(attrs.ngFocus));
+          }
+        });
+
+        // fires ng-blur when select2-blur occurs.
+        element.on('select2-blur', function() {
+          if(attrs.ngBlur) {
+            scope.$eval(scope.$eval(attrs.ngBlur));
+          }
         });
 
         // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
         element.on('select2-open', function () {
-
           // look for .has-success, .has-warning, .has-error
           // (really look for .has-* … which is good enough for the demo page, but obviously might interfere with other CSS-classes starting with "has-")
           if(element.parents('[class*="has-"]').length) {
@@ -1125,6 +1151,7 @@
           }
         });
 
+
         var _$render = ngModel.$render;
         ngModel.$render = function() {
           _$render();
@@ -1140,10 +1167,6 @@
         var win = angular.element($window);
 
         win.bind('resize', function() {
-          element.select2('close');
-        });
-
-        win.bind('scroll', function() {
           element.select2('close');
         });
 
@@ -1259,6 +1282,17 @@
       return viewValue;
     };
 
+    this.wrapIsoDate = function() {
+      var date = self.ngModel.$modelValue;
+
+      if(!moment.isDate(date)) {
+        var m = moment(date);
+        self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
+      }
+
+      return self.ngModel.$modelValue;
+    };
+
     this.viewToModel = function() {
       var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
       var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
@@ -1344,6 +1378,7 @@
         // prior to getting converted to the expected $viewValue format,
         // the validation will fail.
         ngModel.$formatters.push(avDatepicker.modelToView);
+        ngModel.$formatters.push(avDatepicker.wrapIsoDate);
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
@@ -1633,15 +1668,12 @@
         event.stopPropagation();
       }
 
-      // convert the directive attributes into object with properties
-      var properties = avAnalyticsUtils.getProperties($attrs);
-      // store the actual dom event in action if non supplied
-      properties.event = event.type;
-
-      // add info level by default to the properties object - only used for splunk
-      if(!properties.level) {
-        properties.level = 'info';
-      }
+      // convert the directive attributes into object with properties with sane defaults
+      var properties = _.extend({
+        level: 'info'
+      }, avAnalyticsUtils.getProperties($attrs), {
+        event: event.type
+      });
 
       var promise = avAnalytics.trackEvent(properties);
       promise['finally'](function() {
