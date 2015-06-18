@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.10.0 -- June-11
+ * availity-angular v0.11.0 -- June-15
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.10.0';
+  availity.VERSION = 'v0.11.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -788,21 +788,26 @@
 
     proto.update = function(id, data, config) {
 
-      if(!id || !data) {
-        throw new Error('called method without [id] or [data]');
-      }
+      var url;
 
-      config = this._config(config);
-      config.method = 'PUT';
-      config.url = this._getUrl(id);
-      config.data = data;
+      if(_.isString(id) || _.isNumber(id)) {
+        url = this._getUrl(id);
+      }else {
+        url = this._getUrl();
+        config = data;  // config is really the 2nd param for this use case
+        data = id; // data is really the first param for this use case
+      }
 
       if(this.beforeUpdate) {
         data = this.beforeUpdate(data);
       }
 
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
+      config = this._config(config);
+      config.method = 'PUT';
+      config.url = url;
+      config.data = data;
 
+      return this._request(config, this.beforeUpdate, this.afterUpdate);
 
     };
 
@@ -1029,11 +1034,55 @@
 
   'use strict';
 
+
   var availity = root.availity;
 
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
+
+
+  var AvCodesResourceFactory = function(AvApiResource) {
+
+    var AvCodesResource = function () {
+      AvApiResource.call(this, 'codes');
+    };
+
+    angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
+
+      getCodes: function (data) {
+
+        // config for the api resource query
+        var config = {};
+        config.params = {};
+        config.params.offset = 50 * (data.page - 1);
+
+        return this.query(config).then(function (response) {
+          //format the response into something select2 can read
+          var myResults = response.data.codes;
+          if(_.isEmpty(myResults[0].id)) {
+            _.each(myResults, function (code) {
+              code.id = code.code;
+            });
+          }
+
+          // calculate if we want to continue searching
+          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          return {
+            more: moreVal,
+            results: myResults
+          };
+
+        });
+      }
+
+    });
+
+    return new AvCodesResource();
+
+  };
+
+  availity.core.factory('avCodesResource', AvCodesResourceFactory);
 
 })(window);
 
@@ -1305,7 +1354,7 @@
 
   availity.core.provider('avIdle', function(AV_IDLE) {
 
-    var enabled = true;
+    var enabled = false;
     var pingUrl;
     var redirectUrl;
     var sessionTimeout;
