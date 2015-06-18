@@ -1,0 +1,82 @@
+{
+  "totalCount" : 2,
+  "count" : 2,
+  "offset" : 0,
+  "limit" : 50,
+  "links" : {
+    "self" : {
+      "href" : "http://localhost:8280/spaces/v1/spaces"
+    }
+  },
+  "spaces" : [ {
+    "id" : "14346343625190168891449000005185",
+    "name" : "Humana Space",
+    "shortName" : "Humana",
+    "owner" : {
+      "id" : "HUMANA",
+      "name" : "Humana"
+    },
+    "link" : {
+      "text" : "Humana Payer Space",
+      "url" : "/spaces?id=HUMANA"
+    },
+    "codes" : {
+      "apiCode" : "MA1234",
+      "scmCode" : "AKJH2624",
+      "paasCode" : "OS1122"
+    },
+    "icons" : {
+      "128" : "images/humana128.png",
+      "64" : "images/humana64.png"
+    },
+    "brand" : {
+      "name" : "Humana",
+      "id" : "HUMANA",
+      "colors" : {
+        "secondary" : "#deade4",
+        "primary" : "#feeded"
+      }
+    },
+    "templateName" : "templates/base_template.hbs",
+    "images" : {
+      "tile" : "images/humana/tile.png",
+      "logo" : "images/humana/logo.png",
+      "billboard" : "images/humana/billboard.png"
+    }
+  }, {
+    "id" : "14346343625190168891449000017399",
+    "name" : "Empire Space",
+    "shortName" : "Empire",
+    "owner" : {
+      "id" : "EMPIRE",
+      "name" : "Empire"
+    },
+    "link" : {
+      "text" : "Empire Payer Space",
+      "url" : "/spaces?id=EMPIRE"
+    },
+    "codes" : {
+      "apiCode" : "MA394587",
+      "scmCode" : "AKJASLKDJF",
+      "paasCode" : "OS239874"
+    },
+    "icons" : {
+      "128" : "images/empire128.png",
+      "64" : "images/empire64.png"
+    },
+    "brand" : {
+      "name" : "Anthem",
+      "id" : "ANTHEM",
+      "colors" : {
+        "secondary" : "#beaded",
+        "primary" : "#c0ffee"
+      }
+    },
+    "templateName" : "templates/base_template.hbs",
+    "images" : {
+      "tile" : "images/empire/tile.png",
+      "logo" : "images/empire/logo.png",
+      "billboard" : "images/empire/billboard.png"
+    }
+  } ]
+}

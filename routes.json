@@ -39,6 +39,19 @@
         "file": "axi-user-permissions-empty.json"
       }
     ]
+  },
+  "/spaces/v1/spaces":{
+    "get": [
+      {
+        "params": {
+          "ownerId": "14346343625190168891449000005185"
+        },
+        "file": "spaces-1.json"
+      },
+      {
+         "file": "spaces.json"
+      }
+    ]
   }
 }
 

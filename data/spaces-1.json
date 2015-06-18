@@ -1,0 +1,47 @@
+{
+  "totalCount" : 1,
+  "count" : 1,
+  "offset" : 0,
+  "limit" : 50,
+  "links" : {
+    "self" : {
+      "href" : "http://localhost:8280/spaces/v1/spaces"
+    }
+  },
+  "spaces" : [ {
+    "id" : "14346343625190168891449000005185",
+    "name" : "Humana Space",
+    "shortName" : "Humana",
+    "owner" : {
+      "id" : "HUMANA",
+      "name" : "Humana"
+    },
+    "link" : {
+      "text" : "Humana Payer Space",
+      "url" : "/spaces?id=HUMANA"
+    },
+    "codes" : {
+      "apiCode" : "MA1234",
+      "scmCode" : "AKJH2624",
+      "paasCode" : "OS1122"
+    },
+    "icons" : {
+      "128" : "images/humana128.png",
+      "64" : "images/humana64.png"
+    },
+    "brand" : {
+      "name" : "Humana",
+      "id" : "HUMANA",
+      "colors" : {
+        "secondary" : "#deade4",
+        "primary" : "#feeded"
+      }
+    },
+    "templateName" : "templates/base_template.hbs",
+    "images" : {
+      "tile" : "images/humana/tile.png",
+      "logo" : "images/humana/logo.png",
+      "billboard" : "images/humana/billboard.png"
+    }
+  }]
+}
