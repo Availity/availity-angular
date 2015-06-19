@@ -65,7 +65,6 @@ module.exports = {
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
       './lib/core/utils/globals.js',
-      './lib/core/utils/placeholder-shim.js',
       './lib/core/analytics/analytics.js',
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk.js',
@@ -95,7 +94,8 @@ module.exports = {
       './lib/ui/idle/idle-notifier.js',
       './lib/ui/mask/mask.js',
       './lib/ui/permissions/has-permission.js',
-      './lib/ui/analytics/analytics.js'
+      './lib/ui/analytics/analytics.js',
+      './lib/ui/placeholder/placeholder.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
