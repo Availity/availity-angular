@@ -36,6 +36,5 @@
       "escape": true
     },
     "requireParenthesesAroundIIFE": true,
-    "disallowMixedSpacesAndTabs": true,
     "disallowTrailingComma": true
 }
