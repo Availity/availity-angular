@@ -195,6 +195,7 @@ module.exports = {
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      './bower_components/tracekit/tracekit.js',
       // 'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'test/index.js',
       'test/matchers.js',
