@@ -90,4 +90,18 @@ availity.app.config(function(avPiwikAnalyticsProvider){
 });
   </code>
 
+  <div data-markdown>
+
+  ### Exception Handler
+
+  The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://github.com/csnover/TraceKit) for consistent metrics on strack traces occurring across all browsers.
+
+  Open debugger to see `exceptionHandler` send a message to `api/v1/log-messages` with normalized error message information along with the stack trace
+
+  </div>
+
+  <button data-ng-click="analytics.createError()" class="btn btn-danger">
+  Create Error
+  </button>
+
 </div>
