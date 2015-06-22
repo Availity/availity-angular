@@ -40,6 +40,7 @@ module.exports = {
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
+      './lib/core/utils/print.js',
       './lib/core/utils/throttle.js',
       './lib/core/logger/logger.js',
       './lib/core/logger/logger-config.js',
