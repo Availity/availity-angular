@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var path = require('path');
 var Ekko = require('availity-ekko');
-var proxy = require('proxy-middleware');
+var proxyMiddleware = require('http-proxy-middleware');
 var _ = require('lodash');
 
 var config = require('../config');
@@ -41,9 +41,10 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
   //  route: /api
   //
   // }
+
   var _url = _.template('http://localhost:<%= port %>/');
-  var proxyOptions = url.parse(_url({port: servers.web.port}));
-  proxyOptions.route = '/api';
+  var proxyUrl = _url({port: servers.web.port});
+  var apiProxy = proxyMiddleware('/api', {target: proxyUrl});
 
   browserSync({
     notify: true,
@@ -51,16 +52,17 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
     server: {
       baseDir: config.sync.src,
       middleware: [
-        // Middleware #1: Allow web page requests without .html file extension in URLs
+        // Middleware #1: proxy
+        apiProxy,
+
+        // Middleware #2: Allow web page requests without .html file extension in URLs
         function(req, res, next) {
           var uri = url.parse(req.url);
           if(uri.pathname.length > 1 && path.extname(uri.pathname) === '' && fs.existsSync('./dest' + uri.pathname + '.html')) {
             req.url = uri.pathname + '.html' + (uri.search || '');
           }
           next();
-        },
-        // Middleware #2: Proxy request to availity-ekko server
-        proxy(proxyOptions)
+        }
       ]
     }
   }, cb);

@@ -69,7 +69,8 @@ module.exports = {
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk.js',
       './lib/core/analytics/analytics-piwik.js',
-      './lib/core/utils/data-polyfill.js'
+      './lib/core/analytics/analytics-exceptions.js',
+      './lib/core/utils/date-polyfill.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -120,7 +121,8 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
-      './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js'
+      './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      './bower_components/tracekit/tracekit.js'
       // './bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
@@ -193,6 +195,7 @@ module.exports = {
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       'bower_components/moment/moment.js',
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      './bower_components/tracekit/tracekit.js',
       // 'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'test/index.js',
       'test/matchers.js',
