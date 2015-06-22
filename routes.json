@@ -18,6 +18,9 @@
       }
     ]
   },
+  "v1/log-messages": {
+    "file": "log.json"
+  },
   "/internal/v1/axi-user-permissions": {
     "get": [
       {

@@ -90,4 +90,43 @@ availity.app.config(function(avPiwikAnalyticsProvider){
 });
   </code>
 
+  <div data-markdown>
+
+  ### Exception Handler
+
+  The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://github.com/csnover/TraceKit) for consistent metrics on strack traces occurring across all browsers.
+
+  Open debugger to see `exceptionHandler` send a message to `api/v1/log-messages` with normalized error message information along with the stack trace.
+
+  </div>
+
+  <p>
+    <button data-ng-click="analytics.createError()" class="btn btn-danger">
+    Create Error
+    </button>
+  </p>
+
+  <code class="language-javascript">
+// sample payload
+
+{
+  "level": "error",
+  "entries": {
+    "errorDate": "2015-06-21T19:21:17.283Z",
+    "errorName": "Error",
+    "errorMessage": "Oh snap!",
+    "errorStack": "[00] Object.$scope.analytics.createError http://localhost:3000/js/docs-demos.js:46:15\n[01] Parser.functionCall http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.js:10903:21\n[02] ngEventDirectives.(anonymous function).compile.element.on.callback http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.js:19259:17\n[03] Scope.$get.Scope.$eval http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.js:12811:28\n[04] Scope.$get.Scope.$apply http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.js:12909:23\n[05] HTMLButtonElement.&lt;anonymous&gt; http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.js:19264:23\n[06] HTMLButtonElement.m.event.dispatch http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js:3:8436\n[07] HTMLButtonElement.m.event.add.r.handle http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js:3:5146",
+    "url": "http://localhost:3000/core.html",
+    "appId": "N/A",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36",
+    "referrer": "http://localhost:3000/core.html",
+    "host": "localhost",
+    "screenWidth": 744,
+    "screenHeight": 723,
+    "sdkVersion": "v0.0.0"
+  }
+}
+
+  </code>
+
 </div>

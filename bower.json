@@ -22,7 +22,8 @@
     "availity-uikit": "~0.8.1",
     "angular-shims-placeholder": "~0.4.2",
     "jquery.inputmask": "~3.1.63",
-    "lodash-compat": "~3.4.0"
+    "lodash-compat": "~3.4.0",
+    "tracekit": "~0.2.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.28"
