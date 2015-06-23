@@ -62,6 +62,7 @@ module.exports = {
       './lib/core/validation/validators/validator-utils.js',
       './lib/core/validation/validators/validator-size.js',
       './lib/core/validation/validators/validator-pattern.js',
+      './lib/core/validation/validators/validator-invalid.js',
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
