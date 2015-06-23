@@ -1,5 +1,4 @@
-/*global availity:true, window:false, angular*/
-var availity = window.availity || {};
+/*global availity:true, angular*/
 
 (function() {
   'use strict';
