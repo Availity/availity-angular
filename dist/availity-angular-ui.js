@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.11.0 -- June-15
+ * availity-angular v0.12.0 -- June-23
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1109,7 +1109,7 @@
 
           // special case since the ajax handling doesn't bind to the model correctly
           // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
-          if(!_.isNull(avDropdown.options.query)) {
+          if(avDropdown.options.query) {
             $timeout(function() {
               ngModel.$setViewValue(e.added);
             });
@@ -1285,7 +1285,7 @@
     this.wrapIsoDate = function() {
       var date = self.ngModel.$modelValue;
 
-      if(!moment.isDate(date)) {
+      if(date !== undefined && date !== null && !moment.isDate(date)) {
         var m = moment(date);
         self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
       }
@@ -1703,6 +1703,43 @@
     };
   });
 
+})(window);
+
+// Source: /lib/ui/placeholder/placeholder.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.requires.push('ng.shims.placeholder');
+
+  availity.core.config(function($provide) {
+
+    $provide.decorator('placeholderDirective', ['$delegate', '$log', function($delegate, $log) {
+
+      var directive = $delegate[0];
+      var originalLink = directive.link;
+
+      var newLink = function(scope, element, attrs) {
+
+        if(originalLink && _.contains(_.keys(attrs), 'avMask')) {
+          $log.info('placeholder shim not running on an element due to avMask on same element');
+          return;
+        }else if(originalLink) {
+          originalLink.apply(this, arguments);
+        }
+        //else originalLink doesn't exist
+      };
+
+      directive.compile = function() {
+        return newLink;
+      };
+
+      return $delegate;
+    }]);
+
+  });
 })(window);
 
 //# sourceMappingURL=maps/availity-angular-ui.js.map
