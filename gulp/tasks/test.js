@@ -8,7 +8,8 @@ var files = config.test.src
   .concat(config.lib.src)
   .concat(config.ui.src)
   .concat(config.lib.specs)
-  .concat(config.ui.specs);
+  .concat(config.ui.specs)
+  .concat({pattern: 'lib/**/*-fixture.html', watched: true, served: true, included: true});
 
 gulp.task('test', ['test:ci']);
 
@@ -39,7 +40,7 @@ gulp.task('test:server', ['lint'], function() {
     configFile: path.join(config.project.path, 'karma.conf.js'),
     browsers: ['Chrome'],
     files: files,
-    reporters: ['progress'],
+    reporters: ['progress', 'notify'],
     autoWatch: true,
     singleRun: false
   }, function(code) {

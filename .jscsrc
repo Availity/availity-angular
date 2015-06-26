@@ -18,7 +18,6 @@
         "while",
         "do",
         "switch",
-        "try",
         "catch"
     ],
 
@@ -37,6 +36,5 @@
       "escape": true
     },
     "requireParenthesesAroundIIFE": true,
-    "disallowMixedSpacesAndTabs": true,
     "disallowTrailingComma": true
 }

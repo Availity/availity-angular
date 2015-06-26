@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.7.1 -- May-10
+ * availity-angular v0.12.0 -- June-23
  * Copyright 2015 Availity, LLC 
  */
 
@@ -16,7 +16,9 @@
   availity.ui = angular.module(availity.MODULE_UI, ['ng', 'ngSanitize']);
 
   availity.ui.constant('AV_UI', {
+    // jscs: disable
     NG_OPTIONS: /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
+    // jscs: enable
   });
 
   if(typeof module !== 'undefined' && module.exports) {
@@ -41,7 +43,7 @@
         var valid = !options.template || !options.templateUrl;
 
         if(!valid) {
-          throw new Error("Either options.template or options.templateUrl must be defined for avTemplateCache");
+          throw new Error('Either options.template or options.templateUrl must be defined for avTemplateCache');
         }
 
         return options.template ? $q.when(options.template) :
@@ -105,7 +107,7 @@
 
       this.options = angular.extend({}, AV_MODAL.OPTIONS, {scope: $rootScope.$new()}, options);
 
-      avTemplateCache.get(options).then(function(template){
+      avTemplateCache.get(options).then(function(template) {
         self.options.template = template;
         self.create();
       });
@@ -260,39 +262,6 @@
 
 })(window);
 
-// Source: /lib/ui/navbar/navbar.js
-
-(function(root) {
-
-  'use strict';
-
-  var availity = root.availity;
-
-  availity.ui.constant('AV_NAVBAR', {
-
-    OPTIONS: {},
-
-    TEMPLATES: {
-      NAVBAR: 'ui/navbar/navbar-tpl.html'
-    }
-  });
-
-  availity.ui.directive('avNavbar', function(AV_NAVBAR, avSession) {
-    return {
-      restrict: 'A',
-      replace: true,
-      scope: {},
-      templateUrl: AV_NAVBAR.TEMPLATES.NAVBAR,
-      controller: function($scope) {
-        avSession.getUser().then(function(user) {
-          $scope.currentUser = user;
-        });
-      }
-    };
-  });
-
-})(window);
-
 // Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
@@ -388,7 +357,7 @@
               return;
             }
 
-            scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey){
+            scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey) {
               if(_rulesKey) {
                 avForm.setRulesKey(_rulesKey);
 
@@ -551,10 +520,26 @@
       self.updateModel.call(self, results);
       self.updateView.call(self);
 
+      return results;
+    };
+
+    this.validateModel = function(value) {
+
+      self.validate(value, true);
       return value;
+
+    };
+
+    this.validateView = function(value) {
+
+      var results = self.validate(value);
+      // prevent invalid data from view to update model
+      return results.isValid ? value : undefined;
+
     };
 
     this.debounce = function(avValDebounce) {
+
       var self = this;
 
       $element.unbind('input');
@@ -603,7 +588,7 @@
         avValField.setRule(rule);
         avValField.createId();
 
-        var debounceAllowed = (element.is("input") && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
+        var debounceAllowed = (element.is('input') && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
 
         if(debounceAllowed) {
           avValField.debounce(avValDebounce);
@@ -616,10 +601,12 @@
         }
 
         // (view to model)
-        ngModel.$parsers.push(avValField.validate);
+        ngModel.$parsers.push(avValField.validateView);
 
-        // (model to view) - potentially allow other formatter to run first
-        ngModel.$formatters.unshift(avValField.validate);
+        // (model to view) - added to beginning of array because formatters
+        // are processed in reverse order thus allowing the model to be transformed
+        // before the validation framework check for validity.
+        ngModel.$formatters.unshift(avValField.validateModel);
 
         scope.$on(AV_VAL.EVENTS.REVALIDATE, function() {
           avValField.validate(ngModel.$viewValue);
@@ -681,7 +668,7 @@
       $element.popover('hide');
     };
 
-    this.toggle= function() {
+    this.toggle = function() {
       $element.popover('toggle');
     };
 
@@ -703,7 +690,6 @@
             html: true
           }));
         });
-
       }
     };
   });
@@ -718,10 +704,6 @@
   var availity = root.availity;
 
   availity.ui.controller('avValContainerController', function($scope, $timeout) {
-
-    $scope.messages = {
-      message: null
-    };
 
     this.message = function(ngModel) {
 
@@ -747,8 +729,12 @@
       controller: 'avValContainerController',
       template: '<p class="help-block" data-ng-bind-html="messages.message"></p>',
       replace: true,
-      scope: {},
-      link: function() {}
+      scope: {
+
+      },
+      link: function(scope) {
+        scope.messages = _.extend({}, scope.messages, { message: null, id: null });
+      }
     };
   });
 
@@ -768,21 +754,25 @@
       ERROR: 'has-error',
       FEEDBACK: 'has-feedback',
       HELP: 'help-block',
+      FORM_GROUP: '.form-group:first',
       NAVBAR: 'navbar-fixed-top'
+    },
+    SELECTORS: {
+      CONTAINER: 'container-id',
+      DATA_CONTAINER: 'data-container-id'
     },
     CONTROLLER: '$avValContainerController'
   });
 
-  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout) {
+  availity.ui.factory('avValBootstrapAdapter', function(AV_BOOTSTRAP_ADAPTER, $timeout, $log) {
 
     return {
 
       element: function(element, ngModel) {
-        var el = element[0];
         if(ngModel.$valid) {
-          angular.element(el.parentNode).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
-        }else{
-          angular.element(el.parentNode).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+        }else {
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }
       },
 
@@ -793,14 +783,20 @@
           AV_BOOTSTRAP_ADAPTER.CLASSES.HELP
         ].join('');
 
-        var messageTarget = $(element).siblings(selector);
+        var $el = $(element);
 
-        if(messageTarget.length === 0) {
+        var target = $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.CONTAINER);
+        target = target || $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.DATA_CONTAINER);
+        // default to siblings
+        target = target ? $('#' + target) : $el.siblings(selector);
+
+        if(target.length === 0) {
+          $log.warn('avValBootstrapAdapter could not find validation container for {0}', [element]);
           return;
         }
 
-        var el = messageTarget[0]; // just target first sibling
-        var $el = angular.element(el);
+        var el = target[0];
+        $el = angular.element(el);
         var avValModel = $el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER); // get the av val message controller
         if(avValModel) {
           avValModel.message(ngModel);
@@ -828,10 +824,10 @@
         ].join('');
 
         var $target = $(form).find(selector);
-        $timeout(function(){
+        $timeout(function() {
           // scroll to offset top of first error minus the offset of the navbars
           $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
-        });
+        }, 0, false);
       }
     };
   });
@@ -905,14 +901,14 @@
       'multiple',
       'closeOnSelect',
       'openOnEnter',
-      'id', /* Function used to get the id from the choice object or a string representing the key under which the id is stored. `id(object)`*/
-      'matcher', /* Used to determine whether or not the search term matches an option when a built-in query function is used. The built in query function is used when Select2 is attached to a select, or the local or tags helpers are used. `matcher(term, text, option)`*/
+      'id',
+      'matcher',
       'sortResults',
-      'formatSelection', /* Function used to render the current selection. `formatSelection(object, container)` */
+      'formatSelection',
       'formatResult',
       'formatResultCssClass',
-      'formatNoMatches', /* String containing 'No matches' message, or Function used to render the message */
-      'formatSearching', /* Function used to render a result that the user can select. `formatResult(object, container, query)` */
+      'formatNoMatches',
+      'formatSearching',
       'formatAjaxError',
       'formatInputTooShort',
       'formatInputTooLong',
@@ -945,15 +941,13 @@
   availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, $log, $scope, $timeout, $parse) {
 
     var self = this;
-
     this.options = [];
     this.match = null;
     this.ngModel = null;
 
     this.init = function() {
-
       _.forEach($attrs, function(value, key) {
-        if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))){
+        if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
@@ -961,6 +955,11 @@
       self.multiple = angular.isDefined($attrs.multiple);
 
       self.options.closeOnResize = self.options.closeOnResize  || true;
+
+      if(self.options.query) {
+        self.queryFn = self.options.query;
+        self.options.query = self.query;
+      }
 
     };
 
@@ -979,11 +978,15 @@
 
     };
 
-    this.setValue = function() {
+    this.query = function(options) {
+      self.queryFn(options).then(function(response) {
+        options.callback({more: response.more, results: response.results});
+      });
+    };
 
+    this.setValue = function() {
       var viewValue = self.ngModel.$viewValue;
       var selected = null;
-
       if(viewValue) {
         selected = this.getSelected(viewValue);
       }
@@ -1010,12 +1013,10 @@
     };
 
     this.ngOptions = function() {
-
       this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
       if(!this.match) {
-        throw new Error("Invalid ngOptions for avDropdown");
+        throw new Error('Invalid ngOptions for avDropdown');
       }
-
       // AV_UI.NG_OPTIONS regex will parse into arrays like below:
       //
       // 0: "state.name for state in states"
@@ -1057,7 +1058,7 @@
       // 6: undefined
       // 7: "feeScheduleModel.persons"
       // 8: undefined
-
+      //
       this.displayFn = $parse(this.match[2] || this.match[1]); // this is the function to retrieve the text to show as
       this.collection = $parse(this.match[7]);
       this.valueName = this.match[4] || this.match[6];
@@ -1065,7 +1066,6 @@
       this.keyName = this.match[5];
 
       $scope.$watchCollection(this.collection, function(newVal, oldVal) {
-
         if(angular.equals(newVal, oldVal)) {
           return;
         }
@@ -1073,8 +1073,8 @@
         self.setValue();
 
       }, true);
-    };
 
+    };
   });
 
   availity.ui.directive('avDropdown', function($timeout, $log, $window) {
@@ -1083,7 +1083,6 @@
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
-
         var ngModel = controllers[0];
         var avDropdown = controllers[1];
 
@@ -1107,12 +1106,35 @@
         });
 
         element.on('change', function(e) {
+
+          // special case since the ajax handling doesn't bind to the model correctly
+          // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
+          if(avDropdown.options.query) {
+            $timeout(function() {
+              ngModel.$setViewValue(e.added);
+            });
+          }
+
           $log.info(e);
+
+        });
+
+        // fires ng-focus when select2-focus fires.
+        element.on('select2-focus', function() {
+          if(attrs.ngFocus) {
+            scope.$eval(scope.$eval(attrs.ngFocus));
+          }
+        });
+
+        // fires ng-blur when select2-blur occurs.
+        element.on('select2-blur', function() {
+          if(attrs.ngBlur) {
+            scope.$eval(scope.$eval(attrs.ngBlur));
+          }
         });
 
         // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
-        element.on("select2-open", function () {
-
+        element.on('select2-open', function () {
           // look for .has-success, .has-warning, .has-error
           // (really look for .has-* … which is good enough for the demo page, but obviously might interfere with other CSS-classes starting with "has-")
           if(element.parents('[class*="has-"]').length) {
@@ -1122,12 +1144,13 @@
 
             // go through the class names, find "has-"
             for(var i = 0; i < classNames.length; ++i) {
-              if(classNames[i].match("has-")) {
+              if(classNames[i].match('has-')) {
                 $('#select2-drop').addClass(classNames[i]);
               }
             }
           }
         });
+
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
@@ -1144,10 +1167,6 @@
         var win = angular.element($window);
 
         win.bind('resize', function() {
-          element.select2('close');
-        });
-
-        win.bind('scroll', function() {
           element.select2('close');
         });
 
@@ -1216,10 +1235,11 @@
       'disableTouchKeyboard',
       'enableOnReadonly'
     ],
-    DEFUALTS: {
+    DEFAULTS: {
       FORMAT: 'mm/dd/yyyy',
       CLOSE: true,
-      TODAY: true
+      TODAY: true,
+      FORCEPARSE: false
     }
   });
 
@@ -1229,7 +1249,6 @@
     this.options = {};
 
     this.setValue = function() {
-
 
       var viewValue = self.ngModel.$modelValue;
       var plugin = this.plugin();
@@ -1263,9 +1282,18 @@
       return viewValue;
     };
 
+    this.wrapIsoDate = function() {
+      var date = self.ngModel.$modelValue;
+
+      if(date !== undefined && date !== null && !moment.isDate(date)) {
+        var m = moment(date);
+        self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
+      }
+
+      return self.ngModel.$modelValue;
+    };
+
     this.viewToModel = function() {
-
-
       var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
       var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
 
@@ -1275,21 +1303,25 @@
         return;
       }
 
+      // jscs: disable
       return plugin._utc_to_local(utcDate);
+      // jscs: enable
     };
 
     this.init = function() {
 
       _.forEach($attrs, function(value, key) {
-        if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))){
+        if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
 
-      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFUALTS.CLOSE;
-      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFUALTS.TODAY;
-      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFUALTS.FORMAT;
+      // self.options = _.extend{}, optionsDefault, userOptions);
 
+      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFAULTS.CLOSE;
+      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
+      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
+      self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
     };
 
     this.plugin = function() {
@@ -1302,7 +1334,6 @@
         plugin.remove();
         $element.data('datepicker', null);
       }
-
     };
 
     this.hide = function() {
@@ -1311,7 +1342,6 @@
         plugin.hide();
       }
     };
-
   });
 
   availity.ui.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
@@ -1339,8 +1369,16 @@
           $log.info('avDatepicker changeDate {0}', [e]);
         });
 
-        ngModel.$parsers.push(avDatepicker.viewToModel); // (view to model)
-        ngModel.$formatters.unshift(avDatepicker.modelToView);  // (model to view)
+        // (view to model)
+        ngModel.$parsers.push(avDatepicker.viewToModel);
+
+        // (model to view) - added to end of formatters array
+        // because they are processed in reverse order.
+        // if the model is in Date format and send to the validation framework
+        // prior to getting converted to the expected $viewValue format,
+        // the validation will fail.
+        ngModel.$formatters.push(avDatepicker.modelToView);
+        ngModel.$formatters.push(avDatepicker.wrapIsoDate);
 
         var _$render = ngModel.$render;
         ngModel.$render = function() {
@@ -1357,27 +1395,25 @@
         var target = element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);
         if(target.length) {
           target.on('click.datepicker', function() {
-            if (!element.prop('disabled')) { // Hack check for IE 8
+            if(!element.prop('disabled')) { // Hack check for IE 8
               element.focus();
             }
           });
         }
 
         scope.$on('destroy', function() {
-           avDatepicker.destroy();
-           if(target.length) {
-             target.off('click.datepicker');
-           }
+          avDatepicker.destroy();
+          if(target.length) {
+            target.off('click.datepicker');
+          }
         });
 
         scope.$evalAsync(function() {
           element.datepicker(avDatepicker.options);
         });
-
       }
     };
   });
-
 })(window);
 
 // Source: /lib/ui/idle/idle-notifier.js
@@ -1524,6 +1560,186 @@
     avIdleNotifier.init();
   });
 
+})(window);
+
+// Source: /lib/ui/mask/mask.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_MASK', {
+    NAME: 'inputmask',
+    DEFAULTS: {
+      date: '99/99/9999',
+      phone: '(999) 999-9999',
+      SSN:'999-99-9999'
+    }
+  });
+
+  availity.ui.directive('avMask', function($window, $log, AV_MASK) {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attrs) {
+
+        var maskType = AV_MASK.DEFAULTS[attrs['avMask']];
+        if(!maskType) {
+          maskType = attrs['avMask'];
+        }
+
+        scope.$evalAsync(function() {
+          element.inputmask(maskType);
+        });
+
+        scope.$on('$destroy', function () {
+          element.inputmask('remove');
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/permissions/has-permission.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.controller('AvHasPermissionController', function($element) {
+
+    this.onSuccess = function(isAuthorized) {
+      if(isAuthorized) {
+        $element.removeClass('ng-hide');
+        $element.show();
+      } else {
+        $element.remove();
+      }
+    };
+
+    this.onError = function() {
+      $element.remove();
+    };
+
+  });
+
+  availity.ui.directive('avHasPermission', function(avUserAuthorizations) {
+    return {
+      restrict: 'EA',
+      controller: 'AvHasPermissionController',
+      require: ['avHasPermission'],
+      link: function($scope, $element, $attr, controllers) {
+
+        var avHasPermission = controllers[0];
+
+        $element.hide();
+
+        $scope.$watch($attr.avHasPermission, function(permissions) {
+
+          if(!angular.isArray(permissions)) {
+            permissions = _.words('' + permissions);
+          }
+
+          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermission.onSuccess, avHasPermission.onError);
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/analytics/analytics.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+
+  availity.core.controller('AvAnalyticsController', function(avAnalyticsUtils, $element, $attrs, avAnalytics) {
+
+    this.onEvent = function(event) {
+
+      // If an external link is detected
+      if(avAnalyticsUtils.isExternalLink($attrs)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      // convert the directive attributes into object with properties with sane defaults
+      var properties = _.extend({
+        level: 'info'
+      }, avAnalyticsUtils.getProperties($attrs), {
+        event: event.type
+      });
+
+      var promise = avAnalytics.trackEvent(properties);
+      promise['finally'](function() {
+        if(avAnalyticsUtils.isExternalLink($attrs)) {
+          document.location = $element.attr('href');
+        }
+      });
+    };
+
+  });
+
+  availity.core.directive('avAnalyticsOn', function() {
+
+    return {
+      restrict: 'A',
+      controller: 'AvAnalyticsController',
+      required: 'avAnalyticsOn',
+      link: function($scope, $element, $attrs, avAnalyticsOn) {
+
+        var eventType = $attrs.avAnalyticsOn || 'click';
+
+        // bind the element to the `av-analytic-on` event like `click`
+        $element.on(eventType, function (event) {
+          avAnalyticsOn.onEvent(event);
+        });
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/placeholder/placeholder.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.requires.push('ng.shims.placeholder');
+
+  availity.core.config(function($provide) {
+
+    $provide.decorator('placeholderDirective', ['$delegate', '$log', function($delegate, $log) {
+
+      var directive = $delegate[0];
+      var originalLink = directive.link;
+
+      var newLink = function(scope, element, attrs) {
+
+        if(originalLink && _.contains(_.keys(attrs), 'avMask')) {
+          $log.info('placeholder shim not running on an element due to avMask on same element');
+          return;
+        }else if(originalLink) {
+          originalLink.apply(this, arguments);
+        }
+        //else originalLink doesn't exist
+      };
+
+      directive.compile = function() {
+        return newLink;
+      };
+
+      return $delegate;
+    }]);
+
+  });
 })(window);
 
 //# sourceMappingURL=maps/availity-angular-ui.js.map

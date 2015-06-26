@@ -1,0 +1,80 @@
+---
+title: Permissions
+---
+<div data-markdown>
+  > Define all permissions used in your app in constant.
+</div>
+<div data-markdown>
+  > For better performance, query for all permissions that your app will need on load.
+</div>
+<div data-markdown>
+  > The following gives example of how to use the `av-has-permission` directive to hide a section based on whether or not user has permission. There should be only one button showing below.
+</div>
+<div data-ng-controller="HasPermissionController">
+
+  <div class="guide-example">
+    <p ng-cloak>
+      <button type="button"
+          class="btn btn-lg btn-success"
+          ng-cloak
+          data-av-has-permission="DEMO_PERMISSIONS.GOOD"
+        >
+        Is Authorized to 452
+      </button>
+      <button type="button"
+          class="btn btn-lg btn-danger"
+          data-av-has-permission="DEMO_PERMISSIONS.BAD"
+        >
+        Not Authorized to 999
+      </button>
+      <button type="button"
+          class="btn btn-lg btn-success"
+          data-av-has-permission="either"
+        >
+        Is Authorized to 452 or 999
+      </button>
+    </p>
+
+  </div>
+  <code class="language-markup">
+    <p ng-cloak>
+      <button type="button"
+          class="btn btn-lg btn-success ng-hide"
+          ng-cloak
+          data-av-has-permission="DEMO_PERMISSIONS.GOOD"
+        >
+        Is Authorized to 452
+      </button>
+      <button type="button"
+          class="btn btn-lg btn-danger"
+          data-av-has-permission="DEMO_PERMISSIONS.BAD"
+        >
+        Not Authorized to 999
+      </button>
+      <button type="button"
+          class="btn btn-lg btn-success"
+          data-av-has-permission="either"
+        >
+        Is Authorized to 452 or 999
+      </button>
+    </p>
+
+    <!-- Javascript -->
+    <script>
+      var availity = root.availity;
+
+      availity.demo.constant('DEMO_PERMISSIONS', {
+        GOOD: '452',
+        BAD: '999'
+      });
+
+      availity.demo.controller('HasPermissionController', function($scope, DEMO_PERMISSIONS, avUserAuthorizations) {
+        $scope.DEMO_PERMISSIONS = DEMO_PERMISSIONS;
+        $scope.either = _.values(DEMO_PERMISSIONS);
+        // This is not required but does prevent multiple hits bad to server
+        avUserAuthorizations.getPermissions(_.values(DEMO_PERMISSIONS));
+      });
+    </script>
+
+  </code>
+</div>

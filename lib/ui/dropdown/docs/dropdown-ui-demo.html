@@ -32,6 +32,8 @@ title: Dropdowns
           data-ng-change="selectAction(selectedState)"
           data-placeholder="Select State"
           data-allow-clear="true"
+          data-ng-focus="weFocused"
+          data-ng-blur="weBlurred"
           >
           <option></option>
         </select>
@@ -70,33 +72,38 @@ title: Dropdowns
       id="dropdownStates1"
       class="form-control select2"
       data-av-dropdown
-      data-ng-model="selectedState"
+      data-ng-model="selectedStates"
       data-ng-options="state.name for state in states"
-      data-ng-change="selectAction(selectedState)"
+      data-ng-change="selectAction(selectedStates)"
       data-placeholder="Select State"
       data-allow-clear="true"
       >
+      <option></option>
     </select>
   </div>
   <div class="form-controls">
-    <input
-      type="button"
+    <button
+      type="submit"
       class="btn btn-default"
-      value="Add States"
       data-ng-click="addStates()"
-    >
-    <input
-      type="button"
+      >
+      Add States
+    </button>
+    <button
+      type="submit"
       class="btn btn-default"
-      value="Set State"
       data-ng-click="setState()"
-    >
-    <input
-      type="button"
+      >
+      Set State
+    </button>
+    <button
+      type="submit"
       class="btn btn-default"
-      value="Set State"
-      data-ng-click="setState()"
-    >
+      value="Set Null"
+      data-ng-click="resetSingle()"
+      >
+      Reset
+    </button>
   </div>
 </form>
 
@@ -127,6 +134,7 @@ demo.controller('DropdownController', function($scope, $log) {
   $scope.selectAction = function(selection) {
     $log.info(selection);
   };
+
 });
 </script>
   </code>
@@ -147,6 +155,7 @@ demo.controller('DropdownController', function($scope, $log) {
           data-placeholder="Select State"
           data-allow-clear="true"
           >
+          <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -162,18 +171,18 @@ demo.controller('DropdownController', function($scope, $log) {
   <code class="language-markup">
 <form name="dropdownForm">
   <div class="form-group">
-    <label for="dropdownStates2">States</label>
+    <label for="dropdownStates3">States</label>
     <select
-      id="dropdownStates2"
+      id="dropdownStates3"
       class="form-control select2"
-      multiple
       data-av-dropdown
-      data-ng-model="selectedStates"
+      data-ng-model="selectedState"
       data-ng-options="state.name for state in states"
       data-ng-change="selectAction(selectedStates)"
       data-placeholder="Select State"
       data-allow-clear="true"
       >
+      <option></option>
     </select>
   </div>
 </form>
@@ -181,6 +190,150 @@ demo.controller('DropdownController', function($scope, $log) {
 <!-- Javascript -->
 <script>
 // see "Single" example
+</script>
+  </code>
+
+  <h3 class="guide-subsection-title">Remote Data</h3>
+  <div data-markdown>
+  > Using remote data requires a **hidden** input field, rather than a select element.
+  </div>
+  <div data-markdown>
+   ### Options
+
+   * `data-format-result` - specify how the data is viewed in the dropdown
+   * `data-format-selection` - specify how the data is viewed when selected
+  </div>
+
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownHosp3">Hospital</label>
+        <input
+          type="hidden"
+          id="dropdownHosp3"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedHosp"
+          data-ng-change="selectAction(selectedHosp)"
+          data-placeholder="Find a procedure code"
+          data-allow-clear="true"
+          data-query="myQuery"
+          data-minimum-input-length="3"
+          data-format-result="myFormatResult"
+          data-format-selection="myFormatResult"
+        >
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Reset"
+          data-ng-click="resetSingleHosp()"
+          >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group">
+    <label for="dropdownHosp3">Hospital</label>
+    <input
+      type="hidden"
+      id="dropdownHosp3"
+      class="form-control select2"
+      data-av-dropdown
+      data-ng-model="selectedHosp"
+      data-ng-change="selectAction(selectedHosp)"
+      data-placeholder="Select a hospital"
+      data-allow-clear="true"
+      data-ajax="myAjax"
+      data-minimum-input-length="3"
+      data-format-result="myFormatResult"
+      data-format-selection="myFormatResult"
+      >
+  </div>
+  <div class="form-controls">
+    <button
+      type="submit"
+      class="btn btn-default"
+      value="Reset"
+      data-ng-click="resetSingleHosp()"
+      >
+      Reset
+    </button>
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+    $scope.selectedHosp = null;
+
+    $scope.resetSingleHosp = function () {
+      $scope.selectedHosp = null;
+    };
+
+    $scope.selectAction = function (selection) {
+      $log.info(selection);
+    };
+
+    //how it is viewed in the drop down
+    $scope.myFormatResult = function (code) {
+      var markup = '<div class="row">' +
+        '<div class="col-xs-12">' +
+        '<span class="label label-info">' +
+        code.code +
+        '</span> ' +
+        code.value +
+        '</div>' +
+        '</div>';
+      return markup;
+    };
+
+    $scope.myQuery = function (data) {
+      return avCodesResource.getCodes(data);
+    };
+  });
+
+  // AvCodesResourceFactory.js
+  var AvCodesResourceFactory = function(AvApiResource) {
+
+    var AvCodesResource = function () {
+      AvApiResource.call(this, 'codes');
+    };
+
+    angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
+
+      getCodes: function (data) {
+        //config for the api resource query
+        var config = {};
+        config.params = {};
+        config.params.offset = 50 * (data.page - 1);
+
+        return this.query(config).then(function (response) {
+          //format the response into something select2 can read
+          var myResults = response.data.codes;
+          if (_.isEmpty(myResults[0].id)) {
+            _.each(myResults, function (code) {
+              code.id = code.code;
+            });
+          }
+
+          //calculate if we want to continue searching
+          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          return {
+            more: moreVal,
+            results: myResults
+          };
+
+        });
+      }
+
+    });
+    return new AvCodesResource();
+  };
+  availity.core.factory('avCodesResource', AvCodesResourceFactory);
 </script>
   </code>
 </div>

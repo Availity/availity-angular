@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.7.1 -- May-10
+ * availity-angular v0.12.0 -- June-23
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.7.1';
+  availity.VERSION = 'v0.12.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -109,6 +109,26 @@
     }
 
     return url;
+  };
+
+})(window);
+
+// Source: /lib/core/utils/print.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  // https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
+  availity.print = function() {
+
+    if(document.queryCommandSupported('print')) {
+      document.execCommand('print', false, null);
+    } else {
+      window.focus();
+      window.print();
+    }
   };
 
 })(window);
@@ -788,21 +808,26 @@
 
     proto.update = function(id, data, config) {
 
-      if(!id || !data) {
-        throw new Error('called method without [id] or [data]');
-      }
+      var url;
 
-      config = this._config(config);
-      config.method = 'PUT';
-      config.url = this._getUrl(id);
-      config.data = data;
+      if(_.isString(id) || _.isNumber(id)) {
+        url = this._getUrl(id);
+      }else {
+        url = this._getUrl();
+        config = data;  // config is really the 2nd param for this use case
+        data = id; // data is really the first param for this use case
+      }
 
       if(this.beforeUpdate) {
         data = this.beforeUpdate(data);
       }
 
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
+      config = this._config(config);
+      config.method = 'PUT';
+      config.url = url;
+      config.data = data;
 
+      return this._request(config, this.beforeUpdate, this.afterUpdate);
 
     };
 
@@ -874,39 +899,6 @@
 
 })(window);
 
-// Source: /lib/core/api/api-permissions.js
-(function(root) {
-
-  'use strict';
-
-  var PermissionFactory = function(AvApiResource) {
-
-    var AvPermissionsResource = function() {
-      AvApiResource.call(this, {version: '/v1', url: '/permissions'});
-    };
-
-    angular.extend(AvPermissionsResource.prototype, AvApiResource.prototype, {
-
-      afterAll: function(response) {
-        return response.data.permissions ? response.data.permissions : response.data;
-      },
-
-      getPermissions: function(permissionId) {
-        return this.query({params: {permissionId: permissionId}}).then(function(response) {
-          var result = response.data.permissions ? response.data.permissions : [];
-          return result;
-        });
-      }
-
-    });
-    return new AvPermissionsResource();
-  };
-
-
-  root.availity.core.factory('avPermissionsResource', PermissionFactory);
-
-})(window);
-
 // Source: /lib/core/api/api-coverages.js
 (function(root) {
 
@@ -942,44 +934,50 @@
 
   var LogMessagesFactory = function(AvApiResource) {
 
-    var logMessagesResource = new AvApiResource({
-      version: '/v1',
-      url: '/log-messages'
-    });
+    var AvLogMessagesResource = function() {
 
-    var buildRequest = function(level, entries) {
-
-      var requestPayload = {};
-
-      if(entries.level) {
-        delete entries.level;
-      }
-
-      requestPayload.level = level;
-      requestPayload.entries = entries;
-
-      return requestPayload;
+      AvApiResource.call(this, {
+        version: '/v1',
+        url: '/log-messages'
+      });
     };
 
-    return {
+    angular.extend(AvLogMessagesResource.prototype, AvApiResource.prototype, {
+
+      buildRequest: function(level, entries) {
+
+        var requestPayload = {};
+
+        if(entries.level) {
+          delete entries.level;
+        }
+
+        requestPayload.level = level;
+        requestPayload.entries = entries;
+
+        return requestPayload;
+      },
 
       debug: function(entries) {
-        return logMessagesResource.create(buildRequest('debug', entries));
+        return this.create(this.buildRequest('debug', entries));
       },
 
       info: function(entries) {
-        return logMessagesResource.create(buildRequest('info', entries));
+        return this.create(this.buildRequest('info', entries));
       },
 
       warn: function(entries) {
-        return logMessagesResource.create(buildRequest('warn', entries));
+        return this.create(this.buildRequest('warn', entries));
       },
 
       error: function(entries) {
-        return logMessagesResource.create(buildRequest('error', entries));
+        return this.create(this.buildRequest('error', entries));
       }
 
-    };
+    });
+
+    return new AvLogMessagesResource();
+
   };
 
   availity.core.factory('avLogMessagesResource', LogMessagesFactory);
@@ -1056,11 +1054,55 @@
 
   'use strict';
 
+
   var availity = root.availity;
 
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
+
+
+  var AvCodesResourceFactory = function(AvApiResource) {
+
+    var AvCodesResource = function () {
+      AvApiResource.call(this, 'codes');
+    };
+
+    angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
+
+      getCodes: function (data) {
+
+        // config for the api resource query
+        var config = {};
+        config.params = {};
+        config.params.offset = 50 * (data.page - 1);
+
+        return this.query(config).then(function (response) {
+          //format the response into something select2 can read
+          var myResults = response.data.codes;
+          if(_.isEmpty(myResults[0].id)) {
+            _.each(myResults, function (code) {
+              code.id = code.code;
+            });
+          }
+
+          // calculate if we want to continue searching
+          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          return {
+            more: moreVal,
+            results: myResults
+          };
+
+        });
+      }
+
+    });
+
+    return new AvCodesResource();
+
+  };
+
+  availity.core.factory('avCodesResource', AvCodesResourceFactory);
 
 })(window);
 
@@ -1262,7 +1304,7 @@
     NOT_AUTHORIZED: 'av:auth:not:authorized'
   });
 
-  availity.core.factory('avSession', function($q, avUsersResource, avPermissionsResource) {
+  availity.core.factory('avSession', function($q, avUsersResource) {
 
     var AvSession = function() {
       this.user = null;
@@ -1284,39 +1326,6 @@
       });
     };
 
-    proto.getPermissions = function() {
-      var self = this;
-
-      if(this.permissions) {
-        return $q.when(this.permissions);
-      }
-
-      return avPermissionsResource.query().then(function(permissions) {
-        self.permissions = permissions;
-        return self.permissions;
-      });
-    };
-
-    proto.hasPermission = function(permissionId, orgId, geography) {
-      return this.getPermissions().then(function(permissions) {
-        var permission = _.find(permissions, function(p) {
-          return p.id === permissionId;
-        });
-        if(permission === undefined) {
-          return false;
-        }
-
-        if(orgId !== undefined && orgId !== null && !_.contains(permission.organizationIds, orgId)) {
-          return false;
-        }
-
-        if(geography !== undefined && geography !== null && !_.contains(permission.geographies, geography)) {
-          return false;
-        }
-
-        return true;
-      });
-    };
 
     proto.destroy = function() {
       this.user = null;
@@ -1365,7 +1374,7 @@
 
   availity.core.provider('avIdle', function(AV_IDLE) {
 
-    var enabled = true;
+    var enabled = false;
     var pingUrl;
     var redirectUrl;
     var sessionTimeout;
@@ -1934,36 +1943,62 @@
   availity.core.factory('avValDateRange', function(AV_VAL, avValUtils) {
 
     var validator = {
-      name: 'dateRange',
-      getMinDate: function(minDate) {
-        var period = minDate.replace(AV_VAL.PATTERNS.ALPHA_ONLY, '');
-        var val = parseInt( minDate.replace(AV_VAL.PATTERNS.NUMERIC_ONLY, ''), 10);
-        var min = moment().subtract(val, period);
-        return min;
-      },
-      getMaxDate: function(maxDate) {
-        var max = moment();
-        var period = maxDate.replace(AV_VAL.PATTERNS.ALPHA_ONLY, '');
-        var val = parseInt( maxDate.replace(AV_VAL.PATTERNS.NUMERIC_ONLY, ''), 10);
 
-        if(maxDate !== 'today') {
-          max = moment().add(val, period);
-        } else {
-          max.set('hours', 23);
-          max.set('minutes', 59);
-          max.set('seconds', 59);
-        }
-        return max;
+      name: 'dateRange',
+
+      getStartDate: function(start) {
+        return validator.setMin(moment().add(start.value, start.units));
       },
+
+      getEndDate: function(end) {
+        return validator.setMax(moment().add(end.value, end.units) );
+      },
+
+      setMin: function(value) {
+
+        // [fix]: if time is provided this may cause issues.
+        value.set('hours', 0);
+        value.set('minutes', 0);
+        value.set('seconds', 0);
+
+        return value;
+      },
+
+      setMax: function(value) {
+
+        // [fix]: if time is provided this may cause issues.
+        value.set('hours', 23);
+        value.set('minutes', 59);
+        value.set('seconds', 59);
+
+        return value;
+      },
+
       validation: function(value, rules) {
-        var minDate = validator.getMinDate(rules.min);
-        var maxDate = validator.getMaxDate(rules.max);
-        value = moment(value, rules.format);
-        return !value.isBefore(minDate) && !value.isAfter(maxDate);
+
+        var date;
+        var startDate;
+        var endDate;
+
+        date = moment(value, rules.format || AV_VAL.DATE_FORMAT.SIMPLE);
+        date.set('hours', 0);
+        date.set('minutes', 0);
+        date.set('seconds', 0);
+
+        if(!avValUtils.isEmpty(rules.start.units) && !avValUtils.isEmpty(rules.end.units)) {
+          startDate = validator.getStartDate(rules.start);
+          endDate = validator.getEndDate(rules.end);
+        } else {
+          startDate = moment(rules.start.value, rules.format);
+          endDate = validator.setMax(moment(rules.end.value, rules.format));
+        }
+        return date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
       },
+
       validate: function(value, rule) {
         return avValUtils.isEmpty(value) || validator.validation(value, rule);
       }
+
     };
 
     return validator;
@@ -1982,9 +2017,7 @@
     var validator = {
       name: 'dateFormat',
       validate: function(value, rules) {
-
         var format = rules && rules.format ? rules.format : AV_VAL.DATE_FORMAT.SIMPLE;
-
         return avValUtils.isEmpty(value) || moment(value, format, true).isValid();
       }
     };
@@ -1999,219 +2032,771 @@
 
   var availity = root.availity;
 
-  availity.core.constant('AV_GLOBALS', function() {
+  availity.core.constant('AV_GLOBALS', {
+    REGIONS: [
+      {
+        'name': 'Alabama',
+        'code': 'AL'
+      },
+      {
+        'name': 'Alaska',
+        'code': 'AK'
+      },
+      {
+        'name': 'Arizona',
+        'code': 'AZ'
+      },
+      {
+        'name': 'Arkansas',
+        'code': 'AR'
+      },
+      {
+        'name': 'California',
+        'code': 'CA'
+      },
+      {
+        'name': 'Colorado',
+        'code': 'CO'
+      },
+      {
+        'name': 'Connecticut',
+        'code': 'CT'
+      },
+      {
+        'name': 'Delaware',
+        'code': 'DE'
+      },
+      {
+        'name': 'District Of Columbia',
+        'code': 'DC'
+      },
+      {
+        'name': 'Florida',
+        'code': 'FL'
+      },
+      {
+        'name': 'Georgia',
+        'code': 'GA'
+      },
+      {
+        'name': 'Hawaii',
+        'code': 'HI'
+      },
+      {
+        'name': 'Idaho',
+        'code': 'ID'
+      },
+      {
+        'name': 'Illinois',
+        'code': 'IL'
+      },
+      {
+        'name': 'Indiana',
+        'code': 'IN'
+      },
+      {
+        'name': 'Iowa',
+        'code': 'IA'
+      },
+      {
+        'name': 'Kansas',
+        'code': 'KS'
+      },
+      {
+        'name': 'Kentucky',
+        'code': 'KY'
+      },
+      {
+        'name': 'Louisiana',
+        'code': 'LA'
+      },
+      {
+        'name': 'Maine',
+        'code': 'ME'
+      },
+      {
+        'name': 'Maryland',
+        'code': 'MD'
+      },
+      {
+        'name': 'Massachusetts',
+        'code': 'MA'
+      },
+      {
+        'name': 'Michigan',
+        'code': 'MI'
+      },
+      {
+        'name': 'Minnesota',
+        'code': 'MN'
+      },
+      {
+        'name': 'Mississippi',
+        'code': 'MS'
+      },
+      {
+        'name': 'Missouri',
+        'code': 'MO'
+      },
+      {
+        'name': 'Montana',
+        'code': 'MT'
+      },
+      {
+        'name': 'Nebraska',
+        'code': 'NE'
+      },
+      {
+        'name': 'Nevada',
+        'code': 'NV'
+      },
+      {
+        'name': 'New Hampshire',
+        'code': 'NH'
+      },
+      {
+        'name': 'New Jersey',
+        'code': 'NJ'
+      },
+      {
+        'name': 'New Mexico',
+        'code': 'NM'
+      },
+      {
+        'name': 'New York',
+        'code': 'NY'
+      },
+      {
+        'name': 'North Carolina',
+        'code': 'NC'
+      },
+      {
+        'name': 'North Dakota',
+        'code': 'ND'
+      },
+      {
+        'name': 'Ohio',
+        'code': 'OH'
+      },
+      {
+        'name': 'Oklahoma',
+        'code': 'OK'
+      },
+      {
+        'name': 'Oregon',
+        'code': 'OR'
+      },
+      {
+        'name': 'Pennsylvania',
+        'code': 'PA'
+      },
+      {
+        'name': 'Rhode Island',
+        'code': 'RI'
+      },
+      {
+        'name': 'South Carolina',
+        'code': 'SC'
+      },
+      {
+        'name': 'South Dakota',
+        'code': 'SD'
+      },
+      {
+        'name': 'Tennessee',
+        'code': 'TN'
+      },
+      {
+        'name': 'Texas',
+        'code': 'TX'
+      },
+      {
+        'name': 'Utah',
+        'code': 'UT'
+      },
+      {
+        'name': 'Vermont',
+        'code': 'VT'
+      },
+      {
+        'name': 'Virginia',
+        'code': 'VA'
+      },
+      {
+        'name': 'Washington',
+        'code': 'WA'
+      },
+      {
+        'name': 'West Virginia',
+        'code': 'WV'
+      },
+      {
+        'name': 'Wisconsin',
+        'code': 'WI'
+      },
+      {
+        'name': 'Wyoming',
+        'code': 'WY'
+      }
+    ]
+  });
 
-    return {
+})(window);
 
-      STATES: [
-        {
-          'name': 'Alabama',
-          'code': 'AL'
-        },
-        {
-          'name': 'Alaska',
-          'code': 'AK'
-        },
-        {
-          'name': 'Arizona',
-          'code': 'AZ'
-        },
-        {
-          'name': 'Arkansas',
-          'code': 'AR'
-        },
-        {
-          'name': 'California',
-          'code': 'CA'
-        },
-        {
-          'name': 'Colorado',
-          'code': 'CO'
-        },
-        {
-          'name': 'Connecticut',
-          'code': 'CT'
-        },
-        {
-          'name': 'Delaware',
-          'code': 'DE'
-        },
-        {
-          'name': 'District Of Columbia',
-          'code': 'DC'
-        },
-        {
-          'name': 'Florida',
-          'code': 'FL'
-        },
-        {
-          'name': 'Georgia',
-          'code': 'GA'
-        },
-        {
-          'name': 'Hawaii',
-          'code': 'HI'
-        },
-        {
-          'name': 'Idaho',
-          'code': 'ID'
-        },
-        {
-          'name': 'Illinois',
-          'code': 'IL'
-        },
-        {
-          'name': 'Indiana',
-          'code': 'IN'
-        },
-        {
-          'name': 'Iowa',
-          'code': 'IA'
-        },
-        {
-          'name': 'Kansas',
-          'code': 'KS'
-        },
-        {
-          'name': 'Kentucky',
-          'code': 'KY'
-        },
-        {
-          'name': 'Louisiana',
-          'code': 'LA'
-        },
-        {
-          'name': 'Maine',
-          'code': 'ME'
-        },
-        {
-          'name': 'Maryland',
-          'code': 'MD'
-        },
-        {
-          'name': 'Massachusetts',
-          'code': 'MA'
-        },
-        {
-          'name': 'Michigan',
-          'code': 'MI'
-        },
-        {
-          'name': 'Minnesota',
-          'code': 'MN'
-        },
-        {
-          'name': 'Mississippi',
-          'code': 'MS'
-        },
-        {
-          'name': 'Missouri',
-          'code': 'MO'
-        },
-        {
-          'name': 'Montana',
-          'code': 'MT'
-        },
-        {
-          'name': 'Nebraska',
-          'code': 'NE'
-        },
-        {
-          'name': 'Nevada',
-          'code': 'NV'
-        },
-        {
-          'name': 'New Hampshire',
-          'code': 'NH'
-        },
-        {
-          'name': 'New Jersey',
-          'code': 'NJ'
-        },
-        {
-          'name': 'New Mexico',
-          'code': 'NM'
-        },
-        {
-          'name': 'New York',
-          'code': 'NY'
-        },
-        {
-          'name': 'North Carolina',
-          'code': 'NC'
-        },
-        {
-          'name': 'North Dakota',
-          'code': 'ND'
-        },
-        {
-          'name': 'Ohio',
-          'code': 'OH'
-        },
-        {
-          'name': 'Oklahoma',
-          'code': 'OK'
-        },
-        {
-          'name': 'Oregon',
-          'code': 'OR'
-        },
-        {
-          'name': 'Pennsylvania',
-          'code': 'PA'
-        },
-        {
-          'name': 'Rhode Island',
-          'code': 'RI'
-        },
-        {
-          'name': 'South Carolina',
-          'code': 'SC'
-        },
-        {
-          'name': 'South Dakota',
-          'code': 'SD'
-        },
-        {
-          'name': 'Tennessee',
-          'code': 'TN'
-        },
-        {
-          'name': 'Texas',
-          'code': 'TX'
-        },
-        {
-          'name': 'Utah',
-          'code': 'UT'
-        },
-        {
-          'name': 'Vermont',
-          'code': 'VT'
-        },
-        {
-          'name': 'Virginia',
-          'code': 'VA'
-        },
-        {
-          'name': 'Washington',
-          'code': 'WA'
-        },
-        {
-          'name': 'West Virginia',
-          'code': 'WV'
-        },
-        {
-          'name': 'Wisconsin',
-          'code': 'WI'
-        },
-        {
-          'name': 'Wyoming',
-          'code': 'WY'
+// Source: /lib/core/analytics/analytics.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_ANALYTICS', {
+    VIRTUAL_PAGE_TRACKING: true,
+    SERVICES: {
+      PIWIK: 'avPiwikAnalytics',
+      SPLUNK: 'avSplunkAnalytics'
+    },
+    EVENTS: {
+      PAGE: '$locationChangeSuccess',
+      DEFAULT: 'click'
+    },
+    PRE_FIX: /^avAnalytics(.*)$/,
+    // should ignore these since they are part of the directives API
+    IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
+    ENV: { // not sure if this should live here
+      PROD: {
+        URL: 'https://piwik.availity.com/piwik/'
+      },
+      QA: {
+        URL: 'https://qa-piwik.availity.com/piwik/'
+      }
+    }
+  });
+
+  availity.core.provider('avAnalytics', function(AV_ANALYTICS) {
+
+    var plugins = [];
+    var virtualPageTracking = AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;
+    var appId;
+
+    this.registerPlugins = function(_plugins) {
+
+      if(angular.isString(_plugins)) {
+        _plugins = [_plugins];
+      }
+
+      if(_.isArray(_plugins)) {
+        plugins = _plugins;
+      } else {
+        throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
+      }
+
+      return plugins;
+    };
+
+    this.setVirtualPageTracking = function(value) {
+      if(arguments.length) {
+        virtualPageTracking = !!value;
+      }
+      return virtualPageTracking;
+    };
+
+    this.setAppID = function(id) {
+      appId = id;
+      return appId;
+    };
+
+    this.$get = function($injector, $q, $log) {
+
+      var AvAnalytics = function() {
+
+        var self = this;
+        this.services = {};
+
+        if(!plugins || plugins.length === 0) {
+          plugins = [AV_ANALYTICS.SERVICES.SPLUNK];
         }
-      ]
+
+        angular.forEach(plugins, function(plugin) {
+
+          try {
+            self.services[plugin] = $injector.get(plugin);
+          } catch(err) {
+            $log.error('Could not load `{0}` plugin', [plugin]);
+          }
+        });
+
+      };
+
+      var proto = AvAnalytics.prototype;
+
+      proto.trackEvent = function(properties) {
+
+        var promises = [];
+
+        angular.forEach(this.services, function(handler) {
+          var promise = handler.trackEvent(properties);
+          promises.push(promise);
+        });
+
+        return $q.all(promises);
+      };
+
+      proto.getAppId = function() {
+        return appId;
+      };
+
+      proto.trackPageView = function(url) {
+
+        var promises = [];
+
+        angular.forEach(this.services, function(handler) {
+          var promise = handler.trackPageView(url);
+          promises.push(promise);
+        });
+
+        return $q.all(promises);
+      };
+
+      return new AvAnalytics();
     };
 
   });
+
+  availity.core.run(function($rootScope, AV_ANALYTICS, avAnalytics, $location ) {
+    if(avAnalytics.virtualPageTracking) {
+      $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
+        avAnalytics.trackPageView($location.absUrl());
+      });
+    }
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-util.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avAnalyticsUtils', function(AV_ANALYTICS, $log) {
+
+    var AnalyticsUtils = function() {};
+
+    var proto = AnalyticsUtils.prototype;
+
+    proto.getProperties = function(attributes) {
+
+      var self = this;
+      var props = {};
+
+      _.forEach(attributes, function(value, key) {
+        if(self.isValidAttribute(key) && self.isNotIgnored(key)) {
+          var result = self.getAttribute(key, value);
+          props[result.key] = result.value;
+        }
+      });
+
+      return props;
+    };
+
+    proto.isExternalLink = function(attrs) {
+      return attrs.href && !attrs.ngClick;
+    };
+
+    proto.isNotIgnored = function(key) {
+      var ignored = _.includes(AV_ANALYTICS.IGNORE, key);
+      return !ignored;
+    };
+
+    proto.isValidAttribute = function(key) {
+      return AV_ANALYTICS.PRE_FIX.test(key);
+    };
+
+    proto.lowercase = function(str) {
+      return str.substr(0, 1).toLowerCase() + str.substr(1);
+    };
+
+    proto.getAttribute = function(key, value) {
+      var simpleKey = key.match(AV_ANALYTICS.PRE_FIX);
+
+      if(simpleKey && simpleKey[1]) {
+        return {
+          key: this.lowercase(simpleKey[1]),
+          value: value
+        };
+      }
+    };
+
+    proto.toNum = function(value) {
+      var parsed = parseInt(value, 10);
+      value = isNaN(parsed) ? 0 : parsed;
+      return value;
+    };
+
+    proto.isValid = function(trackingValues) {
+      var valid = true;
+
+      if(trackingValues.value || trackingValues.value === 0) {
+        delete trackingValues.value;
+      }
+
+      _.forEach(trackingValues, function(key, value) {
+        if(availity.isBlank(value) || _.isUndefined(value)) {
+          $log.warn('The analytic tracking value for ' + key.toUpperCase() +' is not defined.');
+          valid = false;
+        }
+      });
+
+      return valid;
+    };
+
+    return new AnalyticsUtils();
+  });
+})(window);
+
+// Source: /lib/core/analytics/analytics-splunk.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avSplunkAnalytics', function($log, avLogMessagesResource, $location) {
+
+    var SplunkAnalyticsService = function() {};
+
+    var proto = SplunkAnalyticsService.prototype;
+
+    proto.trackEvent = function(properties) {
+      properties.url = $location.$$absUrl || 'N/A';
+      properties.level = properties.level || 'info';
+
+      return avLogMessagesResource[properties.level](properties);
+    };
+
+    proto.trackPageView  = function(url) {
+
+      var properties = {
+        event: 'page',
+        level: 'info',
+        url: url || $location.$$absUrl()
+      };
+
+      return avLogMessagesResource[properties.level](properties);
+    };
+
+    return new SplunkAnalyticsService();
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-piwik.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('avPiwikAnalytics', function() {
+
+    var that = this;
+    var siteId;
+
+    // can not push these items to `_paq` because it is defined
+    // after page has loaded
+    this._setCustomVariable = function(index, valueName, value, scope) {
+
+      root._paq = root._paq || [];
+
+      if(!index || isNaN(index)) {
+        throw new Error('index must be a number');
+      } else if(!valueName) {
+        throw new Error('valueName must be declared');
+      } else {
+        root._paq.push(['setCustomVariable', index, valueName, value, scope]);
+      }
+    };
+
+    this.setSiteID = function(_siteID) {
+      siteId = _siteID;
+    };
+
+    // allow the user to pass a array of visit variables
+    this.setVisitVariables = function(items) {
+      _.forEach(items, function(item) {
+        that._setCustomVariable(item[0], item[1], item[2], 'visit');
+      });
+    };
+
+    this.setPageVariables = function(index, name, value) {
+      this._setCustomVariable(index, name, value, 'page');
+    };
+
+    this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location, $window) {
+
+      var AvPiwikAnalytics = function() {
+        this.init();
+      };
+
+      var proto = AvPiwikAnalytics.prototype;
+
+      proto.trackEvent = function(properties) {
+
+        if(!root._paq) {
+          $log.warn('Piwik object `_paq` not found in global scope');
+          return $q.when(false);
+        }
+
+        // http://piwik.org/docs/event-tracking/
+        //
+        // PAQ requires that eventValue be an integer.
+        // Check to make sure value is a number if not convert it to 0.
+        //
+        if(properties.value) {
+          properties.value = avAnalyticsUtils.toNum(properties.event);
+        }
+
+        // check to make sure that data being sent to piwik is a string and not null, empty or undefined
+        if(!avAnalyticsUtils.isValid(properties)) {
+          $log.warn('Invalid properties being passed. Tracking info will not be sent.');
+          return $q.when(false);
+        }
+
+        return $q.when(root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]));
+      };
+
+      proto.trackPageView  = function(url) {
+
+        if(!root._paq) {
+          $log.warn('Piwik object `_paq` not found in global scope');
+          return $q.when(false);
+        }
+
+        return $q.when(root._paq.push(['trackEvent', url]));
+
+      };
+
+      proto.createScript = function() {
+        if(_.isFinite(siteId)) {
+          $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
+          return;
+        }
+
+        var url;
+
+        if($location.$$host === 'apps.availity.com') {
+          url = AV_ANALYTICS.ENV.PROD.URL;
+        } else {
+          url = AV_ANALYTICS.ENV.QA.URL;
+        }
+
+        $window._paq = $window._paq || [];
+        $window._paq.push(['enableLinkTracking']);
+        $window._paq.push(['setTrackerUrl', url + 'piwik.php']);
+        $window._paq.push(['setSiteId', siteId]);
+        $window._paq.push(['trackEvent', url]); //track initial page load even if user data is not loaded yet
+
+        var script = document.createElement('script');
+        var target = document.getElementsByTagName('script')[0];
+        script.type = 'text/javascript';
+        script.defer = true;
+        script.async = true;
+        script.src = url + 'piwik.js';
+        target.parentNode.insertBefore(script, target);
+      };
+
+      proto.init = function() {
+        // this.createScript();
+        // avUsersResource.me().then(function(user) {
+        //   $window._paq.push(['setUserId', user.id]);
+        //   self.trackPageView(); //send another page track when the user data loads
+        // });
+
+      };
+
+      return new AvPiwikAnalytics();
+    };
+
+  });
+
+})(window);
+
+// Source: /lib/core/analytics/analytics-exceptions.js
+
+
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_EXCEPTIONS', {
+    MESSAGES: {
+      NOT_APPLICABLE: 'N/A'
+    },
+    TYPES: {
+      EXCEPTION: 'exception'
+    }
+  });
+
+  availity.core.provider('avExceptionAnalytics', function() {
+
+    var _enabled = true;
+    var appId;
+
+    this.enabled = function(enabled) {
+      _enabled = !!enabled;
+    };
+
+    this.setAppId = function(_id) {
+      appId = _id;
+    };
+
+    this.$get = function(avLogMessagesResource, $location, AV_EXCEPTIONS) {
+
+      var AvExceptionAnalytics = function() {
+
+      };
+
+      var proto = AvExceptionAnalytics.prototype;
+
+      proto.init = function() {
+
+        var self = this;
+
+        if(!_enabled) {
+          return;
+        }
+
+        TraceKit.remoteFetching = false;
+        TraceKit.surroundingLinesToCollect = 11;
+
+        // subscribe() hooks into window.error
+        TraceKit.report.subscribe(function(stacktrace) {
+          self.onError(stacktrace);
+        });
+
+      };
+
+      proto.prettyPrint = function(stacktrace) {
+
+        var message = '';
+
+        var length = stacktrace.stack.length;
+
+        for(var i = 0; i < length; i++) {
+          message += [
+            '[' + _.padLeft(i + '', 2, '0') + '] ',
+            stacktrace.stack[i].func,
+            ' ',
+            stacktrace.stack[i].url,
+            ':',
+            stacktrace.stack[i].line,
+            ':',
+            stacktrace.stack[i].column,
+            i + 1 < length ? '\n' : ''
+          ].join('');
+
+        }
+
+        return message;
+      };
+
+      proto.onError = function(stacktrace) {
+
+        var userAgent = root.navigator && root.navigator.userAgent ? root.navigator.userAgent : AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE;
+
+        var message = {
+          errorDate: moment(new Date()).format('YYYY-MM-DDTHH:mm:ssZZ'),
+          errorName: stacktrace.name,
+          errorMessage: stacktrace.message,
+          errorStack: this.prettyPrint(stacktrace),
+          url: $location.$$absUrl,
+          appId: appId || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+          // appVersion: AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+          userAgent: userAgent,
+          userLanguage: navigator.userLanguage,
+          referrer: document.referrer,
+          host: document.domain,
+          screenWidth: $(window).width(),
+          screenHeight: $(window).height(),
+          sdkVersion: availity.VERSION
+        };
+
+        return this.log(message);
+
+      };
+
+      proto.log = function(message) {
+        return avLogMessagesResource['error'](message);
+      };
+
+      proto.trackEvent = function(exception) {
+
+        if(!_enabled) {
+          return;
+        }
+
+        var stacktrace = TraceKit.computeStackTrace(exception);
+
+        return this.onError(stacktrace);
+
+      };
+
+      return new AvExceptionAnalytics();
+
+    };
+  });
+
+  availity.core.config(function($provide) {
+
+    $provide.decorator('$exceptionHandler', function($delegate, $injector) {
+      return function(exception, cause) {
+        $delegate(exception, cause);
+        var errorTacking = $injector.get('avExceptionAnalytics');
+        errorTacking.trackEvent(exception);
+      };
+    });
+
+  });
+
+  availity.core.run(function(avExceptionAnalytics) {
+    avExceptionAnalytics.init();
+  });
+
+})(window);
+
+// Source: /lib/core/utils/date-polyfill.js
+// Issue: https://github.com/angular/angular.js/issues/11165
+// Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
+//
+// This polyfill is needed because Angular calls toISOString()
+// when an request parameter is of type Date.  If this polyfill isn't present
+// the ajax call fails.
+//
+(function() {
+
+  'use strict';
+
+  var pad = function(number) {
+    if(number < 10) {
+      return '0' + number;
+    }
+    return number;
+  };
+
+  if(!Date.prototype.toISOString) {
+
+    Date.prototype.toISOString = function() {
+
+      return this.getUTCFullYear() +
+        '-' + pad(this.getUTCMonth() + 1) +
+        '-' + pad(this.getUTCDate()) +
+        'T' + pad(this.getUTCHours()) +
+        ':' + pad(this.getUTCMinutes()) +
+        ':' + pad(this.getUTCSeconds()) +
+        '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+        'Z';
+    };
+  }
 
 })(window);
 
