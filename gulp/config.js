@@ -128,7 +128,8 @@ module.exports = {
       './bower_components/angular-velocity/angular-velocity.js',
       './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       './bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
-      './bower_components/tracekit/tracekit.js'
+      './bower_components/tracekit/tracekit.js',
+      './bower_components/angular-block-ui/dist/angular-block-ui.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
@@ -202,6 +203,7 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
+      './bower_components/angular-block-ui/dist/angular-block-ui.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
