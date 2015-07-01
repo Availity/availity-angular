@@ -2,6 +2,25 @@
   "v1/users/me": {
     "file": "me.json"
   },
+  "v1/permissions": {
+    "file": "permissions.json"
+  },
+  "v1/codes": {
+    "get": [
+      {
+        "params": {
+          "offset": "50"
+        },
+        "file": "pss-offset.json"
+      },
+      {
+        "file": "pss-no-offset.json"
+      }
+    ]
+  },
+  "v1/log-messages": {
+    "file": "log.json"
+  },
   "/internal/v1/axi-user-permissions": {
     "get": [
       {

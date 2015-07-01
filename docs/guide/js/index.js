@@ -1,5 +1,4 @@
-/*global availity:true, window:false, angular*/
-var availity = window.availity || {};
+/*global availity:true, angular*/
 
 (function() {
   'use strict';
@@ -19,3 +18,14 @@ var availity = window.availity || {};
   });
 
 })();
+
+(function($) {
+
+  $("#nav").tocify({
+    selectors: ".guide-section-header, .guide-subsection-title",
+    theme: 'bootstrap',
+    scrollTo: 100,
+    context: '.col-md-9'
+  });
+
+})(jQuery);

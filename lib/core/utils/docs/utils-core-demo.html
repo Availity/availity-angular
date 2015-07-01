@@ -1,0 +1,28 @@
+---
+title: Utils
+---
+<div data-ng-controller="UtilsController">
+
+
+  <div data-markdown>
+  ### availity.print()
+  Utility method that fixes `window.print()` for IE8-11 and Firefox from within an `&lt;iframe&gt;`
+  </div>
+  <p>
+    <button class="btn btn-default" data-ng-click="utils.print()">Print</button>
+  </p>
+
+  <div data-markdown>
+  ### availity._stringify()
+  Converts any object into a string
+  </div>
+
+  <div data-markdown>
+  ### availity.uuid()
+
+  _Copied from Angular_.  A consistent way of creating unique IDs. The ID is a sequence of alpha numeric characters such as '012ABC'. The reason why we are not using simply a number counter is that the number string gets longer over time, and it can also overflow, where as the nextId will grow much slower, it is a string, and it will never overflow.
+  </div>
+
+</div>
+
+
