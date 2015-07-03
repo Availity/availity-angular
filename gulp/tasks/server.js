@@ -49,6 +49,7 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
   browserSync({
     notify: true,
     logPrefix: 'browersync',
+    open: false,
     server: {
       baseDir: config.sync.src,
       middleware: [
