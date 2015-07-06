@@ -1,0 +1,6 @@
+<ul class="breadcrumb">
+  <li ng-repeat="breadcrumb in breadcrumbs" ng-class="{ active: $last }">
+    <a ng-if="!$last" ui-sref="{{breadcrumb.state}}" ng-bind="breadcrumb.displayName"></a>
+    <span ng-if="$last" ng-bind="breadcrumb.displayName"></span>
+  </li>
+</ul>
