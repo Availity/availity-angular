@@ -200,6 +200,7 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
+      './bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
