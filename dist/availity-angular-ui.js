@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.12.0 -- June-23
+ * availity-angular v0.13.0 -- July-07
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1712,9 +1712,9 @@
 
   var availity = root.availity;
 
-  availity.core.requires.push('ng.shims.placeholder');
+  availity.ui.requires.push('ng.shims.placeholder');
 
-  availity.core.config(function($provide) {
+  availity.ui.config(function($provide) {
 
     $provide.decorator('placeholderDirective', ['$delegate', '$log', function($delegate, $log) {
 
@@ -1740,6 +1740,71 @@
     }]);
 
   });
+})(window);
+
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_BREADCRUMBS', {
+
+    TEMPLATE: 'ui/breadcrumbs/breadcrumbs-tpl.html'
+  });
+
+  function avBreadcrumbsController($state) {
+    
+    var self = this;
+
+    function getBreadcrumb(breadcrumbs, state) {
+      if(!state || !state.data) {
+        return;
+      }
+
+      var breadcrumb = state.data.breadcrumb;
+      if(!breadcrumb) {
+        return;
+      }
+
+      if(breadcrumb.parent) {
+        var parentState = $state.get(breadcrumb.parent);
+
+        if(parentState) {
+          getBreadcrumb(breadcrumbs, parentState);
+        }
+      }
+      breadcrumb.state = state.name;
+      breadcrumbs.push(breadcrumb);
+    }
+
+    self.getBreadcrumbs = function() {
+      var breadcrumbs = [];
+      getBreadcrumb(breadcrumbs, $state.current);
+      return breadcrumbs;
+    };
+  }
+
+  avBreadcrumbsController.$inject = ['$state'];
+  availity.ui.controller('AvBreadcrumbsController', avBreadcrumbsController);
+
+  function avBreadcrumbs(AV_BREADCRUMBS) {
+    return {
+      restrict: 'EA',
+      templateUrl: AV_BREADCRUMBS.TEMPLATE,
+      controller: 'AvBreadcrumbsController',
+      link: function(scope, element, attrs, AvBreadcrumbsController) {
+        scope.$on('$stateChangeSuccess', function() {
+          scope.breadcrumbs = AvBreadcrumbsController.getBreadcrumbs();
+        });
+      }
+    };
+  }
+
+  avBreadcrumbs.$inject = ['AV_BREADCRUMBS'];
+  availity.ui.directive('avBreadcrumbs', avBreadcrumbs);
+
 })(window);
 
 //# sourceMappingURL=maps/availity-angular-ui.js.map

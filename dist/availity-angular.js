@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.12.0 -- June-23
+ * availity-angular v0.13.0 -- July-07
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.12.0';
+  availity.VERSION = 'v0.13.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -414,7 +414,7 @@
         response.config.api &&
         response.status &&
         response.status === 202 &&
-        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.LOCATION));
+        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.SERVER.LOCATION));
     };
 
     proto.onAsyncReponse = function(response) {
@@ -448,12 +448,17 @@
 
       var self = this;
       // server replies with location header so set the url into config
-      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.LOCATION));
+      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.SERVER.LOCATION));
       var _config = response.config;
 
+
+      // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
+      //  to send to the server. If the return value of a function is null, the header
+      //  will not be sent. Functions accept a config object as an argument.
       var config = {
         method: 'GET',
         api: true,
+        headers: _config.headers,
         pollingInterval: _config.pollingInterval,
         pollingMaxRetry: _config.pollingMaxRetry,
         pollingMaxInterval: _config.pollingMaxInterval,
@@ -609,13 +614,19 @@
 
   availity.core.constant('AV_API', {
     HEADERS: {
-      ID: 'X-API-ID',
-      GLOBAL_ID: 'X-Global-Transaction-ID',
-      SESSION_ID: 'X-Session-ID',
-      LOCATION: 'Location',
-      OVERRIDE: 'X-HTTP-Method-Override',
-      CALLBACK_URL: 'X-Callback-URL',
-      CUSTOMER_ID: 'X-Availity-Customer-ID'
+      SERVER: {
+        ID: 'X-API-ID',
+        LOCATION: 'Location',
+        STATUS: 'X-Status-Message',
+        GLOBAL_ID: 'X-Global-Transaction-ID'
+      },
+      CLIENT: {
+        SESSION_ID: 'X-Session-ID',
+        AUTH: 'Authorization',
+        OVERRIDE: 'X-HTTP-Method-Override',
+        CALLBACK_URL: 'X-Callback-URL',
+        CUSTOMER_ID: 'X-Availity-Customer-ID'
+      }
     }
   });
 
@@ -814,8 +825,12 @@
         url = this._getUrl(id);
       }else {
         url = this._getUrl();
-        config = data;  // config is really the 2nd param for this use case
-        data = id; // data is really the first param for this use case
+        // At this point the function signature becomes:
+        //
+        // proto.update = function(data, config) {} a.k.a function(id, data)
+        //
+        data = id; // data is really the first param
+        config = data;  // config is really the 2nd param
       }
 
       if(this.beforeUpdate) {
@@ -827,7 +842,7 @@
       config.url = url;
       config.data = data;
 
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
+      return this._request(config, this.afterUpdate);
 
     };
 
@@ -1060,7 +1075,6 @@
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
-
 
   var AvCodesResourceFactory = function(AvApiResource) {
 
@@ -1992,7 +2006,7 @@
           startDate = moment(rules.start.value, rules.format);
           endDate = validator.setMax(moment(rules.end.value, rules.format));
         }
-        return date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
+        return date.isValid() && date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
       },
 
       validate: function(value, rule) {
