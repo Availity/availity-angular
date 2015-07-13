@@ -98,7 +98,9 @@ module.exports = {
       './lib/ui/permissions/has-permission.js',
       './lib/ui/analytics/analytics.js',
       './lib/ui/placeholder/placeholder.js',
-      './lib/ui/breadcrumbs/breadcrumbs.js'
+      './lib/ui/breadcrumbs/breadcrumbs.js',
+      './lib/ui/filters/approximate.js',
+      './lib/ui/badge/badge.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
