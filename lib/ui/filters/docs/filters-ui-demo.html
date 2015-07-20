@@ -1,0 +1,35 @@
+---
+title: Filters
+---
+
+<div data-markdown>
+  > Filters can easily be abused and increase chances of performance issues. Use sparingly and on select properties.
+</div>
+
+<div data-ng-controller="FiltersController">
+
+  <h3 class="guide-subsection-title">Approximate</h3>
+
+  <blockquote>
+    An optional precision parameter can be supplied to include decimals within the approximation.
+  </blockquote>
+
+  <div class="guide-example">
+
+    <input type="text"
+           class="form-control"
+           id="approximate"
+           data-placeholder="Enter a large value..."
+           data-ng-model="demo.approximate"
+      />
+
+    <div>
+      <h4>Formatted Value</h4>
+      <p data-ng-bind="demo.approximate | avApproximate"></p>
+    </div>
+  </div>
+  <code class="language-markup">
+    <span data-ng-bind="value | avApproximate"></span>
+    <span data-ng-bind="value | avApproximate: 1"></span>
+  </code>
+</div>
