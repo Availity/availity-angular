@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.13.1 -- July-08
+ * availity-angular v0.13.1 -- July-16
  * Copyright 2015 Availity, LLC 
  */
 
@@ -790,8 +790,7 @@
 
       return this._request(config, this.afterCreate);
 
-    },
-
+    };
 
     proto.get = function(id, config) {
 
@@ -1049,8 +1048,8 @@
 
     angular.extend(OrganizationResource.prototype, AvApiResource.prototype, {
 
-      getOrganizations: function() {
-        return this.query().then(function(response) {
+      getOrganizations: function(config) {
+        return this.query(config).then(function(response) {
           return response.data.organizations ? response.data.organizations : response.data;
         });
       }
@@ -1089,19 +1088,30 @@
         // config for the api resource query
         var config = {};
         config.params = {};
-        config.params.offset = 50 * (data.page - 1);
+        if(data.page) {
+          config.params.offset = 50 * (data.page - 1);
+        }
+        if(data.offset) {
+          config.params.offset = data.offset;
+        }
+        if(data.list) {
+          config.params.list = data.list;
+        }
+        if(data.q) {
+          config.params.q = data.q;
+        }
 
         return this.query(config).then(function (response) {
           //format the response into something select2 can read
           var myResults = response.data.codes;
-          if(_.isEmpty(myResults[0].id)) {
+          if(myResults && !_.has(myResults[0], 'id')) {
             _.each(myResults, function (code) {
               code.id = code.code;
             });
           }
 
           // calculate if we want to continue searching
-          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          var moreVal = response.data.offset < response.data.totalCount - response.data.limit;
           return {
             more: moreVal,
             results: myResults
