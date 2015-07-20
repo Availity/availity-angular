@@ -1,9 +1,9 @@
 /**
- * availity-angular v0.13.0 -- July-07
+ * availity-angular v0.13.1 -- July-08
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: /lib/ui/index.js
+// Source: \lib\ui\index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: /lib/ui/templates/template.js
+// Source: \lib\ui\templates\template.js
 (function(root) {
 
   'use strict';
@@ -57,7 +57,7 @@
 
 })(window);
 
-// Source: /lib/ui/modal/modal.js
+// Source: \lib\ui\modal\modal.js
 (function(root) {
 
   'use strict';
@@ -262,7 +262,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/form.js
+// Source: \lib\ui\validation\form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -439,7 +439,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/field.js
+// Source: \lib\ui\validation\field.js
 (function(root) {
 
   'use strict';
@@ -628,7 +628,7 @@
 
 })(window);
 
-// Source: /lib/ui/popover/popover.js
+// Source: \lib\ui\popover\popover.js
 (function(root) {
 
   'use strict';
@@ -696,7 +696,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/messages.js
+// Source: \lib\ui\validation\messages.js
 (function(root) {
 
   'use strict';
@@ -741,7 +741,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter-bootstrap.js
+// Source: \lib\ui\validation\adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -835,7 +835,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter.js
+// Source: \lib\ui\validation\adapter.js
 (function(root) {
 
   'use strict';
@@ -881,7 +881,7 @@
 
 })(window);
 
-// Source: /lib/ui/dropdown/dropdown.js
+// Source: \lib\ui\dropdown\dropdown.js
 (function(root) {
 
   'use strict';
@@ -1191,7 +1191,7 @@
 
 })(window);
 
-// Source: /lib/ui/datepicker/datepicker.js
+// Source: \lib\ui\datepicker\datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1416,7 +1416,7 @@
   });
 })(window);
 
-// Source: /lib/ui/idle/idle-notifier.js
+// Source: \lib\ui\idle\idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1562,7 +1562,7 @@
 
 })(window);
 
-// Source: /lib/ui/mask/mask.js
+// Source: \lib\ui\mask\mask.js
 (function(root) {
 
   'use strict';
@@ -1602,7 +1602,7 @@
 
 })(window);
 
-// Source: /lib/ui/permissions/has-permission.js
+// Source: \lib\ui\permissions\has-permission.js
 (function(root) {
 
   'use strict';
@@ -1651,7 +1651,7 @@
 
 })(window);
 
-// Source: /lib/ui/analytics/analytics.js
+// Source: \lib\ui\analytics\analytics.js
 (function(root) {
   'use strict';
 
@@ -1705,7 +1705,7 @@
 
 })(window);
 
-// Source: /lib/ui/placeholder/placeholder.js
+// Source: \lib\ui\placeholder\placeholder.js
 (function(root) {
 
   'use strict';
@@ -1742,7 +1742,7 @@
   });
 })(window);
 
-// Source: /lib/ui/breadcrumbs/breadcrumbs.js
+// Source: \lib\ui\breadcrumbs\breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -1795,6 +1795,8 @@
       templateUrl: AV_BREADCRUMBS.TEMPLATE,
       controller: 'AvBreadcrumbsController',
       link: function(scope, element, attrs, AvBreadcrumbsController) {
+        scope.breadcrumbs = AvBreadcrumbsController.getBreadcrumbs();
+
         scope.$on('$stateChangeSuccess', function() {
           scope.breadcrumbs = AvBreadcrumbsController.getBreadcrumbs();
         });

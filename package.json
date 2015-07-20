@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",
@@ -16,6 +16,10 @@
     {
       "name": "Robert McGuinness",
       "email": "rob.mcguinness@availity.com"
+    },
+    {
+      "name": "Bobby Bennett",
+      "email": "bbennett8609@gmail.com"
     }
   ],
   "license": "MIT",
