@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.13.1 -- July-08
+ * availity-angular v0.13.1 -- July-16
  * Copyright 2015 Availity, LLC 
  */
 
@@ -959,6 +959,7 @@
       if(self.options.query) {
         self.queryFn = self.options.query;
         self.options.query = self.query;
+        self.options.id = self.getId;
       }
 
     };
@@ -968,6 +969,9 @@
     };
 
     this.getSelected = function(model) {
+      if(self.options.query) {
+        return 0;
+      }
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
@@ -976,6 +980,10 @@
 
       return index;
 
+    };
+
+    this.getId = function(e) {
+      return e.id;
     };
 
     this.query = function(options) {
@@ -1806,6 +1814,75 @@
 
   avBreadcrumbs.$inject = ['AV_BREADCRUMBS'];
   availity.ui.directive('avBreadcrumbs', avBreadcrumbs);
+
+})(window);
+
+// Source: \lib\ui\filters\approximate.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.filter('avApproximate', function() {
+    var pow = Math.pow;
+    var floor = Math.floor;
+    var abs = Math.abs;
+    var log = Math.log;
+
+    function round(number, precision) {
+      var prec = pow(10, precision);
+      return Math.round(number * prec) / prec;
+    }
+
+    return function (number, precision) {
+      precision = precision || 0;
+      var base = floor(log(abs(number)) / log(1000));
+      var unit = 'kMGTPE'[base - 1];
+      return unit ? round(number / pow(1000, base), precision) + unit : (number || 0);
+    };
+  });
+
+})(window);
+
+// Source: \lib\ui\badge\badge.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_BADGE', {
+    COLOR: null,
+    DEFAULT_CLASS: 'badge',
+    SHOW_WHEN_ZERO: false,
+    TEMPLATE: 'ui/badge/badge-tpl.html'
+  });
+
+  function badgeDirective(AV_BADGE) {
+
+    return {
+      scope: {
+        color: '@',
+        count: '=avBadge',
+        showWhenZero: '@'
+      },
+      templateUrl: AV_BADGE.TEMPLATE,
+      link: function(scope, element) {
+        scope.color = scope.color || AV_BADGE.COLOR;
+        scope.showWhenZero = scope.showWhenZero || AV_BADGE.SHOW_WHEN_ZERO;
+
+        var classes = [];
+        classes.push(AV_BADGE.DEFAULT_CLASS);
+        if(scope.color) {
+          classes.push(scope.color);
+        }
+
+        element.addClass(classes.join(' '));
+      }
+    };
+  }
+
+  badgeDirective.$inject = ['AV_BADGE'];
+  availity.ui.directive('avBadge', badgeDirective);
 
 })(window);
 

@@ -292,6 +292,8 @@ demo.controller('DropdownController', function($scope, $log) {
     };
 
     $scope.myQuery = function (data) {
+      data.q = data.term;
+      data.list = 'someList';
       return avCodesResource.getCodes(data);
     };
   });
@@ -306,22 +308,29 @@ demo.controller('DropdownController', function($scope, $log) {
     angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
 
       getCodes: function (data) {
-        //config for the api resource query
+
+        // config for the api resource query
         var config = {};
         config.params = {};
         config.params.offset = 50 * (data.page - 1);
+        if(data.list) {
+          config.params.list = data.list
+        }
+        if(data.q) {
+          config.params.q = data.q;
+        }
 
         return this.query(config).then(function (response) {
           //format the response into something select2 can read
           var myResults = response.data.codes;
-          if (_.isEmpty(myResults[0].id)) {
+          if(!_.has(myResults, 'id')) {
             _.each(myResults, function (code) {
               code.id = code.code;
             });
           }
 
-          //calculate if we want to continue searching
-          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          // calculate if we want to continue searching
+          var moreVal = response.data.offset < response.data.totalCount - response.data.limit;
           return {
             more: moreVal,
             results: myResults
