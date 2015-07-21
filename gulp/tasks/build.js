@@ -6,6 +6,7 @@ var gulpsmith = require('gulpsmith');
 var templates = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
 var metalsmithPrism = require('metalsmith-prism');
+var define = require('metalsmith-define');
 var metalsmithMock = require('metalsmith-mock');
 var metalsmithPaths = require('metalsmith-path');
 var filter = require('gulp-filter');
@@ -71,6 +72,9 @@ gulp.task('build:docs', function() {
       delete file.frontMatter;
     })
     .pipe(gulpsmith()
+      .use(define({
+        pkg: require('../../package.json')
+      }))
       .use(collections({
         pages: {
           sortBy: 'menu',
