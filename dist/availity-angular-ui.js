@@ -1,9 +1,9 @@
 /**
- * availity-angular v0.13.1 -- July-16
+ * availity-angular v0.14.0 -- July-21
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: \lib\ui\index.js
+// Source: /lib/ui/index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: \lib\ui\templates\template.js
+// Source: /lib/ui/templates/template.js
 (function(root) {
 
   'use strict';
@@ -57,7 +57,7 @@
 
 })(window);
 
-// Source: \lib\ui\modal\modal.js
+// Source: /lib/ui/modal/modal.js
 (function(root) {
 
   'use strict';
@@ -262,7 +262,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\form.js
+// Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -278,6 +278,8 @@
 
     this.ngForm  = null;
     this.rulesKey = null;
+    this.avValOn = null;
+    this.avValDebounce = null;
 
     // Object that stores the unique id (key) and violation count (value) of all the form fields
     //
@@ -374,9 +376,15 @@
 
             var ngForm = controllers[0];
             var avForm = controllers[1];
+
+            // Allow form attributes to define the validation behavior of the form fields
+            // inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
+            // fields inside the form would inherit this behavior.
+            avForm.avValOn = iAttrs.avValOn || null;
+            avForm.avValDebounce = iAttrs.avValDebounce || null;
+
             avForm.init(ngForm);
             avForm.setRulesKey(rulesKey);
-
 
           },
           post: function(scope, iEl, iAttrs, controllers) {
@@ -397,6 +405,7 @@
 
             var ngForm = controllers[0];
             var avForm = controllers[1];
+
             iEl.bind('submit', function(event) {
 
               scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
@@ -439,7 +448,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\field.js
+// Source: /lib/ui/validation/field.js
 (function(root) {
 
   'use strict';
@@ -538,14 +547,14 @@
 
     };
 
-    this.debounce = function(avValDebounce) {
+    this.event = function(event, avValDebounce) {
 
       var self = this;
 
       $element.unbind('input');
 
       var debounce;
-      $element.bind('input', function() {
+      $element.on(event, function() {
         $timeout.cancel(debounce);
         debounce = $timeout( function() {
           $scope.$apply(function() {
@@ -557,6 +566,10 @@
 
   });
 
+  // Events:
+  //
+  //  click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown
+  //  keyup keypress submit focus blur copy cut paste
   availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL) {
     return {
       restrict: 'A',
@@ -568,15 +581,12 @@
       },
       link: function(scope, element, attrs, controllers) {
 
-        var avValDebounce = parseInt(scope.avValDebounce || AV_VAL.DEBOUNCE, 10);
-        avValDebounce = _.isNumber(avValDebounce) ? avValDebounce : AV_VAL.DEBOUNCE;
-
-        var avValOn = scope.avValOn || null;
-
         var rule = attrs.avValField; // not always string?
         var avValForm = controllers[0];
         var ngModel = controllers[1];
         var avValField = controllers[2];
+
+        var avValOn = scope.avValOn || avValForm.avValOn || 'input';
 
         if(!ngModel && !rule) {
           $log.error('avValField requires ngModel and a validation rule to run.');
@@ -588,17 +598,18 @@
         avValField.setRule(rule);
         avValField.createId();
 
-        var debounceAllowed = (element.is('input') && !(attrs.type === 'radio' || attrs.type === 'checkbox'));
+        var avValDebounce = parseInt(scope.avValDebounce || (avValForm.avValDebounce || AV_VAL.DEBOUNCE), 10);
+        avValDebounce = _.isNumber(avValDebounce) ? avValDebounce : AV_VAL.DEBOUNCE;
 
-        if(debounceAllowed) {
-          avValField.debounce(avValDebounce);
+        var debounceAllowed = (element.is('input') &&
+          !(attrs.type === 'radio' || attrs.type === 'checkbox') &&
+          avValOn !== 'blur');
+
+        if(!debounceAllowed) {
+          avValDebounce = 0;
         }
 
-        if(avValOn === 'blur') {
-          element.on('blur', function () {
-            ngModel.$setViewValue(ngModel.$modelValue);
-          });
-        }
+        avValField.event(avValOn, avValDebounce);
 
         // (view to model)
         ngModel.$parsers.push(avValField.validateView);
@@ -628,7 +639,7 @@
 
 })(window);
 
-// Source: \lib\ui\popover\popover.js
+// Source: /lib/ui/popover/popover.js
 (function(root) {
 
   'use strict';
@@ -696,7 +707,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\messages.js
+// Source: /lib/ui/validation/messages.js
 (function(root) {
 
   'use strict';
@@ -741,7 +752,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter-bootstrap.js
+// Source: /lib/ui/validation/adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -835,7 +846,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter.js
+// Source: /lib/ui/validation/adapter.js
 (function(root) {
 
   'use strict';
@@ -881,7 +892,7 @@
 
 })(window);
 
-// Source: \lib\ui\dropdown\dropdown.js
+// Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
 
   'use strict';
@@ -957,8 +968,11 @@
       self.options.closeOnResize = self.options.closeOnResize  || true;
 
       if(self.options.query) {
+
         self.queryFn = self.options.query;
+        // Function used to query results for the search term.
         self.options.query = self.query;
+        // Function used to get the id from the choice object or a string representing the key under which the id is stored.
         self.options.id = self.getId;
       }
 
@@ -969,6 +983,7 @@
     };
 
     this.getSelected = function(model) {
+
       if(self.options.query) {
         return 0;
       }
@@ -982,12 +997,38 @@
 
     };
 
-    this.getId = function(e) {
-      return e.id;
+    // Result:
+    //
+    // {
+    //   "code": "252Y00000X",
+    //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
+    //   "id": "252Y00000X"
+    // }
+    this.getId = function(result) {
+      return result.id;
     };
 
+    // Wrapper around the query function for Select2.  When the promise resolves
+    // the callback
     this.query = function(options) {
+
       self.queryFn(options).then(function(response) {
+
+        // Callback function that should be called with the result object. The result object:
+        //
+        // result.results (object) - Array of result objects. The default renderers
+        //    expect objects with id and text keys. The id property is required,
+        //    even if custom renderers are used. The object may also contain a children
+        //    key if hierarchical data is displayed. The object may also contain a disabled
+        //    boolean property indicating whether this result can be selected.
+        //
+        // result.more (boolean) - true if more results are available for the current
+        //    search term.
+        //
+        // results.context (object) - A user-defined object that should be made available
+        //    as the context parameter to the query function on subsequent queries to load
+        //    more result pages for the same search term. See the description of
+        //    options.context parameter.
         options.callback({more: response.more, results: response.results});
       });
     };
@@ -1006,6 +1047,26 @@
       });
     };
 
+    this.getMultiSelected = function(viewValue) {
+      var options = this.collection($scope);
+      var indices = [];
+
+      _.each(viewValue, function(savedObject) {
+        var index = _.findIndex(options, function(value) {
+          var temp = angular.copy(savedObject); // remove hashkeys for comparison
+          return _.matches(temp)(value);
+        });
+        indices.push(index);
+      });
+
+      if(indices.length > 0) {
+        viewValue = indices;
+      }
+
+      return viewValue;
+
+    };
+
     this.setValues = function() {
       var viewValue = self.ngModel.$viewValue;
 
@@ -1013,7 +1074,10 @@
         viewValue = [];
       }
 
-      // var apply = scope.$evalAsync || $timeout;
+      if(!_.isEmpty(viewValue) && _.isObject(viewValue[0])) {
+        viewValue = this.getMultiSelected(viewValue);
+      }
+
       $timeout(function() {
         $element
           .select2('val', viewValue);
@@ -1199,7 +1263,7 @@
 
 })(window);
 
-// Source: \lib\ui\datepicker\datepicker.js
+// Source: /lib/ui/datepicker/datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1424,7 +1488,7 @@
   });
 })(window);
 
-// Source: \lib\ui\idle\idle-notifier.js
+// Source: /lib/ui/idle/idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1570,7 +1634,7 @@
 
 })(window);
 
-// Source: \lib\ui\mask\mask.js
+// Source: /lib/ui/mask/mask.js
 (function(root) {
 
   'use strict';
@@ -1610,7 +1674,7 @@
 
 })(window);
 
-// Source: \lib\ui\permissions\has-permission.js
+// Source: /lib/ui/permissions/has-permission.js
 (function(root) {
 
   'use strict';
@@ -1659,7 +1723,7 @@
 
 })(window);
 
-// Source: \lib\ui\analytics\analytics.js
+// Source: /lib/ui/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -1713,7 +1777,7 @@
 
 })(window);
 
-// Source: \lib\ui\placeholder\placeholder.js
+// Source: /lib/ui/placeholder/placeholder.js
 (function(root) {
 
   'use strict';
@@ -1750,7 +1814,7 @@
   });
 })(window);
 
-// Source: \lib\ui\breadcrumbs\breadcrumbs.js
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -1817,7 +1881,7 @@
 
 })(window);
 
-// Source: \lib\ui\filters\approximate.js
+// Source: /lib/ui/filters/approximate.js
 (function(root) {
   'use strict';
 
@@ -1844,7 +1908,7 @@
 
 })(window);
 
-// Source: \lib\ui\badge\badge.js
+// Source: /lib/ui/badge/badge.js
 (function(root) {
   'use strict';
 
