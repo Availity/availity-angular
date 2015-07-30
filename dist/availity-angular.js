@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.14.0 -- July-21
+ * availity-angular v0.14.1 -- July-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.14.0';
+  availity.VERSION = 'v0.14.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -828,8 +828,8 @@
         //
         // proto.update = function(data, config) {} a.k.a function(id, data)
         //
-        data = id; // data is really the first param
         config = data;  // config is really the 2nd param
+        data = id; // data is really the first param
       }
 
       if(this.beforeUpdate) {
