@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.14.1 -- August-05
+ * availity-angular v0.14.1 -- August-06
  * Copyright 2015 Availity, LLC 
  */
 
@@ -579,7 +579,7 @@
   //
   //  click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown
   //  keyup keypress submit focus blur copy cut paste
-  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL) {
+  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL, AV_BOOTSTRAP_ADAPTER) {
     return {
       restrict: 'A',
       controller: 'AvValFieldController',
@@ -638,6 +638,15 @@
         scope.$on(AV_VAL.EVENTS.SUBMITTED, function() {
           ngModel.$dirty = true;
           avValField.validate(ngModel.$viewValue);
+        });
+
+        // Removes all errors on page, does not reset view or model values, this is to be handled by the app
+        scope.$on(AV_VAL.EVENTS.RESET, function () {
+          var violations = ngModel.avResults.violations;
+          ngModel.avResults.violations = [];
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass('has-error');
+          avValAdapter.message(element, ngModel);
+          ngModel.avResults.violations = violations;
         });
 
         scope.$on('$destroy', function () {
