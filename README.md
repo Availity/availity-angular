@@ -157,6 +157,9 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 **Bobby Bennett**
 + [bbennett8609@gmail.com](bbennett8609@gmail.com)
 
+**Javier Fernandez-Ivern**
++ [javier@ivern.org](javier@ivern.org)
+
 
 
 ## License
