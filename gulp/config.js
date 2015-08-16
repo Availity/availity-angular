@@ -149,7 +149,8 @@ module.exports = {
     css: {
       src: [
         'bower_components/availity-uikit/dist/css/availity-uikit.css',
-        'bower_components/availity-uikit/dist/css/docs.css'
+        'bower_components/availity-uikit/dist/css/docs.css',
+        'bower_components/angular-block-ui/dist/angular-block-ui.css'
       ],
       dest: 'build/guide/css'
     },
