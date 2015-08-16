@@ -2,7 +2,7 @@
 
 > Availity Angular SDK
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=windows)](http://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![Bower](https://img.shields.io/bower/v/availity-angular.svg)]()
 [![Dependency Status](https://img.shields.io/david/dev/Availity/availity-angular.svg?style=flat-square)](https://david-dm.org/Availity/availity-angular)
 [![Build](https://img.shields.io/travis/Availity/availity-angular.svg?style=flat-square&label=build)](https://travis-ci.org/Availity/availity-angular)
@@ -68,7 +68,7 @@ The module `availity` are Angular services and utilities for building web applic
 
 > Not all Availity Rest services support asynchronous requests/responses.  Please check the documentation at https://developer.availity.com for support.
 
-Angular API Rest services created from [api-factory.js](./lib/core/api/api-factory.js) have been enhanced to support Availtiy Rest asynchronous requests.  In essence, if [api-factory.js](./lib/core/api/api-factory.js) detects an asynchronous response, it will automatically poll Availity Rest services for the real response for about 30 seconds.  The default starting poll interval is 1 second with a decay factor of 1.2.  If a proper response isn't received with in the max interval polling time the Angular ajax promise will get rejected.  This behavior is transparent to users of Angular services that have been extended from [api-factory.js](./lib/core/api/api-factory.js).
+Angular API Rest services created from [api-factory.js](./lib/core/api/api-factory.js) have been enhanced to support Availity Rest asynchronous requests.  In essence, if [api-factory.js](./lib/core/api/api-factory.js) detects an asynchronous response, it will automatically poll Availity Rest services for the real response for about 30 seconds.  The default starting poll interval is 1 second with a decay factor of 1.2.  If a proper response isn't received with in the max interval polling time the Angular ajax promise will get rejected.  This behavior is transparent to users of Angular services that have been extended from [api-factory.js](./lib/core/api/api-factory.js).
 
 As the contract changes between the client and server for async request/response, [api-factory.js](./lib/core/api/api-factory.js) will be updated accordingly.
 
@@ -153,6 +153,12 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 
 **Robert McGuinness**
 + [rob.mcguinness@availity.com](rob.mcguinness@availity.com)
+
+**Bobby Bennett**
++ [bbennett8609@gmail.com](bbennett8609@gmail.com)
+
+**Javier Fernandez-Ivern**
++ [javier@ivern.org](javier@ivern.org)
 
 
 

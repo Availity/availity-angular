@@ -1,0 +1,53 @@
+---
+title: Breadcrumbs
+---
+
+<div data-markdown>
+  > Breadcrumbs are defined within the application's routes and rely on [Angular UI's UI Router](https://github.com/angular-ui/ui-router).
+</div>
+
+<div data-markdown>
+  > The breadcrumbs update on `$stateChangeSuccess` according to the current state.
+</div>
+
+<div data-ng-controller="BreadcrumbsController">
+
+  <div class="guide-example">
+
+    <p>
+      <!--<label for="selState">Select a route: </label>-->
+      <select id="selState" av-dropdown data-ng-model="currentState" data-placeholder="Select a state" data-minimum-results-for-search="10" ng-options="state.name for state in states">
+        <option></option>
+      </select>
+    </p>
+
+    <div av-breadcrumbs></div>
+  </div>
+  <code class="language-markup">
+    <div av-breadcrumbs></div>
+
+    <!-- Javascript -->
+    <script>
+      var demo = angular.module('demo', ['ui.router', 'availity', 'availity.ui']);
+
+      demo.config(['$stateProvider', function($stateProvider) {
+        $stateProvider
+          .state('parent-state', {
+            data: {
+              breadcrumb: {
+                displayName: 'Parent State'
+              }
+            }
+          })
+          .state('child-state', {
+            data: {
+              breadcrumb: {
+                displayName: 'Child State',  // The breadcrumb's name
+                parent: 'parent-state'       // The breadcrumb's parent state
+              }
+            }
+          })
+      }]);
+    </script>
+  </code>
+</div>

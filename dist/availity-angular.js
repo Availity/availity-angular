@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.12.0 -- June-23
+ * availity-angular v0.14.1 -- July-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.12.0';
+  availity.VERSION = 'v0.14.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -414,7 +414,7 @@
         response.config.api &&
         response.status &&
         response.status === 202 &&
-        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.LOCATION));
+        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.SERVER.LOCATION));
     };
 
     proto.onAsyncReponse = function(response) {
@@ -448,12 +448,17 @@
 
       var self = this;
       // server replies with location header so set the url into config
-      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.LOCATION));
+      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.SERVER.LOCATION));
       var _config = response.config;
 
+
+      // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
+      //  to send to the server. If the return value of a function is null, the header
+      //  will not be sent. Functions accept a config object as an argument.
       var config = {
         method: 'GET',
         api: true,
+        headers: _config.headers,
         pollingInterval: _config.pollingInterval,
         pollingMaxRetry: _config.pollingMaxRetry,
         pollingMaxInterval: _config.pollingMaxInterval,
@@ -609,13 +614,19 @@
 
   availity.core.constant('AV_API', {
     HEADERS: {
-      ID: 'X-API-ID',
-      GLOBAL_ID: 'X-Global-Transaction-ID',
-      SESSION_ID: 'X-Session-ID',
-      LOCATION: 'Location',
-      OVERRIDE: 'X-HTTP-Method-Override',
-      CALLBACK_URL: 'X-Callback-URL',
-      CUSTOMER_ID: 'X-Availity-Customer-ID'
+      SERVER: {
+        ID: 'X-API-ID',
+        LOCATION: 'Location',
+        STATUS: 'X-Status-Message',
+        GLOBAL_ID: 'X-Global-Transaction-ID'
+      },
+      CLIENT: {
+        SESSION_ID: 'X-Session-ID',
+        AUTH: 'Authorization',
+        OVERRIDE: 'X-HTTP-Method-Override',
+        CALLBACK_URL: 'X-Callback-URL',
+        CUSTOMER_ID: 'X-Availity-Customer-ID'
+      }
     }
   });
 
@@ -779,8 +790,7 @@
 
       return this._request(config, this.afterCreate);
 
-    },
-
+    };
 
     proto.get = function(id, config) {
 
@@ -814,8 +824,12 @@
         url = this._getUrl(id);
       }else {
         url = this._getUrl();
-        config = data;  // config is really the 2nd param for this use case
-        data = id; // data is really the first param for this use case
+        // At this point the function signature becomes:
+        //
+        // proto.update = function(data, config) {} a.k.a function(id, data)
+        //
+        config = data;  // config is really the 2nd param
+        data = id; // data is really the first param
       }
 
       if(this.beforeUpdate) {
@@ -827,7 +841,7 @@
       config.url = url;
       config.data = data;
 
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
+      return this._request(config, this.afterUpdate);
 
     };
 
@@ -1034,8 +1048,8 @@
 
     angular.extend(OrganizationResource.prototype, AvApiResource.prototype, {
 
-      getOrganizations: function() {
-        return this.query().then(function(response) {
+      getOrganizations: function(config) {
+        return this.query(config).then(function(response) {
           return response.data.organizations ? response.data.organizations : response.data;
         });
       }
@@ -1061,7 +1075,6 @@
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
 
-
   var AvCodesResourceFactory = function(AvApiResource) {
 
     var AvCodesResource = function () {
@@ -1075,22 +1088,34 @@
         // config for the api resource query
         var config = {};
         config.params = {};
-        config.params.offset = 50 * (data.page - 1);
+
+        if(data.page) {
+          config.params.offset = 50 * (data.page - 1);
+        }
+        if(data.offset) {
+          config.params.offset = data.offset;
+        }
+        if(data.list) {
+          config.params.list = data.list;
+        }
+        if(data.q) {
+          config.params.q = data.q;
+        }
 
         return this.query(config).then(function (response) {
-          //format the response into something select2 can read
-          var myResults = response.data.codes;
-          if(_.isEmpty(myResults[0].id)) {
-            _.each(myResults, function (code) {
+          // Format the response into something select2 can read
+          var results = response.data.codes;
+          if(results && !_.has(results[0], 'id')) {
+            _.each(results, function (code) {
               code.id = code.code;
             });
           }
 
           // calculate if we want to continue searching
-          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          var moreVal = response.data.offset < response.data.totalCount - response.data.limit;
           return {
             more: moreVal,
-            results: myResults
+            results: results
           };
 
         });
@@ -1697,7 +1722,7 @@
       FAILED: 'av:val:failed',
       RESET: 'av:val:reset'
     },
-    DEBOUNCE: 500,
+    DEBOUNCE: 800,
     DATE_FORMAT: {
       SIMPLE: 'MM/DD/YYYY'
     },
@@ -1709,19 +1734,23 @@
 
   availity.core.provider('avVal', function() {
 
-    var that = this;
+    var validators = [];
+    var rules = {};
+    var services = {};
 
-    this.rules = {};
+    this.addRules = function(_rules) {
+      rules = angular.extend({}, rules, _rules);
+      return rules;
+    };
 
-    this.addRules = function(rules) {
-      this.rules = angular.extend(this.rules, rules);
+    this.addValidators = function(_validators) {
+      validators = validators.concat(_validators);
+      return validators;
     };
 
     this.$get = function($injector, $rootScope, $http, $log, avValConfig, AV_VAL) {
 
       var AvValidation = function() {
-        this.rules = that.rules;
-        this.validators = [];
         this.initValidators();
       };
 
@@ -1730,32 +1759,32 @@
       proto.initValidators = function() {
         var self = this;
 
-        angular.forEach(avValConfig.validators, function(name) {
-          var validator = $injector.get(name);
-          self.validators[validator.name] = validator;
+        validators = avValConfig.validators.concat(validators);
+
+        angular.forEach(validators, function(name) {
+          self.addValidator(name);
         });
       };
 
-      proto.clearAll = function() {
-        // this.validators.splice(0, this.validators.length);
-        // this.rules = {};
+      proto.addValidator = function(name) {
+        var validator = $injector.get(name);
+        services[validator.name] = validator;
       };
 
-      proto.addRules = function(rules) {
-        this.rules = angular.extend(this.rules, rules);
+      proto.addRules = function(_rules) {
+        rules = angular.extend({}, rules, _rules);
         $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
       };
 
       proto.validate = function(key, element, value, ruleName) {
 
-        var self = this;
-
-        var rules = this.rules[key];
-        if(!rules) {
+        var ruleConfig = rules[key];
+        if(!ruleConfig) {
           $log.error('Failed to get rules key [' + key + '].  Forms must be tagged with a rules set name for validation to work.');
           return;
         }
-        var contraints = rules[ruleName];
+
+        var contraints = ruleConfig[ruleName];
         if(!contraints) {
           $log.info('Rule named [' + ruleName + '] could not be found in the current schema.');
           contraints = [];
@@ -1774,7 +1803,7 @@
             return;
           }
 
-          var validator = self.validators[contraintName];
+          var validator = services[contraintName];
 
           if(angular.isUndefined(validator)) {
             $log.warn('No validator defined for `' + name + '`');
@@ -1791,8 +1820,6 @@
             message: rule.message,
             field: el.name || el.id
           };
-
-          // $log.info(validationResult);
 
           var result = angular.extend({}, rule, validationResult);
 
@@ -1812,6 +1839,7 @@
       };
 
       return new AvValidation();
+
     };
 
   });
@@ -1853,11 +1881,21 @@
     var validator =  {
       name: 'size',
       validate: function(value, rule) {
-        var minLength = rule.min || 0;
-        var maxLength = rule.max;
+        var result = false;
+        var min = rule.min || 0;
+        var max = rule.max;
 
-        value = value || '';
-        return avValUtils.isEmpty(value) || value.length >= minLength && (maxLength === undefined || value.length <= maxLength);
+        if(_.isNull(value) || _.isUndefined(value)) {
+          value = '';
+        }
+
+        if(_.isString(value)) {
+          result = avValUtils.isEmpty(value) || value.length >= min && (max === undefined || value.length <= max);
+        } else if(_.isNumber(value)) {
+          result = avValUtils.isEmpty(value) || value >= min && (max === undefined || value <= max);
+        }
+
+        return result;
       }
     };
 
@@ -1992,7 +2030,7 @@
           startDate = moment(rules.start.value, rules.format);
           endDate = validator.setMax(moment(rules.end.value, rules.format));
         }
-        return date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
+        return date.isValid() && date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
       },
 
       validate: function(value, rule) {
