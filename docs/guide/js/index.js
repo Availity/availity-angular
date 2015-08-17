@@ -7,6 +7,9 @@
     'availity',
     'availity.ui',
     'availity.ui.templates',
+    'ngAnimate',
+    'angular-velocity',
+    'blockUI',
     'ui.router' // for breadcrumbs
   ]);
 
@@ -14,8 +17,12 @@
 
   });
 
-  availity.demo.config(function(avIdleProvider) {
+  availity.demo.config(function(avIdleProvider, blockUIConfig) {
+
     avIdleProvider.enable(false);
+    blockUIConfig.template = '<div data-av-loader class="loading-indicator"></div>';
+    blockUIConfig.autoBlock = false;
+
   });
 
   availity.demo.config(['$stateProvider', function($stateProvider) {
@@ -45,7 +52,7 @@
             parent: 'spaces'
           }
         }
-      })
+      });
   }]);
 
 })();

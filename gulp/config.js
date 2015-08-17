@@ -101,7 +101,8 @@ module.exports = {
       './lib/ui/breadcrumbs/breadcrumbs.js',
       './lib/ui/filters/approximate.js',
       './lib/ui/badge/badge.js',
-      './lib/ui/labels/removable-label.js'
+      './lib/ui/labels/removable-label.js',
+      './lib/ui/animation/loader.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -126,9 +127,14 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      './bower_components/velocity/velocity.js',
+      './bower_components/velocity/velocity.ui.js',
+      './bower_components/angular-animate/angular-animate.js',
+      './bower_components/angular-velocity/angular-velocity.js',
       './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       './bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       './bower_components/tracekit/tracekit.js',
+      './bower_components/angular-block-ui/dist/angular-block-ui.js',
       './bower_components/angular-ui-router/release/angular-ui-router.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
@@ -143,7 +149,8 @@ module.exports = {
     css: {
       src: [
         'bower_components/availity-uikit/dist/css/availity-uikit.css',
-        'bower_components/availity-uikit/dist/css/docs.css'
+        'bower_components/availity-uikit/dist/css/docs.css',
+        'bower_components/angular-block-ui/dist/angular-block-ui.css'
       ],
       dest: 'build/guide/css'
     },
@@ -204,6 +211,7 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
+      './bower_components/angular-block-ui/dist/angular-block-ui.js',
       './bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/index.js',
       'test/matchers.js',
