@@ -1,0 +1,172 @@
+---
+title: Animation
+---
+
+<div data-ng-controller="AnimationController">
+
+  <h3 class="guide-subsection-title">Tada</h3>
+  <div class="guide-example">
+    <p>
+      <button data-ng-click="animate.onClick()" class="btn btn-default">{{animate.message}}</button>
+    </p>
+    <div class="velocity-callout-tada" data-ng-show="animate.visible">
+      <div class="alert alert-warning">
+      A website in motion stays in motion and is <em><strong>way more awesome</strong></em>.
+      </div>
+    </div>
+  </div>
+  <code class="language-markup">
+    <div class="velocity-callout-tada" data-ng-show="animate.visible">
+        ...
+    </div>
+  </code>
+
+  <h3 class="guide-subsection-title">Slide In Up</h3>
+  <div class="guide-example">
+    <p>
+      <button data-ng-click="animate.onClick2()" class="btn btn-default">Animate</button>
+    </p>
+    <div
+        class="velocity-transition-slideUpIn"
+        data-ng-show="animate.visible2"
+        data-velocity-opts="{ duration: 2000 }">
+        <p class="lead">I've been animated with Velocity and Angular!</p>
+    </div>
+  </div>
+  <code class="language-markup">
+  <p>
+    <button data-ng-click="animate.onClick2()" class="btn btn-default">Animate</button>
+  </p>
+  <div
+      class="velocity-transition-slideUpIn"
+      data-ng-show="animate.visible2"
+      data-velocity-opts="{ duration: 5000 }">
+      I've been animated with Velocity and Angular!
+  </div>
+  </code>
+
+  <h3 class="guide-subsection-title">Bounce In</h3>
+  <div class="guide-example">
+    <nav class="navbar mega-menu navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#availity-example-navbar-collapse-4">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand-availity" href="#">
+            <img alt="Availity Logo" src="images/logo-availity.png">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="availity-example-navbar-collapse-4">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="#" class="dropdown-toggle dropdown-toggle-notifications" data-toggle="dropdown">
+                <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
+                <span class="badge badge-success" id="counter">{{animate.count}}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-md notifications-menu" role="menu">
+                <li>
+                  <ul class="nav nav-pills-secondary nav-justified notifications-menu-header" role="tablist">
+                    <li class="active">
+                      <a data-target="#all1" role="tab" data-toggle="tab">All <span class="notifications-menu-count">(3)</span></a>
+                    </li>
+                    <li>
+                      <a data-target="#alerts1" role="tab" data-toggle="tab">Alerts <span class="notifications-menu-count">(2)</span></a>
+                    </li>
+                    <li>
+                      <a data-target="#messages1" role="tab" data-toggle="tab">Messages <span class="notifications-menu-count">(1)</span></a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="all1">
+                      <div class="notifications-menu-body">
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="alerts1">
+                      <div class="notifications-menu-body">
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="messages1">
+                      <div class="notifications-menu-body">
+                        <div class="list-group-item">
+                          <h6 class="subheader">Humana | Pharmacy Prior Authorization <a href="#"><i class="icon icon-cancel"></i></a></h6>
+                          <h5 class="condensed">Pharmacy Authorization Approved</h5>
+                          <p>Authorization for Arnold, Clifford (HUMIRA 40 MG/0.8 ML) was approved.</p>
+                          <a href="#" class="notification-menu-link">View Request</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="notifications-menu-footer">
+                    <a href="#">Show All Notifications</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <code class="language-markup">
+<!-- Javascript -->
+<script>
+$animate.addClass($el, 'velocity-transition-bounceIn', function() {
+  $el.removeClass('velocity-transition-bounceIn');
+});
+</script>
+  </code>
+
+  <h3 class="guide-subsection-title">Loading Indicator</h3>
+  <div class="guide-example">
+    <div data-av-loader class="loading-indicator"></div>
+  </div>
+  <code class="language-markup">
+  <div data-av-loader class="loading-indicator"></div>
+  </code>
+
+  <h3 class="guide-subsection-title">Block UI</h3>
+  <div class="guide-example">
+    <div data-block-ui="avBlock">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <button data-ng-click="animate.toggleBlock()" class="btn btn-primary btn-large">Toggle Block</button>
+  </div>
+  <code class="language-markup">
+
+  </code>
+</div>
