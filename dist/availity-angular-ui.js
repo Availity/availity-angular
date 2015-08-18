@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.14.1 -- July-30
+ * availity-angular v0.14.1 -- August-06
  * Copyright 2015 Availity, LLC 
  */
 
@@ -280,6 +280,7 @@
     this.rulesKey = null;
     this.avValOn = null;
     this.avValDebounce = null;
+    this.avValInvalidModelData = false;
 
     // Object that stores the unique id (key) and violation count (value) of all the form fields
     //
@@ -382,6 +383,8 @@
             // fields inside the form would inherit this behavior.
             avForm.avValOn = iAttrs.avValOn || null;
             avForm.avValDebounce = iAttrs.avValDebounce || null;
+            // Allows fields to update with invalid data for dirty form saving
+            avForm.avValInvalidModelData = iAttrs.avValInvalidModelData || false;
 
             avForm.init(ngForm);
             avForm.setRulesKey(rulesKey);
@@ -460,6 +463,7 @@
     this.ngModel = null;
     this.rule = null;
     this.avValForm = null;
+    this.avValInvalidModelData = false;
 
     var self = this;
 
@@ -540,10 +544,15 @@
     };
 
     this.validateView = function(value) {
-
       var results = self.validate(value);
-      // prevent invalid data from view to update model
-      return results.isValid ? value : undefined;
+
+      if(self.avValForm.avValInvalidModelData || self.avValInvalidModelData) {
+        // Allows invalid data from view to update model for dirty saving
+        return value;
+      } else {
+        // prevent invalid data from view to update model
+        return results.isValid ? value : undefined;
+      }
 
     };
 
@@ -570,7 +579,7 @@
   //
   //  click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown
   //  keyup keypress submit focus blur copy cut paste
-  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL) {
+  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL, AV_BOOTSTRAP_ADAPTER) {
     return {
       restrict: 'A',
       controller: 'AvValFieldController',
@@ -592,6 +601,9 @@
           $log.error('avValField requires ngModel and a validation rule to run.');
           return;
         }
+
+        // Allows fields to update with invalid data for dirty form saving
+        avValField.avValInvalidModelData = attrs.avValInvalidModelData || false;
 
         avValField.setNgModel(ngModel);
         avValField.avValForm(avValForm);
@@ -626,6 +638,15 @@
         scope.$on(AV_VAL.EVENTS.SUBMITTED, function() {
           ngModel.$dirty = true;
           avValField.validate(ngModel.$viewValue);
+        });
+
+        // Removes all errors on page, does not reset view or model values, this is to be handled by the app
+        scope.$on(AV_VAL.EVENTS.RESET, function () {
+          var violations = ngModel.avResults.violations;
+          ngModel.avResults.violations = [];
+          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass('has-error');
+          avValAdapter.message(element, ngModel);
+          ngModel.avResults.violations = violations;
         });
 
         scope.$on('$destroy', function () {
