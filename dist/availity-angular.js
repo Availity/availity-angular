@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.14.1 -- August-06
+ * availity-angular v0.15.0 -- August-18
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.14.1';
+  availity.VERSION = 'v0.15.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -846,13 +846,25 @@
     };
 
     proto.remove = function(id, config) {
-      if(!id) {
-        throw new Error('called method without [id]');
+
+      var url;
+      var data;
+
+      if(_.isString(id) || _.isNumber(id)) {
+        url = this._getUrl(id);
+      }else {
+        // At this point the function signature becomes:
+        //
+        // proto.remove = function(data, config)
+        //
+        url = this._getUrl();
+        data = id;
       }
 
       config = this._config(config);
       config.method = 'DELETE';
-      config.url = this._getUrl(id);
+      config.url = url;
+      config.data = data;
 
       return this._request(config, this.afterRemove);
     };
@@ -1764,6 +1776,7 @@
         angular.forEach(validators, function(name) {
           self.addValidator(name);
         });
+
       };
 
       proto.addValidator = function(name) {
@@ -1879,23 +1892,31 @@
   availity.core.factory('avValSize', function(avValUtils) {
 
     var validator =  {
+
       name: 'size',
+
       validate: function(value, rule) {
-        var result = false;
+
         var min = rule.min || 0;
         var max = rule.max;
+        var type = rule.type ? rule.type.toLowerCase() : 'text';
 
         if(_.isNull(value) || _.isUndefined(value)) {
           value = '';
         }
 
-        if(_.isString(value)) {
-          result = avValUtils.isEmpty(value) || value.length >= min && (max === undefined || value.length <= max);
-        } else if(_.isNumber(value)) {
-          result = avValUtils.isEmpty(value) || value >= min && (max === undefined || value <= max);
+        if(type === 'text') {
+          value = value + '';
+          return  avValUtils.isEmpty(value) || value.length >= min && (max === undefined || value.length <= max);
         }
 
-        return result;
+        // ... must be a Number
+        if(!_.isNumber(value) && /^\d+$/.test(value)) {
+          value = parseInt(value, 10);
+        }
+
+        return avValUtils.isEmpty(value) || value >= min && (max === undefined || value <= max);
+
       }
     };
 

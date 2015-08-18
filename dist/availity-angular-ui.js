@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.14.1 -- August-06
+ * availity-angular v0.15.0 -- August-18
  * Copyright 2015 Availity, LLC 
  */
 
@@ -36,6 +36,7 @@
   var availity = root.availity;
 
   availity.ui.factory('avTemplateCache', function($q, $templateCache, $http) {
+
     return {
 
       get: function(options) {
@@ -219,7 +220,7 @@
       var deferred = $q.defer();
 
       this.$element.modal('hide');
-      this.$element.on('hidden.bs.modal', function() {
+      this.$element.one('hidden.bs.modal', function() {
         deferred.resolve(true);
       });
 
@@ -280,7 +281,7 @@
     this.rulesKey = null;
     this.avValOn = null;
     this.avValDebounce = null;
-    this.avValInvalidModelData = false;
+    this.avValInvalid = false;
 
     // Object that stores the unique id (key) and violation count (value) of all the form fields
     //
@@ -319,10 +320,13 @@
       }
     };
 
+    this.reset = function() {
+      this.ngForm.$setPristine();
+      this.ngForm.$submitted = false;
+    };
+
     this.$setSubmitted = function() {
-      //$animate.addClass(element, SUBMITTED_CLASS);
       this.ngForm.$submitted = true;
-      // parentForm.$setSubmitted();
     };
 
     this.setRulesKey = function(key) {
@@ -384,7 +388,7 @@
             avForm.avValOn = iAttrs.avValOn || null;
             avForm.avValDebounce = iAttrs.avValDebounce || null;
             // Allows fields to update with invalid data for dirty form saving
-            avForm.avValInvalidModelData = iAttrs.avValInvalidModelData || false;
+            avForm.avValInvalid = iAttrs.avValInvalid || false;
 
             avForm.init(ngForm);
             avForm.setRulesKey(rulesKey);
@@ -408,6 +412,10 @@
 
             var ngForm = controllers[0];
             var avForm = controllers[1];
+
+            scope.$on(AV_VAL.EVENTS.RESET, function () {
+              avForm.reset();
+            });
 
             iEl.bind('submit', function(event) {
 
@@ -458,14 +466,17 @@
 
   var availity = root.availity;
 
-  availity.ui.controller('AvValFieldController', function($element, avValAdapter, avVal, $log, $timeout, $scope) {
+  availity.ui.controller('AvValFieldController', function($element, avValAdapter, avVal, $log, $timeout, $scope, $sniffer) {
 
     this.ngModel = null;
     this.rule = null;
     this.avValForm = null;
-    this.avValInvalidModelData = false;
+    this.avValInvalid = false;
 
     var self = this;
+
+    var placeholder = $element[0].placeholder;
+    var noEvent = {};
 
     this.createId = function() {
       this.ngModel.avId = availity.uuid('avVal');
@@ -484,6 +495,7 @@
     };
 
     this.updateModel = function(results) {
+
       var self = this;
       var validationKeys = [];
 
@@ -544,15 +556,26 @@
     };
 
     this.validateView = function(value) {
+
       var results = self.validate(value);
 
-      if(self.avValForm.avValInvalidModelData || self.avValInvalidModelData) {
-        // Allows invalid data from view to update model for dirty saving
+      if(self.avValForm.avValInvalid || self.avValInvalid) {
+        // allows invalid data from view to update model for dirty saving
         return value;
-      } else {
-        // prevent invalid data from view to update model
-        return results.isValid ? value : undefined;
       }
+
+      // prevent invalid data from view to update model
+      return results.isValid ? value : undefined;
+
+    };
+
+    this.reset = function() {
+
+      avValAdapter.message($element, this.ngModel);
+      avValAdapter.reset($element);
+
+      var violations = this.ngModel.avResults.violations;
+      violations.splice(0, violations.length);
 
     };
 
@@ -563,7 +586,16 @@
       $element.unbind('input');
 
       var debounce;
+
+
       $element.on(event, function() {
+
+        // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/directive/input.js#L508
+        if($sniffer.msie <= 11 && (event || noEvent).type === 'input' && $element[0].placeholder !== placeholder) {
+          placeholder = $element[0].placeholder;
+          return;
+        }
+
         $timeout.cancel(debounce);
         debounce = $timeout( function() {
           $scope.$apply(function() {
@@ -571,6 +603,8 @@
           });
         }, avValDebounce);
       });
+
+
     };
 
   });
@@ -579,7 +613,7 @@
   //
   //  click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown
   //  keyup keypress submit focus blur copy cut paste
-  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL, AV_BOOTSTRAP_ADAPTER) {
+  availity.ui.directive('avValField', function($log, $timeout, avVal, avValAdapter, AV_VAL) {
     return {
       restrict: 'A',
       controller: 'AvValFieldController',
@@ -603,7 +637,7 @@
         }
 
         // Allows fields to update with invalid data for dirty form saving
-        avValField.avValInvalidModelData = attrs.avValInvalidModelData || false;
+        avValField.avValInvalid = attrs.avValInvalid || false;
 
         avValField.setNgModel(ngModel);
         avValField.avValForm(avValForm);
@@ -642,11 +676,7 @@
 
         // Removes all errors on page, does not reset view or model values, this is to be handled by the app
         scope.$on(AV_VAL.EVENTS.RESET, function () {
-          var violations = ngModel.avResults.violations;
-          ngModel.avResults.violations = [];
-          element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass('has-error');
-          avValAdapter.message(element, ngModel);
-          ngModel.avResults.violations = violations;
+          avValField.reset();
         });
 
         scope.$on('$destroy', function () {
@@ -808,6 +838,10 @@
         }
       },
 
+      reset: function(element) {
+        element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+      },
+
       message: function(element, ngModel) {
 
         var selector = [
@@ -897,6 +931,10 @@
 
       proto.element = function(element, ngModel) {
         this.adapter.element(element, ngModel);
+      };
+
+      proto.reset = function(element) {
+        this.adapter.reset(element);
       };
 
       proto.message = function(element, ngModel) {
@@ -1968,6 +2006,100 @@
 
   badgeDirective.$inject = ['AV_BADGE'];
   availity.ui.directive('avBadge', badgeDirective);
+
+})(window);
+
+// Source: /lib/ui/labels/removable-label.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_REMOVABLE_LABEL', {
+    TEMPLATE: 'ui/labels/removable-label-tpl.html'
+  });
+
+  availity.ui.directive('avRemovableLabel', function(AV_REMOVABLE_LABEL) {
+    return {
+      templateUrl: AV_REMOVABLE_LABEL.TEMPLATE,
+      transclude: true,
+      scope: {
+        removeValue: '=',
+        onRemove: '&'
+      },
+      link: function(scope, element, attrs) {
+        element.addClass('label-remove');
+        scope.removeLabel = function() {
+          if(!attrs.disabled) {
+            scope.onRemove()(scope.removeValue);
+          }
+        };
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/animation/loader.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_LOADER', {
+
+    TEMPLATES: {
+      LOADER: 'ui/animation/loader-tpl.html'
+    }
+
+  });
+
+  availity.ui.controller('AvLoaderController', function($element) {
+
+    var self = this;
+
+    this.animate = function() {
+
+      $element
+        .find('.loading-bullet')
+        .velocity('transition.slideRightIn', { stagger: 250 })
+        .velocity({ opacity: 0 }, {
+          delay: 750,
+          duration: 500,
+          complete: function() {
+            self.stop();
+          }
+        });
+
+    };
+
+    this.stop = function() {
+      $element.find('.loading-bullet').velocity('stop', true);
+      $element.removeData();
+    };
+
+  });
+
+  availity.ui.directive('avLoader', function(AV_LOADER) {
+    return {
+      restrict: 'A',
+      replace: true,
+      controller: 'AvLoaderController',
+      require: 'avLoader',
+      templateUrl: AV_LOADER.TEMPLATES.LOADER,
+      link: function(scope, element, attr, avLoader) {
+
+        var timer = setInterval(avLoader.animate, 2000);
+
+        scope.$on('$destroy', function() {
+          avLoader.stop();
+          clearInterval(timer);
+        });
+
+      }
+    };
+  });
 
 })(window);
 
