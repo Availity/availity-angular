@@ -19,16 +19,16 @@
     "angular": "1.2.28",
     "angular-sanitize": "1.2.28",
     "angular-ui-router": "0.2.13",
-    "angular-block-ui": "~0.2.0",
-    "lodash-compat": "~3.4.0",
+    "angular-block-ui": "0.2.0",
+    "lodash-compat": "3.4.0",
     "angular-animate": "1.2.28",
-    "angular-velocity": "~0.3.1",
-    "availity-uikit": "~0.11.0",
-    "angular-shims-placeholder": "~0.4.2",
-    "jquery.inputmask": "~3.1.63",
-    "tracekit": "~0.2.1",
-    "blueimp-file-upload": "~9.10.1",
-    "jquery-ui": "~1.11.4"
+    "angular-velocity": "0.3.1",
+    "availity-uikit": "0.11.1",
+    "angular-shims-placeholder": "0.4.2",
+    "jquery.inputmask": "3.1.63",
+    "tracekit": "0.2.1",
+    "blueimp-file-upload": "9.10.1",
+    "jquery-ui": "1.11.4"
   },
   "devDependencies": {
     "angular-mocks": "1.2.28"
@@ -38,7 +38,7 @@
     "node_modules"
   ],
   "resolutions": {
-    "bootstrap": ">= 3.2.2",
+    "bootstrap": ">= 3.3.4",
     "angular": "1.2.28",
     "angular-animate": "1.2.28"
   }
