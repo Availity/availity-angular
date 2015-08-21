@@ -90,7 +90,7 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.2",
     "semver": "^5.0.1",
-    "sinon": "^1.16.1",
+    "sinon": "1.15.4",
     "underscore.string": "^3.0.3"
   }
 }
