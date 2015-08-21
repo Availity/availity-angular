@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.0 -- August-18
+ * availity-angular v0.15.1 -- August-20
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1364,13 +1364,15 @@
       'weekStart',
       'showOnFocus',
       'disableTouchKeyboard',
-      'enableOnReadonly'
+      'enableOnReadonly',
+      'modelFormat'
     ],
     DEFAULTS: {
       FORMAT: 'mm/dd/yyyy',
       CLOSE: true,
       TODAY: true,
-      FORCEPARSE: false
+      FORCEPARSE: false,
+      MODELFORMAT: 'YYYY-MM-DD'
     }
   });
 
@@ -1435,8 +1437,14 @@
       }
 
       // jscs: disable
-      return plugin._utc_to_local(utcDate);
+      var localDate = plugin._utc_to_local(utcDate);
       // jscs: enable
+
+      if(self.options.modelFormat) {
+        localDate = moment(localDate).format(self.options.modelFormat);
+      }
+
+      return localDate;
     };
 
     this.init = function() {
@@ -1453,6 +1461,10 @@
       self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
       self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
       self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
+
+      if(self.options.modelFormat && self.options.modelFormat.toLowerCase() === 'default') {
+        self.options.modelFormat = AV_DATEPICKER.DEFAULTS.MODELFORMAT;
+      }
     };
 
     this.plugin = function() {
