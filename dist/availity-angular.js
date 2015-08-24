@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.1 -- August-20
+ * availity-angular v0.15.2 -- August-24
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.15.1';
+  availity.VERSION = 'v0.15.2';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -635,6 +635,8 @@
     prefix: '',
     // default base url for endpoints
     path: '/api',
+    // url resource group, such as `/epdm` or `/humana`, for urls like `public/api/epdm/v1/*`
+    resourceGroup: '',
     // url to resource endpoint like `coverages` or `payers`
     url: null,
     // defaults to version 1
@@ -770,7 +772,7 @@
 
     proto._getApiUrl = function(id) {
       id = id ? '/' + id : '';
-      return this.options.prefix + this.options.path + this.options.level + this.options.version + this.options.url + id + this.options.suffix;
+      return this.options.prefix + this.options.path + this.options.level + this.options.resourceGroup + this.options.version + this.options.url + id + this.options.suffix;
     };
 
     proto.create = function(data, config) {
