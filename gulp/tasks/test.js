@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var path = require('path');
-var gutil = require('gulp-util');
 
 var config = require('../config');
 
@@ -19,7 +18,9 @@ gulp.task('test:ci', ['lint'], function (done) {
     configFile: path.join(config.project.path, 'karma.conf.js'),
     singleRun: true,
     files: files
-  }, done).start();
+  }, function(exitStatus) {
+    done(exitStatus ? "Failing unit tests" : undefined);
+  }).start();
 
 });
 
@@ -29,13 +30,13 @@ gulp.task('test:sauce', ['lint'], function (done) {
     configFile: path.join(config.project.path, 'karma.conf-ci.js'),
     singleRun: true,
     files: files
-  }, function(exitCode) {
-    done(exitCode);
-    process.exit(exitCode);
+  }, function(exitStatus) {
+    done(exitStatus ? "Failing unit tests" : undefined);
+    process.exit(exitStatus);
   }).start();
 });
 
-gulp.task('test:server', ['lint'], function() {
+gulp.task('test:server', ['lint'], function(done) {
   var Server = require('karma').Server;
   new Server({
     configFile: path.join(config.project.path, 'karma.conf.js'),
@@ -44,8 +45,9 @@ gulp.task('test:server', ['lint'], function() {
     reporters: ['progress', 'notify'],
     autoWatch: true,
     singleRun: false
-  }, function(code) {
-    gutil.log('Karma has exited with ' + code);
-    process.exit(code);
+  }, function(exitStatus) {
+    done(exitStatus ? "Failing unit tests" : undefined);
+    // gutil.log('Karma has exited with ' + code);
+    process.exit(exitStatus);
   }).start();
 });
