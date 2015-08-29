@@ -19,7 +19,7 @@ gulp.task('test:ci', ['lint'], function (done) {
     singleRun: true,
     files: files
   }, function(exitStatus) {
-    done(exitStatus ? "Failing unit tests" : undefined);
+    done(exitStatus ? 'Failing unit tests' : undefined);
   }).start();
 
 });
@@ -31,7 +31,7 @@ gulp.task('test:sauce', ['lint'], function (done) {
     singleRun: true,
     files: files
   }, function(exitStatus) {
-    done(exitStatus ? "Failing unit tests" : undefined);
+    done(exitStatus ? 'Failing unit tests' : undefined);
     process.exit(exitStatus);
   }).start();
 });
@@ -46,7 +46,7 @@ gulp.task('test:server', ['lint'], function(done) {
     autoWatch: true,
     singleRun: false
   }, function(exitStatus) {
-    done(exitStatus ? "Failing unit tests" : undefined);
+    done(exitStatus ? 'Failing unit tests' : undefined);
     // gutil.log('Karma has exited with ' + code);
     process.exit(exitStatus);
   }).start();
