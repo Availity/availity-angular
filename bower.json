@@ -35,7 +35,10 @@
   },
   "ignore": [
     ".*",
-    "node_modules"
+    "node_modules",
+    "gulp",
+    "docs",
+    "data"
   ],
   "resolutions": {
     "bootstrap": ">= 3.3.4",

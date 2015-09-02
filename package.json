@@ -29,7 +29,6 @@
   "license": "MIT",
   "devDependencies": {
     "availity-ekko": "^0.2.6",
-    "availity-limo": "^0.1.6",
     "browser-sync": "^2.8.2",
     "chalk": "^1.1.1",
     "cheerio": "^0.19.0",
