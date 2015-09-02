@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.2 -- August-24
+ * availity-angular v0.15.3 -- September-02
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.15.2';
+  availity.VERSION = 'v0.15.3';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -635,7 +635,7 @@
     prefix: '',
     // default base url for endpoints
     path: '/api',
-    // url resource group, such as `/epdm` or `/humana`, for urls like `public/api/epdm/v1/*`
+    // url resource group, such as `/foo`, for urls like `public/api/foo/v1/*`
     resourceGroup: '',
     // url to resource endpoint like `coverages` or `payers`
     url: null,

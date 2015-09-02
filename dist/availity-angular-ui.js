@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.2 -- August-24
+ * availity-angular v0.15.3 -- September-02
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1016,6 +1016,7 @@
     this.ngModel = null;
 
     this.init = function() {
+
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
@@ -1093,6 +1094,7 @@
     };
 
     this.setValue = function() {
+
       var viewValue = self.ngModel.$viewValue;
       var selected = null;
       if(viewValue) {
@@ -1107,6 +1109,7 @@
     };
 
     this.getMultiSelected = function(viewValue) {
+
       var options = this.collection($scope);
       var indices = [];
 
@@ -1127,6 +1130,7 @@
     };
 
     this.setValues = function() {
+
       var viewValue = self.ngModel.$viewValue;
 
       if(!angular.isArray(viewValue)) {
@@ -1144,6 +1148,7 @@
     };
 
     this.ngOptions = function() {
+
       this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
       if(!this.match) {
         throw new Error('Invalid ngOptions for avDropdown');
@@ -1209,6 +1214,7 @@
   });
 
   availity.ui.directive('avDropdown', function($timeout, $log, $window) {
+
     return {
       restrict: 'A',
       require: ['ngModel', 'avDropdown'],
@@ -1440,7 +1446,7 @@
       var localDate = plugin._utc_to_local(utcDate);
       // jscs: enable
 
-      if(self.options.modelFormat) {
+      if(self.options.modelFormat && localDate) {
         localDate = moment(localDate).format(self.options.modelFormat);
       }
 
