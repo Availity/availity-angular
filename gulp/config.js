@@ -103,7 +103,7 @@ module.exports = {
       './lib/ui/badge/badge.js',
       './lib/ui/labels/removable-label.js',
       './lib/ui/animation/loader.js',
-      './lib/ui/block/block.js',
+      './lib/ui/block/block.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
