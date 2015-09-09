@@ -19,6 +19,10 @@ gulp.task('watch:ui', function() {
   gulp.watch(config.ui.src, ['concat:ui']);
 });
 
+gulp.task('watch:less', function() {
+  gulp.watch(config.less.targets, ['less:dev']);
+});
+
 gulp.task('watch:partials', function() {
   gulp.watch(config.docs.partials.src, ['build:handlebars:partials', 'build:docs']);
 });

@@ -16,6 +16,18 @@ module.exports = {
   packages: {
     src: ['./package.json', './bower.json']
   },
+  less: {
+    src: ['less/availity-angular.less'],
+    targets: ['**/*.less'],
+    dest: 'build/guide/css',
+    destMaps: './maps', // relative to dest folder
+    browsers: ['> 1%', 'last 3 versions', 'ie 8', 'ie 9']
+  },
+  css: {
+    src: 'build/guide/**/*.css',
+    dest: 'dist/css',
+    destMaps: './maps' // relative to dest folder
+  },
   readme: {
     src: ['docs/readme/readme.config.md'],
     name: 'README.md',

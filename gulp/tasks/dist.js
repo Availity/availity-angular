@@ -2,7 +2,12 @@ var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var fs = require('fs');
 var using = require('gulp-using');
+var minifyCSS = require('gulp-minify-css');
+var less = require('gulp-less');
+var plumber = require('gulp-plumber');
 var filter = require('gulp-filter');
+var prefixer = require('gulp-autoprefixer');
+var insert = require('gulp-insert');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var replace = require('gulp-replace');
@@ -114,4 +119,32 @@ gulp.task('dist:templates', function() {
     .pipe(gulpif(config.args.verbose, using({prefix: 'Task [dist:js] using'})))
     .pipe(sourcemaps.write(config.templates.destMaps))
     .pipe(gulp.dest(config.templates.destDist));
+});
+
+gulp.task('dist:css', function() {
+
+  return gulp.src(config.less.src)
+     .pipe(plumber(function(err) {
+       logger.error(err.message);
+       this.emit('end');
+     }))
+    .pipe(less())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(prefixer({
+      browsers: config.less.browsers
+    }))
+    .pipe(insert.prepend(banner() + '\n'))
+    .pipe(sourcemaps.write(config.css.destMaps))
+    .pipe(gulpif(config.args.verbose, using({prefix:'dist:css [dest] using'})))
+    .pipe(gulp.dest(config.css.dest))
+    .pipe(filter('**/*.css'))
+    .pipe(minifyCSS({
+      keepSpecialComments: 0,
+      noAdvanced: true,
+      compatibility: 'ie8'
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(insert.prepend(banner() + '\n'))
+    .pipe(sourcemaps.write(config.css.destMaps))
+    .pipe(gulp.dest(config.css.dest));
 });
