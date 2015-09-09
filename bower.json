@@ -13,7 +13,9 @@
     "./dist/availity-angular-ui-templates.js",
     "./dist/maps/availity-angular.js.map",
     "./dist/maps/availity-angular-ui.js.map",
-    "./dist/maps/availity-angular-ui-templates.js.map"
+    "./dist/maps/availity-angular-ui-templates.js.map",
+    "./less/availity-angular.less",
+    "./dist/css/availity-angular.css",
   ],
   "dependencies": {
     "angular": "1.2.28",
