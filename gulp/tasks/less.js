@@ -8,7 +8,6 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var using = require('gulp-using');
 var gulpif = require('gulp-if');
-var replace = require('gulp-replace');
 
 var config = require('../config');
 var banner = require('../utils/banner');
