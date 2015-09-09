@@ -10,6 +10,7 @@ var prefixer = require('gulp-autoprefixer');
 var insert = require('gulp-insert');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
+var logger = require('../utils/logger');
 var replace = require('gulp-replace');
 var header = require('gulp-header');
 var uglify = require('gulp-uglify');
