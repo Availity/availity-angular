@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.3 -- September-02
+ * availity-angular v0.16.0 -- September-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.15.3';
+  availity.VERSION = 'v0.16.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -690,6 +690,13 @@
       return angular.extend({}, this.options, (config || {}));
     },
 
+    proto._cacheBust = function(config) {
+      config.cacheBust = null;
+      config.params = config.params || {};
+      config.params.cacheBust = new Date().getTime();
+      return config;
+    },
+
     proto._getUrl = function(id) {
       if(this.options.api) {
         return this._getApiUrl(id);
@@ -801,8 +808,12 @@
       }
 
       config = this._config(config);
+      if(config.cacheBust) {
+        config = this._cacheBust(config);
+      }
       config.method = 'GET';
       config.url = this._getUrl(id);
+
 
       return this._request(config, this.afterGet);
 
@@ -811,6 +822,9 @@
     proto.query = function(config) {
 
       config = this._config(config);
+      if(config.cacheBust) {
+        config = this._cacheBust(config);
+      }
       config.method = 'GET';
       config.url = this._getUrl();
 
