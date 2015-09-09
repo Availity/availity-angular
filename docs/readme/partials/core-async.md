@@ -63,5 +63,19 @@ restServiceResource.query({
 });
 ```
 
+* Specify cache busting per request
+
+>
+```javascript
+restServiceResource.query({
+    cacheBust: true
+}).then(function(successResponse) {
+  // success code goes here :)
+}, function(errorResponse){
+  // error code goes here :(
+}, function(notifyResponse) {
+  // notification response contains the json data with poll information
+});
+```
 
 

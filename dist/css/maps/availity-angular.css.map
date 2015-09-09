@@ -1,0 +1,1 @@
+{"version":3,"sources":["availity-angular.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,iBAAiB;CAClB","file":"availity-angular.css","sourcesContent":[".block-ui-message {\n  color: #333;\n  background: none;\n}\n"],"sourceRoot":"/source/"}
