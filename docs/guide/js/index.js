@@ -19,9 +19,9 @@
 
   availity.demo.config(function(avIdleProvider, blockUIConfig) {
 
-    avIdleProvider.enable(false);
-    blockUIConfig.template = '<div data-av-loader class="loading-indicator"></div>';
-    blockUIConfig.autoBlock = false;
+    // avIdleProvider.enable(false);
+    // blockUIConfig.template = '<div data-av-loader class="loading-indicator"></div>';
+    // blockUIConfig.autoBlock = false;
 
   });
 
