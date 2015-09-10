@@ -18,7 +18,7 @@ module.exports = {
   },
   less: {
     src: ['less/availity-angular.less'],
-    targets: ['**/*.less'],
+    targets: ['less/**/*.less'],
     dest: 'build/guide/css',
     destMaps: './maps', // relative to dest folder
     browsers: ['> 1%', 'last 3 versions', 'ie 8', 'ie 9']

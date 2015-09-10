@@ -1,7 +1,15 @@
 var gulp = require('gulp');
 var config = require('../config');
 
-gulp.task('watch', ['watch:partials', 'watch:docs', 'watch:lib', 'watch:docs:js', 'watch:ui', 'watch:templates', 'watch:docs:js:templates']);
+gulp.task('watch', [
+  'watch:partials',
+  'watch:docs',
+  'watch:lib',
+  'watch:docs:js',
+  'watch:ui',
+  'watch:less',
+  'watch:templates',
+  'watch:docs:js:templates']);
 
 gulp.task('watch:css', function() {
   gulp.watch(config.css.src, ['sync:css']);
