@@ -17,14 +17,6 @@
 
   });
 
-  availity.demo.config(function(avIdleProvider, blockUIConfig) {
-
-    // avIdleProvider.enable(false);
-    // blockUIConfig.template = '<div data-av-loader class="loading-indicator"></div>';
-    // blockUIConfig.autoBlock = false;
-
-  });
-
   availity.demo.config(['$stateProvider', function($stateProvider) {
     $stateProvider
       .state('home', {
