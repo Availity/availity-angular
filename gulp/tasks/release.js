@@ -6,6 +6,7 @@ var prompt = require('gulp-prompt');
 var semver = require('semver');
 var git = require('gulp-git');
 var filter = require('gulp-filter');
+var del = require('del');
 var tagVersion = require('gulp-tag-version');
 var runSequence = require('run-sequence').use(gulp);
 
@@ -15,10 +16,12 @@ var pkg = require('../../package.json');
 var type = 'patch';
 
 gulp.task('release:sequence', function() {
+
+  del.sync([config.lib.destDist]);
+
   runSequence(
     'lint',
     'test:ci',
-    'clean:dist',
     'release:bump',
     ['dist:lib', 'dist:ui', 'dist:templates', 'dist:css'],
     'release:tag'
