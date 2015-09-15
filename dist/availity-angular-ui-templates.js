@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.0 -- September-09
+ * availity-angular v0.16.1 -- September-15
  * Copyright 2015 Availity, LLC 
  */
 
@@ -7,7 +7,7 @@
 'use strict';
 angular.module("availity.ui.templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("ui/animation/loader-tpl.html","<div class=\"loading-indicator\"><span class=\"loading-bullet\">&bull;</span> <span class=\"loading-bullet\">&bull;</span> <span class=\"loading-bullet\">&bull;</span></div>");
 $templateCache.put("ui/badge/badge-tpl.html","<span data-ng-if=\"showWhenZero || count > 0\" data-ng-bind=\"count | avApproximate\"></span>");
-$templateCache.put("ui/block/block-tpl.html","<div class=\"block-ui-overlay\" data-ng-show=\"state.blockCount > 0\" data-ng-class=\"{ \'block-ui-visible\': state.blocking }\"></div><div class=\"block-ui-message-container\" data-ng-show=\"state.blocking\"><div class=\"block-ui-message\"><div data-av-loader=\"\" class=\"loading-indicator\" data-delay=\"true\"></div></div></div>");
+$templateCache.put("ui/block/block-tpl.html","<div class=\"block-ui-overlay\" data-ng-class=\"{ \'block-ui-visible\': state.blocking }\" data-ng-show=\"state.blockCount > 0\"></div><div class=\"block-ui-message-container\" data-ng-show=\"state.blocking\"><div class=\"av-block-ui-message\"><div data-av-loader=\"\" data-av-block-ui=\"{{state.id}}\" data-block-count=\"{{state.blockCount}}\" class=\"loading-indicator\" data-delay=\"true\"></div></div></div>");
 $templateCache.put("ui/breadcrumbs/breadcrumbs-tpl.html","<ul class=\"breadcrumb\"><li data-ng-repeat=\"breadcrumb in breadcrumbs\" data-ng-class=\"{ active: $last }\"><a ui-sref=\"{{breadcrumb.state}}\" data-ng-if=\"!$last\" data-ng-bind=\"breadcrumb.displayName\"></a> <span data-ng-if=\"$last\" data-ng-bind=\"breadcrumb.displayName\"></span></li></ul>");
 $templateCache.put("ui/idle/idle-session-tpl.html","<div class=\"modal-header\"><h4 class=\"modal-title\">Session Expired</h4></div><div class=\"modal-body\"><div class=\"row\"><div class=\"col-xs-2\"><i class=\"icon icon-cancel-circle icon-4x\"></i></div><div class=\"col-xs-10\"><p class=\"lead\">Your session has expired. If you want to continue, click <strong>Log into Availity</strong> and enter your login credentials.</p></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-primary\" data-ng-click=\"idle.onSessionTimeout()\">Log into Availity</button></div>");
 $templateCache.put("ui/idle/idle-tpl.html","<div data-av-modal><div data-ng-include=\"idle.template\"></div></div>");

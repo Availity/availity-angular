@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.0 -- September-09
+ * availity-angular v0.16.1 -- September-15
  * Copyright 2015 Availity, LLC 
  */
 
@@ -958,6 +958,22 @@
 
   var availity = root.availity;
 
+  availity.ui.provider('avDropdownConfig', function() {
+    var config = {
+      closeOnResize: true,
+      dropdownAutoWidth: true,
+      minimumResultsForSearch: 5
+    };
+
+    this.set = function(options) {
+      angular.extend(config, options);
+    };
+
+    this.$get = function() {
+      return angular.copy(config);
+    };
+  });
+
   availity.ui.constant('AV_DROPDOWN', {
     OPTIONS: [
       'width',
@@ -1008,14 +1024,16 @@
   });
 
 
-  availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, $log, $scope, $timeout, $parse) {
+  availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, avDropdownConfig, $log, $scope, $timeout, $parse) {
 
     var self = this;
-    this.options = [];
+    this.options = {};
     this.match = null;
     this.ngModel = null;
 
     this.init = function() {
+
+      self.options = angular.extend({}, avDropdownConfig);
 
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
@@ -1024,8 +1042,6 @@
       });
 
       self.multiple = angular.isDefined($attrs.multiple);
-
-      self.options.closeOnResize = self.options.closeOnResize  || true;
 
       if(self.options.query) {
 
@@ -2143,17 +2159,9 @@
 
   var availity = root.availity;
 
-  var blockTemplate =
-    '<div ng-show="state.blockCount > 0" class="block-ui-overlay" ng-class="{ \'block-ui-visible\': state.blocking }"></div>' +
-    '<div ng-show="state.blocking" class="block-ui-message-container">' +
-    '  <div class="av-block-ui-message">' +
-    '    <div data-av-loader data-delay="true" class="loading-indicator"></div>' +
-    '  </div>' +
-    '</div>';
-
   availity.ui.constant('AV_BLOCK', {
     TEMPLATES: {
-      BLOCK: 'ui/modal/modal-tpl.html'
+      BLOCK: 'ui/block/block-tpl.html'
     }
   });
 
@@ -2165,6 +2173,7 @@
   };
 
   var triggerLoaderController = function(id, instance, fn) {
+
     var controller = instance.loaderController;
     if(!controller) {
       controller = getLoaderController(id);
@@ -2173,6 +2182,7 @@
     if(controller && _.isFunction(controller[fn])) {
       controller[fn]();
     }
+
   };
 
   var triggerInstance = function(id, instance, origFn, loaderFn) {
@@ -2181,25 +2191,34 @@
   };
 
   var modifyBlockInstances = function(id, instance) {
+
     var origStartFn = instance.start;
     var origStopFn = instance.stop;
+
     instance.start = function() {
       triggerInstance(id, instance, origStartFn, 'start');
     };
+
     instance.stop = function() {
       triggerInstance(id, instance, origStopFn, 'stop');
     };
+
+    instance.startLoader = function() {
+      triggerLoaderController(id, instance, 'start');
+    };
+
     instance.avModifications = true;
   };
 
-  availity.ui.run(function($injector, $log) {
+  availity.ui.run(function($injector, $log, AV_BLOCK) {
+
     try {
 
       var blockUIConfig = $injector.get('blockUIConfig');
       var blockUI = $injector.get('blockUI');
       blockUIConfig.autoBlock = false;
       blockUIConfig.delay = 0;
-      blockUIConfig.template = blockTemplate;
+      blockUIConfig.templateUrl = AV_BLOCK.TEMPLATES.BLOCK;
 
       var origGetFn = blockUI.instances.get;
       blockUI.instances.get = function(id) {
@@ -2213,6 +2232,33 @@
     } catch(e) {
       $log.warn('blockUI is required to use av block.');
     }
+  });
+
+})(window);
+
+// Source: /lib/ui/block/block-directive.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  // Helper directive that hooks into block-ui's start-up lifecycle and starts the loader
+  availity.ui.directive('avBlockUi', function(blockUI) {
+
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs) {
+
+        var blockId = $attrs.avBlockUi;
+        var blockCount = $attrs.blockCount;
+        var instance = blockUI.instances.get(blockId);
+        if(blockCount > 0) {
+          instance.startLoader();
+        }
+      }
+    };
+
   });
 
 })(window);

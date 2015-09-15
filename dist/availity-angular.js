@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.0 -- September-09
+ * availity-angular v0.16.1 -- September-15
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.16.0';
+  availity.VERSION = 'v0.16.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -286,10 +286,23 @@
             // as the message and the second as array of interpolation variables.
             // The output print will be according to this check.
             if(typeof args[1] === 'string') {
+
               message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+
             } else {
-              supplantData = args[1];
-              message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
+
+              // If the message is an error, there may be a stack included. If so, we
+              // should include the stack in the message to make it more meaningful.
+              if(args[0].stack) {
+                var errorMessage = this.formatError(args[0]);
+                message = AvLogger.supplant('{0}{1} - {2}', [now, context, errorMessage]);
+                supplantData = args[1];
+
+              }else {
+                supplantData = args[1];
+
+              }
+
             }
             break;
         }
@@ -315,6 +328,21 @@
 
       proto.debug = function() {
         this._log('debug', arguments);
+      };
+
+      // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/log.js#L122
+      proto.formatError = function(arg) {
+        if(arg instanceof Error) {
+          if(arg.stack) {
+
+            arg = (arg.message && arg.stack.indexOf(arg.message) === -1) ?
+              'Error: ' + arg.message + '\n' + arg.stack : arg.stack;
+
+          } else if(arg.sourceURL) {
+            arg = arg.message + '\n' + arg.sourceURL + ':' + arg.line;
+          }
+        }
+        return arg;
       };
 
       proto.error = function() {
@@ -740,7 +768,7 @@
             // if service has a callback then call it
             // var response = self._createResponse(data, status, headers, _config);
             if(afterCallback) {
-              successResponse = afterCallback.call(self, successResponse);
+              successResponse = afterCallback.call(self, successResponse, config.data);
             }
             defer.resolve(successResponse);
           }, function(errorResponse) {
@@ -789,7 +817,7 @@
       }
 
       if(this.beforeCreate) {
-        this.beforeCreate(this, data);
+        data = this.beforeCreate(data);
       }
 
       config = this._config(config);
@@ -907,10 +935,9 @@
 
   var availity = root.availity;
 
-  var UserServiceFactory = function(AvApiResource, $q) {
+  var UserServiceFactory = function(AvApiResource) {
 
     var AvUsersResource = function() {
-      this.user = null;
       AvApiResource.call(this, 'users');
     };
 
@@ -918,17 +945,11 @@
 
       afterGet: function(response) {
         var user = response.data.user ? response.data.user : response.data;
-        this.user = user;
         return user;
       },
 
-      me: function() {
-
-        if(this.user) {
-          return $q.when(this.user);
-        }
-
-        return this.get('me');
+      me: function(config) {
+        return this.get('me', config);
       }
 
     });

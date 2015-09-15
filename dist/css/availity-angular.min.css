@@ -1,7 +1,7 @@
 /**
- * availity-angular v0.16.0 -- September-09
+ * availity-angular v0.16.1 -- September-15
  * Copyright 2015 Availity, LLC 
  */
 
-.av-block-ui-message{color:#333;background:0 0}
+.block-ui-container{z-index:1010}.av-block-ui-message{color:#333;background:0 0;z-index:1011}
 /*# sourceMappingURL=maps/availity-angular.min.css.map */
