@@ -1,7 +1,15 @@
 var gulp = require('gulp');
 var config = require('../config');
 
-gulp.task('watch', ['watch:partials', 'watch:docs', 'watch:lib', 'watch:docs:js', 'watch:ui', 'watch:templates', 'watch:docs:js:templates']);
+gulp.task('watch', [
+  'watch:partials',
+  'watch:docs',
+  'watch:lib',
+  'watch:docs:js',
+  'watch:ui',
+  'watch:less',
+  'watch:templates',
+  'watch:docs:js:templates']);
 
 gulp.task('watch:css', function() {
   gulp.watch(config.css.src, ['sync:css']);
@@ -17,6 +25,10 @@ gulp.task('watch:templates', function() {
 
 gulp.task('watch:ui', function() {
   gulp.watch(config.ui.src, ['concat:ui']);
+});
+
+gulp.task('watch:less', function() {
+  gulp.watch(config.less.targets, ['less:dev']);
 });
 
 gulp.task('watch:partials', function() {

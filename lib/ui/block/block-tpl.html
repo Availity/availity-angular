@@ -1,0 +1,9 @@
+<div ng-show="state.blockCount > 0"
+  class="block-ui-overlay"
+  data-ng-class="{ 'block-ui-visible': state.blocking }">
+</div>
+<div ng-show="state.blocking" class="block-ui-message-container">
+  <div class="av-block-ui-message">
+    <div data-av-loader data-av-block-ui="{{state.id}}" data-block-count="{{state.blockCount}}" class="loading-indicator" data-delay="true"></div>
+  </div>
+</div>

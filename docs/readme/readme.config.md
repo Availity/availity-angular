@@ -33,6 +33,10 @@
 ## Authors
 {%= docs("authors") %}
 
+## Disclaimer
+
+Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
+
 ## License
 Copyright (c) {%= date('YYYY') %} Availity, LLC
 {%= license() %}
