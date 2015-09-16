@@ -1,6 +1,6 @@
 <div role="tabpanel">
 
-  <ul class="nav nav-pills-secondary" role="tablist">
+  <ul class="nav" ng-class="tabtype" role="tablist">
     <li ng-repeat="tab in tabs" ng-class="{active:tab.active}">
       <a data-target="#{{tab.id}}" role="tab" data-toggle="tab" data-av-analytics-on="click" av-analytics-label="{{tab.label}}" data-av-analytics-category="tabs">
         {{tab.title}}
