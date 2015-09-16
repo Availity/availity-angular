@@ -100,6 +100,7 @@ module.exports = {
       './lib/ui/validation/form.js',
       './lib/ui/validation/field.js',
       './lib/ui/popover/popover.js',
+      './lib/ui/tabs/tabs.js',
       './lib/ui/validation/messages.js',
       './lib/ui/validation/adapter-bootstrap.js',
       './lib/ui/validation/adapter.js',
