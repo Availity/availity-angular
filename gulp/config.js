@@ -116,7 +116,8 @@ module.exports = {
       './lib/ui/labels/removable-label.js',
       './lib/ui/animation/loader.js',
       './lib/ui/block/block.js',
-      './lib/ui/block/block-directive.js'
+      './lib/ui/block/block-directive.js',
+      './lib/ui/tabs/tabs.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
