@@ -71,7 +71,7 @@
       '</div>' +
       '</div>';
 
-    if ($(this).next().is('.language-markup')) {
+    if ($(this).next().is('[class*="language-"]')) {
       $(this).append($(btn));
     }
   });
@@ -80,7 +80,7 @@
 
     e.preventDefault();
 
-    var target = $(this).parents('.guide-example').next('.language-markup');
+    var target = $(this).parents('.guide-example').next('[class*="language-"]');
 
     if(target.is(':visible')) {
       target.velocity("slideUp", { duration: 200 });
