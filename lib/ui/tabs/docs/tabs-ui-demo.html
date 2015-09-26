@@ -1,0 +1,76 @@
+---
+title: Tabs
+---
+<div data-ng-controller="TabController">
+  <p>Tabs are a form of subnavigation used to change what information is currently being shown on the screen. One tab must always be selected, thus all tab groups must have a default tab defined.</p>
+
+  <blockquote>
+    You must specify the `data-tabtype`, which should be one of `nav-tabs`, `nav-pills`, or `nav-pills-secondary`.
+  </blockquote>
+
+  <div class="guide-example">
+    <div av-tabs="tabs1" data-tabtype="nav-tabs"></div>
+
+    <div av-tabs="tabs2" data-tabtype="nav-pills"></div>
+
+    <div av-tabs="tabs3" data-tabtype="nav-pills-secondary"></div>
+  </div>
+
+  <code class="language-markup">
+    <!-- In your controller
+      $scope.tabs1 = [
+        {
+          'id': 'one1',
+          'title': 'Tab 1',
+          'content': 'This is some content',
+          'active': true
+        },
+        {
+          'id': 'two1',
+          'title': 'Tab 2',
+          'content': 'This is some other content'
+        }
+      ];
+
+      $scope.tabs2 = [
+        {
+          'id': 'one2',
+          'title': 'Tab 1',
+          'content': 'This is some content',
+          'active': true
+        },
+        {
+          'id': 'two2',
+          'title': 'Tab 2',
+          'content': 'This is some other content'
+        }
+      ];
+
+      $scope.tabs3 = [
+        {
+          'id': 'one3',
+          'title': 'Tab 1',
+          'content': 'This is some content'
+        },
+        {
+          'id': 'two3',
+          'title': 'Tab 2',
+          'content': 'This is some other content',
+          active: true
+        },
+        {
+          'id': 'three3',
+          'title': 'Tab 3',
+          'content': 'This is a third tab'
+        }
+      ];
+    -->
+
+    <div av-tabs="tabs1" data-tabtype="nav-tabs"></div>
+
+    <div av-tabs="tabs2" data-tabtype="nav-pills"></div>
+
+    <div av-tabs="tabs3" data-tabtype="nav-pills-secondary"></div>
+  </code>
+
+</div>
