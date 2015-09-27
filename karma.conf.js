@@ -4,7 +4,12 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'fixture'],
     reporters: ['mocha', 'notify'],
     preprocessors: {
-      '**/*.html': ['html2js']
+      '**/*-tpl.html': ['html2js']
+    },
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'app/',
+      moduleName: 'availity.ui.templates'
     }
   });
 };
