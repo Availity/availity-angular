@@ -4,11 +4,11 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'fixture'],
     reporters: ['mocha', 'notify'],
     preprocessors: {
-      '**/*-tpl.html': ['html2js']
+      '**/*-tpl.html': ['ng-html2js']
     },
     ngHtml2JsPreprocessor: {
       // strip this from the file path
-      stripPrefix: 'app/',
+      stripPrefix: 'lib/',
       moduleName: 'availity.ui.templates'
     }
   });
