@@ -119,6 +119,44 @@ title: Validation
 </div>
 <code class="language-markup">
 
+<form name="demoForm" data-av-val-form="demo.rule">
+  <div class="form-group">
+    <label for="demoFirstName1">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="demoFirstName1"
+      placeholder="..."
+      data-ng-model="demo.firstName"
+      data-av-val-field="firstName"
+    >
+      <p data-av-val-container></p>
+  </div>
+</form>
+
 <!-- Javascript -->
+<script>
+availity.demo.config(function(avAnalyticsProvider, avValProvider) {
+
+  var defaultRules = {
+    'firstName': {
+      'required': {
+        'message': 'First name is required.'
+      },
+      'size': {
+        'min': 2,
+        'max': 20,
+        'message': 'First name must be between 2 and 20 characters.'
+      }
+    }
+  };
+
+  avValProvider.addRules({
+    'defaultRules': defaultRules
+  });
+
+});
+
+</script>
 
 </code>
