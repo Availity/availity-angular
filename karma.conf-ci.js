@@ -49,6 +49,14 @@ module.exports = function(config) {
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 2,
     browserNoActivityTimeout: 20000,
-    singleRun: true
+    singleRun: true,
+    preprocessors: {
+      '**/*-tpl.html': ['ng-html2js']
+    },
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'lib/',
+      moduleName: 'availity.ui.templates'
+    }
   });
 };

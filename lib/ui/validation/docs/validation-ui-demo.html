@@ -98,12 +98,21 @@ title: Validation
       </div>
       <p data-av-val-container id="container-1"></p>
     </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" data-ng-model="demo.check"> Check me out
-      </label>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+            data-ng-model="demo.check"
+            data-av-val-field="checked"
+            data-av-val-on="blur"
+            data-container-id="container-2"
+          > Agree to Terms
+        </label>
+      </div>
+      <p data-av-val-container id="container-2"></p>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
     <button type="button" class="btn btn-default" data-ng-click="demo.onChangeRules()" data-av-analytics-on="click" data-av-analytics-event="Play" data-av-analytics-category="yumm" data-av-analytics-label="Test" data-av-analytics-value="7">Change Rules</button>
     <button type="button" class="btn btn-default" data-ng-click="demo.reset()">Reset</button>
   </form>
