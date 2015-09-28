@@ -50,6 +50,17 @@
       };
     },
 
+    toHaveAttr: function() {
+      return {
+        compare: function (actual, attr, expected) {
+          return {
+            pass: $(actual).attr(attr) === expected,
+            message: 'Expected ' + angular.mock.dump(actual) + ' to have attribute ' + attr + ' set to ' + expected
+          };
+        }
+      };
+    },
+
     toHaveFocus: function() {
       return {
         compare: function (actual) {
