@@ -98,18 +98,65 @@ title: Validation
       </div>
       <p data-av-val-container id="container-1"></p>
     </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" data-ng-model="demo.check"> Check me out
-      </label>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+            data-ng-model="demo.check"
+            data-av-val-field="checked"
+            data-av-val-on="blur"
+            data-container-id="container-2"
+          > Agree to Terms
+        </label>
+      </div>
+      <p data-av-val-container id="container-2"></p>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
     <button type="button" class="btn btn-default" data-ng-click="demo.onChangeRules()" data-av-analytics-on="click" data-av-analytics-event="Play" data-av-analytics-category="yumm" data-av-analytics-label="Test" data-av-analytics-value="7">Change Rules</button>
     <button type="button" class="btn btn-default" data-ng-click="demo.reset()">Reset</button>
   </form>
 </div>
 <code class="language-markup">
 
+<form name="demoForm" data-av-val-form="demo.rule">
+  <div class="form-group">
+    <label for="demoFirstName1">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="demoFirstName1"
+      placeholder="..."
+      data-ng-model="demo.firstName"
+      data-av-val-field="firstName"
+    >
+      <p data-av-val-container></p>
+  </div>
+</form>
+
 <!-- Javascript -->
+<script>
+availity.demo.config(function(avAnalyticsProvider, avValProvider) {
+
+  var defaultRules = {
+    'firstName': {
+      'required': {
+        'message': 'First name is required.'
+      },
+      'size': {
+        'min': 2,
+        'max': 20,
+        'message': 'First name must be between 2 and 20 characters.'
+      }
+    }
+  };
+
+  avValProvider.addRules({
+    'defaultRules': defaultRules
+  });
+
+});
+
+</script>
 
 </code>

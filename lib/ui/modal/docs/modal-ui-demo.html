@@ -25,4 +25,40 @@ availity.demo.controller('ModalCtrl', function ($scope, AvModal) {
   };
 });
 </script>
+
+<!-- modal-1-template.html -->
+<div av-modal>
+  <div class="modal-header">
+    <!-- header goes here -->
+  </div>
+  <div class="modal-body">
+    <!-- body goes here -->
+  </div>
+  <div class="modal-footer">
+    <!-- footer goes here -->
+  </div>
+</div>
 </code>
+
+<h3 class="guide-subsection-title">Optional Sizes</h3>
+<div class="guide-example" ng-controller="ModalCtrl">
+  <button class="btn btn-primary btn-lg" data-ng-click="modalOpenLarge()">
+    Large Modal
+  </button>
+
+  <button class="btn btn-primary btn-lg" data-ng-click="modalOpenSmall()">
+    Small Modal
+  </button>
+</div>
+<code class="language-markup">
+<!-- Large Modal Template -->
+<div av-modal size="lg">
+  ...
+</div>
+
+<!-- Small Modal Template -->
+<div av-modal size="sm">
+  ...
+</div>
+</script>
+</code

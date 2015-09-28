@@ -39,6 +39,8 @@
     ".*",
     "node_modules",
     "gulp",
+    "build",
+    "gulp",
     "docs",
     "data"
   ],
