@@ -13,13 +13,14 @@
     <h2 class="guide-section-header">Pages</h2>
   </div>
 
+  <div class="container">
   {{#grouped_each 3 collections.examples}}
-  <div class="container container-md-height">
+  <div class="container-md-height">
     <div class="row row-md-height">
       {{#each this }}
         <div class="col-md-3 col-md-height">
-          <div class="panel panel-summary">
-            <div class="panel-body">
+          <div class="card">
+            <div class="card-block text-center">
               {{#if this.title}}
                 <h3>{{{this.title}}}</h3>
                 <p>
@@ -35,6 +36,7 @@
     </div>
   </div>
   {{/grouped_each}}
+  </div>
 
 </main>
 
