@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.1 -- September-15
+ * availity-angular v0.17.0 -- September-29
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.16.1';
+  availity.VERSION = 'v0.17.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -20,7 +20,7 @@
 
   angular.module = function(name, deps) {
 
-    if(deps && _.indexOf(modules, name) !== -1 ) {
+    if(deps && _.indexOf(modules, name) !== -1 && !window.__karma__) {
       throw new Error('redefining module: ' + name);
     }
 
@@ -1860,7 +1860,7 @@
             return;
           }
 
-          var valid = validator.validate(value, rule);
+          var valid = validator.validate(value, rule, element);
 
           var validationResult = {
             valid: valid,
@@ -1878,6 +1878,7 @@
             violations.push(validationResult);
           }
           _valid = _valid && valid;
+
         });
 
         return {
@@ -2019,8 +2020,27 @@
 
     var validator =  {
       name: 'required',
-      validate: function(value) {
+      validate: function(value, rule, element) {
+
+        // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
+        // type of field:
+        //
+        //    - radio
+        //    - checkbox
+        //    - text
+        //    - lists
+        //
+        // You can override $isEmpty for input directives whose concept of being empty is different to the
+        // default. Radio and checkboxes directive do this because in its case a value of `false`
+        // implies empty.
+        //
+        var ctrl = element && element.data('$ngModelController');
+        if(ctrl) {
+          return !ctrl.$isEmpty(value);
+        }
+
         return !avValUtils.isEmpty(value);
+
       }
     };
 
