@@ -17,36 +17,6 @@
 
   });
 
-  availity.demo.config(['$stateProvider', function($stateProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        data: {
-          breadcrumb: {
-            displayName: 'Home'
-          }
-        }
-      })
-      .state('spaces', {
-        url: '/spaces',
-        data: {
-          breadcrumb: {
-            displayName: 'Spaces',
-            parent: 'home'
-          }
-        }
-      })
-      .state('my-application', {
-        url: '/my-application',
-        data: {
-          breadcrumb: {
-            displayName: 'My Application',
-            parent: 'spaces'
-          }
-        }
-      });
-  }]);
-
 })();
 
 (function($) {
