@@ -13,32 +13,32 @@ title: Tabs
   - or simply adding HTML as the contents of the `avTab`
   </div>
   <div class="guide-example">
-    <av-tabs>
-      <av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" template-url="tab.templateUrl" active="tab.active"></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" template-url="tab.templateUrl" active="tab.active"></div>
+    </div>
   </div>
   <code class="language-handlebars">
-    <av-tabs>
-      <av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" active="tab.active"></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" active="tab.active"></div>
+    </div>
 
     // Or
 
-    <av-tabs>
-      <av-tab heading="Home" template-url="templates/home.html"></av-tab>
-      <av-tab heading="Profile" template-url="templates/profile.html"></av-tab>
-      <av-tab heading="Messages" template-url="templates/messages.html"></av-tab>
-      <av-tab heading="Settings" template-url="templates/settings.html"></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab heading="Home" template-url="templates/home.html"></div>
+      <div av-tab heading="Profile" template-url="templates/profile.html"></div>
+      <div av-tab heading="Messages" template-url="templates/messages.html"></div>
+      <div av-tab heading="Settings" template-url="templates/settings.html"></div>
+    </div>
 
     // Or
 
-    <av-tabs>
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </code>
 
   <div data-markdown>
@@ -50,17 +50,17 @@ title: Tabs
   Tab style may be changed by setting the `tabType` option. The default value is `tabs`.
   </div>
   <div class="guide-example">
-    <av-tabs tab-type="pills">
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs tab-type="pills">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </div>
   <code class="language-javascript">
-    <av-tabs tab-type="pills">
+    <div av-tabs tab-type="pills">
       ...
-    </av-tabs>
+    </div>
   </code>
 
   <hr class="divider">
@@ -69,47 +69,47 @@ title: Tabs
   Pills are also vertically stackable. Just set `vertical="true"` instead.
   </div>
   <div class="guide-example">
-    <av-tabs tab-type="pills" vertical="true">
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs tab-type="pills" vertical="true">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </div>
   <code class="language-javascript">
-    <av-tabs tab-type="pills" vertical="true">
+    <div av-tabs tab-type="pills" vertical="true">
       ...
-    </av-tabs>
+    </div>
   </code>
 
   <h3 class="guide-subsection-title">Pills Secondary</h3>
   <div class="guide-example">
-    <av-tabs tab-type="pills-secondary">
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs tab-type="pills-secondary">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </div>
   <code class="language-javascript">
-    <av-tabs tab-type="pills-secondary">
+    <div av-tabs tab-type="pills-secondary">
       ...
-    </av-tabs>
+    </div>
   </code>
 
   <h3 class="guide-subsection-title">Justified</h3>
   <div class="guide-example">
-    <av-tabs justified="true">
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs justified="true">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </div>
   <code class="language-javascript">
-    <av-tabs justified="true">
+    <div av-tabs justified="true">
       ...
-    </av-tabs>
+    </div>
   </code>
 
   <h3 class="guide-subsection-title">Disabled</h3>
@@ -117,25 +117,25 @@ title: Tabs
   To disable tabs, set a tab's `disabled` attribute to `true`. This can also be achieved via databinding.
   </div>
   <div class="guide-example">
-    <av-tabs>
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages" disabled="true"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages" disabled="true"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
   </div>
   <code class="language-handlebars">
-    <av-tabs>
-      <av-tab heading="Home"><p class="lead">Home</p></av-tab>
-      <av-tab heading="Profile"><p class="lead">Profile</p></av-tab>
-      <av-tab heading="Messages" disabled="true"><p class="lead">Messages</p></av-tab>
-      <av-tab heading="Settings"><p class="lead">Settings</p></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages" disabled="true"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
 
     // Or
 
-    <av-tabs>
-      <av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" disabled="tab.disabled"></av-tab>
-    </av-tabs>
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" disabled="tab.disabled"></div>
+    </div>
   </code>
 </div>
