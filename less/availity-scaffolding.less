@@ -1,0 +1,12 @@
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+
+  cursor: pointer;
+
+  &[disabled],
+  &.disabled {
+    cursor: auto;
+    pointer-events: none;
+  }
+}
