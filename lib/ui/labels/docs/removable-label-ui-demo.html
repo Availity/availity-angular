@@ -1,44 +1,21 @@
 ---
-title: Removable Labels
+title: Labels
 ---
+
+<h3 class="guide-subsection-title">Remove</h3>
 <div data-ng-controller="RemovableLabelController">
   <div class="guide-example">
     <form role="form">
-      <div class="row">
-        <div class="form-group col-sm-3">
-          <label for="newRemovableLabel">Label</label>
-          <input id="newRemovableLabel" type="text" class="form-control" data-ng-model="newRemovableLabel">
-        </div>
-        <div class="form-group col-sm-6">
-          <label for="newLabelType">Type</label>
-          <div id="newLabelType" class="btn-group input-group">
-            <button type="button" class="btn btn-default" data-ng-click="addLabel('label-default')">Default</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a data-ng-click="addLabel('label-unstyled')">Unstyled</a></li>
-              <li><a data-ng-click="addLabel('label-primary')">Primary</a></li>
-              <li><a data-ng-click="addLabel('label-success')">Success</a></li>
-              <li><a data-ng-click="addLabel('label-info')">Info</a></li>
-              <li><a data-ng-click="addLabel('label-warning')">Warning</a></li>
-              <li><a data-ng-click="addLabel('label-danger')">Danger</a></li>
-              <li><a data-ng-click="addLabel('label-brand')">Brand</a></li>
-              <li><a data-ng-click="addLabel('label-extra')">Extra</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div>
         <button type="button" class="btn btn-default btn-xs" data-ng-click="clearLabels()">Clear All</button>
-        <span data-ng-repeat="label in labels">
-          <span  class="label" data-ng-class="label.labelClass" data-av-removable-label data-on-remove="removeLabel" data-remove-value="$index">
-            <span data-ng-bind="label.value"></span>
-          </span>
-        </span>
+        <button type="button" class="btn btn-default btn-xs" data-ng-click="resetLabels()">Reset</button>
       </div>
+      <hr class="divider"/>
+      <span data-ng-repeat="label in labels">
+        <span  class="label" data-ng-class="label.labelClass" data-av-removable-label data-on-remove="removeLabel" data-remove-value="$index">
+          <span data-ng-bind="label.value"></span>
+        </span>
+      </span>
     </form>
   </div>
   <code class="language-markup">
