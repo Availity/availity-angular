@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.1 -- September-15
+ * availity-angular v1.0.0 -- October-01
  * Copyright 2015 Availity, LLC 
  */
 
@@ -13,7 +13,9 @@ $templateCache.put("ui/idle/idle-session-tpl.html","<div class=\"modal-header\">
 $templateCache.put("ui/idle/idle-tpl.html","<div data-av-modal><div data-ng-include=\"idle.template\"></div></div>");
 $templateCache.put("ui/idle/idle-warning-tpl.html","<div class=\"modal-header\"><h4 class=\"modal-title\">Are you still working?</h4></div><div class=\"modal-body\"><div class=\"row\"><div class=\"col-xs-2\"><i class=\"icon icon-attention-circle icon-4x\"></i></div><div class=\"col-xs-10\"><p class=\"lead\">Your session is about to expire. Click anywhere on the screen to let us know you are still here.</p></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-primary\">Continue</button></div>");
 $templateCache.put("ui/labels/removable-label-tpl.html","<a data-ng-click=\"removeLabel()\"><i class=\"icon icon-cancel\"></i></a><span data-ng-transclude></span>");
-$templateCache.put("ui/modal/modal-tpl.html","<div class=\"modal fade\" role=\"dialog\" tabindex=\"-1\"><div class=\"modal-dialog\"><div class=\"modal-content\" data-ng-transclude=\"\"></div></div></div>");}]);
+$templateCache.put("ui/modal/modal-tpl.html","<div class=\"modal fade\" role=\"dialog\" tabindex=\"-1\"><div class=\"modal-dialog\" data-ng-class=\"{\'modal-lg\': size === \'lg\', \'modal-sm\': size === \'sm\'}\"><div class=\"modal-content\" data-ng-transclude=\"\"></div></div></div>");
+$templateCache.put("ui/tabs/tab-tpl.html","<li role=\"presentation\" data-ng-class=\"{ active: active, disabled: disabled }\"><a role=\"tab\" data-ng-click=\"select()\">{{heading}}</a></li>");
+$templateCache.put("ui/tabs/tabs-tpl.html","<div><ul class=\"nav nav-{{tabType || \'tabs\'}}\" data-ng-class=\"{ \'nav-stacked\': vertical, \'nav-justified\': justified }\" data-ng-transclude></ul><div class=\"tab-content\" data-ng-class=\"{ \'tab-bump\' : padContent }\"><div data-ng-repeat=\"tab in tabs\" class=\"tab-pane\" data-av-tab-pane=\"tab\" data-ng-class=\"{ active: tab.active }\" role=\"tabpanel\"></div></div></div>");}]);
 var availity = window.availity || {}; if(typeof module !== 'undefined' && module.exports) {module.exports = availity; } })();
 
 //# sourceMappingURL=maps/availity-angular-ui-templates.js.map

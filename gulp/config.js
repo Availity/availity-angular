@@ -116,7 +116,8 @@ module.exports = {
       './lib/ui/labels/removable-label.js',
       './lib/ui/animation/loader.js',
       './lib/ui/block/block.js',
-      './lib/ui/block/block-directive.js'
+      './lib/ui/block/block-directive.js',
+      './lib/ui/tabs/tabs.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -225,8 +226,8 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
-      './bower_components/angular-block-ui/dist/angular-block-ui.js',
-      './bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-block-ui/dist/angular-block-ui.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'

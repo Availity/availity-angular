@@ -1,9 +1,9 @@
 /**
- * availity-angular v0.16.1 -- September-15
+ * availity-angular v1.0.0 -- October-01
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: /lib/ui/index.js
+// Source: \lib\ui\index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: /lib/ui/templates/template.js
+// Source: \lib\ui\templates\template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: /lib/ui/modal/modal.js
+// Source: \lib\ui\modal\modal.js
 (function(root) {
 
   'use strict';
@@ -100,36 +100,94 @@
     }
   });
 
-  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q) {
+  availity.ui.factory('avModalManager', function() {
+
+    var AvModalManager = function() {
+      this.instances = [];
+    };
+
+    var proto = AvModalManager.prototype;
+
+
+    proto.add = function(id) {
+      this.instances.push(id);
+    };
+
+    proto.remove = function(id) {
+      this.instances = _.without(this.instances, id);
+    };
+
+    proto.closeAll = function() {
+
+      _.forEach(this.instances, function(id) {
+
+        var $el = $('#' + id);
+
+        if(!$el) {
+          return;
+        }
+
+        var bsModal = $el.data('bs.modal');
+        if(bsModal) {
+          bsModal.removeBackdrop();
+          bsModal.$body.removeClass('modal-open');
+          bsModal.resetAdjustments();
+          bsModal.resetScrollbar();
+        }
+
+        var avModal = $el.data('AvModal');
+        if(avModal) {
+          avModal.destroy();
+        }
+
+      });
+    };
+
+
+    return new AvModalManager();
+
+  });
+
+  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q, avModalManager) {
 
     var Modal = function(options) {
 
       var self = this;
 
+      this.templateDefer = $q.defer();
+      this.templatePromise = this.templateDefer.promise;
+
       this.options = angular.extend({}, AV_MODAL.OPTIONS, {scope: $rootScope.$new()}, options);
 
       avTemplateCache.get(options).then(function(template) {
         self.options.template = template;
-        self.create();
+        self._build();
       });
 
     };
 
+    Modal.create = function(options) {
+      return new Modal(options);
+    };
+
     var proto = Modal.prototype;
 
-    proto.create = function() {
+    proto._build = function() {
 
       var self = this;
 
       var scope = this.options.scope;
       this.$element = angular.element(this.options.template);
 
-      this.createId();
-      this.scope();
+      this._createId();
+
+      this._scope();
+
 
       $compile(this.$element)(scope);
+
       $timeout(function() {
-        self.init();
+        self._init();
       }, 0, true);
 
       // Append to container or <body>
@@ -137,7 +195,24 @@
 
     };
 
-    proto.scope = function() {
+    proto._init = function() {
+
+      this.$element.data('AvModal', this);
+
+      this.templateDefer.resolve(true);
+
+      // Initialize Bootstrap jQuery plugin
+      this.$element.modal({
+        'backdrop': this.options.backdrop,
+        'keyboard': this.options.keyboard,
+        'show': this.options.show,
+        'remote': this.options.remote
+      });
+
+      this._listeners();
+    };
+
+    proto._scope = function() {
 
       var self = this;
       var scope = this.options.scope;
@@ -156,24 +231,14 @@
 
     };
 
-    proto.init = function() {
-
-      // Initialize Bootstrap jQuery plugin
-      this.$element.modal({
-        'backdrop': this.options.backdrop,
-        'keyboard': this.options.keyboard,
-        'show': this.options.show,
-        'remote': this.options.remote
-      });
-
-      this.listeners();
-    };
-
-    proto.listeners = function() {
+    proto._listeners = function() {
 
       var self = this;
       var scope = this.options.scope;
       var $element = this.$element;
+
+      this.animationDefer = $q.defer();
+      this.animationPromise = this.animationDefer.promise;
 
       $element.on(AV_MODAL.BS_EVENTS.SHOW, function(event) {
         scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
@@ -184,6 +249,8 @@
         if(angular.isFunction(self.options.onShown)) {
           self.options.onShown();
         }
+
+        self.animationDefer.resolve(true);
 
         scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
       });
@@ -200,42 +267,84 @@
 
         scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 
-        $timeout(function() {
+        scope.$evalAsync(function() {
           self.destroy();
-        }, 0, true);
+        });
 
       });
 
       // Garbage collection
       scope.$on('$destroy', function() {
+        avModalManager.remove(self._id);
         self.destroy();
       });
+
     };
 
     proto.show = function() {
-      this.$element.modal('show');
+
+      var self = this;
+
+      this.animationDefer = $q.defer();
+      this.animationPromise = this.animationDefer.promise;
+
+      return this.templatePromise.then(function() {
+        self.$element.modal('show');
+      }).then(function() {
+        return self.animationPromise;
+      });
+
     };
 
     proto.hide = function() {
+
       var deferred = $q.defer();
 
-      this.$element.modal('hide');
-      this.$element.one('hidden.bs.modal', function() {
-        deferred.resolve(true);
+      this.templatePromise.then(function() {
+
+        this.$element.one('hidden.bs.modal', function() {
+          deferred.resolve(true);
+        });
+
+        this.$element.modal('hide');
+
       });
 
       return deferred.promise;
     };
 
     proto.toggle = function() {
-      this.$element.data('modal').toggle();
+
+      var self = this;
+
+      var deferred = $q.defer();
+
+      this.templatePromise.then(function() {
+
+        self.$element.one('hidden.bs.modal', function() {
+          deferred.resolve(true);
+        });
+
+        self.$element.data('modal').toggle();
+
+      });
+
+      return deferred.promise;
+
     };
 
-    proto.destroy =function() {
-      this.$element.remove();
+    proto.destroy = function() {
+
+      var self = this;
+
+      return this.templatePromise.then(function() {
+        self.$element.data('AvModal', null);
+        self.$element.remove();
+      });
+
     };
 
-    proto.createId = function() {
+    proto._createId = function() {
       // Create a unique id for the modal if not present or passed in via options
       var id = this.$element.attr('id');
       if(!id) {
@@ -243,6 +352,10 @@
         id = this.options.id ? this.options.id : availity.uuid('av-modal-id');
         this.$element.attr('id', id);
       }
+
+      this._id = id;
+
+      avModalManager.add(id);
     };
 
     return Modal;
@@ -256,14 +369,16 @@
       restrict: 'A',
       replace: true,
       transclude: true,
-      scope: {},
+      scope: {
+        size: '@'
+      },
       templateUrl: AV_MODAL.TEMPLATES.MODAL
     };
   });
 
 })(window);
 
-// Source: /lib/ui/validation/form.js
+// Source: \lib\ui\validation\form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -459,14 +574,14 @@
 
 })(window);
 
-// Source: /lib/ui/validation/field.js
+// Source: \lib\ui\validation\field.js
 (function(root) {
 
   'use strict';
 
   var availity = root.availity;
 
-  availity.ui.controller('AvValFieldController', function($element, avValAdapter, avVal, $log, $timeout, $scope, $sniffer) {
+  availity.ui.controller('AvValFieldController', function($element, avValAdapter, $attrs, avVal, $log, $timeout, $scope, $sniffer) {
 
     this.ngModel = null;
     this.rule = null;
@@ -541,7 +656,8 @@
       var rulesKey = self.avValForm.rulesKey;
       var results = avVal.validate(rulesKey, $element, value, self.rule);
 
-      // validate function is called within the context of angular so fn.call
+      // validate function is called within the context of angular so fn.call and set the context
+      // to "this"
       self.updateModel.call(self, results);
       self.updateView.call(self);
 
@@ -569,13 +685,35 @@
 
     };
 
-    this.reset = function() {
+    this.onDebounce = function() {
 
-      avValAdapter.message($element, this.ngModel);
-      avValAdapter.reset($element);
+      var value = $element.val().trim();
+
+      if(this.isCheckbox()) {
+        this.ngModel.$setViewValue($element[0].checked);
+      } else if(this.isRadio()) {
+        this.ngModel.$setViewValue($attrs.value);
+      }else {
+        this.ngModel.$setViewValue(value);
+      }
+
+    };
+
+    this.isRadio = function() {
+      return $element.is('input') && $attrs.type === 'radio';
+    };
+
+    this.isCheckbox = function() {
+      return $element.is('input') && $attrs.type === 'checkbox';
+    };
+
+    this.reset = function() {
 
       var violations = this.ngModel.avResults.violations;
       violations.splice(0, violations.length);
+
+      avValAdapter.message($element, this.ngModel);
+      avValAdapter.reset($element);
 
     };
 
@@ -587,7 +725,6 @@
 
       var debounce;
 
-
       $element.on(event, function() {
 
         // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/directive/input.js#L508
@@ -597,13 +734,13 @@
         }
 
         $timeout.cancel(debounce);
-        debounce = $timeout( function() {
+        debounce = $timeout(function() {
           $scope.$apply(function() {
-            self.ngModel.$setViewValue($element.val());
+            self.onDebounce();
           });
         }, avValDebounce);
-      });
 
+      });
 
     };
 
@@ -617,14 +754,14 @@
     return {
       restrict: 'A',
       controller: 'AvValFieldController',
-      require: ['^avValForm', '?ngModel', 'avValField'],
+      require: ['^avValForm', 'ngModel', 'avValField'],
       scope: {
         avValDebounce: '@?',
         avValOn: '@?'
       },
       link: function(scope, element, attrs, controllers) {
 
-        var rule = attrs.avValField; // not always string?
+        var rule = attrs.avValField;
         var avValForm = controllers[0];
         var ngModel = controllers[1];
         var avValField = controllers[2];
@@ -639,22 +776,26 @@
         // Allows fields to update with invalid data for dirty form saving
         avValField.avValInvalid = attrs.avValInvalid || false;
 
+        // CACHE THE MODEL
         avValField.setNgModel(ngModel);
+
         avValField.avValForm(avValForm);
+
         avValField.setRule(rule);
+
         avValField.createId();
 
+        // DEBOUNCE
         var avValDebounce = parseInt(scope.avValDebounce || (avValForm.avValDebounce || AV_VAL.DEBOUNCE), 10);
         avValDebounce = _.isNumber(avValDebounce) ? avValDebounce : AV_VAL.DEBOUNCE;
 
-        var debounceAllowed = (element.is('input') &&
-          !(attrs.type === 'radio' || attrs.type === 'checkbox') &&
-          avValOn !== 'blur');
+        var debounceAllowed = !avValField.isRadio() && !avValField.isCheckbox() && avValOn !== 'blur';
 
         if(!debounceAllowed) {
           avValDebounce = 0;
         }
 
+        // EVENT LISTENER
         avValField.event(avValOn, avValDebounce);
 
         // (view to model)
@@ -669,12 +810,14 @@
           avValField.validate(ngModel.$viewValue);
         });
 
+        // SUBMITTED EVENT
         scope.$on(AV_VAL.EVENTS.SUBMITTED, function() {
           ngModel.$dirty = true;
           avValField.validate(ngModel.$viewValue);
         });
 
-        // Removes all errors on page, does not reset view or model values, this is to be handled by the app
+        // - Removes all errors on page,
+        // - does not reset view or model values.  This is to be handled by the app.
         scope.$on(AV_VAL.EVENTS.RESET, function () {
           avValField.reset();
         });
@@ -690,7 +833,7 @@
 
 })(window);
 
-// Source: /lib/ui/popover/popover.js
+// Source: \lib\ui\popover\popover.js
 (function(root) {
 
   'use strict';
@@ -758,7 +901,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/messages.js
+// Source: \lib\ui\validation\messages.js
 (function(root) {
 
   'use strict';
@@ -803,7 +946,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter-bootstrap.js
+// Source: \lib\ui\validation\adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -901,7 +1044,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter.js
+// Source: \lib\ui\validation\adapter.js
 (function(root) {
 
   'use strict';
@@ -951,7 +1094,7 @@
 
 })(window);
 
-// Source: /lib/ui/dropdown/dropdown.js
+// Source: \lib\ui\dropdown\dropdown.js
 (function(root) {
 
   'use strict';
@@ -1344,7 +1487,7 @@
 
 })(window);
 
-// Source: /lib/ui/datepicker/datepicker.js
+// Source: \lib\ui\datepicker\datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1581,7 +1724,7 @@
   });
 })(window);
 
-// Source: /lib/ui/idle/idle-notifier.js
+// Source: \lib\ui\idle\idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1727,7 +1870,7 @@
 
 })(window);
 
-// Source: /lib/ui/mask/mask.js
+// Source: \lib\ui\mask\mask.js
 (function(root) {
 
   'use strict';
@@ -1767,7 +1910,7 @@
 
 })(window);
 
-// Source: /lib/ui/permissions/has-permission.js
+// Source: \lib\ui\permissions\has-permission.js
 (function(root) {
 
   'use strict';
@@ -1816,7 +1959,7 @@
 
 })(window);
 
-// Source: /lib/ui/analytics/analytics.js
+// Source: \lib\ui\analytics\analytics.js
 (function(root) {
   'use strict';
 
@@ -1870,7 +2013,7 @@
 
 })(window);
 
-// Source: /lib/ui/placeholder/placeholder.js
+// Source: \lib\ui\placeholder\placeholder.js
 (function(root) {
 
   'use strict';
@@ -1907,7 +2050,7 @@
   });
 })(window);
 
-// Source: /lib/ui/breadcrumbs/breadcrumbs.js
+// Source: \lib\ui\breadcrumbs\breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -1919,11 +2062,9 @@
     TEMPLATE: 'ui/breadcrumbs/breadcrumbs-tpl.html'
   });
 
-  function avBreadcrumbsController($state) {
-    
-    var self = this;
+  function AvBreadcrumbsController($state) {
 
-    function getBreadcrumb(breadcrumbs, state) {
+    this.getBreadcrumb = function(breadcrumbs, state) {
       if(!state || !state.data) {
         return;
       }
@@ -1937,33 +2078,35 @@
         var parentState = $state.get(breadcrumb.parent);
 
         if(parentState) {
-          getBreadcrumb(breadcrumbs, parentState);
+          this.getBreadcrumb(breadcrumbs, parentState);
         }
       }
       breadcrumb.state = state.name;
       breadcrumbs.push(breadcrumb);
-    }
+    };
 
-    self.getBreadcrumbs = function() {
+    this.getBreadcrumbs = function() {
       var breadcrumbs = [];
-      getBreadcrumb(breadcrumbs, $state.current);
+      this.getBreadcrumb(breadcrumbs, $state.current);
       return breadcrumbs;
     };
+
   }
 
-  avBreadcrumbsController.$inject = ['$state'];
-  availity.ui.controller('AvBreadcrumbsController', avBreadcrumbsController);
+  AvBreadcrumbsController.$inject = ['$state'];
+  availity.ui.controller('AvBreadcrumbsController', AvBreadcrumbsController);
 
   function avBreadcrumbs(AV_BREADCRUMBS) {
     return {
       restrict: 'EA',
+      replace: true,
       templateUrl: AV_BREADCRUMBS.TEMPLATE,
       controller: 'AvBreadcrumbsController',
-      link: function(scope, element, attrs, AvBreadcrumbsController) {
-        scope.breadcrumbs = AvBreadcrumbsController.getBreadcrumbs();
+      link: function(scope, element, attrs, avBreadcrumbs) {
+        scope.breadcrumbs = avBreadcrumbs.getBreadcrumbs();
 
         scope.$on('$stateChangeSuccess', function() {
-          scope.breadcrumbs = AvBreadcrumbsController.getBreadcrumbs();
+          scope.breadcrumbs = avBreadcrumbs.getBreadcrumbs();
         });
       }
     };
@@ -1974,7 +2117,7 @@
 
 })(window);
 
-// Source: /lib/ui/filters/approximate.js
+// Source: \lib\ui\filters\approximate.js
 (function(root) {
   'use strict';
 
@@ -2001,7 +2144,7 @@
 
 })(window);
 
-// Source: /lib/ui/badge/badge.js
+// Source: \lib\ui\badge\badge.js
 (function(root) {
   'use strict';
 
@@ -2043,7 +2186,7 @@
 
 })(window);
 
-// Source: /lib/ui/labels/removable-label.js
+// Source: \lib\ui\labels\removable-label.js
 (function(root) {
   'use strict';
 
@@ -2074,7 +2217,7 @@
 
 })(window);
 
-// Source: /lib/ui/animation/loader.js
+// Source: \lib\ui\animation\loader.js
 (function(root) {
 
   'use strict';
@@ -2152,7 +2295,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block.js
+// Source: \lib\ui\block\block.js
 (function(root) {
 
   'use strict';
@@ -2236,7 +2379,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block-directive.js
+// Source: \lib\ui\block\block-directive.js
 (function(root) {
 
   'use strict';
@@ -2260,6 +2403,181 @@
     };
 
   });
+
+})(window);
+
+// Source: \lib\ui\tabs\tabs.js
+/*
+* Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
+*/
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.constant('AV_TABS', {
+    TEMPLATES: {
+      TABS: 'ui/tabs/tabs-tpl.html',
+      TAB: 'ui/tabs/tab-tpl.html'
+    }
+  });
+
+  function TabsController($scope) {
+
+    var self = this;
+
+    $scope.tabs = [];
+    self.tabs = $scope.tabs;
+
+    this.addTab = function(tab) {
+      self.tabs.push(tab);
+
+      if(self.tabs.length === 1) {
+        tab.active = true;
+      } else if(tab.active) {
+        self.selectTab(tab);
+      } else {
+        tab.active = false;
+      }
+    };
+
+    this.removeTab = function(tab) {
+      var index = self.tabs.indexOf(tab);
+
+      if(tab.active && self.tabs.length > 1) {
+        //If this is the last tab, select the previous tab. else, the next tab.
+        var newActiveIndex = index === self.tabs.length - 1 ? index - 1 : index + 1;
+        self.selectTab(self.tabs[newActiveIndex]);
+      }
+
+      self.tabs.splice(index, 1);
+    };
+
+    this.selectTab = function(selectedTab) {
+      angular.forEach(self.tabs, function (tab) {
+        if(tab.active && tab !== selectedTab) {
+          tab.active = false;
+          tab.onDeselect();
+        }
+      });
+
+      selectedTab.active = true;
+      selectedTab.onSelect();
+    };
+  }
+
+  TabsController.$inject = ['$scope'];
+  availity.ui.controller('AvTabsController', TabsController);
+
+  function TabsDirective(AV_TABS) {
+    return {
+      restrict: 'AE',
+      templateUrl: AV_TABS.TEMPLATES.TABS,
+      transclude: true,
+      replace: true,
+      controller: 'AvTabsController',
+      scope: true,
+      link: function(scope, element, attrs) {
+        scope.justified = !!attrs.justified;
+        scope.tabType = attrs.tabType;
+        scope.vertical = !!attrs.vertical;
+
+        if(angular.isUndefined(attrs.padContent)) {
+          scope.padContent = true;
+        }
+      }
+    };
+  }
+
+  TabsDirective.$inject = ['AV_TABS'];
+  availity.ui.directive('avTabs', TabsDirective);
+
+  function TabDirective(AV_TABS) {
+    return {
+      restrict: 'AE',
+      templateUrl: AV_TABS.TEMPLATES.TAB,
+      replace: true,
+      require: '^avTabs',
+      transclude: true,
+      scope: {
+        heading: '@',
+        template: '=',
+        templateUrl: '=',
+        onSelect: '&select',
+        onDeselect: '&deselect'
+      },
+      controller: function() {
+        // Allow avTabs to be required by other directives
+      },
+      link: function(scope, element, attrs, tabsController, transclude) {
+        scope.transcludeFn = transclude;
+
+        tabsController.addTab(scope);
+
+        scope.$on('destroy', function() {
+          tabsController.removeTab(scope);
+        });
+
+        scope.select = function() {
+          if(!scope.disabled) {
+            tabsController.selectTab(scope);
+          }
+        };
+
+        scope.$watch('active', function(active) {
+          if(active) {
+            tabsController.selectTab(scope);
+          }
+        });
+
+        if(angular.isDefined(attrs.active)) {
+          scope.active = attrs.active;
+
+          scope.$parent.$watch(attrs.active, function(active) {
+            if(active) {
+              tabsController.selectTab(scope);
+            }
+          });
+        }
+
+        if(angular.isDefined(attrs.disable)) {
+          scope.$parent.$watch(attrs.disable, function(disabled) {
+            scope.disabled = !!disabled;
+          });
+        }
+      }
+    };
+  }
+
+  TabDirective.$inject = ['AV_TABS'];
+  availity.ui.directive('avTab', TabDirective);
+
+  function TabPaneDirective(avTemplateCache, $compile) {
+    return {
+      restrict: 'AE',
+      require: '^avTabs',
+      link: function(scope, element, attrs) {
+
+        var tab = scope.$eval(attrs.avTabPane);
+
+        if(angular.isDefined(tab.template) || angular.isDefined(tab.templateUrl)) {
+          avTemplateCache.get(tab)
+          .then(function(template) {
+            element.append($compile(template)(scope));
+          });
+        } else {
+          tab.transcludeFn(tab.$parent, function(contents) {
+            angular.forEach(contents, function(node) {
+              element.append(node);
+            });
+          });
+        }
+      }
+    };
+  }
+
+  TabPaneDirective.$inject = ['avTemplateCache', '$compile'];
+  availity.ui.directive('avTabPane', TabPaneDirective);
 
 })(window);
 

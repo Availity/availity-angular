@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "0.16.1",
+  "version": "1.0.0",
   "keywords": [
     "availity",
     "angular",
@@ -25,7 +25,7 @@
     "angular-shims-placeholder": "0.4.2",
     "angular-ui-router": "0.2.13",
     "angular-velocity": "0.3.1",
-    "availity-uikit": "~0.12.3",
+    "availity-uikit": "~0.13.1",
     "blueimp-file-upload": "9.10.1",
     "jquery-ui": "1.11.4",
     "jquery.inputmask": "3.1.63",
@@ -38,6 +38,8 @@
   "ignore": [
     ".*",
     "node_modules",
+    "gulp",
+    "build",
     "gulp",
     "docs",
     "data"

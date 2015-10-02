@@ -1,0 +1,141 @@
+---
+title: Tabs
+---
+<div ng-controller="TabsController">
+  <h3 class="guide-subsection-title">Default</h3>
+  <div data-markdown>
+  A default active tab may be specified by setting the `active` attribute to `true`. This may also be achieved via databinding.
+  If no active tab is specified, the first tab becomes active.
+
+  A tab's content may be provided by setting:
+  - `template` - The HTML string of the template to display.
+  - `templateUrl` - The URL of the template to display.
+  - or simply adding HTML as the contents of the `avTab`
+  </div>
+  <div class="guide-example">
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" template-url="tab.templateUrl" active="tab.active"></div>
+    </div>
+  </div>
+  <code class="language-handlebars">
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" active="tab.active"></div>
+    </div>
+
+    // Or
+
+    <div av-tabs>
+      <div av-tab heading="Home" template-url="templates/home.html"></div>
+      <div av-tab heading="Profile" template-url="templates/profile.html"></div>
+      <div av-tab heading="Messages" template-url="templates/messages.html"></div>
+      <div av-tab heading="Settings" template-url="templates/settings.html"></div>
+    </div>
+
+    // Or
+
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </code>
+
+  <div data-markdown>
+  > Tab content is padded by default. Set `pad-content="false"` on `avTabs` to remove the padding.
+  </div>
+
+  <h3 class="guide-subsection-title">Pills</h3>
+  <div data-markdown>
+  Tab style may be changed by setting the `tabType` option. The default value is `tabs`.
+  </div>
+  <div class="guide-example">
+    <div av-tabs tab-type="pills">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </div>
+  <code class="language-javascript">
+    <div av-tabs tab-type="pills">
+      ...
+    </div>
+  </code>
+
+  <hr class="divider">
+
+  <div data-markdown>
+  Pills are also vertically stackable. Just set `vertical="true"` instead.
+  </div>
+  <div class="guide-example">
+    <div av-tabs tab-type="pills" vertical="true">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </div>
+  <code class="language-javascript">
+    <div av-tabs tab-type="pills" vertical="true">
+      ...
+    </div>
+  </code>
+
+  <h3 class="guide-subsection-title">Pills Secondary</h3>
+  <div class="guide-example">
+    <div av-tabs tab-type="pills-secondary">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </div>
+  <code class="language-javascript">
+    <div av-tabs tab-type="pills-secondary">
+      ...
+    </div>
+  </code>
+
+  <h3 class="guide-subsection-title">Justified</h3>
+  <div class="guide-example">
+    <div av-tabs justified="true">
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </div>
+  <code class="language-javascript">
+    <div av-tabs justified="true">
+      ...
+    </div>
+  </code>
+
+  <h3 class="guide-subsection-title">Disabled</h3>
+  <div data-markdown>
+  To disable tabs, set a tab's `disable` attribute. This can also be achieved via databinding.
+  </div>
+  <div class="guide-example">
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages" disable="true"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+  </div>
+  <code class="language-handlebars">
+    <div av-tabs>
+      <div av-tab heading="Home"><p class="lead">Home</p></div>
+      <div av-tab heading="Profile"><p class="lead">Profile</p></div>
+      <div av-tab heading="Messages" disable="true"><p class="lead">Messages</p></div>
+      <div av-tab heading="Settings"><p class="lead">Settings</p></div>
+    </div>
+
+    // Or
+
+    <div av-tabs>
+      <div av-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" template="tab.template" disable="tab.disabled"></div>
+    </div>
+  </code>
+</div>

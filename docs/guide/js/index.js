@@ -17,36 +17,6 @@
 
   });
 
-  availity.demo.config(['$stateProvider', function($stateProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        data: {
-          breadcrumb: {
-            displayName: 'Home'
-          }
-        }
-      })
-      .state('spaces', {
-        url: '/spaces',
-        data: {
-          breadcrumb: {
-            displayName: 'Spaces',
-            parent: 'home'
-          }
-        }
-      })
-      .state('my-application', {
-        url: '/my-application',
-        data: {
-          breadcrumb: {
-            displayName: 'My Application',
-            parent: 'spaces'
-          }
-        }
-      });
-  }]);
-
 })();
 
 (function($) {
@@ -71,7 +41,7 @@
       '</div>' +
       '</div>';
 
-    if ($(this).next().is('.language-markup')) {
+    if ($(this).next().is('[class*="language-"]')) {
       $(this).append($(btn));
     }
   });
@@ -80,7 +50,7 @@
 
     e.preventDefault();
 
-    var target = $(this).parents('.guide-example').next('.language-markup');
+    var target = $(this).parents('.guide-example').next('[class*="language-"]');
 
     if(target.is(':visible')) {
       target.velocity("slideUp", { duration: 200 });

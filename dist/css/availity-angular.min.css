@@ -1,7 +1,7 @@
 /**
- * availity-angular v0.16.1 -- September-15
+ * availity-angular v1.0.0 -- October-01
  * Copyright 2015 Availity, LLC 
  */
 
-.block-ui-container{z-index:1010}.av-block-ui-message{color:#333;background:0 0;z-index:1011}
+[data-ng-click],[ng-click],[x-ng-click]{cursor:pointer}[data-ng-click].disabled,[data-ng-click][disabled],[ng-click].disabled,[ng-click][disabled],[x-ng-click].disabled,[x-ng-click][disabled]{cursor:auto;pointer-events:none}.block-ui-container{z-index:1010}.av-block-ui-message{color:#333;background:0 0;z-index:1011}
 /*# sourceMappingURL=maps/availity-angular.min.css.map */

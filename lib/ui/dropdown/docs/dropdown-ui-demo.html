@@ -111,8 +111,7 @@ title: Dropdowns
 <script>
 var demo = angular.module('demo', ['availity', 'availity-ui']);
 
-demo.controller('DropdownController', function($scope, $log) {
-
+availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
   $scope.states = [
     { id: 'AL', name: 'Alabama' },
     { id: 'CA', name: 'California' },
@@ -120,8 +119,8 @@ demo.controller('DropdownController', function($scope, $log) {
     { id: 'TX', name: 'Texas' },
     { id: 'WY', name: 'Wyoming' }
   ];
-  $scope.selectedState = $scope.states[0];
-  $scope.selectedStates = [0, 1];
+  $scope.selectedState = null;
+  $scope.selectedHosp = null;
 
   $scope.addStates = function() {
     $scope.states.push({id: 'FL', name: 'Florida'});
@@ -129,6 +128,14 @@ demo.controller('DropdownController', function($scope, $log) {
 
   $scope.setState = function() {
     $scope.selectedState = $scope.states[$scope.states.length - 1];
+  };
+
+  $scope.resetSingle = function() {
+    $scope.selectedState = null;
+  };
+
+  $scope.resetSingleHosp = function() {
+    $scope.selectedHosp = null;
   };
 
   $scope.selectAction = function(selection) {
@@ -169,27 +176,45 @@ demo.controller('DropdownController', function($scope, $log) {
     </form>
   </div>
   <code class="language-markup">
-<form name="dropdownForm">
-  <div class="form-group">
-    <label for="dropdownStates3">States</label>
-    <select
-      id="dropdownStates3"
-      class="form-control select2"
-      data-av-dropdown
-      data-ng-model="selectedState"
-      data-ng-options="state.name for state in states"
-      data-ng-change="selectAction(selectedStates)"
-      data-placeholder="Select State"
-      data-allow-clear="true"
-      >
-      <option></option>
-    </select>
-  </div>
-</form>
+  <form name="dropdownForm">
+    <div class="form-group">
+      <label for="dropdownStates2">States</label>
+      <select
+        id="dropdownStates2"
+        class="form-control select2"
+        multiple
+        data-av-dropdown
+        data-ng-model="selectedStates"
+        data-ng-options="state.name for state in states"
+        data-ng-change="selectAction(selectedStates)"
+        data-placeholder="Select State"
+        data-allow-clear="true"
+        >
+        <option></option>
+      </select>
+    </div>
+    <div class="form-controls">
+      <button
+        type="submit"
+        class="btn btn-default"
+        value="Set Null"
+        data-ng-click="resetMultiple()"
+      >Set Null</button>
+    </div>
+  </form>
 
 <!-- Javascript -->
 <script>
-// see "Single" example
+availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+
+  $scope.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
+
+  $scope.resetMultiple = function() {
+    $scope.selectedStates = null;
+  };
+
+
+});
 </script>
   </code>
 
@@ -267,82 +292,69 @@ demo.controller('DropdownController', function($scope, $log) {
 </form>
 <!-- Javascript -->
 <script>
-  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
-    $scope.selectedHosp = null;
+availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+  $scope.states = [
+    { id: 'AL', name: 'Alabama' },
+    { id: 'CA', name: 'California' },
+    { id: 'NM', name: 'New Mexico' },
+    { id: 'TX', name: 'Texas' },
+    { id: 'WY', name: 'Wyoming' }
+  ];
+  $scope.selectedState = null;
+  $scope.selectedHosp = null;
+  $scope.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
 
-    $scope.resetSingleHosp = function () {
-      $scope.selectedHosp = null;
-    };
-
-    $scope.selectAction = function (selection) {
-      $log.info(selection);
-    };
-
-    //how it is viewed in the drop down
-    $scope.myFormatResult = function (code) {
-      var markup = '<div class="row">' +
-        '<div class="col-xs-12">' +
-        '<span class="label label-info">' +
-        code.code +
-        '</span> ' +
-        code.value +
-        '</div>' +
-        '</div>';
-      return markup;
-    };
-
-    $scope.myQuery = function (data) {
-      data.q = data.term;
-      data.list = 'someList';
-      return avCodesResource.getCodes(data);
-    };
-  });
-
-  // AvCodesResourceFactory.js
-  var AvCodesResourceFactory = function(AvApiResource) {
-
-    var AvCodesResource = function () {
-      AvApiResource.call(this, 'codes');
-    };
-
-    angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
-
-      getCodes: function (data) {
-
-        // config for the api resource query
-        var config = {};
-        config.params = {};
-        config.params.offset = 50 * (data.page - 1);
-        if(data.list) {
-          config.params.list = data.list
-        }
-        if(data.q) {
-          config.params.q = data.q;
-        }
-
-        return this.query(config).then(function (response) {
-          //format the response into something select2 can read
-          var myResults = response.data.codes;
-          if(!_.has(myResults, 'id')) {
-            _.each(myResults, function (code) {
-              code.id = code.code;
-            });
-          }
-
-          // calculate if we want to continue searching
-          var moreVal = response.data.offset < response.data.totalCount - response.data.limit;
-          return {
-            more: moreVal,
-            results: myResults
-          };
-
-        });
-      }
-
-    });
-    return new AvCodesResource();
+  $scope.addStates = function() {
+    $scope.states.push({id: 'FL', name: 'Florida'});
   };
-  availity.core.factory('avCodesResource', AvCodesResourceFactory);
+
+  $scope.setState = function() {
+    $scope.selectedState = $scope.states[$scope.states.length - 1];
+  };
+
+  $scope.resetSingle = function() {
+    $scope.selectedState = null;
+  };
+
+  $scope.resetSingleHosp = function() {
+    $scope.selectedHosp = null;
+  };
+
+  $scope.resetMultiple = function() {
+    $scope.selectedStates = null;
+  };
+
+  $scope.selectAction = function(selection) {
+    $log.info(selection);
+  };
+
+  $scope.weFocused = function() {
+    $log.info("ngFocus event occurred");
+  };
+  $scope.weBlurred = function() {
+    $log.info("ngBlur event occurred");
+  };
+
+  // how it is viewed in the drop down
+  $scope.myFormatResult = function(code) {
+    var markup = '<div class="row">' +
+      '<div class="col-xs-12">'+
+      '<span class="label label-info">' +
+      code.code +
+      '</span> ' +
+      code.value.split("|")[1] +
+      '</div>' +
+      '</div>';
+    return markup;
+  };
+
+  $scope.myQuery = function(data) {
+    data.q = data.term;
+    data.list = 'someList';
+    return avCodesResource.getCodes(data);
+  };
+
+});
 </script>
   </code>
 </div>

@@ -16,7 +16,12 @@ title: Breadcrumbs
 
     <p>
       <!--<label for="selState">Select a route: </label>-->
-      <select id="selState" av-dropdown data-ng-model="currentState" data-placeholder="Select a state" data-minimum-results-for-search="10" ng-options="state.name for state in states">
+      <select id="selState"
+        av-dropdown
+        data-ng-model="currentState"
+        data-placeholder="Select a state"
+        data-minimum-results-for-search="10"
+        ng-options="state.name for state in states">
         <option></option>
       </select>
     </p>
@@ -46,7 +51,7 @@ title: Breadcrumbs
                 parent: 'parent-state'       // The breadcrumb's parent state
               }
             }
-          })
+          });
       }]);
     </script>
   </code>

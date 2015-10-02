@@ -2,14 +2,9 @@
 title: Authorizations
 ---
 
-<div data-markdown>
-  > The following is example of different authorization questions that typical are needed relative to roles and permissions.
-</div>
-
 <div data-ng-controller="AuthPayerOrgController">
 
-  <h3 class="guide-subsection-title">Dropdowns</h3>
-
+  <h3 class="guide-subsection-title">Organizations & Payers</h3>
   <div class="guide-example">
     <form name="dropdownForm">
       <div class="form-group">
@@ -76,6 +71,7 @@ title: Authorizations
 <!-- Javascript -->
 <script>
   availity.demo.controller('AuthPayerOrgController', function($scope, $log, avUserAuthorizations) {
+
     var model = {
       permissionId: 452,
       selectedOrg: null,
