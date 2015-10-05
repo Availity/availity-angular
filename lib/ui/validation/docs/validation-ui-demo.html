@@ -29,6 +29,30 @@ title: Validation
         <p data-av-val-container></p>
     </div>
     <div class="form-group">
+      <label for="demoPhone">Phone</label>
+      <input
+        type="text"
+        name="demoPhone"
+        placeholder="..."
+        class="form-control"
+        data-ng-model="demo.phone"
+        data-av-val-field="phone"
+      >
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
+      <label for="demoEmail">Email</label>
+      <input
+        type="text"
+        name="demoEmail"
+        placeholder="your@email.com"
+        class="form-control"
+        data-ng-model="demo.email"
+        data-av-val-field="email"
+      >
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
       <label for="demoSSN">SSN</label>
       <input
         type="text"
@@ -100,14 +124,14 @@ title: Validation
     </div>
     <div class="form-group">
       <div class="checkbox">
-        <label>
-          <input type="checkbox"
-            data-ng-model="demo.check"
-            data-av-val-field="checked"
-            data-av-val-on="blur"
-            data-container-id="container-2"
-          > Agree to Terms
-        </label>
+        <input id="demoCheck"
+          type="checkbox"
+          data-ng-model="demo.check"
+          data-av-val-field="checked"
+          data-av-val-on="blur"
+          data-container-id="container-2"
+        >
+        <label for="demoCheck">Agree to Terms</label>
       </div>
       <p data-av-val-container id="container-2"></p>
     </div>
