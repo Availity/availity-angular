@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.0.0 -- October-01
+ * availity-angular v1.1.0 -- October-12
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.0.0';
+  availity.VERSION = 'v1.1.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -1760,7 +1760,9 @@
       'avValSize',
       'avValRequired',
       'avValDateRange',
-      'avValDate'
+      'avValDate',
+      'avValPhone',
+      'avValEmail'
     ]
   });
 
@@ -2138,6 +2140,50 @@
       }
     };
     return validator;
+  });
+})(window);
+
+// Source: \lib\core\validation\validators\validator-phone.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValPhone', function(avValPattern) {
+
+    var PHONE_PATTERN = /^([0-9][\.\-]?)?[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+
+    var validator =  {
+      name: 'phone',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: PHONE_PATTERN }));
+      }
+    };
+
+    return validator;
+
+  });
+})(window);
+
+// Source: \lib\core\validation\validators\validator-email.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValEmail', function(avValPattern) {
+
+    var EMAIL_PATTERN = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+    var validator =  {
+      name: 'email',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: EMAIL_PATTERN }));
+      }
+    };
+
+    return validator;
+
   });
 })(window);
 

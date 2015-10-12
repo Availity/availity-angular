@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.0.0 -- October-01
+ * availity-angular v1.1.0 -- October-12
  * Copyright 2015 Availity, LLC 
  */
 
@@ -298,15 +298,17 @@
 
     proto.hide = function() {
 
+      var self = this;
+
       var deferred = $q.defer();
 
       this.templatePromise.then(function() {
 
-        this.$element.one('hidden.bs.modal', function() {
+        self.$element.one('hidden.bs.modal', function() {
           deferred.resolve(true);
         });
 
-        this.$element.modal('hide');
+        self.$element.modal('hide');
 
       });
 
