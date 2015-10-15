@@ -49,7 +49,7 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
   browserSync({
     notify: true,
     logPrefix: 'browersync',
-    open: false,
+    ghostMode: false,
     server: {
       baseDir: config.sync.src,
       middleware: [
@@ -66,7 +66,9 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
         }
       ]
     }
-  }, cb);
+  }, function() {
+    cb();
+  });
 
 });
 

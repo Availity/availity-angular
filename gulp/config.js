@@ -16,6 +16,18 @@ module.exports = {
   packages: {
     src: ['./package.json', './bower.json']
   },
+  less: {
+    src: ['less/availity-angular.less'],
+    targets: ['less/**/*.less'],
+    dest: 'build/guide/css',
+    destMaps: './maps', // relative to dest folder
+    browsers: ['> 1%', 'last 3 versions', 'ie 8', 'ie 9']
+  },
+  css: {
+    src: 'build/guide/**/*.css',
+    dest: 'dist/css',
+    destMaps: './maps' // relative to dest folder
+  },
   readme: {
     src: ['docs/readme/readme.config.md'],
     name: 'README.md',
@@ -65,6 +77,8 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
+      './lib/core/validation/validators/validator-phone.js',
+      './lib/core/validation/validators/validator-email.js',
       './lib/core/utils/globals.js',
       './lib/core/analytics/analytics.js',
       './lib/core/analytics/analytics-util.js',
@@ -99,7 +113,15 @@ module.exports = {
       './lib/ui/mask/mask.js',
       './lib/ui/permissions/has-permission.js',
       './lib/ui/analytics/analytics.js',
-      './lib/ui/placeholder/placeholder.js'
+      './lib/ui/placeholder/placeholder.js',
+      './lib/ui/breadcrumbs/breadcrumbs.js',
+      './lib/ui/filters/approximate.js',
+      './lib/ui/badge/badge.js',
+      './lib/ui/labels/removable-label.js',
+      './lib/ui/animation/loader.js',
+      './lib/ui/block/block.js',
+      './lib/ui/block/block-directive.js',
+      './lib/ui/tabs/tabs.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -124,9 +146,15 @@ module.exports = {
       './bower_components/moment/moment.js',
       './bower_components/select2/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      './bower_components/velocity/velocity.js',
+      './bower_components/velocity/velocity.ui.js',
+      './bower_components/angular-animate/angular-animate.js',
+      './bower_components/angular-velocity/angular-velocity.js',
       './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       './bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
-      './bower_components/tracekit/tracekit.js'
+      './bower_components/tracekit/tracekit.js',
+      './bower_components/angular-block-ui/dist/angular-block-ui.js',
+      './bower_components/angular-ui-router/release/angular-ui-router.js'
     ],
     destMaps: './maps', // this is relative path to the destDist above,
     dest: 'build/guide/js',
@@ -140,7 +168,8 @@ module.exports = {
     css: {
       src: [
         'bower_components/availity-uikit/dist/css/availity-uikit.css',
-        'bower_components/availity-uikit/dist/css/docs.css'
+        'bower_components/availity-uikit/dist/css/docs.css',
+        'bower_components/angular-block-ui/dist/angular-block-ui.css'
       ],
       dest: 'build/guide/css'
     },
@@ -190,6 +219,7 @@ module.exports = {
     src: [
       'node_modules/sinon/pkg/sinon.js',
       'bower_components/jquery/dist/jquery.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-mocks/angular-mocks.js',
@@ -200,6 +230,8 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
+      'bower_components/angular-block-ui/dist/angular-block-ui.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'

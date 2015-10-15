@@ -1,9 +1,9 @@
 /**
- * availity-angular v0.12.0 -- June-23
+ * availity-angular v1.1.0 -- October-12
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: /lib/core/index.js
+// Source: \lib\core\index.js
 
 
 (function(root) {
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.12.0';
+  availity.VERSION = 'v1.1.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -20,7 +20,7 @@
 
   angular.module = function(name, deps) {
 
-    if(deps && _.indexOf(modules, name) !== -1 ) {
+    if(deps && _.indexOf(modules, name) !== -1 && !window.__karma__) {
       throw new Error('redefining module: ' + name);
     }
 
@@ -38,7 +38,7 @@
 })(window);
 
 
-// Source: /lib/core/utils/strings.js
+// Source: \lib\core\utils\strings.js
 (function(root) {
 
   'use strict';
@@ -60,7 +60,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/uuid.js
+// Source: \lib\core\utils\uuid.js
 (function(root) {
 
   'use strict';
@@ -93,7 +93,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/urls.js
+// Source: \lib\core\utils\urls.js
 (function(root) {
 
   'use strict';
@@ -113,7 +113,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/print.js
+// Source: \lib\core\utils\print.js
 (function(root) {
 
   'use strict';
@@ -133,7 +133,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/throttle.js
+// Source: \lib\core\utils\throttle.js
 // Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
 
 (function(root) {
@@ -188,7 +188,7 @@
 
 })(window);
 
-// Source: /lib/core/logger/logger.js
+// Source: \lib\core\logger\logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -286,10 +286,23 @@
             // as the message and the second as array of interpolation variables.
             // The output print will be according to this check.
             if(typeof args[1] === 'string') {
+
               message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+
             } else {
-              supplantData = args[1];
-              message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
+
+              // If the message is an error, there may be a stack included. If so, we
+              // should include the stack in the message to make it more meaningful.
+              if(args[0].stack) {
+                var errorMessage = this.formatError(args[0]);
+                message = AvLogger.supplant('{0}{1} - {2}', [now, context, errorMessage]);
+                supplantData = args[1];
+
+              }else {
+                supplantData = args[1];
+
+              }
+
             }
             break;
         }
@@ -317,6 +330,21 @@
         this._log('debug', arguments);
       };
 
+      // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/log.js#L122
+      proto.formatError = function(arg) {
+        if(arg instanceof Error) {
+          if(arg.stack) {
+
+            arg = (arg.message && arg.stack.indexOf(arg.message) === -1) ?
+              'Error: ' + arg.message + '\n' + arg.stack : arg.stack;
+
+          } else if(arg.sourceURL) {
+            arg = arg.message + '\n' + arg.sourceURL + ':' + arg.line;
+          }
+        }
+        return arg;
+      };
+
       proto.error = function() {
         this._log('error', arguments);
       };
@@ -330,7 +358,7 @@
 
 })(window);
 
-// Source: /lib/core/logger/logger-config.js
+// Source: \lib\core\logger\logger-config.js
 (function(root) {
 
   'use strict';
@@ -347,7 +375,7 @@
 
 })(window);
 
-// Source: /lib/core/polling/polling.js
+// Source: \lib\core\polling\polling.js
 (function(root) {
   'use strict';
 
@@ -414,7 +442,7 @@
         response.config.api &&
         response.status &&
         response.status === 202 &&
-        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.LOCATION));
+        angular.isFunction(response.headers) && !availity.isBlank(response.headers(AV_API.HEADERS.SERVER.LOCATION));
     };
 
     proto.onAsyncReponse = function(response) {
@@ -448,12 +476,17 @@
 
       var self = this;
       // server replies with location header so set the url into config
-      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.LOCATION));
+      var _url = availity.getRelativeUrl(response.headers(AV_API.HEADERS.SERVER.LOCATION));
       var _config = response.config;
 
+
+      // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
+      //  to send to the server. If the return value of a function is null, the header
+      //  will not be sent. Functions accept a config object as an argument.
       var config = {
         method: 'GET',
         api: true,
+        headers: _config.headers,
         pollingInterval: _config.pollingInterval,
         pollingMaxRetry: _config.pollingMaxRetry,
         pollingMaxInterval: _config.pollingMaxInterval,
@@ -600,7 +633,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-factory.js
+// Source: \lib\core\api\api-factory.js
 (function(root) {
 
   'use strict';
@@ -609,13 +642,19 @@
 
   availity.core.constant('AV_API', {
     HEADERS: {
-      ID: 'X-API-ID',
-      GLOBAL_ID: 'X-Global-Transaction-ID',
-      SESSION_ID: 'X-Session-ID',
-      LOCATION: 'Location',
-      OVERRIDE: 'X-HTTP-Method-Override',
-      CALLBACK_URL: 'X-Callback-URL',
-      CUSTOMER_ID: 'X-Availity-Customer-ID'
+      SERVER: {
+        ID: 'X-API-ID',
+        LOCATION: 'Location',
+        STATUS: 'X-Status-Message',
+        GLOBAL_ID: 'X-Global-Transaction-ID'
+      },
+      CLIENT: {
+        SESSION_ID: 'X-Session-ID',
+        AUTH: 'Authorization',
+        OVERRIDE: 'X-HTTP-Method-Override',
+        CALLBACK_URL: 'X-Callback-URL',
+        CUSTOMER_ID: 'X-Availity-Customer-ID'
+      }
     }
   });
 
@@ -624,6 +663,8 @@
     prefix: '',
     // default base url for endpoints
     path: '/api',
+    // url resource group, such as `/foo`, for urls like `public/api/foo/v1/*`
+    resourceGroup: '',
     // url to resource endpoint like `coverages` or `payers`
     url: null,
     // defaults to version 1
@@ -677,6 +718,13 @@
       return angular.extend({}, this.options, (config || {}));
     },
 
+    proto._cacheBust = function(config) {
+      config.cacheBust = null;
+      config.params = config.params || {};
+      config.params.cacheBust = new Date().getTime();
+      return config;
+    },
+
     proto._getUrl = function(id) {
       if(this.options.api) {
         return this._getApiUrl(id);
@@ -720,7 +768,7 @@
             // if service has a callback then call it
             // var response = self._createResponse(data, status, headers, _config);
             if(afterCallback) {
-              successResponse = afterCallback.call(self, successResponse);
+              successResponse = afterCallback.call(self, successResponse, config.data);
             }
             defer.resolve(successResponse);
           }, function(errorResponse) {
@@ -759,7 +807,7 @@
 
     proto._getApiUrl = function(id) {
       id = id ? '/' + id : '';
-      return this.options.prefix + this.options.path + this.options.level + this.options.version + this.options.url + id + this.options.suffix;
+      return this.options.prefix + this.options.path + this.options.level + this.options.resourceGroup + this.options.version + this.options.url + id + this.options.suffix;
     };
 
     proto.create = function(data, config) {
@@ -769,7 +817,7 @@
       }
 
       if(this.beforeCreate) {
-        this.beforeCreate(this, data);
+        data = this.beforeCreate(data);
       }
 
       config = this._config(config);
@@ -779,8 +827,7 @@
 
       return this._request(config, this.afterCreate);
 
-    },
-
+    };
 
     proto.get = function(id, config) {
 
@@ -789,8 +836,12 @@
       }
 
       config = this._config(config);
+      if(config.cacheBust) {
+        config = this._cacheBust(config);
+      }
       config.method = 'GET';
       config.url = this._getUrl(id);
+
 
       return this._request(config, this.afterGet);
 
@@ -799,6 +850,9 @@
     proto.query = function(config) {
 
       config = this._config(config);
+      if(config.cacheBust) {
+        config = this._cacheBust(config);
+      }
       config.method = 'GET';
       config.url = this._getUrl();
 
@@ -814,8 +868,12 @@
         url = this._getUrl(id);
       }else {
         url = this._getUrl();
-        config = data;  // config is really the 2nd param for this use case
-        data = id; // data is really the first param for this use case
+        // At this point the function signature becomes:
+        //
+        // proto.update = function(data, config) {} a.k.a function(id, data)
+        //
+        config = data;  // config is really the 2nd param
+        data = id; // data is really the first param
       }
 
       if(this.beforeUpdate) {
@@ -827,18 +885,30 @@
       config.url = url;
       config.data = data;
 
-      return this._request(config, this.beforeUpdate, this.afterUpdate);
+      return this._request(config, this.afterUpdate);
 
     };
 
     proto.remove = function(id, config) {
-      if(!id) {
-        throw new Error('called method without [id]');
+
+      var url;
+      var data;
+
+      if(_.isString(id) || _.isNumber(id)) {
+        url = this._getUrl(id);
+      }else {
+        // At this point the function signature becomes:
+        //
+        // proto.remove = function(data, config)
+        //
+        url = this._getUrl();
+        data = id;
       }
 
       config = this._config(config);
       config.method = 'DELETE';
-      config.url = this._getUrl(id);
+      config.url = url;
+      config.data = data;
 
       return this._request(config, this.afterRemove);
     };
@@ -859,16 +929,15 @@
 
 })(window);
 
-// Source: /lib/core/api/api-users.js
+// Source: \lib\core\api\api-users.js
 (function(root) {
   'use strict';
 
   var availity = root.availity;
 
-  var UserServiceFactory = function(AvApiResource, $q) {
+  var UserServiceFactory = function(AvApiResource) {
 
     var AvUsersResource = function() {
-      this.user = null;
       AvApiResource.call(this, 'users');
     };
 
@@ -876,17 +945,11 @@
 
       afterGet: function(response) {
         var user = response.data.user ? response.data.user : response.data;
-        this.user = user;
         return user;
       },
 
-      me: function() {
-
-        if(this.user) {
-          return $q.when(this.user);
-        }
-
-        return this.get('me');
+      me: function(config) {
+        return this.get('me', config);
       }
 
     });
@@ -899,7 +962,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-coverages.js
+// Source: \lib\core\api\api-coverages.js
 (function(root) {
 
   'use strict';
@@ -912,7 +975,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-configurations.js
+// Source: \lib\core\api\api-configurations.js
 (function(root) {
 
   'use strict';
@@ -925,7 +988,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-log-messages.js
+// Source: \lib\core\api\api-log-messages.js
 (function(root) {
 
   'use strict';
@@ -984,7 +1047,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-documents.js
+// Source: \lib\core\api\api-documents.js
 (function(root) {
 
   'use strict';
@@ -1019,7 +1082,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-organizations.js
+// Source: \lib\core\api\api-organizations.js
 (function(root) {
 
   'use strict';
@@ -1034,8 +1097,8 @@
 
     angular.extend(OrganizationResource.prototype, AvApiResource.prototype, {
 
-      getOrganizations: function() {
-        return this.query().then(function(response) {
+      getOrganizations: function(config) {
+        return this.query(config).then(function(response) {
           return response.data.organizations ? response.data.organizations : response.data;
         });
       }
@@ -1049,7 +1112,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-codes.js
+// Source: \lib\core\api\api-codes.js
 (function(root) {
 
   'use strict';
@@ -1060,7 +1123,6 @@
   availity.core.factory('avCodesResource', function(AvApiResource) {
     return new AvApiResource({version: '/v1', url: '/codes'});
   });
-
 
   var AvCodesResourceFactory = function(AvApiResource) {
 
@@ -1075,22 +1137,34 @@
         // config for the api resource query
         var config = {};
         config.params = {};
-        config.params.offset = 50 * (data.page - 1);
+
+        if(data.page) {
+          config.params.offset = 50 * (data.page - 1);
+        }
+        if(data.offset) {
+          config.params.offset = data.offset;
+        }
+        if(data.list) {
+          config.params.list = data.list;
+        }
+        if(data.q) {
+          config.params.q = data.q;
+        }
 
         return this.query(config).then(function (response) {
-          //format the response into something select2 can read
-          var myResults = response.data.codes;
-          if(_.isEmpty(myResults[0].id)) {
-            _.each(myResults, function (code) {
+          // Format the response into something select2 can read
+          var results = response.data.codes;
+          if(results && !_.has(results[0], 'id')) {
+            _.each(results, function (code) {
               code.id = code.code;
             });
           }
 
           // calculate if we want to continue searching
-          var moreVal = (( (response.data.offset / response.data.limit) - 1) * 50) < response.data.totalCount;
+          var moreVal = response.data.offset < response.data.totalCount - response.data.limit;
           return {
             more: moreVal,
-            results: myResults
+            results: results
           };
 
         });
@@ -1106,7 +1180,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-user-permissions.js
+// Source: \lib\core\api\api-user-permissions.js
 (function(root) {
 
   'use strict';
@@ -1151,7 +1225,7 @@
 
 })(window);
 
-// Source: /lib/core/authorizations/user-authorizations.js
+// Source: \lib\core\authorizations\user-authorizations.js
 (function(root) {
   'use strict';
 
@@ -1293,7 +1367,7 @@
 
 })(window);
 
-// Source: /lib/core/session/session.js
+// Source: \lib\core\session\session.js
 (function(root) {
   'use strict';
 
@@ -1337,7 +1411,7 @@
 
 })(window);
 
-// Source: /lib/core/idle/idle.js
+// Source: \lib\core\idle\idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
 //
 // Rules:
@@ -1639,7 +1713,7 @@
 
 })(window);
 
-// Source: /lib/core/idle/idle-interceptor.js
+// Source: \lib\core\idle\idle-interceptor.js
 (function(root) {
 
   'use strict';
@@ -1664,7 +1738,7 @@
 
 })(window);
 
-// Source: /lib/core/validation/validator.js
+// Source: \lib\core\validation\validator.js
 (function(root) {
 
   'use strict';
@@ -1686,7 +1760,9 @@
       'avValSize',
       'avValRequired',
       'avValDateRange',
-      'avValDate'
+      'avValDate',
+      'avValPhone',
+      'avValEmail'
     ]
   });
 
@@ -1697,7 +1773,7 @@
       FAILED: 'av:val:failed',
       RESET: 'av:val:reset'
     },
-    DEBOUNCE: 500,
+    DEBOUNCE: 800,
     DATE_FORMAT: {
       SIMPLE: 'MM/DD/YYYY'
     },
@@ -1709,19 +1785,23 @@
 
   availity.core.provider('avVal', function() {
 
-    var that = this;
+    var validators = [];
+    var rules = {};
+    var services = {};
 
-    this.rules = {};
+    this.addRules = function(_rules) {
+      rules = angular.extend({}, rules, _rules);
+      return rules;
+    };
 
-    this.addRules = function(rules) {
-      this.rules = angular.extend(this.rules, rules);
+    this.addValidators = function(_validators) {
+      validators = validators.concat(_validators);
+      return validators;
     };
 
     this.$get = function($injector, $rootScope, $http, $log, avValConfig, AV_VAL) {
 
       var AvValidation = function() {
-        this.rules = that.rules;
-        this.validators = [];
         this.initValidators();
       };
 
@@ -1730,32 +1810,33 @@
       proto.initValidators = function() {
         var self = this;
 
-        angular.forEach(avValConfig.validators, function(name) {
-          var validator = $injector.get(name);
-          self.validators[validator.name] = validator;
+        validators = avValConfig.validators.concat(validators);
+
+        angular.forEach(validators, function(name) {
+          self.addValidator(name);
         });
+
       };
 
-      proto.clearAll = function() {
-        // this.validators.splice(0, this.validators.length);
-        // this.rules = {};
+      proto.addValidator = function(name) {
+        var validator = $injector.get(name);
+        services[validator.name] = validator;
       };
 
-      proto.addRules = function(rules) {
-        this.rules = angular.extend(this.rules, rules);
+      proto.addRules = function(_rules) {
+        rules = angular.extend({}, rules, _rules);
         $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
       };
 
       proto.validate = function(key, element, value, ruleName) {
 
-        var self = this;
-
-        var rules = this.rules[key];
-        if(!rules) {
+        var ruleConfig = rules[key];
+        if(!ruleConfig) {
           $log.error('Failed to get rules key [' + key + '].  Forms must be tagged with a rules set name for validation to work.');
           return;
         }
-        var contraints = rules[ruleName];
+
+        var contraints = ruleConfig[ruleName];
         if(!contraints) {
           $log.info('Rule named [' + ruleName + '] could not be found in the current schema.');
           contraints = [];
@@ -1774,14 +1855,14 @@
             return;
           }
 
-          var validator = self.validators[contraintName];
+          var validator = services[contraintName];
 
           if(angular.isUndefined(validator)) {
             $log.warn('No validator defined for `' + name + '`');
             return;
           }
 
-          var valid = validator.validate(value, rule);
+          var valid = validator.validate(value, rule, element);
 
           var validationResult = {
             valid: valid,
@@ -1792,8 +1873,6 @@
             field: el.name || el.id
           };
 
-          // $log.info(validationResult);
-
           var result = angular.extend({}, rule, validationResult);
 
           results.push(result);
@@ -1801,6 +1880,7 @@
             violations.push(validationResult);
           }
           _valid = _valid && valid;
+
         });
 
         return {
@@ -1812,12 +1892,13 @@
       };
 
       return new AvValidation();
+
     };
 
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-utils.js
+// Source: \lib\core\validation\validators\validator-utils.js
 (function(root) {
 
   'use strict';
@@ -1841,7 +1922,7 @@
 })(window);
 
 
-// Source: /lib/core/validation/validators/validator-size.js
+// Source: \lib\core\validation\validators\validator-size.js
 (function(root) {
 
   'use strict';
@@ -1851,13 +1932,31 @@
   availity.core.factory('avValSize', function(avValUtils) {
 
     var validator =  {
-      name: 'size',
-      validate: function(value, rule) {
-        var minLength = rule.min || 0;
-        var maxLength = rule.max;
 
-        value = value || '';
-        return avValUtils.isEmpty(value) || value.length >= minLength && (maxLength === undefined || value.length <= maxLength);
+      name: 'size',
+
+      validate: function(value, rule) {
+
+        var min = rule.min || 0;
+        var max = rule.max;
+        var type = rule.type ? rule.type.toLowerCase() : 'text';
+
+        if(_.isNull(value) || _.isUndefined(value)) {
+          value = '';
+        }
+
+        if(type === 'text') {
+          value = value + '';
+          return  avValUtils.isEmpty(value) || value.length >= min && (max === undefined || value.length <= max);
+        }
+
+        // ... must be a Number
+        if(!_.isNumber(value) && /^\d+$/.test(value)) {
+          value = parseInt(value, 10);
+        }
+
+        return avValUtils.isEmpty(value) || value >= min && (max === undefined || value <= max);
+
       }
     };
 
@@ -1866,7 +1965,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-pattern.js
+// Source: \lib\core\validation\validators\validator-pattern.js
 (function(root) {
   'use strict';
 
@@ -1912,7 +2011,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-required.js
+// Source: \lib\core\validation\validators\validator-required.js
 (function(root) {
 
   'use strict';
@@ -1923,8 +2022,27 @@
 
     var validator =  {
       name: 'required',
-      validate: function(value) {
+      validate: function(value, rule, element) {
+
+        // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
+        // type of field:
+        //
+        //    - radio
+        //    - checkbox
+        //    - text
+        //    - lists
+        //
+        // You can override $isEmpty for input directives whose concept of being empty is different to the
+        // default. Radio and checkboxes directive do this because in its case a value of `false`
+        // implies empty.
+        //
+        var ctrl = element && element.data('$ngModelController');
+        if(ctrl) {
+          return !ctrl.$isEmpty(value);
+        }
+
         return !avValUtils.isEmpty(value);
+
       }
     };
 
@@ -1933,7 +2051,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-date-range.js
+// Source: \lib\core\validation\validators\validator-date-range.js
 (function(root) {
 
   'use strict';
@@ -1992,7 +2110,7 @@
           startDate = moment(rules.start.value, rules.format);
           endDate = validator.setMax(moment(rules.end.value, rules.format));
         }
-        return date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
+        return date.isValid() && date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
       },
 
       validate: function(value, rule) {
@@ -2005,7 +2123,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-date-format.js
+// Source: \lib\core\validation\validators\validator-date-format.js
 (function(root) {
 
   'use strict';
@@ -2025,7 +2143,51 @@
   });
 })(window);
 
-// Source: /lib/core/utils/globals.js
+// Source: \lib\core\validation\validators\validator-phone.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValPhone', function(avValPattern) {
+
+    var PHONE_PATTERN = /^([0-9][\.\-]?)?[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+
+    var validator =  {
+      name: 'phone',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: PHONE_PATTERN }));
+      }
+    };
+
+    return validator;
+
+  });
+})(window);
+
+// Source: \lib\core\validation\validators\validator-email.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValEmail', function(avValPattern) {
+
+    var EMAIL_PATTERN = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+    var validator =  {
+      name: 'email',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: EMAIL_PATTERN }));
+      }
+    };
+
+    return validator;
+
+  });
+})(window);
+
+// Source: \lib\core\utils\globals.js
 (function(root) {
 
   'use strict';
@@ -2243,7 +2405,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics.js
+// Source: \lib\core\analytics\analytics.js
 (function(root) {
   'use strict';
 
@@ -2372,7 +2534,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-util.js
+// Source: \lib\core\analytics\analytics-util.js
 (function(root) {
   'use strict';
 
@@ -2454,7 +2616,7 @@
   });
 })(window);
 
-// Source: /lib/core/analytics/analytics-splunk.js
+// Source: \lib\core\analytics\analytics-splunk.js
 (function(root) {
   'use strict';
 
@@ -2489,7 +2651,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-piwik.js
+// Source: \lib\core\analytics\analytics-piwik.js
 (function(root) {
   'use strict';
 
@@ -2619,7 +2781,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-exceptions.js
+// Source: \lib\core\analytics\analytics-exceptions.js
 
 
 (function(root) {
@@ -2764,7 +2926,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/date-polyfill.js
+// Source: \lib\core\utils\date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 //

@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var path = require('path');
-var gutil = require('gulp-util');
 
 var config = require('../config');
 
@@ -9,42 +8,46 @@ var files = config.test.src
   .concat(config.ui.src)
   .concat(config.lib.specs)
   .concat(config.ui.specs)
-  .concat({pattern: 'lib/**/*-fixture.html', watched: true, served: true, included: true});
+  .concat('lib/**/*-tpl.html');
 
 gulp.task('test', ['test:ci']);
 
 gulp.task('test:ci', ['lint'], function (done) {
-  var karma = require('karma').server;
-  karma.start({
+  var Server = require('karma').Server;
+  new Server({
     configFile: path.join(config.project.path, 'karma.conf.js'),
     singleRun: true,
     files: files
-  }, done);
+  }, function(exitStatus) {
+    done(exitStatus ? 'Failing unit tests' : undefined);
+  }).start();
+
 });
 
 gulp.task('test:sauce', ['lint'], function (done) {
-  var karma = require('karma').server;
-  karma.start({
+  var Server = require('karma').Server;
+  new Server({
     configFile: path.join(config.project.path, 'karma.conf-ci.js'),
     singleRun: true,
     files: files
-  }, function(exitCode) {
-    done(exitCode);
-    process.exit(exitCode);
-  });
+  }, function(exitStatus) {
+    done(exitStatus ? 'Failing unit tests' : undefined);
+    process.exit(exitStatus);
+  }).start();
 });
 
-gulp.task('test:server', ['lint'], function() {
-  var karma = require('karma').server;
-  karma.start({
+gulp.task('test:server', ['lint'], function(done) {
+  var Server = require('karma').Server;
+  new Server({
     configFile: path.join(config.project.path, 'karma.conf.js'),
     browsers: ['Chrome'],
     files: files,
     reporters: ['progress', 'notify'],
     autoWatch: true,
     singleRun: false
-  }, function(code) {
-    gutil.log('Karma has exited with ' + code);
-    process.exit(code);
-  });
+  }, function(exitStatus) {
+    done(exitStatus ? 'Failing unit tests' : undefined);
+    // gutil.log('Karma has exited with ' + code);
+    process.exit(exitStatus);
+  }).start();
 });
