@@ -103,6 +103,21 @@ title: Validation
       <p data-av-val-container></p>
     </div>
     <div class="form-group">
+      <label for="dropdownMultiStates">Multiple States</label>
+      <select
+        id="dropdownMultiStates"
+        class="form-control select2-multiple"
+        data-av-dropdown multiple
+        data-ng-model="demo.selectedStates"
+        data-ng-options="state.name for state in demo.states"
+        data-placeholder="Select State"
+        data-av-val-field="multiState"
+        data-allow-clear="true"
+        >
+      </select>
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
       <label for="birthdate20">Birthdate</label>
       <div class='input-group'>
         <input type="text"
