@@ -57,7 +57,7 @@ module.exports = function(config) {
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
-    frameworks: ['jasmine', 'fixture'],
+    frameworks: ['jasmine'],
     reporters: ['mocha', 'saucelabs'],
     port: 9876,
     colors: true,
