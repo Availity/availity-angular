@@ -129,7 +129,7 @@ title: Validation
        id="someRequiredField50"
        data-ng-model="demo.someRequiredField"
        data-av-val-field="someRequiredField"
-       data-av-val-when-clean="true"
+       data-av-val-show="true"
       />
       <p data-av-val-container></p>
     </div>
@@ -171,6 +171,9 @@ title: Validation
 
 <!-- Javascript -->
 <script>
+
+/* global availity */
+
 availity.demo.config(function(avAnalyticsProvider, avValProvider) {
 
   var defaultRules = {
