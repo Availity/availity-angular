@@ -1,3 +1,12 @@
+var config = require('./gulp/config');
+
+var files = config.test.src
+  .concat(config.lib.src)
+  .concat(config.ui.src)
+  .concat(config.lib.specs)
+  .concat(config.ui.specs)
+  .concat('lib/**/*-tpl.html')
+  .concat('lib/**/*-fixture.html');
 
 module.exports = function(config) {
 
@@ -53,14 +62,6 @@ module.exports = function(config) {
   } else {
     sauceLabs.startConnect = true;
   }
-
-  var files = config.test.src
-    .concat(config.lib.src)
-    .concat(config.ui.src)
-    .concat(config.lib.specs)
-    .concat(config.ui.specs)
-    .concat('lib/**/*-tpl.html')
-    .concat('lib/**/*-fixture.html');
 
   config.set({
     basePath: '',
