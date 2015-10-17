@@ -1,3 +1,4 @@
+
 module.exports = function(config) {
 
   if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
@@ -26,6 +27,7 @@ module.exports = function(config) {
     //   platform: "Windows 8",
     //   version: "10"
     // },
+
     sl_ie_9: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
@@ -52,8 +54,17 @@ module.exports = function(config) {
     sauceLabs.startConnect = true;
   }
 
+  var files = config.test.src
+    .concat(config.lib.src)
+    .concat(config.ui.src)
+    .concat(config.lib.specs)
+    .concat(config.ui.specs)
+    .concat('lib/**/*-tpl.html')
+    .concat('lib/**/*-fixture.html');
+
   config.set({
     basePath: '',
+    files: files,
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
@@ -69,8 +80,8 @@ module.exports = function(config) {
     browserNoActivityTimeout: 20000,
     singleRun: true,
     preprocessors: {
-      '**/*-tpl.html': ['ng-html2js'],
-      '**/*-fixture.html': ['ng-html2js']
+      'lib/**/*-tpl.html': ['ng-html2js'],
+      'lib/**/*-fixture.html': ['ng-html2js']
     },
     ngHtml2JsPreprocessor: {
       // strip this from the file path
