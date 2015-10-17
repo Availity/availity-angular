@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.1.0 -- October-12
+ * availity-angular v1.2.0 -- October-17
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: \lib\ui\index.js
+// Source: /lib/ui/index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: \lib\ui\templates\template.js
+// Source: /lib/ui/templates/template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: \lib\ui\modal\modal.js
+// Source: /lib/ui/modal/modal.js
 (function(root) {
 
   'use strict';
@@ -380,7 +380,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\form.js
+// Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -576,7 +576,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\field.js
+// Source: /lib/ui/validation/field.js
 (function(root) {
 
   'use strict';
@@ -645,7 +645,7 @@
     };
 
     this.updateView = function() {
-      if(this.ngModel.$dirty) {
+      if(this.ngModel.$dirty || $scope.avValShow) {
         avValAdapter.element($element, this.ngModel, this.ngModel.avResults.isValid);
         avValAdapter.message($element, this.ngModel);
       }
@@ -759,7 +759,8 @@
       require: ['^avValForm', 'ngModel', 'avValField'],
       scope: {
         avValDebounce: '@?',
-        avValOn: '@?'
+        avValOn: '@?',
+        avValShow: '=?'
       },
       link: function(scope, element, attrs, controllers) {
 
@@ -835,18 +836,34 @@
 
 })(window);
 
-// Source: \lib\ui\popover\popover.js
+// Source: /lib/ui/popover/popover.js
 (function(root) {
 
   'use strict';
 
   var availity = root.availity;
 
+  availity.ui.provider('avPopoverConfig', function() {
+
+    var config = {
+      showOnLoadHideDelay: 10000
+    };
+
+    this.set = function(options) {
+      angular.extend(config, options);
+    };
+
+    this.$get = function() {
+      return angular.copy(config);
+    };
+  });
+
   availity.ui.constant('AV_POPOVER', {
     NAME: 'bs.popover'
   });
 
-  availity.ui.controller('AvPopoverController', function($element, $scope, AV_POPOVER) {
+  availity.ui.controller('AvPopoverController', function($element, $scope, AV_POPOVER, $timeout, avPopoverConfig) {
+    this.options = angular.extend({}, avPopoverConfig);
 
     this.listeners = function() {
 
@@ -882,13 +899,37 @@
     this.destroy = function() {
       $element.popover('destroy');
     };
+
+
+    this.init = function() {
+
+      this.listeners();
+
+      if($scope.showOnLoad) {
+
+        this.show();
+
+        if($scope.delay && $scope.delay.hide) {
+          $timeout(this.hide, $scope.delay.hide, false);
+          return;
+        }
+        // If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
+        $timeout(this.hide, this.options.showOnLoadHideDelay, false);
+      }
+    };
+
+
   });
 
   availity.ui.directive('avPopover', function() {
     return {
       restrict: 'A',
       controller: 'AvPopoverController',
-      link: function(scope, element) {
+      scope: {
+        showOnLoad: '=',
+        delay: '='
+      },
+      link: function(scope, element, attrs, avPopover) {
 
         var options = {};
 
@@ -896,6 +937,7 @@
           element.popover(angular.extend({}, options, {
             html: true
           }));
+          avPopover.init();
         });
       }
     };
@@ -903,7 +945,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\messages.js
+// Source: /lib/ui/validation/messages.js
 (function(root) {
 
   'use strict';
@@ -948,7 +990,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter-bootstrap.js
+// Source: /lib/ui/validation/adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1046,7 +1088,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter.js
+// Source: /lib/ui/validation/adapter.js
 (function(root) {
 
   'use strict';
@@ -1096,7 +1138,7 @@
 
 })(window);
 
-// Source: \lib\ui\dropdown\dropdown.js
+// Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
 
   'use strict';
@@ -1489,7 +1531,7 @@
 
 })(window);
 
-// Source: \lib\ui\datepicker\datepicker.js
+// Source: /lib/ui/datepicker/datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1726,7 +1768,7 @@
   });
 })(window);
 
-// Source: \lib\ui\idle\idle-notifier.js
+// Source: /lib/ui/idle/idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1872,7 +1914,7 @@
 
 })(window);
 
-// Source: \lib\ui\mask\mask.js
+// Source: /lib/ui/mask/mask.js
 (function(root) {
 
   'use strict';
@@ -1912,7 +1954,7 @@
 
 })(window);
 
-// Source: \lib\ui\permissions\has-permission.js
+// Source: /lib/ui/permissions/has-permission.js
 (function(root) {
 
   'use strict';
@@ -1961,7 +2003,7 @@
 
 })(window);
 
-// Source: \lib\ui\analytics\analytics.js
+// Source: /lib/ui/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2015,7 +2057,7 @@
 
 })(window);
 
-// Source: \lib\ui\placeholder\placeholder.js
+// Source: /lib/ui/placeholder/placeholder.js
 (function(root) {
 
   'use strict';
@@ -2052,7 +2094,7 @@
   });
 })(window);
 
-// Source: \lib\ui\breadcrumbs\breadcrumbs.js
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2119,7 +2161,7 @@
 
 })(window);
 
-// Source: \lib\ui\filters\approximate.js
+// Source: /lib/ui/filters/approximate.js
 (function(root) {
   'use strict';
 
@@ -2146,7 +2188,7 @@
 
 })(window);
 
-// Source: \lib\ui\badge\badge.js
+// Source: /lib/ui/badge/badge.js
 (function(root) {
   'use strict';
 
@@ -2188,7 +2230,7 @@
 
 })(window);
 
-// Source: \lib\ui\labels\removable-label.js
+// Source: /lib/ui/labels/removable-label.js
 (function(root) {
   'use strict';
 
@@ -2219,7 +2261,7 @@
 
 })(window);
 
-// Source: \lib\ui\animation\loader.js
+// Source: /lib/ui/animation/loader.js
 (function(root) {
 
   'use strict';
@@ -2297,7 +2339,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block.js
+// Source: /lib/ui/block/block.js
 (function(root) {
 
   'use strict';
@@ -2381,7 +2423,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block-directive.js
+// Source: /lib/ui/block/block-directive.js
 (function(root) {
 
   'use strict';
@@ -2408,7 +2450,7 @@
 
 })(window);
 
-// Source: \lib\ui\tabs\tabs.js
+// Source: /lib/ui/tabs/tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */
