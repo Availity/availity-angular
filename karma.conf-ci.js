@@ -8,6 +8,25 @@ module.exports = function(config) {
   // Browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   var customLaunchers = {
+
+    sl_ms_edge: {
+      base: "SauceLabs",
+      browserName: "microsoftedge",
+      platform: "Windows 10",
+    },
+
+    sl_ie_11: {
+      base: "SauceLabs",
+      browserName: "Internet Explorer",
+      platform: "Windows 8.1",
+      version: "11"
+    },
+    sl_ie_10: {
+      base: "SauceLabs",
+      browserName: "Internet Explorer",
+      platform: "Windows 8",
+      version: "10"
+    },
     sl_ie_9: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
@@ -39,7 +58,7 @@ module.exports = function(config) {
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'fixture'],
     reporters: ['mocha', 'saucelabs'],
     port: 9876,
     colors: true,
@@ -51,7 +70,8 @@ module.exports = function(config) {
     browserNoActivityTimeout: 20000,
     singleRun: true,
     preprocessors: {
-      '**/*-tpl.html': ['ng-html2js']
+      '**/*-tpl.html': ['ng-html2js'],
+      '**/*-fixture.html': ['ng-html2js']
     },
     ngHtml2JsPreprocessor: {
       // strip this from the file path
