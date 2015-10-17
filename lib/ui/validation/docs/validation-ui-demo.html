@@ -123,6 +123,17 @@ title: Validation
       <p data-av-val-container id="container-1"></p>
     </div>
     <div class="form-group">
+      <label for="someRequiredField50">Field that show an error immediately</label>
+      <input type="text"
+       class="form-control"
+       id="someRequiredField50"
+       data-ng-model="demo.someRequiredField"
+       data-av-val-field="someRequiredField"
+       data-av-val-show="true"
+      />
+      <p data-av-val-container></p>
+    </div>
+    <div class="form-group">
       <div class="checkbox">
         <input id="demoCheck"
           type="checkbox"
@@ -160,6 +171,9 @@ title: Validation
 
 <!-- Javascript -->
 <script>
+
+/* global availity */
+
 availity.demo.config(function(avAnalyticsProvider, avValProvider) {
 
   var defaultRules = {
