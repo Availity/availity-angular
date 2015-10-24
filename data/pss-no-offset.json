@@ -1,168 +1,219 @@
 {
-  "totalCount" : 560,
-  "count" : 50,
-  "offset" : 0,
-  "limit" : 50,
-  "links" : {
-    "last" : {
-      "href" : "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY&offset=550&limit=50"
+  "totalCount": 560,
+  "count": 50,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "last": {
+      "href": "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY&offset=550&limit=50"
     },
-    "next" : {
-      "href" : "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY&offset=50&limit=50"
+    "next": {
+      "href": "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY&offset=50&limit=50"
     },
-    "self" : {
-      "href" : "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY"
+    "self": {
+      "href": "http://localhost:8280/v1/codes?list=PSSTAXSPCLTY"
     }
   },
-  "codes" : [ {
-    "code" : "252Y00000X",
-    "value" : "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency"
-  }, {
-    "code" : "253J00000X",
-    "value" : "AGENCIES,FOSTER CARE AGENCY,NOT APPLICABLE|Agency"
-  }, {
-    "code" : "251E00000X",
-    "value" : "AGENCIES,HOME HEALTH,NOT APPLICABLE|Home Health Agency"
-  }, {
-    "code" : "251F00000X",
-    "value" : "AGENCIES,HOME INFUSION,NOT APPLICABLE|Home Health Agency"
-  }, {
-    "code" : "251G00000X",
-    "value" : "AGENCIES,HOSPICE CARE, COMMUNITY BASED,NOT APPLICABLE|Hospice"
-  }, {
-    "code" : "253Z00000X",
-    "value" : "AGENCIES,IN HOME SUPPORTIVE CARE,NOT APPLICABLE|Agency"
-  }, {
-    "code" : "251J00000X",
-    "value" : "AGENCIES,NURSING CARE,NOT APPLICABLE|Agency"
-  }, {
-    "code" : "251K00000X",
-    "value" : "AGENCIES,PUBLIC HEALTH OR WELFARE,NOT APPLICABLE|Agency"
-  }, {
-    "code" : "207KA0200X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,ALLERGY|Allergy"
-  }, {
-    "code" : "207KI0005X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,CLINICAL & LABORATORY IMMUNOLOGY|Allergy & Immunology"
-  }, {
-    "code" : "207K00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,NOT APPLICABLE|Allergy & Immunology"
-  }, {
-    "code" : "207LA0401X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,ADDICTION MEDICINE|Anesthesiologist"
-  }, {
-    "code" : "207LC0200X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,CRITICAL CARE MEDICINE|Anesthesiologist"
-  }, {
-    "code" : "207LH0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,HOSPICE AND PALLIATIVE MEDICINE|Anesthesiologist"
-  }, {
-    "code" : "207L00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,NOT APPLICABLE|Anesthesiologist"
-  }, {
-    "code" : "207LP2900X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,PAIN MEDICINE|Pain Management"
-  }, {
-    "code" : "207LP3000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,PEDIATRIC ANESTHESIOLOGY|Anesthesiologist"
-  }, {
-    "code" : "208C00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,COLON & RECTAL SURGERY,NOT APPLICABLE|Colon & Rectal Surgery"
-  }, {
-    "code" : "207NI0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,CLINICAL & LABORATORY DERMATOLOGICAL IMMUNOLOGY|Immunology"
-  }, {
-    "code" : "207ND0900X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,DERMATOPATHOLOGY|Pathology"
-  }, {
-    "code" : "207ND0101X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,MOHS MICROGRAPHIC SURGERY|Dermatology"
-  }, {
-    "code" : "207N00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,NOT APPLICABLE|Dermatology"
-  }, {
-    "code" : "207NP0225X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,PEDIATRIC DERMATOLOGY|Dermatology"
-  }, {
-    "code" : "207NS0135X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,PROCEDURAL DERMATOLOGY|Dermatology"
-  }, {
-    "code" : "207PE0004X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,EMERGENCY MEDICAL SERVICES|Emergency Medicine"
-  }, {
-    "code" : "207PH0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,HOSPICE AND PALLIATIVE MEDICINE|Emergency Medicine"
-  }, {
-    "code" : "207PT0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,MEDICAL TOXICOLOGY|Emergency Medicine"
-  }, {
-    "code" : "207P00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,NOT APPLICABLE|Emergency Medicine"
-  }, {
-    "code" : "207PP0204X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,PEDIATRIC EMERGENCY MEDICINE|Emergency Medicine"
-  }, {
-    "code" : "207PS0010X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,SPORTS MEDICINE|Emergency Medicine"
-  }, {
-    "code" : "207PE0005X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,UNDERSEA AND HYPERBARIC MEDICINE|Emergency Medicine"
-  }, {
-    "code" : "207QB0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,BARIATRIC MEDICINE|Family Practice"
-  }, {
-    "code" : "207QG0300X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,GERIATRIC MEDICINE|Geriatrics"
-  }, {
-    "code" : "207QH0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,HOSPICE AND PALLIATIVE MEDICINE|Family Practice"
-  }, {
-    "code" : "207Q00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,NOT APPLICABLE|Family Practice"
-  }, {
-    "code" : "207QS1201X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,SLEEP MEDICINE|Family Practice"
-  }, {
-    "code" : "207QA0401X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADDICTION MEDICINE|Family Practice"
-  }, {
-    "code" : "207QA0000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADOLESCENT MEDICINE|Adolescent Medicine"
-  }, {
-    "code" : "207QA0505X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADULT MEDICINE|Family Practice"
-  }, {
-    "code" : "207QS0010X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,SPORTS MEDICINE|Sports Medicine"
-  }, {
-    "code" : "208D00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,GENERAL PRACTICE,NOT APPLICABLE|General Practice"
-  }, {
-    "code" : "208M00000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,HOSPITALIST,NOT APPLICABLE|Hospitalist"
-  }, {
-    "code" : "207RA0401X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ADDICTION MEDICINE|Internal Medicine"
-  }, {
-    "code" : "207RA0000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ADOLESCENT MEDICINE|Adolescent Medicine"
-  }, {
-    "code" : "207RA0201X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ALLERGY & IMMUNOLOGY|Allergy & Immunology"
-  }, {
-    "code" : "207RB0002X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,BARIATRIC MEDICINE|Internal Medicine"
-  }, {
-    "code" : "207RC0000X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CARDIOVASCULAR DISEASE|Cardiology / Cardiovascular Disease"
-  }, {
-    "code" : "207RI0001X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CLINICAL & LABORATORY IMMUNOLOGY|Immunology"
-  }, {
-    "code" : "207RC0001X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CLINICAL CARDIAC ELECTROPHYSIOLOGY|Cardiology / Cardiovascular Disease"
-  }, {
-    "code" : "207RC0200X",
-    "value" : "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CRITICAL CARE MEDICINE|Critical Care"
-  } ]
+  "codes": [
+    {
+      "code": "252Y00000X",
+      "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency"
+    },
+    {
+      "code": "253J00000X",
+      "value": "AGENCIES,FOSTER CARE AGENCY,NOT APPLICABLE|Agency"
+    },
+    {
+      "code": "251E00000X",
+      "value": "AGENCIES,HOME HEALTH,NOT APPLICABLE|Home Health Agency"
+    },
+    {
+      "code": "251F00000X",
+      "value": "AGENCIES,HOME INFUSION,NOT APPLICABLE|Home Health Agency"
+    },
+    {
+      "code": "251G00000X",
+      "value": "AGENCIES,HOSPICE CARE, COMMUNITY BASED,NOT APPLICABLE|Hospice"
+    },
+    {
+      "code": "253Z00000X",
+      "value": "AGENCIES,IN HOME SUPPORTIVE CARE,NOT APPLICABLE|Agency"
+    },
+    {
+      "code": "251J00000X",
+      "value": "AGENCIES,NURSING CARE,NOT APPLICABLE|Agency"
+    },
+    {
+      "code": "251K00000X",
+      "value": "AGENCIES,PUBLIC HEALTH OR WELFARE,NOT APPLICABLE|Agency"
+    },
+    {
+      "code": "207KA0200X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,ALLERGY|Allergy"
+    },
+    {
+      "code": "207KI0005X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,CLINICAL & LABORATORY IMMUNOLOGY|Allergy & Immunology"
+    },
+    {
+      "code": "207K00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ALLERGY & IMMUNOLOGY,NOT APPLICABLE|Allergy & Immunology"
+    },
+    {
+      "code": "207LA0401X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,ADDICTION MEDICINE|Anesthesiologist"
+    },
+    {
+      "code": "207LC0200X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,CRITICAL CARE MEDICINE|Anesthesiologist"
+    },
+    {
+      "code": "207LH0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,HOSPICE AND PALLIATIVE MEDICINE|Anesthesiologist"
+    },
+    {
+      "code": "207L00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,NOT APPLICABLE|Anesthesiologist"
+    },
+    {
+      "code": "207LP2900X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,PAIN MEDICINE|Pain Management"
+    },
+    {
+      "code": "207LP3000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,ANESTHESIOLOGY,PEDIATRIC ANESTHESIOLOGY|Anesthesiologist"
+    },
+    {
+      "code": "208C00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,COLON & RECTAL SURGERY,NOT APPLICABLE|Colon & Rectal Surgery"
+    },
+    {
+      "code": "207NI0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,CLINICAL & LABORATORY DERMATOLOGICAL IMMUNOLOGY|Immunology"
+    },
+    {
+      "code": "207ND0900X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,DERMATOPATHOLOGY|Pathology"
+    },
+    {
+      "code": "207ND0101X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,MOHS MICROGRAPHIC SURGERY|Dermatology"
+    },
+    {
+      "code": "207N00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,NOT APPLICABLE|Dermatology"
+    },
+    {
+      "code": "207NP0225X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,PEDIATRIC DERMATOLOGY|Dermatology"
+    },
+    {
+      "code": "207NS0135X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,DERMATOLOGY,PROCEDURAL DERMATOLOGY|Dermatology"
+    },
+    {
+      "code": "207PE0004X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,EMERGENCY MEDICAL SERVICES|Emergency Medicine"
+    },
+    {
+      "code": "207PH0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,HOSPICE AND PALLIATIVE MEDICINE|Emergency Medicine"
+    },
+    {
+      "code": "207PT0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,MEDICAL TOXICOLOGY|Emergency Medicine"
+    },
+    {
+      "code": "207P00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,NOT APPLICABLE|Emergency Medicine"
+    },
+    {
+      "code": "207PP0204X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,PEDIATRIC EMERGENCY MEDICINE|Emergency Medicine"
+    },
+    {
+      "code": "207PS0010X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,SPORTS MEDICINE|Emergency Medicine"
+    },
+    {
+      "code": "207PE0005X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,EMERGENCY MEDICINE,UNDERSEA AND HYPERBARIC MEDICINE|Emergency Medicine"
+    },
+    {
+      "code": "207QB0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,BARIATRIC MEDICINE|Family Practice"
+    },
+    {
+      "code": "207QG0300X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,GERIATRIC MEDICINE|Geriatrics"
+    },
+    {
+      "code": "207QH0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,HOSPICE AND PALLIATIVE MEDICINE|Family Practice"
+    },
+    {
+      "code": "207Q00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,NOT APPLICABLE|Family Practice"
+    },
+    {
+      "code": "207QS1201X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY MEDICINE,SLEEP MEDICINE|Family Practice"
+    },
+    {
+      "code": "207QA0401X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADDICTION MEDICINE|Family Practice"
+    },
+    {
+      "code": "207QA0000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADOLESCENT MEDICINE|Adolescent Medicine"
+    },
+    {
+      "code": "207QA0505X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,ADULT MEDICINE|Family Practice"
+    },
+    {
+      "code": "207QS0010X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,FAMILY PRACTICE,SPORTS MEDICINE|Sports Medicine"
+    },
+    {
+      "code": "208D00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,GENERAL PRACTICE,NOT APPLICABLE|General Practice"
+    },
+    {
+      "code": "208M00000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,HOSPITALIST,NOT APPLICABLE|Hospitalist"
+    },
+    {
+      "code": "207RA0401X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ADDICTION MEDICINE|Internal Medicine"
+    },
+    {
+      "code": "207RA0000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ADOLESCENT MEDICINE|Adolescent Medicine"
+    },
+    {
+      "code": "207RA0201X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,ALLERGY & IMMUNOLOGY|Allergy & Immunology"
+    },
+    {
+      "code": "207RB0002X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,BARIATRIC MEDICINE|Internal Medicine"
+    },
+    {
+      "code": "207RC0000X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CARDIOVASCULAR DISEASE|Cardiology / Cardiovascular Disease"
+    },
+    {
+      "code": "207RI0001X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CLINICAL & LABORATORY IMMUNOLOGY|Immunology"
+    },
+    {
+      "code": "207RC0001X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CLINICAL CARDIAC ELECTROPHYSIOLOGY|Cardiology / Cardiovascular Disease"
+    },
+    {
+      "code": "207RC0200X",
+      "value": "ALLOPATHIC & OSTEOPATHIC PHYSICIANS,INTERNAL MEDICINE,CRITICAL CARE MEDICINE|Critical Care"
+    }
+  ]
 }
