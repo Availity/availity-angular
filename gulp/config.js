@@ -21,7 +21,7 @@ module.exports = {
     targets: ['less/**/*.less'],
     dest: 'build/guide/css',
     destMaps: './maps', // relative to dest folder
-    browsers: ['> 1%', 'last 3 versions', 'ie 8', 'ie 9']
+    browsers: ['> 1%', 'last 3 versions', 'ie 9']
   },
   css: {
     src: 'build/guide/**/*.css',
