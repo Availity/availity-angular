@@ -18,10 +18,10 @@
     "./dist/css/availity-angular.css"
   ],
   "dependencies": {
-    "angular": "1.2.28",
-    "angular-animate": "1.2.28",
+    "angular": "1.4.7",
+    "angular-animate": "1.4.7",
     "angular-block-ui": "0.2.0",
-    "angular-sanitize": "1.2.28",
+    "angular-sanitize": "1.4.7",
     "angular-shims-placeholder": "~0.4.5",
     "angular-ui-router": "~0.2.15",
     "angular-velocity": "~0.3.2",
@@ -30,7 +30,8 @@
     "jquery-ui": "1.11.4",
     "jquery.inputmask": "3.1.63",
     "lodash-compat": "~3.10.1",
-    "tracekit": "~0.3.0"
+    "tracekit": "~0.3.0",
+    "jquery": "~2.1.4"
   },
   "devDependencies": {
     "angular-mocks": "1.4.7",
@@ -48,9 +49,9 @@
   "resolutions": {
     "bootstrap": ">= 3.3.4",
     "angular": "~1.4.7",
-    "angular-animate": "~1.4.7",
-    "angular-mocks": "~1.4.7",
     "jquery": "~2.1.4",
-    "angular-sanitize": "~1.4.7"
+    "angular-sanitize": "~1.4.7",
+    "jquery-ui": "1.11.4",
+    "angular-animate": "1.4.7"
   }
 }
