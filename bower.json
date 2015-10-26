@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "keywords": [
     "availity",
     "angular",
@@ -22,18 +22,19 @@
     "angular-animate": "1.2.28",
     "angular-block-ui": "0.2.0",
     "angular-sanitize": "1.2.28",
-    "angular-shims-placeholder": "0.4.2",
-    "angular-ui-router": "0.2.13",
-    "angular-velocity": "0.3.1",
-    "availity-uikit": "~0.13.1",
-    "blueimp-file-upload": "9.10.1",
+    "angular-shims-placeholder": "~0.4.5",
+    "angular-ui-router": "~0.2.15",
+    "angular-velocity": "~0.3.2",
+    "availity-uikit": "~0.15.0",
+    "blueimp-file-upload": "~9.11.2",
     "jquery-ui": "1.11.4",
     "jquery.inputmask": "3.1.63",
-    "lodash-compat": "3.4.0",
-    "tracekit": "0.2.1"
+    "lodash-compat": "~3.10.1",
+    "tracekit": "~0.3.0"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.28"
+    "angular-mocks": "1.2.28",
+    "jquery.tocify.js": "~1.9.0"
   },
   "ignore": [
     ".*",
@@ -47,6 +48,7 @@
   "resolutions": {
     "bootstrap": ">= 3.3.4",
     "angular": "1.2.28",
-    "angular-animate": "1.2.28"
+    "angular-animate": "1.2.28",
+    "jquery-ui": "1.11.4"
   }
 }

@@ -77,6 +77,8 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
+      './lib/core/validation/validators/validator-phone.js',
+      './lib/core/validation/validators/validator-email.js',
       './lib/core/utils/globals.js',
       './lib/core/analytics/analytics.js',
       './lib/core/analytics/analytics-util.js',
@@ -137,6 +139,9 @@ module.exports = {
   vendor: {
     name: 'vendor.js',
     src: [
+      './bower_components/jquery/jquery.js',
+      './bower_components/jquery-ui/jquery-ui.js',
+      './bower_components/jquery.tocify.js/src/javascripts/jquery.tocify.js',
       './bower_components/bootstrap/dist/js/bootstrap.js',
       './bower_components/lodash-compat/lodash.js',
       './bower_components/moment/moment.js',
@@ -144,6 +149,8 @@ module.exports = {
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       './bower_components/velocity/velocity.js',
       './bower_components/velocity/velocity.ui.js',
+      './bower_components/angular/angular.js',
+      './bower_components/angular-sanitize/angular-sanitize.js',
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-velocity/angular-velocity.js',
       './bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
@@ -214,7 +221,7 @@ module.exports = {
   test: {
     src: [
       'node_modules/sinon/pkg/sinon.js',
-      'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery/jquery.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
