@@ -84,8 +84,7 @@ module.exports = {
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk.js',
       './lib/core/analytics/analytics-piwik.js',
-      './lib/core/analytics/analytics-exceptions.js',
-      './lib/core/utils/date-polyfill.js'
+      './lib/core/analytics/analytics-exceptions.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
