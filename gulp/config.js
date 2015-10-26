@@ -221,7 +221,7 @@ module.exports = {
   test: {
     src: [
       'node_modules/sinon/pkg/sinon.js',
-      'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery/jquery.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
