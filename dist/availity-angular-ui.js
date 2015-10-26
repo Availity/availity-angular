@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.0 -- October-17
+ * availity-angular v1.2.1 -- October-26
  * Copyright 2015 Availity, LLC 
  */
 
@@ -88,6 +88,10 @@
       HIDDEN: 'hidden.av.modal'
     },
 
+    NAMESPACE: {
+      MODAL: 'bs.modal'
+    },
+
     BS_EVENTS:  {
       SHOW: 'show.bs.modal',
       SHOWN: 'shown.bs.modal',
@@ -107,7 +111,6 @@
     };
 
     var proto = AvModalManager.prototype;
-
 
     proto.add = function(id) {
       this.instances.push(id);
@@ -142,7 +145,6 @@
 
       });
     };
-
 
     return new AvModalManager();
 
@@ -183,7 +185,6 @@
 
       this._scope();
 
-
       $compile(this.$element)(scope);
 
       $timeout(function() {
@@ -212,6 +213,7 @@
       this._listeners();
     };
 
+    // Add helpers to scope so clients can call internal methods
     proto._scope = function() {
 
       var self = this;
@@ -237,8 +239,8 @@
       var scope = this.options.scope;
       var $element = this.$element;
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
+      this.animationShowDefer = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       $element.on(AV_MODAL.BS_EVENTS.SHOW, function(event) {
         scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
@@ -250,7 +252,7 @@
           self.options.onShown();
         }
 
-        self.animationDefer.resolve(true);
+        self.animationShowDefer.resolve(true);
 
         scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
       });
@@ -265,6 +267,7 @@
           self.options.onHidden.call(this);
         }
 
+        self.animationHideDefer.resolve(true);
         scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 
         scope.$evalAsync(function() {
@@ -284,54 +287,39 @@
     proto.show = function() {
 
       var self = this;
+      this.animationShowDefer = $q.defer();
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
-
-      return this.templatePromise.then(function() {
-        self.$element.modal('show');
-      }).then(function() {
-        return self.animationPromise;
+      this.templatePromise.then(function() {
+        self.isShown() ? self.animationShowDefer.resolve(true) : self.$element.modal('show');
       });
+
+      return this.animationShowDefer.promise;
 
     };
 
     proto.hide = function() {
 
       var self = this;
-
-      var deferred = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.modal('hide');
-
+        !self.isShown() ? self.animationHideDefer.resolve(true) : self.$element.modal('hide');
       });
 
-      return deferred.promise;
+      return this.animationHideDefer.promise;
     };
+
+    proto.isShown = function() {
+      return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
+    },
 
     proto.toggle = function() {
 
       var self = this;
 
-      var deferred = $q.defer();
-
-      this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.data('modal').toggle();
-
+      return this.templatePromise.then(function() {
+        return self.isShown() ? self.hide() : self.show();
       });
-
-      return deferred.promise;
 
     };
 
@@ -362,7 +350,6 @@
 
     return Modal;
   };
-
 
   availity.ui.factory('AvModal', ModalFactory);
 
@@ -466,7 +453,7 @@
     return {
       restrict: 'A',
       priority: 10,
-      require: ['form', 'avValForm', '?ngSubmit'],
+      require: ['form', 'avValForm'],
       controller: 'avValFormController',
       compile: function() {
         return {

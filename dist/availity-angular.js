@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.0 -- October-17
+ * availity-angular v1.2.1 -- October-26
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.2.0';
+  availity.VERSION = 'v1.2.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
