@@ -19,35 +19,31 @@ module.exports = function(config) {
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   var customLaunchers = {
 
-    // sl_ms_edge: {
-    //   base: "SauceLabs",
-    //   browserName: "microsoftedge",
-    //   platform: "Windows 10",
-    // },
-    // sl_ie_11: {
-    //   base: "SauceLabs",
-    //   browserName: "Internet Explorer",
-    //   platform: "Windows 8.1",
-    //   version: "11"
-    // },
-    // sl_ie_10: {
-    //   base: "SauceLabs",
-    //   browserName: "Internet Explorer",
-    //   platform: "Windows 8",
-    //   version: "10"
-    // },
+    sl_ms_edge: {
+      base: "SauceLabs",
+      browserName: "microsoftedge",
+      platform: "Windows 10",
+    },
+
+    sl_ie_11: {
+      base: "SauceLabs",
+      browserName: "Internet Explorer",
+      platform: "Windows 8.1",
+      version: "11"
+    },
+
+    sl_ie_10: {
+      base: "SauceLabs",
+      browserName: "Internet Explorer",
+      platform: "Windows 8",
+      version: "10"
+    },
 
     sl_ie_9: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
       platform: 'Windows 7',
       version: '9'
-    },
-    sl_ie_8: {
-      base: 'SauceLabs',
-      browserName: 'internet explorer',
-      platform: 'Windows 7',
-      version: '8'
     }
   };
 
