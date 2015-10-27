@@ -1,34 +1,42 @@
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-var jscs = require('gulp-jscs');
+var gulpif = require('gulp-if');
+var eslint = require('gulp-eslint');
+var using = require('gulp-using');
 
 var config = require('../config');
 
 gulp.task('lint', ['lint:js', 'lint:lib', 'lint:ui']);
 
+
 gulp.task('lint:lib', function() {
 
-  gulp.src(config.lib.src.concat(config.lib.specs))
-    .pipe(jscs())
-    .pipe(jshint(config.lib.jshintrc))
-    .pipe(jshint.reporter(stylish));
+  gulp.src(config.js.src)
+    .pipe(gulpif(config.args.verbose, using({
+      prefix: 'Task [lint:lib] using'
+    })))
+    .pipe(eslint('lib/.eslintrc'))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 gulp.task('lint:ui', function() {
 
   gulp.src(config.ui.src.concat(config.ui.specs))
-    .pipe(jscs())
-    .pipe(jshint(config.lib.jshintrc))
-    .pipe(jshint.reporter(stylish));
+    .pipe(gulpif(config.args.verbose, using({
+      prefix: 'Task [lint:lib] using'
+    })))
+    .pipe(eslint('lib/.eslintrc'))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+
 });
 
 gulp.task('lint:js', function() {
 
-  var config = require('../config');
-
   gulp.src(config.js.src)
-    .pipe(jscs())
-    .pipe(jshint(config.js.jshintrc))
-    .pipe(jshint.reporter(stylish));
+    .pipe(gulpif(config.args.verbose, using({
+      prefix: 'Task [lint:lib] using'
+    })))
+    .pipe(eslint('.eslintrc'))
+    .pipe(eslint.format());
 });
