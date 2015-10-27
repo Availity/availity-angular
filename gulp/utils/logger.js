@@ -15,16 +15,20 @@ var log = function(color, args) {
 var logger = {
 
   info: function() {
-    if(!config.args.verbose) {
+
+    if (!config.args.verbose) {
       return;
     }
     var args = Array.prototype.slice.call(arguments);
     log('blue', args);
+
   },
 
   error: function() {
+
     var args = Array.prototype.slice.call(arguments);
     log('red', args);
+
   }
 
 };

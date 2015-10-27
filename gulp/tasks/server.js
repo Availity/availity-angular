@@ -13,7 +13,7 @@ var servers = {
   }
 };
 
-gulp.task('server:rest', function () {
+gulp.task('server:rest', function() {
   var ekko = new Ekko();
   return ekko.start({
     development: {
@@ -27,9 +27,8 @@ gulp.task('server:rest', function () {
 gulp.task('server:sync', ['server:rest'], function(cb) {
   var browserSync = require('browser-sync');
   var url = require('url');
-  var path = require('path');
   var fs = require('fs');
-  var config = require('../config');
+
 
   // Parse out url and create the following config:
   //
@@ -59,7 +58,7 @@ gulp.task('server:sync', ['server:rest'], function(cb) {
         // Middleware #2: Allow web page requests without .html file extension in URLs
         function(req, res, next) {
           var uri = url.parse(req.url);
-          if(uri.pathname.length > 1 && path.extname(uri.pathname) === '' && fs.existsSync('./dest' + uri.pathname + '.html')) {
+          if (uri.pathname.length > 1 && path.extname(uri.pathname) === '' && fs.existsSync('./dest' + uri.pathname + '.html')) {
             req.url = uri.pathname + '.html' + (uri.search || '');
           }
           next();

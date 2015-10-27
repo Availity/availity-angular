@@ -48,7 +48,7 @@ module.exports = {
   lib: {
     name: 'availity-angular.js',
     src: [
-     './lib/core/index.js',
+      './lib/core/index.js',
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',

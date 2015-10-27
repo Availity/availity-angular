@@ -5,7 +5,7 @@ var config = require('../config');
 
 gulp.task('test', ['test:ci']);
 
-gulp.task('test:ci', ['lint'], function (done) {
+gulp.task('test:ci', ['lint'], function(done) {
   var Server = require('karma').Server;
   new Server({
     configFile: path.join(config.project.path, 'karma.conf.js'),
@@ -17,7 +17,7 @@ gulp.task('test:ci', ['lint'], function (done) {
 
 });
 
-gulp.task('test:sauce', ['lint'], function (done) {
+gulp.task('test:sauce', ['lint'], function(done) {
   var Server = require('karma').Server;
   new Server({
     configFile: path.join(config.project.path, 'karma.conf-ci.js'),

@@ -10,7 +10,7 @@ gulp.task('lint', ['lint:js', 'lint:lib', 'lint:ui']);
 
 gulp.task('lint:lib', function() {
 
-  gulp.src(config.js.src)
+  gulp.src(config.lib.src)
     .pipe(gulpif(config.args.verbose, using({
       prefix: 'Task [lint:lib] using'
     })))
