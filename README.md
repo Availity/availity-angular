@@ -19,6 +19,7 @@
 
 
 ## Intro
+
 ##### Directory Layout
 
 >
@@ -34,8 +35,8 @@
 
 
 ## Demo
-[http://demo.availity.com/public/apps/availity-angular](http://demo.availity.com/public/apps/availity-angular)
 
+[http://demo.availity.com/public/apps/availity-angular](http://demo.availity.com/public/apps/availity-angular)
 
 ## Supported Browsers
 
@@ -54,7 +55,7 @@ Install the Availity Angular SDK with Bower.
 $ bower install availity-angular --save
 ```
 
-#### Upgrading from 1.x
+## Upgrading from 1.x
 
 Tha `availity-angular` SDK has been upgraded from Angular 1.2.28 to Angular 1.4.x.  Please review the notes below:
 
