@@ -144,7 +144,7 @@ module.exports = {
       './bower_components/bootstrap/dist/js/bootstrap.js',
       './bower_components/lodash-compat/lodash.js',
       './bower_components/moment/moment.js',
-      './bower_components/select2/select2.js',
+      './bower_components/select2/dist/js/select2.js',
       './bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
       './bower_components/velocity/velocity.js',
       './bower_components/velocity/velocity.ui.js',
