@@ -35,7 +35,6 @@ title: Dropdowns
           data-ng-focus="weFocused"
           data-ng-blur="weBlurred"
           >
-          <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -78,7 +77,6 @@ title: Dropdowns
       data-placeholder="Select State"
       data-allow-clear="true"
       >
-      <option></option>
     </select>
   </div>
   <div class="form-controls">
@@ -219,142 +217,6 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
   </code>
 
   <h3 class="guide-subsection-title">Remote Data</h3>
-  <div data-markdown>
-  > Using remote data requires a **hidden** input field, rather than a select element.
-  </div>
-  <div data-markdown>
-   ### Options
 
-   * `data-format-result` - specify how the data is viewed in the dropdown
-   * `data-format-selection` - specify how the data is viewed when selected
-  </div>
 
-  <div class="guide-example">
-    <form name="dropdownForm">
-      <div class="form-group">
-        <label for="dropdownHosp3">Hospital</label>
-        <input
-          type="hidden"
-          id="dropdownHosp3"
-          class="form-control select2"
-          data-av-dropdown
-          data-ng-model="selectedHosp"
-          data-ng-change="selectAction(selectedHosp)"
-          data-placeholder="Find a procedure code"
-          data-allow-clear="true"
-          data-query="myQuery"
-          data-minimum-input-length="3"
-          data-format-result="myFormatResult"
-          data-format-selection="myFormatResult"
-        >
-      </div>
-      <div class="form-controls">
-        <button
-          type="submit"
-          class="btn btn-default"
-          value="Reset"
-          data-ng-click="resetSingleHosp()"
-          >
-          Reset
-        </button>
-      </div>
-    </form>
-  </div>
-  <code class="language-markup">
-<form name="dropdownForm">
-  <div class="form-group">
-    <label for="dropdownHosp3">Hospital</label>
-    <input
-      type="hidden"
-      id="dropdownHosp3"
-      class="form-control select2"
-      data-av-dropdown
-      data-ng-model="selectedHosp"
-      data-ng-change="selectAction(selectedHosp)"
-      data-placeholder="Select a hospital"
-      data-allow-clear="true"
-      data-ajax="myAjax"
-      data-minimum-input-length="3"
-      data-format-result="myFormatResult"
-      data-format-selection="myFormatResult"
-      >
-  </div>
-  <div class="form-controls">
-    <button
-      type="submit"
-      class="btn btn-default"
-      value="Reset"
-      data-ng-click="resetSingleHosp()"
-      >
-      Reset
-    </button>
-  </div>
-</form>
-<!-- Javascript -->
-<script>
-availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
-  $scope.states = [
-    { id: 'AL', name: 'Alabama' },
-    { id: 'CA', name: 'California' },
-    { id: 'NM', name: 'New Mexico' },
-    { id: 'TX', name: 'Texas' },
-    { id: 'WY', name: 'Wyoming' }
-  ];
-  $scope.selectedState = null;
-  $scope.selectedHosp = null;
-  $scope.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
-
-  $scope.addStates = function() {
-    $scope.states.push({id: 'FL', name: 'Florida'});
-  };
-
-  $scope.setState = function() {
-    $scope.selectedState = $scope.states[$scope.states.length - 1];
-  };
-
-  $scope.resetSingle = function() {
-    $scope.selectedState = null;
-  };
-
-  $scope.resetSingleHosp = function() {
-    $scope.selectedHosp = null;
-  };
-
-  $scope.resetMultiple = function() {
-    $scope.selectedStates = null;
-  };
-
-  $scope.selectAction = function(selection) {
-    $log.info(selection);
-  };
-
-  $scope.weFocused = function() {
-    $log.info("ngFocus event occurred");
-  };
-  $scope.weBlurred = function() {
-    $log.info("ngBlur event occurred");
-  };
-
-  // how it is viewed in the drop down
-  $scope.myFormatResult = function(code) {
-    var markup = '<div class="row">' +
-      '<div class="col-xs-12">'+
-      '<span class="label label-info">' +
-      code.code +
-      '</span> ' +
-      code.value.split("|")[1] +
-      '</div>' +
-      '</div>';
-    return markup;
-  };
-
-  $scope.myQuery = function(data) {
-    data.q = data.term;
-    data.list = 'someList';
-    return avCodesResource.getCodes(data);
-  };
-
-});
-</script>
-  </code>
 </div>
