@@ -144,6 +144,52 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
 </script>
   </code>
 
+  <h3 class="guide-subsection-title">Selectivity Single</h3>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates1">States</label>
+        <select
+          id="dropdownStates1"
+          class="form-control"
+          placeholder="Select a state"
+          data-av-dropdown-2
+          data-ng-model="selectedState"
+          data-ng-options="state.name for state in states"
+          data-ng-change="selectAction(selectedState)"
+          data-placeholder="Select State"
+          data-allow-clear="true"
+          >
+          <option></option>
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          data-ng-click="addStates()"
+        >
+          Add States
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          data-ng-click="setState()"
+        >
+          Set State
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          data-ng-click="resetSingle()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
   <h3 class="guide-subsection-title">Multiple</h3>
   <div class="guide-example">
     <form name="dropdownForm">
@@ -157,7 +203,7 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
           data-ng-model="selectedStates"
           data-ng-options="state.name for state in states"
           data-ng-change="selectAction(selectedStates)"
-          data-placeholder="Select State"
+          data-placeholder="'Select State'"
           data-allow-clear="true"
           >
           <option></option>
@@ -185,7 +231,7 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
         data-ng-model="selectedStates"
         data-ng-options="state.name for state in states"
         data-ng-change="selectAction(selectedStates)"
-        data-placeholder="Select State"
+        data-placeholder="'Select State'"
         data-allow-clear="true"
         >
         <option></option>
@@ -215,6 +261,34 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
 });
 </script>
   </code>
+
+  <h3 class="guide-subsection-title">Selectivity Multiple</h3>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates2">States</label>
+        <select
+          id="dropdownStates2"
+          class="form-control"
+          multiple
+          data-ng-model="selectedStates"
+          data-ng-options="state.name for state in states"
+          data-placeholder="Select State"
+          data-allow-clear="true"
+          >
+          <option></option>
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          data-ng-click="resetMultiple()"
+        >Set Null</button>
+      </div>
+    </form>
+  </div>
 
   <h3 class="guide-subsection-title">Remote Data</h3>
 

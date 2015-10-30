@@ -1,3 +1,5 @@
+@selectivity-path: "../bower_components/Selectivity.js/dist/";
+@import (less) "@{selectivity-path}/selectivity-full.css";
 
 @import 'availity-scaffolding.less';
 
@@ -11,6 +13,28 @@
   z-index: 1011;
 }
 
+// Select2
+
 [aria-selected="true"] {
-  display:none;
+  display: none;
 }
+
+// Selectivity
+
+.selectivity-single-select {
+  background-color: #eee;
+  padding: 2px;
+}
+
+.selectivity-single-result-container {
+  top: 0.6rem;
+}
+
+.form-control {
+  &.selectivity-input {
+    width: 100%;
+    padding: 0;
+    display: block;
+  }
+}
+
