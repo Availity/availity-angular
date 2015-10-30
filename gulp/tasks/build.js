@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 var gulp = require('gulp');
 var frontMatter = require('gulp-front-matter');
 var _ = require('lodash');
@@ -37,11 +38,11 @@ gulp.task('build:handlebars:partials', function() {
   });
 
   Handlebars.registerHelper('is', function(a, b, opts) {
-    if(a === b) {
+    if (a === b) {
       return opts.fn(this);
-    } else {
-      return opts.inverse(this);
     }
+
+    return opts.inverse(this);
   });
 
   // http://funkjedi.com/technology/412-every-nth-item-in-handlebars/
@@ -49,9 +50,9 @@ gulp.task('build:handlebars:partials', function() {
     var out = '';
     var subcontext = [];
     var i;
-    if(context && context.length > 0) {
-      for(i = 0; i < context.length; i++) {
-        if(i > 0 && i % every === 0) {
+    if (context && context.length > 0) {
+      for (i = 0; i < context.length; i++) {
+        if (i > 0 && i % every === 0) {
           out += options.fn(subcontext);
           subcontext = [];
         }
@@ -66,7 +67,7 @@ gulp.task('build:handlebars:partials', function() {
 gulp.task('build:docs', function() {
 
   return gulp.src(config.docs.all.src)
-    .pipe(gulpif(config.args.verbose, using({prefix:'`build:docs` [dest] using'})))
+    .pipe(gulpif(config.args.verbose, using({prefix: '[build:docs] using'})))
     .pipe(frontMatter()).on('data', function(file) {
       _.assign(file, file.frontMatter);
       delete file.frontMatter;
@@ -100,15 +101,15 @@ gulp.task('build:docs', function() {
     )
     // only include full pages and ignore page snippets in dest build folder
     .pipe(filter(['*', '!**/*-demo.html']))
-    .pipe(gulpif(config.args.verbose, using({prefix:'`build:docs` [dest] using'})))
+    .pipe(gulpif(config.args.verbose, using({prefix: ' [build:docs] using'})))
     .pipe(rename(function(file) {
-      if(!/\.hbs/.test(file.extname)) {
+      if (!/\.hbs/.test(file.extname)) {
         return;
       }
       file.extname = '.html';
     }))
     .pipe(gulp.dest(config.docs.dest))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream: true}));
 
 });
 
@@ -125,7 +126,7 @@ gulp.task('build:templates', function() {
       module: 'availity.ui.templates'
     }))
     .pipe(header('(function() {\n\'use strict\';\n'))
-    .pipe(footer("\nvar availity = window.availity || {}; if(typeof module !== 'undefined' && module.exports) {module.exports = availity; } })();\n"))
+    .pipe(footer("\nvar availity = window.availity || {}; if (typeof module !== 'undefined' && module.exports) {module.exports = availity; } })();\n"))
     .pipe(gulp.dest(config.templates.dest))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream: true}));
 });

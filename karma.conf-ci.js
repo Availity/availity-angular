@@ -1,16 +1,17 @@
-var config = require('./gulp/config');
+var _config = require('./gulp/config');
 
-var files = config.test.src
-  .concat(config.lib.src)
-  .concat(config.ui.src)
-  .concat(config.lib.specs)
-  .concat(config.ui.specs)
+var files = _config.test.src
+  .concat(_config.lib.src)
+  .concat(_config.ui.src)
+  .concat(_config.lib.specs)
+  .concat(_config.ui.specs)
   .concat('lib/**/*-tpl.html')
   .concat('lib/**/*-fixture.html');
 
 module.exports = function(config) {
 
   if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
+    /* eslint no-console: 0 */
     console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
     process.exit(1);
   }
@@ -20,23 +21,23 @@ module.exports = function(config) {
   var customLaunchers = {
 
     sl_ms_edge: {
-      base: "SauceLabs",
-      browserName: "microsoftedge",
-      platform: "Windows 10",
+      base: 'SauceLabs',
+      browserName: 'microsoftedge',
+      platform: 'Windows 10'
     },
 
     sl_ie_11: {
-      base: "SauceLabs",
-      browserName: "Internet Explorer",
-      platform: "Windows 8.1",
-      version: "11"
+      base: 'SauceLabs',
+      browserName: 'Internet Explorer',
+      platform: 'Windows 8.1',
+      version: '11'
     },
 
     sl_ie_10: {
-      base: "SauceLabs",
-      browserName: "Internet Explorer",
-      platform: "Windows 8",
-      version: "10"
+      base: 'SauceLabs',
+      browserName: 'Internet Explorer',
+      platform: 'Windows 8',
+      version: '10'
     },
 
     sl_ie_9: {
@@ -50,10 +51,10 @@ module.exports = function(config) {
   var sauceLabs = {
     startConnect: false,
     testName: 'availity-angular',
-    recordScreenshots: false,
+    recordScreenshots: false
   };
 
-  if(process.env.TRAVIS_JOB_NUMBER) {
+  if (process.env.TRAVIS_JOB_NUMBER) {
     sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
   } else {
     sauceLabs.startConnect = true;
