@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.1.0 -- October-12
+ * availity-angular v1.1.0 -- November-03
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: \lib\core\index.js
+// Source: /lib/core/index.js
 
 
 (function(root) {
@@ -38,7 +38,7 @@
 })(window);
 
 
-// Source: \lib\core\utils\strings.js
+// Source: /lib/core/utils/strings.js
 (function(root) {
 
   'use strict';
@@ -60,7 +60,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\uuid.js
+// Source: /lib/core/utils/uuid.js
 (function(root) {
 
   'use strict';
@@ -93,7 +93,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\urls.js
+// Source: /lib/core/utils/urls.js
 (function(root) {
 
   'use strict';
@@ -113,7 +113,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\print.js
+// Source: /lib/core/utils/print.js
 (function(root) {
 
   'use strict';
@@ -133,7 +133,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\throttle.js
+// Source: /lib/core/utils/throttle.js
 // Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
 
 (function(root) {
@@ -188,7 +188,7 @@
 
 })(window);
 
-// Source: \lib\core\logger\logger.js
+// Source: /lib/core/logger/logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -358,7 +358,7 @@
 
 })(window);
 
-// Source: \lib\core\logger\logger-config.js
+// Source: /lib/core/logger/logger-config.js
 (function(root) {
 
   'use strict';
@@ -375,7 +375,7 @@
 
 })(window);
 
-// Source: \lib\core\polling\polling.js
+// Source: /lib/core/polling/polling.js
 (function(root) {
   'use strict';
 
@@ -633,7 +633,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-factory.js
+// Source: /lib/core/api/api-factory.js
 (function(root) {
 
   'use strict';
@@ -929,7 +929,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-users.js
+// Source: /lib/core/api/api-users.js
 (function(root) {
   'use strict';
 
@@ -962,7 +962,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-coverages.js
+// Source: /lib/core/api/api-coverages.js
 (function(root) {
 
   'use strict';
@@ -975,7 +975,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-configurations.js
+// Source: /lib/core/api/api-configurations.js
 (function(root) {
 
   'use strict';
@@ -988,7 +988,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-log-messages.js
+// Source: /lib/core/api/api-log-messages.js
 (function(root) {
 
   'use strict';
@@ -1047,7 +1047,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-documents.js
+// Source: /lib/core/api/api-documents.js
 (function(root) {
 
   'use strict';
@@ -1082,7 +1082,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-organizations.js
+// Source: /lib/core/api/api-organizations.js
 (function(root) {
 
   'use strict';
@@ -1112,7 +1112,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-codes.js
+// Source: /lib/core/api/api-codes.js
 (function(root) {
 
   'use strict';
@@ -1180,7 +1180,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-user-permissions.js
+// Source: /lib/core/api/api-user-permissions.js
 (function(root) {
 
   'use strict';
@@ -1225,7 +1225,7 @@
 
 })(window);
 
-// Source: \lib\core\authorizations\user-authorizations.js
+// Source: /lib/core/authorizations/user-authorizations.js
 (function(root) {
   'use strict';
 
@@ -1367,7 +1367,7 @@
 
 })(window);
 
-// Source: \lib\core\session\session.js
+// Source: /lib/core/session/session.js
 (function(root) {
   'use strict';
 
@@ -1411,7 +1411,7 @@
 
 })(window);
 
-// Source: \lib\core\idle\idle.js
+// Source: /lib/core/idle/idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
 //
 // Rules:
@@ -1713,7 +1713,7 @@
 
 })(window);
 
-// Source: \lib\core\idle\idle-interceptor.js
+// Source: /lib/core/idle/idle-interceptor.js
 (function(root) {
 
   'use strict';
@@ -1738,7 +1738,7 @@
 
 })(window);
 
-// Source: \lib\core\validation\validator.js
+// Source: /lib/core/validation/validator.js
 (function(root) {
 
   'use strict';
@@ -1898,7 +1898,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-utils.js
+// Source: /lib/core/validation/validators/validator-utils.js
 (function(root) {
 
   'use strict';
@@ -1922,7 +1922,7 @@
 })(window);
 
 
-// Source: \lib\core\validation\validators\validator-size.js
+// Source: /lib/core/validation/validators/validator-size.js
 (function(root) {
 
   'use strict';
@@ -1965,7 +1965,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-pattern.js
+// Source: /lib/core/validation/validators/validator-pattern.js
 (function(root) {
   'use strict';
 
@@ -2011,7 +2011,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-required.js
+// Source: /lib/core/validation/validators/validator-required.js
 (function(root) {
 
   'use strict';
@@ -2051,7 +2051,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-date-range.js
+// Source: /lib/core/validation/validators/validator-date-range.js
 (function(root) {
 
   'use strict';
@@ -2123,7 +2123,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-date-format.js
+// Source: /lib/core/validation/validators/validator-date-format.js
 (function(root) {
 
   'use strict';
@@ -2143,7 +2143,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-phone.js
+// Source: /lib/core/validation/validators/validator-phone.js
 (function(root) {
   'use strict';
 
@@ -2165,7 +2165,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-email.js
+// Source: /lib/core/validation/validators/validator-email.js
 (function(root) {
   'use strict';
 
@@ -2187,7 +2187,7 @@
   });
 })(window);
 
-// Source: \lib\core\utils\globals.js
+// Source: /lib/core/utils/globals.js
 (function(root) {
 
   'use strict';
@@ -2405,7 +2405,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics.js
+// Source: /lib/core/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2534,7 +2534,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-util.js
+// Source: /lib/core/analytics/analytics-util.js
 (function(root) {
   'use strict';
 
@@ -2616,7 +2616,7 @@
   });
 })(window);
 
-// Source: \lib\core\analytics\analytics-splunk.js
+// Source: /lib/core/analytics/analytics-splunk.js
 (function(root) {
   'use strict';
 
@@ -2651,7 +2651,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-piwik.js
+// Source: /lib/core/analytics/analytics-piwik.js
 (function(root) {
   'use strict';
 
@@ -2781,7 +2781,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-exceptions.js
+// Source: /lib/core/analytics/analytics-exceptions.js
 
 
 (function(root) {
@@ -2926,7 +2926,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\date-polyfill.js
+// Source: /lib/core/utils/date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 //
@@ -2961,5 +2961,178 @@
   }
 
 })(window);
+
+// Source: /lib/core/messages/messages-constants.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_MESSAGES', {
+    EVENTS: {
+      MESSAGE: 'message',
+      RESIZE: 'av:window:resize',
+      RECEIVED: 'av:message:received',
+      _MAXIMIZE: 'nav:left:hide',  // @deprecated,
+      _MINIMIZE: 'nav:left:hide',  // @deprecated
+      MAXIMIZE: 'av:window:maximize',
+      MINIMIZE: 'av:window:minimize',
+      LOGIN: 'av:login',
+      LOGOUT: 'av:logout',
+      SESSION_TIMEOUT: 'av:session:timeout'
+    },
+    DOMAIN: /^https:\/\/[^.\s]+\.availity\.com$/gi
+  });
+
+})(window);
+
+// Source: /lib/core/messages/messages.js
+
+
+// https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('avMessages', function() {
+
+    var enabled = true;
+
+    var sender;
+
+    this.enable = function(value) {
+      if(arguments.length) {
+        enabled = !!value;
+      }
+      return enabled;
+    };
+
+    this.setSender = function(iframeName) {
+      sender = iframeName;
+      return sender;
+    };
+
+    this.$get = function($window, $rootScope, $log, AV_MESSAGES) {
+
+      var AvMessages = function() {
+
+      };
+
+      var proto = AvMessages.prototype;
+
+      proto.init = function() {
+
+        var self = this;
+
+        $(window).on(AV_MESSAGES.EVENTS.MESSAGE, this.onMessage);
+
+        // this.send(AV_MESSAGES.EVENTS._MAXIMIZE);
+
+        // window.onbeforeunload = function() {
+        //   self.send(AV_MESSAGES.EVENTS._MINIMIZE);
+        // };
+
+      };
+
+      proto.destroy = function() {
+        $(window).off(AV_MESSAGES.EVENTS.MESSAGE);
+        delete window.onbeforeunload;
+      };
+
+
+
+      proto.onResize = function() {
+
+      };
+
+      proto.isEnabled = function() {
+        return enabled;
+      };
+
+      proto.onMessage = function(event) {
+        var message;
+        event = event.originalEvent || event;
+
+        //test domain
+        // if(!AV_MESSAGES.DOMAIN.test(event.origin)) {
+        //   $log.warn('avMessages rejected a cross domain message since it does not match an availity.com domain or subdomain');
+        //   return;
+        // }
+
+        if(event && event.data) {
+          message = null;
+          try{
+            message = angular.fromJson(event.data);
+          } catch(error){
+            $log.error('avMessages.onMessage()', error);
+            message.error = error;
+          }
+          $rootScope.$root.$broadcast(AV_MESSAGES.EVENTS.RECEIVED, message);
+        }
+      };
+
+      proto.isIframe = function() {
+
+        try {
+          return window.self !== window.top;
+        } catch(e) {
+          // no op
+        }
+
+        return true;
+
+      };
+
+      proto.domain = function() {
+
+        var win = root;
+
+        if(win.location.origin) {
+          return win.location.origin;
+        }
+
+        if(win.location.hostname) {
+          return win.location.protocol + '//' + win.location.hostname + (win.location.port ? ':' + win.location.port : '');
+        } else {
+          return '*';
+        }
+
+      };
+
+      proto.send = function(event, data) {
+        var destination = window.parent;
+        var iframe = $(sender)[0];
+        if(iframe){
+          destination = iframe.contentWindow ? iframe.contentWindow : iframe.contentDocument.defaultView;
+        }
+
+        var message = JSON.stringify(data);
+
+        try {
+          destination.postMessage(message, '*');
+        }catch(err) {
+          $log.error('avMessages.send() ', err);
+        }
+      }
+
+      return new AvMessages();
+
+    };
+
+  });
+
+  availity.core.run(function(avMessages) {
+
+    if(avMessages.isEnabled()) {
+      avMessages.init();
+    }
+
+  });
+
+})(window);
+
 
 //# sourceMappingURL=maps/availity-angular.js.map
