@@ -11,7 +11,7 @@ notifications:
   email: false
 branches:
   except:
-    - feature/upgrade-angular
+    - feature/v2
 before_install:
   - npm install --quiet -g bower
   - npm install --quiet -g gulp
