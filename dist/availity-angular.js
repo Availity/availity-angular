@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.1.0 -- November-03
+ * availity-angular v1.1.0 -- November-06
  * Copyright 2015 Availity, LLC 
  */
 
@@ -3029,11 +3029,11 @@
 
         $(window).on(AV_MESSAGES.EVENTS.MESSAGE, this.onMessage);
 
-        // this.send(AV_MESSAGES.EVENTS._MAXIMIZE);
+        this.send(AV_MESSAGES.EVENTS._MAXIMIZE);
 
-        // window.onbeforeunload = function() {
-        //   self.send(AV_MESSAGES.EVENTS._MINIMIZE);
-        // };
+        window.onbeforeunload = function() {
+          self.send(AV_MESSAGES.EVENTS._MINIMIZE);
+        };
 
       };
 
@@ -3041,8 +3041,6 @@
         $(window).off(AV_MESSAGES.EVENTS.MESSAGE);
         delete window.onbeforeunload;
       };
-
-
 
       proto.onResize = function() {
 
@@ -3109,10 +3107,15 @@
           destination = iframe.contentWindow ? iframe.contentWindow : iframe.contentDocument.defaultView;
         }
 
-        var message = JSON.stringify(data);
+        var message = {
+          event: event,
+        };
+        if(data){
+          message.message = data;
+        }
 
         try {
-          destination.postMessage(message, '*');
+          destination.postMessage(JSON.stringify(message), '*');
         }catch(err) {
           $log.error('avMessages.send() ', err);
         }
