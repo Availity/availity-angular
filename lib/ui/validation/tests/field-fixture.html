@@ -1,0 +1,17 @@
+<form name="myForm" data-av-val-form="default">
+  <input data-ng-model="demo.firstName" name="firstName" type="text" data-av-val-field="firstName"/>
+  <div id="lastNameFormGroup" class="form-group">
+    <label for="lastName">Last Name</label>
+    <input id="lastName" data-ng-model="demo.lastName" class="form-control" name="lastName" type="text" data-av-val-field="lastName"/>
+    <p id="lastNameErrorMessage" data-av-val-container></p>
+  </div>
+  <input data-ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" data-av-val-field="lastName" data-av-val-invalid="true"/>
+  <div id="showOnLoadFormGroup" class="form-group">
+    <input data-ng-model="demo.showOnLoad" name="showOnLoad" type="text" data-av-val-field="lastName" data-av-val-show="true"/>
+    <p data-av-val-container></p>
+  </div>
+  <input data-ng-model="demo.city" name="city" type="text"/>
+  <input data-ng-model="demo.state" name="state" type="text"/>
+  <input data-ng-model="demo.zip" name="zip"  type="text" data-av-val-field="zip" data-av-val-on="blur"/>
+  <input data-ng-model="demo.date" name="date" type="text" data-av-datepicker data-av-val-field="dateFormat">
+</form>;

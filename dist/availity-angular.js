@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.1.0 -- November-06
+ * availity-angular v1.2.2 -- November-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.1.0';
+  availity.VERSION = 'v1.2.2';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -2561,6 +2561,14 @@
       return props;
     };
 
+    // Function detects external links in order to allow the analytics framework to run
+    // before the browser follows a link.
+    //
+    //    - target="_self" - This opens an anchor in the same frame
+    //    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
+    //    - target="_top" - Opens the link as top document in the browser window
+    //    - target="_blank" - Opens link in new tab new tab
+    //
     proto.isExternalLink = function(attrs) {
       return attrs.href && !attrs.ngClick;
     };
@@ -3054,17 +3062,19 @@
         var message;
         event = event.originalEvent || event;
 
-        //test domain
-        // if(!AV_MESSAGES.DOMAIN.test(event.origin)) {
-        //   $log.warn('avMessages rejected a cross domain message since it does not match an availity.com domain or subdomain');
-        //   return;
-        // }
+        if(__PROD__) {
+          //test domain
+          if(!AV_MESSAGES.DOMAIN.test(event.origin)) {
+            $log.warn('avMessages rejected a cross domain message since it does not match an availity.com domain or subdomain');
+            return;
+          }
+        }
 
         if(event && event.data) {
           message = null;
-          try{
+          try {
             message = angular.fromJson(event.data);
-          } catch(error){
+          } catch(error) {
             $log.error('avMessages.onMessage()', error);
             message.error = error;
           }
@@ -3073,15 +3083,7 @@
       };
 
       proto.isIframe = function() {
-
-        try {
-          return window.self !== window.top;
-        } catch(e) {
-          // no op
-        }
-
-        return true;
-
+        return window.self !== window.parent;
       };
 
       proto.domain = function() {
@@ -3103,23 +3105,29 @@
       proto.send = function(event, data) {
         var destination = window.parent;
         var iframe = $(sender)[0];
-        if(iframe){
+        if(iframe) {
           destination = iframe.contentWindow ? iframe.contentWindow : iframe.contentDocument.defaultView;
+        }else if(!this.isIframe()) {
+          return;
         }
 
         var message = {
-          event: event,
+          event: event
         };
-        if(data){
+        if(data) {
           message.message = data;
         }
 
         try {
-          destination.postMessage(JSON.stringify(message), '*');
+          if(__PROD__) {
+            destination.postMessage(JSON.stringify(message), AV_MESSAGES.DOMAIN);
+          }else {
+            destination.postMessage(JSON.stringify(message), '*');
+          }
         }catch(err) {
           $log.error('avMessages.send() ', err);
         }
-      }
+      };
 
       return new AvMessages();
 
