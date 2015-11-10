@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.2 -- November-09
+ * availity-angular v1.2.2 -- November-10
  * Copyright 2015 Availity, LLC 
  */
 
@@ -2990,7 +2990,7 @@
       LOGOUT: 'av:logout',
       SESSION_TIMEOUT: 'av:session:timeout'
     },
-    DOMAIN: /^https:\/\/[^.\s]+\.availity\.com$/gi
+    DOMAIN: /^http:\/\/[^.\s]+\.availity\.com$/gi
   });
 
 })(window);
@@ -3009,6 +3009,8 @@
 
     var enabled = true;
 
+    var prod = true;
+
     var sender;
 
     this.enable = function(value) {
@@ -3021,6 +3023,11 @@
     this.setSender = function(iframeName) {
       sender = iframeName;
       return sender;
+    };
+
+    this.setProd = function(value) {
+      prod = value;
+      return prod;
     };
 
     this.$get = function($window, $rootScope, $log, AV_MESSAGES) {
@@ -3062,7 +3069,7 @@
         var message;
         event = event.originalEvent || event;
 
-        if(__PROD__) {
+        if(prod) {
           //test domain
           if(!AV_MESSAGES.DOMAIN.test(event.origin)) {
             $log.warn('avMessages rejected a cross domain message since it does not match an availity.com domain or subdomain');
@@ -3119,7 +3126,7 @@
         }
 
         try {
-          if(__PROD__) {
+          if(prod) {
             destination.postMessage(JSON.stringify(message), AV_MESSAGES.DOMAIN);
           }else {
             destination.postMessage(JSON.stringify(message), '*');
