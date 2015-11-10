@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.2.0 -- October-17
+ * availity-angular v1.2.2 -- November-05
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: /lib/ui/index.js
+// Source: \lib\ui\index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: /lib/ui/templates/template.js
+// Source: \lib\ui\templates\template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: /lib/ui/modal/modal.js
+// Source: \lib\ui\modal\modal.js
 (function(root) {
 
   'use strict';
@@ -88,6 +88,10 @@
       HIDDEN: 'hidden.av.modal'
     },
 
+    NAMESPACE: {
+      MODAL: 'bs.modal'
+    },
+
     BS_EVENTS:  {
       SHOW: 'show.bs.modal',
       SHOWN: 'shown.bs.modal',
@@ -107,7 +111,6 @@
     };
 
     var proto = AvModalManager.prototype;
-
 
     proto.add = function(id) {
       this.instances.push(id);
@@ -142,7 +145,6 @@
 
       });
     };
-
 
     return new AvModalManager();
 
@@ -183,7 +185,6 @@
 
       this._scope();
 
-
       $compile(this.$element)(scope);
 
       $timeout(function() {
@@ -212,6 +213,7 @@
       this._listeners();
     };
 
+    // Add helpers to scope so clients can call internal methods
     proto._scope = function() {
 
       var self = this;
@@ -237,8 +239,8 @@
       var scope = this.options.scope;
       var $element = this.$element;
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
+      this.animationShowDefer = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       $element.on(AV_MODAL.BS_EVENTS.SHOW, function(event) {
         scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
@@ -250,7 +252,7 @@
           self.options.onShown();
         }
 
-        self.animationDefer.resolve(true);
+        self.animationShowDefer.resolve(true);
 
         scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
       });
@@ -265,6 +267,7 @@
           self.options.onHidden.call(this);
         }
 
+        self.animationHideDefer.resolve(true);
         scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 
         scope.$evalAsync(function() {
@@ -284,54 +287,39 @@
     proto.show = function() {
 
       var self = this;
+      this.animationShowDefer = $q.defer();
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
-
-      return this.templatePromise.then(function() {
-        self.$element.modal('show');
-      }).then(function() {
-        return self.animationPromise;
+      this.templatePromise.then(function() {
+        self.isShown() ? self.animationShowDefer.resolve(true) : self.$element.modal('show');
       });
+
+      return this.animationShowDefer.promise;
 
     };
 
     proto.hide = function() {
 
       var self = this;
-
-      var deferred = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.modal('hide');
-
+        !self.isShown() ? self.animationHideDefer.resolve(true) : self.$element.modal('hide');
       });
 
-      return deferred.promise;
+      return this.animationHideDefer.promise;
     };
+
+    proto.isShown = function() {
+      return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
+    },
 
     proto.toggle = function() {
 
       var self = this;
 
-      var deferred = $q.defer();
-
-      this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.data('modal').toggle();
-
+      return this.templatePromise.then(function() {
+        return self.isShown() ? self.hide() : self.show();
       });
-
-      return deferred.promise;
 
     };
 
@@ -363,7 +351,6 @@
     return Modal;
   };
 
-
   availity.ui.factory('AvModal', ModalFactory);
 
   availity.ui.directive('avModal', function(AV_MODAL) {
@@ -380,7 +367,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/form.js
+// Source: \lib\ui\validation\form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -466,7 +453,7 @@
     return {
       restrict: 'A',
       priority: 10,
-      require: ['form', 'avValForm', '?ngSubmit'],
+      require: ['form', 'avValForm'],
       controller: 'avValFormController',
       compile: function() {
         return {
@@ -576,7 +563,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/field.js
+// Source: \lib\ui\validation\field.js
 (function(root) {
 
   'use strict';
@@ -836,7 +823,7 @@
 
 })(window);
 
-// Source: /lib/ui/popover/popover.js
+// Source: \lib\ui\popover\popover.js
 (function(root) {
 
   'use strict';
@@ -945,7 +932,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/messages.js
+// Source: \lib\ui\validation\messages.js
 (function(root) {
 
   'use strict';
@@ -990,7 +977,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter-bootstrap.js
+// Source: \lib\ui\validation\adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1088,7 +1075,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter.js
+// Source: \lib\ui\validation\adapter.js
 (function(root) {
 
   'use strict';
@@ -1138,7 +1125,7 @@
 
 })(window);
 
-// Source: /lib/ui/dropdown/dropdown.js
+// Source: \lib\ui\dropdown\dropdown.js
 (function(root) {
 
   'use strict';
@@ -1531,7 +1518,7 @@
 
 })(window);
 
-// Source: /lib/ui/datepicker/datepicker.js
+// Source: \lib\ui\datepicker\datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1540,6 +1527,23 @@
   'use strict';
 
   var availity = root.availity;
+
+  availity.ui.provider('avDatepickerConfig', function() {
+    var config = {
+      autoclose: true,
+      todayHighlight: true,
+      format: 'mm/dd/yyyy',
+      forceParse: false
+    };
+
+    this.set = function(options) {
+      angular.extend(config, options);
+    };
+
+    this.$get = function() {
+      return angular.copy(config);
+    };
+  });
 
   // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
   availity.ui.constant('AV_DATEPICKER', {
@@ -1577,15 +1581,11 @@
       'modelFormat'
     ],
     DEFAULTS: {
-      FORMAT: 'mm/dd/yyyy',
-      CLOSE: true,
-      TODAY: true,
-      FORCEPARSE: false,
       MODELFORMAT: 'YYYY-MM-DD'
     }
   });
 
-  availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_DATEPICKER, $scope) {
+  availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_DATEPICKER, $scope, avDatepickerConfig) {
 
     var self = this;
     this.options = {};
@@ -1658,18 +1658,13 @@
 
     this.init = function() {
 
+      self.options = angular.extend({}, avDatepickerConfig);
+
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
-
-      // self.options = _.extend{}, optionsDefault, userOptions);
-
-      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFAULTS.CLOSE;
-      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
-      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
-      self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
 
       if(self.options.modelFormat && self.options.modelFormat.toLowerCase() === 'default') {
         self.options.modelFormat = AV_DATEPICKER.DEFAULTS.MODELFORMAT;
@@ -1768,7 +1763,7 @@
   });
 })(window);
 
-// Source: /lib/ui/idle/idle-notifier.js
+// Source: \lib\ui\idle\idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1914,7 +1909,7 @@
 
 })(window);
 
-// Source: /lib/ui/mask/mask.js
+// Source: \lib\ui\mask\mask.js
 (function(root) {
 
   'use strict';
@@ -1954,7 +1949,7 @@
 
 })(window);
 
-// Source: /lib/ui/permissions/has-permission.js
+// Source: \lib\ui\permissions\has-permission.js
 (function(root) {
 
   'use strict';
@@ -2003,7 +1998,7 @@
 
 })(window);
 
-// Source: /lib/ui/analytics/analytics.js
+// Source: \lib\ui\analytics\analytics.js
 (function(root) {
   'use strict';
 
@@ -2057,7 +2052,7 @@
 
 })(window);
 
-// Source: /lib/ui/placeholder/placeholder.js
+// Source: \lib\ui\placeholder\placeholder.js
 (function(root) {
 
   'use strict';
@@ -2094,7 +2089,7 @@
   });
 })(window);
 
-// Source: /lib/ui/breadcrumbs/breadcrumbs.js
+// Source: \lib\ui\breadcrumbs\breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2161,7 +2156,7 @@
 
 })(window);
 
-// Source: /lib/ui/filters/approximate.js
+// Source: \lib\ui\filters\approximate.js
 (function(root) {
   'use strict';
 
@@ -2188,7 +2183,7 @@
 
 })(window);
 
-// Source: /lib/ui/badge/badge.js
+// Source: \lib\ui\badge\badge.js
 (function(root) {
   'use strict';
 
@@ -2230,7 +2225,7 @@
 
 })(window);
 
-// Source: /lib/ui/labels/removable-label.js
+// Source: \lib\ui\labels\removable-label.js
 (function(root) {
   'use strict';
 
@@ -2261,7 +2256,7 @@
 
 })(window);
 
-// Source: /lib/ui/animation/loader.js
+// Source: \lib\ui\animation\loader.js
 (function(root) {
 
   'use strict';
@@ -2339,7 +2334,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block.js
+// Source: \lib\ui\block\block.js
 (function(root) {
 
   'use strict';
@@ -2423,7 +2418,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block-directive.js
+// Source: \lib\ui\block\block-directive.js
 (function(root) {
 
   'use strict';
@@ -2450,7 +2445,7 @@
 
 })(window);
 
-// Source: /lib/ui/tabs/tabs.js
+// Source: \lib\ui\tabs\tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */

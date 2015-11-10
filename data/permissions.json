@@ -882,7 +882,8 @@
       "id": "7166",
       "description": "New Eligibility and Benefits Inquiry",
       "organizationIds": [
-        "1435", "100765"
+        "1435",
+        "100765"
       ],
       "geographies": [
         "HI",
