@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Bobby Bennett",
-      "email": "bbennett8609@gmail.com"
+      "email": "Bobby.Bennett@availity.com"
     },
     {
       "name": "Javier Fernandez-Ivern",
-      "email": "javier@ivern.org"
+      "email": "Javier.FernandezIvern@availity.com"
     }
   ],
   "license": "MIT",
