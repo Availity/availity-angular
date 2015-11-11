@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.2.2 -- November-05
+ * availity-angular v1.2.3 -- November-11
  * Copyright 2015 Availity, LLC 
  */
 
-// Source: \lib\ui\index.js
+// Source: /lib/ui/index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: \lib\ui\templates\template.js
+// Source: /lib/ui/templates/template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: \lib\ui\modal\modal.js
+// Source: /lib/ui/modal/modal.js
 (function(root) {
 
   'use strict';
@@ -367,7 +367,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\form.js
+// Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -563,7 +563,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\field.js
+// Source: /lib/ui/validation/field.js
 (function(root) {
 
   'use strict';
@@ -823,7 +823,7 @@
 
 })(window);
 
-// Source: \lib\ui\popover\popover.js
+// Source: /lib/ui/popover/popover.js
 (function(root) {
 
   'use strict';
@@ -932,7 +932,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\messages.js
+// Source: /lib/ui/validation/messages.js
 (function(root) {
 
   'use strict';
@@ -977,7 +977,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter-bootstrap.js
+// Source: /lib/ui/validation/adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1075,7 +1075,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter.js
+// Source: /lib/ui/validation/adapter.js
 (function(root) {
 
   'use strict';
@@ -1125,7 +1125,7 @@
 
 })(window);
 
-// Source: \lib\ui\dropdown\dropdown.js
+// Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
 
   'use strict';
@@ -1193,7 +1193,8 @@
       'escapeMarkup',
       'selectOnBlur',
       'loadMorePadding',
-      'nextSearchTerm'
+      'nextSearchTerm',
+      'correlationId'
     ]
   });
 
@@ -1215,6 +1216,10 @@
         }
       });
 
+      if(this.isRemoteMultiple()) {
+        self.options.multiple = angular.isDefined($attrs.multiple);
+      }
+
       self.multiple = angular.isDefined($attrs.multiple);
 
       if(self.options.query) {
@@ -1228,6 +1233,40 @@
 
     };
 
+    this.isRemoteMultiple = function() {
+      if(angular.isDefined($attrs.multiple) && $element.get(0).tagName.toLowerCase() === 'input') {
+        return true;
+      }
+      return false;
+    };
+
+    this.setRemoteViewValue = function(e) {
+
+      var values = this.ngModel.$viewValue;
+
+      if(!angular.isArray(values) || !angular.isObject(values)) {
+        values = [];
+      }
+
+      if(e.added) {
+        // Adding to collection
+        values.push(e.added);
+      } else {
+        // Removing from collection
+        var index = _.findIndex(values, function(value) {
+          return  _.matches(e.removed)(value);
+        });
+        values.splice(index, 1);
+      }
+
+      this.ngModel.$setViewValue(values);
+
+    };
+
+    this.setViewValue = function(e) {
+      this.ngModel.$setViewValue(e.added);
+    };
+
     this.setNgModel = function(ngModel) {
       this.ngModel = ngModel;
     };
@@ -1237,6 +1276,7 @@
       if(self.options.query) {
         return 0;
       }
+
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
@@ -1300,16 +1340,40 @@
 
     this.getMultiSelected = function(viewValue) {
 
-      var options = this.collection($scope);
       var indices = [];
 
-      _.each(viewValue, function(savedObject) {
-        var index = _.findIndex(options, function(value) {
-          var temp = angular.copy(savedObject); // remove hashkeys for comparison
-          return _.matches(temp)(value);
+      if($element.get(0).tagName.toLowerCase() !== 'input') {
+        var options = this.collection($scope);
+
+        _.each(viewValue, function(savedObject) {
+          var index = _.findIndex(options, function(value) {
+            var temp = angular.copy(savedObject); // remove hashkeys for comparison
+            return _.matches(temp)(value);
+          });
+          indices.push(index);
         });
-        indices.push(index);
-      });
+
+      } else {
+
+        var inputViewValues = this.ngModel.$modelValue;
+
+        _.each(inputViewValues, function(savedObject) {
+
+          if(_.isUndefined(savedObject.id) ) {
+
+            if(savedObject.id || savedObject[self.options.correlationId]) {
+
+              savedObject.id = savedObject[self.options.correlationId];
+
+            } else {
+
+              throw new Error('dropdown list must have a id or a alternative value to use as a id');
+            }
+
+          }
+
+        });
+      }
 
       if(indices.length > 0) {
         viewValue = indices;
@@ -1416,7 +1480,7 @@
         avDropdown.setNgModel(ngModel);
         avDropdown.init();
 
-        if(attrs.ngOptions) {
+        if(attrs.ngOptions ) {
           avDropdown.ngOptions();
         }
 
@@ -1438,8 +1502,14 @@
           // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
           if(avDropdown.options.query) {
             $timeout(function() {
-              ngModel.$setViewValue(e.added);
-            });
+              // look at moving this to the controller
+              if(avDropdown.isRemoteMultiple()) {
+                avDropdown.setRemoteViewValue(e);
+              } else {
+                avDropdown.setViewValue(e);
+              }
+
+            }, false, 0);
           }
 
           $log.info(e);
@@ -1518,7 +1588,7 @@
 
 })(window);
 
-// Source: \lib\ui\datepicker\datepicker.js
+// Source: /lib/ui/datepicker/datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1529,6 +1599,7 @@
   var availity = root.availity;
 
   availity.ui.provider('avDatepickerConfig', function() {
+
     var config = {
       autoclose: true,
       todayHighlight: true,
@@ -1543,6 +1614,7 @@
     this.$get = function() {
       return angular.copy(config);
     };
+
   });
 
   // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
@@ -1592,7 +1664,7 @@
 
     this.setValue = function() {
 
-      var viewValue = self.ngModel.$modelValue;
+      var viewValue = self.ngModel.$viewValue;
       var plugin = this.plugin();
 
       if(!viewValue || !plugin) {
@@ -1619,20 +1691,22 @@
       return ngModel;
     };
 
-    this.modelToView = function() {
-      var viewValue = $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+    this.modelToView = function(isoWrap) {
+      var viewValue = $.fn.datepicker.DPGlobal.formatDate(isoWrap, self.options.format, 'en');
       return viewValue;
     };
 
     this.wrapIsoDate = function() {
-      var date = self.ngModel.$modelValue;
 
-      if(date !== undefined && date !== null && !moment.isDate(date)) {
+      var date = self.ngModel.$modelValue;
+      var isoWrap;
+
+      if(date !== undefined && date !== null) {
         var m = moment(date);
-        self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
+        isoWrap = m.isValid() ? m.toDate() : null;
       }
 
-      return self.ngModel.$modelValue;
+      return isoWrap;
     };
 
     this.viewToModel = function() {
@@ -1763,7 +1837,7 @@
   });
 })(window);
 
-// Source: \lib\ui\idle\idle-notifier.js
+// Source: /lib/ui/idle/idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -1909,7 +1983,7 @@
 
 })(window);
 
-// Source: \lib\ui\mask\mask.js
+// Source: /lib/ui/mask/mask.js
 (function(root) {
 
   'use strict';
@@ -1949,7 +2023,7 @@
 
 })(window);
 
-// Source: \lib\ui\permissions\has-permission.js
+// Source: /lib/ui/permissions/has-permission.js
 (function(root) {
 
   'use strict';
@@ -1998,7 +2072,7 @@
 
 })(window);
 
-// Source: \lib\ui\analytics\analytics.js
+// Source: /lib/ui/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2052,7 +2126,7 @@
 
 })(window);
 
-// Source: \lib\ui\placeholder\placeholder.js
+// Source: /lib/ui/placeholder/placeholder.js
 (function(root) {
 
   'use strict';
@@ -2089,7 +2163,7 @@
   });
 })(window);
 
-// Source: \lib\ui\breadcrumbs\breadcrumbs.js
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2156,7 +2230,7 @@
 
 })(window);
 
-// Source: \lib\ui\filters\approximate.js
+// Source: /lib/ui/filters/approximate.js
 (function(root) {
   'use strict';
 
@@ -2183,7 +2257,7 @@
 
 })(window);
 
-// Source: \lib\ui\badge\badge.js
+// Source: /lib/ui/badge/badge.js
 (function(root) {
   'use strict';
 
@@ -2225,7 +2299,7 @@
 
 })(window);
 
-// Source: \lib\ui\labels\removable-label.js
+// Source: /lib/ui/labels/removable-label.js
 (function(root) {
   'use strict';
 
@@ -2256,7 +2330,7 @@
 
 })(window);
 
-// Source: \lib\ui\animation\loader.js
+// Source: /lib/ui/animation/loader.js
 (function(root) {
 
   'use strict';
@@ -2334,7 +2408,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block.js
+// Source: /lib/ui/block/block.js
 (function(root) {
 
   'use strict';
@@ -2418,7 +2492,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block-directive.js
+// Source: /lib/ui/block/block-directive.js
 (function(root) {
 
   'use strict';
@@ -2445,7 +2519,7 @@
 
 })(window);
 
-// Source: \lib\ui\tabs\tabs.js
+// Source: /lib/ui/tabs/tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */
