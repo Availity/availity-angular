@@ -2990,7 +2990,7 @@
       LOGOUT: 'av:logout',
       SESSION_TIMEOUT: 'av:session:timeout'
     },
-    DOMAIN: /^http:\/\/[^.\s]+\.availity\.com.*$/gi
+    DOMAIN: /^http:\/\/[^.\s]+\.availity\.com.*/
   });
 
 })(window);
@@ -3069,7 +3069,7 @@
         var message;
         event = event.originalEvent || event;
 
-        if(prod && AV_MESSAGES.DOMAIN.test(event.origin)) {
+        if(prod && !AV_MESSAGES.DOMAIN.test(event.origin)) {
           $log.warn('avMessages rejected a cross domain message since it does not match an availity.com domain or subdomain');
           return;
         }
@@ -3124,11 +3124,11 @@
         }
 
         try {
-          if(prod) {
-            destination.postMessage(JSON.stringify(message), AV_MESSAGES.DOMAIN);
-          }else {
+          // if(prod) {
+          //   destination.postMessage(JSON.stringify(message), AV_MESSAGES.DOMAIN);
+          // }else {
             destination.postMessage(JSON.stringify(message), '*');
-          }
+          // }
         }catch(err) {
           $log.error('avMessages.send() ', err);
         }
