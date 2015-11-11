@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Availity/availity-angular.git"
+    "url": "ssh://git@github.com:Availity/availity-angular.git"
   },
   "author": "Robert McGuinness <robert.mcguinness.iii@gmail.com> (http://robmcguinness.com/)",
   "authors": [
