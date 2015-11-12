@@ -1,6 +1,6 @@
 /**
- * availity-angular v1.2.2 -- November-12
- * Copyright 2015 Availity, LLC 
+ * availity-angular v1.2.3 -- November-11
+ * Copyright 2015 Availity, LLC
  */
 
 // Source: /lib/ui/index.js
@@ -932,7 +932,11 @@
 
 })(window);
 
+<<<<<<< HEAD
 // Source: /lib/ui/validation/container.js
+=======
+// Source: /lib/ui/validation/messages.js
+>>>>>>> develop
 (function(root) {
 
   'use strict';
@@ -1193,7 +1197,8 @@
       'escapeMarkup',
       'selectOnBlur',
       'loadMorePadding',
-      'nextSearchTerm'
+      'nextSearchTerm',
+      'correlationId'
     ]
   });
 
@@ -1215,6 +1220,10 @@
         }
       });
 
+      if(this.isRemoteMultiple()) {
+        self.options.multiple = angular.isDefined($attrs.multiple);
+      }
+
       self.multiple = angular.isDefined($attrs.multiple);
 
       if(self.options.query) {
@@ -1228,6 +1237,40 @@
 
     };
 
+    this.isRemoteMultiple = function() {
+      if(angular.isDefined($attrs.multiple) && $element.get(0).tagName.toLowerCase() === 'input') {
+        return true;
+      }
+      return false;
+    };
+
+    this.setRemoteViewValue = function(e) {
+
+      var values = this.ngModel.$viewValue;
+
+      if(!angular.isArray(values) || !angular.isObject(values)) {
+        values = [];
+      }
+
+      if(e.added) {
+        // Adding to collection
+        values.push(e.added);
+      } else {
+        // Removing from collection
+        var index = _.findIndex(values, function(value) {
+          return  _.matches(e.removed)(value);
+        });
+        values.splice(index, 1);
+      }
+
+      this.ngModel.$setViewValue(values);
+
+    };
+
+    this.setViewValue = function(e) {
+      this.ngModel.$setViewValue(e.added);
+    };
+
     this.setNgModel = function(ngModel) {
       this.ngModel = ngModel;
     };
@@ -1237,6 +1280,7 @@
       if(self.options.query) {
         return 0;
       }
+
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
@@ -1300,16 +1344,40 @@
 
     this.getMultiSelected = function(viewValue) {
 
-      var options = this.collection($scope);
       var indices = [];
 
-      _.each(viewValue, function(savedObject) {
-        var index = _.findIndex(options, function(value) {
-          var temp = angular.copy(savedObject); // remove hashkeys for comparison
-          return _.matches(temp)(value);
+      if($element.get(0).tagName.toLowerCase() !== 'input') {
+        var options = this.collection($scope);
+
+        _.each(viewValue, function(savedObject) {
+          var index = _.findIndex(options, function(value) {
+            var temp = angular.copy(savedObject); // remove hashkeys for comparison
+            return _.matches(temp)(value);
+          });
+          indices.push(index);
         });
-        indices.push(index);
-      });
+
+      } else {
+
+        var inputViewValues = this.ngModel.$modelValue;
+
+        _.each(inputViewValues, function(savedObject) {
+
+          if(_.isUndefined(savedObject.id) ) {
+
+            if(savedObject.id || savedObject[self.options.correlationId]) {
+
+              savedObject.id = savedObject[self.options.correlationId];
+
+            } else {
+
+              throw new Error('dropdown list must have a id or a alternative value to use as a id');
+            }
+
+          }
+
+        });
+      }
 
       if(indices.length > 0) {
         viewValue = indices;
@@ -1416,7 +1484,7 @@
         avDropdown.setNgModel(ngModel);
         avDropdown.init();
 
-        if(attrs.ngOptions) {
+        if(attrs.ngOptions ) {
           avDropdown.ngOptions();
         }
 
@@ -1438,8 +1506,14 @@
           // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
           if(avDropdown.options.query) {
             $timeout(function() {
-              ngModel.$setViewValue(e.added);
-            });
+              // look at moving this to the controller
+              if(avDropdown.isRemoteMultiple()) {
+                avDropdown.setRemoteViewValue(e);
+              } else {
+                avDropdown.setViewValue(e);
+              }
+
+            }, false, 0);
           }
 
           $log.info(e);
@@ -1529,6 +1603,7 @@
   var availity = root.availity;
 
   availity.ui.provider('avDatepickerConfig', function() {
+
     var config = {
       autoclose: true,
       todayHighlight: true,
@@ -1543,6 +1618,7 @@
     this.$get = function() {
       return angular.copy(config);
     };
+
   });
 
   // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
@@ -1592,7 +1668,7 @@
 
     this.setValue = function() {
 
-      var viewValue = self.ngModel.$modelValue;
+      var viewValue = self.ngModel.$viewValue;
       var plugin = this.plugin();
 
       if(!viewValue || !plugin) {
@@ -1619,20 +1695,22 @@
       return ngModel;
     };
 
-    this.modelToView = function() {
-      var viewValue = $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+    this.modelToView = function(isoWrap) {
+      var viewValue = $.fn.datepicker.DPGlobal.formatDate(isoWrap, self.options.format, 'en');
       return viewValue;
     };
 
     this.wrapIsoDate = function() {
-      var date = self.ngModel.$modelValue;
 
-      if(date !== undefined && date !== null && !moment.isDate(date)) {
+      var date = self.ngModel.$modelValue;
+      var isoWrap;
+
+      if(date !== undefined && date !== null) {
         var m = moment(date);
-        self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
+        isoWrap = m.isValid() ? m.toDate() : null;
       }
 
-      return self.ngModel.$modelValue;
+      return isoWrap;
     };
 
     this.viewToModel = function() {
