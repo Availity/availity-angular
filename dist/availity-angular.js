@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.2 -- November-11
+ * availity-angular v1.2.2 -- November-12
  * Copyright 2015 Availity, LLC 
  */
 
@@ -3124,11 +3124,7 @@
         }
 
         try {
-          // if(prod) {
-          //   destination.postMessage(JSON.stringify(message), AV_MESSAGES.DOMAIN);
-          // }else {
-            destination.postMessage(JSON.stringify(message), '*');
-          // }
+          destination.postMessage(JSON.stringify(message), '*');
         }catch(err) {
           $log.error('avMessages.send() ', err);
         }
