@@ -13,10 +13,11 @@ module.exports = function(config) {
     files: files,
     browsers: ['Chrome'],
     frameworks: ['jasmine'],
-    reporters: ['progress', 'notify'],
+    reporters: ['progress', 'notify', 'coverage'],
     autoWatch: true,
     singleRun: true,
     preprocessors: {
+      'lib/**/*.js': ['coverage'],
       'lib/**/*-tpl.html': ['ng-html2js'],
       'lib/**/*-fixture.html': ['ng-html2js']
     },
@@ -24,6 +25,11 @@ module.exports = function(config) {
       // strip this from the file path
       stripPrefix: 'lib/',
       moduleName: 'availity.ui.templates'
+    },
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'reports/'
     }
   });
 };
