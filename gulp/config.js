@@ -85,7 +85,9 @@ module.exports = {
       './lib/core/analytics/analytics-splunk.js',
       './lib/core/analytics/analytics-piwik.js',
       './lib/core/analytics/analytics-exceptions.js',
-      './lib/core/utils/date-polyfill.js'
+      './lib/core/utils/date-polyfill.js',
+      './lib/core/messages/messages-constants.js',
+      './lib/core/messages/messages.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -102,7 +104,7 @@ module.exports = {
       './lib/ui/validation/form.js',
       './lib/ui/validation/field.js',
       './lib/ui/popover/popover.js',
-      './lib/ui/validation/messages.js',
+      './lib/ui/validation/container.js',
       './lib/ui/validation/adapter-bootstrap.js',
       './lib/ui/validation/adapter.js',
       './lib/ui/dropdown/dropdown.js',
