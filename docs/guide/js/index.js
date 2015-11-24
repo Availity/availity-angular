@@ -7,6 +7,7 @@
     'availity',
     'availity.ui',
     'availity.ui.templates',
+    'availity.config',
     'ngAnimate',
     'angular-velocity',
     'blockUI',
