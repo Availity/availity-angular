@@ -43,7 +43,8 @@
     "build",
     "gulp",
     "docs",
-    "data"
+    "data",
+    "routes.json"
   ],
   "resolutions": {
     "bootstrap": ">= 3.3.4",
