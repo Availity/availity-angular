@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.3 -- November-11
+ * availity-angular v1.3.0 -- November-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -220,15 +220,15 @@
       var scope = this.options.scope;
 
       scope.modalShow = function() {
-        self.show();
+        return self.show();
       };
 
       scope.modalToggle = function() {
-        self.toggle();
+        return self.toggle();
       };
 
       scope.modalHide = function() {
-        self.hide();
+        return self.hide();
       };
 
     };
@@ -932,7 +932,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/messages.js
+// Source: /lib/ui/validation/container.js
 (function(root) {
 
   'use strict';
