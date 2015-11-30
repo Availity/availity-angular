@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.0 -- October-17
+ * availity-angular v1.3.0 -- November-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.2.0';
+  availity.VERSION = 'v1.3.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -2426,6 +2426,7 @@
     IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
     ENV: { // not sure if this should live here
       PROD: {
+        DOMAIN: 'apps.availity.com',
         URL: 'https://piwik.availity.com/piwik/'
       },
       QA: {
@@ -2459,6 +2460,9 @@
       if(arguments.length) {
         virtualPageTracking = !!value;
       }
+    };
+
+    this.isVirtualPageTracking = function() {
       return virtualPageTracking;
     };
 
@@ -2467,7 +2471,7 @@
       return appId;
     };
 
-    this.$get = function($injector, $q, $log) {
+    this.$get = function($injector, $q, $log, $rootScope, $location) {
 
       var AvAnalytics = function() {
 
@@ -2475,7 +2479,7 @@
         this.services = {};
 
         if(!plugins || plugins.length === 0) {
-          plugins = [AV_ANALYTICS.SERVICES.SPLUNK];
+          plugins = [AV_ANALYTICS.SERVICES.PIWIK, AV_ANALYTICS.SERVICES.SPLUNK];
         }
 
         angular.forEach(plugins, function(plugin) {
@@ -2490,6 +2494,29 @@
       };
 
       var proto = AvAnalytics.prototype;
+
+      proto.init = function() {
+
+        var self = this;
+
+        if(this.isVirtualPageTracking()) {
+
+          $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
+            self.trackPageView($location.absUrl());
+          });
+
+
+        }
+
+        angular.forEach(this.services, function(handler) {
+
+          if(handler.isEnabled() && handler.init) {
+            handler.init();
+          }
+
+        });
+
+      };
 
       proto.trackEvent = function(properties) {
 
@@ -2507,6 +2534,10 @@
         return appId;
       };
 
+      proto.isVirtualPageTracking = function() {
+        return virtualPageTracking;
+      };
+
       proto.trackPageView = function(url) {
 
         var promises = [];
@@ -2522,14 +2553,6 @@
       return new AvAnalytics();
     };
 
-  });
-
-  availity.core.run(function($rootScope, AV_ANALYTICS, avAnalytics, $location ) {
-    if(avAnalytics.virtualPageTracking) {
-      $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
-        avAnalytics.trackPageView($location.absUrl());
-      });
-    }
   });
 
 })(window);
@@ -2654,6 +2677,10 @@
       return avLogMessagesResource[properties.level](properties);
     };
 
+    proto.isEnabled = function() {
+      return true;
+    };
+
     return new SplunkAnalyticsService();
   });
 
@@ -2667,32 +2694,37 @@
 
   availity.core.provider('avPiwikAnalytics', function() {
 
-    var that = this;
+    var self;
     var siteId;
+    var enabled = false;
+    var customVariables = [];
+
+    this.enabled = function(_enabled) {
+      enabled = !!_enabled;
+    };
 
     // can not push these items to `_paq` because it is defined
     // after page has loaded
     this._setCustomVariable = function(index, valueName, value, scope) {
-
-      root._paq = root._paq || [];
 
       if(!index || isNaN(index)) {
         throw new Error('index must be a number');
       } else if(!valueName) {
         throw new Error('valueName must be declared');
       } else {
-        root._paq.push(['setCustomVariable', index, valueName, value, scope]);
+        customVariables.push(['setCustomVariable', index, valueName, value, scope]);
       }
     };
 
     this.setSiteID = function(_siteID) {
+      this.enabled(true);
       siteId = _siteID;
     };
 
     // allow the user to pass a array of visit variables
     this.setVisitVariables = function(items) {
       _.forEach(items, function(item) {
-        that._setCustomVariable(item[0], item[1], item[2], 'visit');
+        self._setCustomVariable(item[0], item[1], item[2], 'visit');
       });
     };
 
@@ -2700,17 +2732,17 @@
       this._setCustomVariable(index, name, value, 'page');
     };
 
-    this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location, $window) {
+    this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location) {
 
       var AvPiwikAnalytics = function() {
-        this.init();
+
       };
 
       var proto = AvPiwikAnalytics.prototype;
 
       proto.trackEvent = function(properties) {
 
-        if(!root._paq) {
+        if(!window._paq) {
           $log.warn('Piwik object `_paq` not found in global scope');
           return $q.when(false);
         }
@@ -2730,56 +2762,60 @@
           return $q.when(false);
         }
 
-        return $q.when(root._paq.push(['trackEvent', properties.category, properties.event, properties.label, properties.value]));
+        return $q.when(window._paq.push(['trackEvent', properties.category, properties.action || properties.event, properties.label, properties.value]));
       };
 
       proto.trackPageView  = function(url) {
 
-        if(!root._paq) {
+        if(!window._paq) {
           $log.warn('Piwik object `_paq` not found in global scope');
           return $q.when(false);
         }
 
-        return $q.when(root._paq.push(['trackEvent', url]));
+        return $q.when([
+          window._paq.push(['setCustomUrl', url]),
+          window._paq.push(['trackPageView', url])]
+        );
 
       };
 
-      proto.createScript = function() {
-        if(_.isFinite(siteId)) {
+      proto.init = function() {
+
+        avUsersResource.me().then(function(user) {
+          window._paq.push(['setUserId', user.id]);
+          // self.trackPageView(); //send another page track when the user data loads
+        });
+
+        if(!_.isFinite(siteId)) {
           $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
           return;
         }
 
         var url;
 
-        if($location.$$host === 'apps.availity.com') {
+        if($location.$$host === AV_ANALYTICS.ENV.PROD.DOMAIN) {
           url = AV_ANALYTICS.ENV.PROD.URL;
         } else {
           url = AV_ANALYTICS.ENV.QA.URL;
         }
 
-        $window._paq = $window._paq || [];
-        $window._paq.push(['enableLinkTracking']);
-        $window._paq.push(['setTrackerUrl', url + 'piwik.php']);
-        $window._paq.push(['setSiteId', siteId]);
-        $window._paq.push(['trackEvent', url]); //track initial page load even if user data is not loaded yet
+        window._paq.push(['enableLinkTracking']);
+        window._paq.push(['setTrackerUrl', url + 'piwik.php']);
+        window._paq.push(['setSiteId', siteId]);
 
-        var script = document.createElement('script');
-        var target = document.getElementsByTagName('script')[0];
-        script.type = 'text/javascript';
-        script.defer = true;
-        script.async = true;
-        script.src = url + 'piwik.js';
-        target.parentNode.insertBefore(script, target);
+        _.forEach(customVariables, function(variable) {
+          window._paq.push(variable);
+        });
+
+        $.getScript(url + 'piwik.js', function() {
+
+        });
+
       };
 
-      proto.init = function() {
-        // this.createScript();
-        // avUsersResource.me().then(function(user) {
-        //   $window._paq.push(['setUserId', user.id]);
-        //   self.trackPageView(); //send another page track when the user data loads
-        // });
 
+      proto.isEnabled = function() {
+        return enabled && siteId;
       };
 
       return new AvPiwikAnalytics();
@@ -2934,6 +2970,24 @@
 
 })(window);
 
+// Source: /lib/core/analytics/analytics-config.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity || {};
+
+  availity.analytics = angular.module('availity.config', ['ng', 'availity']);
+
+  availity.analytics.run(function(avAnalytics) {
+
+    avAnalytics.init();
+
+  });
+
+})(window);
+
+
 // Source: /lib/core/utils/date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
@@ -2969,5 +3023,231 @@
   }
 
 })(window);
+
+// Source: /lib/core/messages/messages-constants.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.constant('AV_MESSAGES', {
+
+    EVENTS: {
+
+      MESSAGE: 'message', // post message window event
+      RESIZE: 'resize', // window resize event
+      UNLOAD: 'beforeunload',
+
+      AV_RESIZE: 'av:window:resize',
+      AV_RECEIVED: 'av:message:received',
+      AV_MAXIMIZE: 'nav:left:hide',  // @deprecated,
+      AV_MINIMIZE: 'nav:left:hide',  // @deprecated
+      // MAXIMIZE: 'av:window:maximize',
+      // MINIMIZE: 'av:window:minimize',
+      AV_LOGIN: 'av:login',
+      AV_LOGOUT: 'av:logout',
+      AV_SESSION_TIMEOUT: 'av:session:timeout'
+
+    },
+
+    RESIZE_DEBOUNCE: 400,
+
+    DOMAIN: /https?:\/\/([\w\d\-]+\.)?availity\.(com|net)/,
+    LOCAL: /http:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0):(\d+)/
+
+  });
+
+})(window);
+
+// Source: /lib/core/messages/messages.js
+
+
+// https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.provider('avMessages', function() {
+
+    var enabled = true;
+
+    this.enable = function(value) {
+
+      if(arguments.length) {
+        enabled = !!value;
+      }
+
+      return enabled;
+
+    };
+
+    this.$get = function($rootScope, $log, AV_MESSAGES) {
+
+      var AvMessages = function() {
+
+      };
+
+      var proto = AvMessages.prototype;
+
+      proto.init = function() {
+
+        var self = this;
+        var $window = $(window);
+
+        $window.on(AV_MESSAGES.EVENTS.MESSAGE, function(event) {
+          self.onMessage(event);
+        });
+
+        $window.on(AV_MESSAGES.EVENTS.RESIZE, function() {
+          self.onResize();
+        });
+
+        this.send(AV_MESSAGES.EVENTS.AV_MAXIMIZE);
+
+        $rootScope.$on('$destroy', function() {
+          self.destroy();
+        });
+
+        $window.on(AV_MESSAGES.EVENTS.UNLOAD, function() {
+          self.send(AV_MESSAGES.EVENTS.AV_MINIMIZE);
+        });
+
+      };
+
+      proto.destroy = function() {
+
+        $(window).off(AV_MESSAGES.EVENTS.MESSAGE);
+        $(window).off(AV_MESSAGES.EVENTS.RESIZE);
+        $(window).off(AV_MESSAGES.EVENTS.UNLOAD);
+
+      };
+
+      proto.onResize = function() {
+
+        var self = this;
+
+        var resize =  _.debounce(function() {
+
+          var height = $('html').height();
+          self.send({
+            event: AV_MESSAGES.EVENTS.AV_RESIZE,
+            height: height
+          });
+
+        }, AV_MESSAGES.RESIZE_DEBOUNCE);
+
+        resize();
+
+      };
+
+      proto.isDomain = function(url) {
+
+        if(AV_MESSAGES.DOMAIN.test(this.domain())) {
+          return AV_MESSAGES.DOMAIN.test(url);
+        }
+
+        return AV_MESSAGES.LOCAL.test(url);
+      };
+
+      proto.isEnabled = function() {
+        return enabled;
+      };
+
+      proto.onMessage = function(_event) {
+
+        var event = _event;
+
+        event = event.originalEvent || event;  // jQuery wraps in `originalEvent`
+
+        if(!event && !event.data) {
+          // no op
+          return;
+        }
+
+        // don't process messages emitted from same window
+        if(event.source === window) {
+          return;
+        }
+
+        if(!this.isDomain(event.origin)) {
+          $log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');
+          return;
+        }
+
+
+        var data = event.data;
+
+        try {
+          data =  angular.fromJson(data);
+        } catch(err) {
+          $log.warn('avMessages.onMessage() failed to convert event to json payload');
+        }
+
+        if(_.isString(data)) {
+          event = data;
+          data = null;
+        }else {
+          event = data.event ? data.event : AV_MESSAGES.AV_RECEIVED;
+        }
+
+        $rootScope.$root.$broadcast(event, data);
+
+      };
+
+      proto.isIframe = function() {
+        return window.self !== window.parent;
+      };
+
+      proto.domain = function() {
+
+        var window = root;
+
+        if(window.location.origin) {
+          return window.location.origin;
+        }
+
+        if(window.location.hostname) {
+          return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        }
+
+        return '*';
+
+      };
+
+      proto.send = function(payload) {
+
+        try {
+
+          var message  = _.isString(payload) ? payload : JSON.stringify(payload);
+          this.postMessage(message, this.domain());
+
+        } catch(err) {
+          $log.error('avMessages.send() ', err);
+        }
+      };
+
+      proto.postMessage = function(message, domain) {
+        window.parent.postMessage(message, domain);
+      };
+
+      return new AvMessages();
+
+    };
+
+  });
+
+  availity.core.run(function(avMessages) {
+
+    if(avMessages.isEnabled()) {
+      avMessages.init();
+    }
+
+  });
+
+})(window);
+
 
 //# sourceMappingURL=maps/availity-angular.js.map

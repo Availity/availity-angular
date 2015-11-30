@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "1.2.0",
+  "version": "2.0.0-beta.0",
   "keywords": [
     "availity",
     "angular",
@@ -25,7 +25,8 @@
     "angular-shims-placeholder": "~0.4.5",
     "angular-ui-router": "~0.2.15",
     "angular-velocity": "~0.3.2",
-    "availity-uikit": "~0.15.0",
+    "availity-uikit": "~1.1.0",
+    "jquery-ui": "1.11.4",
     "jquery.inputmask": "3.1.63",
     "lodash-compat": "~3.10.1",
     "tracekit": "~0.3.0",
@@ -43,7 +44,8 @@
     "build",
     "gulp",
     "docs",
-    "data"
+    "data",
+    "routes.json"
   ],
   "resolutions": {
     "bootstrap": ">= 3.3.4",

@@ -84,7 +84,11 @@ module.exports = {
       './lib/core/analytics/analytics-util.js',
       './lib/core/analytics/analytics-splunk.js',
       './lib/core/analytics/analytics-piwik.js',
-      './lib/core/analytics/analytics-exceptions.js'
+      './lib/core/analytics/analytics-exceptions.js',
+      './lib/core/analytics/analytics-config.js',
+      './lib/core/utils/date-polyfill.js',
+      './lib/core/messages/messages-constants.js',
+      './lib/core/messages/messages.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -101,7 +105,7 @@ module.exports = {
       './lib/ui/validation/form.js',
       './lib/ui/validation/field.js',
       './lib/ui/popover/popover.js',
-      './lib/ui/validation/messages.js',
+      './lib/ui/validation/container.js',
       './lib/ui/validation/adapter-bootstrap.js',
       './lib/ui/validation/adapter.js',
       './lib/ui/dropdown/dropdown.js',
@@ -219,6 +223,7 @@ module.exports = {
   },
   test: {
     src: [
+<<<<<<< HEAD
       './node_modules/sinon/pkg/sinon.js',
       './bower_components/jquery/dist/jquery.js',
       './bower_components/bootstrap/dist/js/bootstrap.js',
@@ -237,6 +242,26 @@ module.exports = {
       './test/index.js',
       './test/matchers.js',
       './test/helpers.js'
+=======
+      'node_modules/sinon/pkg/sinon.js',
+      'bower_components/jquery/jquery.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-sanitize/angular-sanitize.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/lodash-compat/lodash.js',
+      'bower_components/select2/select2.js',
+      'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+      'bower_components/moment/moment.js',
+      'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
+      'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
+      'bower_components/tracekit/tracekit.js',
+      'bower_components/angular-block-ui/dist/angular-block-ui.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'test/index.js',
+      'test/matchers.js',
+      'test/helpers.js'
+>>>>>>> develop
     ]
   }
 };

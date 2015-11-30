@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.2.0 -- October-17
+ * availity-angular v1.3.0 -- November-30
  * Copyright 2015 Availity, LLC 
  */
 
@@ -88,6 +88,10 @@
       HIDDEN: 'hidden.av.modal'
     },
 
+    NAMESPACE: {
+      MODAL: 'bs.modal'
+    },
+
     BS_EVENTS:  {
       SHOW: 'show.bs.modal',
       SHOWN: 'shown.bs.modal',
@@ -107,7 +111,6 @@
     };
 
     var proto = AvModalManager.prototype;
-
 
     proto.add = function(id) {
       this.instances.push(id);
@@ -142,7 +145,6 @@
 
       });
     };
-
 
     return new AvModalManager();
 
@@ -183,7 +185,6 @@
 
       this._scope();
 
-
       $compile(this.$element)(scope);
 
       $timeout(function() {
@@ -212,21 +213,22 @@
       this._listeners();
     };
 
+    // Add helpers to scope so clients can call internal methods
     proto._scope = function() {
 
       var self = this;
       var scope = this.options.scope;
 
       scope.modalShow = function() {
-        self.show();
+        return self.show();
       };
 
       scope.modalToggle = function() {
-        self.toggle();
+        return self.toggle();
       };
 
       scope.modalHide = function() {
-        self.hide();
+        return self.hide();
       };
 
     };
@@ -237,8 +239,8 @@
       var scope = this.options.scope;
       var $element = this.$element;
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
+      this.animationShowDefer = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       $element.on(AV_MODAL.BS_EVENTS.SHOW, function(event) {
         scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
@@ -250,7 +252,7 @@
           self.options.onShown();
         }
 
-        self.animationDefer.resolve(true);
+        self.animationShowDefer.resolve(true);
 
         scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
       });
@@ -265,6 +267,7 @@
           self.options.onHidden.call(this);
         }
 
+        self.animationHideDefer.resolve(true);
         scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 
         scope.$evalAsync(function() {
@@ -284,54 +287,39 @@
     proto.show = function() {
 
       var self = this;
+      this.animationShowDefer = $q.defer();
 
-      this.animationDefer = $q.defer();
-      this.animationPromise = this.animationDefer.promise;
-
-      return this.templatePromise.then(function() {
-        self.$element.modal('show');
-      }).then(function() {
-        return self.animationPromise;
+      this.templatePromise.then(function() {
+        self.isShown() ? self.animationShowDefer.resolve(true) : self.$element.modal('show');
       });
+
+      return this.animationShowDefer.promise;
 
     };
 
     proto.hide = function() {
 
       var self = this;
-
-      var deferred = $q.defer();
+      this.animationHideDefer = $q.defer();
 
       this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.modal('hide');
-
+        !self.isShown() ? self.animationHideDefer.resolve(true) : self.$element.modal('hide');
       });
 
-      return deferred.promise;
+      return this.animationHideDefer.promise;
     };
+
+    proto.isShown = function() {
+      return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
+    },
 
     proto.toggle = function() {
 
       var self = this;
 
-      var deferred = $q.defer();
-
-      this.templatePromise.then(function() {
-
-        self.$element.one('hidden.bs.modal', function() {
-          deferred.resolve(true);
-        });
-
-        self.$element.data('modal').toggle();
-
+      return this.templatePromise.then(function() {
+        return self.isShown() ? self.hide() : self.show();
       });
-
-      return deferred.promise;
 
     };
 
@@ -362,7 +350,6 @@
 
     return Modal;
   };
-
 
   availity.ui.factory('AvModal', ModalFactory);
 
@@ -466,7 +453,7 @@
     return {
       restrict: 'A',
       priority: 10,
-      require: ['form', 'avValForm', '?ngSubmit'],
+      require: ['form', 'avValForm'],
       controller: 'avValFormController',
       compile: function() {
         return {
@@ -945,7 +932,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/messages.js
+// Source: /lib/ui/validation/container.js
 (function(root) {
 
   'use strict';
@@ -1206,7 +1193,8 @@
       'escapeMarkup',
       'selectOnBlur',
       'loadMorePadding',
-      'nextSearchTerm'
+      'nextSearchTerm',
+      'correlationId'
     ]
   });
 
@@ -1228,6 +1216,10 @@
         }
       });
 
+      if(this.isRemoteMultiple()) {
+        self.options.multiple = angular.isDefined($attrs.multiple);
+      }
+
       self.multiple = angular.isDefined($attrs.multiple);
 
       if(self.options.query) {
@@ -1241,6 +1233,40 @@
 
     };
 
+    this.isRemoteMultiple = function() {
+      if(angular.isDefined($attrs.multiple) && $element.get(0).tagName.toLowerCase() === 'input') {
+        return true;
+      }
+      return false;
+    };
+
+    this.setRemoteViewValue = function(e) {
+
+      var values = this.ngModel.$viewValue;
+
+      if(!angular.isArray(values) || !angular.isObject(values)) {
+        values = [];
+      }
+
+      if(e.added) {
+        // Adding to collection
+        values.push(e.added);
+      } else {
+        // Removing from collection
+        var index = _.findIndex(values, function(value) {
+          return  _.matches(e.removed)(value);
+        });
+        values.splice(index, 1);
+      }
+
+      this.ngModel.$setViewValue(values);
+
+    };
+
+    this.setViewValue = function(e) {
+      this.ngModel.$setViewValue(e.added);
+    };
+
     this.setNgModel = function(ngModel) {
       this.ngModel = ngModel;
     };
@@ -1250,6 +1276,7 @@
       if(self.options.query) {
         return 0;
       }
+
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
@@ -1313,16 +1340,40 @@
 
     this.getMultiSelected = function(viewValue) {
 
-      var options = this.collection($scope);
       var indices = [];
 
-      _.each(viewValue, function(savedObject) {
-        var index = _.findIndex(options, function(value) {
-          var temp = angular.copy(savedObject); // remove hashkeys for comparison
-          return _.matches(temp)(value);
+      if($element.get(0).tagName.toLowerCase() !== 'input') {
+        var options = this.collection($scope);
+
+        _.each(viewValue, function(savedObject) {
+          var index = _.findIndex(options, function(value) {
+            var temp = angular.copy(savedObject); // remove hashkeys for comparison
+            return _.matches(temp)(value);
+          });
+          indices.push(index);
         });
-        indices.push(index);
-      });
+
+      } else {
+
+        var inputViewValues = this.ngModel.$modelValue;
+
+        _.each(inputViewValues, function(savedObject) {
+
+          if(_.isUndefined(savedObject.id) ) {
+
+            if(savedObject.id || savedObject[self.options.correlationId]) {
+
+              savedObject.id = savedObject[self.options.correlationId];
+
+            } else {
+
+              throw new Error('dropdown list must have a id or a alternative value to use as a id');
+            }
+
+          }
+
+        });
+      }
 
       if(indices.length > 0) {
         viewValue = indices;
@@ -1429,7 +1480,7 @@
         avDropdown.setNgModel(ngModel);
         avDropdown.init();
 
-        if(attrs.ngOptions) {
+        if(attrs.ngOptions ) {
           avDropdown.ngOptions();
         }
 
@@ -1451,8 +1502,14 @@
           // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
           if(avDropdown.options.query) {
             $timeout(function() {
-              ngModel.$setViewValue(e.added);
-            });
+              // look at moving this to the controller
+              if(avDropdown.isRemoteMultiple()) {
+                avDropdown.setRemoteViewValue(e);
+              } else {
+                avDropdown.setViewValue(e);
+              }
+
+            }, false, 0);
           }
 
           $log.info(e);
@@ -1541,6 +1598,25 @@
 
   var availity = root.availity;
 
+  availity.ui.provider('avDatepickerConfig', function() {
+
+    var config = {
+      autoclose: true,
+      todayHighlight: true,
+      format: 'mm/dd/yyyy',
+      forceParse: false
+    };
+
+    this.set = function(options) {
+      angular.extend(config, options);
+    };
+
+    this.$get = function() {
+      return angular.copy(config);
+    };
+
+  });
+
   // Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
   availity.ui.constant('AV_DATEPICKER', {
     CONTROLLER: '$ngModelController',
@@ -1577,22 +1653,18 @@
       'modelFormat'
     ],
     DEFAULTS: {
-      FORMAT: 'mm/dd/yyyy',
-      CLOSE: true,
-      TODAY: true,
-      FORCEPARSE: false,
       MODELFORMAT: 'YYYY-MM-DD'
     }
   });
 
-  availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_DATEPICKER, $scope) {
+  availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_DATEPICKER, $scope, avDatepickerConfig) {
 
     var self = this;
     this.options = {};
 
     this.setValue = function() {
 
-      var viewValue = self.ngModel.$modelValue;
+      var viewValue = self.ngModel.$viewValue;
       var plugin = this.plugin();
 
       if(!viewValue || !plugin) {
@@ -1619,20 +1691,22 @@
       return ngModel;
     };
 
-    this.modelToView = function() {
-      var viewValue = $.fn.datepicker.DPGlobal.formatDate(self.ngModel.$modelValue, self.options.format, 'en');
+    this.modelToView = function(isoWrap) {
+      var viewValue = $.fn.datepicker.DPGlobal.formatDate(isoWrap, self.options.format, 'en');
       return viewValue;
     };
 
     this.wrapIsoDate = function() {
-      var date = self.ngModel.$modelValue;
 
-      if(date !== undefined && date !== null && !moment.isDate(date)) {
+      var date = self.ngModel.$modelValue;
+      var isoWrap;
+
+      if(date !== undefined && date !== null) {
         var m = moment(date);
-        self.ngModel.$modelValue = m.isValid() ? m.toDate() : null;
+        isoWrap = m.isValid() ? m.toDate() : null;
       }
 
-      return self.ngModel.$modelValue;
+      return isoWrap;
     };
 
     this.viewToModel = function() {
@@ -1658,18 +1732,13 @@
 
     this.init = function() {
 
+      self.options = angular.extend({}, avDatepickerConfig);
+
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
-
-      // self.options = _.extend{}, optionsDefault, userOptions);
-
-      self.options.autoclose = self.options.autoclose ? self.options.autoclose : AV_DATEPICKER.DEFAULTS.CLOSE;
-      self.options.todayHighlight = self.options.todayHighlight ? self.options.todayHighlight : AV_DATEPICKER.DEFAULTS.TODAY;
-      self.options.format = self.options.format ? self.options.format : AV_DATEPICKER.DEFAULTS.FORMAT;
-      self.options.forceParse = self.options.forceParse ? self.options.forceParse : AV_DATEPICKER.DEFAULTS.FORCEPARSE;
 
       if(self.options.modelFormat && self.options.modelFormat.toLowerCase() === 'default') {
         self.options.modelFormat = AV_DATEPICKER.DEFAULTS.MODELFORMAT;

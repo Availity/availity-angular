@@ -41,3 +41,14 @@ gulp.task('test:server', ['lint'], function(done) {
     process.exit(exitStatus);
   }).start();
 });
+
+gulp.task('test:coverage', ['lint'], function(done) {
+  var Server = require('karma').Server;
+    new Server({
+      configFile: path.join(config.project.path, 'karma.conf-coverage.js'),
+      browsers: ['PhantomJS'],
+      singleRun: true
+    }, function(exitStatus) {
+      done(exitStatus ? 'Failing unit tests' : undefined);
+    }).start();
+});
