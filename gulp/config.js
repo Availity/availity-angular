@@ -77,6 +77,7 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
+      './lib/core/validation/validators/validator-npi.js',
       './lib/core/validation/validators/validator-phone.js',
       './lib/core/validation/validators/validator-email.js',
       './lib/core/utils/globals.js',
