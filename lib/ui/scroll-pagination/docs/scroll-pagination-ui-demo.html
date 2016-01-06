@@ -2,11 +2,14 @@
 title: Scroll Pagination
 ---
 <div data-ng-controller="ScrollPaginationController">
+
   <div id="scrollPaginationContainer" style="height: 500px; overflow-y: scroll; overflow-x: hidden; padding: .2em;"
         data-av-scroll-pagination="demo"
         data-api-resource="apiResource"
         data-entries="entries"
         data-options="options">
+
+
     <div class="list-group list-group-cards">
       <div class="list-group-item"
             data-ng-repeat="entry in entries"
@@ -18,5 +21,8 @@ title: Scroll Pagination
         <p class="list-group-item-text">{{entry.about}}</p>
       </div>
     </div>
+
+
   </div>
+
 </div>
