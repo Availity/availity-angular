@@ -42,6 +42,45 @@
         "file": "axi-user-permissions-empty.json"
       }
     ]
+  },
+  "demo/scroll-pagination-resource": {
+    "get": [
+      {
+        "params": {
+          "limit": "10",
+          "offset": "0"
+        },
+        "file": "scroll-pagination1.json"
+      },
+      {
+        "params": {
+          "limit": "10",
+          "offset": "10"
+        },
+        "file": "scroll-pagination2.json"
+      },
+      {
+        "params": {
+          "limit": "10",
+          "offset": "20"
+        },
+        "file": "scroll-pagination3.json"
+      },
+      {
+        "params": {
+          "limit": "10",
+          "offset": "30"
+        },
+        "file": "scroll-pagination4.json"
+      },
+      {
+        "params": {
+          "limit": "10",
+          "offset": "40"
+        },
+        "file": "scroll-pagination5.json"
+      }
+    ]
   }
 }
 
