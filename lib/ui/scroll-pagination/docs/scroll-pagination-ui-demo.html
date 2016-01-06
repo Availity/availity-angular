@@ -2,9 +2,16 @@
 title: Scroll Pagination
 ---
 <div data-ng-controller="ScrollPaginationController">
-  <div style="height: 500px; overflow-y: scroll; overflow-x: hidden; padding: .2em;" data-av-scroll-pagination="demo" data-api-resource="apiResource" data-entries="entries" data-options="options">
+  <div style="height: 500px; overflow-y: scroll; overflow-x: hidden; padding: .2em;"
+        data-av-scroll-pagination="demo"
+        data-api-resource="apiResource"
+        data-entries="entries"
+        data-options="options">
     <div class="list-group list-group-cards">
-      <div class="list-group-item" data-ng-repeat="entry in entries" data-ng-class="entry.isActive ? 'success' : 'error'">
+      <div class="list-group-item"
+            data-ng-repeat="entry in entries"
+            data-ng-class="entry.isActive ? 'success' : 'error'"
+            id="{{entry._id}}">
         <span class="label label-unstyled pull-right"></span>
         <h4 class="list-group-item-heading">{{entry.name}}</h4>
         <h6>{{entry.company}}</h6>
