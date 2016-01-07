@@ -26,7 +26,7 @@
 .
 ├── /dist/                      # Assets ready for distribution
 ├── /node_modules/              # 3rd-party libraries and utilities
-├── /docs/                      # SDK documentation and samples 
+├── /docs/                      # SDK documentation and samples
 ├── /gulp/                      # Gulp tasks and utility classes
 │── gulpfile.js                 # Configuration file for automated builds
 │── bower.json                  # Bower list of 3rd party libraries
@@ -95,8 +95,8 @@ etag:W/"b27-3834658027"
 last-modified:Tue, 31 Mar 2015 17:54:52 GMT
 transfer-encoding:chunked
 vary:Origin, Accept-Encoding
-# Aries rest response with # Header with ping URL 
-Location: http://localhost:3000/some/rest/path 
+# Aries rest response with # Header with ping URL
+Location: http://localhost:3000/some/rest/path
 ```
 
 * Use the API service with optional notification callback
@@ -153,7 +153,7 @@ The module `availity.ui` is a set of Angular services and directive wrappers aro
 
 
 ## Acknowledgments
-The Availity Angular lib was heavily inspired by multiple open source frameworks.  If for some reason a library could not be used directly (IE8 limitation), we've reused that projects code directly in this project.  Please check out the libs below for some beautifully written code.  
+The Availity Angular lib was heavily inspired by multiple open source frameworks.  If for some reason a library could not be used directly (IE8 limitation), we've reused that projects code directly in this project.  Please check out the libs below for some beautifully written code.
 
 + [Angular Strap](https://github.com/mgcrea/angular-strap)
 + [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
@@ -171,6 +171,9 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 
 **Javier Fernandez-Ivern**
 + [javier@ivern.org](javier@ivern.org)
+
+**Danny Noler**
++ [danny.noler@availity.com](danny.noler@availity.com)
 
 
 
