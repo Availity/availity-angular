@@ -123,7 +123,8 @@ module.exports = {
       './lib/ui/animation/loader.js',
       './lib/ui/block/block.js',
       './lib/ui/block/block-directive.js',
-      './lib/ui/tabs/tabs.js'
+      './lib/ui/tabs/tabs.js',
+      './lib/ui/scroll-pagination/scroll-pagination.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
