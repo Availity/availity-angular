@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.0 -- January-11
+ * availity-angular v1.6.1 -- January-11
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2759,8 +2759,11 @@
       var params = {};
       _.extend(params, $scope._options.apiParams, {limit: $scope._options.limit, offset: $scope._options.offset});
       $scope.apiResource.query({params: params}).then(function(response) {
-        self.addEntries(self.getEntries(response), prepend);
-        self.updateButtonVisibilityFlags(response.data);
+        var responseData = self.getResponseData(response);
+        if (responseData && responseData[$scope._options.resourceId]) {
+          self.addEntries(responseData[$scope._options.resourceId], prepend);
+        }
+        self.updateButtonVisibilityFlags(responseData);
         block.stop();
       }, function() {
         $log.error('API call failed');
@@ -2768,9 +2771,9 @@
       });
     };
 
-    this.getEntries = function(data) {
-      if (data && $scope._options.resourceKey) {
-        var keys = $scope._options.resourceKey.split('.');
+    this.getResponseData = function(data) {
+      if (data && $scope._options.responseKey) {
+        var keys = $scope._options.responseKey.split('.');
         var nestedData = data;
         var noData = false;
         _.each(keys, function(key) {
