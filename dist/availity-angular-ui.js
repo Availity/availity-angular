@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.1 -- January-11
+ * availity-angular v1.6.2 -- January-11
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2086,7 +2086,7 @@
       controller: function($scope) {
         this.getOptions = function() {
           return $scope.options;
-        }
+        };
       }
     };
   });
@@ -2134,7 +2134,7 @@
         if (controllers.length > 1 && controllers[1] !== undefined)  {
           parentCtrl = controllers[1];
           parentOptions = parentCtrl.getOptions();
-        };
+        }
 
         var options = angular.extend(
           {},
@@ -2772,19 +2772,23 @@
     };
 
     this.getResponseData = function(data) {
-      if (data && $scope._options.responseKey) {
-        var keys = $scope._options.responseKey.split('.');
-        var nestedData = data;
-        var noData = false;
-        _.each(keys, function(key) {
-          if (!noData) {
-            nestedData = nestedData[key];
-            if (!nestedData) {
-              noData = true;
+      if (data) {
+        if ($scope._options.responseKey) {
+          var keys = $scope._options.responseKey.split('.');
+          var nestedData = data;
+          var noData = false;
+          _.each(keys, function(key) {
+            if (!noData) {
+              nestedData = nestedData[key];
+              if (!nestedData) {
+                noData = true;
+              }
             }
-          }
-        });
-        return noData ? [] : nestedData;
+          });
+          return noData ? [] : nestedData;
+        } else {
+          return data;
+        }
       }
       return [];
     };
