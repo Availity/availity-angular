@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.2 -- January-11
+ * availity-angular v1.6.3 -- January-12
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2131,7 +2131,7 @@
         var parentCtrl = {};
         var parentOptions = {};
 
-        if (controllers.length > 1 && controllers[1] !== undefined)  {
+        if (controllers[1])  {
           parentCtrl = controllers[1];
           parentOptions = parentCtrl.getOptions();
         }
