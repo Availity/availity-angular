@@ -14,8 +14,9 @@ title: Scroll Pagination
 </div>
 
 <div data-ng-controller="ScrollPaginationController">
-
   <div class="guide-example">
+    <button class="btn btn-danger" data-ng-click="avScrollPaginationService.resetInstance('demo')">Reset Plugin</button>
+    <hr>
     <div id="scrollPaginationContainer" style="height: 400px; overflow-y: scroll; overflow-x: hidden; padding: .2em;"
           data-av-scroll-pagination="demo"
           data-api-resource="apiResource"
