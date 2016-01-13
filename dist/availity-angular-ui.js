@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.2 -- January-11
+ * availity-angular v1.7.0 -- January-13
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2131,7 +2131,7 @@
         var parentCtrl = {};
         var parentOptions = {};
 
-        if (controllers.length > 1 && controllers[1] !== undefined)  {
+        if (controllers[1])  {
           parentCtrl = controllers[1];
           parentOptions = parentCtrl.getOptions();
         }
@@ -2740,13 +2740,48 @@
   });
 
 
+  availity.ui.factory('avScrollPaginationService', function($log) {
+    function AvScrollPaginationService() {
+      this.instances = {};
+    }
 
-  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI) {
-    $scope._options = {};
-    _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
-    $scope._options.lowOffset = $scope._options.offset;
-    $scope._options.highOffset = $scope._options.offset;
+    var proto = AvScrollPaginationService.prototype;
+
+    proto.registerInstance = function(instanceInterface, id) {
+      if (this.instances[id]) {
+        $log.warn('Found existing instance with id ' + id);
+      }
+      this.instances[id] = instanceInterface;
+    };
+
+    proto.unregisterInstance = function(id) {
+      delete this.instances[id];
+    };
+
+    proto.resetInstance = function(id) {
+      if (this.instances[id]) {
+        this.instances[id].reset();
+        return true;
+      }
+      return false;
+    };
+
+    return new AvScrollPaginationService();
+  });
+
+  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI, avScrollPaginationService) {
+
     var self = this;
+
+    this.buildOptions = function() {
+      $scope._options = {};
+      _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
+      $scope._options.lowOffset = $scope._options.offset;
+      $scope._options.highOffset = $scope._options.offset;
+    };
+
+    var originalEntries = angular.copy($scope.entries);
+    this.buildOptions();
 
     this.updateButtonVisibilityFlags = function(data) {
       $scope.showNext = $scope._options.highOffset + data.count < data.totalCount;
@@ -2846,6 +2881,20 @@
       $scope._options.offset = $scope._options.highOffset;
       self.loadEntries();
     };
+
+    avScrollPaginationService.registerInstance({
+      reset: function() {
+        $element.animate({scrollTop: 0}, 0);
+        $scope.entries = angular.copy(originalEntries);
+        self.buildOptions();
+        self.loadEntries();
+      }},
+      $scope.avScrollPagination
+    );
+
+    $scope.$on('$destroy', function() {
+      avScrollPaginationService.unregisterInstance($scope.avScrollPagination);
+    });
 
     $scope.loadPrev = self.loadPrev;
     $scope.loadNext = self.loadNext;
