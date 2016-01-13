@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.2 -- January-11
+ * availity-angular v2.0.0-beta.0 -- January-13
  * Copyright 2016 Availity, LLC 
  */
 
@@ -24,6 +24,9 @@
   color: #333;
   background: none;
   z-index: 1011;
+}
+[aria-selected="true"] {
+  display: none;
 }
 
 /*# sourceMappingURL=maps/availity-angular.css.map */

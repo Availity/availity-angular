@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.2 -- January-11
+ * availity-angular v2.0.0-beta.0 -- January-13
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.6.2';
+  availity.VERSION = 'v2.0.0-beta.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -20,7 +20,7 @@
 
   angular.module = function(name, deps) {
 
-    if(deps && _.indexOf(modules, name) !== -1 && !window.__karma__) {
+    if (deps && _.indexOf(modules, name) !== -1 && !window.__karma__) {
       throw new Error('redefining module: ' + name);
     }
 
@@ -31,7 +31,7 @@
 
   root.availity = availity;
 
-  if(typeof module !== 'undefined' && module.exports) {
+  if (typeof module !== 'undefined' && module.exports) {
     module.exports = availity;
   }
 
@@ -47,7 +47,7 @@
 
   // https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/helper/makeString.js
   availity._stringify = function(object) {
-    if(object === null) {
+    if (object === null) {
       return '';
     }
     return '' + object;
@@ -73,14 +73,14 @@
     var index = uid.length;
     var digit;
 
-    while(index) {
+    while (index) {
       index--;
       digit = uid[index].charCodeAt(0);
-      if(digit === 57 /*'9'*/) {
+      if (digit === 57 /* '9' */) {
         uid[index] = 'A';
         return prefix ? prefix + uid.join('') : uid.join('');
       }
-      if(digit === 90  /*'Z'*/) {
+      if (digit === 90  /* 'Z' */) {
         uid[index] = '0';
       } else {
         uid[index] = String.fromCharCode(digit + 1);
@@ -104,7 +104,7 @@
 
   availity.getRelativeUrl = function(url) {
     var result = url.match(availity.REGEX_API_URL);
-    if(result && result[1]) {
+    if (result && result[1]) {
       return '/api' + result[1];
     }
 
@@ -123,7 +123,7 @@
   // https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
   availity.print = function() {
 
-    if(document.queryCommandSupported('print')) {
+    if (document.queryCommandSupported('print')) {
       document.execCommand('print', false, null);
     } else {
       window.focus();
@@ -153,11 +153,13 @@
 
   availity.core.factory('avThrottle', function(AV_THROTTLE, $timeout) {
 
-    return function(fn, wait, options) {
+    return function(fn, _wait, _options) {
+
+      var options = _options;
 
       options = _.merge({}, AV_THROTTLE.OPTIONS, options);
 
-      wait = wait ? wait : AV_THROTTLE.THRESHOLD;
+      var wait = _wait ? _wait : AV_THROTTLE.THRESHOLD;
       var update = angular.isDefined(options.update) ? options.update : AV_THROTTLE.UPDATE;
       var timer = null;
 
@@ -165,14 +167,14 @@
         var context = options.context || this;
         var args = arguments;
 
-        if(!timer) {
-          if(options.leading !== false) {
+        if (!timer) {
+          if (options.leading !== false) {
             fn.apply(context, args);
           }
 
           var later = function() {
             timer = null;
-            if(options.trailing !== false) {
+            if (options.trailing !== false) {
               fn.apply(context, args);
             }
           };
@@ -217,7 +219,7 @@
 
       AvLogger.supplant = function(str, o) {
 
-        var _supplant = function (a, b) {
+        var _supplant = function(a, b) {
           var r = o[b];
           return r;
         };
@@ -251,7 +253,7 @@
         var hash = window.location.hash;
         hash = hash || '';
 
-        if(!_enabled && hash.indexOf('avLogger') < 0 && originalFn !== 'error') {
+        if (!_enabled && hash.indexOf('avLogger') < 0 && originalFn !== 'error') {
           return;
         }
 
@@ -261,23 +263,24 @@
 
         var context = this.context ? ' [' + this.context + '] ' : '';
 
-        switch(args.length) {
-          case 1:
-            // (1) If the user supplied one argument, then the argument must be
-            // the message itself and _log()
-            // will print: <timestamp> - <context>: <message>
-            supplantData = args[0];
-            message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
-            break;
-          case 3:
-            // (3) If the user supplied three arguments, then the first argument
-            // is a method name, the second is the message and the third is an
-            // object of variables to interpolate with the message. For this, _log()
-            // will print: <timestamp> - <context> - <method name>('<message>')
-            supplantData = args[2];
-            message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
-            break;
-          case 2:
+        switch (args.length) {
+
+        case 1:
+          // (1) If the user supplied one argument, then the argument must be
+          // the message itself and _log()
+          // will print: <timestamp> - <context>: <message>
+          supplantData = args[0];
+          message = AvLogger.supplant('{0}{1} - {2}', [now, context, args[0]]);
+          break;
+        case 3:
+          // (3) If the user supplied three arguments, then the first argument
+          // is a method name, the second is the message and the third is an
+          // object of variables to interpolate with the message. For this, _log()
+          // will print: <timestamp> - <context> - <method name>('<message>')
+          supplantData = args[2];
+          message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+          break;
+        case 2:
             // (2) If the user provided two arguments, we need to find out whether
             // they supplied a method name or an interpolation object.
             // In order to figure that out, we’ll check the type of the last argument.
@@ -285,26 +288,28 @@
             // first argument is the method name. Otherwise consider the first argument
             // as the message and the second as array of interpolation variables.
             // The output print will be according to this check.
-            if(typeof args[1] === 'string') {
+          if (typeof args[1] === 'string') {
 
-              message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
+            message = AvLogger.supplant("{0}{1} - {2}(\'{3}\')", [now, context, args[0], args[1]]);
 
-            } else {
+          } else {
 
-              // If the message is an error, there may be a stack included. If so, we
-              // should include the stack in the message to make it more meaningful.
-              if(args[0].stack) {
-                var errorMessage = this.formatError(args[0]);
-                message = AvLogger.supplant('{0}{1} - {2}', [now, context, errorMessage]);
-                supplantData = args[1];
+            // If the message is an error, there may be a stack included. If so, we
+            // should include the stack in the message to make it more meaningful.
+            if (args[0].stack) {
+              var errorMessage = this.formatError(args[0]);
+              message = AvLogger.supplant('{0}{1} - {2}', [now, context, errorMessage]);
+              supplantData = args[1];
 
-              }else {
-                supplantData = args[1];
-
-              }
+            }else {
+              supplantData = args[1];
 
             }
-            break;
+
+          }
+          break;
+        default:
+          // no op
         }
 
         var $log = this.$log || $injector.get('$log');
@@ -331,14 +336,17 @@
       };
 
       // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/log.js#L122
-      proto.formatError = function(arg) {
-        if(arg instanceof Error) {
-          if(arg.stack) {
+      proto.formatError = function(_arg) {
+
+        var arg = _arg;
+
+        if (arg instanceof Error) {
+          if (arg.stack) {
 
             arg = (arg.message && arg.stack.indexOf(arg.message) === -1) ?
               'Error: ' + arg.message + '\n' + arg.stack : arg.stack;
 
-          } else if(arg.sourceURL) {
+          } else if (arg.sourceURL) {
             arg = arg.message + '\n' + arg.sourceURL + ':' + arg.line;
           }
         }
@@ -403,7 +411,7 @@
 
     proto.response = function(response) {
 
-      if(this.isAsyncResponse(response)) {
+      if (this.isAsyncResponse(response)) {
         return this.onAsyncReponse(response);
       }
 
@@ -465,7 +473,7 @@
     proto.getUrl = function(url) {
 
       var result = url.match(AV_POLLING.REGEX_URL);
-      if(result && result[1]) {
+      if (result && result[1]) {
         return '/api' + result[1];
       }
 
@@ -523,8 +531,8 @@
       var index = null;
       var request = null;
 
-      for(var i = 0; i < this.pendingRequests.length; i++) {
-        if(this.pendingRequests[i].id === id) {
+      for (var i = 0; i < this.pendingRequests.length; i++) {
+        if (this.pendingRequests[i].id === id) {
           index = i;
           break;
         }
@@ -549,11 +557,11 @@
       var elaspedTime = now - config.pollingStartTime;
       var isElapsed = elaspedTime > config.pollingMaxInterval;
       return isElapsed;
-    },
+    };
 
-      proto.isMaxRetried = function(config) {
-        return config.pollingRetryCount >= AV_POLLING.MAX_RETRY;
-      };
+    proto.isMaxRetried = function(config) {
+      return config.pollingRetryCount >= AV_POLLING.MAX_RETRY;
+    };
 
     proto.isPollable = function(config) {
       var _isTimeout = this.isPollingMaxTimeout(config);
@@ -573,7 +581,7 @@
 
       var deferred = request.deferred;
 
-      if(!this.isPollable(config)) {
+      if (!this.isPollable(config)) {
         $log.info('Rejecting pollable response due to timeout');
         return deferred.reject(request);
       }
@@ -582,7 +590,7 @@
       this.increment(config);
 
       function successCallback(response) {
-        if(self.isAsyncResponse(response)) {
+        if (self.isAsyncResponse(response)) {
           deferred.notify(response);
           self.queueRequest(request.deferred, response);
         } else {
@@ -607,7 +615,7 @@
     };
 
     proto.incrementDecay = function(config) {
-      if(!config._pollingDecay) {
+      if (!config._pollingDecay) {
         // store the original decay param
         config._pollingDecay = config.pollingDecay;
       }
@@ -691,19 +699,21 @@
   // Factory that creates ApiResourcess
   var ApiResourcesFactory = function($http, $q, avPollingService) {
 
-    var AvApiResource = function(options) {
+    var AvApiResource = function(_options) {
 
-      if(!options) {
+      var options = _options;
+
+      if (!options) {
         throw new Error('[options] cannot be null or undefined');
       }
 
       // if string the assume url is being passed in
-      if(angular.isString(options)) {
+      if (angular.isString(options)) {
         options = options.charAt(0) === '/' ? options : '/' + options;
         options = angular.extend({}, {url: options});
       }
 
-      if(!options.url) {
+      if (!options.url) {
         throw new Error('[url] cannot be null');
       }
 
@@ -716,17 +726,17 @@
 
     proto._config = function(config) {
       return angular.extend({}, this.options, (config || {}));
-    },
+    };
 
     proto._cacheBust = function(config) {
       config.cacheBust = null;
       config.params = config.params || {};
       config.params.cacheBust = new Date().getTime();
       return config;
-    },
+    };
 
     proto._getUrl = function(id) {
-      if(this.options.api) {
+      if (this.options.api) {
         return this._getApiUrl(id);
       }
 
@@ -763,11 +773,13 @@
           defer.notify(_response);
 
           // handle the polling service promise
-          _promise.then(function(successResponse) {
+          _promise.then(function(_successResponse) {
+
+            var successResponse = _successResponse;
 
             // if service has a callback then call it
             // var response = self._createResponse(data, status, headers, _config);
-            if(afterCallback) {
+            if (afterCallback) {
               successResponse = afterCallback.call(self, successResponse, config.data);
             }
             defer.resolve(successResponse);
@@ -800,7 +812,7 @@
         return promise;
       };
 
-      promise.always = promise['finally'];
+      promise.always = promise.finally;
 
       return promise;
     };
@@ -811,14 +823,14 @@
         .replace(/\/$/, '');
     };
 
-    proto.join = function () {
+    proto.join = function() {
       var joined = [].slice.call(arguments, 0).join('/');
       return this.normalize(joined);
     };
 
-    proto._getApiUrl = function(id) {
+    proto._getApiUrl = function(_id) {
 
-      id = id ? '/' + id : '';
+      var id = _id ? '/' + _id : '';
 
       var url = this.join(
         this.options.prefix,
@@ -832,13 +844,16 @@
       return url + this.options.suffix;
     };
 
-    proto.create = function(data, config) {
+    proto.create = function(_data, _config) {
 
-      if(!data) {
+      var data = _data;
+      var config = _config;
+
+      if (!data) {
         throw new Error('called method without [data]');
       }
 
-      if(this.beforeCreate) {
+      if (this.beforeCreate) {
         data = this.beforeCreate(data);
       }
 
@@ -851,14 +866,16 @@
 
     };
 
-    proto.get = function(id, config) {
+    proto.get = function(id, _config) {
 
-      if(!id) {
+      var config = _config;
+
+      if (!id) {
         throw new Error('called method without [id]');
       }
 
       config = this._config(config);
-      if(config.cacheBust) {
+      if (config.cacheBust) {
         config = this._cacheBust(config);
       }
       config.method = 'GET';
@@ -869,10 +886,12 @@
 
     };
 
-    proto.query = function(config) {
+    proto.query = function(_config) {
+
+      var config = _config;
 
       config = this._config(config);
-      if(config.cacheBust) {
+      if (config.cacheBust) {
         config = this._cacheBust(config);
       }
       config.method = 'GET';
@@ -882,11 +901,14 @@
 
     };
 
-    proto.update = function(id, data, config) {
+    proto.update = function(id, _data, _config) {
+
+      var config = _config;
+      var data = _data;
 
       var url;
 
-      if(_.isString(id) || _.isNumber(id)) {
+      if (_.isString(id) || _.isNumber(id)) {
         url = this._getUrl(id);
       }else {
         url = this._getUrl();
@@ -898,7 +920,7 @@
         data = id; // data is really the first param
       }
 
-      if(this.beforeUpdate) {
+      if (this.beforeUpdate) {
         data = this.beforeUpdate(data);
       }
 
@@ -911,12 +933,14 @@
 
     };
 
-    proto.remove = function(id, config) {
+    proto.remove = function(id, _config) {
+
+      var config = _config;
 
       var url;
       var data;
 
-      if(_.isString(id) || _.isNumber(id)) {
+      if (_.isString(id) || _.isNumber(id)) {
         url = this._getUrl(id);
       }else {
         // At this point the function signature becomes:
@@ -1033,7 +1057,7 @@
 
         var requestPayload = {};
 
-        if(entries.level) {
+        if (entries.level) {
           delete entries.level;
         }
 
@@ -1148,36 +1172,36 @@
 
   var AvCodesResourceFactory = function(AvApiResource) {
 
-    var AvCodesResource = function () {
+    var AvCodesResource = function() {
       AvApiResource.call(this, 'codes');
     };
 
     angular.extend(AvCodesResource.prototype, AvApiResource.prototype, {
 
-      getCodes: function (data) {
+      getCodes: function(data) {
 
         // config for the api resource query
         var config = {};
         config.params = {};
 
-        if(data.page) {
+        if (data.page) {
           config.params.offset = 50 * (data.page - 1);
         }
-        if(data.offset) {
+        if (data.offset) {
           config.params.offset = data.offset;
         }
-        if(data.list) {
+        if (data.list) {
           config.params.list = data.list;
         }
-        if(data.q) {
+        if (data.q) {
           config.params.q = data.q;
         }
 
-        return this.query(config).then(function (response) {
+        return this.query(config).then(function(response) {
           // Format the response into something select2 can read
           var results = response.data.codes;
-          if(results && !_.has(results[0], 'id')) {
-            _.each(results, function (code) {
+          if (results && !_.has(results[0], 'id')) {
+            _.each(results, function(code) {
               code.id = code.code;
             });
           }
@@ -1284,7 +1308,7 @@
     };
 
     proto.setPermissionIds = function(permissionIds) {
-      if(!angular.isArray(permissionIds)) {
+      if (!angular.isArray(permissionIds)) {
         throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#addPermissionIds');
       }
       this.permissionIds = permissionIds;
@@ -1305,7 +1329,7 @@
     };
 
     proto.getPermission = function(permissionId) {
-      if(!angular.isString(permissionId)) {
+      if (!angular.isString(permissionId)) {
         throw new Error('permissionsId must be a string ID for avUserAuthorizations#getPermission');
       }
 
@@ -1318,7 +1342,7 @@
     proto.getPermissions = function(permissionIds) {
       var self = this;
 
-      if(!angular.isArray(permissionIds)) {
+      if (!angular.isArray(permissionIds)) {
         throw new Error('permissionsIds must be an array of string IDs for avUserAuthorizations#getPermissions');
       }
       // merge permission ids to reduce calls to backend
@@ -1341,7 +1365,7 @@
       return this.getPermission(permissionId).then(function(permission) {
         var organization = _.findWhere(permission.organizations, {id: organizationId});
 
-        if(organization && organization.resources) {
+        if (organization && organization.resources) {
           return organization.resources;
         }
         return [];
@@ -1354,16 +1378,20 @@
      * if can't find permission in array
      * @private
      */
-    proto.toPermissionMap = function(permissionIds, permissions) {
+    proto.toPermissionMap = function(permissionIds, _permissions) {
+
       var self = this;
       var map = {};
-      permissions = _.slice(permissions);
+
+      var permissions = _.slice(_permissions);
+
       _.forEach(permissionIds, function(permissionId) {
         var key = {id: permissionId};
         var permission = _.findWhere(permissions, key);
         permission = permission ? self.toPermission(permission) : self.toPermission(key);
         map[permission.id] = permission;
       });
+
       return map;
     };
 
@@ -1412,7 +1440,7 @@
     proto.getUser = function() {
       var self = this;
 
-      if(this.user) {
+      if (this.user) {
         return $q.when(this.user);
       }
 
@@ -1478,7 +1506,7 @@
     var pingTimeout;
 
     this.enable = function(value) {
-      if(arguments.length) {
+      if (arguments.length) {
         enabled = !!value;
       }
       return enabled;
@@ -1500,7 +1528,7 @@
       pingUrl = url || AV_IDLE.URLS.PING;
     };
 
-    this.$get = function(AV_IDLE, $log, $document, $rootScope, $timeout, avThrottle, $q, $injector) {
+    this.$get = function($log, $document, $rootScope, $timeout, avThrottle, $q, $injector) {
 
       var AvIdle = function() {
 
@@ -1524,7 +1552,7 @@
 
       proto.init = function() {
 
-        if(!enabled) {
+        if (!enabled) {
           this.stop();
           return;
         }
@@ -1554,7 +1582,7 @@
         });
 
         listener = $rootScope.$on(AV_IDLE.EVENTS.MACHINE, function(event, oldUrl, newUrl) {
-          if(oldUrl !== newUrl) {
+          if (oldUrl !== newUrl) {
             self.onEvent(event);
           }
         });
@@ -1587,7 +1615,7 @@
       };
 
       proto.enable = function(value) {
-        if(arguments.length) {
+        if (arguments.length) {
           enabled = !!value;
         }
 
@@ -1621,7 +1649,7 @@
 
       proto.response = function(response) {
 
-        if(this.isApiRequest(response)) {
+        if (this.isApiRequest(response)) {
           this.startSessionTimer();
         }
 
@@ -1634,11 +1662,11 @@
 
       proto.responseError = function(response) {
 
-        if(this.isApiRequest(response) && response.status !== 401) {
+        if (this.isApiRequest(response) && response.status !== 401) {
           this.startSessionTimer();
         }
 
-        if(this.isApiRequest() && response.status === 401) {
+        if (this.isApiRequest() && response.status === 401) {
           this.stopPing();
         }
 
@@ -1690,7 +1718,7 @@
 
       proto.startPing = function() {
 
-        if(!this._keepAlive) {
+        if (!this._keepAlive) {
           $log.info('avIdle ping timer has STARTED');
           this._keepAlive = avThrottle(this.keepAlive, pingTimeout, {context: this});
         }
@@ -1700,7 +1728,7 @@
 
       proto.stopPing = function() {
         $log.info('avIdle ping timer has STOPPED');
-        if(this._pingTimer) {
+        if (this._pingTimer) {
           $timeout.cancel(this._pingTimer);
         }
       };
@@ -1854,13 +1882,13 @@
       proto.validate = function(key, element, value, ruleName) {
 
         var ruleConfig = rules[key];
-        if(!ruleConfig) {
+        if (!ruleConfig) {
           $log.error('Failed to get rules key [' + key + '].  Forms must be tagged with a rules set name for validation to work.');
-          return;
+          return null;
         }
 
         var contraints = ruleConfig[ruleName];
-        if(!contraints) {
+        if (!contraints) {
           $log.info('Rule named [' + ruleName + '] could not be found in the current schema.');
           contraints = [];
         }
@@ -1872,17 +1900,17 @@
 
         angular.forEach(contraints, function(rule, contraintName) {
 
-          if(!rule) {
+          if (!rule) {
             // when extended rule sets, a user can pass nulls to cancel out a rule so if
             // one doesn't exist just continue
-            return;
+            return null;
           }
 
           var validator = services[contraintName];
 
-          if(angular.isUndefined(validator)) {
+          if (angular.isUndefined(validator)) {
             $log.warn('No validator defined for `' + name + '`');
-            return;
+            return null;
           }
 
           var valid = validator.validate(value, rule, element);
@@ -1899,7 +1927,7 @@
           var result = angular.extend({}, rule, validationResult);
 
           results.push(result);
-          if(!valid) {
+          if (!valid) {
             violations.push(validationResult);
           }
           _valid = _valid && valid;
@@ -1958,23 +1986,25 @@
 
       name: 'size',
 
-      validate: function(value, rule) {
+      validate: function(_value, rule) {
+
+        var value = _value;
 
         var min = rule.min || 0;
         var max = rule.max;
         var type = rule.type ? rule.type.toLowerCase() : 'text';
 
-        if(_.isNull(value) || _.isUndefined(value)) {
+        if (_.isNull(value) || _.isUndefined(value)) {
           value = '';
         }
 
-        if(type === 'text') {
+        if (type === 'text') {
           value = value + '';
           return  avValUtils.isEmpty(value) || value.length >= min && (max === undefined || value.length <= max);
         }
 
         // ... must be a Number
-        if(!_.isNumber(value) && /^\d+$/.test(value)) {
+        if (!_.isNumber(value) && /^\d+$/.test(value)) {
           value = parseInt(value, 10);
         }
 
@@ -1998,20 +2028,20 @@
 
     var validator =  {
       name: 'pattern',
-      REGEX: /^\/(.*)\/([gim]*)$/, //regular expression to test a regular expression
+      REGEX: /^\/(.*)\/([gim]*)$/, // regular expression to test a regular expression
       asRegExp: function(pattern) {
         var match;
 
-        if(pattern.test) {
+        if (pattern.test) {
           return pattern;
-        } else {
-          match = pattern.match(validator.REGEX);
-          if(match) {
-            return new RegExp(match[1], match[2]);
-          } else {
-            throw ('Expected ' + pattern + ' to be a RegExp');
-          }
         }
+
+        match = pattern.match(validator.REGEX);
+        if (match) {
+          return new RegExp(match[1], match[2]);
+        }
+
+        throw new Error('Expected ' + pattern + ' to be a RegExp');
       },
       validate: function(value, rule) {
         var values = _.isArray(rule.value) ? rule.value : [rule.value];
@@ -2020,7 +2050,7 @@
 
         _.each(values, function(expresion) {
           var pattern = validator.asRegExp(expresion);
-          if(avValUtils.isEmpty(value) || pattern.test(value)) {
+          if (avValUtils.isEmpty(value) || pattern.test(value)) {
             valid = true;
           }
         });
@@ -2060,7 +2090,7 @@
         // implies empty.
         //
         var ctrl = element && element.data('$ngModelController');
-        if(ctrl) {
+        if (ctrl) {
           return !ctrl.$isEmpty(value);
         }
 
@@ -2126,7 +2156,7 @@
         date.set('minutes', 0);
         date.set('seconds', 0);
 
-        if(!avValUtils.isEmpty(rules.start.units) && !avValUtils.isEmpty(rules.end.units)) {
+        if (!avValUtils.isEmpty(rules.start.units) && !avValUtils.isEmpty(rules.end.units)) {
           startDate = validator.getStartDate(rules.start);
           endDate = validator.getEndDate(rules.end);
         } else {
@@ -2180,7 +2210,7 @@
 
       name: 'npi',
 
-      INTEGER_REGEX:  /^\d*$/,
+      INTEGER_REGEX: /^\d*$/,
 
       validate: function(value) {
 
@@ -2191,21 +2221,21 @@
         }
 
         var firstDigit = npi.charAt(0);
-        if(!('1' === firstDigit || '2' === firstDigit || '3' === firstDigit || '4' === firstDigit)) {
+        if (!(firstDigit === '1' || firstDigit === '2' || firstDigit === '3' || firstDigit === '4')) {
           return false;
         }
 
         var digit = parseInt(npi.charAt(9), 10);
         npi = npi.substring(0, 9);
-        npi = "80840" + npi;
+        npi = '80840' + npi;
 
         var alternate = true;
         var total = 0;
 
         for (var i = npi.length; i > 0; i--) {
-          var next = parseInt(npi.charAt(i-1), 10);
+          var next = parseInt(npi.charAt(i - 1), 10);
           if (alternate) {
-            next = next*2;
+            next = next * 2;
             if (next > 9) {
               next = (next % 10) + 1;
             }
@@ -2530,13 +2560,15 @@
     var virtualPageTracking = AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;
     var appId;
 
-    this.registerPlugins = function(_plugins) {
+    this.registerPlugins = function(__plugins) {
 
-      if(angular.isString(_plugins)) {
+      var _plugins = __plugins;
+
+      if (angular.isString(_plugins)) {
         _plugins = [_plugins];
       }
 
-      if(_.isArray(_plugins)) {
+      if (_.isArray(_plugins)) {
         plugins = _plugins;
       } else {
         throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
@@ -2546,7 +2578,7 @@
     };
 
     this.setVirtualPageTracking = function(value) {
-      if(arguments.length) {
+      if (arguments.length) {
         virtualPageTracking = !!value;
       }
     };
@@ -2567,7 +2599,7 @@
         var self = this;
         this.services = {};
 
-        if(!plugins || plugins.length === 0) {
+        if (!plugins || plugins.length === 0) {
           plugins = [AV_ANALYTICS.SERVICES.PIWIK, AV_ANALYTICS.SERVICES.SPLUNK];
         }
 
@@ -2575,7 +2607,7 @@
 
           try {
             self.services[plugin] = $injector.get(plugin);
-          } catch(err) {
+          } catch (err) {
             $log.error('Could not load `{0}` plugin', [plugin]);
           }
         });
@@ -2588,7 +2620,7 @@
 
         var self = this;
 
-        if(this.isVirtualPageTracking()) {
+        if (this.isVirtualPageTracking()) {
 
           $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
             self.trackPageView($location.absUrl());
@@ -2599,7 +2631,7 @@
 
         angular.forEach(this.services, function(handler) {
 
-          if(handler.isEnabled() && handler.init) {
+          if (handler.isEnabled() && handler.init) {
             handler.init();
           }
 
@@ -2664,7 +2696,7 @@
       var props = {};
 
       _.forEach(attributes, function(value, key) {
-        if(self.isValidAttribute(key) && self.isNotIgnored(key)) {
+        if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
           var result = self.getAttribute(key, value);
           props[result.key] = result.value;
         }
@@ -2701,7 +2733,7 @@
     proto.getAttribute = function(key, value) {
       var simpleKey = key.match(AV_ANALYTICS.PRE_FIX);
 
-      if(simpleKey && simpleKey[1]) {
+      if (simpleKey && simpleKey[1]) {
         return {
           key: this.lowercase(simpleKey[1]),
           value: value
@@ -2710,21 +2742,23 @@
     };
 
     proto.toNum = function(value) {
+
       var parsed = parseInt(value, 10);
-      value = isNaN(parsed) ? 0 : parsed;
-      return value;
+
+      return isNaN(parsed) ? 0 : parsed;
+
     };
 
     proto.isValid = function(trackingValues) {
       var valid = true;
 
-      if(trackingValues.value || trackingValues.value === 0) {
+      if (trackingValues.value || trackingValues.value === 0) {
         delete trackingValues.value;
       }
 
       _.forEach(trackingValues, function(key, value) {
-        if(availity.isBlank(value) || _.isUndefined(value)) {
-          $log.warn('The analytic tracking value for ' + key.toUpperCase() +' is not defined.');
+        if (availity.isBlank(value) || _.isUndefined(value)) {
+          $log.warn('The analytic tracking value for ' + key.toUpperCase() + ' is not defined.');
           valid = false;
         }
       });
@@ -2796,9 +2830,9 @@
     // after page has loaded
     this._setCustomVariable = function(index, valueName, value, scope) {
 
-      if(!index || isNaN(index)) {
+      if (!index || isNaN(index)) {
         throw new Error('index must be a number');
-      } else if(!valueName) {
+      } else if (!valueName) {
         throw new Error('valueName must be declared');
       } else {
         customVariables.push(['setCustomVariable', index, valueName, value, scope]);
@@ -2831,7 +2865,7 @@
 
       proto.trackEvent = function(properties) {
 
-        if(!window._paq) {
+        if (!window._paq) {
           $log.warn('Piwik object `_paq` not found in global scope');
           return $q.when(false);
         }
@@ -2841,12 +2875,12 @@
         // PAQ requires that eventValue be an integer.
         // Check to make sure value is a number if not convert it to 0.
         //
-        if(properties.value) {
+        if (properties.value) {
           properties.value = avAnalyticsUtils.toNum(properties.event);
         }
 
         // check to make sure that data being sent to piwik is a string and not null, empty or undefined
-        if(!avAnalyticsUtils.isValid(properties)) {
+        if (!avAnalyticsUtils.isValid(properties)) {
           $log.warn('Invalid properties being passed. Tracking info will not be sent.');
           return $q.when(false);
         }
@@ -2856,7 +2890,7 @@
 
       proto.trackPageView  = function(url) {
 
-        if(!window._paq) {
+        if (!window._paq) {
           $log.warn('Piwik object `_paq` not found in global scope');
           return $q.when(false);
         }
@@ -2875,14 +2909,14 @@
           // self.trackPageView(); //send another page track when the user data loads
         });
 
-        if(!_.isFinite(siteId)) {
+        if (!_.isFinite(siteId)) {
           $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
           return;
         }
 
         var url;
 
-        if($location.$$host === AV_ANALYTICS.ENV.PROD.DOMAIN) {
+        if ($location.$$host === AV_ANALYTICS.ENV.PROD.DOMAIN) {
           url = AV_ANALYTICS.ENV.PROD.URL;
         } else {
           url = AV_ANALYTICS.ENV.QA.URL;
@@ -2957,7 +2991,7 @@
 
         var self = this;
 
-        if(!_enabled) {
+        if (!_enabled) {
           return;
         }
 
@@ -2977,7 +3011,7 @@
 
         var length = stacktrace.stack.length;
 
-        for(var i = 0; i < length; i++) {
+        for (var i = 0; i < length; i++) {
           message += [
             '[' + _.padLeft(i + '', 2, '0') + '] ',
             stacktrace.stack[i].func,
@@ -3021,13 +3055,13 @@
       };
 
       proto.log = function(message) {
-        return avLogMessagesResource['error'](message);
+        return avLogMessagesResource.error(message);
       };
 
       proto.trackEvent = function(exception) {
 
-        if(!_enabled) {
-          return;
+        if (!_enabled) {
+          return null;
         }
 
         var stacktrace = TraceKit.computeStackTrace(exception);
@@ -3076,42 +3110,6 @@
 
 })(window);
 
-
-// Source: /lib/core/utils/date-polyfill.js
-// Issue: https://github.com/angular/angular.js/issues/11165
-// Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
-//
-// This polyfill is needed because Angular calls toISOString()
-// when an request parameter is of type Date.  If this polyfill isn't present
-// the ajax call fails.
-//
-(function() {
-
-  'use strict';
-
-  var pad = function(number) {
-    if(number < 10) {
-      return '0' + number;
-    }
-    return number;
-  };
-
-  if(!Date.prototype.toISOString) {
-
-    Date.prototype.toISOString = function() {
-
-      return this.getUTCFullYear() +
-        '-' + pad(this.getUTCMonth() + 1) +
-        '-' + pad(this.getUTCDate()) +
-        'T' + pad(this.getUTCHours()) +
-        ':' + pad(this.getUTCMinutes()) +
-        ':' + pad(this.getUTCSeconds()) +
-        '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
-        'Z';
-    };
-  }
-
-})(window);
 
 // Source: /lib/core/messages/messages-constants.js
 (function(root) {
@@ -3165,7 +3163,7 @@
 
     this.enable = function(value) {
 
-      if(arguments.length) {
+      if (arguments.length) {
         enabled = !!value;
       }
 
@@ -3234,7 +3232,7 @@
 
       proto.isDomain = function(url) {
 
-        if(AV_MESSAGES.DOMAIN.test(this.domain())) {
+        if (AV_MESSAGES.DOMAIN.test(this.domain())) {
           return AV_MESSAGES.DOMAIN.test(url);
         }
 
@@ -3251,17 +3249,17 @@
 
         event = event.originalEvent || event;  // jQuery wraps in `originalEvent`
 
-        if(!event && !event.data) {
+        if (!event && !event.data) {
           // no op
           return;
         }
 
         // don't process messages emitted from same window
-        if(event.source === window) {
+        if (event.source === window) {
           return;
         }
 
-        if(!this.isDomain(event.origin)) {
+        if (!this.isDomain(event.origin)) {
           $log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');
           return;
         }
@@ -3271,11 +3269,11 @@
 
         try {
           data =  angular.fromJson(data);
-        } catch(err) {
+        } catch (err) {
           $log.warn('avMessages.onMessage() failed to convert event to json payload');
         }
 
-        if(_.isString(data)) {
+        if (_.isString(data)) {
           event = data;
           data = null;
         }else {
@@ -3294,11 +3292,11 @@
 
         var window = root;
 
-        if(window.location.origin) {
+        if (window.location.origin) {
           return window.location.origin;
         }
 
-        if(window.location.hostname) {
+        if (window.location.hostname) {
           return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
         }
 
@@ -3313,7 +3311,7 @@
           var message  = _.isString(payload) ? payload : JSON.stringify(payload);
           this.postMessage(message, this.domain());
 
-        } catch(err) {
+        } catch (err) {
           $log.error('avMessages.send() ', err);
         }
       };
@@ -3330,7 +3328,7 @@
 
   availity.core.run(function(avMessages) {
 
-    if(avMessages.isEnabled()) {
+    if (avMessages.isEnabled()) {
       avMessages.init();
     }
 
