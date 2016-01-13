@@ -77,6 +77,7 @@ module.exports = {
       './lib/core/validation/validators/validator-required.js',
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
+      './lib/core/validation/validators/validator-npi.js',
       './lib/core/validation/validators/validator-phone.js',
       './lib/core/validation/validators/validator-email.js',
       './lib/core/utils/globals.js',
@@ -122,7 +123,8 @@ module.exports = {
       './lib/ui/animation/loader.js',
       './lib/ui/block/block.js',
       './lib/ui/block/block-directive.js',
-      './lib/ui/tabs/tabs.js'
+      './lib/ui/tabs/tabs.js',
+      './lib/ui/scroll-pagination/scroll-pagination.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',

@@ -1,0 +1,76 @@
+---
+title: Scroll Pagination
+---
+<div data-markdown>
+  The scroll pagination plugin provides a simple way to page data that is displayed in a scrollable list. Specifically:
+  - Provides buttons to get data pages
+  - Offloads data when needed to maintain performance
+  - Maintains scroll position as data is loaded and offloaded to preserve the UX
+
+  The plugin requires several pieces of information:
+  - `api-resource`, the API from which to get data. The plugin expects a service built from the API factory
+  - `entries`, the scoped list where the API items will be set
+  - `options`, configuration options for the plugin. See the example for a full list of available settings
+</div>
+
+<div data-ng-controller="ScrollPaginationController">
+
+  <div class="guide-example">
+    <div id="scrollPaginationContainer" style="height: 400px; overflow-y: scroll; overflow-x: hidden; padding: .2em;"
+          data-av-scroll-pagination="demo"
+          data-api-resource="apiResource"
+          data-entries="entries"
+          data-options="options">
+      <div class="list-group list-group-cards">
+        <div class="list-group-item"
+              data-ng-repeat="entry in entries"
+              data-ng-class="entry.isActive ? 'success' : 'error'"
+              id="{{entry._id}}">
+          <span class="label label-unstyled pull-right"></span>
+          <h4 class="list-group-item-heading">{{entry.name}}</h4>
+          <h6>{{entry.company}}</h6>
+          <p class="list-group-item-text">{{entry.about}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <code class="language-markup">
+    <div id="scrollPaginationContainer"
+        data-av-scroll-pagination="demo"
+        data-api-resource="apiResource"
+        data-entries="entries"
+        data-options="options">
+      <div class="list-group list-group-cards">
+        <div class="list-group-item"
+              data-ng-repeat="entry in entries"
+              id="{{entry._id}}"> <!-- set ID to the entryIdAttribute value as specified in the plugin options -->
+          ...
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Javascript -->
+    <script>
+      /* global availity */
+      availity.demo.controller('ScrollPaginationController', function($scope, scrollPaginationDemoApi) {
+        $scope.apiResource = scrollPaginationDemoApi;
+        $scope.entries = [];
+        $scope.options = {
+          limit: 10,                              // Number of entries to grab per page
+          offset: 0,                              // API offset, typically should be set to 0
+          maxCached: 20,                          // Max number of item to store in memory. If exceeded, entries will be offloaded
+          responseKey: 'data',                    // Key to API response data
+          resourceId: 'scrollPaginationItems',    // Name of resource in API response
+          entryIdAttribute: '_id',                // Unique identifier for an entry, should be used as the HTML id for the entry container in HTML
+          loadMoreText: 'Load more customers',    // Text for pagination buttons
+          apiParams: {                            // Any additional parameters to send to the API
+            transactionType: '270'
+          }
+        };
+      });
+    </script>
+  </code>
+
+</div>

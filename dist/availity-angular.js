@@ -1,6 +1,6 @@
 /**
- * availity-angular v1.3.0 -- November-30
- * Copyright 2015 Availity, LLC 
+ * availity-angular v1.6.2 -- January-11
+ * Copyright 2016 Availity, LLC 
  */
 
 // Source: /lib/core/index.js
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.3.0';
+  availity.VERSION = 'v1.6.2';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -805,9 +805,31 @@
       return promise;
     };
 
+    proto.normalize = function(url) {
+      return url
+        .replace(/[\/]+/g, '/')
+        .replace(/\/$/, '');
+    };
+
+    proto.join = function () {
+      var joined = [].slice.call(arguments, 0).join('/');
+      return this.normalize(joined);
+    };
+
     proto._getApiUrl = function(id) {
+
       id = id ? '/' + id : '';
-      return this.options.prefix + this.options.path + this.options.level + this.options.resourceGroup + this.options.version + this.options.url + id + this.options.suffix;
+
+      var url = this.join(
+        this.options.prefix,
+        this.options.path,
+        this.options.level,
+        this.options.resourceGroup,
+        this.options.version,
+        this.options.url,
+        id);
+
+      return url + this.options.suffix;
     };
 
     proto.create = function(data, config) {
@@ -1762,7 +1784,8 @@
       'avValDateRange',
       'avValDate',
       'avValPhone',
-      'avValEmail'
+      'avValEmail',
+      'avValNpi'
     ]
   });
 
@@ -2141,6 +2164,72 @@
     };
     return validator;
   });
+})(window);
+
+// Source: /lib/core/validation/validators/validator-npi.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValNpi', function() {
+
+
+    var validator =  {
+
+      name: 'npi',
+
+      INTEGER_REGEX:  /^\d*$/,
+
+      validate: function(value) {
+
+        var npi = value || '';
+
+        if (!validator.INTEGER_REGEX.test(npi) || npi.length !== 10) {
+          return false;
+        }
+
+        var firstDigit = npi.charAt(0);
+        if(!('1' === firstDigit || '2' === firstDigit || '3' === firstDigit || '4' === firstDigit)) {
+          return false;
+        }
+
+        var digit = parseInt(npi.charAt(9), 10);
+        npi = npi.substring(0, 9);
+        npi = "80840" + npi;
+
+        var alternate = true;
+        var total = 0;
+
+        for (var i = npi.length; i > 0; i--) {
+          var next = parseInt(npi.charAt(i-1), 10);
+          if (alternate) {
+            next = next*2;
+            if (next > 9) {
+              next = (next % 10) + 1;
+            }
+          }
+          total += next;
+          alternate = !alternate;
+        }
+
+        var roundUp = Math.ceil(total / 10) * 10;
+        var calculatedCheck = roundUp - total;
+
+        if (calculatedCheck !== digit) {
+          return false;
+        }
+
+        return true;
+      }
+
+    };
+
+    return validator;
+
+  });
+
 })(window);
 
 // Source: /lib/core/validation/validators/validator-phone.js
@@ -2735,7 +2824,7 @@
     this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location) {
 
       var AvPiwikAnalytics = function() {
-
+        window._paq = window._paq || [];
       };
 
       var proto = AvPiwikAnalytics.prototype;
