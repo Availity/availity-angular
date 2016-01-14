@@ -1,0 +1,28 @@
+<div class="form-group">
+  <div class="input-group form-control" data-ng-click="toggleCollapsed()">
+    {{providerModel.providerName}}
+    <a href="javascript:void(0)" class="pull-right">
+      <span class="icon icon-down-dir" data-ng-show="collapsed"></span>
+      <span class="icon icon-up-dir" data-ng-show="!collapsed"></span>
+    </a>
+  </div>
+
+  <div data-ng-show="!collapsed" class="card express-entry-container">
+    <div class="input-group">
+      <input data-ng-model="filterTerm" type="text" id="inp" class="form-control" tabindex="1">
+      <span class="input-group-btn">
+      <button class="btn btn-default" type="button"><i class="icon icon-search"></i></button>
+      </span>
+    </div>
+    <div data-av-loader="" class="loading-indicator" data-ng-show="loadingProviders"></div>
+    <div class="col-xs-12 express-entry" id="tabscroll">
+      <table class="table">
+        <tbody>
+          <tr data-ng-repeat="provider in providerList | filter:filterTerm" data-ng-click="onProviderClick(provider, $event)">
+            <td>{{provider.providerName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
