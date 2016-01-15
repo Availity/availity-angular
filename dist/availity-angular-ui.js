@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.7.0 -- January-13
+ * availity-angular v1.8.0 -- January-15
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2735,7 +2735,9 @@
       maxCached: 100,
       loadMoreText: 'Load more items',
       entryIdAttribute: 'id',
-      apiParams: {}
+      apiParams: {},
+      beforePageLoad: undefined,
+      afterPageLoad: undefined
     }
   });
 
@@ -2791,10 +2793,16 @@
     this.loadEntries = function(prepend) {
       var block = blockUI.instances.get('scroll-pagination-block-' + $scope.avScrollPagination);
       block.start();
+      if (_.isFunction($scope._options.beforePageLoad)) {
+        $scope._options.beforePageLoad($scope._options);
+      }
       var params = {};
       _.extend(params, $scope._options.apiParams, {limit: $scope._options.limit, offset: $scope._options.offset});
       $scope.apiResource.query({params: params}).then(function(response) {
         var responseData = self.getResponseData(response);
+        if ($scope._options.afterPageLoad) {
+          $scope._options.afterPageLoad(responseData);
+        }
         if (responseData && responseData[$scope._options.resourceId]) {
           self.addEntries(responseData[$scope._options.resourceId], prepend);
         }

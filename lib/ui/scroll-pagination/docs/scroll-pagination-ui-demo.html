@@ -65,7 +65,9 @@ title: Scroll Pagination
           responseKey: 'data',                    // Key to API response data
           resourceId: 'scrollPaginationItems',    // Name of resource in API response
           entryIdAttribute: '_id',                // Unique identifier for an entry, should be used as the HTML id for the entry container in HTML
-          loadMoreText: 'Load more customers',    // Text for pagination buttons
+          loadMoreText: 'Load more customers',    // Text for pagination buttons,
+          beforePageLoad: function(options) {},   // Function to run prior to making an API call for the next / previous page of data
+          afterPageLoad: function(response) {},   // Function to run after making an API call for the next / previous page of data
           apiParams: {                            // Any additional parameters to send to the API
             transactionType: '270'
           }
