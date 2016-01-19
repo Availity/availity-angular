@@ -1,5 +1,5 @@
 /**
- * availity-angular v2.0.0-beta.0 -- January-13
+ * availity-angular v1.8.0 -- January-15
  * Copyright 2016 Availity, LLC 
  */
 
@@ -21,7 +21,7 @@
     // jscs: enable
   });
 
-  if (typeof module !== 'undefined' && module.exports) {
+  if(typeof module !== 'undefined' && module.exports) {
     module.exports = availity;
   }
 
@@ -43,7 +43,7 @@
 
         var valid = !options.template || !options.templateUrl;
 
-        if (!valid) {
+        if(!valid) {
           throw new Error('Either options.template or options.templateUrl must be defined for avTemplateCache');
         }
 
@@ -92,7 +92,7 @@
       MODAL: 'bs.modal'
     },
 
-    BS_EVENTS: {
+    BS_EVENTS:  {
       SHOW: 'show.bs.modal',
       SHOWN: 'shown.bs.modal',
       HIDE: 'hide.bs.modal',
@@ -126,12 +126,12 @@
 
         var $el = $('#' + id);
 
-        if (!$el) {
+        if(!$el) {
           return;
         }
 
         var bsModal = $el.data('bs.modal');
-        if (bsModal) {
+        if(bsModal) {
           bsModal.removeBackdrop();
           bsModal.$body.removeClass('modal-open');
           bsModal.resetAdjustments();
@@ -139,7 +139,7 @@
         }
 
         var avModal = $el.data('AvModal');
-        if (avModal) {
+        if(avModal) {
           avModal.destroy();
         }
 
@@ -248,7 +248,7 @@
 
       $element.on(AV_MODAL.BS_EVENTS.SHOWN, function(event) {
 
-        if (angular.isFunction(self.options.onShown)) {
+        if(angular.isFunction(self.options.onShown)) {
           self.options.onShown();
         }
 
@@ -263,7 +263,7 @@
 
       $element.on(AV_MODAL.BS_EVENTS.HIDDEN, function(event) {
 
-        if (angular.isFunction(self.options.onHidden)) {
+        if(angular.isFunction(self.options.onHidden)) {
           self.options.onHidden.call(this);
         }
 
@@ -311,7 +311,7 @@
 
     proto.isShown = function() {
       return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
-    };
+    },
 
     proto.toggle = function() {
 
@@ -337,7 +337,7 @@
     proto._createId = function() {
       // Create a unique id for the modal if not present or passed in via options
       var id = this.$element.attr('id');
-      if (!id) {
+      if(!id) {
         // Get id from options or create a unique id
         id = this.options.id ? this.options.id : availity.uuid('av-modal-id');
         this.$element.attr('id', id);
@@ -355,7 +355,7 @@
 
   availity.ui.directive('avModal', function(AV_MODAL) {
     return {
-      restrict: 'AE',
+      restrict: 'A',
       replace: true,
       transclude: true,
       scope: {
@@ -419,7 +419,7 @@
     };
 
     this.unrecord = function(id) {
-      if (id && this.violations[id]) {
+      if(id && this.violations[id]) {
         delete this.violations[id];
       }
     };
@@ -461,24 +461,18 @@
 
             var ruleFn = $parse(iAttrs.avValForm);
             var rulesKey = ruleFn(scope);
-
-            var ngForm = controllers[0];
-            var avForm = controllers[1];
-
             rulesKey = rulesKey || iAttrs.avValForm; // interpolated rule from scope || fixed string
 
-            if (!rulesKey) {
+            if(!rulesKey) {
               $log.error('avValForm requires a rules key in order to run the proper validation rules.');
               return;
             }
 
             scope.$watch(ruleFn, function(_rulesKey, _oldRulesKey) {
-
-              if (_rulesKey) {
-
+              if(_rulesKey) {
                 avForm.setRulesKey(_rulesKey);
 
-                if (_rulesKey !== _oldRulesKey) {
+                if(_rulesKey !== _oldRulesKey) {
                   $timeout(function() {
                     $log.info('avValForm revalidate');
                     $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
@@ -488,6 +482,9 @@
               }
 
             });
+
+            var ngForm = controllers[0];
+            var avForm = controllers[1];
 
             // Allow form attributes to define the validation behavior of the form fields
             // inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
@@ -507,20 +504,20 @@
 
             // Disable ng-submit or ng-click handlers and store the function to call for submitting
             var fn;
-            if (iAttrs.ngSubmit) {
+            if(iAttrs.ngSubmit) {
               // Disable ng-submit event
               iEl.off('submit');
-              fn = $parse(iAttrs.ngSubmit, /* interceptorFn */ null, /* expensiveChecks */ true);
-            }else if (iAttrs.ngClick) {
+              fn = $parse(iAttrs.ngSubmit, /* expensiveChecks */ true);
+            }else if(iAttrs.ngClick) {
               // Disable ng-click event
               iEl.off('click');
-              fn = $parse(iAttrs.ngClick, /* interceptorFn */ null, /* expensiveChecks */ true);
+              fn = $parse(iAttrs.ngClick, /* expensiveChecks */ true);
             }
 
             var ngForm = controllers[0];
             var avForm = controllers[1];
 
-            scope.$on(AV_VAL.EVENTS.RESET, function() {
+            scope.$on(AV_VAL.EVENTS.RESET, function () {
               avForm.reset();
             });
 
@@ -529,7 +526,7 @@
               scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
               avForm.$setSubmitted();
 
-              if (ngForm.$invalid) {
+              if(ngForm.$invalid) {
 
                 scope.$broadcast(AV_VAL.EVENTS.FAILED);
 
@@ -545,12 +542,12 @@
 
               ngForm.$setPristine();
 
-              if (!fn) {
+              if(!fn) {
                 return;
               }
 
               var callback = function() {
-                fn(scope, {$event: event});
+                fn(scope, {$event:event});
               };
 
               scope.$apply(callback);
@@ -603,17 +600,16 @@
 
     this.updateModel = function(results) {
 
+      var self = this;
       var validationKeys = [];
 
       this.ngModel.avResults = results;
 
       // set state for each violation
-      angular.forEach(results.violations, function(result) {
-
+      angular.forEach(results.violations, function (result) {
         var key = 'av-' + result.contraintName;
         validationKeys.push(key);
         self.ngModel.$setValidity(key, result.valid);
-
       });
 
       // set overall state for validation state
@@ -629,14 +625,14 @@
       // remove violation keys that are no longer falsy
       angular.forEach(this.ngModel.$error, function(value, key) {
 
-        if (_.indexOf(validationKeys, key) === -1 && key.lastIndexOf('av-', 0) === 0) {
+        if(_.indexOf(validationKeys, key) === -1 && key.lastIndexOf('av-', 0) === 0) {
           self.ngModel.$setValidity(key, true);
         }
       });
     };
 
     this.updateView = function() {
-      if (this.ngModel.$dirty || $scope.avValShow) {
+      if(this.ngModel.$dirty || $scope.avValShow) {
         avValAdapter.element($element, this.ngModel, this.ngModel.avResults.isValid);
         avValAdapter.message($element, this.ngModel);
       }
@@ -668,7 +664,7 @@
 
       var results = self.validate(value);
 
-      if (self.avValForm.avValInvalid || self.avValInvalid) {
+      if(self.avValForm.avValInvalid || self.avValInvalid) {
         // allows invalid data from view to update model for dirty saving
         return value;
       }
@@ -682,9 +678,9 @@
 
       var value = $element.val().trim();
 
-      if (this.isCheckbox()) {
+      if(this.isCheckbox()) {
         this.ngModel.$setViewValue($element[0].checked);
-      } else if (this.isRadio()) {
+      } else if(this.isRadio()) {
         this.ngModel.$setViewValue($attrs.value);
       }else {
         this.ngModel.$setViewValue(value);
@@ -712,6 +708,8 @@
 
     this.event = function(event, avValDebounce) {
 
+      var self = this;
+
       $element.unbind('input');
 
       var debounce;
@@ -719,7 +717,7 @@
       $element.on(event, function() {
 
         // https://github.com/angular/angular.js/blob/v1.2.27/src/ng/directive/input.js#L508
-        if ($sniffer.msie <= 11 && (event || noEvent).type === 'input' && $element[0].placeholder !== placeholder) {
+        if($sniffer.msie <= 11 && (event || noEvent).type === 'input' && $element[0].placeholder !== placeholder) {
           placeholder = $element[0].placeholder;
           return;
         }
@@ -760,7 +758,7 @@
 
         var avValOn = scope.avValOn || avValForm.avValOn || 'input';
 
-        if (!ngModel && !rule) {
+        if(!ngModel && !rule) {
           $log.error('avValField requires ngModel and a validation rule to run.');
           return;
         }
@@ -783,7 +781,7 @@
 
         var debounceAllowed = !avValField.isRadio() && !avValField.isCheckbox() && avValOn !== 'blur';
 
-        if (!debounceAllowed) {
+        if(!debounceAllowed) {
           avValDebounce = 0;
         }
 
@@ -810,11 +808,11 @@
 
         // - Removes all errors on page,
         // - does not reset view or model values.  This is to be handled by the app.
-        scope.$on(AV_VAL.EVENTS.RESET, function() {
+        scope.$on(AV_VAL.EVENTS.RESET, function () {
           avValField.reset();
         });
 
-        scope.$on('$destroy', function() {
+        scope.$on('$destroy', function () {
           avValForm.unrecord(ngModel.avId);
         });
 
@@ -894,16 +892,16 @@
 
       this.listeners();
 
-      if ($scope.show) {
+      if($scope.showOnLoad) {
 
         this.show();
 
-        if ($scope.delay && $scope.delay.hide) {
+        if($scope.delay && $scope.delay.hide) {
           $timeout(this.hide, $scope.delay.hide, false);
           return;
         }
         // If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
-        $timeout(this.hide, this.options.showDelay, false);
+        $timeout(this.hide, this.options.showOnLoadHideDelay, false);
       }
     };
 
@@ -915,7 +913,7 @@
       restrict: 'A',
       controller: 'AvPopoverController',
       scope: {
-        show: '=',
+        showOnLoad: '=',
         delay: '='
       },
       link: function(scope, element, attrs, avPopover) {
@@ -946,7 +944,7 @@
     this.message = function(ngModel) {
 
       var message = null;
-      if (ngModel.avResults.violations.length && ngModel.avResults.violations[0].message) {
+      if(ngModel.avResults.violations.length && ngModel.avResults.violations[0].message) {
         message = ngModel.avResults.violations[0].message;
       }else {
         message = null;
@@ -1007,7 +1005,7 @@
     return {
 
       element: function(element, ngModel) {
-        if (ngModel.$valid) {
+        if(ngModel.$valid) {
           element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
         }else {
           element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
@@ -1032,7 +1030,7 @@
         // default to siblings
         target = target ? $('#' + target) : $el.siblings(selector);
 
-        if (target.length === 0) {
+        if(target.length === 0) {
           $log.warn('avValBootstrapAdapter could not find validation container for {0}', [element]);
           return;
         }
@@ -1040,7 +1038,7 @@
         var el = target[0];
         $el = angular.element(el);
         var avValModel = $el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER); // get the av val message controller
-        if (avValModel) {
+        if(avValModel) {
           avValModel.message(ngModel);
         }
       },
@@ -1115,7 +1113,7 @@
 
       proto.message = function(element, ngModel) {
         this.adapter.message(element, ngModel);
-      };
+      },
 
       proto.scroll = function(form) {
         this.adapter.scroll(form);
@@ -1135,12 +1133,10 @@
   var availity = root.availity;
 
   availity.ui.provider('avDropdownConfig', function() {
-
     var config = {
       closeOnResize: true,
       dropdownAutoWidth: true,
-      minimumResultsForSearch: 5,
-      theme: 'bootstrap'
+      minimumResultsForSearch: 5
     };
 
     this.set = function(options) {
@@ -1150,7 +1146,6 @@
     this.$get = function() {
       return angular.copy(config);
     };
-
   });
 
   availity.ui.constant('AV_DROPDOWN', {
@@ -1160,6 +1155,7 @@
       'maximumInputLength',
       'minimumResultsForSearch',
       'maximumSelectionSize',
+      'placeholderOption',
       'separator',
       'allowClear',
       'multiple',
@@ -1167,9 +1163,9 @@
       'openOnEnter',
       'id',
       'matcher',
-      'sorter',
-      'templateSelection',
-      'templateResult',
+      'sortResults',
+      'formatSelection',
+      'formatResult',
       'formatResultCssClass',
       'formatNoMatches',
       'formatSearching',
@@ -1178,7 +1174,7 @@
       'formatInputTooLong',
       'formatSelectionTooBig',
       'formatLoadMore',
-      'createTag',
+      'createSearchChoice',
       'createSearchChoicePosition',
       'initSelection',
       'tokenizer',
@@ -1195,14 +1191,15 @@
       'adaptContainerCssClass',
       'adaptDropdownCssClass',
       'escapeMarkup',
-      'selectOnClose',
+      'selectOnBlur',
       'loadMorePadding',
-      'nextSearchTerm'
+      'nextSearchTerm',
+      'correlationId'
     ]
   });
 
 
-  availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, avDropdownConfig, $log, $scope) {
+  availity.ui.controller('AvDropdownController', function($element, $attrs, AV_UI, AV_DROPDOWN, avDropdownConfig, $log, $scope, $timeout, $parse) {
 
     var self = this;
     this.options = {};
@@ -1214,28 +1211,355 @@
       self.options = angular.extend({}, avDropdownConfig);
 
       _.forEach($attrs, function(value, key) {
-        if (_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
+        if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
 
+      if(this.isRemoteMultiple()) {
+        self.options.multiple = angular.isDefined($attrs.multiple);
+      }
+
       self.multiple = angular.isDefined($attrs.multiple);
+
+      if(self.options.query) {
+
+        self.queryFn = self.options.query;
+        // Function used to query results for the search term.
+        self.options.query = self.query;
+        // Function used to get the id from the choice object or a string representing the key under which the id is stored.
+        self.options.id = self.getId;
+      }
 
     };
 
+    this.isRemoteMultiple = function() {
+      if(angular.isDefined($attrs.multiple) && $element.get(0).tagName.toLowerCase() === 'input') {
+        return true;
+      }
+      return false;
+    };
 
+    this.setRemoteViewValue = function(e) {
+
+      var values = this.ngModel.$viewValue;
+
+      if(!angular.isArray(values) || !angular.isObject(values)) {
+        values = [];
+      }
+
+      if(e.added) {
+        // Adding to collection
+        values.push(e.added);
+      } else {
+        // Removing from collection
+        var index = _.findIndex(values, function(value) {
+          return  _.matches(e.removed)(value);
+        });
+        values.splice(index, 1);
+      }
+
+      this.ngModel.$setViewValue(values);
+
+    };
+
+    this.setViewValue = function(e) {
+      this.ngModel.$setViewValue(e.added);
+    };
+
+    this.setNgModel = function(ngModel) {
+      this.ngModel = ngModel;
+    };
+
+    this.getSelected = function(model) {
+
+      if(self.options.query) {
+        return 0;
+      }
+
+      var items = this.collection($scope);
+
+      var index = _.findIndex(items, function(item) {
+        return angular.equals(item, model);
+      });
+
+      return index;
+
+    };
+
+    // Result:
+    //
+    // {
+    //   "code": "252Y00000X",
+    //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
+    //   "id": "252Y00000X"
+    // }
+    this.getId = function(result) {
+      return result.id;
+    };
+
+    // Wrapper around the query function for Select2.  When the promise resolves
+    // the callback
+    this.query = function(options) {
+
+      self.queryFn(options).then(function(response) {
+
+        // Callback function that should be called with the result object. The result object:
+        //
+        // result.results (object) - Array of result objects. The default renderers
+        //    expect objects with id and text keys. The id property is required,
+        //    even if custom renderers are used. The object may also contain a children
+        //    key if hierarchical data is displayed. The object may also contain a disabled
+        //    boolean property indicating whether this result can be selected.
+        //
+        // result.more (boolean) - true if more results are available for the current
+        //    search term.
+        //
+        // results.context (object) - A user-defined object that should be made available
+        //    as the context parameter to the query function on subsequent queries to load
+        //    more result pages for the same search term. See the description of
+        //    options.context parameter.
+        options.callback({more: response.more, results: response.results});
+      });
+    };
+
+    this.setValue = function() {
+
+      var viewValue = self.ngModel.$viewValue;
+      var selected = null;
+      if(viewValue) {
+        selected = this.getSelected(viewValue);
+      }
+
+      // var apply = scope.$evalAsync || $timeout;
+      $timeout(function() {
+        $element
+          .select2('val',  (selected === null || selected === 'undefined') ? '' : selected); // null === '' for Select2
+      });
+    };
+
+    this.getMultiSelected = function(viewValue) {
+
+      var indices = [];
+
+      if($element.get(0).tagName.toLowerCase() !== 'input') {
+        var options = this.collection($scope);
+
+        _.each(viewValue, function(savedObject) {
+          var index = _.findIndex(options, function(value) {
+            var temp = angular.copy(savedObject); // remove hashkeys for comparison
+            return _.matches(temp)(value);
+          });
+          indices.push(index);
+        });
+
+      } else {
+
+        var inputViewValues = this.ngModel.$modelValue;
+
+        _.each(inputViewValues, function(savedObject) {
+
+          if(_.isUndefined(savedObject.id) ) {
+
+            if(savedObject.id || savedObject[self.options.correlationId]) {
+
+              savedObject.id = savedObject[self.options.correlationId];
+
+            } else {
+
+              throw new Error('dropdown list must have a id or a alternative value to use as a id');
+            }
+
+          }
+
+        });
+      }
+
+      if(indices.length > 0) {
+        viewValue = indices;
+      }
+
+      return viewValue;
+
+    };
+
+    this.setValues = function() {
+
+      var viewValue = self.ngModel.$viewValue;
+
+      if(!angular.isArray(viewValue)) {
+        viewValue = [];
+      }
+
+      if(!_.isEmpty(viewValue) && _.isObject(viewValue[0])) {
+        viewValue = this.getMultiSelected(viewValue);
+      }
+
+      $timeout(function() {
+        $element
+          .select2('val', viewValue);
+      });
+    };
+
+    this.ngOptions = function() {
+
+      this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
+      if(!this.match) {
+        throw new Error('Invalid ngOptions for avDropdown');
+      }
+      // AV_UI.NG_OPTIONS regex will parse into arrays like below:
+      //
+      // 0: "state.name for state in states"
+      // 1: "state.name"
+      // 2: undefined
+      // 3: undefined
+      // 4: "state"
+      // 5: undefined
+      // 6: undefined
+      // 7: "states"
+      // 8: undefined
+      //
+      // 0: "state.id as state.name for state in states"
+      // 1: "state.id"
+      // 2: "state.name"
+      // 3: undefined
+      // 4: "state"
+      // 5: undefined
+      // 6: undefined
+      // 7: "states"
+      // 8: undefined
+      //
+      // 0: "state.name for state in states track by state.id"
+      // 1: "state.name"
+      // 2: undefined
+      // 3: undefined
+      // 4: "state"
+      // 5: undefined
+      // 6: undefined
+      // 7: "states"
+      // 8: "state.id"
+      //
+      // 0: "person.fullName as (person.lastName + ', ' + person.firstName) for person in feeScheduleModel.persons"
+      // 1: "person.fullName"
+      // 2: "(person.lastName + ', ' + person.firstName)"
+      // 3: undefined
+      // 4: "person"
+      // 5: undefined
+      // 6: undefined
+      // 7: "feeScheduleModel.persons"
+      // 8: undefined
+      //
+      this.displayFn = $parse(this.match[2] || this.match[1]); // this is the function to retrieve the text to show as
+      this.collection = $parse(this.match[7]);
+      this.valueName = this.match[4] || this.match[6];
+      this.valueFn = $parse(this.match[2] ? this.match[1] : this.valueName);
+      this.keyName = this.match[5];
+
+      $scope.$watchCollection(this.collection, function(newVal, oldVal) {
+        if(angular.equals(newVal, oldVal)) {
+          return;
+        }
+
+        self.setValue();
+
+      }, true);
+
+    };
   });
 
   availity.ui.directive('avDropdown', function($timeout, $log, $window) {
 
     return {
-      restrict: 'AE',
+      restrict: 'A',
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
-
+        var ngModel = controllers[0];
         var avDropdown = controllers[1];
+
+        avDropdown.setNgModel(ngModel);
         avDropdown.init();
+
+        if(attrs.ngOptions ) {
+          avDropdown.ngOptions();
+        }
+
+        ngModel.$parsers.push(function(value) {
+          var parent = element.prev();
+          parent
+            .toggleClass('ng-invalid', !ngModel.$valid)
+            .toggleClass('ng-valid', ngModel.$valid)
+            .toggleClass('ng-invalid-required', !ngModel.$valid)
+            .toggleClass('ng-valid-required', ngModel.$valid)
+            .toggleClass('ng-dirty', ngModel.$dirty)
+            .toggleClass('ng-pristine', ngModel.$pristine);
+          return value;
+        });
+
+        element.on('change', function(e) {
+
+          // special case since the ajax handling doesn't bind to the model correctly
+          // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
+          if(avDropdown.options.query) {
+            $timeout(function() {
+              // look at moving this to the controller
+              if(avDropdown.isRemoteMultiple()) {
+                avDropdown.setRemoteViewValue(e);
+              } else {
+                avDropdown.setViewValue(e);
+              }
+
+            }, false, 0);
+          }
+
+          $log.info(e);
+
+        });
+
+        // fires ng-focus when select2-focus fires.
+        element.on('select2-focus', function() {
+          if(attrs.ngFocus) {
+            scope.$eval(scope.$eval(attrs.ngFocus));
+          }
+        });
+
+        // fires ng-blur when select2-blur occurs.
+        element.on('select2-blur', function() {
+          if(attrs.ngBlur) {
+            scope.$eval(scope.$eval(attrs.ngBlur));
+          }
+        });
+
+        // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
+        element.on('select2-open', function () {
+          // look for .has-success, .has-warning, .has-error
+          // (really look for .has-* … which is good enough for the demo page, but obviously might interfere with other CSS-classes starting with "has-")
+          if(element.parents('[class*="has-"]').length) {
+
+            // get all CSS-classes from the element where we found "has-*" and collect them in an array
+            var classNames = $(this).parents('[class*="has-"]')[0].className.split(/\s+/);
+
+            // go through the class names, find "has-"
+            for(var i = 0; i < classNames.length; ++i) {
+              if(classNames[i].match('has-')) {
+                $('#select2-drop').addClass(classNames[i]);
+              }
+            }
+          }
+        });
+
+
+        var _$render = ngModel.$render;
+        ngModel.$render = function() {
+          _$render();
+
+          if(avDropdown.multiple) {
+            avDropdown.setValues();
+          }else {
+            avDropdown.setValue();
+          }
+
+        };
 
         var win = angular.element($window);
 
@@ -1243,23 +1567,19 @@
           element.select2('close');
         });
 
-        scope.$watch(attrs.ngModel, function(newVal, oldVal) {
+        attrs.$observe('disabled', function (value) {
+          element.select2('enable', !value);
+        });
 
-          if (newVal === oldVal) {
-            return;
-          }
-
-          $timeout(function() {
-            element.trigger('change.select2');
-          });
-
+        attrs.$observe('readonly', function (value) {
+          element.select2('readonly', !!value);
         });
 
         scope.$on('destroy', function() {
           element.select2('destroy');
         });
 
-        scope.$evalAsync(function() {
+        $timeout(function() {
           element.select2(avDropdown.options);
         });
       }
@@ -1347,7 +1667,7 @@
       var viewValue = self.ngModel.$viewValue;
       var plugin = this.plugin();
 
-      if (!viewValue || !plugin) {
+      if(!viewValue || !plugin) {
         return;
       }
 
@@ -1363,7 +1683,7 @@
       var ngModel = null;
 
       var $input = $element.find('input:first').andSelf();
-      if ($input.length) {
+      if($input.length) {
         ngModel = $input.data(AV_DATEPICKER.CONTROLLER);
         this.setNgModel(ngModel);
       }
@@ -1381,7 +1701,7 @@
       var date = self.ngModel.$modelValue;
       var isoWrap;
 
-      if (date !== undefined && date !== null) {
+      if(date !== undefined && date !== null) {
         var m = moment(date);
         isoWrap = m.isValid() ? m.toDate() : null;
       }
@@ -1390,21 +1710,20 @@
     };
 
     this.viewToModel = function() {
+      var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
+      var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
 
       var plugin = self.plugin();
 
-      if (!plugin) {
-        return null;
+      if(!plugin) {
+        return;
       }
-
-      var format = $.fn.datepicker.DPGlobal.parseFormat(self.options.format);
-      var utcDate = $.fn.datepicker.DPGlobal.parseDate(self.ngModel.$viewValue, format, 'en');
 
       // jscs: disable
       var localDate = plugin._utc_to_local(utcDate);
       // jscs: enable
 
-      if (self.options.modelFormat && localDate) {
+      if(self.options.modelFormat && localDate) {
         localDate = moment(localDate).format(self.options.modelFormat);
       }
 
@@ -1416,12 +1735,12 @@
       self.options = angular.extend({}, avDatepickerConfig);
 
       _.forEach($attrs, function(value, key) {
-        if (_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
+        if(_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
         }
       });
 
-      if (self.options.modelFormat && self.options.modelFormat.toLowerCase() === 'default') {
+      if(self.options.modelFormat && self.options.modelFormat.toLowerCase() === 'default') {
         self.options.modelFormat = AV_DATEPICKER.DEFAULTS.MODELFORMAT;
       }
     };
@@ -1432,7 +1751,7 @@
 
     this.destroy = function() {
       var plugin = this.plugin();
-      if (plugin) {
+      if(plugin) {
         plugin.remove();
         $element.data('datepicker', null);
       }
@@ -1440,7 +1759,7 @@
 
     this.hide = function() {
       var plugin = this.plugin();
-      if (plugin) {
+      if(plugin) {
         plugin.hide();
       }
     };
@@ -1456,9 +1775,9 @@
         var ngModel = controllers[0];
         var avDatepicker = controllers[1];
 
-        if (!ngModel) {
+        if(!ngModel) {
           ngModel = avDatepicker.findModel();
-          if (!ngModel) {
+          if(!ngModel) {
             $log.error('avDatepicker requires ngModel');
             return;
           }
@@ -1495,9 +1814,9 @@
         });
 
         var target = element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);
-        if (target.length) {
+        if(target.length) {
           target.on('click.datepicker', function() {
-            if (!element.prop('disabled')) { // Hack check for IE 8
+            if(!element.prop('disabled')) { // Hack check for IE 8
               element.focus();
             }
           });
@@ -1505,7 +1824,7 @@
 
         scope.$on('destroy', function() {
           avDatepicker.destroy();
-          if (target.length) {
+          if(target.length) {
             target.off('click.datepicker');
           }
         });
@@ -1538,9 +1857,19 @@
 
   availity.ui.provider('avIdleNotifier', function() {
 
-    this.$get = function(AV_IDLE, AV_UI_IDLE, $rootScope, AvModal, $document, $timeout) {
+    var sessionTemplate;
+    var warningTemplate;
+    var $scope;
 
-      var $scope;
+    this.setSessionTemplate = function(template) {
+      sessionTemplate = template;
+    };
+
+    this.setWarningTemplate = function(template) {
+      warningTemplate = template;
+    };
+
+    this.$get = function(AV_IDLE, AV_UI_IDLE, $rootScope, AvModal, $document, $timeout) {
 
       var AvIdleNotifier = function() {
         this.listeners = [];
@@ -1593,7 +1922,7 @@
 
         var self = this;
 
-        if (this.modal !== null) {
+        if(this.modal !== null) {
           return;
         }
 
@@ -1615,8 +1944,7 @@
       };
 
       proto.hideWarning = function() {
-
-        if (this.modal) {
+        if(this.modal) {
           this.disableBackDrop();
           this.modal.hide();
         }
@@ -1667,7 +1995,7 @@
     DEFAULTS: {
       date: '99/99/9999',
       phone: '(999) 999-9999',
-      SSN: '999-99-9999'
+      SSN:'999-99-9999'
     }
   });
 
@@ -1677,16 +2005,16 @@
       require: 'ngModel',
       link: function(scope, element, attrs) {
 
-        var maskType = AV_MASK.DEFAULTS[attrs.avMask];
-        if (!maskType) {
-          maskType = attrs.avMask;
+        var maskType = AV_MASK.DEFAULTS[attrs['avMask']];
+        if(!maskType) {
+          maskType = attrs['avMask'];
         }
 
         scope.$evalAsync(function() {
           element.inputmask(maskType);
         });
 
-        scope.$on('$destroy', function() {
+        scope.$on('$destroy', function () {
           element.inputmask('remove');
         });
       }
@@ -1705,7 +2033,7 @@
   availity.ui.controller('AvHasPermissionController', function($element) {
 
     this.onSuccess = function(isAuthorized) {
-      if (isAuthorized) {
+      if(isAuthorized) {
         $element.removeClass('ng-hide');
         $element.show();
       } else {
@@ -1730,11 +2058,9 @@
 
         $element.hide();
 
-        $scope.$watch($attr.avHasPermission, function(_permissions) {
+        $scope.$watch($attr.avHasPermission, function(permissions) {
 
-          var permissions = _permissions;
-
-          if (!angular.isArray(permissions)) {
+          if(!angular.isArray(permissions)) {
             permissions = _.words('' + permissions);
           }
 
@@ -1781,14 +2107,14 @@
       );
 
       // If an external link is detected
-      if (avAnalyticsUtils.isExternalLink(properties)) {
+      if(avAnalyticsUtils.isExternalLink(properties)) {
         event.preventDefault();
         event.stopPropagation();
       }
 
       var promise = avAnalytics.trackEvent(properties);
-      promise.finally(function() {
-        if (avAnalyticsUtils.isExternalLink(properties)) {
+      promise['finally'](function() {
+        if(avAnalyticsUtils.isExternalLink(properties)) {
           document.location = element.attr('href');
         }
       });
@@ -1799,7 +2125,7 @@
     return {
       restrict: 'A',
       controller: 'AvAnalyticsController',
-      require: ['avAnalyticsOn', '?^avAnalytics'],
+      require: ['avAnalyticsOn','?^avAnalytics'],
       link: function(scope, element, attrs, controllers) {
         var childCtrl = controllers[0];
         var parentCtrl = {};
@@ -1827,7 +2153,6 @@
 })(window);
 
 // Source: /lib/ui/placeholder/placeholder.js
-
 (function(root) {
 
   'use strict';
@@ -1845,12 +2170,13 @@
 
       var newLink = function(scope, element, attrs) {
 
-        if (originalLink && _.contains(_.keys(attrs), 'avMask')) {
+        if(originalLink && _.contains(_.keys(attrs), 'avMask')) {
           $log.info('placeholder shim not running on an element due to avMask on same element');
           return;
-        }else if (originalLink) {
+        }else if(originalLink) {
           originalLink.apply(this, arguments);
         }
+        //else originalLink doesn't exist
       };
 
       directive.compile = function() {
@@ -1878,19 +2204,19 @@
   function AvBreadcrumbsController($state) {
 
     this.getBreadcrumb = function(breadcrumbs, state) {
-      if (!state || !state.data) {
+      if(!state || !state.data) {
         return;
       }
 
       var breadcrumb = state.data.breadcrumb;
-      if (!breadcrumb) {
+      if(!breadcrumb) {
         return;
       }
 
-      if (breadcrumb.parent) {
+      if(breadcrumb.parent) {
         var parentState = $state.get(breadcrumb.parent);
 
-        if (parentState) {
+        if(parentState) {
           this.getBreadcrumb(breadcrumbs, parentState);
         }
       }
@@ -1910,18 +2236,16 @@
   availity.ui.controller('AvBreadcrumbsController', AvBreadcrumbsController);
 
   function avBreadcrumbs(AV_BREADCRUMBS) {
-
     return {
       restrict: 'EA',
       replace: true,
       templateUrl: AV_BREADCRUMBS.TEMPLATE,
       controller: 'AvBreadcrumbsController',
-      link: function(scope, element, attrs, avBreadcrumbsCtrl) {
-
-        scope.breadcrumbs = avBreadcrumbsCtrl.getBreadcrumbs();
+      link: function(scope, element, attrs, avBreadcrumbs) {
+        scope.breadcrumbs = avBreadcrumbs.getBreadcrumbs();
 
         scope.$on('$stateChangeSuccess', function() {
-          scope.breadcrumbs = avBreadcrumbsCtrl.getBreadcrumbs();
+          scope.breadcrumbs = avBreadcrumbs.getBreadcrumbs();
         });
       }
     };
@@ -1939,26 +2263,21 @@
   var availity = root.availity;
 
   availity.ui.filter('avApproximate', function() {
-
     var pow = Math.pow;
     var floor = Math.floor;
     var abs = Math.abs;
     var log = Math.log;
 
     function round(number, precision) {
-
       var prec = pow(10, precision);
       return Math.round(number * prec) / prec;
-
     }
 
-    return function(number, _precision) {
-
-      var precision = _precision || 0;
+    return function (number, precision) {
+      precision = precision || 0;
       var base = floor(log(abs(number)) / log(1000));
       var unit = 'kMGTPE'[base - 1];
       return unit ? round(number / pow(1000, base), precision) + unit : (number || 0);
-
     };
   });
 
@@ -1987,13 +2306,12 @@
       },
       templateUrl: AV_BADGE.TEMPLATE,
       link: function(scope, element) {
-
         scope.color = scope.color || AV_BADGE.COLOR;
         scope.showWhenZero = scope.showWhenZero || AV_BADGE.SHOW_WHEN_ZERO;
 
         var classes = [];
         classes.push(AV_BADGE.DEFAULT_CLASS);
-        if (scope.color) {
+        if(scope.color) {
           classes.push(scope.color);
         }
 
@@ -2028,7 +2346,7 @@
       link: function(scope, element, attrs) {
         element.addClass('label-remove');
         scope.removeLabel = function() {
-          if (!attrs.disabled) {
+          if(!attrs.disabled) {
             scope.onRemove()(scope.removeValue);
           }
         };
@@ -2072,7 +2390,7 @@
           delay: 750,
           duration: 500,
           complete: function() {
-            if (active) {
+            if(active) {
               setTimeout(function() {self.animate();}, 500);
             } else {
               self.endAnimation();
@@ -2095,14 +2413,14 @@
 
   availity.ui.directive('avLoader', function(AV_LOADER) {
     return {
-      restrict: 'AE',
+      restrict: 'A',
       replace: true,
       controller: 'AvLoaderController',
       require: 'avLoader',
       templateUrl: AV_LOADER.TEMPLATES.LOADER,
       link: function(scope, element, attr, avLoader) {
 
-        if (!attr.delay) {
+        if(!attr.delay) {
           avLoader.start();
         }
 
@@ -2117,7 +2435,6 @@
 })(window);
 
 // Source: /lib/ui/block/block.js
-
 (function(root) {
 
   'use strict';
@@ -2132,7 +2449,7 @@
 
   var getLoaderController = function(blockId) {
     var el = $('[data-block-ui="' + blockId + '"]') || $('[block-ui="' + blockId + '"]');
-    if (el) {
+    if(el) {
       return el.find('[data-av-loader]').controller('avLoader');
     }
   };
@@ -2140,11 +2457,11 @@
   var triggerLoaderController = function(id, instance, fn) {
 
     var controller = instance.loaderController;
-    if (!controller) {
+    if(!controller) {
       controller = getLoaderController(id);
       instance.loaderController = controller;
     }
-    if (controller && _.isFunction(controller[fn])) {
+    if(controller && _.isFunction(controller[fn])) {
       controller[fn]();
     }
 
@@ -2188,13 +2505,13 @@
       var origGetFn = blockUI.instances.get;
       blockUI.instances.get = function(id) {
         var instance = origGetFn(id);
-        if (!instance.avModifications) {
+        if(!instance.avModifications) {
           modifyBlockInstances(id, instance);
         }
         return instance;
       };
 
-    } catch (e) {
+    } catch(e) {
       $log.warn('blockUI is required to use av block.');
     }
   });
@@ -2218,7 +2535,7 @@
         var blockId = $attrs.avBlockUi;
         var blockCount = $attrs.blockCount;
         var instance = blockUI.instances.get(blockId);
-        if (blockCount > 0) {
+        if(blockCount > 0) {
           instance.startLoader();
         }
       }
@@ -2229,9 +2546,9 @@
 })(window);
 
 // Source: /lib/ui/tabs/tabs.js
-
-// Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
-
+/*
+* Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
+*/
 (function(root) {
   'use strict';
 
@@ -2254,9 +2571,9 @@
     this.addTab = function(tab) {
       self.tabs.push(tab);
 
-      if (self.tabs.length === 1) {
+      if(self.tabs.length === 1) {
         tab.active = true;
-      } else if (tab.active) {
+      } else if(tab.active) {
         self.selectTab(tab);
       } else {
         tab.active = false;
@@ -2266,8 +2583,8 @@
     this.removeTab = function(tab) {
       var index = self.tabs.indexOf(tab);
 
-      if (tab.active && self.tabs.length > 1) {
-        // If this is the last tab, select the previous tab. else, the next tab.
+      if(tab.active && self.tabs.length > 1) {
+        //If this is the last tab, select the previous tab. else, the next tab.
         var newActiveIndex = index === self.tabs.length - 1 ? index - 1 : index + 1;
         self.selectTab(self.tabs[newActiveIndex]);
       }
@@ -2276,8 +2593,8 @@
     };
 
     this.selectTab = function(selectedTab) {
-      angular.forEach(self.tabs, function(tab) {
-        if (tab.active && tab !== selectedTab) {
+      angular.forEach(self.tabs, function (tab) {
+        if(tab.active && tab !== selectedTab) {
           tab.active = false;
           tab.onDeselect();
         }
@@ -2304,7 +2621,7 @@
         scope.tabType = attrs.tabType;
         scope.vertical = !!attrs.vertical;
 
-        if (angular.isUndefined(attrs.padContent)) {
+        if(angular.isUndefined(attrs.padContent)) {
           scope.padContent = true;
         }
       }
@@ -2341,28 +2658,28 @@
         });
 
         scope.select = function() {
-          if (!scope.disabled) {
+          if(!scope.disabled) {
             tabsController.selectTab(scope);
           }
         };
 
         scope.$watch('active', function(active) {
-          if (active) {
+          if(active) {
             tabsController.selectTab(scope);
           }
         });
 
-        if (angular.isDefined(attrs.active)) {
+        if(angular.isDefined(attrs.active)) {
           scope.active = attrs.active;
 
           scope.$parent.$watch(attrs.active, function(active) {
-            if (active) {
+            if(active) {
               tabsController.selectTab(scope);
             }
           });
         }
 
-        if (angular.isDefined(attrs.disable)) {
+        if(angular.isDefined(attrs.disable)) {
           scope.$parent.$watch(attrs.disable, function(disabled) {
             scope.disabled = !!disabled;
           });
@@ -2382,7 +2699,7 @@
 
         var tab = scope.$eval(attrs.avTabPane);
 
-        if (angular.isDefined(tab.template) || angular.isDefined(tab.templateUrl)) {
+        if(angular.isDefined(tab.template) || angular.isDefined(tab.templateUrl)) {
           avTemplateCache.get(tab)
           .then(function(template) {
             element.append($compile(template)(scope));
@@ -2418,17 +2735,55 @@
       maxCached: 100,
       loadMoreText: 'Load more items',
       entryIdAttribute: 'id',
-      apiParams: {}
+      apiParams: {},
+      beforePageLoad: undefined,
+      afterPageLoad: undefined
     }
   });
 
 
-  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI) {
-    $scope._options = {};
-    _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
-    $scope._options.lowOffset = $scope._options.offset;
-    $scope._options.highOffset = $scope._options.offset;
+  availity.ui.factory('avScrollPaginationService', function($log) {
+    function AvScrollPaginationService() {
+      this.instances = {};
+    }
+
+    var proto = AvScrollPaginationService.prototype;
+
+    proto.registerInstance = function(instanceInterface, id) {
+      if (this.instances[id]) {
+        $log.warn('Found existing instance with id ' + id);
+      }
+      this.instances[id] = instanceInterface;
+    };
+
+    proto.unregisterInstance = function(id) {
+      delete this.instances[id];
+    };
+
+    proto.resetInstance = function(id) {
+      if (this.instances[id]) {
+        this.instances[id].reset();
+        return true;
+      }
+      return false;
+    };
+
+    return new AvScrollPaginationService();
+  });
+
+  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI, avScrollPaginationService) {
+
     var self = this;
+
+    this.buildOptions = function() {
+      $scope._options = {};
+      _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
+      $scope._options.lowOffset = $scope._options.offset;
+      $scope._options.highOffset = $scope._options.offset;
+    };
+
+    var originalEntries = angular.copy($scope.entries);
+    this.buildOptions();
 
     this.updateButtonVisibilityFlags = function(data) {
       $scope.showNext = $scope._options.highOffset + data.count < data.totalCount;
@@ -2438,10 +2793,16 @@
     this.loadEntries = function(prepend) {
       var block = blockUI.instances.get('scroll-pagination-block-' + $scope.avScrollPagination);
       block.start();
+      if (_.isFunction($scope._options.beforePageLoad)) {
+        $scope._options.beforePageLoad($scope._options);
+      }
       var params = {};
       _.extend(params, $scope._options.apiParams, {limit: $scope._options.limit, offset: $scope._options.offset});
       $scope.apiResource.query({params: params}).then(function(response) {
         var responseData = self.getResponseData(response);
+        if ($scope._options.afterPageLoad) {
+          $scope._options.afterPageLoad(responseData);
+        }
         if (responseData && responseData[$scope._options.resourceId]) {
           self.addEntries(responseData[$scope._options.resourceId], prepend);
         }
@@ -2455,7 +2816,6 @@
 
     this.getResponseData = function(data) {
       if (data) {
-        var result;
         if ($scope._options.responseKey) {
           var keys = $scope._options.responseKey.split('.');
           var nestedData = data;
@@ -2468,11 +2828,10 @@
               }
             }
           });
-          result = noData ? [] : nestedData;
+          return noData ? [] : nestedData;
         } else {
-          result = data;
+          return data;
         }
-        return result;
       }
       return [];
     };
@@ -2490,7 +2849,7 @@
         if (prepend) {
           $scope.entries = $scope.entries.slice(0, $scope._options.maxCached);
           $scope._options.highOffset -= diff;
-          trackedElementId = oldEntries[oldEntries.length - diff - 1] ? oldEntries[oldEntries.length - diff - 1][$scope._options.entryIdAttribute] : undefined;
+          trackedElementId = oldEntries[oldEntries.length-diff-1] ? oldEntries[oldEntries.length-diff-1][$scope._options.entryIdAttribute] : undefined;
         } else {
           $scope.entries = $scope.entries.slice(diff, $scope.entries.length);
           $scope._options.lowOffset += diff;
@@ -2502,7 +2861,7 @@
 
     this.autoscroll = function(trackedElementId, prepend) {
       if (trackedElementId) {
-        var trackedElement = $element.find('#' + trackedElementId);
+        var trackedElement = $element.find('#'+trackedElementId);
         var trackedElementTop = trackedElement.offset().top;
         $timeout(function() {
           var newScrollTop = $element.scrollTop() + trackedElement.offset().top - trackedElementTop;
@@ -2531,11 +2890,26 @@
       self.loadEntries();
     };
 
+    avScrollPaginationService.registerInstance({
+      reset: function() {
+        $element.animate({scrollTop: 0}, 0);
+        $scope.entries = angular.copy(originalEntries);
+        self.buildOptions();
+        self.loadEntries();
+      }},
+      $scope.avScrollPagination
+    );
+
+    $scope.$on('$destroy', function() {
+      avScrollPaginationService.unregisterInstance($scope.avScrollPagination);
+    });
+
     $scope.loadPrev = self.loadPrev;
     $scope.loadNext = self.loadNext;
 
     this.loadEntries();
   });
+
 
 
   availity.ui.directive('avScrollPagination', function($log, AV_SCROLL_PAGINATION) {
