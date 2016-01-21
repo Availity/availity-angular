@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",

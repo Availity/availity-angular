@@ -428,4 +428,90 @@ av-dropdown now supports the *select as* clause in `ng-options`: (e.g. `data-ng-
   });
 </script>
   </code>
+
+  <h3 class="guide-subsection-title">Event Listeners</h3>
+  <div data-markdown>
+If you need to include listeners for events, including those fired by **Select2**, you can specify them in a map (keyed by the event ID) and set them to `event-listeners` in your template.
+  </div>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dropdownStates4">States</label>
+            <select
+              id="dropdownStates4"
+              class="form-control select2"
+              data-av-dropdown
+              data-ng-model="selectedState"
+              data-ng-options="state.id as state.name for state in states"
+              data-event-listeners="eventListeners"
+              >
+              <option></option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>Event Log</label>
+          <div class="well">
+            <div data-ng-repeat="event in eventHistory track by event.index">{{event.index}}: {{event.event}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="dropdownStates4">States</label>
+        <select
+          id="dropdownStates4"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedState"
+          data-ng-options="state.id as state.name for state in states"
+          data-event-listeners="eventListeners"
+          >
+          <option></option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label>Event Log</label>
+      <div class="well">
+        <div data-ng-repeat="event in eventHistory track by event.index">{{event.index}}: {{event.event}}</div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  var demo = angular.module('demo', ['availity', 'availity-ui']);
+
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+    $scope.eventHistory = [];
+    var eventIndex = 1;
+
+    var addEventToHistory = function(event) {
+      $scope.eventHistory.unshift({event: event, index: eventIndex});
+      eventIndex++;
+      if ($scope.eventHistory.length > 10) {
+        $scope.eventHistory.pop()
+      }
+      $scope.$apply();
+    };
+
+    $scope.eventListeners = {
+      'select2-open': function(){ addEventToHistory('Open'); },
+      'select2-close': function(){ addEventToHistory('Close'); },
+      'select2-highlight': function() { addEventToHistory('Highlight'); },
+      'select2-selecting': function() { addEventToHistory('Selecting'); },
+      'change': function() { addEventToHistory('Change'); }
+    };
+    // ...
+  });
+</script>
+  </code>
 </div>
