@@ -357,4 +357,75 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
 });
 </script>
   </code>
+
+  <h3 class="guide-subsection-title">Value Selector</h3>
+  <div data-markdown>
+av-dropdown now supports the *select as* clause in `ng-options`: (e.g. `data-ng-options="state.id as state.name for state in states"`).  In this example, the model is bound to a simple string, and two-way binding works if it is edited via the textbox.
+  </div>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates3">States</label>
+        <select
+          id="dropdownStates3"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedState"
+          data-ng-options="state.id as state.name for state in states"
+          >
+          <option></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="textboxStates3">Selected State (Textbox)</label>
+        <input type="text"
+          id="textboxStates3"
+          class="form-control select2"
+          data-ng-model="selectedState" />
+
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group">
+    <label for="dropdownStates3">States</label>
+    <select
+      id="dropdownStates3"
+      class="form-control select2"
+      data-av-dropdown
+      data-ng-model="selectedState"
+      data-ng-options="state.id as state.name for state in states"
+      >
+      <option></option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="textboxStates3">Selected State (Textbox)</label>
+    <input type="text"
+           id="textboxStates3"
+           class="form-control select2"
+           data-ng-model="selectedState" />
+
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  var demo = angular.module('demo', ['availity', 'availity-ui']);
+
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+    $scope.states = [
+      { id: 'AL', name: 'Alabama' },
+      { id: 'CA', name: 'California' },
+      { id: 'NM', name: 'New Mexico' },
+      { id: 'TX', name: 'Texas' },
+      { id: 'WY', name: 'Wyoming' }
+    ];
+    $scope.selectedState = null;
+    // ...
+  });
+</script>
+  </code>
 </div>
