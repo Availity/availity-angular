@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.8.1 -- January-20
+ * availity-angular v1.9.0 -- January-21
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1194,7 +1194,8 @@
       'selectOnBlur',
       'loadMorePadding',
       'nextSearchTerm',
-      'correlationId'
+      'correlationId',
+      'eventListeners'
     ]
   });
 
@@ -1582,13 +1583,23 @@
           element.select2('readonly', !!value);
         });
 
-        scope.$on('destroy', function() {
+        scope.$on('$destroy', function() {
+          element.off();
           element.select2('destroy');
         });
 
         $timeout(function() {
           element.select2(avDropdown.options);
         });
+
+        // If event listeners are specified in the options, set them up here
+        if (_.get(avDropdown, 'options.eventListeners')) {
+          _.each(avDropdown.options.eventListeners, function(listener, eventId) {
+            if (_.isFunction(listener)) {
+              element.on(eventId, listener);
+            }
+          });
+        }
       }
     };
   });
@@ -2105,7 +2116,8 @@
       // convert the directive attributes into object with properties with sane defaults
       var properties = angular.extend(
         {
-          level: 'info'
+          level: 'info',
+          label: element.text()
         },
         options,
         {
@@ -2797,8 +2809,14 @@
       $scope.showPrev = $scope._options.lowOffset > 0;
     };
 
+    this.disableVisibilityFlags = function() {
+      $scope.showNext = false;
+      $scope.showPrev = false;
+    };
+
     this.loadEntries = function(prepend) {
       var block = blockUI.instances.get('scroll-pagination-block-' + $scope.avScrollPagination);
+      self.disableVisibilityFlags();
       block.start();
       if (_.isFunction($scope._options.beforePageLoad)) {
         $scope._options.beforePageLoad($scope._options);
