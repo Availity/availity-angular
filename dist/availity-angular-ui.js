@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.8.0 -- January-15
+ * availity-angular v1.8.1 -- January-20
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1280,7 +1280,14 @@
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
-        return angular.equals(item, model);
+        if (!self.valueFn) {
+          return angular.equals(item, model);
+        } else {
+          var locals = {};
+          locals[self.valueName] = item;
+          var value = self.valueFn($scope, locals);
+          return angular.equals(value, model);
+        }
       });
 
       return index;
