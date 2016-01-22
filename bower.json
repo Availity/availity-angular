@@ -8,34 +8,8 @@
   ],
   "main": [
     "./dist/availity-angular.js",
-    "./dist/availity-angular-ui.js",
-    "./dist/availity-angular-ui-templates.js",
-    "./dist/maps/availity-angular.js.map",
-    "./dist/maps/availity-angular-ui.js.map",
-    "./dist/maps/availity-angular-ui-templates.js.map",
-    "./less/availity-angular.less",
     "./dist/css/availity-angular.css"
   ],
-  "dependencies": {
-    "angular": "1.4.7",
-    "angular-animate": "1.4.7",
-    "angular-block-ui": "0.2.0",
-    "angular-sanitize": "1.4.7",
-    "angular-shims-placeholder": "~0.4.5",
-    "angular-ui-router": "~0.2.15",
-    "angular-velocity": "~0.3.2",
-    "availity-uikit": "~1.1.0",
-    "jquery-ui": "1.11.4",
-    "jquery.inputmask": "3.1.63",
-    "lodash-compat": "~3.10.1",
-    "tracekit": "~0.3.0",
-    "jquery": "~2.1.4"
-  },
-  "devDependencies": {
-    "angular-mocks": "1.4.7",
-    "jquery-ui": "1.11.4",
-    "jquery.tocify.js": "~1.9.0"
-  },
   "ignore": [
     ".*",
     "node_modules",
@@ -45,12 +19,5 @@
     "docs",
     "data",
     "routes.json"
-  ],
-  "resolutions": {
-    "bootstrap": ">= 3.3.4",
-    "angular": "~1.4.7",
-    "jquery": "~2.1.4",
-    "jquery-ui": "1.11.4",
-    "angular-animate": "1.4.7"
-  }
+  ]
 }

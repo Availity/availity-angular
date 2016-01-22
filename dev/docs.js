@@ -24,11 +24,9 @@ function bundle() {
 
     });
 
-
   });
 
 }
-
 
 function docs() {
 

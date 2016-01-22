@@ -44,7 +44,7 @@ function build() {
     metalsmith
       .metadata({
         site: {
-          title: 'Availity UIKit'
+          title: 'Availity Angular SDK'
         },
         today: new Date(),
         pkg: pkg
@@ -64,22 +64,11 @@ function build() {
           pattern: 'pages/**/*.html',
           reverse: false
         },
-        components: {
-          pattern: 'components/**/*.html',
-          sortBy: 'title',
-          refer: false
+        core: {
+          pattern: '**/*-core-demo.html'
         },
-        examples: {
-          pattern: 'examples/**/*.html',
-          sortBy: 'title',
-          reverse: true,
-          refer: false
-        },
-        javascript: {
-          pattern: 'javascript/**/*.html',
-          sortBy: 'title',
-          reverse: true,
-          refer: false
+        ui: {
+          pattern: '**/*-ui-demo.html'
         }
       }))
       .use(permalinks({
@@ -95,7 +84,7 @@ function build() {
         engine: 'nunjucks',
         directory: 'layouts'
       }))
-      .use(filter(['index.html', 'pages/**/*.html', 'examples/**/*.html']))
+      .use(filter(['index.html', '**/*-core-demo.html', '**/*-ui-demo.html']))
       .destination(path.join(process.cwd(), 'build'));
 
     metalsmith.build( (err) => {
