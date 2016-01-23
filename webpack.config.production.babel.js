@@ -39,7 +39,10 @@ export default function getConfig() {
     },
 
     externals: {
-      'jquery': 'jQuery'
+      'jquery': 'jQuery',
+      'angular': 'angular',
+      'lodash': '_',
+      'tracekit': 'TraceKit'
     },
 
     devtool: 'source-map',
