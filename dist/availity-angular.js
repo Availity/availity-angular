@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.9.0 -- January-21
+ * availity-angular v1.9.1 -- January-22
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.9.0';
+  availity.VERSION = 'v1.9.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -2162,6 +2162,7 @@
         return avValUtils.isEmpty(value) || moment(value, format, true).isValid();
       }
     };
+
     return validator;
   });
 })(window);
@@ -2173,7 +2174,7 @@
 
   var availity = root.availity;
 
-  availity.core.factory('avValNpi', function() {
+  availity.core.factory('avValNpi', function(avValUtils) {
 
 
     var validator =  {
@@ -2185,6 +2186,10 @@
       validate: function(value) {
 
         var npi = value || '';
+
+        if(avValUtils.isEmpty(npi)) {
+          return true;
+        }
 
         if (!validator.INTEGER_REGEX.test(npi) || npi.length !== 10) {
           return false;

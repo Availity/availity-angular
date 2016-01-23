@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.9.0 -- January-21
+ * availity-angular v1.9.1 -- January-22
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1133,6 +1133,7 @@
   var availity = root.availity;
 
   availity.ui.provider('avDropdownConfig', function() {
+
     var config = {
       closeOnResize: true,
       dropdownAutoWidth: true,
@@ -1482,6 +1483,7 @@
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
+
         var ngModel = controllers[0];
         var avDropdown = controllers[1];
 
@@ -1556,7 +1558,6 @@
           }
         });
 
-
         var _$render = ngModel.$render;
         ngModel.$render = function() {
           _$render();
@@ -1569,11 +1570,14 @@
 
         };
 
-        var win = angular.element($window);
+        if(avDropdown.options.closeOnResize) {
 
-        win.bind('resize', function() {
-          element.select2('close');
-        });
+          var win = angular.element($window);
+          win.bind('resize', function() {
+            element.select2('close');
+          });
+
+        }
 
         attrs.$observe('disabled', function (value) {
           element.select2('enable', !value);
