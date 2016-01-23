@@ -218,5 +218,289 @@ availity.demo.controller('DropdownController', function($scope, $log, avCodesRes
 
   <h3 class="guide-subsection-title">Remote Data</h3>
 
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownHosp3">Hospital</label>
+        <input
+          type="hidden"
+          id="dropdownHosp3"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedHosp"
+          data-ng-change="selectAction(selectedHosp)"
+          data-placeholder="Find a procedure code"
+          data-allow-clear="true"
+          data-query="myQuery"
+          data-minimum-input-length="3"
+          data-format-result="myFormatResult"
+          data-format-selection="myFormatResult"
+        >
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Reset"
+          data-ng-click="resetSingleHosp()"
+          >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group">
+    <label for="dropdownHosp3">Hospital</label>
+    <input
+      type="hidden"
+      id="dropdownHosp3"
+      class="form-control select2"
+      data-av-dropdown
+      data-ng-model="selectedHosp"
+      data-ng-change="selectAction(selectedHosp)"
+      data-placeholder="Select a hospital"
+      data-allow-clear="true"
+      data-ajax="myAjax"
+      data-minimum-input-length="3"
+      data-format-result="myFormatResult"
+      data-format-selection="myFormatResult"
+      >
+  </div>
+  <div class="form-controls">
+    <button
+      type="submit"
+      class="btn btn-default"
+      value="Reset"
+      data-ng-click="resetSingleHosp()"
+      >
+      Reset
+    </button>
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+  $scope.states = [
+    { id: 'AL', name: 'Alabama' },
+    { id: 'CA', name: 'California' },
+    { id: 'NM', name: 'New Mexico' },
+    { id: 'TX', name: 'Texas' },
+    { id: 'WY', name: 'Wyoming' }
+  ];
+  $scope.selectedState = null;
+  $scope.selectedHosp = null;
+  $scope.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
 
+  $scope.addStates = function() {
+    $scope.states.push({id: 'FL', name: 'Florida'});
+  };
+
+  $scope.setState = function() {
+    $scope.selectedState = $scope.states[$scope.states.length - 1];
+  };
+
+  $scope.resetSingle = function() {
+    $scope.selectedState = null;
+  };
+
+  $scope.resetSingleHosp = function() {
+    $scope.selectedHosp = null;
+  };
+
+  $scope.resetMultiple = function() {
+    $scope.selectedStates = null;
+  };
+
+  $scope.selectAction = function(selection) {
+    $log.info(selection);
+  };
+
+  $scope.weFocused = function() {
+    $log.info("ngFocus event occurred");
+  };
+  $scope.weBlurred = function() {
+    $log.info("ngBlur event occurred");
+  };
+
+  // how it is viewed in the drop down
+  $scope.myFormatResult = function(code) {
+    var markup = '<div class="row">' +
+      '<div class="col-xs-12">'+
+      '<span class="label label-info">' +
+      code.code +
+      '</span> ' +
+      code.value.split("|")[1] +
+      '</div>' +
+      '</div>';
+    return markup;
+  };
+
+  $scope.myQuery = function(data) {
+    data.q = data.term;
+    data.list = 'someList';
+    return avCodesResource.getCodes(data);
+  };
+
+});
+</script>
+  </code>
+
+  <h3 class="guide-subsection-title">Value Selector</h3>
+  <div data-markdown>
+av-dropdown now supports the *select as* clause in `ng-options`: (e.g. `data-ng-options="state.id as state.name for state in states"`).  In this example, the model is bound to a simple string, and two-way binding works if it is edited via the textbox.
+  </div>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates3">States</label>
+        <select
+          id="dropdownStates3"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedState"
+          data-ng-options="state.id as state.name for state in states"
+          >
+          <option></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="textboxStates3">Selected State (Textbox)</label>
+        <input type="text"
+          id="textboxStates3"
+          class="form-control select2"
+          data-ng-model="selectedState" />
+
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="form-group">
+    <label for="dropdownStates3">States</label>
+    <select
+      id="dropdownStates3"
+      class="form-control select2"
+      data-av-dropdown
+      data-ng-model="selectedState"
+      data-ng-options="state.id as state.name for state in states"
+      >
+      <option></option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="textboxStates3">Selected State (Textbox)</label>
+    <input type="text"
+           id="textboxStates3"
+           class="form-control select2"
+           data-ng-model="selectedState" />
+
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  var demo = angular.module('demo', ['availity', 'availity-ui']);
+
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+    $scope.states = [
+      { id: 'AL', name: 'Alabama' },
+      { id: 'CA', name: 'California' },
+      { id: 'NM', name: 'New Mexico' },
+      { id: 'TX', name: 'Texas' },
+      { id: 'WY', name: 'Wyoming' }
+    ];
+    $scope.selectedState = null;
+    // ...
+  });
+</script>
+  </code>
+
+  <h3 class="guide-subsection-title">Event Listeners</h3>
+  <div data-markdown>
+If you need to include listeners for events, including those fired by **Select2**, you can specify them in a map (keyed by the event ID) and set them to `event-listeners` in your template.
+  </div>
+  <div class="guide-example">
+    <form name="dropdownForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dropdownStates4">States</label>
+            <select
+              id="dropdownStates4"
+              class="form-control select2"
+              data-av-dropdown
+              data-ng-model="selectedState"
+              data-ng-options="state.id as state.name for state in states"
+              data-event-listeners="eventListeners"
+              >
+              <option></option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>Event Log</label>
+          <div class="well">
+            <div data-ng-repeat="event in eventHistory track by event.index">{{event.index}}: {{event.event}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="dropdownForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="dropdownStates4">States</label>
+        <select
+          id="dropdownStates4"
+          class="form-control select2"
+          data-av-dropdown
+          data-ng-model="selectedState"
+          data-ng-options="state.id as state.name for state in states"
+          data-event-listeners="eventListeners"
+          >
+          <option></option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label>Event Log</label>
+      <div class="well">
+        <div data-ng-repeat="event in eventHistory track by event.index">{{event.index}}: {{event.event}}</div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Javascript -->
+<script>
+  var demo = angular.module('demo', ['availity', 'availity-ui']);
+
+  availity.demo.controller('DropdownController', function($scope, $log, avCodesResource) {
+    $scope.eventHistory = [];
+    var eventIndex = 1;
+
+    var addEventToHistory = function(event) {
+      $scope.eventHistory.unshift({event: event, index: eventIndex});
+      eventIndex++;
+      if ($scope.eventHistory.length > 10) {
+        $scope.eventHistory.pop()
+      }
+      $scope.$apply();
+    };
+
+    $scope.eventListeners = {
+      'select2-open': function(){ addEventToHistory('Open'); },
+      'select2-close': function(){ addEventToHistory('Close'); },
+      'select2-highlight': function() { addEventToHistory('Highlight'); },
+      'select2-selecting': function() { addEventToHistory('Selecting'); },
+      'change': function() { addEventToHistory('Change'); }
+    };
+    // ...
+  });
+</script>
+  </code>
 </div>

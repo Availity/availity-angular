@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.8.0 -- January-15
+ * availity-angular v1.9.1 -- January-22
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1133,6 +1133,7 @@
   var availity = root.availity;
 
   availity.ui.provider('avDropdownConfig', function() {
+
     var config = {
       closeOnResize: true,
       dropdownAutoWidth: true,
@@ -1194,7 +1195,8 @@
       'selectOnBlur',
       'loadMorePadding',
       'nextSearchTerm',
-      'correlationId'
+      'correlationId',
+      'eventListeners'
     ]
   });
 
@@ -1280,7 +1282,14 @@
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
-        return angular.equals(item, model);
+        if (!self.valueFn) {
+          return angular.equals(item, model);
+        } else {
+          var locals = {};
+          locals[self.valueName] = item;
+          var value = self.valueFn($scope, locals);
+          return angular.equals(value, model);
+        }
       });
 
       return index;
@@ -1474,6 +1483,7 @@
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
+
         var ngModel = controllers[0];
         var avDropdown = controllers[1];
 
@@ -1548,7 +1558,6 @@
           }
         });
 
-
         var _$render = ngModel.$render;
         ngModel.$render = function() {
           _$render();
@@ -1561,11 +1570,14 @@
 
         };
 
-        var win = angular.element($window);
+        if(avDropdown.options.closeOnResize) {
 
-        win.bind('resize', function() {
-          element.select2('close');
-        });
+          var win = angular.element($window);
+          win.bind('resize', function() {
+            element.select2('close');
+          });
+
+        }
 
         attrs.$observe('disabled', function (value) {
           element.select2('enable', !value);
@@ -1575,13 +1587,23 @@
           element.select2('readonly', !!value);
         });
 
-        scope.$on('destroy', function() {
+        scope.$on('$destroy', function() {
+          element.off();
           element.select2('destroy');
         });
 
         $timeout(function() {
           element.select2(avDropdown.options);
         });
+
+        // If event listeners are specified in the options, set them up here
+        if (_.get(avDropdown, 'options.eventListeners')) {
+          _.each(avDropdown.options.eventListeners, function(listener, eventId) {
+            if (_.isFunction(listener)) {
+              element.on(eventId, listener);
+            }
+          });
+        }
       }
     };
   });
@@ -2098,7 +2120,8 @@
       // convert the directive attributes into object with properties with sane defaults
       var properties = angular.extend(
         {
-          level: 'info'
+          level: 'info',
+          label: element.text()
         },
         options,
         {
@@ -2790,8 +2813,14 @@
       $scope.showPrev = $scope._options.lowOffset > 0;
     };
 
+    this.disableVisibilityFlags = function() {
+      $scope.showNext = false;
+      $scope.showPrev = false;
+    };
+
     this.loadEntries = function(prepend) {
       var block = blockUI.instances.get('scroll-pagination-block-' + $scope.avScrollPagination);
+      self.disableVisibilityFlags();
       block.start();
       if (_.isFunction($scope._options.beforePageLoad)) {
         $scope._options.beforePageLoad($scope._options);
