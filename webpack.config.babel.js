@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import autoprefixer from 'autoprefixer';
@@ -33,7 +34,8 @@ let config = {
     // publicPath: '../',
     filename: 'js/[name].js',
     library: 'availity',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
 
   debug: true,
@@ -126,6 +128,7 @@ let config = {
 
   ],
   resolve: {
+    root: path.resolve('./lib'),
     extensions: ['', '.js']
   }
 };
