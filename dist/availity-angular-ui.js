@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.6.2 -- January-11
+ * availity-angular v1.9.1 -- January-22
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1133,6 +1133,7 @@
   var availity = root.availity;
 
   availity.ui.provider('avDropdownConfig', function() {
+
     var config = {
       closeOnResize: true,
       dropdownAutoWidth: true,
@@ -1194,7 +1195,8 @@
       'selectOnBlur',
       'loadMorePadding',
       'nextSearchTerm',
-      'correlationId'
+      'correlationId',
+      'eventListeners'
     ]
   });
 
@@ -1280,7 +1282,14 @@
       var items = this.collection($scope);
 
       var index = _.findIndex(items, function(item) {
-        return angular.equals(item, model);
+        if (!self.valueFn) {
+          return angular.equals(item, model);
+        } else {
+          var locals = {};
+          locals[self.valueName] = item;
+          var value = self.valueFn($scope, locals);
+          return angular.equals(value, model);
+        }
       });
 
       return index;
@@ -1474,6 +1483,7 @@
       require: ['ngModel', 'avDropdown'],
       controller: 'AvDropdownController',
       link: function(scope, element, attrs, controllers) {
+
         var ngModel = controllers[0];
         var avDropdown = controllers[1];
 
@@ -1548,7 +1558,6 @@
           }
         });
 
-
         var _$render = ngModel.$render;
         ngModel.$render = function() {
           _$render();
@@ -1561,11 +1570,14 @@
 
         };
 
-        var win = angular.element($window);
+        if(avDropdown.options.closeOnResize) {
 
-        win.bind('resize', function() {
-          element.select2('close');
-        });
+          var win = angular.element($window);
+          win.bind('resize', function() {
+            element.select2('close');
+          });
+
+        }
 
         attrs.$observe('disabled', function (value) {
           element.select2('enable', !value);
@@ -1575,13 +1587,23 @@
           element.select2('readonly', !!value);
         });
 
-        scope.$on('destroy', function() {
+        scope.$on('$destroy', function() {
+          element.off();
           element.select2('destroy');
         });
 
         $timeout(function() {
           element.select2(avDropdown.options);
         });
+
+        // If event listeners are specified in the options, set them up here
+        if (_.get(avDropdown, 'options.eventListeners')) {
+          _.each(avDropdown.options.eventListeners, function(listener, eventId) {
+            if (_.isFunction(listener)) {
+              element.on(eventId, listener);
+            }
+          });
+        }
       }
     };
   });
@@ -2098,7 +2120,8 @@
       // convert the directive attributes into object with properties with sane defaults
       var properties = angular.extend(
         {
-          level: 'info'
+          level: 'info',
+          label: element.text()
         },
         options,
         {
@@ -2131,7 +2154,7 @@
         var parentCtrl = {};
         var parentOptions = {};
 
-        if (controllers.length > 1 && controllers[1] !== undefined)  {
+        if (controllers[1])  {
           parentCtrl = controllers[1];
           parentOptions = parentCtrl.getOptions();
         }
@@ -2735,31 +2758,80 @@
       maxCached: 100,
       loadMoreText: 'Load more items',
       entryIdAttribute: 'id',
-      apiParams: {}
+      apiParams: {},
+      beforePageLoad: undefined,
+      afterPageLoad: undefined
     }
   });
 
 
+  availity.ui.factory('avScrollPaginationService', function($log) {
+    function AvScrollPaginationService() {
+      this.instances = {};
+    }
 
-  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI) {
-    $scope._options = {};
-    _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
-    $scope._options.lowOffset = $scope._options.offset;
-    $scope._options.highOffset = $scope._options.offset;
+    var proto = AvScrollPaginationService.prototype;
+
+    proto.registerInstance = function(instanceInterface, id) {
+      if (this.instances[id]) {
+        $log.warn('Found existing instance with id ' + id);
+      }
+      this.instances[id] = instanceInterface;
+    };
+
+    proto.unregisterInstance = function(id) {
+      delete this.instances[id];
+    };
+
+    proto.resetInstance = function(id) {
+      if (this.instances[id]) {
+        this.instances[id].reset();
+        return true;
+      }
+      return false;
+    };
+
+    return new AvScrollPaginationService();
+  });
+
+  availity.ui.controller('AvScrollPaginationController', function($scope, $element, $timeout, $log, AV_SCROLL_PAGINATION, blockUI, avScrollPaginationService) {
+
     var self = this;
+
+    this.buildOptions = function() {
+      $scope._options = {};
+      _.extend($scope._options, AV_SCROLL_PAGINATION.DEFAULT_OPTIONS, $scope.options || {});
+      $scope._options.lowOffset = $scope._options.offset;
+      $scope._options.highOffset = $scope._options.offset;
+    };
+
+    var originalEntries = angular.copy($scope.entries);
+    this.buildOptions();
 
     this.updateButtonVisibilityFlags = function(data) {
       $scope.showNext = $scope._options.highOffset + data.count < data.totalCount;
       $scope.showPrev = $scope._options.lowOffset > 0;
     };
 
+    this.disableVisibilityFlags = function() {
+      $scope.showNext = false;
+      $scope.showPrev = false;
+    };
+
     this.loadEntries = function(prepend) {
       var block = blockUI.instances.get('scroll-pagination-block-' + $scope.avScrollPagination);
+      self.disableVisibilityFlags();
       block.start();
+      if (_.isFunction($scope._options.beforePageLoad)) {
+        $scope._options.beforePageLoad($scope._options);
+      }
       var params = {};
       _.extend(params, $scope._options.apiParams, {limit: $scope._options.limit, offset: $scope._options.offset});
       $scope.apiResource.query({params: params}).then(function(response) {
         var responseData = self.getResponseData(response);
+        if ($scope._options.afterPageLoad) {
+          $scope._options.afterPageLoad(responseData);
+        }
         if (responseData && responseData[$scope._options.resourceId]) {
           self.addEntries(responseData[$scope._options.resourceId], prepend);
         }
@@ -2846,6 +2918,20 @@
       $scope._options.offset = $scope._options.highOffset;
       self.loadEntries();
     };
+
+    avScrollPaginationService.registerInstance({
+      reset: function() {
+        $element.animate({scrollTop: 0}, 0);
+        $scope.entries = angular.copy(originalEntries);
+        self.buildOptions();
+        self.loadEntries();
+      }},
+      $scope.avScrollPagination
+    );
+
+    $scope.$on('$destroy', function() {
+      avScrollPaginationService.unregisterInstance($scope.avScrollPagination);
+    });
 
     $scope.loadPrev = self.loadPrev;
     $scope.loadNext = self.loadNext;
