@@ -11,6 +11,12 @@
     "type": "git",
     "url": "ssh://git@github.com:Availity/availity-angular.git"
   },
+  "files": {
+    "README.md",
+    "lib",
+    "dist",
+    "less"
+  },
   "author": "Robert McGuinness <robert.mcguinness.iii@gmail.com> (http://robmcguinness.com/)",
   "authors": [
     {
