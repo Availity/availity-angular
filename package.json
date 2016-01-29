@@ -11,12 +11,12 @@
     "type": "git",
     "url": "ssh://git@github.com:Availity/availity-angular.git"
   },
-  "files": {
+  "files": [
     "README.md",
     "lib",
     "dist",
     "less"
-  },
+  ],
   "author": "Robert McGuinness <robert.mcguinness.iii@gmail.com> (http://robmcguinness.com/)",
   "authors": [
     {
@@ -45,7 +45,7 @@
     "animate.css": "3.4.0",
     "autoprefixer": "6.3.1",
     "availity-ekko": "1.0.1",
-    "availity-uikit": "2.0.0-beta.0",
+    "availity-uikit": "2.0.0-beta.4",
     "babel-cli": "6.4.0",
     "babel-core": "6.4.0",
     "babel-eslint": "5.0.0-beta6",
@@ -84,6 +84,7 @@
     "karma-sauce-launcher": "0.3.0",
     "less": "2.5.3",
     "less-loader": "2.2.2",
+    "less-plugin-npm-import": "2.1.0",
     "lodash": "4.0.0",
     "marked": "0.3.5",
     "metalsmith": "2.1.0",
