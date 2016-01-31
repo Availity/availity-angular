@@ -93,6 +93,20 @@ let config = {
       {
         test: /\.(jpe?g|png|gif)$/,
         loader: 'url?limit=32768?name=images/[name].[ext]'
+      },
+      {
+        // Files ending in *.html will be loaded into Angular as plain strings
+        test: /\.html$/,
+        loader: 'html'
+      },
+      {
+        // Files ending in *.htm will be loaded into Angular $templaceCache relative to 'lib' folder.
+        //
+        //  - disk path: availity-angular/lib/ui/block/block.htm
+        //  - cache path: ui/block/block.htm
+        //  - module: availity.ui.templates
+        test: /\.htm$/,
+        loader: `ngtemplate?module=availity.ui.templates&relativeTo=${path.resolve(__dirname, './lib')}/!html`
       }
     ]
   },
