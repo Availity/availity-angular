@@ -1,0 +1,1 @@
+Analytics is a way for you to track how users interact with your data. To use our analytics services some configuration needs to take place. By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.

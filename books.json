@@ -1,0 +1,7 @@
+{
+  "gitbook": ">=2.0.0",
+  "title": "Availity Angular",
+  "structure": {
+    "summary": "/lib/SUMMARY.md"
+  }
+}
