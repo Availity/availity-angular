@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.9.1 -- January-22
+ * availity-angular v1.9.2 -- February-03
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1336,7 +1336,7 @@
 
       var viewValue = self.ngModel.$viewValue;
       var selected = null;
-      if(viewValue) {
+      if(viewValue !== null && viewValue !== undefined) {
         selected = this.getSelected(viewValue);
       }
 
