@@ -1,19 +1,9 @@
-import angular from 'angular';
 import $ from 'jquery';
+
+import demo from './module';
 
 import 'availity-uikit/docs/less/docs.less';
 import 'animate.css/animate.css';
-
-const demo = angular.module('availity.demo', [
-  'availity',
-  'availity.ui',
-  'availity.ui.templates',
-  'availity.config',
-  'ngAnimate'
-  // 'angular-velocity',
-  // 'blockUI',
-  // 'ui.router' // for breadcrumbs
-]);
 
 demo.controller('PageController', function() {
   // no op
@@ -54,3 +44,5 @@ $('[data-toggle="code"]').click(function(e) {
   }
 
 });
+
+require('../content/core/analytics');

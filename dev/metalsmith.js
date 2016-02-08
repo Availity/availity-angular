@@ -9,8 +9,8 @@ import permalinks from 'metalsmith-permalinks';
 import nunjucks from 'nunjucks';
 import nunjucksDate from 'nunjucks-date';
 import path from 'path';
-import collections from 'metalsmith-collections';
-import filter from 'metalsmith-filter';
+// import collections from 'metalsmith-collections';
+// import filter from 'metalsmith-filter';
 import relative from 'metalsmith-rootpath';
 
 import dataMarkdown from './plugins/metalsmith-data-markdown';
@@ -59,18 +59,18 @@ function build() {
         decode: true
       }))
       .use(mock())
-      .use(collections({
-        pages: {
-          pattern: 'pages/**/*.html',
-          reverse: false
-        },
-        core: {
-          pattern: '**/*-core-demo.html'
-        },
-        ui: {
-          pattern: '**/*-ui-demo.html'
-        }
-      }))
+      // .use(collections({
+      //   pages: {
+      //     pattern: 'pages/**/*.html',
+      //     reverse: false
+      //   },
+      //   core: {
+      //     pattern: '**/*-core-demo.html'
+      //   },
+      //   ui: {
+      //     pattern: '**/*-ui-demo.html'
+      //   }
+      // }))
       .use(permalinks({
         relative: false
       }))
@@ -84,7 +84,7 @@ function build() {
         engine: 'nunjucks',
         directory: 'layouts'
       }))
-      .use(filter(['index.html', '**/*-core-demo.html', '**/*-ui-demo.html']))
+      // .use(filter(['index.html', '**/*-core-demo.html', '**/*-ui-demo.html']))
       .destination(path.join(process.cwd(), 'build'));
 
     metalsmith.build( (err) => {

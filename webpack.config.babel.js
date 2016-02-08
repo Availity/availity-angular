@@ -106,7 +106,7 @@ let config = {
         //  - cache path: ui/block/block.htm
         //  - module: availity.ui.templates
         test: /\.htm$/,
-        loader: `ngtemplate?module=availity.ui.templates&relativeTo=${path.resolve(__dirname, './lib')}/!html`
+        loader: `ngtemplate?relativeTo=${path.resolve(__dirname, './lib')}/!html`
       }
     ]
   },
