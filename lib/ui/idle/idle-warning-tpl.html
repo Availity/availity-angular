@@ -4,10 +4,10 @@
 <div class="modal-body">
   <div class="row">
     <div class="col-xs-2">
-      <i class="icon icon-attention-circle icon-4x"></i>
+      <i class="icon icon-attention-circle icon-4x text-info"></i>
     </div>
     <div class="col-xs-10">
-      <p class="lead">Your session is about to expire.  Click anywhere on the screen to let us know you are still here.</p>
+      <p class="lead">To keep your info safe, your session will expire soon. Let us know you're still working by clicking anywhere on this screen in the next {{idle.timeLeft}} minute<span data-ng-show="idle.timeLeft !== 1">s</span>.</p>
     </div>
   </div>
 </div>
