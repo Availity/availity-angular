@@ -81,6 +81,13 @@
         "file": "scroll-pagination5.json"
       }
     ]
+  },
+  "internal/v1/providers": {
+    "get": [
+      {
+        "file": "providers.json"
+      }
+    ]
   }
 }
 

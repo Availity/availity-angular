@@ -1,0 +1,4072 @@
+{
+  "totalCount": 455,
+  "count": 50,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "last": {
+      "href": "https:\/\/t06-apps.availity.com\/api\/internal\/v1\/providers?customerId=1194&role=RFRG&offset=450&limit=50"
+    },
+    "next": {
+      "href": "https:\/\/t06-apps.availity.com\/api\/internal\/v1\/providers?customerId=1194&role=RFRG&offset=50&limit=50"
+    },
+    "self": {
+      "href": "https:\/\/t06-apps.availity.com\/api\/internal\/v1\/providers?customerId=1194&role=RFRG"
+    }
+  },
+  "providers": [
+    {
+      "businessName": "100 Hospital",
+      "atypical": true,
+      "taxId": "333333222",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207LP2900X",
+        "value": "Pain Medicine"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "470-9999"
+      },
+      "otherPhones": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "904",
+          "phoneNumber": "384-8088"
+        },
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "561",
+          "phoneNumber": "964-2211"
+        }
+      ],
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "470-9998"
+      },
+      "otherFaxes": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "904",
+          "phoneNumber": "384-4745"
+        },
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "561",
+          "phoneNumber": "439-8655"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "705 Ferris St",
+        "city": "Green Cove Springs",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32043"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "1330 Coral Way Ste 403",
+          "city": "Miami",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33145"
+          }
+        },
+        {
+          "line1": "124 Main Street",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256"
+          }
+        },
+        {
+          "line1": "1300 Miccosukee Rd",
+          "city": "Tallahassee",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32308",
+            "addon": "5037"
+          }
+        },
+        {
+          "line1": "4300 Alton Rd Ste 207",
+          "city": "Miami Beach",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33140"
+          }
+        },
+        {
+          "line1": "5128 N Habana Ave",
+          "city": "Tampa",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33614",
+            "addon": "6874"
+          }
+        },
+        {
+          "line1": "1111 S Orange Ave",
+          "line2": "FL 4",
+          "city": "Orange Park",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32806"
+          }
+        },
+        {
+          "line1": "1703 Lewis Turner Blvd",
+          "city": "Fort Walton Beach",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32547"
+          }
+        },
+        {
+          "line1": "kfsgjagkj",
+          "city": "jac",
+          "state": "MISSOURI",
+          "stateCode": "MO",
+          "zip": {
+            "code": "22312"
+          }
+        },
+        {
+          "line1": "1101 West Moreno Street",
+          "city": "Pensacola",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32501",
+            "addon": "2317"
+          }
+        },
+        {
+          "line1": "333",
+          "city": "www",
+          "state": "MISSOURI",
+          "stateCode": "MO",
+          "zip": {
+            "code": "22222",
+            "addon": "2222"
+          }
+        },
+        {
+          "line1": "3690 St Johns Bluff Rd S",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32224"
+          }
+        },
+        {
+          "line1": "8381 Belfort Pkwy",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256"
+          }
+        },
+        {
+          "line1": "300 E. Randolph",
+          "city": "Chicago",
+          "state": "ILLINOIS",
+          "stateCode": "IL",
+          "zip": {
+            "code": "60601"
+          }
+        },
+        {
+          "line1": "1820 Barrs St",
+          "line2": "Ste 322",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32204",
+            "addon": "4726"
+          }
+        },
+        {
+          "line1": "122 Main St.",
+          "city": "Springfield",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256"
+          }
+        },
+        {
+          "line1": "9049 SW 87th Ct",
+          "city": "Miami",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33176"
+          }
+        },
+        {
+          "line1": "1150 N 35th Ave",
+          "line2": "385",
+          "city": "HOLLYWOOD",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33021",
+            "addon": "1234"
+          }
+        },
+        {
+          "line1": "1600 SW Archer Rd",
+          "city": "Gainesville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32610",
+            "addon": "0000"
+          }
+        },
+        {
+          "line1": "111",
+          "city": "www",
+          "state": "ALABAMA",
+          "stateCode": "AL",
+          "zip": {
+            "code": "11111",
+            "addon": "1111"
+          }
+        },
+        {
+          "line1": "123",
+          "city": "jax",
+          "state": "LOUISIANA",
+          "stateCode": "LA",
+          "zip": {
+            "code": "32092"
+          }
+        },
+        {
+          "line1": "567",
+          "city": "fsaf",
+          "state": "NEBRASKA",
+          "stateCode": "NE",
+          "zip": {
+            "code": "12345"
+          }
+        },
+        {
+          "line1": "111 Main St",
+          "city": "Jax",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "54564",
+            "addon": "5645"
+          }
+        },
+        {
+          "line1": "4665 S Congress Ave",
+          "line2": "Ste 100",
+          "city": "Lake Worth",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33461",
+            "addon": "4710"
+          }
+        },
+        {
+          "line1": "kdkdk",
+          "line2": "kdkdk",
+          "city": "kdkdk",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32210"
+          }
+        },
+        {
+          "line1": "123 anywhere",
+          "city": "jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256"
+          }
+        },
+        {
+          "line1": "123 anywhere",
+          "city": "jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32250"
+          }
+        },
+        {
+          "line1": "1100 E Broward Blvd",
+          "city": "Ft Lauderdale",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "33301"
+          }
+        },
+        {
+          "line1": "1001 College Blvd W Ste G",
+          "city": "Niceville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32578"
+          }
+        },
+        {
+          "line1": "5978 Berryhill Rd",
+          "line2": "PO Box 88",
+          "city": "Milton",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32570",
+            "addon": "1234"
+          }
+        },
+        {
+          "line1": "1000 Executive Dr",
+          "line2": "Ste 4",
+          "city": "Oviedo",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32765",
+            "addon": "8140"
+          }
+        },
+        {
+          "line1": "8381 Belfort Pkwy",
+          "line2": "PO Box 88",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256",
+            "addon": "1111"
+          }
+        },
+        {
+          "line1": "2020 Baker Street",
+          "line2": "PO Box 88",
+          "city": "Jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256",
+            "addon": "1111"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AETNA",
+          "identifier": "2222222"
+        }
+      ]
+    },
+    {
+      "lastName": "12345678901234567890123456789012345",
+      "firstName": "1234567890123456789012345",
+      "middleName": "1234567890123456789012345",
+      "atypical": false,
+      "npi": "1619970126",
+      "taxId": "222334444",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "341600000X",
+        "value": "Ambulance"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "46545465564"
+        },
+        {
+          "payerId": "BCBSF",
+          "identifier": "78787798"
+        }
+      ]
+    },
+    {
+      "lastName": "AAAPILast",
+      "firstName": "AAAPITest",
+      "middleName": "Mid",
+      "atypical": true,
+      "taxId": "999888777",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "171100000X",
+        "value": "Acupuncturist"
+      },
+      "primaryAddress": {
+        "line1": "Test Blvd",
+        "line2": "Line 2",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256",
+          "addon": "1111"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AETNA",
+          "identifier": "AETNA12345"
+        }
+      ]
+    },
+    {
+      "lastName": "AAEN",
+      "firstName": "GREGORY",
+      "middleName": "SCOTT",
+      "atypical": false,
+      "npi": "1780898304",
+      "taxId": "881046739",
+      "ssn": "123213213",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "fsdfsdfsdfdsfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsfsdfsdfs",
+        "line2": "mmmmmmmmfsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd",
+        "city": "Miss",
+        "state": "ALABAMA",
+        "stateCode": "AL",
+        "zip": {
+          "code": "32225",
+          "addon": "9999"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "2195 CLUB CENTER DRIVE",
+          "city": "San Bernardino",
+          "state": "CALIFORNIA",
+          "stateCode": "CA",
+          "zip": {
+            "code": "92408",
+            "addon": "0000"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AETNA",
+          "identifier": "9258188"
+        },
+        {
+          "payerId": "00932",
+          "identifier": "Sunshine"
+        },
+        {
+          "payerId": "93221",
+          "identifier": "dfsdfsd"
+        }
+      ]
+    },
+    {
+      "businessName": "AATestOrg Hospital",
+      "atypical": false,
+      "npi": "1234567893",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "208M00000X",
+        "value": "Hospitalist"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "12345"
+        },
+        {
+          "payerId": "BCBSF",
+          "identifier": "12343"
+        }
+      ]
+    },
+    {
+      "businessName": "AATestOrg Hospital",
+      "atypical": false,
+      "npi": "1234567893",
+      "taxId": "444556666",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "208M00000X",
+        "value": "Hospitalist"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "464",
+        "phoneNumber": "644-4464"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "444",
+        "phoneNumber": "464-4454"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "line2": "Ste. 300",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "dfasfas",
+          "city": "fasf",
+          "state": "MONTANA",
+          "stateCode": "MT",
+          "zip": {
+            "code": "46465",
+            "addon": "4646"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "00932",
+          "identifier": "shine"
+        }
+      ]
+    },
+    {
+      "lastName": "ABADY",
+      "firstName": "ROBERT",
+      "middleName": "MICHAEL",
+      "atypical": false,
+      "npi": "1598767907",
+      "taxId": "132960287",
+      "ssn": "151786178",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "213E00000X",
+        "value": "Podiatrist"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "718",
+        "phoneNumber": "860-1111"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "718",
+        "phoneNumber": "860-0562"
+      },
+      "primaryAddress": {
+        "line1": "930 E TREMONT AVE",
+        "city": "BRONX",
+        "state": "NEW_YORK",
+        "stateCode": "NY",
+        "zip": {
+          "code": "10460",
+          "addon": "4304"
+        }
+      }
+    },
+    {
+      "lastName": "ABDEL-HALIM",
+      "firstName": "OLAN",
+      "middleName": "M",
+      "atypical": false,
+      "npi": "1295751584",
+      "taxId": "390817529",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207R00000X",
+        "value": "Internal Medicine"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "920",
+        "phoneNumber": "436-1326"
+      },
+      "primaryAddress": {
+        "line1": "1821 S WEBSTER AVE",
+        "city": "GREEN BAY",
+        "state": "WISCONSIN",
+        "stateCode": "WI",
+        "zip": {
+          "code": "54301",
+          "addon": "2253"
+        }
+      }
+    },
+    {
+      "lastName": "ABRAMS",
+      "firstName": "LORI",
+      "middleName": "ANN",
+      "atypical": false,
+      "npi": "1962475129",
+      "taxId": "651108205",
+      "ssn": "177463115",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207V00000X",
+        "value": "Obstetrics & Gynecology"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "953-5340"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "955-8568"
+      },
+      "primaryAddress": {
+        "line1": "3131 S TAMIAMI TRL",
+        "line2": "STE 202",
+        "city": "SARASOTA",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "34239",
+          "addon": "5101"
+        }
+      }
+    },
+    {
+      "lastName": "ABRAMS",
+      "firstName": "BRAD",
+      "middleName": "J",
+      "atypical": false,
+      "npi": "1316901895",
+      "taxId": "650776489",
+      "ssn": "234340471",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207N00000X",
+        "value": "Dermatology"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "926-2300"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "926-8424"
+      },
+      "primaryAddress": {
+        "line1": "3328 BEE RIDGE RD",
+        "line2": "STE 560",
+        "city": "SARASOTA",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "34239",
+          "addon": "7213"
+        }
+      }
+    },
+    {
+      "lastName": "ABU",
+      "firstName": "JOHN",
+      "middleName": "IDAEWOR",
+      "atypical": false,
+      "npi": "1104890094",
+      "taxId": "591773262",
+      "ssn": "265673629",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207V00000X",
+        "value": "Obstetrics & Gynecology"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "861-2900"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "941",
+        "phoneNumber": "861-2868"
+      },
+      "primaryAddress": {
+        "line1": "2200 RINGLING BLVD",
+        "city": "SARASOTA",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "34237",
+          "addon": "6102"
+        }
+      }
+    },
+    {
+      "lastName": "ACOSTA",
+      "firstName": "ALESSANDRO",
+      "middleName": "LEANDRO",
+      "atypical": false,
+      "npi": "1437122165",
+      "taxId": "591261626",
+      "ssn": "562804431",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "321",
+        "phoneNumber": "636-4808"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "321",
+        "phoneNumber": "631-9436"
+      },
+      "primaryAddress": {
+        "line1": "1317 W POINT DR",
+        "line2": "STE 203",
+        "city": "COCOA",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32922",
+          "addon": "6464"
+        }
+      }
+    },
+    {
+      "lastName": "ACTON",
+      "firstName": "MATTHEW",
+      "atypical": false,
+      "npi": "1578732772",
+      "taxId": "546546546",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207R00000X",
+        "value": "Internal Medicine"
+      },
+      "primaryAddress": {
+        "line1": "14113 FONTANA RD",
+        "city": "ROANOKE",
+        "state": "TEXAS",
+        "stateCode": "TX",
+        "zip": {
+          "code": "76262",
+          "addon": "4599"
+        }
+      }
+    },
+    {
+      "lastName": "ADAIR",
+      "firstName": "STEFAN",
+      "middleName": "RENE",
+      "atypical": false,
+      "npi": "1073598785",
+      "taxId": "582307485",
+      "ssn": "262984559",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "478",
+        "phoneNumber": "633-7677"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "478",
+        "phoneNumber": "633-7669"
+      },
+      "primaryAddress": {
+        "line1": "771 ORANGE ST",
+        "line2": "STE 201",
+        "city": "MACON",
+        "state": "GEORGIA",
+        "stateCode": "GA",
+        "zip": {
+          "code": "31201",
+          "addon": "2126"
+        }
+      }
+    },
+    {
+      "lastName": "Adama",
+      "firstName": "Jon",
+      "atypical": true,
+      "npi": "1231231238",
+      "taxId": "124656565",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "111N00000X",
+        "value": "Chiropractor"
+      },
+      "otherSpecialties": [
+        {
+          "code": "1223S0112X",
+          "value": "Oral and Maxillofacial Surgery"
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BRIDG",
+          "identifier": "J00004"
+        },
+        {
+          "payerId": "CIGNA",
+          "identifier": "J00002"
+        },
+        {
+          "payerId": "BRIDG",
+          "identifier": "J00001"
+        },
+        {
+          "payerId": "00851",
+          "identifier": "J1000007"
+        }
+      ]
+    },
+    {
+      "lastName": "ADAMS",
+      "firstName": "STEPHEN",
+      "middleName": "RICHARD",
+      "atypical": false,
+      "npi": "1245363993",
+      "taxId": "440577118",
+      "ssn": "493607805",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "otherSpecialties": [
+        {
+          "code": "207R00000X",
+          "value": "Internal Medicine"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "417",
+        "phoneNumber": "269-9800"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "417",
+        "phoneNumber": "269-9853"
+      },
+      "primaryAddress": {
+        "line1": "1000 E WALNUT LAWN ST",
+        "city": "SPRINGFIELD",
+        "state": "MISSOURI",
+        "stateCode": "MO",
+        "zip": {
+          "code": "65807",
+          "addon": "7313"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AETNA",
+          "identifier": "111"
+        },
+        {
+          "payerId": "HUMANA",
+          "identifier": "abc123"
+        }
+      ]
+    },
+    {
+      "lastName": "ADAMS",
+      "firstName": "JOEL",
+      "middleName": "LEA",
+      "atypical": false,
+      "npi": "1386782266",
+      "taxId": "331010615",
+      "ssn": "453586930",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207RP1001X",
+        "value": "Pulmonary Disease"
+      },
+      "otherSpecialties": [
+        {
+          "code": "207R00000X",
+          "value": "Internal Medicine"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "432",
+        "phoneNumber": "580-9444"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "432",
+        "phoneNumber": "580-9555"
+      },
+      "primaryAddress": {
+        "line1": "500 N WASHINGTON AVE",
+        "line2": "STE 100",
+        "city": "ODESSA",
+        "state": "TEXAS",
+        "stateCode": "TX",
+        "zip": {
+          "code": "79761",
+          "addon": "4441"
+        }
+      }
+    },
+    {
+      "lastName": "ADAMS",
+      "firstName": "JOHN",
+      "middleName": "GRAMBLING",
+      "atypical": false,
+      "npi": "1457576647",
+      "taxId": "721219537",
+      "ssn": "253642232",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "903",
+        "phoneNumber": "938-4363"
+      },
+      "otherPhones": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "903",
+          "phoneNumber": "938-4363"
+        }
+      ],
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "903",
+        "phoneNumber": "935-7394"
+      },
+      "otherFaxes": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "903",
+          "phoneNumber": "935-7394"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "711 E END BLVD S",
+        "line2": "STE B",
+        "city": "MARSHALL",
+        "state": "TEXAS",
+        "stateCode": "TX",
+        "zip": {
+          "code": "75670",
+          "addon": "5615"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "911 BILLING ADDRESS",
+          "line2": "STE B1",
+          "city": "MARSHALL",
+          "state": "TEXAS",
+          "stateCode": "TX",
+          "zip": {
+            "code": "75670",
+            "addon": "5615"
+          }
+        }
+      ]
+    },
+    {
+      "lastName": "ADAMS",
+      "firstName": "RUSSELL",
+      "middleName": "E",
+      "atypical": false,
+      "npi": "1396894994",
+      "taxId": "201176500",
+      "ssn": "450292266",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "505",
+        "phoneNumber": "292-1554"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "505",
+        "phoneNumber": "292-1574"
+      },
+      "primaryAddress": {
+        "line1": "1201 EUBANK BLVD NE",
+        "line2": "STE 6",
+        "city": "ALBUQUERQUE",
+        "state": "NEW_MEXICO",
+        "stateCode": "NM",
+        "zip": {
+          "code": "87112",
+          "addon": "5300"
+        }
+      }
+    },
+    {
+      "businessName": "ADULT & CHILD MENTAL HEALTH CENTER",
+      "atypical": false,
+      "npi": "1154368512",
+      "taxId": "351534713",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "317",
+        "phoneNumber": "882-5122"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "317",
+        "phoneNumber": "888-8642"
+      },
+      "primaryAddress": {
+        "line1": "8320 MADISON AVE",
+        "city": "INDIANAPOLIS",
+        "state": "INDIANA",
+        "stateCode": "IN",
+        "zip": {
+          "code": "46227",
+          "addon": "6066"
+        }
+      }
+    },
+    {
+      "lastName": "AGAPAY",
+      "firstName": "ALLEN",
+      "middleName": "AGUSTIN",
+      "atypical": false,
+      "npi": "1962401117",
+      "taxId": "575664984",
+      "ssn": "575664984",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "602",
+        "phoneNumber": "843-8317"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "602",
+        "phoneNumber": "843-9091"
+      },
+      "primaryAddress": {
+        "line1": "5757 W THUNDERBIRD RD",
+        "line2": "STE E265",
+        "city": "GLENDALE",
+        "state": "ARIZONA",
+        "stateCode": "AZ",
+        "zip": {
+          "code": "85306",
+          "addon": "5600"
+        }
+      }
+    },
+    {
+      "lastName": "Albertson",
+      "firstName": "Andrea",
+      "atypical": false,
+      "npi": "1033311618",
+      "taxId": "900030009",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "2080P0202X",
+        "value": "Pediatric Cardiology"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "line2": "Ste. 300",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "Albertson",
+      "firstName": "Henry",
+      "atypical": false,
+      "npi": "1598920563",
+      "taxId": "900030012",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207ZP0105X",
+        "value": "Clinical Pathology\/Laboratory Medicine"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "line2": "Ste. 300",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "Albertson",
+      "firstName": "JoAnn",
+      "atypical": false,
+      "npi": "1033356548",
+      "taxId": "900030011",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207SG0201X",
+        "value": "Clinical Genetics (M.D.)"
+      },
+      "primaryAddress": {
+        "line1": "7406 Fullerton Ave",
+        "line2": "Ste. 300",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "Allen",
+      "firstName": "Judy",
+      "atypical": false,
+      "npi": "1609929165",
+      "taxId": "020264383",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "101YM0800X",
+        "value": "Mental Health"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "line2": "Ste. 110",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "ALLEN",
+      "firstName": "STEVEN",
+      "middleName": "K",
+      "atypical": false,
+      "npi": "1871581843",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "1 COOPER PLZ",
+        "city": "CAMDEN",
+        "state": "NEW_JERSEY",
+        "stateCode": "NJ",
+        "zip": {
+          "code": "08103",
+          "addon": "1461"
+        }
+      }
+    },
+    {
+      "lastName": "ALMODOVAR",
+      "firstName": "KATIRIA",
+      "atypical": true,
+      "taxId": "030579051",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "374U00000X",
+        "value": "Home Health Aide"
+      },
+      "primaryAddress": {
+        "line1": "123 anywhere",
+        "city": "anytown",
+        "state": "NEW_JERSEY",
+        "stateCode": "NJ",
+        "zip": {
+          "code": "75043",
+          "addon": "1111"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AGPMEDICAID",
+          "identifier": "26NH14431600"
+        }
+      ]
+    },
+    {
+      "lastName": "Altenburg",
+      "firstName": "John",
+      "middleName": "F",
+      "atypical": true,
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207W00000X",
+        "value": "Ophthalmology"
+      },
+      "primaryAddress": {
+        "line1": "8381 Belfort Pkwy",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "Ambrose",
+      "firstName": "Blair",
+      "atypical": false,
+      "npi": "1659424182",
+      "taxId": "020264383",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "104100000X",
+        "value": "Social Worker"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "line2": "Ste. 110",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "Ames",
+      "firstName": "Steven",
+      "middleName": "C",
+      "atypical": false,
+      "npi": "1231231238",
+      "taxId": "591234567",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207KA0200X",
+        "value": "Allergy"
+      },
+      "otherSpecialties": [
+        {
+          "code": "207RI0011X",
+          "value": "Interventional Cardiology"
+        },
+        {
+          "code": "111N00000X",
+          "value": "Chiropractor"
+        },
+        {
+          "code": "207RG0100X",
+          "value": "Gastroenterology"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "8381 Belfort Pkwy",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "99999"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "54768"
+        },
+        {
+          "payerId": "AETNA",
+          "identifier": "7777777"
+        },
+        {
+          "payerId": "AETNA",
+          "identifier": "8888888"
+        },
+        {
+          "payerId": "BCBSF",
+          "identifier": "54768A"
+        }
+      ]
+    },
+    {
+      "lastName": "Andre",
+      "firstName": "Abelly",
+      "atypical": false,
+      "npi": "1234567893",
+      "taxId": "123456789",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207SG0201X",
+        "value": "Clinical Genetics (M.D.)"
+      },
+      "primaryAddress": {
+        "line1": "8381 Belfort Pkwy",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "82499"
+        }
+      ]
+    },
+    {
+      "lastName": "ANTON",
+      "firstName": "ALEXANDROS",
+      "middleName": "N",
+      "atypical": false,
+      "npi": "1073539094",
+      "taxId": "593405327",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "152WP0200X",
+        "value": "Pediatrics"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "813",
+        "phoneNumber": "872-8491"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "813",
+        "phoneNumber": "872-7766"
+      },
+      "primaryAddress": {
+        "line1": "3222 W AZEELE ST",
+        "line2": "STE A",
+        "city": "TAMPA",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "33609",
+          "addon": "3280"
+        }
+      }
+    },
+    {
+      "lastName": "Applebaum",
+      "firstName": "Edward",
+      "atypical": false,
+      "npi": "1508874306",
+      "taxId": "020264383",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "2084P0800X",
+        "value": "Psychiatry"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "line2": "Ste. 110",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    },
+    {
+      "lastName": "ARATA",
+      "firstName": "JAMES",
+      "middleName": "ANDREW",
+      "atypical": false,
+      "npi": "1144259060",
+      "taxId": "351140337",
+      "ssn": "307708568",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "260",
+        "phoneNumber": "432-1568"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "260",
+        "phoneNumber": "432-4969"
+      },
+      "primaryAddress": {
+        "line1": "6119 W JEFFERSON BLVD",
+        "city": "FORT WAYNE",
+        "state": "INDIANA",
+        "stateCode": "IN",
+        "zip": {
+          "code": "46804",
+          "addon": "3072"
+        }
+      }
+    },
+    {
+      "businessName": "Arnold Palmer Hospital for Children",
+      "atypical": false,
+      "npi": "1184709057",
+      "taxId": "973460648",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "407",
+        "phoneNumber": "841-5111"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "407",
+        "phoneNumber": "872-8533"
+      },
+      "primaryAddress": {
+        "line1": "P.O. Box 620000-Stop 9936",
+        "city": "ORLANDO",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32891",
+          "addon": "9936"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "1414 KUHL AVE",
+          "city": "ORLANDO",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32806",
+            "addon": "2008"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AETNA",
+          "identifier": "4276498"
+        }
+      ]
+    },
+    {
+      "lastName": "ARRAY",
+      "firstName": "SAMIR",
+      "middleName": "YAMIL",
+      "atypical": false,
+      "npi": "1811963234",
+      "taxId": "591867557",
+      "ssn": "220069806",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207QG0300X",
+        "value": "Geriatric Medicine"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "737-3800"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "737-2402"
+      },
+      "primaryAddress": {
+        "line1": "8274 BAYBERRY RD",
+        "city": "JACKSONVILLE",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256",
+          "addon": "7470"
+        }
+      }
+    },
+    {
+      "lastName": "Arska-Karylowski",
+      "firstName": "Barbara",
+      "middleName": "H",
+      "atypical": false,
+      "taxId": "555666333",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "103T00000X",
+        "value": "Psychologist"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "398-9861"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "398-9800"
+      },
+      "primaryAddress": {
+        "line1": "1649 Atlantic Blvd",
+        "line2": "Suite 3",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32207"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "59697"
+        }
+      ]
+    },
+    {
+      "businessName": "ATHENA UROLOGY ASSOCIATES",
+      "atypical": false,
+      "npi": "1366520165",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "706",
+        "phoneNumber": "543-6261"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "706",
+        "phoneNumber": "543-7060"
+      },
+      "primaryAddress": {
+        "line1": "1500 OGLETHORPE AVE",
+        "line2": "STE 2000",
+        "city": "ATHENS",
+        "state": "GEORGIA",
+        "stateCode": "GA",
+        "zip": {
+          "code": "30606",
+          "addon": "2188"
+        }
+      }
+    },
+    {
+      "lastName": "ATIENZA",
+      "firstName": "MELINDA",
+      "middleName": "UMALI",
+      "atypical": false,
+      "npi": "1730281767",
+      "taxId": "942735850",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207R00000X",
+        "value": "Internal Medicine"
+      },
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "480",
+        "phoneNumber": "607-3808"
+      },
+      "primaryAddress": {
+        "line1": "10900 N SCOTTSDALE ROAD",
+        "line2": "SUITE 630",
+        "city": "SCOTTSDALE",
+        "state": "ARIZONA",
+        "stateCode": "AZ",
+        "zip": {
+          "code": "85254",
+          "addon": "5216"
+        }
+      }
+    },
+    {
+      "lastName": "Atkinson",
+      "firstName": "Phyllis",
+      "atypical": false,
+      "npi": "1992849509",
+      "taxId": "650666550",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "101Y00000X",
+        "value": "Counselor"
+      },
+      "primaryAddress": {
+        "line1": "5970 Kenwood Rd",
+        "city": "Cincinnati",
+        "state": "OHIO",
+        "stateCode": "OH",
+        "zip": {
+          "code": "75243"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "HUMANA",
+          "identifier": "123"
+        }
+      ]
+    },
+    {
+      "lastName": "aTypical",
+      "firstName": "Ana",
+      "atypical": true,
+      "taxId": "650062530",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "364SA2100X",
+        "value": "Acute Care"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "972",
+        "phoneNumber": "383-6457"
+      },
+      "primaryAddress": {
+        "line1": "740 E Campbell rd",
+        "city": "Richardson",
+        "state": "TEXAS",
+        "stateCode": "TX",
+        "zip": {
+          "code": "75094",
+          "addon": "1111"
+        }
+      }
+    },
+    {
+      "lastName": "Atypical",
+      "firstName": "Smith",
+      "atypical": true,
+      "taxId": "651086367",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "163WA2000X",
+        "value": "Administrator"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "341",
+        "phoneNumber": "654-6546"
+      },
+      "primaryAddress": {
+        "line1": "123 Atypcial",
+        "city": "Atypical",
+        "state": "DELAWARE",
+        "stateCode": "DE",
+        "zip": {
+          "code": "75094",
+          "addon": "9999"
+        }
+      }
+    },
+    {
+      "lastName": "ATYPICAL",
+      "firstName": "AEC",
+      "atypical": true,
+      "taxId": "451675505",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "163WA2000X",
+        "value": "Administrator"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "747",
+        "phoneNumber": "987-6543"
+      },
+      "primaryAddress": {
+        "line1": "321 TESTING",
+        "city": "TESTING",
+        "state": "TENNESSEE",
+        "stateCode": "TN",
+        "zip": {
+          "code": "75094",
+          "addon": "4444"
+        }
+      }
+    },
+    {
+      "lastName": "ATYPICAL",
+      "firstName": "Humana",
+      "atypical": true,
+      "taxId": "593432520",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "163WA2000X",
+        "value": "Administrator"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "972",
+        "phoneNumber": "972-9729"
+      },
+      "primaryAddress": {
+        "line1": "123 Testing",
+        "city": "Richardson",
+        "state": "TEXAS",
+        "stateCode": "TX",
+        "zip": {
+          "code": "75094",
+          "addon": "4444"
+        }
+      }
+    },
+    {
+      "businessName": "Atypical Org Test",
+      "atypical": true,
+      "taxId": "545646545",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "341600000X",
+        "value": "Ambulance"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "546",
+        "phoneNumber": "546-5465"
+      },
+      "otherPhones": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "646",
+          "phoneNumber": "465-4646"
+        }
+      ],
+      "primaryFax": {
+        "internationalCellularCode": "+1",
+        "areaCode": "465",
+        "phoneNumber": "456-4656"
+      },
+      "otherFaxes": [
+        {
+          "internationalCellularCode": "+1",
+          "areaCode": "465",
+          "phoneNumber": "465-4654"
+        }
+      ],
+      "primaryAddress": {
+        "line1": "123 Main St",
+        "city": "Jax",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "14156",
+          "addon": "4554"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "44 Merry lane",
+          "city": "Jax",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "45646",
+            "addon": "4654"
+          }
+        }
+      ]
+    },
+    {
+      "businessName": "ATYPICAL PROVIDER",
+      "atypical": true,
+      "taxId": "756638456",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207Q00000X",
+        "value": "Family Medicine"
+      },
+      "primaryAddress": {
+        "line1": "7406 FULLERTON AVE",
+        "city": "JACKSONVILLE",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "7406 FULLERTON street",
+          "city": "JACKSONVILLE",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256"
+          }
+        },
+        {
+          "line1": "123 Noway",
+          "city": "st paul",
+          "state": "MINNESOTA",
+          "stateCode": "MN",
+          "zip": {
+            "code": "75040"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSMN",
+          "identifier": "g2bill2"
+        }
+      ]
+    },
+    {
+      "lastName": "Atypical Provider",
+      "firstName": "Naveena",
+      "middleName": "Test",
+      "atypical": true,
+      "taxId": "222222222",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "207L00000X",
+        "value": "Anesthesiology"
+      },
+      "primaryPhone": {
+        "internationalCellularCode": "+1",
+        "areaCode": "904",
+        "phoneNumber": "470-4850"
+      },
+      "primaryAddress": {
+        "line1": "10752 deerwood park blvd",
+        "city": "jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256",
+          "addon": "2347"
+        }
+      },
+      "otherAddresses": [
+        {
+          "line1": "10752 deerwood park blvd",
+          "city": "jacksonville",
+          "state": "FLORIDA",
+          "stateCode": "FL",
+          "zip": {
+            "code": "32256",
+            "addon": "2347"
+          }
+        }
+      ],
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "BCBSF",
+          "identifier": "22222222222222222222"
+        }
+      ]
+    },
+    {
+      "businessName": "Aurora St Lukes Medical Center",
+      "atypical": false,
+      "npi": "1861447179",
+      "taxId": "390806181",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "101Y00000X",
+        "value": "Counselor"
+      },
+      "primaryAddress": {
+        "line1": "2900 W Oklahoma Ave",
+        "city": "Milwaukee",
+        "state": "WISCONSIN",
+        "stateCode": "WI",
+        "zip": {
+          "code": "53215"
+        }
+      }
+    },
+    {
+      "businessName": "AUTOIMMUNE DISEASE NOT EL",
+      "atypical": false,
+      "npi": "1841350527",
+      "taxId": "203161422",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "332B00000X",
+        "value": "Durable Medical Equipment & Medical Supplies"
+      },
+      "primaryAddress": {
+        "line1": "3125 PAYSPHERE CIR ",
+        "city": "chicago",
+        "state": "ILLINOIS",
+        "stateCode": "IL",
+        "zip": {
+          "code": "60674",
+          "addon": "0031"
+        }
+      }
+    },
+    {
+      "lastName": "Axtman",
+      "firstName": "Rick",
+      "atypical": false,
+      "npi": "1740259555",
+      "taxId": "020264383",
+      "customerIds": [
+        "1194"
+      ],
+      "roles": [
+        {
+          "code": "ATNG",
+          "value": "Attending"
+        },
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primarySpecialty": {
+        "code": "101YM0800X",
+        "value": "Mental Health"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "line2": "Ste. 110",
+        "city": "Jacksonville",
+        "state": "FLORIDA",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256"
+        }
+      }
+    }
+  ]
+}

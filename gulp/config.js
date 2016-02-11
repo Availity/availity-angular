@@ -89,7 +89,8 @@ module.exports = {
       './lib/core/analytics/analytics-config.js',
       './lib/core/utils/date-polyfill.js',
       './lib/core/messages/messages-constants.js',
-      './lib/core/messages/messages.js'
+      './lib/core/messages/messages.js',
+      './lib/core/providers/providers.js'
     ],
     specs: './lib/core/**/*spec.js',
     destDist: './dist',
@@ -124,7 +125,8 @@ module.exports = {
       './lib/ui/block/block.js',
       './lib/ui/block/block-directive.js',
       './lib/ui/tabs/tabs.js',
-      './lib/ui/scroll-pagination/scroll-pagination.js'
+      './lib/ui/scroll-pagination/scroll-pagination.js',
+      './lib/ui/express-entry/express-entry.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
