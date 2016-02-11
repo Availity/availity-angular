@@ -88,7 +88,6 @@ module.exports = {
       './lib/core/analytics/analytics-exceptions.js',
       './lib/core/analytics/analytics-config.js',
       './lib/core/utils/date-polyfill.js',
-      './lib/core/utils/merge-polyfill.js',
       './lib/core/messages/messages-constants.js',
       './lib/core/messages/messages.js'
     ],
