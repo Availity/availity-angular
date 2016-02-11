@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.9.2 -- February-03
+ * availity-angular v1.9.3 -- February-11
  * Copyright 2016 Availity, LLC 
  */
 
-// Source: /lib/ui/index.js
+// Source: \lib\ui\index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: /lib/ui/templates/template.js
+// Source: \lib\ui\templates\template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: /lib/ui/modal/modal.js
+// Source: \lib\ui\modal\modal.js
 (function(root) {
 
   'use strict';
@@ -367,7 +367,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/form.js
+// Source: \lib\ui\validation\form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -563,7 +563,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/field.js
+// Source: \lib\ui\validation\field.js
 (function(root) {
 
   'use strict';
@@ -823,7 +823,7 @@
 
 })(window);
 
-// Source: /lib/ui/popover/popover.js
+// Source: \lib\ui\popover\popover.js
 (function(root) {
 
   'use strict';
@@ -932,7 +932,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/container.js
+// Source: \lib\ui\validation\container.js
 (function(root) {
 
   'use strict';
@@ -977,7 +977,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter-bootstrap.js
+// Source: \lib\ui\validation\adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1075,7 +1075,7 @@
 
 })(window);
 
-// Source: /lib/ui/validation/adapter.js
+// Source: \lib\ui\validation\adapter.js
 (function(root) {
 
   'use strict';
@@ -1125,7 +1125,7 @@
 
 })(window);
 
-// Source: /lib/ui/dropdown/dropdown.js
+// Source: \lib\ui\dropdown\dropdown.js
 (function(root) {
 
   'use strict';
@@ -1610,7 +1610,7 @@
 
 })(window);
 
-// Source: /lib/ui/datepicker/datepicker.js
+// Source: \lib\ui\datepicker\datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1859,7 +1859,7 @@
   });
 })(window);
 
-// Source: /lib/ui/idle/idle-notifier.js
+// Source: \lib\ui\idle\idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -2005,7 +2005,7 @@
 
 })(window);
 
-// Source: /lib/ui/mask/mask.js
+// Source: \lib\ui\mask\mask.js
 (function(root) {
 
   'use strict';
@@ -2045,7 +2045,7 @@
 
 })(window);
 
-// Source: /lib/ui/permissions/has-permission.js
+// Source: \lib\ui\permissions\has-permission.js
 (function(root) {
 
   'use strict';
@@ -2094,7 +2094,7 @@
 
 })(window);
 
-// Source: /lib/ui/analytics/analytics.js
+// Source: \lib\ui\analytics\analytics.js
 (function(root) {
   'use strict';
 
@@ -2175,7 +2175,7 @@
   });
 })(window);
 
-// Source: /lib/ui/placeholder/placeholder.js
+// Source: \lib\ui\placeholder\placeholder.js
 (function(root) {
 
   'use strict';
@@ -2212,7 +2212,7 @@
   });
 })(window);
 
-// Source: /lib/ui/breadcrumbs/breadcrumbs.js
+// Source: \lib\ui\breadcrumbs\breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2279,7 +2279,7 @@
 
 })(window);
 
-// Source: /lib/ui/filters/approximate.js
+// Source: \lib\ui\filters\approximate.js
 (function(root) {
   'use strict';
 
@@ -2306,7 +2306,7 @@
 
 })(window);
 
-// Source: /lib/ui/badge/badge.js
+// Source: \lib\ui\badge\badge.js
 (function(root) {
   'use strict';
 
@@ -2348,7 +2348,7 @@
 
 })(window);
 
-// Source: /lib/ui/labels/removable-label.js
+// Source: \lib\ui\labels\removable-label.js
 (function(root) {
   'use strict';
 
@@ -2379,7 +2379,7 @@
 
 })(window);
 
-// Source: /lib/ui/animation/loader.js
+// Source: \lib\ui\animation\loader.js
 (function(root) {
 
   'use strict';
@@ -2457,7 +2457,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block.js
+// Source: \lib\ui\block\block.js
 (function(root) {
 
   'use strict';
@@ -2541,7 +2541,7 @@
 
 })(window);
 
-// Source: /lib/ui/block/block-directive.js
+// Source: \lib\ui\block\block-directive.js
 (function(root) {
 
   'use strict';
@@ -2568,7 +2568,7 @@
 
 })(window);
 
-// Source: /lib/ui/tabs/tabs.js
+// Source: \lib\ui\tabs\tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */
@@ -2743,7 +2743,7 @@
 
 })(window);
 
-// Source: /lib/ui/scroll-pagination/scroll-pagination.js
+// Source: \lib\ui\scroll-pagination\scroll-pagination.js
 (function(root) {
 
   'use strict';

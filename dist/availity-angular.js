@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.9.2 -- February-03
+ * availity-angular v1.9.3 -- February-11
  * Copyright 2016 Availity, LLC 
  */
 
-// Source: /lib/core/index.js
+// Source: \lib\core\index.js
 
 
 (function(root) {
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.9.2';
+  availity.VERSION = 'v1.9.3';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -38,7 +38,7 @@
 })(window);
 
 
-// Source: /lib/core/utils/strings.js
+// Source: \lib\core\utils\strings.js
 (function(root) {
 
   'use strict';
@@ -60,7 +60,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/uuid.js
+// Source: \lib\core\utils\uuid.js
 (function(root) {
 
   'use strict';
@@ -93,7 +93,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/urls.js
+// Source: \lib\core\utils\urls.js
 (function(root) {
 
   'use strict';
@@ -113,7 +113,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/print.js
+// Source: \lib\core\utils\print.js
 (function(root) {
 
   'use strict';
@@ -133,7 +133,7 @@
 
 })(window);
 
-// Source: /lib/core/utils/throttle.js
+// Source: \lib\core\utils\throttle.js
 // Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
 
 (function(root) {
@@ -188,7 +188,7 @@
 
 })(window);
 
-// Source: /lib/core/logger/logger.js
+// Source: \lib\core\logger\logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -358,7 +358,7 @@
 
 })(window);
 
-// Source: /lib/core/logger/logger-config.js
+// Source: \lib\core\logger\logger-config.js
 (function(root) {
 
   'use strict';
@@ -375,7 +375,7 @@
 
 })(window);
 
-// Source: /lib/core/polling/polling.js
+// Source: \lib\core\polling\polling.js
 (function(root) {
   'use strict';
 
@@ -633,7 +633,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-factory.js
+// Source: \lib\core\api\api-factory.js
 (function(root) {
 
   'use strict';
@@ -951,7 +951,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-users.js
+// Source: \lib\core\api\api-users.js
 (function(root) {
   'use strict';
 
@@ -984,7 +984,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-coverages.js
+// Source: \lib\core\api\api-coverages.js
 (function(root) {
 
   'use strict';
@@ -997,7 +997,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-configurations.js
+// Source: \lib\core\api\api-configurations.js
 (function(root) {
 
   'use strict';
@@ -1010,7 +1010,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-log-messages.js
+// Source: \lib\core\api\api-log-messages.js
 (function(root) {
 
   'use strict';
@@ -1069,7 +1069,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-documents.js
+// Source: \lib\core\api\api-documents.js
 (function(root) {
 
   'use strict';
@@ -1104,7 +1104,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-organizations.js
+// Source: \lib\core\api\api-organizations.js
 (function(root) {
 
   'use strict';
@@ -1134,7 +1134,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-codes.js
+// Source: \lib\core\api\api-codes.js
 (function(root) {
 
   'use strict';
@@ -1202,7 +1202,7 @@
 
 })(window);
 
-// Source: /lib/core/api/api-user-permissions.js
+// Source: \lib\core\api\api-user-permissions.js
 (function(root) {
 
   'use strict';
@@ -1247,7 +1247,7 @@
 
 })(window);
 
-// Source: /lib/core/authorizations/user-authorizations.js
+// Source: \lib\core\authorizations\user-authorizations.js
 (function(root) {
   'use strict';
 
@@ -1389,7 +1389,7 @@
 
 })(window);
 
-// Source: /lib/core/session/session.js
+// Source: \lib\core\session\session.js
 (function(root) {
   'use strict';
 
@@ -1433,7 +1433,7 @@
 
 })(window);
 
-// Source: /lib/core/idle/idle.js
+// Source: \lib\core\idle\idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
 //
 // Rules:
@@ -1735,7 +1735,7 @@
 
 })(window);
 
-// Source: /lib/core/idle/idle-interceptor.js
+// Source: \lib\core\idle\idle-interceptor.js
 (function(root) {
 
   'use strict';
@@ -1760,7 +1760,7 @@
 
 })(window);
 
-// Source: /lib/core/validation/validator.js
+// Source: \lib\core\validation\validator.js
 (function(root) {
 
   'use strict';
@@ -1921,7 +1921,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-utils.js
+// Source: \lib\core\validation\validators\validator-utils.js
 (function(root) {
 
   'use strict';
@@ -1945,7 +1945,7 @@
 })(window);
 
 
-// Source: /lib/core/validation/validators/validator-size.js
+// Source: \lib\core\validation\validators\validator-size.js
 (function(root) {
 
   'use strict';
@@ -1988,7 +1988,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-pattern.js
+// Source: \lib\core\validation\validators\validator-pattern.js
 (function(root) {
   'use strict';
 
@@ -2034,7 +2034,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-required.js
+// Source: \lib\core\validation\validators\validator-required.js
 (function(root) {
 
   'use strict';
@@ -2074,7 +2074,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-date-range.js
+// Source: \lib\core\validation\validators\validator-date-range.js
 (function(root) {
 
   'use strict';
@@ -2146,7 +2146,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-date-format.js
+// Source: \lib\core\validation\validators\validator-date-format.js
 (function(root) {
 
   'use strict';
@@ -2167,7 +2167,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-npi.js
+// Source: \lib\core\validation\validators\validator-npi.js
 (function(root) {
 
   'use strict';
@@ -2237,7 +2237,7 @@
 
 })(window);
 
-// Source: /lib/core/validation/validators/validator-phone.js
+// Source: \lib\core\validation\validators\validator-phone.js
 (function(root) {
   'use strict';
 
@@ -2259,7 +2259,7 @@
   });
 })(window);
 
-// Source: /lib/core/validation/validators/validator-email.js
+// Source: \lib\core\validation\validators\validator-email.js
 (function(root) {
   'use strict';
 
@@ -2281,7 +2281,7 @@
   });
 })(window);
 
-// Source: /lib/core/utils/globals.js
+// Source: \lib\core\utils\globals.js
 (function(root) {
 
   'use strict';
@@ -2499,40 +2499,64 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics.js
+// Source: \lib\core\analytics\analytics.js
 (function(root) {
   'use strict';
 
   var availity = root.availity;
 
-  availity.core.constant('AV_ANALYTICS', {
-    VIRTUAL_PAGE_TRACKING: true,
-    SERVICES: {
-      PIWIK: 'avPiwikAnalytics',
-      SPLUNK: 'avSplunkAnalytics'
-    },
-    EVENTS: {
-      PAGE: '$locationChangeSuccess',
-      DEFAULT: 'click'
-    },
-    PRE_FIX: /^avAnalytics(.*)$/,
-    // should ignore these since they are part of the directives API
-    IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
-    ENV: { // not sure if this should live here
-      PROD: {
-        DOMAIN: 'apps.availity.com',
-        URL: 'https://piwik.availity.com/piwik/'
+  availity.core.provider('avAnalyticsConfig', function(AV_ANALYTICS) {
+
+    var config = {
+      VIRTUAL_PAGE_TRACKING: true,
+      SERVICES: {
+        PIWIK: 'avPiwikAnalytics',
+        SPLUNK: 'avSplunkAnalytics'
       },
-      QA: {
-        URL: 'https://qa-piwik.availity.com/piwik/'
+      EVENTS: {
+        PAGE: '$locationChangeSuccess',
+        DEFAULT: 'click'
+      },
+      PRE_FIX: /^avAnalytics(.*)$/,
+      // should ignore these since they are part of the directives API
+      IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
+      ENV: { // not sure if this should live here
+        PROD: {
+          DOMAIN: 'apps.availity.com',
+          URL: 'https://piwik.availity.com/piwik/'
+        },
+        QA: {
+          URL: 'https://qa-piwik.availity.com/piwik/'
+        }
       }
-    }
+    };
+
+    this.set = function(options) {
+      _.merge(config, options);
+      // TODO: remove when AV_ANALYTICS is no longer supported
+      // ensures avAnalyticsConfig and AV_ANALYTICS constant stay in sync
+      _.merge(AV_ANALYTICS, config);
+    };
+
+    this.$get = function(AV_ANALYTICS) {
+      /*
+      * TODO: remove merge when AV_ANALYTICS is no longer supported.
+      * Applies AV_ANALYTICS overrides to avAnalyticsConfig provider.
+      */
+      return angular.copy(_.merge(config, AV_ANALYTICS));
+    };
+
+    this.set(AV_ANALYTICS);
   });
 
-  availity.core.provider('avAnalytics', function(AV_ANALYTICS) {
+  // DEPRECATED: use avAnalyticsConfig
+  availity.core.constant('AV_ANALYTICS', {});
 
+  availity.core.provider('avAnalytics', function(avAnalyticsConfigProvider) {
+
+    var avAnalyticsConfig = avAnalyticsConfigProvider.$get();
     var plugins = [];
-    var virtualPageTracking = AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;
+    var virtualPageTracking = avAnalyticsConfig.VIRTUAL_PAGE_TRACKING;
     var appId;
 
     this.registerPlugins = function(_plugins) {
@@ -2573,7 +2597,7 @@
         this.services = {};
 
         if(!plugins || plugins.length === 0) {
-          plugins = [AV_ANALYTICS.SERVICES.PIWIK, AV_ANALYTICS.SERVICES.SPLUNK];
+          plugins = [avAnalyticsConfig.SERVICES.PIWIK, avAnalyticsConfig.SERVICES.SPLUNK];
         }
 
         angular.forEach(plugins, function(plugin) {
@@ -2594,26 +2618,20 @@
         var self = this;
 
         if(this.isVirtualPageTracking()) {
-
-          $rootScope.$on(AV_ANALYTICS.EVENTS.PAGE, function() {
+          $rootScope.$on(avAnalyticsConfig.EVENTS.PAGE, function() {
             self.trackPageView($location.absUrl());
           });
-
-
         }
 
         angular.forEach(this.services, function(handler) {
-
           if(handler.isEnabled() && handler.init) {
             handler.init();
           }
-
         });
 
       };
 
       proto.trackEvent = function(properties) {
-
         var promises = [];
 
         angular.forEach(this.services, function(handler) {
@@ -2651,13 +2669,13 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-util.js
+// Source: \lib\core\analytics\analytics-util.js
 (function(root) {
   'use strict';
 
   var availity = root.availity;
 
-  availity.core.factory('avAnalyticsUtils', function(AV_ANALYTICS, $log) {
+  availity.core.factory('avAnalyticsUtils', function(avAnalyticsConfig, $log) {
 
     var AnalyticsUtils = function() {};
 
@@ -2691,12 +2709,12 @@
     };
 
     proto.isNotIgnored = function(key) {
-      var ignored = _.includes(AV_ANALYTICS.IGNORE, key);
+      var ignored = _.includes(avAnalyticsConfig.IGNORE, key);
       return !ignored;
     };
 
     proto.isValidAttribute = function(key) {
-      return AV_ANALYTICS.PRE_FIX.test(key);
+      return avAnalyticsConfig.PRE_FIX.test(key);
     };
 
     proto.lowercase = function(str) {
@@ -2704,7 +2722,7 @@
     };
 
     proto.getAttribute = function(key, value) {
-      var simpleKey = key.match(AV_ANALYTICS.PRE_FIX);
+      var simpleKey = key.match(avAnalyticsConfig.PRE_FIX);
 
       if(simpleKey && simpleKey[1]) {
         return {
@@ -2741,7 +2759,7 @@
   });
 })(window);
 
-// Source: /lib/core/analytics/analytics-splunk.js
+// Source: \lib\core\analytics\analytics-splunk.js
 (function(root) {
   'use strict';
 
@@ -2780,7 +2798,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-piwik.js
+// Source: \lib\core\analytics\analytics-piwik.js
 (function(root) {
   'use strict';
 
@@ -2826,7 +2844,7 @@
       this._setCustomVariable(index, name, value, 'page');
     };
 
-    this.$get = function(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location) {
+    this.$get = function(avAnalyticsUtils, avUsersResource, avAnalyticsConfig, $injector, $log, $q, $document, $location) {
 
       var AvPiwikAnalytics = function() {
         window._paq = window._paq || [];
@@ -2887,10 +2905,14 @@
 
         var url;
 
-        if($location.$$host === AV_ANALYTICS.ENV.PROD.DOMAIN) {
-          url = AV_ANALYTICS.ENV.PROD.URL;
+
+        // Not sure if this is the correct way to call in avAnalyticsConfig
+        // only object in provider: var config = { DOMAIN: 'app.availity.com' }
+        // I believe I have to get the DOMAIN value, because avAnalyticsConfig should return an object.
+        if($location.$$host === avAnalyticsConfig.ENV.PROD.DOMAIN) {
+          url = avAnalyticsConfig.ENV.PROD.URL;
         } else {
-          url = AV_ANALYTICS.ENV.QA.URL;
+          url = avAnalyticsConfig.ENV.QA.URL;
         }
 
         window._paq.push(['enableLinkTracking']);
@@ -2919,7 +2941,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-exceptions.js
+// Source: \lib\core\analytics\analytics-exceptions.js
 
 
 (function(root) {
@@ -3064,7 +3086,7 @@
 
 })(window);
 
-// Source: /lib/core/analytics/analytics-config.js
+// Source: \lib\core\analytics\analytics-config.js
 (function(root) {
 
   'use strict';
@@ -3082,7 +3104,7 @@
 })(window);
 
 
-// Source: /lib/core/utils/date-polyfill.js
+// Source: \lib\core\utils\date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 //
@@ -3118,7 +3140,7 @@
 
 })(window);
 
-// Source: /lib/core/messages/messages-constants.js
+// Source: \lib\core\messages\messages-constants.js
 (function(root) {
 
   'use strict';
@@ -3154,7 +3176,7 @@
 
 })(window);
 
-// Source: /lib/core/messages/messages.js
+// Source: \lib\core\messages\messages.js
 
 
 // https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
