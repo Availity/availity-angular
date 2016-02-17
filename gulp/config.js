@@ -124,7 +124,8 @@ module.exports = {
       './lib/ui/block/block.js',
       './lib/ui/block/block-directive.js',
       './lib/ui/tabs/tabs.js',
-      './lib/ui/scroll-pagination/scroll-pagination.js'
+      './lib/ui/scroll-pagination/scroll-pagination.js',
+      './lib/ui/dimmer/dimmer.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
