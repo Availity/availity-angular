@@ -60,7 +60,30 @@ availity.demo.controller('ModalCtrl', function ($scope, AvModal) {
 <div av-modal size="sm">
   ...
 </div>
+
 </code>
+
+<h3 class="guide-subsection-title">Modal With Controller</h3>
+<div class="guide-example" data-ng-controller="ModalCtrl">
+  <button class="btn btn-default btn-sm" data-ng-click="modalOpenWithController()">
+    Modal With Dedicated Controller
+  </button>
+</div>
+<code class="language-javascript">
+availity.demo.controller('ModalCtrl', function ($scope, AvModal) {
+  $scope.modalOpenWithController = function() {
+    AvModal.create({
+      show: true,
+      controller: 'ModalSpecificController',
+      controllerAs: 'vm',
+      locals: {
+        someValue: 'This is a value passed in using locals, it could be params passed from the external scope required by the modal.'
+      }
+    });
+  };
+});
+</code>
+
 
 <h3 class="guide-subsection-title">Modal Manager</h3>
 <div class="guide-example" ng-controller="ModalCtrl">
