@@ -241,6 +241,8 @@ module.exports = {
       'bower_components/tracekit/tracekit.js',
       'bower_components/angular-block-ui/dist/angular-block-ui.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/velocity/velocity.js',
+      'bower_components/velocity/velocity.ui.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
