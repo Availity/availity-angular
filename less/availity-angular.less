@@ -14,13 +14,19 @@
 .dimmer-content {
     position:absolute;
     top:0;
+    bottom: 0;
     right:0;
-    background:rgba(77, 79, 83, 0.9);
-    width:100%;
-    height:100%;
-    padding:4%;
+    left:0;
+    padding:1.25rem;
     display: none;
-    text-align:center;
-    color:#FFFFFF !important;
     z-index:2;
+    &.dimmer-content-dark {
+      background:rgba(77, 79, 83, 0.9);
+      color:#FFFFFF !important;
+    }
+    &.dimmer-content-centered {
+      text-align:center;
+    }
 }
+
+
