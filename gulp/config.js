@@ -124,7 +124,8 @@ module.exports = {
       './lib/ui/block/block.js',
       './lib/ui/block/block-directive.js',
       './lib/ui/tabs/tabs.js',
-      './lib/ui/scroll-pagination/scroll-pagination.js'
+      './lib/ui/scroll-pagination/scroll-pagination.js',
+      './lib/ui/dimmer/dimmer.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -240,6 +241,8 @@ module.exports = {
       'bower_components/tracekit/tracekit.js',
       'bower_components/angular-block-ui/dist/angular-block-ui.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/velocity/velocity.js',
+      'bower_components/velocity/velocity.ui.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'
