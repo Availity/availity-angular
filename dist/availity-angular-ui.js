@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.9.3 -- February-11
+ * availity-angular v1.10.0 -- February-23
  * Copyright 2016 Availity, LLC 
  */
 
-// Source: \lib\ui\index.js
+// Source: /lib/ui/index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: \lib\ui\templates\template.js
+// Source: /lib/ui/templates/template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: \lib\ui\modal\modal.js
+// Source: /lib/ui/modal/modal.js
 (function(root) {
 
   'use strict';
@@ -69,6 +69,9 @@
 
     OPTIONS: {
       scope: null,
+      controller: null,
+      controllerAs: null,
+      locals: null,
       templateUrl: null,
       template: null,
       id: null,
@@ -150,7 +153,7 @@
 
   });
 
-  var ModalFactory = function($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q, avModalManager) {
+  var ModalFactory = function($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) {
 
     var Modal = function(options) {
 
@@ -159,7 +162,7 @@
       this.templateDefer = $q.defer();
       this.templatePromise = this.templateDefer.promise;
 
-      this.options = angular.extend({}, AV_MODAL.OPTIONS, {scope: $rootScope.$new()}, options);
+      this.options = this._buildOptions(options);
 
       avTemplateCache.get(options).then(function(template) {
         self.options.template = template;
@@ -173,6 +176,29 @@
     };
 
     var proto = Modal.prototype;
+
+    proto._buildOptions = function (userOptions) {
+      var options = angular.extend({}, AV_MODAL.OPTIONS, userOptions);
+
+      if (!options.scope) {
+        options.scope = $rootScope.$new();
+      }
+
+      if (options.controller) {
+        var locals = angular.extend({ $scope: options.scope }, options.locals);
+
+        var controller = $controller(options.controller, locals);
+
+        if (options.controllerAs) {
+          if (options.scope[options.controllerAs]) {
+            $log.warn('Overwriting ' + options.controllerAs + 'on scope with AvModal controllerAs, consider passing in no scope, or specifying a different controllerAs than the existing controller');
+          }
+          options.scope[options.controllerAs] = controller;
+        }
+      }
+
+      return options;
+    };
 
     proto._build = function() {
 
@@ -367,7 +393,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\form.js
+// Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -563,7 +589,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\field.js
+// Source: /lib/ui/validation/field.js
 (function(root) {
 
   'use strict';
@@ -823,7 +849,7 @@
 
 })(window);
 
-// Source: \lib\ui\popover\popover.js
+// Source: /lib/ui/popover/popover.js
 (function(root) {
 
   'use strict';
@@ -932,7 +958,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\container.js
+// Source: /lib/ui/validation/container.js
 (function(root) {
 
   'use strict';
@@ -977,7 +1003,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter-bootstrap.js
+// Source: /lib/ui/validation/adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1075,7 +1101,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter.js
+// Source: /lib/ui/validation/adapter.js
 (function(root) {
 
   'use strict';
@@ -1125,7 +1151,7 @@
 
 })(window);
 
-// Source: \lib\ui\dropdown\dropdown.js
+// Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
 
   'use strict';
@@ -1610,7 +1636,7 @@
 
 })(window);
 
-// Source: \lib\ui\datepicker\datepicker.js
+// Source: /lib/ui/datepicker/datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1859,7 +1885,7 @@
   });
 })(window);
 
-// Source: \lib\ui\idle\idle-notifier.js
+// Source: /lib/ui/idle/idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -2005,7 +2031,7 @@
 
 })(window);
 
-// Source: \lib\ui\mask\mask.js
+// Source: /lib/ui/mask/mask.js
 (function(root) {
 
   'use strict';
@@ -2045,7 +2071,7 @@
 
 })(window);
 
-// Source: \lib\ui\permissions\has-permission.js
+// Source: /lib/ui/permissions/has-permission.js
 (function(root) {
 
   'use strict';
@@ -2094,7 +2120,7 @@
 
 })(window);
 
-// Source: \lib\ui\analytics\analytics.js
+// Source: /lib/ui/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2175,7 +2201,7 @@
   });
 })(window);
 
-// Source: \lib\ui\placeholder\placeholder.js
+// Source: /lib/ui/placeholder/placeholder.js
 (function(root) {
 
   'use strict';
@@ -2212,7 +2238,7 @@
   });
 })(window);
 
-// Source: \lib\ui\breadcrumbs\breadcrumbs.js
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2279,7 +2305,7 @@
 
 })(window);
 
-// Source: \lib\ui\filters\approximate.js
+// Source: /lib/ui/filters/approximate.js
 (function(root) {
   'use strict';
 
@@ -2306,7 +2332,7 @@
 
 })(window);
 
-// Source: \lib\ui\badge\badge.js
+// Source: /lib/ui/badge/badge.js
 (function(root) {
   'use strict';
 
@@ -2348,7 +2374,7 @@
 
 })(window);
 
-// Source: \lib\ui\labels\removable-label.js
+// Source: /lib/ui/labels/removable-label.js
 (function(root) {
   'use strict';
 
@@ -2379,7 +2405,7 @@
 
 })(window);
 
-// Source: \lib\ui\animation\loader.js
+// Source: /lib/ui/animation/loader.js
 (function(root) {
 
   'use strict';
@@ -2457,7 +2483,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block.js
+// Source: /lib/ui/block/block.js
 (function(root) {
 
   'use strict';
@@ -2541,7 +2567,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block-directive.js
+// Source: /lib/ui/block/block-directive.js
 (function(root) {
 
   'use strict';
@@ -2568,7 +2594,7 @@
 
 })(window);
 
-// Source: \lib\ui\tabs\tabs.js
+// Source: /lib/ui/tabs/tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */
@@ -2743,7 +2769,7 @@
 
 })(window);
 
-// Source: \lib\ui\scroll-pagination\scroll-pagination.js
+// Source: /lib/ui/scroll-pagination/scroll-pagination.js
 (function(root) {
 
   'use strict';
@@ -2957,6 +2983,57 @@
         if (!$scope.avScrollPagination) {
           $log.error('Directive must include an id');
         }
+      }
+    };
+  });
+
+})(window);
+
+// Source: /lib/ui/dimmer/dimmer.js
+// Original => http://bootsnipp.com/snippets/78VV
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.ui.provider('avDimmerConfig', function() {
+
+    var config = {
+      animationConfig: {
+        duration: 250
+      },
+      showAnimation: 'fadeIn',
+      showEvent: 'mouseenter',
+      hideAnimation: 'fadeOut',
+      hideEvent: 'mouseleave',
+      overlaySelector: '.dimmer-content'
+    };
+
+    this.set = function(options) {
+      angular.extend(config, options);
+    };
+
+    this.$get = function() {
+      return angular.copy(config);
+    };
+
+  });
+
+  availity.ui.directive('avDimmer', function(avDimmerConfig) {
+    return {
+      link: function(scope,  elm, attrs) {
+        var config = angular.extend({}, avDimmerConfig, attrs.config);
+
+        elm.on(config.showEvent, function() {
+          elm.find(config.overlaySelector).velocity(config.showAnimation, config.animationConfig);
+        }).on(config.hideEvent, function() {
+          elm.find(config.overlaySelector).velocity(config.hideAnimation, config.animationConfig);
+        });
+
+        scope.$on('$destroy', function() {
+          elm.off();
+        });
       }
     };
   });

@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.9.3 -- February-11
+ * availity-angular v1.10.0 -- February-23
  * Copyright 2016 Availity, LLC 
  */
 
@@ -24,6 +24,20 @@
   color: #333;
   background: none;
   z-index: 1011;
+}
+.dimmer-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 1.25rem;
+  display: none;
+  z-index: 2;
+}
+.dimmer-content.dimmer-content-dark {
+  background: rgba(77, 79, 83, 0.9);
+  color: #FFFFFF !important;
 }
 
 /*# sourceMappingURL=maps/availity-angular.css.map */

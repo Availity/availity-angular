@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.9.3 -- February-11
+ * availity-angular v1.10.0 -- February-23
  * Copyright 2016 Availity, LLC 
  */
 
-// Source: \lib\core\index.js
+// Source: /lib/core/index.js
 
 
 (function(root) {
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.9.3';
+  availity.VERSION = 'v1.10.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -38,7 +38,7 @@
 })(window);
 
 
-// Source: \lib\core\utils\strings.js
+// Source: /lib/core/utils/strings.js
 (function(root) {
 
   'use strict';
@@ -60,7 +60,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\uuid.js
+// Source: /lib/core/utils/uuid.js
 (function(root) {
 
   'use strict';
@@ -93,7 +93,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\urls.js
+// Source: /lib/core/utils/urls.js
 (function(root) {
 
   'use strict';
@@ -113,7 +113,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\print.js
+// Source: /lib/core/utils/print.js
 (function(root) {
 
   'use strict';
@@ -133,7 +133,7 @@
 
 })(window);
 
-// Source: \lib\core\utils\throttle.js
+// Source: /lib/core/utils/throttle.js
 // Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
 
 (function(root) {
@@ -188,7 +188,7 @@
 
 })(window);
 
-// Source: \lib\core\logger\logger.js
+// Source: /lib/core/logger/logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -358,7 +358,7 @@
 
 })(window);
 
-// Source: \lib\core\logger\logger-config.js
+// Source: /lib/core/logger/logger-config.js
 (function(root) {
 
   'use strict';
@@ -375,7 +375,7 @@
 
 })(window);
 
-// Source: \lib\core\polling\polling.js
+// Source: /lib/core/polling/polling.js
 (function(root) {
   'use strict';
 
@@ -633,7 +633,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-factory.js
+// Source: /lib/core/api/api-factory.js
 (function(root) {
 
   'use strict';
@@ -653,305 +653,330 @@
         AUTH: 'Authorization',
         OVERRIDE: 'X-HTTP-Method-Override',
         CALLBACK_URL: 'X-Callback-URL',
-        CUSTOMER_ID: 'X-Availity-Customer-ID'
+        CUSTOMER_ID: 'X-Availity-Customer-ID',
+        RESPONSE_ENCODING: 'X-Response-Encoding-Context'
+      }
+    },
+    OPTIONS: {
+      // pre-prend the url with a value like `/public` so we can build urls like `public/api/v1/*`
+      prefix: '',
+      // default base url for endpoints
+      path: '/api',
+      // url resource group, such as `/foo`, for urls like `public/api/foo/v1/*`
+      resourceGroup: '',
+      // url to resource endpoint like `coverages` or `payers`
+      url: null,
+      // defaults to version 1
+      version: '/v1',
+      // governance level `/internal`
+      level: '',
+      // post-pend the url with `.json`, `.txt` or `.xml`
+      suffix: '',
+      // cache all request by default
+      cache: true,
+      // flag used to enable behaviors around the Availity Rest API
+      api: true,
+      // # of times the polling service has tried to get a response
+      pollingRetryCount: 0,
+      // in ms
+      pollingInterval: 1000,
+      // % the polling interval decays after every retry
+      pollingDecay: 1.2,
+      // maximum time polling is allowed before rejecting the request
+      pollingMaxInterval: 30000,
+      // default headers
+      headers: {
+        // Turn off content encoding for angular apis
+        'X-Response-Encoding-Context': 'NONE'
       }
     }
   });
 
-  var defaultOptions = {
-    // pre-prend the url with a value like `/public` so we can build urls like `public/api/v1/*`
-    prefix: '',
-    // default base url for endpoints
-    path: '/api',
-    // url resource group, such as `/foo`, for urls like `public/api/foo/v1/*`
-    resourceGroup: '',
-    // url to resource endpoint like `coverages` or `payers`
-    url: null,
-    // defaults to version 1
-    version: '/v1',
-    // governance level `/internal`
-    level: '',
-    // post-pend the url with `.json`, `.txt` or `.xml`
-    suffix: '',
-    // cache all request by default
-    cache: true,
-    // flag used to enable behaviors around the Availity Rest API
-    api: true,
-    // # of times the polling service has tried to get a response
-    pollingRetryCount: 0,
-    // in ms
-    pollingInterval: 1000,
-    // % the polling interval decays after every retry
-    pollingDecay: 1.2,
-    // maximum time polling is allowed before rejecting the request
-    pollingMaxInterval: 30000
-
-  };
-
   // Factory that creates ApiResourcess
-  var ApiResourcesFactory = function($http, $q, avPollingService) {
+  var ApiResourcesProvider = function(AV_API) {
 
-    var AvApiResource = function(options) {
+    // Provider default options that can be overridden at config time
+    var defaultOptions = _.merge({}, AV_API.OPTIONS);
 
-      if(!options) {
-        throw new Error('[options] cannot be null or undefined');
-      }
-
-      // if string the assume url is being passed in
-      if(angular.isString(options)) {
-        options = options.charAt(0) === '/' ? options : '/' + options;
-        options = angular.extend({}, {url: options});
-      }
-
-      if(!options.url) {
-        throw new Error('[url] cannot be null');
-      }
-
-      // get the default options and merge into this instance
-      this.options = angular.extend({}, defaultOptions, (options || {}));
+    // Allow overrides in config phase
+    this.setOptions = function(options) {
+      _.merge(defaultOptions, options);
     };
 
-    // Alias the prototype
-    var proto = AvApiResource.prototype;
-
-    proto._config = function(config) {
-      return angular.extend({}, this.options, (config || {}));
-    },
-
-    proto._cacheBust = function(config) {
-      config.cacheBust = null;
-      config.params = config.params || {};
-      config.params.cacheBust = new Date().getTime();
-      return config;
-    },
-
-    proto._getUrl = function(id) {
-      if(this.options.api) {
-        return this._getApiUrl(id);
-      }
-
-      return this.options.url;
+    this.getOptions = function() {
+      return angular.copy(defaultOptions);
     };
 
-    proto._createResponse = function(data, status, headers, config) {
-      return {
-        data: data,
-        status: status,
-        headers: headers,
-        config: config
+    /**
+     * Main get method for creating new resource
+     * @param $http
+     * @param $q
+     * @param avPollingService
+     * @returns {AvApiResource}
+     */
+    this.$get = function($http, $q, avPollingService) {
+
+      var AvApiResource = function(options) {
+
+        if (!options) {
+          throw new Error('[options] cannot be null or undefined');
+        }
+
+        // if string the assume url is being passed in
+        if (angular.isString(options)) {
+          options = options.charAt(0) === '/' ? options : '/' + options;
+          options = angular.extend({}, {url: options});
+        }
+
+        if (!options.url) {
+          throw new Error('[url] cannot be null');
+        }
+
+        // get the default options and merge into this instance
+        this.options = angular.extend({}, defaultOptions, (options || {}));
       };
-    };
 
-    proto._request = function(config, afterCallback) {
+      // Alias the prototype
+      var proto = AvApiResource.prototype;
 
-      var self = this;
-      var defer = $q.defer();
+      proto._config = function(config) {
+        return angular.extend({}, this.options, (config || {}));
+      },
 
-      $http(config)
-        .success(function(data, status, headers, _config) {
+      proto._cacheBust = function(config) {
+        config.cacheBust = null;
+        config.params = config.params || {};
+        config.params.cacheBust = new Date().getTime();
+        return config;
+      },
 
-          var _response = {
-            data: data,
-            status: status,
-            headers: headers,
-            config: _config
-          };
+      proto._getUrl = function(id) {
+        if (this.options.api) {
+          return this._getApiUrl(id);
+        }
 
-          // handle the async response if applicable
-          var _promise = $q.when(avPollingService.response(_response));
-          // notify the promise listener of the original response
-          defer.notify(_response);
+        return this.options.url;
+      };
 
-          // handle the polling service promise
-          _promise.then(function(successResponse) {
+      proto._createResponse = function(data, status, headers, config) {
+        return {
+          data: data,
+          status: status,
+          headers: headers,
+          config: config
+        };
+      };
 
-            // if service has a callback then call it
-            // var response = self._createResponse(data, status, headers, _config);
-            if(afterCallback) {
-              successResponse = afterCallback.call(self, successResponse, config.data);
-            }
-            defer.resolve(successResponse);
-          }, function(errorResponse) {
-            defer.reject(errorResponse);
-          }, function(notifyResponse) {
-            defer.notify(notifyResponse);
-          });
+      proto._request = function(config, afterCallback) {
 
-        }).error(function(data, status, headers, _config) {
+        var self = this;
+        var defer = $q.defer();
+
+        $http(config)
+          .success(function(data, status, headers, _config) {
+
+            var _response = {
+              data: data,
+              status: status,
+              headers: headers,
+              config: _config
+            };
+
+            // handle the async response if applicable
+            var _promise = $q.when(avPollingService.response(_response));
+            // notify the promise listener of the original response
+            defer.notify(_response);
+
+            // handle the polling service promise
+            _promise.then(function(successResponse) {
+
+              // if service has a callback then call it
+              // var response = self._createResponse(data, status, headers, _config);
+              if (afterCallback) {
+                successResponse = afterCallback.call(self, successResponse, config.data);
+              }
+              defer.resolve(successResponse);
+            }, function(errorResponse) {
+              defer.reject(errorResponse);
+            }, function(notifyResponse) {
+              defer.notify(notifyResponse);
+            });
+
+          }).error(function(data, status, headers, _config) {
           var response = self._createResponse(data, status, headers, _config);
           defer.reject(response);
         });
 
-      var promise = defer.promise;
+        var promise = defer.promise;
 
-      // recreate the success callback ala $http
-      promise.success = function(fn) {
-        promise.then(function(response) {
-          fn(response.data, response.status, response.headers, response.config);
-        });
+        // recreate the success callback ala $http
+        promise.success = function(fn) {
+          promise.then(function(response) {
+            fn(response.data, response.status, response.headers, response.config);
+          });
+          return promise;
+        };
+
+        // recreate the error callback ala $http
+        promise.error = function(fn) {
+          promise.then(null, function(response) {
+            fn(response.data, response.status, response.headers, config);
+          });
+          return promise;
+        };
+
+        promise.always = promise['finally'];
+
         return promise;
       };
 
-      // recreate the error callback ala $http
-      promise.error = function(fn) {
-        promise.then(null, function(response) {
-          fn(response.data, response.status, response.headers, config);
-        });
-        return promise;
+      proto.normalize = function(url) {
+        return url
+          .replace(/[\/]+/g, '/')
+          .replace(/\/$/, '');
       };
 
-      promise.always = promise['finally'];
+      proto.join = function() {
+        var joined = [].slice.call(arguments, 0).join('/');
+        return this.normalize(joined);
+      };
 
-      return promise;
+      proto._getApiUrl = function(id) {
+
+        id = id ? '/' + id : '';
+
+        var url = this.join(
+          this.options.prefix,
+          this.options.path,
+          this.options.level,
+          this.options.resourceGroup,
+          this.options.version,
+          this.options.url,
+          id);
+
+        return url + this.options.suffix;
+      };
+
+      proto.create = function(data, config) {
+
+        if (!data) {
+          throw new Error('called method without [data]');
+        }
+
+        if (this.beforeCreate) {
+          data = this.beforeCreate(data);
+        }
+
+        config = this._config(config);
+        config.method = 'POST';
+        config.url = this._getUrl();
+        config.data = data;
+
+        return this._request(config, this.afterCreate);
+
+      };
+
+      proto.get = function(id, config) {
+
+        if (!id) {
+          throw new Error('called method without [id]');
+        }
+
+        config = this._config(config);
+        if (config.cacheBust) {
+          config = this._cacheBust(config);
+        }
+        config.method = 'GET';
+        config.url = this._getUrl(id);
+
+        return this._request(config, this.afterGet);
+
+      };
+
+      proto.query = function(config) {
+
+        config = this._config(config);
+        if (config.cacheBust) {
+          config = this._cacheBust(config);
+        }
+        config.method = 'GET';
+        config.url = this._getUrl();
+
+        return this._request(config, this.afterQuery);
+
+      };
+
+      proto.update = function(id, data, config) {
+
+        var url;
+
+        if (_.isString(id) || _.isNumber(id)) {
+          url = this._getUrl(id);
+        } else {
+          url = this._getUrl();
+          // At this point the function signature becomes:
+          //
+          // proto.update = function(data, config) {} a.k.a function(id, data)
+          //
+          config = data;  // config is really the 2nd param
+          data = id; // data is really the first param
+        }
+
+        if (this.beforeUpdate) {
+          data = this.beforeUpdate(data);
+        }
+
+        config = this._config(config);
+        config.method = 'PUT';
+        config.url = url;
+        config.data = data;
+
+        return this._request(config, this.afterUpdate);
+
+      };
+
+      proto.remove = function(id, config) {
+
+        var url;
+        var data;
+
+        if (_.isString(id) || _.isNumber(id)) {
+          url = this._getUrl(id);
+        } else {
+          // At this point the function signature becomes:
+          //
+          // proto.remove = function(data, config)
+          //
+          url = this._getUrl();
+          data = id;
+        }
+
+        config = this._config(config);
+        config.method = 'DELETE';
+        config.url = url;
+        config.data = data;
+
+        return this._request(config, this.afterRemove);
+      };
+
+      proto.beforeCreate = null;
+      proto.afterCreate = null;
+      proto.afterQuery = null;
+      proto.afterGet = null;
+      proto.beforeUpdate = null;
+      proto.afterUpdate = null;
+      proto.afterRemove = null;
+
+      return AvApiResource;
     };
-
-    proto.normalize = function(url) {
-      return url
-        .replace(/[\/]+/g, '/')
-        .replace(/\/$/, '');
-    };
-
-    proto.join = function () {
-      var joined = [].slice.call(arguments, 0).join('/');
-      return this.normalize(joined);
-    };
-
-    proto._getApiUrl = function(id) {
-
-      id = id ? '/' + id : '';
-
-      var url = this.join(
-        this.options.prefix,
-        this.options.path,
-        this.options.level,
-        this.options.resourceGroup,
-        this.options.version,
-        this.options.url,
-        id);
-
-      return url + this.options.suffix;
-    };
-
-    proto.create = function(data, config) {
-
-      if(!data) {
-        throw new Error('called method without [data]');
-      }
-
-      if(this.beforeCreate) {
-        data = this.beforeCreate(data);
-      }
-
-      config = this._config(config);
-      config.method = 'POST';
-      config.url = this._getUrl();
-      config.data = data;
-
-      return this._request(config, this.afterCreate);
-
-    };
-
-    proto.get = function(id, config) {
-
-      if(!id) {
-        throw new Error('called method without [id]');
-      }
-
-      config = this._config(config);
-      if(config.cacheBust) {
-        config = this._cacheBust(config);
-      }
-      config.method = 'GET';
-      config.url = this._getUrl(id);
-
-
-      return this._request(config, this.afterGet);
-
-    };
-
-    proto.query = function(config) {
-
-      config = this._config(config);
-      if(config.cacheBust) {
-        config = this._cacheBust(config);
-      }
-      config.method = 'GET';
-      config.url = this._getUrl();
-
-      return this._request(config, this.afterQuery);
-
-    };
-
-    proto.update = function(id, data, config) {
-
-      var url;
-
-      if(_.isString(id) || _.isNumber(id)) {
-        url = this._getUrl(id);
-      }else {
-        url = this._getUrl();
-        // At this point the function signature becomes:
-        //
-        // proto.update = function(data, config) {} a.k.a function(id, data)
-        //
-        config = data;  // config is really the 2nd param
-        data = id; // data is really the first param
-      }
-
-      if(this.beforeUpdate) {
-        data = this.beforeUpdate(data);
-      }
-
-      config = this._config(config);
-      config.method = 'PUT';
-      config.url = url;
-      config.data = data;
-
-      return this._request(config, this.afterUpdate);
-
-    };
-
-    proto.remove = function(id, config) {
-
-      var url;
-      var data;
-
-      if(_.isString(id) || _.isNumber(id)) {
-        url = this._getUrl(id);
-      }else {
-        // At this point the function signature becomes:
-        //
-        // proto.remove = function(data, config)
-        //
-        url = this._getUrl();
-        data = id;
-      }
-
-      config = this._config(config);
-      config.method = 'DELETE';
-      config.url = url;
-      config.data = data;
-
-      return this._request(config, this.afterRemove);
-    };
-
-    proto.beforeCreate = null;
-    proto.afterCreate = null;
-    proto.afterQuery = null;
-    proto.afterGet = null;
-    proto.beforeUpdate = null;
-    proto.afterUpdate = null;
-    proto.afterRemove = null;
-
-    return AvApiResource;
 
   };
 
-  availity.core.factory('AvApiResource', ApiResourcesFactory);
+  availity.core.provider('AvApiResource', ApiResourcesProvider);
 
 })(window);
 
-// Source: \lib\core\api\api-users.js
+// Source: /lib/core/api/api-users.js
 (function(root) {
   'use strict';
 
@@ -984,7 +1009,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-coverages.js
+// Source: /lib/core/api/api-coverages.js
 (function(root) {
 
   'use strict';
@@ -997,7 +1022,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-configurations.js
+// Source: /lib/core/api/api-configurations.js
 (function(root) {
 
   'use strict';
@@ -1010,7 +1035,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-log-messages.js
+// Source: /lib/core/api/api-log-messages.js
 (function(root) {
 
   'use strict';
@@ -1069,7 +1094,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-documents.js
+// Source: /lib/core/api/api-documents.js
 (function(root) {
 
   'use strict';
@@ -1104,7 +1129,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-organizations.js
+// Source: /lib/core/api/api-organizations.js
 (function(root) {
 
   'use strict';
@@ -1134,7 +1159,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-codes.js
+// Source: /lib/core/api/api-codes.js
 (function(root) {
 
   'use strict';
@@ -1202,7 +1227,7 @@
 
 })(window);
 
-// Source: \lib\core\api\api-user-permissions.js
+// Source: /lib/core/api/api-user-permissions.js
 (function(root) {
 
   'use strict';
@@ -1247,7 +1272,7 @@
 
 })(window);
 
-// Source: \lib\core\authorizations\user-authorizations.js
+// Source: /lib/core/authorizations/user-authorizations.js
 (function(root) {
   'use strict';
 
@@ -1389,7 +1414,7 @@
 
 })(window);
 
-// Source: \lib\core\session\session.js
+// Source: /lib/core/session/session.js
 (function(root) {
   'use strict';
 
@@ -1433,7 +1458,7 @@
 
 })(window);
 
-// Source: \lib\core\idle\idle.js
+// Source: /lib/core/idle/idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
 //
 // Rules:
@@ -1735,7 +1760,7 @@
 
 })(window);
 
-// Source: \lib\core\idle\idle-interceptor.js
+// Source: /lib/core/idle/idle-interceptor.js
 (function(root) {
 
   'use strict';
@@ -1760,7 +1785,7 @@
 
 })(window);
 
-// Source: \lib\core\validation\validator.js
+// Source: /lib/core/validation/validator.js
 (function(root) {
 
   'use strict';
@@ -1921,7 +1946,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-utils.js
+// Source: /lib/core/validation/validators/validator-utils.js
 (function(root) {
 
   'use strict';
@@ -1945,7 +1970,7 @@
 })(window);
 
 
-// Source: \lib\core\validation\validators\validator-size.js
+// Source: /lib/core/validation/validators/validator-size.js
 (function(root) {
 
   'use strict';
@@ -1988,7 +2013,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-pattern.js
+// Source: /lib/core/validation/validators/validator-pattern.js
 (function(root) {
   'use strict';
 
@@ -2034,7 +2059,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-required.js
+// Source: /lib/core/validation/validators/validator-required.js
 (function(root) {
 
   'use strict';
@@ -2074,7 +2099,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-date-range.js
+// Source: /lib/core/validation/validators/validator-date-range.js
 (function(root) {
 
   'use strict';
@@ -2146,7 +2171,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-date-format.js
+// Source: /lib/core/validation/validators/validator-date-format.js
 (function(root) {
 
   'use strict';
@@ -2167,7 +2192,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-npi.js
+// Source: /lib/core/validation/validators/validator-npi.js
 (function(root) {
 
   'use strict';
@@ -2237,7 +2262,7 @@
 
 })(window);
 
-// Source: \lib\core\validation\validators\validator-phone.js
+// Source: /lib/core/validation/validators/validator-phone.js
 (function(root) {
   'use strict';
 
@@ -2259,7 +2284,7 @@
   });
 })(window);
 
-// Source: \lib\core\validation\validators\validator-email.js
+// Source: /lib/core/validation/validators/validator-email.js
 (function(root) {
   'use strict';
 
@@ -2281,7 +2306,7 @@
   });
 })(window);
 
-// Source: \lib\core\utils\globals.js
+// Source: /lib/core/utils/globals.js
 (function(root) {
 
   'use strict';
@@ -2499,7 +2524,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics.js
+// Source: /lib/core/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2669,7 +2694,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-util.js
+// Source: /lib/core/analytics/analytics-util.js
 (function(root) {
   'use strict';
 
@@ -2759,7 +2784,7 @@
   });
 })(window);
 
-// Source: \lib\core\analytics\analytics-splunk.js
+// Source: /lib/core/analytics/analytics-splunk.js
 (function(root) {
   'use strict';
 
@@ -2798,7 +2823,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-piwik.js
+// Source: /lib/core/analytics/analytics-piwik.js
 (function(root) {
   'use strict';
 
@@ -2941,7 +2966,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-exceptions.js
+// Source: /lib/core/analytics/analytics-exceptions.js
 
 
 (function(root) {
@@ -3086,7 +3111,7 @@
 
 })(window);
 
-// Source: \lib\core\analytics\analytics-config.js
+// Source: /lib/core/analytics/analytics-config.js
 (function(root) {
 
   'use strict';
@@ -3104,7 +3129,7 @@
 })(window);
 
 
-// Source: \lib\core\utils\date-polyfill.js
+// Source: /lib/core/utils/date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 //
@@ -3140,7 +3165,7 @@
 
 })(window);
 
-// Source: \lib\core\messages\messages-constants.js
+// Source: /lib/core/messages/messages-constants.js
 (function(root) {
 
   'use strict';
@@ -3176,7 +3201,7 @@
 
 })(window);
 
-// Source: \lib\core\messages\messages.js
+// Source: /lib/core/messages/messages.js
 
 
 // https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
