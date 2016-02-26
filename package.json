@@ -4,8 +4,7 @@
   "version": "2.0.0-beta.0",
   "main": "lib/index.js",
   "scripts": {
-    "start": "NODE_ENV=development babel-node dev/index.js --command=start",
-    "postinstall": "bower install"
+    "start": "NODE_ENV=development babel-node dev/index.js --command=start"
   },
   "repository": {
     "type": "git",
@@ -45,7 +44,7 @@
     "animate.css": "3.5.1",
     "autoprefixer": "6.3.1",
     "availity-ekko": "1.1.0",
-    "availity-uikit": "2.0.0-beta.4",
+    "availity-uikit": "2.0.0-beta.5",
     "babel-cli": "6.5.1",
     "babel-core": "6.5.1",
     "babel-eslint": "5.0.0-beta10",
