@@ -514,4 +514,33 @@ If you need to include listeners for events, including those fired by **Select2*
   });
 </script>
   </code>
+
+  <h3 class="guide-subsection-title">Inline Options</h3>
+  <div class="guide-example">
+    <div class="form-group">
+      <label for="numbers">Numbers</label>
+      <select id="numbers" class="form-control" data-ng-model="myNumber" data-av-dropdown="">
+        <option value=""></option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <p>You picked {{myNumber}}!</p>
+    <button class="btn btn-default" data-ng-click="myNumber = 1">Set to one</button>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div class="form-group">
+      <label for="numbersDemo">Numbers</label>
+      <select id="numbersDemo" class="form-control" data-ng-model="myNumber" data-av-dropdown="">
+        <option value=""></option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <p>You picked {{myNumber}}!</p>
+    <button class="btn btn-default" data-ng-click="myNumber = 1">Set to one</button>
+
+  </code>
 </div>
