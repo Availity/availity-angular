@@ -1,17 +1,15 @@
-'use strict';
-
 import demo from '../../js/module';
 
-demo.controller('AnalyticsController', function($scope) {
+demo.controller('AnalyticsController', ($scope) => {
 
   $scope.analytics = {
-    createError: function() {
+    createError() {
       throw new Error('Oh snap!');
     }
   };
 
 });
 
-demo.config(function(avPiwikAnalyticsProvider) {
+demo.config( (avPiwikAnalyticsProvider) => {
   avPiwikAnalyticsProvider.enabled(true);
 });

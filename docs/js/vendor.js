@@ -11,8 +11,8 @@ import 'availity-uikit/less/availity-bootstrap.less';
 
 import 'lodash';
 
-require('angular');
-require('angular-sanitize');
-require('angular-ui-router');
-require('angular-shims-placeholder');
+import 'angular';
+import 'angular-sanitize';
+import 'angular-ui-router';
+import 'angular-shims-placeholder';
 
