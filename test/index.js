@@ -1,2 +1,3 @@
-/*global availity:true, window:false*/
-var availity = window.availity || {};
+const availity = window.availity || {};
+
+export default availity;
