@@ -113,6 +113,7 @@ module.exports = {
       './lib/ui/datepicker/datepicker.js',
       './lib/ui/idle/idle-notifier.js',
       './lib/ui/mask/mask.js',
+      './lib/ui/error-pages/error-page.js',
       './lib/ui/permissions/has-permission.js',
       './lib/ui/analytics/analytics.js',
       './lib/ui/placeholder/placeholder.js',
