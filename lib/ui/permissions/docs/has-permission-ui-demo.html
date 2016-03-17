@@ -24,9 +24,14 @@ title: Permissions
       <li data-av-has-permission="either">
         <span class="success">Is Authorized to either 452 or 999</span>
       </li>
-      <li data-av-has-permission="toggle">
-        <a data-ng-click="toggle=DEMO_PERMISSIONS.BAD">
+      <li data-av-has-permission="toggle1">
+        <a data-ng-click="toggle1=DEMO_PERMISSIONS.BAD">
           <span class="success">Click to change from 452 to 999 </span>
+        </a>
+      </li>
+      <li data-av-has-permission="toggle2" data-show-error-page>
+        <a data-ng-click="toggle2=DEMO_PERMISSIONS.BAD">
+          <span class="success">Click to change from 452 to 999, go to error page </span>
         </a>
       </li>
     </ul>
@@ -42,9 +47,14 @@ title: Permissions
       <li data-av-has-permission="either">
         <span class="success">Is Authorized to either 452 or 999</span>
       </li>
-      <li data-av-has-permission="toggle">
-        <a data-ng-click="toggle=DEMO_PERMISSIONS.BAD">
+      <li data-av-has-permission="toggle1">
+        <a data-ng-click="toggle1=DEMO_PERMISSIONS.BAD">
           <span class="success">Click to change from 452 to 999 </span>
+        </a>
+      </li>
+      <li data-av-has-permission="toggle2" data-show-error-page>
+        <a data-ng-click="toggle2=DEMO_PERMISSIONS.BAD">
+          <span class="success">Click to change from 452 to 999, go to error page </span>
         </a>
       </li>
     </ul>
@@ -61,7 +71,8 @@ title: Permissions
       availity.demo.controller('HasPermissionController', function($scope, DEMO_PERMISSIONS, avUserAuthorizations) {
         $scope.DEMO_PERMISSIONS = DEMO_PERMISSIONS;
         $scope.either = _.values(DEMO_PERMISSIONS);
-        $scope.toggle = DEMO_PERMISSIONS.GOOD;
+        $scope.toggle1 = DEMO_PERMISSIONS.GOOD;
+        $scope.toggle2 = DEMO_PERMISSIONS.GOOD;
         // This is not required but does prevent multiple hits bad to server
         avUserAuthorizations.getPermissions(_.values(DEMO_PERMISSIONS));
       });
