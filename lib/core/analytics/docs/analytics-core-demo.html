@@ -43,11 +43,10 @@ app.config(function($scope, avAnalyticsProvider) {
 
   ### Event Tracking
 
-  To add a tracking event to a element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive you will need to include 3 required attributes to the element. There are also three optional attributes that you can also add for more detail.
+  To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive with Piwik you should include the `av-analytics-on` and `av-analytics-label` attribute on the element. There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
 
-  * **av-analytics** - required for tracking analytics
-  * **av-analytics-on** - required for tracking analytics
-  * **av-analytics-category** - required for Piwik
+  * **av-analytics** - required for tracking analytics, you can set your category on this directive
+  * **av-analytics-on** - required for tracking analytics, defaults to `click`
   * **av-analytics-label** - required for Piwik
   * **av-analytics-action** - optional for Piwik
   * **av-analytics-value** - optional for Piwik - numeric only
@@ -57,7 +56,7 @@ app.config(function($scope, avAnalyticsProvider) {
   <code class="language-markup">
   <div data-av-analytics="{'category': 'Category One'}">
   <button
-    data-av-analytics-on="click"
+    data-av-analytics-on
     data-av-analytics-label="Intro Movie"
     data-av-analytics-action="Play"
     data-av-analytics-value="0">
