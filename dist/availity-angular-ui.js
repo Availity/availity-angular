@@ -2130,7 +2130,6 @@
   'use strict';
 
   var availity = root.availity;
-  var _ = require('lodash');
 
   availity.ui.directive('avAnalytics', function() {
     return {
@@ -2211,7 +2210,6 @@
         var eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
 
         element.on(eventType, function(event) {
-          debugger;
           childCtrl.checkDynamic(element, options);
           childCtrl.onEvent(event, element, options);
         });
