@@ -2174,16 +2174,6 @@
       });
     };
 
-    this.checkDynamic = function(element, options) {
-      if(options.dynamic) {
-        var checks=_.words(options.dynamic);
-        _.forEach(checks, function(dynamic) {
-          var newVal = element[0].getAttribute('av-analytics-'+dynamic) ||
-          element[0].getAttribute('data-av-analytics-'+dynamic)
-          options[dynamic] = newVal || options[dynamic];
-        });
-      }
-    }
   });
 
   availity.ui.directive('avAnalyticsOn', function(AV_ANALYTICS, avAnalyticsUtils) {
@@ -2201,17 +2191,12 @@
           parentOptions = parentCtrl.getOptions();
         }
 
-        var options = angular.extend(
-          {},
-          parentOptions,
-          avAnalyticsUtils.getProperties(attrs)
-        );
-
         var eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
 
         element.on(eventType, function(event) {
-          childCtrl.checkDynamic(element, options);
-          childCtrl.onEvent(event, element, options);
+          var options = parentCtrl.getOptions ? parentCtrl.getOptions() : {};
+
+          childCtrl.onEvent(event, element, angular.extend( options, avAnalyticsUtils.getProperties(attrs)));
         });
       }
     };
