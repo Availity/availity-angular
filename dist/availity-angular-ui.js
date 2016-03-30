@@ -2194,7 +2194,16 @@
         var eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
 
         element.on(eventType, function(event) {
-          var options = angular.extend( {}, parentCtrl.getOptions(), avAnalyticsUtils.getProperties(attrs));
+          if(parentCtrl.getOptions) {
+            parentOptions = parentCtrl.getOptions();
+          }
+
+          var options = angular.extend(
+            {},
+            parentOptions,
+            avAnalyticsUtils.getProperties(attrs)
+          );
+
           childCtrl.onEvent(event, element, options);
         });
       }
