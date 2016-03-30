@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.10.1 -- March-29
+ * availity-angular v1.10.1 -- March-30
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2194,9 +2194,8 @@
         var eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
 
         element.on(eventType, function(event) {
-          var options = parentCtrl.getOptions ? parentCtrl.getOptions() : {};
-
-          childCtrl.onEvent(event, element, angular.extend( options, avAnalyticsUtils.getProperties(attrs)));
+          var options = angular.extend( {}, parentCtrl.getOptions(), avAnalyticsUtils.getProperties(attrs));
+          childCtrl.onEvent(event, element, options);
         });
       }
     };
