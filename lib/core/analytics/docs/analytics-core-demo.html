@@ -21,12 +21,12 @@ title: Analytics
   <div data-markdown>
   ### Virtual Page Tracking
 
-  Virtual page tracking is enabled by default, to enable virtual page tracking you will need to set to call `analyticsProvider.virtualPageTracking()` and pass in true. Once this is enabled all page visits will be tracked.
+  Virtual page tracking is enabled by default, to enable virtual page tracking you will need to set to call `avPiwikAnalyticsProvider.virtualPageTracking()` or `avSplunkAnalyticsProvider.virtualPageTracking()` and pass in true. Once this is enabled all page visits will be tracked.
   </div>
 
   <code class="language-javascript">
-  app.config(function($scope, avAnalyticsProvider) {
-    analyticsProvider.setVirtualPageTracking(true);
+  app.config(function($scope, avPiwikAnalyticsProvider) {
+    avPiwikAnalyticsProvider.setVirtualPageTracking(true);
   });
   </code>
 
@@ -70,8 +70,8 @@ title: Analytics
   </div>
 
   <code class="language-javascript">
-  app.config(function(analyticsProvider) {
-    analyticsProvider.registerPlugins([
+  app.config(function(avAnalyticsProvider) {
+    avAnalyticsProvider.registerPlugins([
       'test1AnalyticService',
       'test2AnalyticService'
     ]);
