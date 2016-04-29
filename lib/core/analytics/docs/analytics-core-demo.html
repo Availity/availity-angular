@@ -8,13 +8,13 @@ title: Analytics
 
   The two analytic services that we provide are Piwik and Splunk.
 
-  ### Adding the Analaytics Module
+  ### Adding the Analytics Module
 
   By default you must inject the `availity.config` dependency to your app.
   </div>
 
   <code class="language-javascript">
-  angular.module('testApp', ['availity.config']);
+  var app = angular.module('testApp', ['availity.config']);
   module.exports = app;
   </code>
 
@@ -25,9 +25,9 @@ title: Analytics
   </div>
 
   <code class="language-javascript">
-app.config(function($scope, avAnalyticsProvider) {
-  analyticsProvider.setVirtualPageTracking(true);
-});
+  app.config(function($scope, avAnalyticsProvider) {
+    analyticsProvider.setVirtualPageTracking(true);
+  });
   </code>
 
   <div data-markdown>
@@ -43,7 +43,7 @@ app.config(function($scope, avAnalyticsProvider) {
 
   ### Event Tracking
 
-  To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When using the avAnalyticsOn directive with Piwik you should include the `av-analytics-on` and `av-analytics-label` attribute on the element. There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
+  To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When applying analytics with Piwik you should include the `av-analytics-on` directive on the element you want to track, this will pull the inner text of the element and set it as a label. Optionally if no inner text exists, include the `av-analytics-label` attribute on the element . There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
 
   * **av-analytics** - required for tracking analytics, you can set your category on this directive
   * **av-analytics-on** - required for tracking analytics, defaults to `click`
@@ -108,7 +108,7 @@ app.config(function($scope, avAnalyticsProvider) {
 
   <code class="language-javascript">
 availity.app.config(function(avPiwikAnalyticsProvider){
-  avPiwikAnalyticsServiceProvider.setVisitVariable(1, 'name', 'value');
+  avPiwikAnalyticsProvider.setVisitVariable(1, 'name', 'value');
 });
   </code>
 
