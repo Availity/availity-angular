@@ -1,10 +1,11 @@
 /* eslint no-console:0 */
+'use strict';
 
-import chalk from 'chalk';
-import dateformat from 'dateformat';
-import symbols from 'log-symbols';
+const chalk = require('chalk');
+const dateformat = require('dateformat');
+const symbols = require('log-symbols');
 
-export default class Logger {
+class Logger {
 
   constructor(options) {
     this.options = options;
@@ -34,10 +35,10 @@ export default class Logger {
 
   static _log(entry, _color) {
 
-    let now = dateformat(new Date(), 'HH:MM:ss');
-    let defaultColor = entry instanceof Error ? 'red' : 'gray';
+    const now = dateformat(new Date(), 'HH:MM:ss');
+    const defaultColor = entry instanceof Error ? 'red' : 'gray';
 
-    let color = _color || defaultColor;
+    const color = _color || defaultColor;
 
     console.log(`[${ chalk.cyan(now) }] ${ chalk[color](entry) }` );
 
@@ -48,3 +49,5 @@ export default class Logger {
   }
 
 }
+
+module.exports = Logger;

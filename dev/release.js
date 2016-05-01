@@ -1,14 +1,16 @@
-import * as fs from 'fs';
-import path from 'path';
-import semver from 'semver';
-import inquirer from 'inquirer';
-import nconf from 'nconf';
-import {merge} from 'lodash';
-import shell from 'shelljs';
+'use strict';
 
-import lint from './lint';
-import clean from './clean';
-import build from './build';
+const fs = require('fs');
+const path = require('path');
+const semver = require('semver');
+const inquirer = require('inquirer');
+const nconf = require('nconf');
+const _ = require('lodash');
+const shell = require('shelljs');
+
+const lint = require('./lint');
+const clean = require('./clean');
+const build = require('./build');
 
 let VERSION = null;
 let RAW = null;
@@ -27,7 +29,7 @@ function pkg(contents) {
 
 // Preserver new line at the end of a file
 function newLine(contents) {
-  let lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
+  const lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
   return contents + lastChar;
 }
 
@@ -42,7 +44,7 @@ function bump() {
     let contents = raw();
     let json = pkg(contents);
 
-    json = merge({}, json, {version: VERSION});
+    json = _.merge({}, json, {version: VERSION});
 
     contents = JSON.stringify(json, null, 2);
     contents = newLine(contents);
@@ -77,13 +79,13 @@ function git() {
   });
 }
 
-export default function prompt() {
+function prompt() {
 
-  let version = pkg().version;
-  let parsed = semver.parse(version);
+  const version = pkg().version;
+  const parsed = semver.parse(version);
 
   // regular release
-  let simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
+  const simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
   let choices = [
     {name: `patch ( ${version} --> ${semver.inc(simpleVersion, 'patch')}`, value: semver.inc(simpleVersion, 'patch')},
     {name: `minor ( ${version} --> ${semver.inc(simpleVersion, 'minor')}`, value: semver.inc(simpleVersion, 'minor')},
@@ -104,26 +106,26 @@ export default function prompt() {
 
   }
 
-  let questions = [
+  const questions = [
     {
       type: 'rawlist',
       name: 'bump',
-      message: `What type of version bump would you like to do?`,
-      choices: choices
+      message: 'What type of version bump would you like to do?',
+      choices
     },
     {
       type: 'input',
       name: 'version',
       message: `version (current version is ${pkg().version})`,
-      when: function(answer) {
+      when(answer) {
         return answer.bump === 'other';
       },
-      filter: function(value) {
+      filter(value) {
         return semver.clean(value);
       },
-      validate: function(value) {
+      validate(value) {
 
-        var valid = semver.valid(value);
+        const valid = semver.valid(value);
 
         if (valid) {
           return true;
@@ -150,7 +152,7 @@ export default function prompt() {
 
 }
 
-export default function release() {
+function release() {
 
   return prompt()
     .then(lint)
@@ -160,3 +162,8 @@ export default function release() {
     .then(git);
 
 }
+
+module.exports = {
+  prompt,
+  release
+};

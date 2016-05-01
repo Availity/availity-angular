@@ -1,24 +1,26 @@
-import Metalsmith from 'metalsmith';
-import layouts from 'metalsmith-layouts';
-import prism from 'metalsmith-prism';
-import marked from 'marked';
-import markdown from 'metalsmith-markdown';
-import inPlace from 'metalsmith-in-place';
-import mock from 'metalsmith-mock';
-import permalinks from 'metalsmith-permalinks';
-import nunjucks from 'nunjucks';
-import nunjucksDate from 'nunjucks-date';
-import path from 'path';
-// import collections from 'metalsmith-collections';
-// import filter from 'metalsmith-filter';
-import relative from 'metalsmith-rootpath';
+'use strict';
 
-import dataMarkdown from './plugins/metalsmith-data-markdown';
-import slug from './plugins/nunjucks-slug';
-import tocify from './plugins/metalsmith-tocify';
-import Logger from './logger';
+const Metalsmith = require('metalsmith');
+const layouts = require('metalsmith-layouts');
+const prism = require('metalsmith-prism');
+const marked = require('marked');
+const markdown = require('metalsmith-markdown');
+const inPlace = require('metalsmith-in-place');
+const mock = require('metalsmith-mock');
+const permalinks = require('metalsmith-permalinks');
+const nunjucks = require('nunjucks');
+const nunjucksDate = require('nunjucks-date');
+const path = require('path');
+const collections = require('metalsmith-collections');
+const filter = require('metalsmith-filter');
+const relative = require('metalsmith-rootpath');
 
-import pkg from '../package.json';
+const dataMarkdown = require('./plugins/metalsmith-data-markdown');
+const slug = require('./plugins/nunjucks-slug');
+const tocify = require('./plugins/metalsmith-tocify');
+const Logger = require('./logger');
+
+const pkg = require('../package.json');
 
 const markedOptions = {
   langPrefix: 'language-',
@@ -30,10 +32,9 @@ const markedOptions = {
 nunjucksDate
   .setDefaultFormat('YYYY');
 
-nunjucks
-  .configure('docs/layouts', {watch: false, noCache: true})
-  .addFilter('year', nunjucksDate)
-  .addFilter('slug', slug);
+const env = nunjucks.configure('docs/layouts', {watch: false, noCache: true});
+env.addFilter('year', nunjucksDate);
+env.addFilter('slug', slug.slugify);
 
 function build() {
 
@@ -44,10 +45,10 @@ function build() {
     metalsmith
       .metadata({
         site: {
-          title: 'Availity Angular SDK'
+          title: 'Availity UIKit'
         },
         today: new Date(),
-        pkg: pkg
+        pkg
       })
       .ignore('**/.DS_Store')
       .source(path.join(process.cwd(), 'docs', 'content'))
@@ -59,18 +60,29 @@ function build() {
         decode: true
       }))
       .use(mock())
-      // .use(collections({
-      //   pages: {
-      //     pattern: 'pages/**/*.html',
-      //     reverse: false
-      //   },
-      //   core: {
-      //     pattern: '**/*-core-demo.html'
-      //   },
-      //   ui: {
-      //     pattern: '**/*-ui-demo.html'
-      //   }
-      // }))
+      .use(collections({
+        pages: {
+          pattern: 'pages/**/*.html',
+          reverse: false
+        },
+        components: {
+          pattern: 'components/**/*.html',
+          sortBy: 'title',
+          refer: false
+        },
+        examples: {
+          pattern: 'examples/**/*.html',
+          sortBy: 'title',
+          reverse: true,
+          refer: false
+        },
+        javascript: {
+          pattern: 'javascript/**/*.html',
+          sortBy: 'title',
+          reverse: true,
+          refer: false
+        }
+      }))
       .use(permalinks({
         relative: false
       }))
@@ -84,14 +96,14 @@ function build() {
         engine: 'nunjucks',
         directory: 'layouts'
       }))
-      // .use(filter(['index.html', '**/*-core-demo.html', '**/*-ui-demo.html']))
+      .use(filter(['index.html', 'pages/**/*.html', 'examples/**/*.html']))
       .destination(path.join(process.cwd(), 'build'));
 
     metalsmith.build( (err) => {
 
       if (err) {
         reject(err);
-      }else {
+      } else {
         Logger.ok('metalsmith');
         resolve();
       }
@@ -102,4 +114,4 @@ function build() {
 
 }
 
-export default build;
+module.exports = build;

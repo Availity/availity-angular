@@ -1,8 +1,11 @@
-import eslint from 'eslint';
-import globby from 'globby';
-import Logger from './logger';
+'use strict';
 
-export default function lint() {
+const eslint = require('eslint');
+const globby = require('globby');
+
+const Logger = require('./logger');
+
+function lint() {
 
   const engine = new eslint.CLIEngine({
     useEslintrc: true
@@ -10,7 +13,7 @@ export default function lint() {
 
   return new Promise((resolve, reject) => {
 
-    globby(['**/**.js', '!node_modules/**', '!bower_components/**', '!reports/**', '!dist/**', '!build/**']).then( paths => {
+    globby(['**/**.js', '!node_modules/**', '!bower_components/**', '!dist/**', '!build/**']).then( paths => {
 
       const report = engine.executeOnFiles(paths.slice(2));
       const formatter = engine.getFormatter();
@@ -29,5 +32,6 @@ export default function lint() {
 
   });
 
-
 }
+
+module.exports = lint;

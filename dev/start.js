@@ -1,17 +1,19 @@
-import WebpackDevServer from 'webpack-dev-server';
-import webpack from 'webpack';
+'use strict';
 
-import metalsmith from './metalsmith';
-import Logger from './logger';
-import watch from './watch';
-import webpackConfig from '../webpack.config.babel';
+const WebpackDevServer = require('webpack-dev-server');
+const webpack = require('webpack');
+
+const metalsmith = require('./metalsmith');
+const Logger = require('./logger');
+const watch = require('./watch');
+const webpackConfig = require('../webpack.config.babel');
 
 function serv() {
 
   return new Promise(resolve => {
 
-    var compiler = webpack(webpackConfig);
-    var server = new WebpackDevServer(compiler, {
+    const compiler = webpack(webpackConfig);
+    const server = new WebpackDevServer(compiler, {
       contentBase: './build',
       noInfo: false, // display no info to console (only warnings and errors)
       quiet: false, // display nothing to the console
@@ -42,4 +44,4 @@ function start() {
     });
 }
 
-export default start;
+module.exports = start;
