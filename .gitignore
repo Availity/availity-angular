@@ -1,6 +1,7 @@
 .idea
 bower_components
 node_modules
+_book
 reports
 /.deprc
 

@@ -1,0 +1,17 @@
+{
+  "gitbook": "2.5.2",
+  "title": "Availity Angular SDK",
+  "plugins": ["prism", "-highlight"],
+  "structure": {
+    "summary": "docs/README.md"
+  },
+  "links": {
+    "sidebar" : {
+      "Home" : "https://github.com/Availity/availity-angular"
+    },
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
+  }
+}
