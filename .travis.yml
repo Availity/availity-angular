@@ -12,8 +12,5 @@ notifications:
 branches:
   except:
     - feature/v2
-before_install:
-  - npm install --quiet -g bower
-  - npm install --quiet -g gulp
 script:
-  - gulp test:sauce
+  - npm run test
