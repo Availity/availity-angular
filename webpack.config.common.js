@@ -3,63 +3,30 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 const autoprefixer = require('autoprefixer');
 const NpmImportPlugin = require('less-plugin-npm-import');
 
 const banner = require('./dev/banner');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-
-const VERSION = require('./package.json').version;
-
-const ENV_VAR = {
-  'process.env': {
-    'VERSION': JSON.stringify(VERSION),
-    'process.env.NODE_ENV': JSON.stringify('development')
-  }
-};
 
 const config = {
 
   context: __dirname,
-
-  entry: {
-    'availity-angular': './lib/index.js',
-    'vendor': './docs/js/vendor',
-    'docs': './docs/js'
-  },
 
   devtool: 'source-map',
 
   output: {
     // if path is not set to '/build' => Error invalid argument in MemoryFileSystem.js
     path: '/build',
-    // publicPath: '../',
-    filename: 'js/[name].js',
-    library: 'availity',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    filename: 'js/[name].js'
   },
 
-  debug: true,
-  cache: true,
-  watch: true,
-
-  stats: {
-    colors: true,
-    reasons: true,
-    hash: true,
-    version: true,
-    timings: true,
-    chunks: true,
-    chunkModules: true,
-    cached: true,
-    cachedAssets: true
-  },
+  debug: false,
+  cache: false,
+  watch: false,
 
   module: {
-    loaders: [
 
+    loaders: [
       {
         test: /\.js$/,
         loader: 'babel',
@@ -75,7 +42,7 @@ const config = {
           'style',
           'css?limit=32768?name=images/[name].[ext]!postcss!less',
           {
-            publicPath: '../'
+            publicPath: '/'
           }
         )
       },
@@ -142,15 +109,6 @@ const config = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
-    }),
-
-    new WebpackNotifierPlugin({excludeWarnings: true}),
-
-    new webpack.DefinePlugin(ENV_VAR),
-
-    new CommonsChunkPlugin({
-      name: ['vendor'],
-      minChunks: Infinity
     })
 
   ],

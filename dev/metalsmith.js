@@ -32,7 +32,7 @@ const markedOptions = {
 nunjucksDate
   .setDefaultFormat('YYYY');
 
-const env = nunjucks.configure('docs/layouts', {watch: false, noCache: true});
+const env = nunjucks.configure('examples/layouts', {watch: false, noCache: true});
 env.addFilter('year', nunjucksDate);
 env.addFilter('slug', slug.slugify);
 
@@ -40,7 +40,7 @@ function build() {
 
   return new Promise((resolve, reject) => {
 
-    const metalsmith = new Metalsmith(path.join(process.cwd(), 'docs'));
+    const metalsmith = new Metalsmith(path.join(process.cwd(), 'examples'));
 
     metalsmith
       .metadata({
@@ -51,7 +51,7 @@ function build() {
         pkg
       })
       .ignore('**/.DS_Store')
-      .source(path.join(process.cwd(), 'docs', 'content'))
+      .source(path.join(process.cwd(), 'examples', 'content'))
       .use(markdown(markedOptions))
       .use(dataMarkdown({
         selector: '[data-markdown]'

@@ -7,6 +7,7 @@
     "start": "NODE_ENV=development node dev/index.js -c start",
     "build": "NODE_ENV=production node dev/index.js -c build",
     "clean": "node dev/index.js -c clean",
+    "test": "karma start ./karma.conf.js --single-run",
     "release": "node dev/index.js -c release",
     "lint": "node dev/index.js -c lint",
     "docs:prepare": "gitbook install",
@@ -87,6 +88,8 @@
     "karma-notify-reporter": "^0.1.1",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-sauce-launcher": "0.3.1",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-webpack": "1.7.0",
     "less": "2.6.1",
     "less-loader": "2.2.3",
     "less-plugin-npm-import": "2.1.0",
@@ -127,6 +130,7 @@
     "velocity-animate": "1.2.3",
     "webpack": "1.13.0",
     "webpack-dev-server": "1.14.1",
+    "webpack-merge": "0.12.0",
     "webpack-notifier": "1.3.0"
   },
   "dependencies": {
