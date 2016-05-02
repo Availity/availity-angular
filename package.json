@@ -4,12 +4,12 @@
   "version": "2.0.0-beta.0",
   "main": "lib/index.js",
   "scripts": {
-    "start": "NODE_ENV=development node dev/index.js --command=start",
-    "build": "NODE_ENV=production node dev/index.js --command=build",
-    "docs": "NODE_ENV=development node dev/index.js --command=docs",
-    "clean": "node dev/index.js --command=clean",
-    "release": "node dev/index.js --command=release",
-    "lint": "node dev/index.js --command=lint"
+    "start": "NODE_ENV=development node dev/index.js -c start",
+    "build": "NODE_ENV=production node dev/index.js -c build",
+    "docs": "NODE_ENV=development node dev/index.js -c docs",
+    "clean": "node dev/index.js -c clean",
+    "release": "node dev/index.js -c release",
+    "lint": "node dev/index.js -c lint"
   },
   "repository": {
     "type": "git",
