@@ -1,7 +1,4 @@
 {
   "gitbook": "2.x.x",
-  "title": "Availity Angular SDK",
-  "structure": {
-    "readme": "docs/README.md"
-  }
+  "title": "Availity Angular SDK"
 }
