@@ -13,3 +13,5 @@
 
 # https://github.com/Availity/eslint-config-availity/browser
 extends: eslint-config-availity/browser
+globals:
+  APP_VERSION: false
