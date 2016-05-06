@@ -1,12 +1,5 @@
-var _config = require('./gulp/config');
-
-var files = _config.test.src
-  .concat(_config.lib.src)
-  .concat(_config.ui.src)
-  .concat(_config.lib.specs)
-  .concat(_config.ui.specs)
-  .concat('lib/**/*-tpl.html')
-  .concat('lib/**/*-fixture.html');
+/* eslint no-process-exit:0 */
+'use strict';
 
 module.exports = function(config) {
 
@@ -18,7 +11,7 @@ module.exports = function(config) {
 
   // Browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/OS combos
-  var customLaunchers = {
+  const customLaunchers = {
 
     sl_ms_edge: {
       base: 'SauceLabs',
@@ -48,7 +41,7 @@ module.exports = function(config) {
     }
   };
 
-  var sauceLabs = {
+  const sauceLabs = {
     startConnect: false,
     testName: 'availity-angular',
     recordScreenshots: false
@@ -62,29 +55,20 @@ module.exports = function(config) {
 
   config.set({
     basePath: '',
-    files: files,
+    files: ['./lib/spec.js'],
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
-    customLaunchers: customLaunchers,
+    customLaunchers,
     frameworks: ['jasmine'],
     reporters: ['mocha', 'saucelabs'],
     port: 9876,
     colors: true,
-    sauceLabs: sauceLabs,
+    sauceLabs,
     logLevel: config.LOG_INFO,
     captureTimeout: 120000,
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 2,
     browserNoActivityTimeout: 20000,
-    singleRun: true,
-    preprocessors: {
-      'lib/**/*-tpl.html': ['ng-html2js'],
-      'lib/**/*-fixture.html': ['ng-html2js']
-    },
-    ngHtml2JsPreprocessor: {
-      // strip this from the file path
-      stripPrefix: 'lib/',
-      moduleName: 'availity.ui.templates'
-    }
+    singleRun: true
   });
 };

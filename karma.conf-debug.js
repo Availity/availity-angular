@@ -10,9 +10,9 @@ const wpConfig = merge(webpackConfig, {
     'availity-angular': './lib/index.js'
   },
   devtool: 'inline-source-map',
-  debug: false,
+  debug: true,
   cache: false,
-  watch: false
+  watch: true
 
 });
 
@@ -31,9 +31,9 @@ module.exports = function(config) {
     reportSlowerThan: 500,
 
     // if true, Karma runs tests once and exits
-    singleRun: true,
+    singleRun: false,
 
-    autoWatch: false,
+    autoWatch: true,
 
     // files to exclude
     exclude: [
@@ -68,7 +68,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
     plugins: [
       require('karma-chrome-launcher'),

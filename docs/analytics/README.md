@@ -1,15 +1,11 @@
-
-Analytics is a way for you to track how users interact with your data. To use our analytics services some configuration needs to take place. By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.
-
-The two analytic services that we provide are Piwik and Splunk.
+Analytics is a way for you to track how users interact with your data. The two analytic services that we provide are Piwik and Splunk.  To use our analytics services some configuration needs to take place. By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.
 
 ### Adding the Analytics Module
 
-By default you must inject the `availity.config` dependency to your app.
+Initialize the `availity.config` module in your app application. 
 
 ```javascript
-var app = angular.module('testApp', ['availity.config']);
-module.exports = app;
+angular.module('app', ['availity.config']);
 ```
 
 ### Virtual Page Tracking
@@ -18,7 +14,7 @@ Virtual page tracking is enabled by default, to enable virtual page tracking you
 </div>
 
 ```javascript
-app.config(function($scope, avPiwikAnalyticsProvider) {
+app.config( ($scope, avPiwikAnalyticsProvider) => {
     avPiwikAnalyticsProvider.setVirtualPageTracking(true);
 });
 ```
@@ -45,12 +41,12 @@ To add event tracking to an element on the page you will need to use the `av-ana
 </div>
 
 ```html
-<div data-av-analytics="{'category': 'Category One'}">
+<div av-analytics="{'category': 'Category One'}">
     <button
-        data-av-analytics-on
-        data-av-analytics-label="Intro Movie"
-        data-av-analytics-action="Play"
-        data-av-analytics-value="0">
+        av-analytics-on
+        av-analytics-label="Intro Movie"
+        av-analytics-action="Play"
+        av-analytics-value="0">
     Button
     </button>
 </div>
@@ -59,7 +55,7 @@ To add event tracking to an element on the page you will need to use the `av-ana
 To register a new analytic service you would call `analyticsProvider.registerPlugins()` passing in a array of services you want to register.
 
 ```javascript
-app.config(function(avAnalyticsProvider) {
+app.config( (avAnalyticsProvider) => {
     avAnalyticsProvider.registerPlugins([
       'test1AnalyticService',
       'test2AnalyticService'
@@ -88,14 +84,14 @@ Due to restrictions on Piwik you are currently limited to only 5 variables in in
 > **Note:** `index` must be an int and `valueName` must be defined or the function will return errors.
 
 ```javascript
-availity.app.config(function(avPiwikAnalyticsProvider){
-avPiwikAnalyticsProvider.setVisitVariable(1, 'name', 'value');
+app.config( (avPiwikAnalyticsProvider) => {
+    avPiwikAnalyticsProvider.setVisitVariable(1, 'name', 'value');
 });
 ```
 
 ### Exception Handler
 
-The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://github.com/csnover/TraceKit) for consistent metrics on strack traces occurring across all browsers.
+The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://github.com/csnover/TraceKit) for consistent metrics on stack traces occurring across all browsers.
 
 Open debugger to see `exceptionHandler` send a message to `api/v1/log-messages` with normalized error message information along with the stack trace.
 

@@ -1,36 +1,18 @@
-var config = require('./gulp/config');
-
-var files = config.test.src
-  .concat(config.lib.src)
-  .concat(config.ui.src)
-  .concat(config.lib.specs)
-  .concat(config.ui.specs)
-  .concat('lib/**/*-tpl.html')
-  .concat('lib/**/*-fixture.html');
+'use strict';
 
 module.exports = function(config) {
 
   config.set({
-    files: files,
+    files: [{ pattern: 'specs.js', watched: false }],
     browsers: ['Chrome'],
     frameworks: ['jasmine'],
     reporters: ['progress', 'notify', 'coverage'],
     autoWatch: true,
     singleRun: true,
-    preprocessors: {
-      'lib/**/*.js': ['coverage'],
-      'lib/**/*-tpl.html': ['ng-html2js'],
-      'lib/**/*-fixture.html': ['ng-html2js']
-    },
-    ngHtml2JsPreprocessor: {
-      // strip this from the file path
-      stripPrefix: 'lib/',
-      moduleName: 'availity.ui.templates'
-    },
     // optionally, configure the reporter
     coverageReporter: {
-      type : 'html',
-      dir : 'reports/'
+      type: 'html',
+      dir: 'reports/'
     }
   });
 

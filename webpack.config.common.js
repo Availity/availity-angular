@@ -20,6 +20,14 @@ const config = {
     filename: 'js/[name].js'
   },
 
+  resolve: {
+    root: path.resolve('./lib'),
+    extensions: ['', '.js'],
+    alias: {
+      tester: 'test'
+    }
+  },
+
   debug: false,
   cache: false,
   watch: false,
@@ -111,11 +119,7 @@ const config = {
       'window.jQuery': 'jquery'
     })
 
-  ],
-  resolve: {
-    root: path.resolve('./lib'),
-    extensions: ['', '.js']
-  }
+  ]
 };
 
 module.exports = config;

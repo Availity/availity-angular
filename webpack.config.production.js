@@ -21,7 +21,7 @@ function getConfig() {
   const ENV_VAR = {
     'process.env': {
       'VERSION': JSON.stringify(VERSION),
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'NODE_ENV': JSON.stringify('production')
     }
   };
 

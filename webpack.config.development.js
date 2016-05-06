@@ -11,7 +11,7 @@ const VERSION = require('./package.json').version;
 const ENV_VAR = {
   'process.env': {
     'VERSION': JSON.stringify(VERSION),
-    'process.env.NODE_ENV': JSON.stringify('development')
+    'NODE_ENV': JSON.stringify('development')
   }
 };
 
