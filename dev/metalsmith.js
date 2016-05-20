@@ -45,7 +45,7 @@ function build() {
     metalsmith
       .metadata({
         site: {
-          title: 'Availity UIKit'
+          title: 'Availity Angular'
         },
         today: new Date(),
         pkg
