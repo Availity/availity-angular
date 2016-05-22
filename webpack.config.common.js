@@ -108,6 +108,10 @@ const config = {
 
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
+    new webpack.DefinePlugin({
+      APP_VERSION: JSON.stringify('0.0.0.0')
+    }),
+
     new ExtractTextPlugin('css/[name].css', {
       disable: false,
       allChunks: true
