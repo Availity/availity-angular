@@ -13,6 +13,7 @@ import 'lodash';
 
 import 'angular';
 import 'angular-sanitize';
+import 'angular-animate';
 import 'angular-ui-router';
 import 'angular-shims-placeholder';
 

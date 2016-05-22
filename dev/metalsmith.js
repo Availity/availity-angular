@@ -12,7 +12,6 @@ const nunjucks = require('nunjucks');
 const nunjucksDate = require('nunjucks-date');
 const path = require('path');
 const collections = require('metalsmith-collections');
-const filter = require('metalsmith-filter');
 const relative = require('metalsmith-rootpath');
 
 const dataMarkdown = require('./plugins/metalsmith-data-markdown');
@@ -61,23 +60,8 @@ function build() {
       }))
       .use(mock())
       .use(collections({
-        pages: {
-          pattern: 'pages/**/*.html',
-          reverse: false
-        },
-        components: {
-          pattern: 'components/**/*.html',
-          sortBy: 'title',
-          refer: false
-        },
         examples: {
           pattern: 'examples/**/*.html',
-          sortBy: 'title',
-          reverse: true,
-          refer: false
-        },
-        javascript: {
-          pattern: 'javascript/**/*.html',
           sortBy: 'title',
           reverse: true,
           refer: false
@@ -96,7 +80,7 @@ function build() {
         engine: 'nunjucks',
         directory: 'layouts'
       }))
-      .use(filter(['index.html', 'pages/**/*.html', 'examples/**/*.html']))
+      // .use(filter(['index.html', 'examples/**/*.html']))
       .destination(path.join(process.cwd(), 'build'));
 
     metalsmith.build( (err) => {
