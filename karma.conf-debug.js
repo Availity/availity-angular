@@ -19,6 +19,7 @@ const wpConfig = merge(webpackConfig, {
 module.exports = function(config) {
 
   config.set({
+
     // base path used to resolve all patterns
     basePath: './lib',
 
@@ -49,7 +50,7 @@ module.exports = function(config) {
       noInfo: 'errors-only'
     },
 
-    reporters: ['progress', 'notify'],
+    reporters: ['notify', 'spec'],
 
     // web server port
     port: 9876,
@@ -74,6 +75,7 @@ module.exports = function(config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
       require('karma-sourcemap-loader'),
+      require('karma-spec-reporter'),
       require('karma-notify-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack')

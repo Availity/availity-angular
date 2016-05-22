@@ -9,7 +9,9 @@ const wpConfig = merge(webpackConfig, {
   entry: {
     'availity-angular': './lib/index.js'
   },
+
   devtool: 'inline-source-map',
+
   debug: false,
   cache: false,
   watch: false
@@ -19,6 +21,7 @@ const wpConfig = merge(webpackConfig, {
 module.exports = function(config) {
 
   config.set({
+
     // base path used to resolve all patterns
     basePath: './lib',
 
@@ -41,7 +44,8 @@ module.exports = function(config) {
       '*.css'
     ],
 
-    preprocessors: { 'specs.js': ['webpack', 'sourcemap'] },
+    preprocessors: { 'specs.js': ['webpack', 'sourcemap'],
+      '*-specs.js': ['webpack', 'sourcemap']},
 
     webpack: wpConfig,
 
@@ -49,7 +53,8 @@ module.exports = function(config) {
       noInfo: 'errors-only'
     },
 
-    reporters: ['progress', 'notify'],
+    // reporters: ['progress', 'notify', 'spec'],
+    reporters: ['notify', 'spec'],
 
     // web server port
     port: 9876,
@@ -75,6 +80,7 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-sourcemap-loader'),
       require('karma-notify-reporter'),
+      require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack')
     ]
