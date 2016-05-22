@@ -41,6 +41,10 @@ const config = {
         exclude: /(bower_components|node_modules)/
       },
       {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css')
       },
