@@ -9,9 +9,10 @@
 ### Usage
 
 ```javascript
+
+// http://local.dev/api/v1/users
 angular.module('app', ['availity'])
-    .factory('usersResource', (AvApiResource) => {    
-    // http://local.dev/api/v1/users
+    .factory('usersResource', (AvApiResource) => {        
     return new AvApiResource({name: 'users'});
 });
 ```
@@ -24,8 +25,14 @@ angular.module('app', ['availity'])
 angular.module('app', ['availity'])
     .config( (AvApiResourceProvider) => {    
     AvApiResourceProvider.setOptions({
-        version: 'v2' // sets the default version for all resources
-    })
+        version: 'v2' 
+    });
+
+// http://local.dev/api/v2/users
+angular.module('app', ['availity'])
+    .factory('usersResource', (AvApiResource) => {        
+    return new AvApiResource({name: 'users'});
+});
 ```
 
 ### Options
