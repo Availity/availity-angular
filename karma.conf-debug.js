@@ -25,7 +25,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
     files: [{ pattern: 'specs.js', watched: false }],
 
@@ -78,7 +78,8 @@ module.exports = function(config) {
       require('karma-spec-reporter'),
       require('karma-notify-reporter'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack')
+      require('karma-webpack'),
+      require('karma-sinon')
     ]
 
   });
