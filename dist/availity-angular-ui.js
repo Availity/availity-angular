@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.10.2 -- April-07
+ * availity-angular v1.11.0 -- March-02
  * Copyright 2016 Availity, LLC 
  */
 
-// Source: \lib\ui\index.js
+// Source: /lib/ui/index.js
 
 
 (function(root) {
@@ -28,7 +28,7 @@
 
 })(window);
 
-// Source: \lib\ui\templates\template.js
+// Source: /lib/ui/templates/template.js
 (function(root) {
 
   'use strict';
@@ -58,7 +58,7 @@
 
 })(window);
 
-// Source: \lib\ui\modal\modal.js
+// Source: /lib/ui/modal/modal.js
 (function(root) {
 
   'use strict';
@@ -393,7 +393,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\form.js
+// Source: /lib/ui/validation/form.js
 /**
  * 1. All fields should be pristine on first load
  * 2. If field is modified an invalid the field should be marked with an error
@@ -589,7 +589,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\field.js
+// Source: /lib/ui/validation/field.js
 (function(root) {
 
   'use strict';
@@ -849,7 +849,7 @@
 
 })(window);
 
-// Source: \lib\ui\popover\popover.js
+// Source: /lib/ui/popover/popover.js
 (function(root) {
 
   'use strict';
@@ -958,7 +958,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\container.js
+// Source: /lib/ui/validation/container.js
 (function(root) {
 
   'use strict';
@@ -1003,7 +1003,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter-bootstrap.js
+// Source: /lib/ui/validation/adapter-bootstrap.js
 (function(root) {
   'use strict';
 
@@ -1101,7 +1101,7 @@
 
 })(window);
 
-// Source: \lib\ui\validation\adapter.js
+// Source: /lib/ui/validation/adapter.js
 (function(root) {
 
   'use strict';
@@ -1151,7 +1151,7 @@
 
 })(window);
 
-// Source: \lib\ui\dropdown\dropdown.js
+// Source: /lib/ui/dropdown/dropdown.js
 (function(root) {
 
   'use strict';
@@ -1641,7 +1641,7 @@
 
 })(window);
 
-// Source: \lib\ui\datepicker\datepicker.js
+// Source: /lib/ui/datepicker/datepicker.js
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
  */
@@ -1890,7 +1890,7 @@
   });
 })(window);
 
-// Source: \lib\ui\idle\idle-notifier.js
+// Source: /lib/ui/idle/idle-notifier.js
 (function(root) {
 
   'use strict';
@@ -2036,7 +2036,7 @@
 
 })(window);
 
-// Source: \lib\ui\mask\mask.js
+// Source: /lib/ui/mask/mask.js
 (function(root) {
 
   'use strict';
@@ -2076,111 +2076,14 @@
 
 })(window);
 
-// Source: \lib\ui\error-pages\error-page.js
-(function(root) {
-
-  'use strict';
-
-  var availity = root.availity;
-  var avErrorPageController = 'avErrorPageController';
-
-  var startTemplate = '<div class="container"><div>';
-  var endTemplate = '<button type="button" class="btn btn-primary" data-ng-click="goBack()"><i class="icon icon-left-small"></i> Go Back</button></div></div>';
-
-  var notFoundTemplate = startTemplate + '<h1>Sorry.</h1><p><strong>We can’t seem to find the page you’re looking for.</strong><br/></p>' + endTemplate;
-  var unauthorizedTemplate = startTemplate + '<h1>Oops.</h1><p><strong>Looks like we might have asked you to do something you don’t have access to do.</strong><br/>If this task is integral your job, please contact your Primary Access Administrator (PAA).</p>' + endTemplate;
-
-
-  availity.ui.constant('AV_ERROR', {
-    PAGES: {
-      NOT_FOUND: 'av-error-not-found',
-      UNAUTHORIZED: 'av-error-unauthorized'
-    },
-    OPTIONS: {
-      sendOtherwiseToNotFound: false,
-      routes: {
-        'av-error-not-found': {
-          url: '/av-error-not-found',
-          template: notFoundTemplate,
-          controller: avErrorPageController
-        },
-        'av-error-unauthorized': {
-          url: '/av-error-unauthorized',
-          template: unauthorizedTemplate,
-          controller: avErrorPageController
-        }
-      }
-    }
-  });
-
-  availity.ui.controller(avErrorPageController, function($scope, $state, $window) {
-    $scope.data = $state.current.data;
-    $scope.goBack = function() {
-      $window.history.back();
-    };
-  });
-
-  // Factory that creates ApiResourcess
-  var AvErrorPageProvider = function(AV_ERROR, $injector) {
-
-
-    /**
-     * Configures state provider with given routes
-     * @param overrideOptions - will override any options.
-     */
-    this.configure = function(overrideOptions) {
-      var options = _.merge({}, AV_ERROR.OPTIONS, overrideOptions);
-      var $stateProvider = $injector.get('$stateProvider');
-      angular.forEach(options.routes, function(route, name) {
-        $stateProvider.state(name, route);
-      });
-      if (options.sendOtherwiseToNotFound) {
-        var $urlRouterProvider = $injector.get('$urlRouterProvider');
-        var route = options.routes[AV_ERROR.PAGES.NOT_FOUND];
-        $urlRouterProvider.otherwise(route.url);
-      }
-    };
-
-    /**
-     * Return the service
-     * @param $location
-     * @returns {{show: avErrorPageService.show, notFound: avErrorPageService.notFound, unauthorized: avErrorPageService.unauthorized}}
-     */
-    this.$get = function($state) {
-
-      var avErrorPageService = {
-        /**
-         * Main show page service
-         * @param name
-         */
-        show: function(name) {
-          $state.go(name);
-        },
-        notFound: function() {
-          return this.show(AV_ERROR.PAGES.NOT_FOUND);
-        },
-        unauthorized: function() {
-          return this.show(AV_ERROR.PAGES.UNAUTHORIZED);
-        }
-      };
-      return avErrorPageService;
-    };
-  };
-
-  availity.ui.provider('avErrorPage', AvErrorPageProvider);
-
-})
-(window);
-
-// Source: \lib\ui\permissions\has-permission.js
+// Source: /lib/ui/permissions/has-permission.js
 (function(root) {
 
   'use strict';
 
   var availity = root.availity;
 
-  availity.ui.controller('AvHasPermissionController', function($element, $attrs, avErrorPage) {
-    var showErrorPage= angular.isDefined($attrs.showErrorPage);
+  availity.ui.controller('AvHasPermissionController', function($element) {
 
     this.onSuccess = function(isAuthorized) {
       if(isAuthorized) {
@@ -2188,9 +2091,6 @@
         $element.show();
       } else {
         $element.remove();
-        if (showErrorPage) {
-          avErrorPage.unauthorized();
-        }
       }
     };
 
@@ -2207,7 +2107,7 @@
       require: ['avHasPermission'],
       link: function($scope, $element, $attr, controllers) {
 
-        var avHasPermissionController = controllers[0];
+        var avHasPermission = controllers[0];
 
         $element.hide();
 
@@ -2217,7 +2117,7 @@
             permissions = _.words('' + permissions);
           }
 
-          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermissionController.onSuccess, avHasPermissionController.onError);
+          avUserAuthorizations.isAnyAuthorized(permissions).then(avHasPermission.onSuccess, avHasPermission.onError);
         });
       }
     };
@@ -2225,7 +2125,7 @@
 
 })(window);
 
-// Source: \lib\ui\analytics\analytics.js
+// Source: /lib/ui/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2306,7 +2206,7 @@
   });
 })(window);
 
-// Source: \lib\ui\placeholder\placeholder.js
+// Source: /lib/ui/placeholder/placeholder.js
 (function(root) {
 
   'use strict';
@@ -2343,7 +2243,7 @@
   });
 })(window);
 
-// Source: \lib\ui\breadcrumbs\breadcrumbs.js
+// Source: /lib/ui/breadcrumbs/breadcrumbs.js
 (function(root) {
 
   'use strict';
@@ -2410,7 +2310,7 @@
 
 })(window);
 
-// Source: \lib\ui\filters\approximate.js
+// Source: /lib/ui/filters/approximate.js
 (function(root) {
   'use strict';
 
@@ -2437,7 +2337,7 @@
 
 })(window);
 
-// Source: \lib\ui\badge\badge.js
+// Source: /lib/ui/badge/badge.js
 (function(root) {
   'use strict';
 
@@ -2479,7 +2379,7 @@
 
 })(window);
 
-// Source: \lib\ui\labels\removable-label.js
+// Source: /lib/ui/labels/removable-label.js
 (function(root) {
   'use strict';
 
@@ -2510,7 +2410,7 @@
 
 })(window);
 
-// Source: \lib\ui\animation\loader.js
+// Source: /lib/ui/animation/loader.js
 (function(root) {
 
   'use strict';
@@ -2588,7 +2488,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block.js
+// Source: /lib/ui/block/block.js
 (function(root) {
 
   'use strict';
@@ -2672,7 +2572,7 @@
 
 })(window);
 
-// Source: \lib\ui\block\block-directive.js
+// Source: /lib/ui/block/block-directive.js
 (function(root) {
 
   'use strict';
@@ -2699,7 +2599,7 @@
 
 })(window);
 
-// Source: \lib\ui\tabs\tabs.js
+// Source: /lib/ui/tabs/tabs.js
 /*
 * Inspired by https://github.com/angular-ui/bootstrap/blob/master/src/tabs/tabs.js
 */
@@ -2874,7 +2774,7 @@
 
 })(window);
 
-// Source: \lib\ui\scroll-pagination\scroll-pagination.js
+// Source: /lib/ui/scroll-pagination/scroll-pagination.js
 (function(root) {
 
   'use strict';
@@ -3094,7 +2994,7 @@
 
 })(window);
 
-// Source: \lib\ui\dimmer\dimmer.js
+// Source: /lib/ui/dimmer/dimmer.js
 // Original => http://bootsnipp.com/snippets/78VV
 (function(root) {
 
