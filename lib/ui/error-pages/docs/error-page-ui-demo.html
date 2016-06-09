@@ -1,0 +1,30 @@
+---
+title: Error Pages
+---
+
+<div data-ng-controller="ErrorPageController">
+  <div class="guide-example">
+    <ul>
+      <li><a ng-click="avErrorPage.notFound()">Not Found</a></li>
+      <li><a ng-click="avErrorPage.unauthorized()">Unauthorized</a></li>
+    </ul>
+  </div>
+  <code class="language-markup">
+    <ul>
+      <li><a ng-click="avErrorPage.notFound()">Not Found</a></li>
+      <li><a ng-click="avErrorPage.unauthorized()">Unauthorized</a></li>
+    </ul>
+    <!-- Javascript -->
+    <script>
+      availity.demo.controller('ErrorPageController', function($scope, avErrorPage) {
+        $scope.avErrorPage = avErrorPage;
+      });
+
+      availity.demo.config(function(avErrorPageProvider) {
+        avErrorPageProvider.configure({
+          sendOtherwiseToNotFound: false
+        });
+      });
+    </script>
+  </code>
+</div>
