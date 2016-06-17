@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.11.0 -- March-02
+ * availity-angular v1.10.1 -- March-30
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.11.0';
+  availity.VERSION = 'v1.10.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -710,11 +710,6 @@
       return angular.copy(defaultOptions);
     };
 
-    // helper method to global set http common headers
-    this.setHttpCommonHeaders = function($httpProvider) {
-      _.merge($httpProvider.defaults.headers.common, defaultOptions.headers);
-    };
-
     /**
      * Main get method for creating new resource
      * @param $http
@@ -748,15 +743,15 @@
       var proto = AvApiResource.prototype;
 
       proto._config = function(config) {
-        return _.merge({}, this.options, (config || {}));
-      };
+        return angular.extend({}, this.options, (config || {}));
+      },
 
       proto._cacheBust = function(config) {
         config.cacheBust = null;
         config.params = config.params || {};
         config.params.cacheBust = new Date().getTime();
         return config;
-      };
+      },
 
       proto._getUrl = function(id) {
         if (this.options.api) {

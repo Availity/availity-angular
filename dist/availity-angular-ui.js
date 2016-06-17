@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.11.0 -- March-02
+ * availity-angular v1.10.1 -- March-30
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2173,6 +2173,7 @@
         }
       });
     };
+
   });
 
   availity.ui.directive('avAnalyticsOn', function(AV_ANALYTICS, avAnalyticsUtils) {
@@ -2190,15 +2191,19 @@
           parentOptions = parentCtrl.getOptions();
         }
 
-        var options = angular.extend(
-          {},
-          parentOptions,
-          avAnalyticsUtils.getProperties(attrs)
-        );
-
         var eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
 
         element.on(eventType, function(event) {
+          if(parentCtrl.getOptions) {
+            parentOptions = parentCtrl.getOptions();
+          }
+
+          var options = angular.extend(
+            {},
+            parentOptions,
+            avAnalyticsUtils.getProperties(attrs)
+          );
+
           childCtrl.onEvent(event, element, options);
         });
       }
