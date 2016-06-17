@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.10.1 -- June-16
+ * availity-angular v1.11.0 -- March-02
  * Copyright 2016 Availity, LLC 
  */
 
@@ -232,15 +232,11 @@
       this.$element.modal({
         'backdrop': this.options.backdrop,
         'keyboard': this.options.keyboard,
-        'show': false,
+        'show': this.options.show,
         'remote': this.options.remote
       });
 
       this._listeners();
-
-      if (_.isUndefined(this.options.show) || this.options.show) {
-        this.$element.modal('show');
-      }
     };
 
     // Add helpers to scope so clients can call internal methods
