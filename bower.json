@@ -25,7 +25,7 @@
     "angular-shims-placeholder": "~0.4.5",
     "angular-ui-router": "~0.2.15",
     "angular-velocity": "~0.3.2",
-    "availity-uikit": "~1.1.0",
+    "availity-uikit": "^1.2.1",
     "blueimp-file-upload": "~9.11.2",
     "jquery-ui": "1.11.4",
     "jquery.inputmask": "3.1.63",
