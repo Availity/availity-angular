@@ -10,12 +10,15 @@ const mock = require('metalsmith-mock');
 const permalinks = require('metalsmith-permalinks');
 const nunjucks = require('nunjucks');
 const nunjucksDate = require('nunjucks-date');
+const globby = require('globby');
 const path = require('path');
 const collections = require('metalsmith-collections');
 const relative = require('metalsmith-rootpath');
+const _ = require('lodash');
 
 const dataMarkdown = require('./plugins/metalsmith-data-markdown');
 const slug = require('./plugins/nunjucks-slug');
+const readFile = require('./plugins/metalsmith-read-file');
 const tocify = require('./plugins/metalsmith-tocify');
 const Logger = require('./logger');
 
@@ -49,8 +52,31 @@ function build() {
         today: new Date(),
         pkg
       })
-      .ignore('**/.DS_Store')
+      .ignore(['!**/*.html', 'node_modules', '_book', 'dev', 'dist', 'less', 'reports'])
       .source(path.join(process.cwd(), 'examples', 'content'))
+      .use( (files, metal, done) => {
+
+        globby(['lib/**/examples/*.html']).then( filePaths => {
+
+          const fileConfigs = _.map(filePaths, filePath => {
+            return readFile(metal, filePath);
+          });
+
+          const metalFiles = {};
+
+          _.forEach(fileConfigs, fileConfig => {
+            const dir = path.join(process.cwd(), 'lib');
+            const fileName = path.relative(dir, fileConfig.path);
+            metalFiles[fileName] = fileConfig;
+          });
+
+          _.merge(files, metalFiles);
+
+          done();
+
+        });
+
+      })
       .use(markdown(markedOptions))
       .use(dataMarkdown({
         selector: '[data-markdown]'
@@ -60,8 +86,18 @@ function build() {
       }))
       .use(mock())
       .use(collections({
-        examples: {
-          pattern: 'examples/**/*.html',
+        pages: {
+          pattern: 'pages/*.html',
+          reverse: false
+        },
+        ui: {
+          pattern: '**/ui/**/examples/*.html',
+          sortBy: 'title',
+          reverse: true,
+          refer: false
+        },
+        core: {
+          pattern: '**/core/**/examples/*.html',
           sortBy: 'title',
           reverse: true,
           refer: false
@@ -80,7 +116,6 @@ function build() {
         engine: 'nunjucks',
         directory: 'layouts'
       }))
-      // .use(filter(['index.html', 'examples/**/*.html']))
       .destination(path.join(process.cwd(), 'build'));
 
     metalsmith.build( (err) => {

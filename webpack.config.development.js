@@ -1,6 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
+const path = require('path');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const merge = require('webpack-merge');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
@@ -21,6 +22,13 @@ const config = merge(webpackCommon, {
     'availity-angular': './lib/index.js',
     'vendor': './examples/js/vendor',
     'docs': './examples/js'
+  },
+
+  resolve: {
+    alias: {
+      tester: 'test',
+      demo: path.resolve( __dirname, './examples/js/module')
+    }
   },
 
   debug: true,

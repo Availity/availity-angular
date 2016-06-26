@@ -22,10 +22,7 @@ const config = {
 
   resolve: {
     root: path.resolve('./lib'),
-    extensions: ['', '.js'],
-    alias: {
-      tester: 'test'
-    }
+    extensions: ['', '.js']
   },
 
   debug: false,

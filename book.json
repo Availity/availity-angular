@@ -3,7 +3,7 @@
   "title": "Availity Angular SDK",
   "plugins": ["prism", "-highlight"],
   "structure": {
-    "summary": "docs/SUMMARY.md"
+    "summary": "SUMMARY.md"
   },
   "links": {
     "sidebar" : {

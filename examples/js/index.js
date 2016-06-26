@@ -43,4 +43,4 @@ $('[data-toggle="code"]').click(function(e) {
 
 });
 
-require('../content/core/analytics');
+require('../../lib/core/analytics/examples');
