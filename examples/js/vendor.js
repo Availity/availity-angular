@@ -17,3 +17,6 @@ import 'angular-animate';
 import 'angular-ui-router';
 import 'angular-shims-placeholder';
 
+// mock rest calls
+import 'angular-mocks';
+

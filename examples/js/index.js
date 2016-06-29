@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import angular from 'angular';
 
 import demo from './module';
 
@@ -45,4 +44,8 @@ $('[data-toggle="code"]').click(function(e) {
     });
   }
 
+});
+
+demo.run(function($httpBackend) {
+  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({});
 });
