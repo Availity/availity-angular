@@ -2,8 +2,8 @@
 title: Validation
 ---
 
-<div class="guide-example" data-ng-controller="ValidationController">
-  <form name="demoForm" data-av-val-form="demo.rule">
+<div class="guide-example" ng-controller="ValidationController">
+  <form name="demoForm" av-val-form="vm.rule">
     <div class="form-group">
       <label for="demoFirstName1">First Name</label>
       <input
@@ -11,10 +11,10 @@ title: Validation
         class="form-control"
         name="demoFirstName1"
         placeholder="..."
-        data-ng-model="demo.firstName"
-        data-av-val-field="firstName"
+        ng-model="vm.firstName"
+        av-val-field="firstName"
       >
-        <p data-av-val-container></p>
+        <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoLastName1">Last Name</label>
@@ -22,11 +22,11 @@ title: Validation
         class="form-control"
         name="demoLastName1"
         placeholder="..."
-        data-ng-model="demo.lastName"
-        data-av-val-field="lastName"
-        data-av-val-on="blur"
+        ng-model="vm.lastName"
+        av-val-field="lastName"
+        av-val-on="blur"
       >
-        <p data-av-val-container></p>
+        <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoPhone">Phone</label>
@@ -35,10 +35,10 @@ title: Validation
         name="demoPhone"
         placeholder="..."
         class="form-control"
-        data-ng-model="demo.phone"
-        data-av-val-field="phone"
+        ng-model="vm.phone"
+        av-val-field="phone"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoEmail">Email</label>
@@ -47,10 +47,10 @@ title: Validation
         name="demoEmail"
         placeholder="your@email.com"
         class="form-control"
-        data-ng-model="demo.email"
-        data-av-val-field="email"
+        ng-model="vm.email"
+        av-val-field="email"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoSSN">SSN</label>
@@ -59,11 +59,11 @@ title: Validation
         name="demoSSN"
         placeholder="###-##-####"
         class="form-control"
-        data-ng-model="demo.ssn"
-        data-av-val-field="ssn"
-        data-av-val-debounce="1000"
+        ng-model="vm.ssn"
+        av-val-field="ssn"
+        av-val-debounce="1000"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoIcd9">ICD-9</label>
@@ -71,10 +71,10 @@ title: Validation
         class="form-control"
         name="demoIcd9"
         placeholder="..."
-        data-ng-model="demo.icd9"
-        data-av-val-field="icd9"
+        ng-model="vm.icd9"
+        av-val-field="icd9"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoNPI">NPI</label>
@@ -82,10 +82,10 @@ title: Validation
         class="form-control"
         name="demoNPI"
         placeholder="..."
-        data-ng-model="demo.npi"
-        data-av-val-field="npi"
+        ng-model="vm.npi"
+        av-val-field="npi"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoTaxID">Tax ID</label>
@@ -93,25 +93,25 @@ title: Validation
         class="form-control"
         name="demoTaxID"
         placeholder="..."
-        data-ng-model="demo.taxId"
-        data-av-val-field="taxId"
+        ng-model="vm.taxId"
+        av-val-field="taxId"
       >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="dropdownStates3">States</label>
       <select
         id="dropdownStates3"
         class="form-control select2"
-        data-av-dropdown
-        data-ng-model="demo.selectedState"
-        data-ng-options="state.name for state in demo.states"
-        data-placeholder="Select State"
-        data-av-val-field="states"
-        data-allow-clear="true"
+        av-dropdown
+        ng-model="vm.selectedState"
+        ng-options="state.name for state in vm.states"
+        placeholder="Select State"
+        av-val-field="states"
+        allow-clear="true"
         >
       </select>
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="birthdate20">Birthdate</label>
@@ -119,53 +119,55 @@ title: Validation
         <input type="text"
          class="form-control"
          id="birthdate20"
-         data-ng-model="demo.date"
-         data-av-datepicker
-         data-av-val-field="date"
-         data-container-id="container-1"
-         data-av-mask="date"
+         ng-model="vm.date"
+         av-datepicker
+         av-val-field="date"
+         container-id="container-1"
+         av-mask="date"
         />
-        <span class="input-group-btn" data-toggle="datepicker">
+        <span class="input-group-btn" toggle="datepicker">
           <button class="btn btn-default" type="button">
             <span class="icon icon-calendar"></span>
           </button>
         </span>
       </div>
-      <p data-av-val-container id="container-1"></p>
+      <p av-val-container id="container-1"></p>
     </div>
     <div class="form-group">
       <label for="someRequiredField50">Field that show an error immediately</label>
       <input type="text"
        class="form-control"
        id="someRequiredField50"
-       data-ng-model="demo.someRequiredField"
-       data-av-val-field="someRequiredField"
-       data-av-val-show="true"
+       ng-model="vm.someRequiredField"
+       av-val-field="someRequiredField"
+       av-val-show="true"
       />
-      <p data-av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <div class="checkbox">
         <input id="demoCheck"
           type="checkbox"
-          data-ng-model="demo.check"
-          data-av-val-field="checked"
-          data-av-val-on="blur"
-          data-container-id="container-2"
+          ng-model="vm.check"
+          av-val-field="checked"
+          av-val-on="blur"
+          container-id="container-2"
         >
         <label for="demoCheck">Agree to Terms</label>
       </div>
-      <p data-av-val-container id="container-2"></p>
+      <p av-val-container id="container-2"></p>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="submit" class="btn btn-primary" data-ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
-    <button type="button" class="btn btn-default" data-ng-click="demo.onChangeRules()" data-av-analytics-on="click" data-av-analytics-event="Play" data-av-analytics-category="yumm" data-av-analytics-label="Test" data-av-analytics-value="7">Change Rules</button>
-    <button type="button" class="btn btn-default" data-ng-click="demo.reset()">Reset</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
+    <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules</button>
+    <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
   </form>
 </div>
+
+
 <code class="language-markup">
 
-<form name="demoForm" data-av-val-form="demo.rule">
+<form name="demoForm" av-val-form="vm.rule">
   <div class="form-group">
     <label for="demoFirstName1">First Name</label>
     <input
@@ -173,35 +175,35 @@ title: Validation
       class="form-control"
       name="demoFirstName1"
       placeholder="..."
-      data-ng-model="demo.firstName"
-      data-av-val-field="firstName"
+      ng-model="vm.firstName"
+      av-val-field="firstName"
     >
-      <p data-av-val-container></p>
+      <p av-val-container></p>
   </div>
 </form>
 
 <!-- Javascript -->
 <script>
 
-/* global availity */
+/* global app */
 
-availity.demo.config(function(avAnalyticsProvider, avValProvider) {
+app.config( (avAnalyticsProvider, avValProvider) => {
 
-  var defaultRules = {
-    'firstName': {
-      'required': {
-        'message': 'First name is required.'
+  const defaultRules = {
+    firstName: {
+      required: {
+        message: 'First name is required.'
       },
-      'size': {
-        'min': 2,
-        'max': 20,
-        'message': 'First name must be between 2 and 20 characters.'
+      size: {
+        min: 2,
+        max: 20,
+        message: 'First name must be between 2 and 20 characters.'
       }
     }
   };
 
   avValProvider.addRules({
-    'defaultRules': defaultRules
+    defaultRules
   });
 
 });

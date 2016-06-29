@@ -26,7 +26,6 @@ const config = merge(webpackCommon, {
 
   resolve: {
     alias: {
-      tester: 'test',
       demo: path.resolve( __dirname, './examples/js/module')
     }
   },
