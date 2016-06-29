@@ -10,6 +10,12 @@ const wpConfig = merge(webpackConfig, {
     'availity-angular': './lib/index.js'
   },
 
+  resolve: {
+    alias: {
+      tester: 'test'
+    }
+  },
+
   devtool: 'inline-source-map',
 
   debug: false,
@@ -25,9 +31,7 @@ module.exports = function(config) {
     // base path used to resolve all patterns
     basePath: './lib',
 
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
     files: [{ pattern: 'specs.js', watched: false }],
 
@@ -78,6 +82,7 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
+      require('karma-sinon'),
       require('karma-sourcemap-loader'),
       require('karma-notify-reporter'),
       require('karma-spec-reporter'),
