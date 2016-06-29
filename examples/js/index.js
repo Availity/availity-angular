@@ -1,9 +1,13 @@
 import $ from 'jquery';
+import angular from 'angular';
 
 import demo from './module';
 
 import 'availity-uikit/docs/less/docs.less';
 import 'animate.css/animate.css';
+
+import '../../lib/core/analytics/examples';
+import '../../lib/ui/validation/examples';
 
 demo.controller('PageController', function() {
   // no op
@@ -42,5 +46,3 @@ $('[data-toggle="code"]').click(function(e) {
   }
 
 });
-
-require('../../lib/core/analytics/examples');

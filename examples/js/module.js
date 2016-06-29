@@ -5,5 +5,6 @@ export default angular.module('availity.demo', [
   'availity',
   'availity.ui',
   'availity.config',
-  'ngAnimate'
+  'ngAnimate',
+  'ngSanitize'
 ]);
