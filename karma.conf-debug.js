@@ -9,7 +9,15 @@ const wpConfig = merge(webpackConfig, {
   entry: {
     'availity-angular': './lib/index.js'
   },
+
+  resolve: {
+    alias: {
+      tester: 'test'
+    }
+  },
+
   devtool: 'inline-source-map',
+
   debug: true,
   cache: false,
   watch: true
