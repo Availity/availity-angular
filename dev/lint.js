@@ -13,7 +13,7 @@ function lint() {
 
   return new Promise((resolve, reject) => {
 
-    globby(['**/**.js', '!node_modules/**', '!bower_components/**', '!dist/**', '!build/**']).then( paths => {
+    globby(['**/**.js', '!node_modules/**', '!bower_components/**', '!dist/**', '!build/**', '!_book/**', '!reports/**']).then( paths => {
 
       const report = engine.executeOnFiles(paths.slice(2));
       const formatter = engine.getFormatter();
