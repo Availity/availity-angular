@@ -41,6 +41,7 @@ function getConfig() {
     externals: {
       'jquery': 'jQuery',
       'angular': 'angular',
+      'availity-uikit': 'availity-uikit',
       'lodash': '_',
       'tracekit': 'TraceKit'
     },

@@ -48,8 +48,10 @@ module.exports = function(config) {
       '*.css'
     ],
 
-    preprocessors: { 'specs.js': ['webpack', 'sourcemap'],
-      '*-specs.js': ['webpack', 'sourcemap']},
+    preprocessors: {
+      'specs.js': ['webpack', 'sourcemap'],
+      '*-specs.js': ['webpack', 'sourcemap']
+    },
 
     webpack: wpConfig,
 
@@ -57,8 +59,14 @@ module.exports = function(config) {
       noInfo: 'errors-only'
     },
 
-    // reporters: ['progress', 'notify', 'spec'],
-    reporters: ['notify', 'spec'],
+    reporters: ['notify', 'nyan'],
+
+    // reporter options
+    nyanReporter: {
+      // suppress the red background on errors in the error
+      // report at the end of the test run
+      suppressErrorHighlighting: true
+    },
 
     // web server port
     port: 9876,
@@ -75,8 +83,6 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
 
     plugins: [
@@ -85,7 +91,7 @@ module.exports = function(config) {
       require('karma-sinon'),
       require('karma-sourcemap-loader'),
       require('karma-notify-reporter'),
-      require('karma-spec-reporter'),
+      require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack')
     ]

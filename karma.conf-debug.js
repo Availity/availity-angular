@@ -58,7 +58,14 @@ module.exports = function(config) {
       noInfo: 'errors-only'
     },
 
-    reporters: ['notify', 'spec'],
+    reporters: ['notify', 'nyan'],
+
+    // reporter options
+    nyanReporter: {
+      // suppress the red background on errors in the error
+      // report at the end of the test run
+      suppressErrorHighlighting: true
+    },
 
     // web server port
     port: 9876,
@@ -83,8 +90,8 @@ module.exports = function(config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
       require('karma-sourcemap-loader'),
-      require('karma-spec-reporter'),
       require('karma-notify-reporter'),
+      require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack'),
       require('karma-sinon')
