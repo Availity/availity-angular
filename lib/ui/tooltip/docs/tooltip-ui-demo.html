@@ -1,0 +1,75 @@
+---
+title: Tooltips
+---
+<div data-ng-controller="TooltipController">
+
+  <div class="guide-example">
+    <p>
+      <button type="button"
+        class="btn btn-lg btn-danger"
+        data-av-tooltip
+        data-trigger="focus"
+        title="HIPAA is short for the Health Insurance Portability and Accountability Act."
+      >
+          Focus to show tooltip on top
+      </button>
+    </p>
+    <p>
+      <button type="button"
+        class="btn btn-lg btn-info"
+        data-av-tooltip
+        data-trigger="hover"
+        data-placement="right"
+        title="PHI is any information in a medical record that can be used to identify an individual, and that was created, used, or disclosed in the course of providing a health care service, such as a diagnosis or treatment."
+      >
+          Hover to show tooltip to the right
+      </button>
+    </p>
+    <p>
+      <button type="button"
+        class="btn btn-lg btn-warning"
+        data-av-tooltip
+        data-trigger="manual"
+        data-placement="bottom"
+        data-show-on-load="showOnLoad"
+        title="You can toggle tooltips to show immediately!"
+      >
+          Show tooltip underneath on load
+      </button>
+    </p>
+  </div>
+  <code class="language-markup">
+    <button type="button"
+      class="btn btn-lg btn-danger"
+      data-av-tooltip
+      data-trigger="focus"
+      title="HIPAA is short for the Health Insurance Portability and Accountability Act."
+    >
+      Focus to show tooltip on top
+    </button>
+    </p>
+    <p>
+      <button type="button"
+        class="btn btn-lg btn-info"
+        data-av-tooltip
+        data-trigger="hover"
+        data-placement="right"
+        title="PHI is any information in a medical record that can be used to identify an individual, and that was created, used, or disclosed in the course of providing a health care service, such as a diagnosis or treatment."
+      >
+        Hover to show tooltip to the right
+      </button>
+    </p>
+    <p>
+      <button type="button"
+        class="btn btn-lg btn-warning"
+        data-av-tooltip
+        data-trigger="manual"
+        data-placement="bottom"
+        data-show-on-load="showOnLoad"
+        title="You can toggle tooltips to show immediately!"
+      >
+        Show tooltip underneath on load
+      </button>
+  </code>
+
+</div>
