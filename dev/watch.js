@@ -1,19 +1,26 @@
 'use strict';
 
+const debug = require('debug')('dev:watch');
 const chokidar = require('chokidar');
 const debounce = require('debounce-collect');
 const metalsmith = require('./metalsmith');
-const Logger = require('./logger');
 
 function run(files) {
-  Logger.log(`${files.length} file(s) changed`);
+
+  const file = files[0];
+  const stats = {
+    event: file[0],
+    path: file[1]
+  };
+  debug(`File ${stats.path} has changed`);
   metalsmith();
+
 }
 
 function watch() {
 
-  const watcher = chokidar.watch('docs', {
-    ignored: /[\/\\]\./,
+  const watcher = chokidar.watch(['lib/**/examples/*.html', 'examples/**'], {
+    ignored: /[\/\\]\./, // ignore dot files
     ignoreInitial: true,
     persistent: true
   });
