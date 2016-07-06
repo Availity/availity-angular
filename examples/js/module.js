@@ -1,5 +1,6 @@
 import angular from 'angular';
 import 'angular-animate';
+import 'angular-ui-router';
 
 export default angular.module('availity.demo', [
   'availity',
@@ -7,5 +8,6 @@ export default angular.module('availity.demo', [
   'availity.config',
   'ngAnimate',
   'ngSanitize',
+  'ui.router',
   'ngMockE2E'
 ]);

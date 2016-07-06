@@ -1,4 +1,5 @@
 import 'jquery';
+import 'bootstrap';
 import 'availity-uikit';
 import 'moment';
 import 'select2';
