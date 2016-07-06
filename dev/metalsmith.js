@@ -34,7 +34,7 @@ const markedOptions = {
 nunjucksDate
   .setDefaultFormat('YYYY');
 
-const env = nunjucks.configure('examples/layouts', {watch: false, noCache: true});
+const env = nunjucks.configure('docs/layouts', {watch: false, noCache: true});
 env.addFilter('year', nunjucksDate);
 env.addFilter('slug', slug.slugify);
 
@@ -42,7 +42,7 @@ function build() {
 
   return new Promise((resolve, reject) => {
 
-    const metalsmith = new Metalsmith(path.join(process.cwd(), 'examples'));
+    const metalsmith = new Metalsmith(path.join(process.cwd(), 'docs'));
 
     metalsmith
       .metadata({
@@ -53,10 +53,10 @@ function build() {
         pkg
       })
       .ignore(['!**/*.html', 'node_modules', '_book', 'dev', 'dist', 'less', 'reports'])
-      .source(path.join(process.cwd(), 'examples', 'content'))
+      .source(path.join(process.cwd(), 'docs', 'content'))
       .use( (files, metal, done) => {
 
-        globby(['lib/**/examples/*.html']).then( filePaths => {
+        globby(['lib/**/docs/*.html']).then( filePaths => {
 
           const fileConfigs = _.map(filePaths, filePath => {
             return readFile(metal, filePath);
@@ -91,13 +91,13 @@ function build() {
           reverse: false
         },
         ui: {
-          pattern: '**/ui/**/examples/*.html',
+          pattern: '**/ui/**/docs/*.html',
           sortBy: 'title',
           reverse: true,
           refer: false
         },
         core: {
-          pattern: '**/core/**/examples/*.html',
+          pattern: '**/core/**/docs/*.html',
           sortBy: 'title',
           reverse: true,
           refer: false

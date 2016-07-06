@@ -20,13 +20,13 @@ const config = merge(webpackCommon, {
 
   entry: {
     'availity-angular': './lib/index.js',
-    'vendor': './examples/js/vendor',
-    'docs': './examples/js'
+    'vendor': './docs/js/vendor',
+    'docs': './docs/js'
   },
 
   resolve: {
     alias: {
-      demo: path.resolve( __dirname, './examples/js/module')
+      demo: path.resolve( __dirname, './docs/js/module')
     }
   },
 

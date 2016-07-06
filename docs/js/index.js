@@ -5,10 +5,10 @@ import demo from './module';
 import 'availity-uikit/docs/less/docs.less';
 import 'animate.css/animate.css';
 
-import '../../lib/core/analytics/examples';
+import '../../lib/core/analytics/docs';
 
-import '../../lib/ui/validation/examples';
-import '../../lib/ui/modal/examples';
+import '../../lib/ui/validation/docs';
+import '../../lib/ui/modal/docs';
 
 demo.controller('PageController', () => {
   // no op
