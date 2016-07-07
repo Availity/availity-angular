@@ -1,0 +1,22 @@
+{
+  "axiUserPermissions": [
+    {
+      "id": "452",
+      "description": "Eligibility and Benefits Inquiry",
+      "organizations": [
+        {
+          "id": "1435",
+          "customerId": "1001",
+          "name": "sample org name",
+          "resources": [
+            {
+              "id": "8001",
+              "payerId": "PAYER1",
+              "payerName": "Payer One"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

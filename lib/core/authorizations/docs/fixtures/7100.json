@@ -1,0 +1,105 @@
+{
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "self": {
+      "href": "https://dev.local/api/internal/v1/axi-user-permissions?permissionId=7100"
+    }
+  },
+  "axiUserPermissions": [
+    {
+      "id": "7100",
+      "description": "Dashboard",
+      "organizations": [
+        {
+          "id": "237517",
+          "customerId": "257513",
+          "name": "ABC Corp",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100441",
+          "customerId": "15679",
+          "name": "Hospital Corp",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100708",
+          "customerId": "15711",
+          "name": "Morton Plant Hospital",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100081",
+          "customerId": "250329",
+          "name": "St. Joseph's Hospital",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8777",
+      "description": "Eligibility",
+      "organizations": [
+        {
+          "id": "237517",
+          "customerId": "257513",
+          "name": "ABC Corp",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100441",
+          "customerId": "15679",
+          "name": "Hospital Corp",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100708",
+          "customerId": "15711",
+          "name": "Morton Plant Hospital",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        },
+        {
+          "id": "100081",
+          "customerId": "250329",
+          "name": "St. Joseph's Hospital",
+          "resources": [
+            {
+              "id": "9654"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
