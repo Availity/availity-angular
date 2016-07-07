@@ -9,8 +9,11 @@ import '../../lib/core/analytics/docs';
 import '../../lib/core/utils/docs';
 import '../../lib/core/authorizations/docs';
 
+
 import '../../lib/ui/validation/docs';
 import '../../lib/ui/modal/docs';
+import '../../lib/ui/popover/docs';
+import '../../lib/ui/tooltip/docs';
 
 demo.controller('PageController', () => {
   // no op
@@ -22,8 +25,8 @@ function toggleButtons() {
   $('.guide-example').each(function() {
 
     const btn = `
-      <div>'
-        <hr class="divider-lg"/>
+      <div>
+        <hr class="divider-lg" />
         <div class="btn-toolbar">
           <button class="btn btn-ghost btn-sm" data-toggle="code">View Code<i class="icon icon-code"></i></button>
         </div>
