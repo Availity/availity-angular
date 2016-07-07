@@ -30,7 +30,7 @@ angular.module('app', ['availity'])
 
 // http://local.dev/api/v2/users
 angular.module('app', ['availity'])
-    .factory('usersResource', (AvApiResource) => {        
+    .factory('usersResource', AvApiResource => {        
     return new AvApiResource({name: 'users'});
 });
 ```
