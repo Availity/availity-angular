@@ -6,6 +6,8 @@ import 'availity-uikit/docs/less/docs.less';
 import 'animate.css/animate.css';
 
 import '../../lib/core/analytics/docs';
+import '../../lib/core/utils/docs';
+import '../../lib/core/authorizations/docs';
 
 import '../../lib/ui/validation/docs';
 import '../../lib/ui/modal/docs';
