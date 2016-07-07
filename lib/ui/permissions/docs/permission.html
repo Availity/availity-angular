@@ -1,0 +1,30 @@
+---
+title: Permissions
+---
+
+<div  data-ng-controller="DemoHidePermissionController">
+
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Permission</th>
+        <th>Authorized</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>452</td>
+        <td><span class="icon icon-check text-success" av-hide-permission="DEMO_PERMISSIONS.GOOD"></span></td>
+      </tr>
+      <tr>
+        <td>999</td>
+        <td><span class="icon icon-check text-success" av-hide-permission="DEMO_PERMISSIONS.GOOD"></span></td>
+      </tr>
+      <tr>
+        <td>452 || 999</td>
+        <td><span class="icon icon-check text-success" av-hide-permission="DEMO_PERMISSIONS.GOOD"></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
