@@ -9,11 +9,11 @@ import '../../lib/core/analytics/docs';
 import '../../lib/core/utils/docs';
 import '../../lib/core/authorizations/docs';
 
-
 import '../../lib/ui/validation/docs';
 import '../../lib/ui/modal/docs';
 import '../../lib/ui/popover/docs';
 import '../../lib/ui/tooltip/docs';
+import '../../lib/ui/permissions/docs';
 
 demo.controller('PageController', () => {
   // no op
@@ -22,7 +22,7 @@ demo.controller('PageController', () => {
 function toggleButtons() {
 
   // Add View Code toggle button for each example
-  $('.guide-example').each(function() {
+  $('.docs-example').each(function() {
 
     const btn = `
       <div>
@@ -42,7 +42,7 @@ function toggleButtons() {
 
     e.preventDefault();
 
-    const target = $(this).parents('.guide-example').next('[class*="language-"]');
+    const target = $(this).parents('.docs-example').next('[class*="language-"]');
 
     if (target.is(':visible')) {
       target.velocity('slideUp', { duration: 200 });
