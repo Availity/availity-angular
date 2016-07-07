@@ -34,7 +34,14 @@ const markedOptions = {
 nunjucksDate
   .setDefaultFormat('YYYY');
 
-const env = nunjucks.configure('docs/layouts', {watch: false, noCache: true});
+const env = nunjucks.configure('docs/layouts', {
+  watch: false,
+  noCache: true,
+  tags: {
+    variableStart: '{{{',
+    variableEnd: '}}}'
+  }
+});
 env.addFilter('year', nunjucksDate);
 env.addFilter('slug', slug.slugify);
 
