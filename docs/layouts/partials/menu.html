@@ -4,14 +4,14 @@
       <ol class="nav docs-nav">
         {% for heading in page.toc %}
           <li>
-            <a href="#{{{ heading.id }}}" title="{{{ heading.text }}}">{{{ heading.text }}}</a>
+            <a href="#{{{ heading.id }}}" title="{{{ heading.text }}}" target="_self">{{{ heading.text }}}</a>
             {% for subHeading in heading.children %}
 
               {% if loop.first %}
               <ol class="nav docs-nav">
               {% endif %}
 
-                <li><a href="#{{{ subHeading.id }}}" title="{{{ subHeading.text }}}">{{{ subHeading.text }}}</a></li>
+                <li><a href="#{{{ subHeading.id }}}" title="{{{ subHeading.text }}}" target="_self">{{{ subHeading.text }}}</a></li>
 
               {% if loop.last %}
               </ol>
