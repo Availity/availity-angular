@@ -100,13 +100,13 @@ function build() {
         ui: {
           pattern: '**/ui/**/docs/*.html',
           sortBy: 'title',
-          reverse: true,
+          reverse: false,
           refer: false
         },
         core: {
           pattern: '**/core/**/docs/*.html',
           sortBy: 'title',
-          reverse: true,
+          reverse: false,
           refer: false
         }
       }))
