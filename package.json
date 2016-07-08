@@ -9,6 +9,7 @@
     "clean": "node dev/index.js -c clean",
     "test": "karma start ./karma.conf.js",
     "test:debug": "karma start ./karma.conf-debug.js",
+    "test:ci": "karma start ./karma.conf-sauce-labs.js",
     "release": "node dev/index.js -c release",
     "lint": "node dev/index.js -c lint",
     "docs:prepare": "gitbook install",

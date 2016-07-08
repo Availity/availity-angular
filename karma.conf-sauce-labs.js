@@ -1,5 +1,28 @@
 /* eslint no-process-exit:0 */
 'use strict';
+const merge = require('webpack-merge');
+
+const webpackConfig = require('./webpack.config.common');
+
+const wpConfig = merge(webpackConfig, {
+
+  entry: {
+    'availity-angular': './lib/index.js'
+  },
+
+  resolve: {
+    alias: {
+      tester: 'test'
+    }
+  },
+
+  devtool: 'inline-source-map',
+
+  debug: false,
+  cache: false,
+  watch: false
+
+});
 
 module.exports = function(config) {
 
@@ -12,12 +35,6 @@ module.exports = function(config) {
   // Browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   const customLaunchers = {
-
-    sl_ms_edge: {
-      base: 'SauceLabs',
-      browserName: 'microsoftedge',
-      platform: 'Windows 10'
-    },
 
     sl_ie_11: {
       base: 'SauceLabs',
@@ -48,27 +65,55 @@ module.exports = function(config) {
   };
 
   if (process.env.TRAVIS_JOB_NUMBER) {
+    sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
     sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
   } else {
     sauceLabs.startConnect = true;
   }
 
   config.set({
-    basePath: '',
-    files: ['./lib/spec.js'],
+    basePath: './lib',
+    files: [{ pattern: 'specs.js', watched: false }],
+    // files to exclude
+    exclude: [
+      '*.less',
+      '*.css'
+    ],
+    preprocessors: {
+      'specs.js': ['webpack', 'sourcemap'],
+      '*-specs.js': ['webpack', 'sourcemap']
+    },
+    webpack: wpConfig,
+    webpackMiddleware: {
+      noInfo: 'errors-only'
+    },
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
     customLaunchers,
     frameworks: ['jasmine'],
-    reporters: ['mocha', 'saucelabs'],
+    reporters: ['nyan', 'saucelabs'],
+    // reporter options
+    nyanReporter: {
+      // suppress the red background on errors in the error
+      // report at the end of the test run
+      suppressErrorHighlighting: true,
+      renderOnRunCompleteOnly: true
+    },
     port: 9876,
     colors: true,
     sauceLabs,
     logLevel: config.LOG_INFO,
-    captureTimeout: 120000,
-    browserDisconnectTimeout: 10000,
-    browserDisconnectTolerance: 2,
-    browserNoActivityTimeout: 20000,
-    singleRun: true
+    captureTimeout: 240000,
+    singleRun: true,
+    plugins: [
+      require('karma-chrome-launcher'),
+      require('karma-jasmine'),
+      require('karma-sinon'),
+      require('karma-sourcemap-loader'),
+      require('karma-notify-reporter'),
+      require('karma-nyan-reporter'),
+      require('karma-phantomjs-launcher'),
+      require('karma-webpack')
+    ]
   });
 };
