@@ -1,0 +1,37 @@
+---
+title: Tooltips
+---
+<div data-ng-controller="DemoTooltipController">
+
+  <div class="docs-example">
+      <button type="button"
+        class="btn btn-default"
+        data-av-tooltip
+        data-trigger="click"
+        data-placement="top"
+        title="What is HIPAA"
+      >
+          Click to toggle tooltip
+      </button>
+      <button type="button"
+        class="btn btn-default"
+        data-av-tooltip
+        data-placement="top"
+        data-trigger="hover"
+        title="Protected Health Information (PHI)"
+      >
+          Hover to show tooltip
+      </button>
+      <button type="button"
+        class="btn btn-default"
+        data-av-tooltip
+        data-trigger="manual"
+        title="Need an immediate tooltip?"
+        data-placement="top"
+        data-show="showOnLoad"
+      >
+          Show tooltip on load
+      </button>
+  </div>
+
+</div>
