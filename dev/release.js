@@ -163,7 +163,4 @@ function release() {
 
 }
 
-module.exports = {
-  prompt,
-  release
-};
+module.exports = release;
