@@ -21,7 +21,7 @@ const config = {
   },
 
   resolve: {
-    root: path.resolve('./lib'),
+    root: path.resolve('./src'),
     extensions: ['', '.js']
   },
 
@@ -73,18 +73,15 @@ const config = {
         loader: 'url?limit=32768?name=images/[name].[ext]'
       },
       {
-        // Files ending in *.html will be loaded into Angular as plain strings
-        test: /\.html$/,
-        loader: 'html'
+        // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
+        test: /tests.*\.html$/,
+        loader: `html`
       },
       {
-        // Files ending in *.htm will be loaded into Angular $templaceCache relative to 'lib' folder.
-        //
-        //  - disk path: availity-angular/lib/ui/block/block.htm
-        //  - cache path: ui/block/block.htm
-        //  - module: availity.ui.templates
-        test: /\.htm$/,
-        loader: `ngtemplate?relativeTo=${path.resolve(__dirname, './lib')}/!html`
+        // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
+        test: /\.html$/,
+        exclude: /tests/,
+        loader: `ngtemplate?relativeTo=${process.cwd()}/!html`
       }
     ]
   },

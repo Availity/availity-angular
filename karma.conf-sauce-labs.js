@@ -72,7 +72,7 @@ module.exports = function(config) {
   }
 
   config.set({
-    basePath: './lib',
+    basePath: 'src',
     files: [{ pattern: 'specs.js', watched: false }],
     // files to exclude
     exclude: [

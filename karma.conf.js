@@ -7,7 +7,17 @@ const webpackConfig = require('./webpack.config.common');
 const wpConfig = merge(webpackConfig, {
 
   entry: {
-    'availity-angular': './lib/index.js'
+    'availity-angular': './src/index.js'
+  },
+
+  module: {
+    postLoaders: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(-spec.js|node_modules|bower_components|specs.js|module.js|vendor.js)/,
+        loader: 'isparta'
+      }
+    ]
   },
 
   resolve: {
@@ -16,7 +26,7 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
 
   debug: false,
   cache: false,
@@ -29,7 +39,7 @@ module.exports = function(config) {
   config.set({
 
     // base path used to resolve all patterns
-    basePath: './lib',
+    basePath: 'src',
 
     frameworks: ['jasmine', 'sinon'],
 
@@ -49,8 +59,8 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'specs.js': ['webpack', 'sourcemap'],
-      '*-specs.js': ['webpack', 'sourcemap']
+      'specs.js': ['webpack'],
+      '*-specs.js': ['webpack']
     },
 
     webpack: wpConfig,
@@ -89,7 +99,6 @@ module.exports = function(config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
       require('karma-sinon'),
-      require('karma-sourcemap-loader'),
       require('karma-notify-reporter'),
       require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
