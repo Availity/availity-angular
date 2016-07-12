@@ -1,10 +1,9 @@
-import * as _ from 'lodash';
 import ngModule from '../module';
 import Base from '../base';
 
 class AvValContainerController extends Base {
 
-  static $inject = ['$scope', '$timeout'];
+  static $inject = ['$sce', '$scope', '$timeout'];
 
   constructor(...args) {
     super(...args);
@@ -15,9 +14,9 @@ class AvValContainerController extends Base {
     const { ngModel } = context;
 
     let message = null;
-    const violations = _.keys(ngModel.$error);
+    const violations = Object.keys(ngModel.$error);
     if (violations.length) {
-      const validator = _.head(violations);
+      const validator = violations[0];
       const constraint = ngModel.$validators[validator].constraint;
       message = constraint.message;
 
@@ -27,7 +26,7 @@ class AvValContainerController extends Base {
 
     // $timeout is needed to update the UI from $broadcast events
     this.av.$timeout(() => {
-      this.av.$scope.vm.message = message;
+      this.av.$scope.vm.message = this.av.$sce.trustAsHtml(message);
     });
 
   }

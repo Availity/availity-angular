@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 import Base from '../base';
 import './constants';
@@ -24,7 +22,7 @@ class AvAnalyticsProvider extends Base {
 
     if (angular.isString(_plugins)) {
       this.plugins = [_plugins];
-    } else if (_.isArray(_plugins)) {
+    } else if (Array.isArray(_plugins)) {
       this.plugins = _plugins;
     } else {
       throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');

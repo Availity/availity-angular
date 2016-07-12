@@ -22,8 +22,9 @@ class AvDropdownController extends Base {
 
     this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS);
 
-    _.forEach(this.av.$attrs, (value, key) => {
-      if (_.contains(this.av.avDropdownConfig.OPTIONS, key.replace('data-', ''))) {
+    Object.key(this.av.$attrs).forEach((key) => {
+      const value = this.av.$attrs[key];
+      if (this.av.avDropdownConfig.OPTIONS[key.replace('data-', '')]) {
         this.options[key] = this.av.$scope.$eval(value);
       }
     });
@@ -46,10 +47,7 @@ class AvDropdownController extends Base {
   }
 
   isRemoteMultiple() {
-    if (angular.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input') {
-      return true;
-    }
-    return false;
+    return angular.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
   }
 
   setRemoteViewValue(e) {
@@ -65,7 +63,7 @@ class AvDropdownController extends Base {
       values.push(e.added);
     } else {
       // Removing from collection
-      const index = _.findIndex(values, value => _.matches(e.removed)(value));
+      const index = values.findIndex(value => _.matches(e.removed)(value));
       values.splice(index, 1);
     }
 
@@ -94,7 +92,7 @@ class AvDropdownController extends Base {
 
     const items = this.collection(this.av.$scope);
 
-    const index = _.findIndex(items, item => {
+    const index = items.findIndex(item => {
 
       if (!self.valueFn) {
         return angular.equals(item, model);
@@ -169,8 +167,8 @@ class AvDropdownController extends Base {
     if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
       const options = this.collection(this.av.$scope);
 
-      _.each(viewValue, savedObject => {
-        const index = _.findIndex(options, value => {
+      viewValue.forEach(savedObject => {
+        const index = options.findIndex(value => {
           const temp = angular.copy(savedObject); // remove hashkeys for comparison
           return _.matches(temp)(value);
         });
@@ -181,9 +179,9 @@ class AvDropdownController extends Base {
 
       const inputViewValues = this.ngModel.$modelValue;
 
-      _.each(inputViewValues, savedObject => {
+      inputViewValues.forEach(savedObject => {
 
-        if (_.isUndefined(savedObject.id) ) {
+        if (angular.isUndefined(savedObject.id) ) {
 
           if (savedObject.id || savedObject[self.options.correlationId]) {
 
@@ -215,7 +213,7 @@ class AvDropdownController extends Base {
       viewValue = [];
     }
 
-    if (!_.isEmpty(viewValue) && _.isObject(viewValue[0])) {
+    if (!_.isEmpty(viewValue) && angular.isObject(viewValue[0])) {
       viewValue = this.getMultiSelected(viewValue);
     }
 

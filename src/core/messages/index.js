@@ -111,7 +111,7 @@ class AvMessageProvider {
           $log.warn('avMessages.onMessage() failed to convert event to json payload');
         }
 
-        if (_.isString(data)) {
+        if (angular.isString(data)) {
           event = data;
           data = null;
         } else {

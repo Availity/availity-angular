@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import ngModule from '../../module';
 import Validator from './validator';
 import './utils';
@@ -36,12 +34,12 @@ ngModule.factory('avValPattern', function(avValUtils) {
 
       const self = this;
 
-      const values = _.isArray(constraint.value) ? constraint.value : [constraint.value];
+      const values = Array.isArray(constraint.value) ? constraint.value : [constraint.value];
 
       let valid = false;
 
-      _.each(values, function(expresion) {
-        const pattern = self.asRegExp(expresion);
+      values.forEach((expression) => {
+        const pattern = self.asRegExp(expression);
         if (avValUtils.isEmpty(value) || pattern.test(value)) {
           valid = true;
         }

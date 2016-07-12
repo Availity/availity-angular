@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 import '../api';
 
@@ -49,7 +47,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
 
     isAnyAuthorized(permissionIds) {
       return this.getPermissions(permissionIds).then(permissions => {
-        return _.some(permissions, {isAuthorized: true});
+        return permissions.some(permission => permission.isAuthorized);
       });
     }
 
@@ -60,7 +58,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       }
 
       return this.getPermissions([permissionId])
-        .then(permissions => _.find(permissions, {id: permissionId}));
+        .then(permissions => permissions.find(permission => permission.id === permissionId));
     }
 
     getPermissions(permissionIds) {
@@ -70,7 +68,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       }
 
       // Combine pre-loaded permission ids with the ids from this function invocation
-      this.permissionIds = _.union(this.permissionIds, permissionIds);
+      this.permissionIds = [...(new Set([...this.permissionIds, ...permissionIds]))];
 
       return avUserPermissionsResource
         .getPermissions(this.permissionIds, this.region)
@@ -87,7 +85,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
 
       return this.getPermission(permissionId).then(permission => {
 
-        const organization = _.find(permission.organizations, {id: organizationId});
+        const organization = permission.organizations.find(permission => permission.id === organizationId);
 
         if (organization && organization.resources) {
           return organization.resources;
@@ -103,10 +101,10 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
 
       const self = this;
 
-      const result = _.map(permissionIds, permissionId => {
+      const result = permissionIds.map(permissionId => {
 
         const key = {id: permissionId};
-        let permission = _.find(permissions, key);
+        let permission = permissions.find(permission => permission.id === permissionId);
         permission = permission ? self.convert(permission) : self.convert(key);
         return permission;
 

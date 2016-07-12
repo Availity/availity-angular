@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import * as _ from 'lodash';
 
 import './block.htm';
 import './block2.htm';
@@ -24,7 +23,7 @@ const triggerLoaderController = function(id, instance, fn) {
     controller = getLoaderController(id);
     instance.loaderController = controller;
   }
-  if (controller && _.isFunction(controller[fn])) {
+  if (controller && angular.isFunction(controller[fn])) {
     controller[fn]();
   }
 

@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import angular from 'angular';
 import ngModule from '../module';
 import { uuid } from '../../core/utils';
 import '../../core/validation';
@@ -23,7 +22,7 @@ class AvValFieldController extends Base {
   }
 
   init(options) {
-    _.merge(this, options);
+    Object.assign(this, options);
     this.createId();
     this.setupValidators();
   }
@@ -61,11 +60,11 @@ class AvValFieldController extends Base {
     let constraints = ruleConfig[this.ruleName];
     if (!constraints) {
       this.av.$log.info(`Rule named [${this.ruleName}] could not be found in the current schema.`);
-      constraints = [];
+      constraints = {};
     }
 
-    _.forEach(constraints, (constraint, constraintName) => {
-
+    Object.keys(constraints).forEach((constraintName) => {
+      const constraint = constraints[constraintName];
       if (!constraint) {
 
         // When extending rule sets, previous rules can be overridden with null so
@@ -76,7 +75,7 @@ class AvValFieldController extends Base {
 
       const validator = self.av.avVal.getService(constraintName);
 
-      if (_.isUndefined(validator)) {
+      if (angular.isUndefined(validator)) {
         self.vm.$log.warn(`No validator defined for ${constraintName}`);
         return;
       }
@@ -96,7 +95,7 @@ class AvValFieldController extends Base {
       };
 
       // Attach the constrain to the validator so that the message is available
-      // the the validation container that is going to paint the message on screen.
+      // to the validation container that is going to paint the message on screen.
       self.ngModel.$validators[constraintName].constraint = constraint;
 
     });
@@ -130,14 +129,15 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
 
       // Wrap $$runValidators with our own function so we can intercept when the validation
       // pipeline finishes.
-      const runValidators = _.wrap(ngModel.$$runValidators, (func, modelValue, viewValue, doneCallback) => {
+      const $$runValidators = ngModel.$$runValidators;
+      const runValidators = (modelValue, viewValue, doneCallback) => {
 
-        func(modelValue, viewValue, (allValid) => {
+        $$runValidators(modelValue, viewValue, (allValid) => {
           doneCallback(allValid);
           avValField.onRunValidators();
         });
 
-      });
+      };
 
       ngModel.$$runValidators = runValidators;
 

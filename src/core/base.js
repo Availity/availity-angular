@@ -1,12 +1,10 @@
 // Inspiration: https://github.com/seeden/angular-es6
 
-import * as _ from 'lodash';
-
 function storeInjections(injected = [], instance, args, name = 'av') {
 
   const instanceInject = instance[name] = instance[name] || {};
 
-  _.forEach(injected, (injectName, index) => {
+  injected.forEach((injectName, index) => {
     instanceInject[injectName] = args[index];
   });
 

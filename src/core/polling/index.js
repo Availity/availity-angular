@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from './constants';
 import { getRelativeUrl, isBlank, uuid } from '../utils';
 import Base from '../base';
@@ -33,7 +31,7 @@ class AvPollingService extends Base {
       pollingStartTime: new Date().getTime()
     };
 
-    return _.extend(defaultOptions, config);
+    return Object.assign(defaultOptions, config);
   }
 
   responseError(response) {

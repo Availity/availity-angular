@@ -1,5 +1,5 @@
+import angular from 'angular';
 import $ from 'jquery';
-import * as _ from 'lodash';
 import 'select2';
 
 import './controller';
@@ -124,9 +124,10 @@ ngModule.directive('avDropdown', ($timeout) => {
       });
 
       // If event listeners are specified in the options, set them up here
-      if (_.get(avDropdown, 'options.eventListeners')) {
-        _.each(avDropdown.options.eventListeners, (listener, eventId) => {
-          if (_.isFunction(listener)) {
+      if (avDropdown.options && avDropdown.options.eventListeners) {
+        Object.keys(avDropdown.options.eventListeners).forEach((eventId) => {
+          const listener = avDropdown.options.eventListeners[eventId];
+          if (angular.isFunction(listener)) {
             element.on(eventId, listener);
           }
         });

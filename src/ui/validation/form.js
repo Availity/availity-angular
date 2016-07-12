@@ -1,8 +1,5 @@
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 import '../../core/validation';
-
 import './constants';
 import './adapter';
 import './field';
@@ -20,7 +17,7 @@ class AvValController {
   }
 
   init(options) {
-    _.merge(this, options);
+    Object.assign(this, options);
   }
 
   reset() {

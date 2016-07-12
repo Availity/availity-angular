@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 
 class AvHidePermissionController {
@@ -19,7 +17,7 @@ class AvHidePermissionController {
     let permissions = changed.avHidePermission.currentValue;
 
     if (!angular.isArray(permissions)) {
-      permissions = _.words(`${permissions}`);
+      permissions = permissions.split(/\s+/);
     }
 
     this.avUserAuthorizations.isAnyAuthorized(permissions)

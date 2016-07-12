@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import $ from 'jquery';
 
 import ngModule from '../module';
@@ -38,7 +37,7 @@ class AvPiwikAnalyticsProvider {
   // allow the user to pass a array of visit variables
   setVisitVariables(items) {
 
-    _.forEach(items, item => {
+    items.forEach(item => {
       this._setCustomVariable(item[0], item[1], item[2], 'visit');
     });
 
@@ -101,7 +100,7 @@ class AvPiwikAnalyticsProvider {
 
         avUsersResource.me().then( user => window._paq.push(['setUserId', user.id]));
 
-        if (!_.isFinite(that.siteId)) {
+        if (!isFinite(that.siteId)) {
           $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
           return;
         }
@@ -118,13 +117,11 @@ class AvPiwikAnalyticsProvider {
         window._paq.push(['setTrackerUrl', `${url}piwik.php`]);
         window._paq.push(['setSiteId', that.siteId]);
 
-        _.forEach(that.customVariables, function(variable) {
+        that.customVariables.forEach(variable => {
           window._paq.push(variable);
         });
 
-        $.getScript(`${url}piwik.js`, function() {
-
-        });
+        $.getScript(`${url}piwik.js`, angular.noop);
 
       }
 

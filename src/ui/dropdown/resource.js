@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 
 const SelectResourceFactory = function(AvApiResource) {
@@ -76,9 +74,9 @@ const SelectResourceFactory = function(AvApiResource) {
     //
     mapResults(results) {
 
-      if (results && !_.has(results[0], 'id')) {
+      if (results && !'id' in results[0]) {
 
-        results = _.map(results, item => {
+        results = results.map(item => {
           item.id = this.getResult(item);
           return item;
         });

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import angular from 'angular';
 
 import Validator from './validator';
 import ngModule from '../../module';
@@ -20,7 +20,7 @@ ngModule.factory('avValSize', avValUtils => {
       const max = constraint.max;
       const type = constraint.type ? constraint.type.toLowerCase() : 'text';
 
-      if (_.isNull(_value) || _.isUndefined(_value)) {
+      if (_value === null || angular.isUndefined(_value)) {
         _value = '';
       }
 
@@ -30,7 +30,7 @@ ngModule.factory('avValSize', avValUtils => {
       }
 
       // ... must be a Number
-      if (!_.isNumber(_value) && /^\d+$/.test(_value)) {
+      if (!angular.isNumber(_value) && /^\d+$/.test(_value)) {
         _value = parseInt(_value, 10);
       }
 

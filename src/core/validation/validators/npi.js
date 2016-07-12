@@ -25,7 +25,7 @@ ngModule.factory('avValNpi', avValUtils => {
       }
 
       const firstDigit = npi.charAt(0);
-      if (!(firstDigit === '1' || firstDigit === '2' || firstDigit === '3' || firstDigit === '4')) {
+      if (!['1','2','3','4'].includes(firstDigit)) {
         return false;
       }
 
@@ -51,11 +51,8 @@ ngModule.factory('avValNpi', avValUtils => {
       const roundUp = Math.ceil(total / 10) * 10;
       const calculatedCheck = roundUp - total;
 
-      if (calculatedCheck !== digit) {
-        return false;
-      }
+      return calculatedCheck === digit;
 
-      return true;
     }
 
   }

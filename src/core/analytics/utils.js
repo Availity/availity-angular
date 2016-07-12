@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import angular from 'angular';
 import ngModule from '../module';
 import {isBlank} from '../utils';
 
@@ -11,9 +11,9 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
       const self = this;
       const props = {};
 
-      _.forEach(attributes, function(value, key) {
+      Object.keys(attributes).forEach((key) => {
         if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
-          const result = self.getAttribute(key, value);
+          const result = self.getAttribute(key, attributes[key]);
           props[result.key] = result.value;
         }
       });
@@ -34,7 +34,7 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
     }
 
     isNotIgnored(key) {
-      const ignored = _.includes(AV_ANALYTICS.IGNORE, key);
+      const ignored = AV_ANALYTICS.IGNORE.includes(key);
       return !ignored;
     }
 
@@ -71,8 +71,9 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
         delete trackingValues.value;
       }
 
-      _.forEach(trackingValues, (key, value) => {
-        if (isBlank(value) || _.isUndefined(value)) {
+      Object.keys(trackingValues).forEach((key) => {
+        const value = trackingValues[key];
+        if (isBlank(value) || angular.isUndefined(value)) {
           $log.warn(`The analytic tracking value for ${key.toUpperCase()} is not defined.`);
           valid = false;
         }

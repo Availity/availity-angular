@@ -1,14 +1,11 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-import $ from 'jquery';
-
 import ngModule from '../module';
 import '../templates';
 import './constants';
 import './directive';
 import { uuid } from '../../core/utils/';
 
-ngModule.factory('avModalManager', () => {
+ngModule.factory('avModalManager', ($document) => {
 
   class AvModalManager {
 
@@ -21,14 +18,14 @@ ngModule.factory('avModalManager', () => {
     }
 
     remove(id) {
-      this.instances = _.without(this.instances, id);
+      this.instances = this.instances.filter(instance => instance !== id);
     }
 
     closeAll() {
 
-      _.forEach(this.instances, id => {
+      this.instances.forEach(id => {
 
-        const $el = $(`#${id}`);
+        const $el = angular.element(document.getElementById(`#${id}`));
 
         if (!$el) {
           return;
@@ -117,7 +114,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache,
 
       this.listeners();
 
-      if (_.isUndefined(this.options.show) || this.options.show) {
+      if (angular.isUndefined(this.options.show) || this.options.show) {
         this.$element.modal('show');
       }
 

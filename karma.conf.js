@@ -102,7 +102,7 @@ module.exports = function(config) {
       require('karma-notify-reporter'),
       require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack')
+      require('karma-webpack-with-fast-source-maps')
     ]
 
   });

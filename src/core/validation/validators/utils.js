@@ -1,5 +1,4 @@
 import angular from 'angular';
-import $ from 'jquery';
 
 import ngModule from '../../module';
 
@@ -12,7 +11,7 @@ ngModule.factory('avValUtils', () => {
     },
 
     isEmpty(value) {
-      return !this.isDefined(value) || $.trim(value) === '';
+      return !this.isDefined(value) || (angular.isString(value) && value.trim() === '');
     }
   };
 

@@ -1,7 +1,6 @@
 import angular from 'angular';
 import $ from 'jquery';
 import moment from 'moment';
-import * as _ from 'lodash';
 
 import availity from '../module';
 
@@ -143,8 +142,9 @@ availity.ui.controller('AvDatepickerController', function($element, $attrs, AV_D
 
     self.options = angular.extend({}, avDatepickerConfig);
 
-    _.forEach($attrs, function(value, key) {
-      if (_.contains(AV_DATEPICKER.OPTIONS, key.replace('data-', ''))) {
+    Object.keys($attrs).forEach((key) => {
+      const value = $attrs[key];
+      if (AV_DATEPICKER.OPTIONS[key.replace('data-', '')]) {
         self.options[key] = $scope.$eval(value);
       }
     });

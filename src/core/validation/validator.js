@@ -1,6 +1,5 @@
 import angular from 'angular';
 import ngModule from '../module';
-
 import './config';
 import './constants';
 import './validators';
@@ -23,7 +22,7 @@ class AvValProvider {
     return this.validators;
   }
 
-  $get($injector, $rootScope, $http, $log, avValConfig, AV_VAL) {
+  $get($injector, $rootScope, avValConfig, AV_VAL) {
 
     const that = this;
 

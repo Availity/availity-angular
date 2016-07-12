@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 
 ngModule.constant('AV_THROTTLE', {
@@ -17,7 +15,7 @@ ngModule.factory('avThrottle', (AV_THROTTLE, $timeout) => (fn, _wait, _options) 
 
   let options = _options;
 
-  options = _.merge({}, AV_THROTTLE.OPTIONS, options);
+  options = {...AV_THROTTLE.OPTIONS, ...options};
 
   const wait = _wait ? _wait : AV_THROTTLE.THRESHOLD;
   const update = angular.isDefined(options.update) ? options.update : AV_THROTTLE.UPDATE;

@@ -1,6 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
-
 import ngModule from '../module';
 import './constants';
 import '../polling';
@@ -8,14 +6,14 @@ import '../polling';
 class ApiResourceProvider {
 
   constructor(AV_API) {
-    this.defaultOptions = _.merge({}, AV_API.OPTIONS);
+    this.defaultOptions = {...AV_API.OPTIONS};
   }
 
   setOptions(options) {
-    _.merge(this.defaultOptions, options);
+    Object.assign(this.defaultOptions, options);
   }
 
-  getOptions = function() {
+  getOptions() {
     return angular.copy(this.defaultOptions);
   }
 
@@ -236,7 +234,7 @@ class ApiResourceProvider {
 
         let url;
 
-        if (_.isString(id) || _.isNumber(id)) {
+        if (angular.isString(id) || angular.isNumber(id)) {
           url = this.getUrl(id);
         } else {
           url = this.getUrl();
@@ -269,7 +267,7 @@ class ApiResourceProvider {
         let url;
         let data;
 
-        if (_.isString(id) || _.isNumber(id)) {
+        if (angular.isString(id) || angular.isNumber(id)) {
           url = this.getUrl(id);
         } else {
 

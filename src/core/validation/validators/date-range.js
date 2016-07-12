@@ -55,8 +55,8 @@ ngModule.factory('avValDateRange', (AV_VAL, avValUtils) => {
         startDate = this.getStartDate(constraint.start);
         endDate = this.getEndDate(constraint.end);
       } else {
-        startDate = moment(constraint.start.value, constraint.format);
-        endDate = this.setMax(moment(constraint.end.value, constraint.format));
+        startDate = moment(constraint.start.value, constraint.start.format || constraint.format);
+        endDate = this.setMax(moment(constraint.end.value, constraint.end.format || constraint.format));
       }
       return date.isValid() && date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
     }

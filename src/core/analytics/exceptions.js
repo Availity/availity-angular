@@ -1,6 +1,5 @@
 import moment from 'moment';
 import TraceKit from 'tracekit';
-import * as _ from 'lodash';
 import $ from 'jquery';
 
 import ngModule from '../module';
@@ -62,7 +61,7 @@ class AvExceptionAnalyticsProvider {
 
         for (let i = 0; i < length; i++) {
           message += [
-            `[${_.padStart(`${i}`, 2, '0')}] `,
+            `[${i.toString().padStart(2, '0')}] `,
             stacktrace.stack[i].func,
             ' ',
             stacktrace.stack[i].url,
