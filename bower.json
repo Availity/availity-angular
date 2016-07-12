@@ -15,7 +15,7 @@
     "node_modules",
     "gulp",
     "build",
-    "gulp",
+    "dev",
     "docs",
     "data",
     "routes.json"

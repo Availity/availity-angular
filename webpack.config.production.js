@@ -28,7 +28,7 @@ function getConfig() {
   const config = merge(webpackCommon, {
 
     entry: {
-      'availity-angular': './lib/index.js'
+      'availity-angular': './src/index.js'
     },
 
     output: {

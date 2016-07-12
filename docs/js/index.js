@@ -5,15 +5,15 @@ import demo from './module';
 import 'availity-uikit/docs/less/docs.less';
 import 'animate.css/animate.css';
 
-import '../../lib/core/analytics/docs';
-import '../../lib/core/utils/docs';
-import '../../lib/core/authorizations/docs';
+import '../../src/core/analytics/docs';
+import '../../src/core/utils/docs';
+import '../../src/core/authorizations/docs';
 
-import '../../lib/ui/validation/docs';
-import '../../lib/ui/modal/docs';
-import '../../lib/ui/popover/docs';
-import '../../lib/ui/tooltip/docs';
-import '../../lib/ui/permissions/docs';
+import '../../src/ui/validation/docs';
+import '../../src/ui/modal/docs';
+import '../../src/ui/popover/docs';
+import '../../src/ui/tooltip/docs';
+import '../../src/ui/permissions/docs';
 
 demo.controller('PageController', () => {
   // no op

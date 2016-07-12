@@ -19,7 +19,7 @@ const ENV_VAR = {
 const config = merge(webpackCommon, {
 
   entry: {
-    'availity-angular': './lib/index.js',
+    'availity-angular': './src/index.js',
     'vendor': './docs/js/vendor',
     'docs': './docs/js'
   },
