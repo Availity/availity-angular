@@ -25,7 +25,7 @@ ngModule.factory('avModalManager', ($document) => {
 
       this.instances.forEach(id => {
 
-        const $el = angular.element(document.getElementById(`#${id}`));
+        const $el = angular.element($document.getElementById(id));
 
         if (!$el) {
           return;

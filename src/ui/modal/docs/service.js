@@ -21,8 +21,6 @@ demo.factory('demoModalService', (AvModal, $log, $state, avModalManager, $rootSc
 
       $rootScope.$on('$stateChangeSuccess', (event, toState) => {
 
-        debugger;
-
         if (toState.name === 'three') {
           avModalManager.closeAll();
         }
@@ -47,7 +45,7 @@ demo.factory('demoModalService', (AvModal, $log, $state, avModalManager, $rootSc
       AvModal.create({
         show: true,
         scope: this.$scope,
-        template: tpl
+        templateUrl: tpl
       });
 
     }
@@ -57,7 +55,7 @@ demo.factory('demoModalService', (AvModal, $log, $state, avModalManager, $rootSc
       AvModal.create({
         show: true,
         scope: this.$scope,
-        template: largeTpl
+        templateUrl: largeTpl
       });
 
     }
@@ -66,7 +64,7 @@ demo.factory('demoModalService', (AvModal, $log, $state, avModalManager, $rootSc
 
       const modalSmall = new AvModal({
         scope: this.$scope,
-        template: smallTpl
+        templateUrl: smallTpl
       });
 
       modalSmall.show().then(() => {
@@ -80,7 +78,7 @@ demo.factory('demoModalService', (AvModal, $log, $state, avModalManager, $rootSc
       AvModal.create({
         show: true,
         scope: this.$scope,
-        template: routeTpl
+        templateUrl: routeTpl
       });
 
     }
