@@ -21,6 +21,7 @@ function lint() {
       '!_book/**',
       '!build/**',
       '!dist/**',
+      '!lib/**',
       '!less/**'
     ]).then( paths => {
 
@@ -29,7 +30,7 @@ function lint() {
 
       if (report.errorCount || report.warningCount) {
         Logger.failed('eslint');
-        Logger.simple(`${formatter(report.results)}`);
+        Logger.info(`${formatter(report.results)}`);
         reject();
       } else {
         Logger.ok('eslint');
