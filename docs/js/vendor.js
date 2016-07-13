@@ -8,8 +8,6 @@ import 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import 'tracekit';
 
-import 'availity-uikit/less/availity-bootstrap.less';
-
 import 'lodash';
 
 import 'angular';
