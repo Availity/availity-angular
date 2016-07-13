@@ -65,7 +65,7 @@ function build() {
       .source(path.join(process.cwd(), 'docs', 'content'))
       .use( (files, metal, done) => {
 
-        globby(['lib/**/docs/*.html']).then( filePaths => {
+        globby(['src/**/docs/*.html']).then( filePaths => {
 
           const fileConfigs = _.map(filePaths, filePath => {
             return readFile(metal, filePath);
@@ -74,7 +74,7 @@ function build() {
           const metalFiles = {};
 
           _.forEach(fileConfigs, fileConfig => {
-            const dir = path.join(process.cwd(), 'lib');
+            const dir = path.join(process.cwd(), 'src');
             const fileName = path.relative(dir, fileConfig.path);
             metalFiles[fileName] = fileConfig;
           });
