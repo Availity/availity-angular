@@ -17,7 +17,7 @@ class AvHidePermissionController {
     let permissions = changed.avHidePermission.currentValue;
 
     if (!angular.isArray(permissions)) {
-      permissions = permissions.split(/\s+/);
+      permissions = `${permissions}`.split(/\s+/);
     }
 
     this.avUserAuthorizations.isAnyAuthorized(permissions)
