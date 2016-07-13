@@ -19,8 +19,8 @@ class Logger {
     this._log(entry, 'red');
   }
 
-  static simple(entry) {
-    console.log(entry);
+  static info(entry) {
+    this._log(entry);
   }
 
   // graphics
