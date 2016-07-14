@@ -13,6 +13,8 @@ ngModule.directive('avDropdown', ($timeout) => {
     controller: 'AvDropdownController',
     link(scope, element, attrs, controllers) {
 
+      element.addClass('select2');
+
       const ngModel = controllers[0];
       const avDropdown = controllers[1];
 
@@ -40,6 +42,7 @@ ngModule.directive('avDropdown', ($timeout) => {
         // special case since the ajax handling doesn't bind to the model correctly
         // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
         if (avDropdown.options.query) {
+
           $timeout(() => {
             // look at moving this to the controller
             if (avDropdown.isRemoteMultiple()) {
@@ -49,6 +52,7 @@ ngModule.directive('avDropdown', ($timeout) => {
             }
 
           }, false, 0);
+
         }
 
       });

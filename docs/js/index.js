@@ -14,6 +14,7 @@ import '../../src/ui/modal/docs';
 import '../../src/ui/popover/docs';
 import '../../src/ui/tooltip/docs';
 import '../../src/ui/permissions/docs';
+import '../../src/ui/dropdown/docs';
 
 demo.controller('PageController', () => {
   // no op

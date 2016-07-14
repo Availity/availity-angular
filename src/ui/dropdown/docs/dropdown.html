@@ -1,0 +1,194 @@
+---
+title: Dropdowns
+---
+
+<h5>Notes</h5>
+<ul>
+  <li>
+    The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope and can be can be <code>undefinded</code> or <code>null</code>.  Otherwise, <strong>Angular</strong> will render an empty <code>&amp;lt;option&amp;gt;</code> tag that confuses <strong>Select2</strong> and causes it to render an empty div.
+  </li>
+  <li>
+    Select2 requires an empty <code>&lt;option&gt;&lt;/option&gt;</code> tag in order for the directive option <code>allow-clear=true</code> to work properly.
+  </li>
+  <li>
+    <p>The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope <em>(value can be <code>undefinded</code> or <code>null</code>)</em> else <strong>Angular</strong> renders and empty <code>&amp;lt;option&amp;gt;</code> tag that confuses <strong>Select2</strong> and causes it to render an empty div</p>
+  </li>
+  <li>
+    <p>Use <code>track by model.id</code> or <code>track by $index</code> in your <code>ng-repeats</code></p>
+  </li>
+</ul>
+
+<div ng-controller="DemoDropdownController">
+
+  <h3 class="docs-subsection-title">Single</h3>
+  <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates1">States</label>
+        <select
+          id="dropdownStates1"
+          class="form-control select2"
+          placeholder="Select a state"
+          av-dropdown
+          ng-model="vm.selectedState"
+          ng-options="state.name for state in vm.states track by state.id"
+          ng-change="vm.selectAction()"
+          placeholder="Select State"
+          allow-clear="true"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.addStates()"
+        >
+          Add States
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setState()"
+        >
+          Set State
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          ng-click="vm.resetSingle()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <h3 class="docs-subsection-title">Multiple</h3>
+  <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates2">States</label>
+        <select
+          id="dropdownStates2"
+          class="form-control"
+          multiple
+          av-dropdown
+          ng-model="vm.selectedStates"
+          ng-options="state.name for state in vm.states track by state.id"
+          ng-change="vm.selectAction()"
+          placeholder="'Select State'"
+          allow-clear="true"
+          >
+          <option></option>
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Set Null"
+          ng-click="vm.resetMultiple()"
+        >Set Null</button>
+      </div>
+    </form>
+  </div>
+
+  <h3 class="docs-subsection-title">Remote Data</h3>
+
+  <!-- <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownHosp3">Hospital</label>
+        <input
+          type="hidden"
+          id="dropdownHosp3"
+          class="form-control"
+          av-dropdown
+          ng-model="selectedHosp"
+          ng-change="selectAction(selectedHosp)"
+          placeholder="Find a procedure code"
+          allow-clear="true"
+          query="myQuery"
+          minimum-input-length="3"
+          format-result="myFormatResult"
+          format-selection="myFormatResult"
+        >
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          value="Reset"
+          ng-click="resetSingleHosp()"
+          >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div> -->
+
+  <h3 class="docs-subsection-title">Value Selector</h3>
+  <div markdown>
+av-dropdown now supports the *select as* clause in `ng-options`: (e.g. `ng-options="state.id as state.name for state in states"`).  In this example, the model is bound to a simple string, and two-way binding works if it is edited via the textbox.
+  </div>
+  <!-- <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownStates3">States</label>
+        <select
+          id="dropdownStates3"
+          class="form-control"
+          av-dropdown
+          ng-model="selectedState"
+          ng-options="state.id as state.name for state in states"
+          >
+          <option></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="textboxStates3">Selected State (Textbox)</label>
+        <input type="text"
+          id="textboxStates3"
+          class="form-control"
+          ng-model="selectedState" />
+
+      </div>
+    </form>
+  </div> -->
+
+
+  <h3 class="docs-subsection-title">Event Listeners</h3>
+  <div markdown>
+If you need to include listeners for events, including those fired by ***, you can specify them in a map (keyed by the event ID) and set them to `event-listeners` in your template.
+  </div>
+  <!-- <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dropdownStates4">States</label>
+            <select
+              id="dropdownStates4"
+              class="form-control"
+              av-dropdown
+              ng-model="selectedState"
+              ng-options="state.id as state.name for state in states"
+              event-listeners="eventListeners"
+              >
+              <option></option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>Event Log</label>
+          <div class="well">
+            <div ng-repeat="event in eventHistory track by event.index">{{event.index}}: {{event.event}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div> -->
+</div>

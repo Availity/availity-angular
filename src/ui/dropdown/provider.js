@@ -5,7 +5,7 @@ class AvConfig {
 
   constructor() {
 
-    this.SELECT_OPTIONS = [
+    this.SELECT2_OPTIONS = [
       'width',
       'minimumInputLength',
       'maximumInputLength',
