@@ -1,6 +1,8 @@
 import angular from 'angular';
 import ngModule from '../module';
 
+import './hide.less';
+
 class AvHidePermissionController {
 
   constructor($element, avUserAuthorizations) {
