@@ -1,3 +1,4 @@
+import angular from 'angular';
 import moment from 'moment';
 
 import ngModule from '../../module';
@@ -39,14 +40,12 @@ ngModule.factory('avValDateRange', (AV_VAL, avValUtils) => {
       return value;
     }
 
-    validation(context) {
-
-      const {value, constraint} = context;
+    validation({value, constraint}) {
 
       let startDate;
       let endDate;
 
-      const date = moment(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
+      const date = angular.isDate(value)? moment(value) : moment(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
       date.set('hours', 0);
       date.set('minutes', 0);
       date.set('seconds', 0);
@@ -58,7 +57,7 @@ ngModule.factory('avValDateRange', (AV_VAL, avValUtils) => {
         startDate = moment(constraint.start.value, constraint.start.format || constraint.format);
         endDate = this.setMax(moment(constraint.end.value, constraint.end.format || constraint.format));
       }
-      return date.isValid() && date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day');
+      return (angular.isDate(value) || date.isValid()) && (date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day'));
     }
 
     validate(context) {

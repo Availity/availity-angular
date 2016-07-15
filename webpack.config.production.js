@@ -34,13 +34,14 @@ function getConfig() {
     output: {
       path: 'dist',
       filename: optimize ? 'js/[name].min.js' : 'js/[name].js',
-      library: 'availity',
+      library: 'availity-angular',
       libraryTarget: 'umd'
     },
 
     externals: {
       'jquery': 'jQuery',
       'angular': 'angular',
+      'moment': 'moment',
       'availity-uikit': 'availity-uikit',
       'lodash': '_',
       'tracekit': 'TraceKit'

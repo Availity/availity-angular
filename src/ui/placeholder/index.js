@@ -11,7 +11,7 @@ ngModule.config(function($provide) {
 
     const newLink = function(scope, element, attrs) {
 
-      if (originalLink && Object.keys(attrs).includes('avMask')) {
+      if (originalLink && Object.keys(attrs).indexOf('avMask') > -1) {
         $log.info('placeholder shim not running on an element due to avMask on same element');
       } else if (originalLink) {
         originalLink.apply(this, arguments);

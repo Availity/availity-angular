@@ -68,7 +68,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       }
 
       // Combine pre-loaded permission ids with the ids from this function invocation
-      this.permissionIds = [...(new Set([...this.permissionIds, ...permissionIds]))];
+      this.permissionIds = _.union(this.permissionIds, permissionIds);
 
       return avUserPermissionsResource
         .getPermissions(this.permissionIds, this.region)

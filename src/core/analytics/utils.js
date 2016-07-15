@@ -34,7 +34,7 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
     }
 
     isNotIgnored(key) {
-      const ignored = AV_ANALYTICS.IGNORE.includes(key);
+      const ignored = AV_ANALYTICS.IGNORE.indexOf(key) > -1;
       return !ignored;
     }
 

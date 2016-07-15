@@ -21,14 +21,13 @@ class AvDropdownController extends Base {
 
   init() {
 
-    const self = this;
-
     this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS);
 
-    Object.keys(this.av.$attrs).forEach( key => {
-      const value = self.av.$attrs[key];
-      if (self.av.avDropdownConfig.SELECT2_OPTIONS[key.replace('data-', '')]) {
-        self.options[key] = self.av.$scope.$eval(value);
+    Object.key(this.av.$attrs).forEach((key) => {
+      const value = this.av.$attrs[key];
+      const _key = key.replace('data-', '');
+      if (this.av.avDropdownConfig.OPTIONS.includes(_key)) {
+        this.options[_key] = this.av.$scope.$eval(value);
       }
     });
 
