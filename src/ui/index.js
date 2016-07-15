@@ -4,7 +4,6 @@ import './module';
 // import './block';
 import './datepicker';
 import './dropdown';
-// import './dropdown';
 // import './labels';
 // import './mask';
 import './modal';

@@ -5,5 +5,10 @@
     ["transform-class-properties", {"loose": true}],
     ["transform-object-assign", {"loose": true}]
   ],
-  "compact": true
+  "compact": true,
+  "env": {
+    "ci": {
+      "plugins": [ "istanbul" ]
+    }
+  }
 }

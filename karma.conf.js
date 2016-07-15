@@ -10,16 +10,6 @@ const wpConfig = merge(webpackConfig, {
     'availity-angular': './src/index.js'
   },
 
-  module: {
-    postLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /(-spec\.js|-spec-2\.js|node_modules|bower_components|specs\.js|module\.js|vendor\.js)/,
-        loader: 'isparta'
-      }
-    ]
-  },
-
   resolve: {
     alias: {
       tester: 'test'
@@ -98,6 +88,7 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
+      require('karma-coverage'),
       require('karma-sinon'),
       require('karma-notify-reporter'),
       require('karma-nyan-reporter'),
