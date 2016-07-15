@@ -3,7 +3,7 @@ import $ from 'jquery';
 import demo from './module';
 
 import 'availity-uikit/docs/less/docs.less';
-import '../../less/availity-angular.less';
+import '../../src/ui/ui.less';
 import 'animate.css/animate.css';
 
 import '../../src/core/analytics/docs';

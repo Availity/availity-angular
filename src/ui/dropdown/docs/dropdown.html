@@ -5,13 +5,13 @@ title: Dropdowns
 <h5>Notes</h5>
 <ul>
   <li>
-    The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope and can be can be <code>undefinded</code> or <code>null</code>.  Otherwise, <strong>Angular</strong> will render an empty <code>&amp;lt;option&amp;gt;</code> tag that confuses <strong>Select2</strong> and causes it to render an empty div.
+    The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope and can be can be <code>undefinded</code> or <code>null</code>.  Otherwise, <strong>Angular</strong> will render an empty <code><option></option></code> tag that confuses <strong>Select2</strong> and causes it to render an empty div.
   </li>
   <li>
-    Select2 requires an empty <code>&lt;option&gt;&lt;/option&gt;</code> tag in order for the directive option <code>allow-clear=true</code> to work properly.
+    Select2 requires an empty <code><option></option></code> tag in order for the directive option <code>allow-clear=true</code> to work properly.
   </li>
   <li>
-    <p>The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope <em>(value can be <code>undefinded</code> or <code>null</code>)</em> else <strong>Angular</strong> renders and empty <code>&amp;lt;option&amp;gt;</code> tag that confuses <strong>Select2</strong> and causes it to render an empty div</p>
+    <p>The dropdown directives requires <code>ng-model</code> to function properly.  The model must be present in scope <em>(value can be <code>undefinded</code> or <code>null</code>)</em> else <strong>Angular</strong> renders and empty <code><option></option></code> tag that confuses <strong>Select2</strong> and causes it to render an empty div</p>
   </li>
   <li>
     <p>Use <code>track by model.id</code> or <code>track by $index</code> in your <code>ng-repeats</code></p>
