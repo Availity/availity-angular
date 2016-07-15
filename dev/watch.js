@@ -19,7 +19,7 @@ function run(files) {
 
 function watch() {
 
-  const watcher = chokidar.watch(['lib/**/docs/*.html', 'docs/**'], {
+  const watcher = chokidar.watch(['src/**/docs/*.html', 'docs/**'], {
     ignored: /[\/\\]\./, // ignore dot files
     ignoreInitial: true,
     persistent: true

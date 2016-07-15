@@ -1,7 +1,7 @@
 import demo from 'demo';
 
 import './service';
-import response from './fixtures/7100.json';
+import response from './fixtures/permissions.json';
 
 demo.controller('DemoAuthenticationController', ($scope, demoAuthenticationService) => {
   $scope.vm = demoAuthenticationService;
@@ -9,7 +9,7 @@ demo.controller('DemoAuthenticationController', ($scope, demoAuthenticationServi
 
 demo.run($httpBackend => {
   $httpBackend
-    .whenRoute('GET', /\/api\/internal\/v1\/axi-user-permissions\?cacheBust=.*&permissionId=7100/)
+    .whenRoute('GET', /\/api\/internal\/v1\/axi-user-permissions\?cacheBust=.*&permissionId=(7100|8100|9100)/)
     .respond(response);
 });
 

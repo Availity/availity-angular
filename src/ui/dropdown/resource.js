@@ -2,7 +2,7 @@ import ngModule from '../module';
 
 const SelectResourceFactory = function(AvApiResource) {
 
-  class SelectResource extends AvApiResource {
+  class AvSelectResource extends AvApiResource {
 
     constructor(options) {
       super(options);
@@ -60,7 +60,7 @@ const SelectResourceFactory = function(AvApiResource) {
 
     getResult(/* item */) {
       // return  item.code;
-      throw new Error('getResult() must be implemented when extending from SelectResource');
+      throw new Error('getResult() must be implemented when extending from AvSelectResource');
     }
 
     // Format the collection items for Select2:
@@ -97,10 +97,10 @@ const SelectResourceFactory = function(AvApiResource) {
 
   }
 
-  return new SelectResource();
+  return AvSelectResource;
 };
 
-ngModule.factory('avSelectResource', SelectResourceFactory);
+ngModule.factory('AvSelectResource', SelectResourceFactory);
 
 export default ngModule;
 

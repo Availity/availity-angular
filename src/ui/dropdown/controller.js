@@ -3,6 +3,7 @@ import angular from 'angular';
 
 import Base from '../base';
 import ngModule from '../module';
+import './provider';
 
 class AvDropdownController extends Base {
 
@@ -10,7 +11,7 @@ class AvDropdownController extends Base {
 
   constructor(...args) {
 
-    super(args);
+    super(...args);
 
     this.options = {};
     this.match = null;
@@ -20,12 +21,14 @@ class AvDropdownController extends Base {
 
   init() {
 
+    const self = this;
+
     this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS);
 
-    Object.key(this.av.$attrs).forEach((key) => {
-      const value = this.av.$attrs[key];
-      if (this.av.avDropdownConfig.OPTIONS[key.replace('data-', '')]) {
-        this.options[key] = this.av.$scope.$eval(value);
+    Object.keys(this.av.$attrs).forEach( key => {
+      const value = self.av.$attrs[key];
+      if (self.av.avDropdownConfig.SELECT2_OPTIONS[key.replace('data-', '')]) {
+        self.options[key] = self.av.$scope.$eval(value);
       }
     });
 
@@ -147,7 +150,7 @@ class AvDropdownController extends Base {
 
   setValue() {
 
-    const viewValue = self.ngModel.$viewValue;
+    const viewValue = this.ngModel.$viewValue;
     let selected = null;
     if (viewValue !== null && viewValue !== undefined) {
       selected = this.getSelected(viewValue);

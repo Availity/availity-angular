@@ -10,16 +10,6 @@ const wpConfig = merge(webpackConfig, {
     'availity-angular': './src/index.js'
   },
 
-  module: {
-    postLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /(-spec.js|node_modules|bower_components|specs.js|module.js|vendor.js)/,
-        loader: 'isparta'
-      }
-    ]
-  },
-
   resolve: {
     alias: {
       tester: 'test'
