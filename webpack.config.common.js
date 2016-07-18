@@ -75,7 +75,7 @@ const config = {
       {
         // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
         test: /tests.*\.html$/,
-        loader: `html`
+        loader: 'html'
       },
       {
         // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
@@ -107,7 +107,7 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new webpack.DefinePlugin({
-      APP_VERSION: JSON.stringify('0.0.0.0')
+      APP_VERSION: JSON.stringify('Unknown')
     }),
 
     new ExtractTextPlugin('css/[name].css', {

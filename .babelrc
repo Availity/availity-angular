@@ -1,14 +1,8 @@
 {
-  "presets": ["es2015-loose", "stage-0"],
+  "presets": ["es2015", "stage-0"],
   "plugins": [
-    ["transform-runtime", {"loose": true}],
-    ["transform-class-properties", {"loose": true}],
-    ["transform-object-assign", {"loose": true}]
+    "transform-class-properties",
+    "transform-object-assign"
   ],
-  "compact": true,
-  "env": {
-    "ci": {
-      "plugins": [ "istanbul" ]
-    }
-  }
+  "compact": true
 }

@@ -3,11 +3,13 @@
 const webpack = require('webpack');
 const path = require('path');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const merge = require('webpack-merge');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const webpackCommon = require('./webpack.config.common');
 const VERSION = require('./package.json').version;
+const Logger = require('./dev/logger');
 
 const ENV_VAR = {
   'process.env': {
@@ -36,12 +38,12 @@ const config = merge(webpackCommon, {
 
   stats: {
     colors: true,
-    reasons: true,
-    hash: true,
+    reasons: false,
+    hash: false,
     version: true,
     timings: true,
-    chunks: true,
-    chunkModules: true,
+    chunks: false,
+    chunkModules: false,
     cached: true,
     cachedAssets: true
   },
@@ -49,6 +51,13 @@ const config = merge(webpackCommon, {
   plugins: [
     new webpack.DefinePlugin(ENV_VAR),
     new WebpackNotifierPlugin({excludeWarnings: true}),
+    new ProgressPlugin(function(percentage, msg) {
+
+      if ((percentage * 100) % 10 === 0 ){
+        Logger.info(`${(percentage * 100)} ${msg}`);
+      }
+
+    }),
     new CommonsChunkPlugin({
       name: ['vendor'],
       minChunks: Infinity
