@@ -1,3 +1,4 @@
+import angular from 'angular';
 import moment from 'moment';
 
 import ngModule from '../../module';
@@ -13,12 +14,10 @@ ngModule.factory('avValDate', (AV_VAL, avValUtils) => {
       super('dateFormat');
     }
 
-    validate(context) {
-
-      const {value, constraint, format} = context;
+    validate({value, constraint, format}) {
 
       const _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
-      return avValUtils.isEmpty(value) || moment(value, _format, true).isValid();
+      return avValUtils.isEmpty(value) || angular.isDate(value) || moment(value, _format, true).isValid();
     }
 
   }

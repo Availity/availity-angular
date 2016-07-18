@@ -40,7 +40,7 @@ class ApiResourceProvider {
         }
 
         // get the default options and merge into this instance
-        this.options = angular.extend({}, that.defaultOptions, (this.options || {}));
+        this.options = angular.extend({}, that.defaultOptions, this.options);
 
       }
 

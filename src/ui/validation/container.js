@@ -3,7 +3,7 @@ import Base from '../base';
 
 class AvValContainerController extends Base {
 
-  static $inject = ['$sce', '$scope', '$timeout'];
+  static $inject = ['$sce', '$scope', '$timeout', 'AV_UI'];
 
   constructor(...args) {
     super(...args);
@@ -17,9 +17,12 @@ class AvValContainerController extends Base {
     const violations = Object.keys(ngModel.$error);
     if (violations.length) {
       const validator = violations[0];
-      const constraint = ngModel.$validators[validator].constraint;
-      message = constraint.message;
-
+      const constraint = ngModel.$validators[validator] && ngModel.$validators[validator].constraint;
+      if (constraint) {
+        message = constraint.message;
+      } else {
+        message = this.av.AV_UI.FALLBACK_VALIDATION_MESSAGE;
+      }
     } else {
       message = null;
     }

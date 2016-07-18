@@ -88,6 +88,7 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
+      require('karma-coverage'),
       require('karma-sinon'),
       require('karma-notify-reporter'),
       require('karma-nyan-reporter'),

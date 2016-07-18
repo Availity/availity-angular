@@ -3,6 +3,7 @@ import $ from 'jquery';
 import demo from './module';
 
 import 'availity-uikit/docs/less/docs.less';
+import '../../src/ui/ui.less';
 import 'animate.css/animate.css';
 
 import '../../src/core/analytics/docs';
@@ -11,6 +12,7 @@ import '../../src/core/authorizations/docs';
 
 import '../../src/ui/validation/docs';
 import '../../src/ui/modal/docs';
+import '../../src/ui/datepicker/docs';
 import '../../src/ui/popover/docs';
 import '../../src/ui/tooltip/docs';
 import '../../src/ui/permissions/docs';

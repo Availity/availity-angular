@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import 'jquery';
 import 'bootstrap';
 import 'availity-uikit';

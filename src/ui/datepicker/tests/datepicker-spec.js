@@ -2,14 +2,10 @@
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/test/unit/directives/datepickerSpec.js
  */
-/* global beforeEach, angular, availity, afterEach, expect, module, describe, it */
-/**
- * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/test/unit/directives/datepickerSpec.js
- */
 describe('avDatepicker', function() {
 
 
-  const avDatepickerConfig = null;
+  let avDatepickerConfig = null;
 
   beforeEach(function() {
     module('availity');

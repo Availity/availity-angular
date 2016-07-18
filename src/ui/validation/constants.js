@@ -1,5 +1,9 @@
 import ngModule from '../module';
 
+ngModule.constant('AV_UI', {
+  FALLBACK_VALIDATION_MESSAGE: 'This field is invalid.'
+});
+
 ngModule.constant('AV_BOOTSTRAP_ADAPTER', {
   CLASSES: {
     SUCCESS: 'has-success',
