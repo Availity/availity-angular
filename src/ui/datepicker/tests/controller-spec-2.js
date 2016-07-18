@@ -1,9 +1,9 @@
-/* global beforeEach, availity, jasmine, spyOn, inject, expect, describe, it */
+/* global beforeEach, jasmine, spyOn, inject, expect, describe, it */
 import angular from 'angular';
 import moment from 'moment';
 import '../controller';
 
-describe('AvDatepicker Controller', function () {
+describe('AvDatepicker Controller', function() {
   beforeEach(angular.mock.module('availity', 'availity.ui', $provide => {
     this.mockNgModelController = {};
     this.andSelfDataSpy = jasmine.createSpy().and.returnValue(this.mockNgModelController);
@@ -45,7 +45,7 @@ describe('AvDatepicker Controller', function () {
     this.mockAttrs = {
       'someUsedOption': 'someValue',
       'data-someOtherUsedOption': 'someOtherValue',
-      'anotherAttr': 'notUsed',
+      'anotherAttr': 'notUsed'
     };
 
     this.elementFindSpy = spyOn(this.mockElement, 'find').and.callThrough();
@@ -93,7 +93,7 @@ describe('AvDatepicker Controller', function () {
 
     describe('without a view value', () => {
       beforeEach(() => {
-        this.ctrl.ngModel = {$viewValue:''};
+        this.ctrl.ngModel = {$viewValue: ''};
       });
 
       describe('with a plugin', () => {
@@ -119,18 +119,18 @@ describe('AvDatepicker Controller', function () {
       this.ctrl.setNgModel(this.modelValue);
     });
 
-    it('should set ngModel to the passed value' , () => {
+    it('should set ngModel to the passed value', () => {
       expect(this.ctrl.ngModel).toEqual(this.modelValue);
     });
   });
 
   describe('findModel method', () => {
-    it('should search for "input:first"' , () => {
+    it('should search for "input:first"', () => {
       this.ctrl.findModel();
       expect(this.elementFindSpy).toHaveBeenCalledWith('input:first');
     });
 
-    it('should include itself in the results' , () => {
+    it('should include itself in the results', () => {
       this.ctrl.findModel();
       expect(this.andSelfSpy).toHaveBeenCalled();
     });
@@ -141,7 +141,7 @@ describe('AvDatepicker Controller', function () {
         this.findModelResult = this.ctrl.findModel();
       });
 
-      it('should get the ngModel controller from the data on the input' , () => {
+      it('should get the ngModel controller from the data on the input', () => {
         expect(this.andSelfDataSpy).toHaveBeenCalledWith(this.mockAV_DATEPICKER.CONTROLLER);
       });
 
@@ -151,7 +151,7 @@ describe('AvDatepicker Controller', function () {
     });
 
     describe('without finding a matching input', () => {
-      it('should return null' , () => {
+      it('should return null', () => {
         this.findLength = 0;
         expect(this.ctrl.findModel()).toBe(null);
       });
@@ -159,15 +159,15 @@ describe('AvDatepicker Controller', function () {
   });
 
   describe('modelToView method', () => {
-    it('should return a string' , () => {
+    it('should return a string', () => {
       this.ctrl.options = { format: 'MM/DD/YYYY' };
       expect(this.ctrl.modelToView(new Date())).toEqual(jasmine.any(String));
     });
 
-    it('should return a date string matching the format' , () => {
+    it('should return a date string matching the format', () => {
       const now = new Date();
       const format = 'MM/DD/YYYY';
-      this.ctrl.options = { format: format };
+      this.ctrl.options = { format };
       expect(this.ctrl.modelToView(now)).toEqual(moment(now).format(format));
     });
   });
@@ -188,23 +188,23 @@ describe('AvDatepicker Controller', function () {
       it('should return null', () => {
         this.ctrl.options = { format: 'MM/DD/YYYY' };
         expect(this.ctrl.viewToModel('12/12/2012')).toBe(null);
-      })
+      });
     });
 
-    it('should return a Date when the viewValue matches the format' , () => {
+    it('should return a Date when the viewValue matches the format', () => {
       this.ctrl.options = { format: 'MM/DD/YYYY' };
       expect(this.ctrl.viewToModel('12/12/2012')).toEqual(jasmine.any(Date));
     });
 
-    it('should return undefined when the viewValue does not match the format' , () => {
+    it('should return undefined when the viewValue does not match the format', () => {
       this.ctrl.options = { format: 'MM/DD/YYYY' };
       expect(this.ctrl.viewToModel('12/12/12')).toBe(undefined);
     });
 
-    it('should return a date based on the input the format' , () => {
+    it('should return a date based on the input the format', () => {
       const date = '14/12/2012';
       const format = 'DD/MM/YYYY';
-      this.ctrl.options = { format: format };
+      this.ctrl.options = { format };
       expect(this.ctrl.viewToModel(date)).toEqual(moment(date, format).toDate());
     });
   });
@@ -223,7 +223,7 @@ describe('AvDatepicker Controller', function () {
       expect(this.ctrl.options).not.toEqual(this.mockAvDatepickerConfig);
     });
 
-    describe('setting options from attr' ,() => {
+    describe('setting options from attr', () => {
       it('should evaluate the attr to get the value from the scope', () => {
         expect(this.mockScope.$eval).toHaveBeenCalled();
       });
@@ -260,12 +260,12 @@ describe('AvDatepicker Controller', function () {
         this.ctrl.options.format = `something different than ${this.mockAV_DATEPICKER.DEFAULTS.MODELFORMAT}`;
         this.ctrl.init();
         expect(this.ctrl.options.format).toEqual(this.mockAV_DATEPICKER.DEFAULTS.MODELFORMAT);
-      })
-    })
+      });
+    });
   });
 
   describe('plugin method', () => {
-    it('should get datepicker from the element data' , () => {
+    it('should get datepicker from the element data', () => {
       this.ctrl.plugin();
       expect(this.elementDataSpy).toHaveBeenCalledWith('datepicker');
     });
@@ -280,19 +280,19 @@ describe('AvDatepicker Controller', function () {
     });
 
 
-    it('should call remove from the plugin' , () => {
+    it('should call remove from the plugin', () => {
       this.ctrl.destroy();
       expect(this.removeSpy).toHaveBeenCalled();
     });
 
-    it('should set the datepicker data to null' , () => {
+    it('should set the datepicker data to null', () => {
       this.ctrl.destroy();
       expect(this.elementDataSpy).toHaveBeenCalledWith('datepicker', null);
     });
   });
 
   describe('hide method', () => {
-    it('should call hide from the plugin' , () => {
+    it('should call hide from the plugin', () => {
       const spy = jasmine.createSpy();
       this.ctrl.plugin = () => ({ hide: spy });
       this.ctrl.hide();
