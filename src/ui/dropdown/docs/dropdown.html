@@ -87,7 +87,6 @@ title: Dropdowns
     <select
       id="dropdownPoke"
       class="form-control"
-      placeholder="Select a Pokemon"
       av-dropdown
       ng-model="vm.selectedPoke"
       ng-options="poke for poke in vm.pokemon"
@@ -108,7 +107,6 @@ title: Dropdowns
           ng-model="vm.selectedState1"
           ng-options="state.name for state in vm.states"
           ng-change="vm.onChange(vm.selectedState1)"
-          placeholder="Select State"
           options="{ allowClear: true, placeholder: 'Select State'}"
           >
         </select>
@@ -187,7 +185,6 @@ title: Dropdowns
         <select
           id="dropdownStates3"
           class="form-control"
-          placeholder="Select a state"
           av-dropdown
           ng-model="vm.selectedState3"
           ng-options="state.name for state in vm.states track by state.id"
@@ -208,6 +205,42 @@ title: Dropdowns
           type="submit"
           class="btn btn-default"
           ng-click="vm.resetState3()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <h3 class="docs-subsection-title">Multiple</h3>
+  <div class="docs-example">
+    <form name="dropdownForm">
+      <div class="form-group">
+        <label for="dropdownMultiple">States</label>
+        <select
+          id="dropdownMultiple"
+          class="form-control"
+          multiple
+          av-dropdown
+          ng-model="vm.selectedStates"
+          ng-options="state.name for state in vm.states track by state.id"
+          ng-change="vm.onChange(vm.selectedStates)"
+          options="{ allowClear: true, placeholder: 'Select State'}"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setMultiple()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetMultiple()"
         >
           Reset
         </button>

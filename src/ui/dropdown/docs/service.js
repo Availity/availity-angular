@@ -47,6 +47,10 @@ demo.factory('demoDropdownService', ($log) => {
       this.selectedState3 = this.states[this.states.length - 1];
     }
 
+    setMultiple() {
+      this.selectedStates = [{ id: 'AR', name: 'Arkansas' }, { id: 'NM', name: 'New Mexico' }];
+    }
+
     resetPoke() {
       this.selectedPoke = null;
     }

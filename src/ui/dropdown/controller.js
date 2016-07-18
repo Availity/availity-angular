@@ -25,6 +25,8 @@ class AvDropdownController extends Base {
 
     this.ngModel = context.ngModel;
 
+    this.multiple = angular.isDefined(this.av.$attrs.multiple);
+
     this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS, this.av.$scope.$eval(this.av.$attrs.options));
 
     if (this.isRemoteMultiple()) {
@@ -135,6 +137,33 @@ class AvDropdownController extends Base {
 
   }
 
+  getMultiSelected(viewValues) {
+
+    const self = this;
+
+    const values = [];
+
+
+    if (!viewValues) {
+      return values;
+    }
+
+    if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
+
+      viewValues.forEach(viewValue => {
+
+        const selected = self.getSelected(viewValue);
+
+        values.push(selected);
+
+      });
+
+    }
+
+    return values;
+
+  }
+
   // Result:
   //
   // {
@@ -173,66 +202,35 @@ class AvDropdownController extends Base {
 
   setValue() {
 
+    const self = this;
+
     const viewValue = this.ngModel.$viewValue;
+
     let selected = null;
-    if (viewValue !== null && viewValue !== undefined) {
+    if (this.multiple) {
+      selected = this.getMultiSelected(viewValue);
+    } else {
       selected = this.getSelected(viewValue);
     }
 
+    // null === '' for Select2
+    selected = (selected === null || selected === 'undefined') ? '' : selected;
+
     this.av.$timeout(() => {
-      this.av.$element
-        .select2('val', (selected === null || selected === 'undefined') ? '' : selected); // null === '' for Select2
+
+      if (self.multiple) {
+        // this.av.$element.select2('data', selected);
+        self.av.$element.select2('val', selected);
+      } else {
+        self.av.$element.select2('val', selected);
+      }
+
     });
-  }
-
-  getMultiSelected(viewValue) {
-
-    const indices = [];
-
-    if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
-      const options = this.collection(this.av.$scope);
-
-      viewValue.forEach(savedObject => {
-        const index = options.findIndex(value => {
-          const temp = angular.copy(savedObject); // remove hashkeys for comparison
-          return _.matches(temp)(value);
-        });
-        indices.push(index);
-      });
-
-    } else {
-
-      const inputViewValues = this.ngModel.$modelValue;
-
-      inputViewValues.forEach(savedObject => {
-
-        if (angular.isUndefined(savedObject.id) ) {
-
-          if (savedObject.id || savedObject[self.options.correlationId]) {
-
-            savedObject.id = savedObject[self.options.correlationId];
-
-          } else {
-
-            throw new Error('dropdown list must have a id or a alternative value to use as a id');
-          }
-
-        }
-
-      });
-    }
-
-    if (indices.length > 0) {
-      viewValue = indices;
-    }
-
-    return viewValue;
-
   }
 
   setValues() {
 
-    let viewValue = self.ngModel.$viewValue;
+    let viewValue = this.ngModel.$viewValue;
 
     if (!angular.isArray(viewValue)) {
       viewValue = [];

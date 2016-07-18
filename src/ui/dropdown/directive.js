@@ -62,15 +62,8 @@ ngModule.directive('avDropdown', ($timeout) => {
 
       const _$render = ngModel.$render;
       ngModel.$render = () => {
-
         _$render();
-
-        if (avDropdown.multiple) {
-          avDropdown.setValues();
-        } else {
-          avDropdown.setValue();
-        }
-
+        avDropdown.setValue();
       };
 
 
