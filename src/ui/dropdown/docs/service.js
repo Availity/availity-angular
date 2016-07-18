@@ -1,12 +1,8 @@
 import demo from 'demo';
 
 import '../';
-
-demo.factory('demoDropdownResource', AvSelectResource => {
-
-
-});
-
+import states from './fixtures/states';
+import pokemon from './fixtures/pokemon';
 
 demo.factory('demoDropdownService', ($log) => {
 
@@ -14,37 +10,81 @@ demo.factory('demoDropdownService', ($log) => {
 
     constructor() {
 
-      this.states = [
-        { id: 'AL', name: 'Alabama' },
-        { id: 'CA', name: 'California' },
-        { id: 'NM', name: 'New Mexico' },
-        { id: 'TX', name: 'Texas' },
-        { id: 'WY', name: 'Wyoming' }
-      ];
+      // SIMPLE DOM EXAMPLE
+      this.selectedNumber = null;
 
-      this.selectedState = null;
+      // ARRAY EXAMPLE
+      this.pokemon = pokemon;
+      this.selectedPoke = null;
+
+      // ARRAY OF OBJECTS EXAMPLE
+      this.states = states;
+      this.selectedState1 = null;
+      this.selectedState2 = null;
+      this.selectedState3 = null;
       this.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
 
     }
 
-    addStates() {
-      this.states.push({id: 'FL', name: 'Florida'});
+    removeState() {
+
+      if (this.states.length > 1) {
+        const removed = this.states.pop();
+        $log.info(`State ${JSON.stringify(removed)} was removed`);
+      }
+
     }
 
-    setState() {
-      this.selectedState = this.states[this.states.length - 1];
+    setState1() {
+      this.selectedState1 = this.states[this.states.length - 1];
     }
 
-    resetSingle() {
-      this.selectedState = null;
+    setState2() {
+      this.selectedState2 = this.states[this.states.length - 1];
     }
 
-    resetMultiple = function() {
+    setState3() {
+      this.selectedState3 = this.states[this.states.length - 1];
+    }
+
+    resetPoke() {
+      this.selectedPoke = null;
+    }
+
+    isPokeDisabled() {
+      return this.selectedPoke === null;
+    }
+
+    resetNumber() {
+      this.selectedNumber = null;
+    }
+
+    isNumberDisabled() {
+      return this.selectedNumber === null;
+    }
+
+    resetState1() {
+      this.selectedState1 = null;
+    }
+
+    resetState2() {
+      this.selectedState2 = null;
+    }
+
+    resetState3() {
+      this.selectedState3 = null;
+    }
+
+    resetMultiple() {
       this.selectedStates = null;
     }
 
-    selectAction = function(selection) {
-      $log.info(selection);
+    onChange(selected) {
+
+      if (selected) {
+        $log.info(`Selected value is ${JSON.stringify(selected)}`);
+      }
+
     }
 
   }

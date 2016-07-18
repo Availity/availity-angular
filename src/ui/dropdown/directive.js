@@ -1,4 +1,4 @@
-import angular from 'angular';
+// import angular from 'angular';
 import $ from 'jquery';
 import 'select2';
 
@@ -9,6 +9,7 @@ ngModule.directive('avDropdown', ($timeout) => {
 
   return {
     restrict: 'A',
+    priority: 10, // select directive priority is 1
     require: ['ngModel', 'avDropdown'],
     controller: 'AvDropdownController',
     link(scope, element, attrs, controllers) {
@@ -18,14 +19,16 @@ ngModule.directive('avDropdown', ($timeout) => {
       const ngModel = controllers[0];
       const avDropdown = controllers[1];
 
-      avDropdown.setNgModel(ngModel);
-      avDropdown.init();
+      avDropdown.init({
+        ngModel
+      });
 
       if (attrs.ngOptions ) {
         avDropdown.ngOptions();
       }
 
       ngModel.$parsers.push(value => {
+
         const parent = element.prev();
         parent
           .toggleClass('ng-invalid', !ngModel.$valid)
@@ -35,6 +38,7 @@ ngModule.directive('avDropdown', ($timeout) => {
           .toggleClass('ng-dirty', ngModel.$dirty)
           .toggleClass('ng-pristine', ngModel.$pristine);
         return value;
+
       });
 
       element.on('change', e => {
@@ -44,7 +48,6 @@ ngModule.directive('avDropdown', ($timeout) => {
         if (avDropdown.options.query) {
 
           $timeout(() => {
-            // look at moving this to the controller
             if (avDropdown.isRemoteMultiple()) {
               avDropdown.setRemoteViewValue(e);
             } else {
@@ -57,25 +60,37 @@ ngModule.directive('avDropdown', ($timeout) => {
 
       });
 
-      // fires ng-focus when select2-focus fires.
-      element.on('select2-focus', () => {
-        if (attrs.ngFocus) {
-          scope.$eval(scope.$eval(attrs.ngFocus));
-        }
-      });
+      const _$render = ngModel.$render;
+      ngModel.$render = () => {
 
-      // fires ng-blur when select2-blur occurs.
-      element.on('select2-blur', () => {
-        if (attrs.ngBlur) {
-          scope.$eval(scope.$eval(attrs.ngBlur));
+        _$render();
+
+        if (avDropdown.multiple) {
+          avDropdown.setValues();
+        } else {
+          avDropdown.setValue();
         }
-      });
+
+      };
+
+
+      if (attrs.ngFocus) {
+        element.on('select2-focus', () => {
+          scope.$eval(scope.$eval(attrs.ngFocus));
+        });
+      }
+
+      if (attrs.ngBlur) {
+        element.on('select2-blur', () => {
+          scope.$eval(scope.$eval(attrs.ngBlur));
+        });
+      }
 
       // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
       element.on('select2-open', function() {
 
         // look for .has-success, .has-warning, .has-error
-        // (really look for .has-* … which is good enough for the demo page, but obviously might interfere with other CSS-classes starting with "has-")
+        // (really look for .has-* … might interfere with other CSS-classes starting with "has-")
         if (element.parents('[class*="has-"]').length) {
 
           // get all CSS-classes from the element where we found "has-*" and collect them in an array
@@ -90,17 +105,6 @@ ngModule.directive('avDropdown', ($timeout) => {
         }
       });
 
-      const _$render = ngModel.$render;
-      ngModel.$render = () => {
-        _$render();
-
-        if (avDropdown.multiple) {
-          avDropdown.setValues();
-        } else {
-          avDropdown.setValue();
-        }
-
-      };
 
       if (avDropdown.options.closeOnResize) {
 
@@ -127,15 +131,6 @@ ngModule.directive('avDropdown', ($timeout) => {
         element.select2(avDropdown.options);
       });
 
-      // If event listeners are specified in the options, set them up here
-      if (avDropdown.options && avDropdown.options.eventListeners) {
-        Object.keys(avDropdown.options.eventListeners).forEach((eventId) => {
-          const listener = avDropdown.options.eventListeners[eventId];
-          if (angular.isFunction(listener)) {
-            element.on(eventId, listener);
-          }
-        });
-      }
     }
   };
 });

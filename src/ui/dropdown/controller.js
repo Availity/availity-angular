@@ -3,11 +3,12 @@ import angular from 'angular';
 
 import Base from '../base';
 import ngModule from '../module';
+import { uuid } from '../../core/utils';
 import './provider';
 
 class AvDropdownController extends Base {
 
-  static $inject = ['$element', '$attrs', 'AV_UI', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
+  static $inject = ['$element', '$attrs', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
 
   constructor(...args) {
 
@@ -16,27 +17,19 @@ class AvDropdownController extends Base {
     this.options = {};
     this.match = null;
     this.ngModel = null;
+    this.locals = {};
 
   }
 
-  init() {
+  init(context) {
 
-    const self = this;
+    this.ngModel = context.ngModel;
 
-    this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS);
-
-    Object.keys(this.av.$attrs).forEach( key => {
-      const value = self.av.$attrs[key];
-      if (self.av.avDropdownConfig.SELECT2_OPTIONS[key.replace('data-', '')]) {
-        self.options[key] = self.av.$scope.$eval(value);
-      }
-    });
+    this.options = angular.extend({}, this.av.avDropdownConfig.DEFAULTS, this.av.$scope.$eval(this.av.$attrs.options));
 
     if (this.isRemoteMultiple()) {
       this.options.multiple = angular.isDefined(this.av.$attrs.multiple);
     }
-
-    this.multiple = angular.isDefined(this.av.$attrs.multiple);
 
     if (this.options.query) {
 
@@ -78,37 +71,67 @@ class AvDropdownController extends Base {
     this.ngModel.$setViewValue(e.added);
   }
 
-  setNgModel(ngModel) {
-    this.ngModel = ngModel;
+  hashKey(obj, nextUidFn) {
+    let key = obj && obj.$$hashKey;
+
+    if (key) {
+      if (typeof key === 'function') {
+        key = obj.$$hashKey();
+      }
+      return key;
+    }
+
+    const objType = typeof obj;
+    if (objType === 'function' || (objType === 'object' && obj !== null)) {
+      key = obj.$$hashKey = objType + ':' + (nextUidFn || uuid())();
+    } else {
+      key = objType + ':' + obj;
+    }
+
+    return key;
+  }
+
+  getTrackByValueFn(value, locals) {
+
+    if (this.trackBy) {
+      return this.trackByFn(this.av.$scope, locals);
+    }
+
+    return this.hashKey(value);
+
   }
 
   getSelected(model) {
+
+    const self = this;
 
     if (this.options.query) {
       return 0;
     }
 
     if (!this.collection) {
-      // If we're not using ng-options, the model value is just the raw value of the option, rather than an index, so return it as is.
+      // If we're not using ng-options, the model value is just the raw value of the option,
+      // rather than an index, so return it as is.
       return model;
     }
 
-    const items = this.collection(this.av.$scope);
+    const optionValues = this.valuesFn(self.av.$scope) || [];
+    const optionValuesKeys = this.getOptionValuesKeys(optionValues);
 
-    const index = items.findIndex(item => {
-
-      if (!self.valueFn) {
-        return angular.equals(item, model);
-      }
-
-      const locals = {};
-      locals[self.valueName] = item;
-      const value = self.valueFn(this.av.$scope, locals);
-      return angular.equals(value, model);
-
+    const index = this.collection.findIndex( item => {
+      return angular.equals(model, item);
     });
 
-    return index;
+    const key = (optionValues === optionValuesKeys) ? index : optionValuesKeys[index];
+    const value = optionValues[key];
+    const locals = self.getLocals(value, key);
+    const viewValue = self.viewValueFn(self.av.$scope, locals);
+    const selectValue = self.getTrackByValueFn(viewValue, locals);
+    // const label = this.displayFn(this.av.$scope, locals);
+    // const group = this.groupByFn(this.av.$scope, locals);
+    // const disabled = this.disableWhenFn(this.av.$scope, locals);
+
+    return selectValue;
 
   }
 
@@ -156,7 +179,6 @@ class AvDropdownController extends Base {
       selected = this.getSelected(viewValue);
     }
 
-    // var apply = scope.$evalAsync || $timeout;
     this.av.$timeout(() => {
       this.av.$element
         .select2('val', (selected === null || selected === 'undefined') ? '' : selected); // null === '' for Select2
@@ -226,59 +248,50 @@ class AvDropdownController extends Base {
 
   ngOptions() {
 
-    this.match = this.av.$attrs.ngOptions.match(this.av.AV_UI.NG_OPTIONS);
+    this.match = this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);
     if (!this.match) {
-      throw new Error('Invalid ngOptions for avDropdown');
+      throw new Error('Invalid ngOptions for avDropdown.  @See https://docs.angularjs.org/api/ng/directive/ngOptions');
     }
-    // AV_UI.NG_OPTIONS regex will parse into arrays like below:
-    //
-    // 0: "state.name for state in states"
-    // 1: "state.name"
-    // 2: undefined
-    // 3: undefined
-    // 4: "state"
-    // 5: undefined
-    // 6: undefined
-    // 7: "states"
-    // 8: undefined
-    //
-    // 0: "state.id as state.name for state in states"
-    // 1: "state.id"
-    // 2: "state.name"
-    // 3: undefined
-    // 4: "state"
-    // 5: undefined
-    // 6: undefined
-    // 7: "states"
-    // 8: undefined
-    //
-    // 0: "state.name for state in states track by state.id"
-    // 1: "state.name"
-    // 2: undefined
-    // 3: undefined
-    // 4: "state"
-    // 5: undefined
-    // 6: undefined
-    // 7: "states"
-    // 8: "state.id"
-    //
-    // 0: "person.fullName as (person.lastName + ', ' + person.firstName) for person in feeScheduleModel.persons"
-    // 1: "person.fullName"
-    // 2: "(person.lastName + ', ' + person.firstName)"
-    // 3: undefined
-    // 4: "person"
-    // 5: undefined
-    // 6: undefined
-    // 7: "feeScheduleModel.persons"
-    // 8: undefined
-    //
-    this.displayFn = this.av.$parse(this.match[2] || this.match[1]); // this is the function to retrieve the text to show as
-    this.collection = this.av.$parse(this.match[7]);
-    this.valueName = this.match[4] || this.match[6];
+
+    // NG_OPTIONS_REGEXP regex will parse into arrays like below:
+
+    // 1: value expression (valueFn)
+    // 2: label expression (displayFn)
+    // 3: group by expression (groupByFn)
+    // 4: disable when expression (disableWhenFn)
+    // 5: array item variable name
+    // 6: object item key variable name
+    // 7: object item value variable name
+    // 8: collection expression
+    // 9: track by expression
+
+    // The variable name for the value of the item in the collection
+    this.valueName = this.match[5] || this.match[7];
+
+    // An expression that generates the viewValue for an option if there is no label expression
     this.valueFn = this.av.$parse(this.match[2] ? this.match[1] : this.valueName);
-    this.keyName = this.match[5];
+
+    // The variable name for the key of the item in the collection
+    this.keyName = this.match[6];
+
+    // An expression that generates the viewValue for an option if there is a label expression
+    this.selectAs = / as /.test(this.match[0]) && this.match[1];
+
+    // An expression that generates the viewValue for an option if there is a label expression
+    // An expression that is used to track the id of each object in the options collection
+    this.trackBy = this.match[9];
+    this.selectAsFn = this.selectAs && this.av.$parse(this.selectAs);
+    this.viewValueFn = this.selectAsFn || this.valueFn;
+    this.trackByFn = this.trackBy && this.av.$parse(this.trackBy);
+
+    this.displayFn = this.av.$parse(this.match[2] || this.match[1]);
+    this.groupByFn = this.av.$parse(this.match[3] || '');
+    this.disableWhenFn = this.av.$parse(this.match[4] || '');
+    this.valuesFn = this.av.$parse(this.match[8]);
+    this.collection = this.valuesFn(this.av.$scope);
 
     this.av.$scope.$watchCollection(this.collection, (newVal, oldVal) => {
+
       if (angular.equals(newVal, oldVal)) {
         return;
       }
@@ -289,6 +302,42 @@ class AvDropdownController extends Base {
 
   }
 
+  getLocals(value, key) {
+
+    const locals = {};
+
+    if (this.keyName) {
+      locals[this.keyName] = key;
+      locals[this.valueName] = value;
+    } else {
+      locals[this.valueName] = value;
+    }
+
+    return locals;
+
+  }
+
+  getOptionValuesKeys(optionValues) {
+
+    let optionValuesKeys;
+
+    if (!this.keyName && _.isArray(optionValues)) {
+      optionValuesKeys = optionValues;
+    } else {
+      // if object, extract keys, in enumeration order, unsorted
+      optionValuesKeys = [];
+      for (const itemKey in optionValues) {
+        if (optionValues.hasOwnProperty(itemKey) && itemKey.charAt(0) !== '$') {
+          optionValuesKeys.push(itemKey);
+        }
+      }
+    }
+    return optionValuesKeys;
+  }
+
 }
 
 ngModule.controller('AvDropdownController', AvDropdownController);
+
+export default AvDropdownController;
+
