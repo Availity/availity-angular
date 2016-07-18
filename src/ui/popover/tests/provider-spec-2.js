@@ -4,7 +4,7 @@ import angular from 'angular';
 
 import '../';
 
-describe('avPopoverConfig Provider', function () {
+describe('avPopoverConfig Provider', function() {
   describe('set method', () => {
     this.mockOptions = {showDelay: 2413, otherOption: 'would go here'};
 
@@ -15,7 +15,7 @@ describe('avPopoverConfig Provider', function () {
         this.avPopoverConfigProvider.set(this.mockOptions);
         expect(this.avPopoverConfigProvider.$get()).toEqual({...this.defaultOptions, ...this.mockOptions});
       });
-    })
+    });
   });
 
   describe('service', () => {
@@ -31,6 +31,6 @@ describe('avPopoverConfig Provider', function () {
 
     it('should return the config', () => {
       expect(this.avPopoverConfig).toEqual({...this.defaultOptions, ...this.mockOptions});
-    })
+    });
   });
 });

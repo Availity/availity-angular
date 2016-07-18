@@ -5,11 +5,11 @@ const config = {
 };
 
 class AvTooltipConfig {
-  set (options) {
+  set(options) {
     Object.assign(config, options);
   }
 
-  $get () {
+  $get() {
     return {...config};
   }
 }

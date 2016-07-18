@@ -6,7 +6,7 @@ import template from './template.html';
 
 import '../';
 
-describe('avTooltip Directive', function () {
+describe('avTooltip Directive', function() {
 
   const tester = new Tester();
 
