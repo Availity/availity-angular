@@ -1,7 +1,6 @@
 /* global it, inject, jasmine, module, spyOn, beforeEach, expect, describe */
 
 import angular from 'angular';
-import * as _ from 'lodash';
 import $ from 'jquery';
 
 import Tester from 'tester';

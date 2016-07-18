@@ -1,8 +1,8 @@
-/* global beforeEach, availity, jasmine, inject, expect, describe, it */
+/* global beforeEach, jasmine, spyOn, inject, expect, describe, it */
 import angular from 'angular';
 import '../';
 
-describe('AvPopover Controller', function () {
+describe('AvPopover Controller', function() {
   beforeEach(angular.mock.module('availity', 'availity.ui', $provide => {
     this.mockElement = {
       on: jasmine.createSpy(),
@@ -51,23 +51,23 @@ describe('AvPopover Controller', function () {
       this.ctrl.listeners();
     });
 
-    it('should set 4 listeners on element' , () => {
+    it('should set 4 listeners on element', () => {
       expect(this.mockElement.on).toHaveBeenCalledTimes(4);
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.on.calls.argsFor(0)).toEqual(['show.bs.popover', jasmine.any(Function)]);
     });
 
-    it('should set a listener on element for shown' , () => {
+    it('should set a listener on element for shown', () => {
       expect(this.mockElement.on.calls.argsFor(1)).toEqual(['shown.bs.popover', jasmine.any(Function)]);
     });
 
-    it('should set a listener on element for hide' , () => {
+    it('should set a listener on element for hide', () => {
       expect(this.mockElement.on.calls.argsFor(2)).toEqual(['hide.bs.popover', jasmine.any(Function)]);
     });
 
-    it('should set a listener on element for hidden' , () => {
+    it('should set a listener on element for hidden', () => {
       expect(this.mockElement.on.calls.argsFor(3)).toEqual(['hidden.bs.popover', jasmine.any(Function)]);
     });
 
@@ -81,7 +81,7 @@ describe('AvPopover Controller', function () {
       this.ctrl.plugin();
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.data).toHaveBeenCalledWith(this.mockAV_POPOVER.name);
     });
   });
@@ -91,7 +91,7 @@ describe('AvPopover Controller', function () {
       this.ctrl.show();
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.popover).toHaveBeenCalledWith('show');
     });
   });
@@ -101,7 +101,7 @@ describe('AvPopover Controller', function () {
       this.ctrl.hide();
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.popover).toHaveBeenCalledWith('hide');
     });
   });
@@ -111,7 +111,7 @@ describe('AvPopover Controller', function () {
       this.ctrl.toggle();
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.popover).toHaveBeenCalledWith('toggle');
     });
   });
@@ -121,13 +121,13 @@ describe('AvPopover Controller', function () {
       this.ctrl.destroy();
     });
 
-    it('should set a listener on element for show' , () => {
+    it('should set a listener on element for show', () => {
       expect(this.mockElement.popover).toHaveBeenCalledWith('destroy');
     });
   });
 
   describe('init method', () => {
-    it('should call listeners' , () => {
+    it('should call listeners', () => {
       const spy = spyOn(this.ctrl, 'listeners');
       this.ctrl.init();
       expect(spy).toHaveBeenCalledTimes(1);
@@ -139,11 +139,11 @@ describe('AvPopover Controller', function () {
         this.ctrl.init();
       });
 
-      it('call $timeout twice' , () => {
+      it('call $timeout twice', () => {
         expect(this.mockTimeout).toHaveBeenCalledTimes(2);
       });
 
-      it('call $timeout with 0' , () => {
+      it('call $timeout with 0', () => {
         expect(this.mockTimeout.calls.argsFor(0)).toEqual([jasmine.any(Function), 0, false]);
       });
 
@@ -152,7 +152,7 @@ describe('AvPopover Controller', function () {
           this.ctrl.init();
         });
 
-        it('call $timeout with the default delay' , () => {
+        it('call $timeout with the default delay', () => {
           expect(this.mockTimeout.calls.argsFor(1)).toEqual([jasmine.any(Function), this.mockAvPopoverConfig.showDelay, false]);
         });
       });
@@ -164,7 +164,7 @@ describe('AvPopover Controller', function () {
           this.ctrl.init();
         });
 
-        it('call $timeout with the delay provided' , () => {
+        it('call $timeout with the delay provided', () => {
           expect(this.mockTimeout.calls.argsFor(1)).toEqual([jasmine.any(Function), this.mockScope.delay.hide, false]);
         });
       });
