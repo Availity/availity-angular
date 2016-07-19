@@ -1,5 +1,5 @@
 import './module';
-// import './analytics';
+import './analytics';
 // import './animation';
 // import './block';
 import './datepicker';

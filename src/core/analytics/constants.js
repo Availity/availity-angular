@@ -12,7 +12,7 @@ ngModule.constant('AV_ANALYTICS', {
   },
   PRE_FIX: /^avAnalytics(.*)$/,
   // should ignore these since they are part of the directives API
-  IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
+  IGNORE: ['avAnalyticsOn'],
   ENV: { // not sure if this should live here
     PROD: {
       DOMAIN: 'apps.availity.com',
