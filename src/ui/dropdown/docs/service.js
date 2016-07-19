@@ -3,8 +3,9 @@ import demo from 'demo';
 import '../';
 import states from './fixtures/states';
 import pokemon from './fixtures/pokemon';
+import './resource';
 
-demo.factory('demoDropdownService', ($log) => {
+demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
 
   class DemoDropdownService {
 
@@ -89,6 +90,15 @@ demo.factory('demoDropdownService', ($log) => {
         $log.info(`Selected value is ${JSON.stringify(selected)}`);
       }
 
+    }
+
+    getOptions() {
+      return {
+        allowClear: true,
+        placeholder: 'Find a photo',
+        minimumInputLength: 3,
+        query: demoDropdownResource
+      };
     }
 
   }

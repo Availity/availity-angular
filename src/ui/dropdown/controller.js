@@ -33,19 +33,30 @@ class AvDropdownController extends Base {
       this.options.multiple = angular.isDefined(this.av.$attrs.multiple);
     }
 
+
     if (this.options.query) {
 
-      this.queryFn = this.options.query;
+      // Map AvSelectResource into Select2 options
+      this.resource = this.options.query;
+
       // Function used to query results for the search term.
-      this.options.query = this.query;
+      this.options.query = options => {
+        this.query(options);
+      };
       // Function used to get the id from the choice object or a string representing the key under which the id is stored.
-      this.options.id = this.getId;
+      this.options.id = this.resource.getId;
+      this.options.initSelection = this.resource.initSelection;
+
     }
 
   }
 
   isRemoteMultiple() {
     return angular.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
+  }
+
+  initSelection() {
+
   }
 
   setRemoteViewValue(e) {
@@ -164,22 +175,11 @@ class AvDropdownController extends Base {
 
   }
 
-  // Result:
-  //
-  // {
-  //   "code": "252Y00000X",
-  //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
-  //   "id": "252Y00000X"
-  // }
-  getId(result) {
-    return result.id;
-  }
-
   // Wrapper around the query function for Select2.  When the promise resolves
   // the callback
   query(options) {
 
-    this.queryFn(options).then(response => {
+    this.resource.onQuery(options).then(response => {
 
       // Callback function that should be called with the result object. The result object:
       //
@@ -217,14 +217,7 @@ class AvDropdownController extends Base {
     selected = (selected === null || selected === 'undefined') ? '' : selected;
 
     this.av.$timeout(() => {
-
-      if (self.multiple) {
-        // this.av.$element.select2('data', selected);
-        self.av.$element.select2('val', selected);
-      } else {
-        self.av.$element.select2('val', selected);
-      }
-
+      self.av.$element.select2('val', selected);
     });
   }
 

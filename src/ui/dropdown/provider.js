@@ -68,7 +68,8 @@ class AvConfig {
     this.DEFAULTS = {
       closeOnResize: true,
       dropdownAutoWidth: true,
-      minimumResultsForSearch: 5
+      minimumResultsForSearch: 5,
+      width: '100%'
     };
 
   }

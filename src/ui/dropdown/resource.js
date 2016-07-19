@@ -1,6 +1,6 @@
 import ngModule from '../module';
 
-const SelectResourceFactory = function(AvApiResource) {
+const SelectResourceFactory = AvApiResource => {
 
   class AvSelectResource extends AvApiResource {
 
@@ -8,7 +8,7 @@ const SelectResourceFactory = function(AvApiResource) {
       super(options);
     }
 
-    remote(data) {
+    onQuery(data) {
 
       const config = this.getConfig(data);
 
@@ -67,28 +67,47 @@ const SelectResourceFactory = function(AvApiResource) {
     //
     //    http://select2.github.io/select2/#documentation
     //
-    //    The default renderers expect objects with id and text keys.
+    //    The default renderers expect objects with `id` and `text` keys.
     //    The id property is required, even if custom renderers are used.
     //    The object may also contain a children key if hierarchical data is displayed.
     //    The object may also contain a disabled boolean property indicating whether this result can be selected.
     //
     mapResults(results) {
 
-      if (results && !'id' in results[0]) {
+      if (results && (!results[0].id || !results[0].text)) {
 
         results = results.map(item => {
-          item.id = this.getResult(item);
+          const {id, text} = this.mapResult(item);
+          item.id = id;
+          item.text = text;
           return item;
         });
 
       }
 
+      return results;
+
+    }
+
+    // Result:
+    //
+    // {
+    //   "code": "252Y00000X",
+    //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
+    //   "id": "252Y00000X"
+    // }
+    getId(result) {
+      return result.id;
+    }
+
+    initSelection(element, callback) {
+      callback(null);
     }
 
     getResults(/* response */) {
       // EX:
       //  return response.data.codes
-      throw new Error('getResults() must be implemented when extending from SelectResource');
+      throw new Error('getResults() must be implemented when extending from AvSelectResource');
     }
 
     getPageSize() {
@@ -98,6 +117,7 @@ const SelectResourceFactory = function(AvApiResource) {
   }
 
   return AvSelectResource;
+
 };
 
 ngModule.factory('AvSelectResource', SelectResourceFactory);

@@ -5,7 +5,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Simple</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownSimple">Numbers</label>
         <select
@@ -56,7 +56,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Array</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownPokemon">Pokemon</label>
         <select
@@ -97,7 +97,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Label for Value in Array</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownStates">States</label>
         <select
@@ -144,7 +144,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Select as Label for Value in Array</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownStates2">States</label>
         <select
@@ -179,7 +179,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Label for Value in Array Track By</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownStates3">States</label>
         <select
@@ -214,7 +214,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Multiple</h3>
   <div class="docs-example">
-    <form name="dropdownForm">
+    <form>
       <div class="form-group">
         <label for="dropdownMultiple">States</label>
         <select
@@ -247,4 +247,23 @@ title: Dropdowns
       </div>
     </form>
   </div>
+
+  <h3 class="docs-subsection-title">Query Large Data-sets</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownQuery">Photos</label>
+        <input
+          type="hidden"
+          id="dropdownQuery"
+          class="form-control"
+          data-av-dropdown
+          data-ng-model="vm.selectedPhoto"
+          ng-change="vm.onChange(vm.selectedPhoto)"
+          options="vm.getOptions()"
+        >
+      </div>
+    </form>
+  </div>
+
 </div>
