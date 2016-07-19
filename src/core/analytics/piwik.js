@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import angular from 'angular';
 
 import ngModule from '../module';
 import '../utils';

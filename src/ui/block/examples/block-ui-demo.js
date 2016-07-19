@@ -6,9 +6,9 @@
     const avBlock = blockUI.instances.get('avBlock');
 
     $scope.toggleBlock = function() {
-      if(avBlock.state().blocking) {
+      if (avBlock.state().blocking) {
         avBlock.stop();
-      }else {
+      } else {
         avBlock.start();
       }
     };

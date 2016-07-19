@@ -25,7 +25,7 @@ ngModule.factory('avValNpi', avValUtils => {
       }
 
       const firstDigit = npi.charAt(0);
-      if (!['1','2','3','4'].includes(firstDigit)) {
+      if (!['1', '2', '3', '4'].includes(firstDigit)) {
         return false;
       }
 

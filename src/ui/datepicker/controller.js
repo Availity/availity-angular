@@ -4,6 +4,12 @@ import moment from 'moment';
 import Base from '../base';
 import ngModule from '../module';
 
+function hasDateInput() {
+  const i = document.createElement('input');
+  i.setAttribute('type', 'date');
+  return i.type !== 'text';
+}
+
 const hasDateInputSupport = hasDateInput();
 
 // Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
@@ -59,7 +65,7 @@ class AvDatepickerController extends Base {
 
     const parsed = moment(viewValue, this.options.format, true);
 
-    if(parsed.isValid()) {
+    if (parsed.isValid()) {
       // jscs: disable
       return plugin._utc_to_local(parsed.utc().toDate());
       // jscs: enable
@@ -82,7 +88,7 @@ class AvDatepickerController extends Base {
       this.options.modelFormat = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
     }
 
-    if(this.av.$attrs.type === 'date' && this.hasDateInputSupport) {
+    if (this.av.$attrs.type === 'date' && this.hasDateInputSupport) {
       this.options.format = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
     }
   }
@@ -105,12 +111,6 @@ class AvDatepickerController extends Base {
       plugin.hide();
     }
   }
-}
-
-function hasDateInput() {
-  var i = document.createElement("input");
-  i.setAttribute("type", "date");
-  return i.type !== "text";
 }
 
 ngModule.controller('AvDatepickerController', AvDatepickerController);
