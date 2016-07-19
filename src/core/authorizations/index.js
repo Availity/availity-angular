@@ -1,4 +1,6 @@
 import angular from 'angular';
+import _ from 'lodash';
+
 import ngModule from '../module';
 import '../api';
 
@@ -85,7 +87,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
 
       return this.getPermission(permissionId).then(permission => {
 
-        const organization = permission.organizations.find(permission => permission.id === organizationId);
+        const organization = permission.organizations.find(thisPermission => thisPermission.id === organizationId);
 
         if (organization && organization.resources) {
           return organization.resources;
@@ -104,7 +106,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       const result = permissionIds.map(permissionId => {
 
         const key = {id: permissionId};
-        let permission = permissions.find(permission => permission.id === permissionId);
+        let permission = permissions.find(thisPermission => thisPermission.id === permissionId);
         permission = permission ? self.convert(permission) : self.convert(key);
         return permission;
 

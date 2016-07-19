@@ -6,7 +6,7 @@ import template from './template.html';
 
 import '../';
 
-describe('avPopover Directive', function () {
+describe('avPopover Directive', function() {
 
   const tester = new Tester();
 

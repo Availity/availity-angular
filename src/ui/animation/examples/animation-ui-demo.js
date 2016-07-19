@@ -1,10 +1,12 @@
+import $ from 'jquery';
+
 (function(root) {
   const availity = root.availity;
 
   availity.demo.controller('AnimationController', function($scope, $interval, $animate) {
 
     const animate = {
-      message: "Show",
+      message: 'Show',
       visible: false,
       visible2: false,
       count: 3,

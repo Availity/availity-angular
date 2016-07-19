@@ -5,11 +5,11 @@ const config = {
 };
 
 class AvPopoverConfig {
-  set (options) {
+  set(options) {
     Object.assign(config, options);
   }
 
-  $get () {
+  $get() {
     return {...config};
   }
 }

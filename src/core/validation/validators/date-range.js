@@ -45,7 +45,7 @@ ngModule.factory('avValDateRange', (AV_VAL, avValUtils) => {
       let startDate;
       let endDate;
 
-      const date = angular.isDate(value)? moment(value) : moment(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
+      const date = angular.isDate(value) ? moment(value) : moment(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
       date.set('hours', 0);
       date.set('minutes', 0);
       date.set('seconds', 0);

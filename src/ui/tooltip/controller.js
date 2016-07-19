@@ -6,36 +6,36 @@ class AvTooltipController {
     this.options = {...avTooltipConfig};
   }
 
-  listeners () {
+  listeners() {
     ['show', 'shown', 'hide', 'hidden'].forEach(name => {
       this.di.$element.on(`${name}.bs.tooltip`, ev => this.di.$scope.$emit(`av:tooltip:${name}`, ev));
     });
 
     this.di.$scope.$on('$destroy', ::this.destroy);
-  };
+  }
 
-  plugin () {
+  plugin() {
     return this.di.$element.data(this.di.AV_TOOLTIP.NAME);
   }
 
-  show () {
+  show() {
     this.di.$element.tooltip('show');
   }
 
-  hide () {
+  hide() {
     this.di.$element.tooltip('hide');
   }
 
-  toggle () {
+  toggle() {
     this.di.$element.tooltip('toggle');
   }
 
-  destroy () {
+  destroy() {
     this.di.$element.tooltip('destroy');
   }
 
 
-  init () {
+  init() {
     this.listeners();
 
     if (this.di.$scope.show) {

@@ -51,7 +51,7 @@ class AvMessageProvider {
       }
 
       onResize = _.debounce( () => {
-        
+
         const height = $('html').height();
         this.send({
           event: AV_MESSAGES.EVENTS.AV_RESIZE,

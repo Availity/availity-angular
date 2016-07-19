@@ -6,7 +6,7 @@ ngModule.directive('avAnalytics', function() {
     scope: {
       options: '=avAnalytics'
     },
-    controller: function($scope) {
+    controller($scope) {
       this.getOptions = function() {
         return $scope.options;
       };

@@ -61,5 +61,4 @@ describe('avHasPermission', function() {
     expect($el.is(':visible')).toBe(false);
   });
 
-
 });

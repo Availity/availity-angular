@@ -6,36 +6,36 @@ class AvPopoverController {
     this.options = {...avPopoverConfig};
   }
 
-  listeners () {
+  listeners() {
     ['show', 'shown', 'hide', 'hidden'].forEach(name => {
       this.di.$element.on(`${name}.bs.popover`, ev => this.di.$scope.$emit(`av:popover:${name}`, ev));
     });
 
     this.di.$scope.$on('$destroy', ::this.destroy);
-  };
+  }
 
-  plugin () {
+  plugin() {
     return this.di.$element.data(this.di.AV_POPOVER.NAME);
   }
 
-  show () {
+  show() {
     this.di.$element.popover('show');
   }
 
-  hide () {
+  hide() {
     this.di.$element.popover('hide');
   }
 
-  toggle () {
+  toggle() {
     this.di.$element.popover('toggle');
   }
 
-  destroy () {
+  destroy() {
     this.di.$element.popover('destroy');
   }
 
 
-  init () {
+  init() {
     this.listeners();
 
     if (this.di.$scope.show) {

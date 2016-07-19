@@ -4,7 +4,7 @@ import angular from 'angular';
 
 import '../';
 
-describe('avTooltipConfig Provider', function () {
+describe('avTooltipConfig Provider', function() {
   describe('set method', () => {
     this.mockOptions = {showDelay: 2413, otherOption: 'would go here'};
 
@@ -15,7 +15,7 @@ describe('avTooltipConfig Provider', function () {
         this.avTooltipConfigProvider.set(this.mockOptions);
         expect(this.avTooltipConfigProvider.$get()).toEqual({...this.defaultOptions, ...this.mockOptions});
       });
-    })
+    });
   });
 
   describe('service', () => {
@@ -31,6 +31,6 @@ describe('avTooltipConfig Provider', function () {
 
     it('should return the config', () => {
       expect(this.avTooltipConfig).toEqual({...this.defaultOptions, ...this.mockOptions});
-    })
+    });
   });
 });

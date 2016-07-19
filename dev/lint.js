@@ -25,7 +25,7 @@ function lint() {
       '!less/**'
     ]).then( paths => {
 
-      const report = engine.executeOnFiles(paths.slice(2));
+      const report = engine.executeOnFiles(paths);
       const formatter = engine.getFormatter();
 
       if (report.errorCount || report.warningCount) {
