@@ -36,19 +36,19 @@ module.exports = function(config) {
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   const customLaunchers = {
 
-    sl_ie_11: {
-      base: 'SauceLabs',
-      browserName: 'Internet Explorer',
-      platform: 'Windows 8.1',
-      version: '11'
-    },
+    // sl_ie_11: {
+    //   base: 'SauceLabs',
+    //   browserName: 'Internet Explorer',
+    //   platform: 'Windows 8.1',
+    //   version: '11'
+    // },
 
-    sl_ie_10: {
-      base: 'SauceLabs',
-      browserName: 'Internet Explorer',
-      platform: 'Windows 8',
-      version: '10'
-    },
+    // sl_ie_10: {
+    //   base: 'SauceLabs',
+    //   browserName: 'Internet Explorer',
+    //   platform: 'Windows 8',
+    //   version: '10'
+    // },
 
     sl_ie_9: {
       base: 'SauceLabs',
@@ -73,15 +73,16 @@ module.exports = function(config) {
 
   config.set({
     basePath: 'src',
-    files: [{ pattern: 'specs.js', watched: false }],
+    files: [
+      'specs.js'
+    ],
     // files to exclude
     exclude: [
       '*.less',
       '*.css'
     ],
     preprocessors: {
-      'specs.js': ['webpack', 'sourcemap'],
-      '*-specs2.js': ['webpack', 'sourcemap']
+      'specs.js': ['webpack']
     },
     webpack: wpConfig,
     webpackMiddleware: {
@@ -107,6 +108,7 @@ module.exports = function(config) {
     singleRun: true,
     plugins: [
       require('karma-chrome-launcher'),
+      require('karma-sauce-launcher'),
       require('karma-jasmine'),
       require('karma-coverage'),
       require('karma-sinon'),
