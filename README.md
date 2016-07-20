@@ -23,7 +23,7 @@
 
 ## Demo
 
-[availity.github.io/availity-angular](availity.github.io/availity-uikit)
+[availity.github.io/availity-angular](http://availity.github.io/availity-angular/)
 
 ## Supported Browsers
 
