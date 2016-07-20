@@ -9,6 +9,7 @@
     "build:umd": "cross-env NODE_ENV=production node dev/index.js -c build",
     "build": "npm run build:umd && npm run build:lib",
     "clean": "node dev/index.js -c clean",
+    "docs": "cross-env NODE_ENV=development node dev/index.js -c docs",
     "test": "karma start ./karma.conf.js",
     "test:debug": "karma start ./karma.conf-debug.js",
     "test:ci": "karma start ./karma.conf-sauce-labs.js",
