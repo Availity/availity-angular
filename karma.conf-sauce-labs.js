@@ -7,7 +7,7 @@ const webpackConfig = require('./webpack.config.common');
 const wpConfig = merge(webpackConfig, {
 
   entry: {
-    'availity-angular': './lib/index.js'
+    'availity-angular': './src/index.js'
   },
 
   resolve: {
@@ -16,7 +16,7 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
 
   debug: false,
   cache: false,
@@ -81,7 +81,7 @@ module.exports = function(config) {
     ],
     preprocessors: {
       'specs.js': ['webpack', 'sourcemap'],
-      '*-specs.js': ['webpack', 'sourcemap']
+      '*-specs2.js': ['webpack', 'sourcemap']
     },
     webpack: wpConfig,
     webpackMiddleware: {
@@ -108,12 +108,11 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
+      require('karma-coverage'),
       require('karma-sinon'),
-      require('karma-sourcemap-loader'),
-      require('karma-notify-reporter'),
       require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack')
+      require('karma-webpack-with-fast-source-maps')
     ]
   });
 };
