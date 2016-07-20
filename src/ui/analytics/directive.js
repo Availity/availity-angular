@@ -2,15 +2,13 @@ import ngModule from '../module';
 
 ngModule.directive('avAnalytics', function() {
   return {
-    restrict: 'A',
-    scope: {
-      options: '=avAnalytics'
+    link(scope, element, attrs) {
+      scope.avAnalyticsOptions = scope.$eval(attrs.avAnalytics);
     },
     controller($scope) {
       this.getOptions = function() {
-        return $scope.options;
+        return $scope.avAnalyticsOptions;
       };
     }
   };
 });
-
