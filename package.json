@@ -87,6 +87,7 @@
     "karma-phantomjs-launcher": "1.0.1",
     "karma-sauce-launcher": "1.0.0",
     "karma-sinon": "1.0.5",
+    "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack-with-fast-source-maps": "^1.9.2",
     "less": "2.7.1",
