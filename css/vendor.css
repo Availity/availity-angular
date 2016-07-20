@@ -5,8 +5,8 @@
  */
 @font-face {
   font-family: 'availity-icon-font';
-  src: url(/fonts/availity-icon-font.eot);
-  src: url(/fonts/availity-icon-font.eot#iefix) format('embedded-opentype'), url(/fonts/availity-icon-font.woff) format('woff'), url(/fonts/availity-icon-font.ttf) format('truetype'), url(/fonts/availity-icon-font.svg) format('svg');
+  src: url(../fonts/availity-icon-font.eot);
+  src: url(../fonts/availity-icon-font.eot#iefix) format('embedded-opentype'), url(../fonts/availity-icon-font.woff) format('woff'), url(../fonts/availity-icon-font.ttf) format('truetype'), url(../fonts/availity-icon-font.svg) format('svg');
   font-weight: normal;
   font-style: normal;
 }
