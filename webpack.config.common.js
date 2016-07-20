@@ -51,7 +51,7 @@ const config = {
           'style',
           'css?limit=32768?name=images/[name].[ext]!postcss!less',
           {
-            publicPath: '/'
+            publicPath: '../'
           }
         )
       },
