@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Availity Angular - Core</title>
+<link rel="stylesheet" href="../../css/vendor.css">
+<link rel="stylesheet" href="../../css/docs.css">
+
+
+
+
+
+</head>
+<body ng-app="availity.demo">
+
+<nav class="navbar navbar-default docs-navbar" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand-availity" href="index.html">
+        <div class="navbar-logo-availity"></div>
+      </a>
+      <p class="navbar-text">Angular SDK <small>v2.0.0-beta.0</small></p>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#guide-collapse-header">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="guide-collapse-header">
+      <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a href="https://github.com/availity/availity-angular">
+          <i class="icon icon-github-circled"></i> Github
+        </a>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-default navbar-secondary docs-navbar" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#guide-collapse-navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="guide-collapse-navigation">
+      <ul class="nav navbar-nav">
+        
+          <li>
+            <a href="../../" title="Home">Home</a>
+          </li>
+        
+          <li>
+            <a href="../../pages/core" title="Core">Core</a>
+          </li>
+        
+          <li>
+            <a href="../../pages/ui" title="UI">UI</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<main class="docs">
+  <div class="container ">
+    <div class="row">
+      <div class="col-md-8 col-sm-9">
+        
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#analytics"><h2 class="docs-section-header" id="analytics">Analytics</h2></a>
+    <p class="docs-section-description"></p>
+    <div data-ng-controller="DemoAnalyticsController">
+
+  <p class="docs-section-description">
+    Open the browser debugger to see the <code>exceptionHandler</code> send a normalized message to the analytics server.
+  </p>
+
+  <p>
+    <button data-ng-click="analytics.createError()" class="btn btn-danger">
+    Create Error
+    </button>
+  </p>
+
+</div>
+
+  </section>
+
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#authorizations"><h2 class="docs-section-header" id="authorizations">Authorizations</h2></a>
+    <p class="docs-section-description"></p>
+    
+<div data-ng-controller="DemoAuthenticationController">
+
+  <div class="docs-example">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Permission</th>
+          <th>Authorized</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>7100</td>
+          <td>{{vm.isAuthorized ? &apos;Yes&apos; : &apos;NO&apos;}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+  </section>
+
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#utils"><h2 class="docs-section-header" id="utils">Utils</h2></a>
+    <p class="docs-section-description"></p>
+    <div data-ng-controller="DemoUtilsController">
+
+  <a class="docs-headings-anchor" href="#print"><h3 class="docs-subsection-title" id="print">Print</h3></a>
+  <h3 id="availity-print-">availity.print()</h3>
+<p>  Utility method that fixes <code>window.print()</code> for IE8-11 and Firefox from within an <code>&lt;iframe&gt;</code></p>
+
+  <p>
+    <button class="btn btn-default" data-ng-click="utils.print()">Print</button>
+  </p>
+
+</div>
+
+
+
+  </section>
+
+
+
+      </div>
+      <div class="col-md-4 col-sm-3">
+        <nav>
+  
+    
+  
+    
+      <ol class="nav docs-nav">
+        
+          <li>
+            <a href="#analytics" title="Analytics" target="_self">Analytics</a>
+            
+        
+          <li>
+            <a href="#authorizations" title="Authorizations" target="_self">Authorizations</a>
+            
+        
+          <li>
+            <a href="#utils" title="Utils" target="_self">Utils</a>
+            
+
+              
+              <ol class="nav docs-nav">
+              
+
+                <li><a href="#print" title="Print" target="_self">Print</a></li>
+
+              
+              </ol>
+              
+          </li>
+          
+        
+      </ol>
+    
+  
+    
+  
+</nav>
+
+      </div>
+    </div>
+  </div>
+  <footer class="footer docs-footer">
+  <div class="container">
+    <p class="docs-shoutout">
+    Made with <i class="icon icon-heart"></i> by <a href="http://www.availity.com">Availity</a>
+    </p>
+  </div>
+</footer>
+
+</main>
+
+<script src="../../js/vendor.js"></script>
+<script src="../../js/availity-angular.js"></script>
+<script src="../../js/docs.js"></script>
+
+
+</body>
+</html>

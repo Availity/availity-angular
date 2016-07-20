@@ -1,0 +1,56 @@
+/*!
+ * 
+ * availity-angular v2.0.0-beta.0 (07/19/2016)
+ * (c) Availity, LLC
+ */
+[av-datepicker]::-webkit-calendar-picker-indicator,
+[data-av-datepicker]::-webkit-calendar-picker-indicator,
+.av-datepicker::-webkit-calendar-picker-indicator,
+[av-datepicker]::-webkit-clear-button,
+[data-av-datepicker]::-webkit-clear-button,
+.av-datepicker::-webkit-clear-button,
+[av-datepicker]::-webkit-inner-spin-button,
+[data-av-datepicker]::-webkit-inner-spin-button,
+.av-datepicker::-webkit-inner-spin-button,
+[av-datepicker]::-webkit-outer-spin-button,
+[data-av-datepicker]::-webkit-outer-spin-button,
+.av-datepicker::-webkit-outer-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+[av-hide-permission] {
+  display: none;
+}
+[av-datepicker]::-webkit-calendar-picker-indicator,
+[data-av-datepicker]::-webkit-calendar-picker-indicator,
+.av-datepicker::-webkit-calendar-picker-indicator,
+[av-datepicker]::-webkit-clear-button,
+[data-av-datepicker]::-webkit-clear-button,
+.av-datepicker::-webkit-clear-button,
+[av-datepicker]::-webkit-inner-spin-button,
+[data-av-datepicker]::-webkit-inner-spin-button,
+.av-datepicker::-webkit-inner-spin-button,
+[av-datepicker]::-webkit-outer-spin-button,
+[data-av-datepicker]::-webkit-outer-spin-button,
+.av-datepicker::-webkit-outer-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+  cursor: pointer;
+}
+[ng-click][disabled],
+[data-ng-click][disabled],
+[x-ng-click][disabled],
+[ng-click].disabled,
+[data-ng-click].disabled,
+[x-ng-click].disabled {
+  cursor: auto;
+  pointer-events: none;
+}
+
+/*# sourceMappingURL=availity-angular.css.map*/
