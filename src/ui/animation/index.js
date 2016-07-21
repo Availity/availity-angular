@@ -1,7 +1,10 @@
-import template from './loader.html';
-import availity from '../module';
+import templateUrl from './loader.html';
+import ngModule from '../module';
 
-availity.ui.controller('AvLoaderController', function($element) {
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
+
+ngModule.controller('AvLoaderController', function($element) {
 
   const self = this;
   let active;
@@ -41,13 +44,13 @@ availity.ui.controller('AvLoaderController', function($element) {
 
 });
 
-availity.ui.directive('avLoader', function() {
+ngModule.directive('avLoader', function() {
   return {
     restrict: 'AE',
     replace: true,
     controller: 'AvLoaderController',
     require: 'avLoader',
-    template,
+    templateUrl,
     link(scope, element, attr, avLoader) {
 
       if (!attr.delay) {

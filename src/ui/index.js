@@ -1,6 +1,6 @@
 import './module';
 import './analytics';
-// import './animation';
+import './animation';
 // import './block';
 import './datepicker';
 import './dropdown';
