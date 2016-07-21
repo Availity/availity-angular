@@ -61,38 +61,50 @@ module.exports = function(config) {
   const sauceLabs = {
     startConnect: false,
     testName: 'availity-angular',
-    recordScreenshots: false
+    recordScreenshots: false,
+    transports: ['xhr-polling']
   };
 
   if (process.env.TRAVIS_JOB_NUMBER) {
     sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
     sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
+    sauceLabs.tags = [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST];
   } else {
     sauceLabs.startConnect = true;
   }
 
   config.set({
     basePath: 'src',
-    files: [
-      'specs.js'
-    ],
+
+    files: [{ pattern: 'specs.js', watched: false }],
+
     // files to exclude
     exclude: [
       '*.less',
       '*.css'
     ],
+
     preprocessors: {
-      'specs.js': ['webpack']
+      'specs.js': ['webpack'],
+      '*-specs2.js': ['webpack']
     },
+
     webpack: wpConfig,
+
     webpackMiddleware: {
       noInfo: 'errors-only'
     },
+
     autoWatch: false,
+
     browsers: Object.keys(customLaunchers),
+
     customLaunchers,
+
     frameworks: ['jasmine'],
-    reporters: ['nyan', 'saucelabs'],
+
+    reporters: ['nyan', 'coverage', 'saucelabs'],
+
     // reporter options
     nyanReporter: {
       // suppress the red background on errors in the error
@@ -100,12 +112,19 @@ module.exports = function(config) {
       suppressErrorHighlighting: true,
       renderOnRunCompleteOnly: true
     },
+
     port: 9876,
+
     colors: true,
+
     sauceLabs,
+
     logLevel: config.LOG_INFO,
+
     captureTimeout: 240000,
+
     singleRun: true,
+
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-sauce-launcher'),
