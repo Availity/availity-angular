@@ -5,7 +5,7 @@ import './constants';
 import './directive';
 import { uuid } from '../../core/utils/';
 
-ngModule.factory('avModalManager', ($document) => {
+ngModule.factory('avModalManager', () => {
 
   class AvModalManager {
 
@@ -25,7 +25,7 @@ ngModule.factory('avModalManager', ($document) => {
 
       this.instances.forEach(id => {
 
-        const $el = angular.element($document.getElementById(id));
+        const $el = angular.element( document.getElementById(id));
 
         if (!$el) {
           return;
@@ -54,7 +54,7 @@ ngModule.factory('avModalManager', ($document) => {
 
 });
 
-const ModalFactory = ($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache, $q, avModalManager) => {
+const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) => {
 
   class Modal {
 
@@ -65,7 +65,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache,
       this.templateDefer = $q.defer();
       this.templatePromise = this.templateDefer.promise;
 
-      this.options = angular.extend({}, AV_MODAL.OPTIONS, {scope: $rootScope.$new()}, options);
+      this.options = this.buildOptions(options);
 
       avTemplateCache.get(options).then( _template => {
         self.options.template = _template;
@@ -76,6 +76,26 @@ const ModalFactory = ($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache,
 
     static create(options) {
       return new Modal(options);
+    }
+
+    buildOptions(userOptions) {
+      const options = angular.extend({}, AV_MODAL.OPTIONS, userOptions);
+
+      options.scope = options.scope || $rootScope.$new();
+
+      if (options.controller) {
+        const locals = angular.extend({ $scope: options.scope }, options.locals);
+
+        const controller = $controller(options.controller, locals);
+
+        if (options.controllerAs) {
+          if (options.scope[options.controllerAs]) {
+            $log.warn('Overwriting ' + options.controllerAs + 'on scope with AvModal controllerAs, consider passing in no scope, or specifying a different controllerAs than the existing controller');
+          }
+          options.scope[options.controllerAs] = controller;
+        }
+      }
+      return options;
     }
 
     build() {
@@ -104,20 +124,15 @@ const ModalFactory = ($rootScope, $timeout, $compile, AV_MODAL, avTemplateCache,
 
       this.templateDefer.resolve(true);
 
+      this.listeners();
+
       // Initialize Bootstrap jQuery plugin
       this.$element.modal({
         'backdrop': this.options.backdrop,
         'keyboard': this.options.keyboard,
-        'show': false,
+        'show': this.options.show,
         'remote': this.options.remote
       });
-
-      this.listeners();
-
-      if (angular.isUndefined(this.options.show) || this.options.show) {
-        this.$element.modal('show');
-      }
-
     }
 
       // Add helpers to scope so clients can call internal methods
