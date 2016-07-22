@@ -13,11 +13,12 @@
     "test": "karma start ./karma.conf.js",
     "test:debug": "karma start ./karma.conf-debug.js",
     "test:ci": "karma start ./karma.conf-sauce-labs.js",
+    "test:coverage": "karma start ./karma.conf-coverage.js",
     "release": "node dev/index.js -c release",
     "prepublish": "in-publish && npm run build || true",
     "lint": "node dev/index.js -c lint",
-    "docs:prepare": "gitbook install",
-    "docs:watch": "npm run docs:prepare && gitbook serve"
+    "book:prepare": "gitbook install",
+    "book": "npm run book:prepare && gitbook serve"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "babel-cli": "6.11.4",
     "babel-core": "6.11.4",
     "babel-eslint": "6.1.2",
+    "babel-istanbul-loader": "0.1.0",
     "babel-loader": "6.2.4",
     "babel-plugin-transform-class-properties": "6.10.2",
     "babel-plugin-transform-object-assign": "^6.8.0",
