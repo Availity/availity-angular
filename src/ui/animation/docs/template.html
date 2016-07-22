@@ -3,25 +3,85 @@ title: Animation
 ---
 
 <div ng-controller="demoAnimationController">
+  <h3 class="docs-subsection-title">Animate on value change</h3>
+  <div class="docs-example">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#availity-angular-animation-example-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand-availity">
+            <div class="navbar-logo-availity"></div>
+          </a>
+        </div>
 
-  <h3 class="docs-subsection-title">Bouncer</h3>
+        <div class="collapse navbar-collapse" id="availity-angular-animation-example-nav">
+          <ul class="nav navbar-nav">
+            <li><a>
+              <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
+              <span av-animate="anim.counter" class="badge badge-success">{{anim.counter}}</span>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <span av-animate="counter" class="badge badge-primary">{{counter}}</span>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate on load</h3>
+  <div class="docs-example">
+    <av-animate class="card card-block">
+      I will animate on load!
+    </av-animate>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div class="card card-block" av-animate>
+      I will animate on load!
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate on event</h3>
+  <div class="docs-example">
+    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+      Click Me!
+    </button>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+      Click Me!
+    </button>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate options</h3>
   <div class="docs-example">
     <p>
-      Count:
-      <span av-bounce="counter" class="badge badge-primary">{{counter}}</span>
+      <select id="animDropdown"
+        av-dropdown
+        ng-model="anim.selectedAnimation"
+        ng-options="animation.name for animation in anim.velocityEffects"
+        placeholder="{{anim.placeholder}}"
+        options="{ allowClear: false }"
+        ng-change="anim.onChange(anim.selectedAnimation)"
+        >
+        </select>
     </p>
     <p>
-      <span av-bounce av-bounce-on="click" av-bounce-on-load="false" class="badge badge-success">Click Me!</span>
+      <div av-animate="anim.actualAnimation"
+        av-animate-on-load="false"
+        av-animate-type="anim.actualAnimation"
+        class="card card-default text-center card-block">
+        {{anim.actualAnimation}}
+      </div>
     </p>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <p>
-      Count:
-      <span av-bounce="counter" class="badge badge-primary">{{counter}}</span>
-    </p>
-    <p>
-      <span av-bounce av-bounce-on="click" av-bounce-on-load="false" class="badge badge-success">Click Me!</span>
-    </p>
+    ...
   </code>
 
   <h3 class="docs-subsection-title">Loader</h3>
