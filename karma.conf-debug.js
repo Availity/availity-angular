@@ -7,7 +7,7 @@ const webpackConfig = require('./webpack.config.common');
 const wpConfig = merge(webpackConfig, {
 
   entry: {
-    'availity-angular': './lib/index.js'
+    'availity-angular': './src/index.js'
   },
 
   resolve: {
@@ -50,7 +50,7 @@ module.exports = function(config) {
       '*.css'
     ],
 
-    preprocessors: { 'specs.js': ['webpack', 'sourcemap'] },
+    preprocessors: { 'specs.js': ['webpack'] },
 
     webpack: wpConfig,
 
@@ -58,7 +58,7 @@ module.exports = function(config) {
       noInfo: 'errors-only'
     },
 
-    reporters: ['notify', 'nyan'],
+    reporters: ['notify', 'spec'],
 
     // reporter options
     nyanReporter: {
@@ -91,6 +91,7 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-sourcemap-loader'),
       require('karma-notify-reporter'),
+      require('karma-spec-reporter'),
       require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack'),

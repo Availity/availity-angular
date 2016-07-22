@@ -1,8 +1,19 @@
 import angular from 'angular';
 import ngModule from '../module';
+import Base from '../base';
 
-ngModule.controller('AvAnalyticsController', function(avAnalyticsUtils, avAnalytics) {
-  this.onEvent = function(event, element, options) {
+import 'core/analytics/utils';
+
+class AvAnalyticsController extends Base {
+
+  static $inject = ['avAnalyticsUtils', 'avAnalytics'];
+
+  constructor(...args){
+    super(...args);
+  }
+
+  onEvent(event, element, options) {
+
     const properties = angular.extend(
       {
         level: 'info',
@@ -14,15 +25,20 @@ ngModule.controller('AvAnalyticsController', function(avAnalyticsUtils, avAnalyt
       options
     );
 
-    if (avAnalyticsUtils.isExternalLink(properties)) {
+    if (this.av.avAnalyticsUtils.isExternalLink(properties)) {
       event.preventDefault();
       event.stopPropagation();
     }
-    const promise = avAnalytics.trackEvent(properties);
+
+    const promise = this.av.avAnalytics.trackEvent(properties);
     promise.finally(() => {
-      if (avAnalyticsUtils.isExternalLink(properties)) {
+      if (this.av.avAnalyticsUtils.isExternalLink(properties)) {
         document.location = element.attr('href');
       }
     });
-  };
-});
+
+  }
+
+}
+
+ngModule.controller('AvAnalyticsController', AvAnalyticsController);

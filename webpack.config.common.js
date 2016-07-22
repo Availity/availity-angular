@@ -22,7 +22,10 @@ const config = {
 
   resolve: {
     root: path.resolve('./src'),
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    alias: {
+      core: path.resolve( __dirname, './src/core')
+    }
   },
 
   debug: false,

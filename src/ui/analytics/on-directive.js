@@ -1,7 +1,9 @@
 import angular from 'angular';
 import ngModule from '../module';
 
-ngModule.directive('avAnalyticsOn', function(AV_ANALYTICS, avAnalyticsUtils) {
+import 'core/analytics';
+
+ngModule.directive('avAnalyticsOn', (avAnalyticsConfig, avAnalyticsUtils) => {
   return {
     restrict: 'A',
     controller: 'AvAnalyticsController',
@@ -16,7 +18,7 @@ ngModule.directive('avAnalyticsOn', function(AV_ANALYTICS, avAnalyticsUtils) {
         parentOptions = parentCtrl.getOptions();
       }
 
-      const eventType = attrs.avAnalyticsOn || AV_ANALYTICS.EVENTS.DEFAULT;
+      const eventType = attrs.avAnalyticsOn || avAnalyticsConfig.EVENTS.DEFAULT;
 
       element.on(eventType, function(event) {
         if (parentCtrl.getOptions) {

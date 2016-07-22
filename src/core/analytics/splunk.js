@@ -1,4 +1,5 @@
 import ngModule from '../module';
+import '../../core/api/logs';
 
 ngModule.factory('avSplunkAnalytics', ($log, avLogMessagesResource, $location) => {
 
