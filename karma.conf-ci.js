@@ -53,10 +53,10 @@ module.exports = function(config) {
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
     browserDisconnectTimeout: 10000,      // default 2000
-    browserDisconnectTolerance: 2,        // default 0
+    browserDisconnectTolerance: 1,        // default 0
     browserNoActivityTimeout: 4 * 60000,  // default 10000
     captureTimeout: 4 * 60000,            // default 60000
-    concurrency: 5,
+    concurrency: 1,
     customLaunchers: customLaunchers,
     frameworks: ['jasmine'],
     reporters: ['mocha', 'saucelabs'],
