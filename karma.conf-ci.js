@@ -37,6 +37,7 @@ module.exports = function(config) {
     startConnect: false,
     testName: 'availity-angular',
     recordScreenshots: false,
+    transports: ['xhr-polling']
   };
 
   if(process.env.TRAVIS_JOB_NUMBER) {
