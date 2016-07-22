@@ -1,7 +1,5 @@
 import ngModule from '../../module';
 
-import _ from 'lodash';
-
 ngModule.directive('avBounce', function() {
   return {
     restrict: 'AE',
