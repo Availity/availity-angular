@@ -1,9 +1,10 @@
+
 'use strict';
+const Logger = require('./logger');
 
 const nconf = require('nconf');
 
 const commands = {
-  run: require('./run'),
   start: require('./start'),
   build: require('./build'),
   clean: require('./clean'),
@@ -14,4 +15,5 @@ const commands = {
 
 nconf.argv().env();
 const command = nconf.get('c');
-commands[command]();
+/* eslint no-process-exit: 0 */
+commands[command]().catch(() => { Logger.error('Error occurred stopping script :('); process.exit(1) });
