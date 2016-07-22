@@ -3,7 +3,7 @@
 import angular from 'angular';
 
 import Tester from 'tester';
-import ngModule from '../core';
+import ngModule from '../provider';
 
 describe('avAnalyticsProvider', () => {
 

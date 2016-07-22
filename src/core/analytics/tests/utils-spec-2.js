@@ -41,7 +41,7 @@ describe('avAnalyticsUtils', () => {
     expect(avAnalyticsUtils.isExternalLink({ngClick: {}})).not.toBeTruthy();
   });
 
-  it('isNotIgnored() should ignore the attribute if defined in the AV_ANALYTICS.IGNORE constant', () => {
+  it('isNotIgnored() should ignore the attribute if defined in the avAnalyticsConfig.IGNORE constant', () => {
     expect(avAnalyticsUtils.isNotIgnored('avAnalyticsOn')).not.toBeTruthy();
     expect(avAnalyticsUtils.isNotIgnored('avAnalyticsCategory')).toBeTruthy();
   });

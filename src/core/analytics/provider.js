@@ -1,18 +1,18 @@
 import angular from 'angular';
 import ngModule from '../module';
 import Base from '../base';
-import './constants';
+import './config-provider';
 
 class AvAnalyticsProvider extends Base {
 
-  static $inject = ['AV_ANALYTICS'];
+  static $inject = ['avAnalyticsConfigProvider'];
 
   constructor(...args) {
 
     super(...args);
 
     this.plugins = [];
-    this.virtualPageTracking = this.av.AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;
+    this.virtualPageTracking = this.av.avAnalyticsConfigProvider.get().VIRTUAL_PAGE_TRACKING;
     this.appId;
     this.plugins;
 
@@ -46,7 +46,7 @@ class AvAnalyticsProvider extends Base {
     return this.appId;
   }
 
-  $get($injector, $q, $log, $rootScope, $location) {
+  $get($injector, $q, $log, $rootScope, $location, avAnalyticsConfig) {
 
     const self = this;
 
@@ -57,7 +57,7 @@ class AvAnalyticsProvider extends Base {
         this.services = {};
 
         if (!self.plugins || self.plugins.length === 0) {
-          self.plugins = [self.av.AV_ANALYTICS.SERVICES.PIWIK, self.av.AV_ANALYTICS.SERVICES.SPLUNK];
+          self.plugins = [avAnalyticsConfig.SERVICES.PIWIK, avAnalyticsConfig.SERVICES.SPLUNK];
         }
 
         angular.forEach(self.plugins, plugin => {
@@ -75,7 +75,7 @@ class AvAnalyticsProvider extends Base {
 
         if (this.isVirtualPageTracking()) {
 
-          $rootScope.$on(self.av.AV_ANALYTICS.EVENTS.PAGE, () => {
+          $rootScope.$on(avAnalyticsConfig.EVENTS.PAGE, () => {
             this.trackPageView($location.absUrl());
           });
 
