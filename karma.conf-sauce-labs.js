@@ -101,7 +101,7 @@ module.exports = function(config) {
 
     customLaunchers,
 
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
     reporters: ['nyan', 'coverage', 'saucelabs'],
 

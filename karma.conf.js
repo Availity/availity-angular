@@ -50,7 +50,7 @@ module.exports = function(config) {
 
     preprocessors: {
       'specs.js': ['webpack'],
-      '*-specs.js': ['webpack']
+      '*-specs2.js': ['webpack']
     },
 
     webpack: wpConfig,

@@ -1,6 +1,6 @@
 import ngModule from '../module';
 
-ngModule.directive('avAnalytics', function() {
+ngModule.directive('avAnalytics', () => {
   return {
     restrict: 'A',
     scope: {

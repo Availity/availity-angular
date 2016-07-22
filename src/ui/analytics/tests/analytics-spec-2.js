@@ -6,7 +6,7 @@ import Tester from 'tester';
 import '../../../core/analytics/index.js';
 import '../';
 
-describe('avAnalytics UI', () => {
+describe('avAnalytics', () => {
 
   let avAnalytics;
   let analyticsController;
@@ -29,16 +29,19 @@ describe('avAnalytics UI', () => {
   }));
 
   describe('controller', () => {
+
     const mockEvent = {
       type: 'click',
       preventDefault: jasmine.createSpy(),
       stopPropagation: jasmine.createSpy()
     };
+
     const mockElement = {
       text() {
         return 'mockElement';
       }
     };
+
     let mockOptions = {};
 
     it('onEvent should be defined', () => {

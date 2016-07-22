@@ -2,7 +2,7 @@ import angular from 'angular';
 import ngModule from '../module';
 import {isBlank} from '../utils';
 
-ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
+ngModule.factory('avAnalyticsUtils', (avAnalyticsConfig, $log) => {
 
   class AnalyticsUtils {
 
@@ -34,12 +34,12 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
     }
 
     isNotIgnored(key) {
-      const ignored = AV_ANALYTICS.IGNORE.indexOf(key) > -1;
+      const ignored = avAnalyticsConfig.IGNORE.indexOf(key) > -1;
       return !ignored;
     }
 
     isValidAttribute(key) {
-      return AV_ANALYTICS.PRE_FIX.test(key);
+      return avAnalyticsConfig.PRE_FIX.test(key);
     }
 
     lowercase(str) {
@@ -48,7 +48,7 @@ ngModule.factory('avAnalyticsUtils', (AV_ANALYTICS, $log) => {
 
     getAttribute(key, value) {
 
-      const simpleKey = key.match(AV_ANALYTICS.PRE_FIX);
+      const simpleKey = key.match(avAnalyticsConfig.PRE_FIX);
 
       if (simpleKey && simpleKey[1]) {
         return {

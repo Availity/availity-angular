@@ -2,7 +2,9 @@ import $ from 'jquery';
 import angular from 'angular';
 
 import ngModule from '../module';
-import '../utils';
+import './utils';
+import './config-provider';
+import '../../core/api/users';
 
 
 class AvPiwikAnalyticsProvider {
@@ -48,7 +50,7 @@ class AvPiwikAnalyticsProvider {
     this._setCustomVariable(index, name, value, 'page');
   }
 
-  $get(avAnalyticsUtils, avUsersResource, AV_ANALYTICS, $injector, $log, $q, $document, $location) {
+  $get(avAnalyticsUtils, avUsersResource, avAnalyticsConfig, $injector, $log, $q, $document, $location) {
 
     const that = this;
 
@@ -108,10 +110,10 @@ class AvPiwikAnalyticsProvider {
 
         let url;
 
-        if ($location.$$host === AV_ANALYTICS.ENV.PROD.DOMAIN) {
-          url = AV_ANALYTICS.ENV.PROD.URL;
+        if ($location.$$host === avAnalyticsConfig.ENV.PROD.DOMAIN) {
+          url = avAnalyticsConfig.ENV.PROD.URL;
         } else {
-          url = AV_ANALYTICS.ENV.QA.URL;
+          url = avAnalyticsConfig.ENV.QA.URL;
         }
 
         window._paq.push(['enableLinkTracking']);
