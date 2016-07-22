@@ -1,0 +1,35 @@
+---
+title: Animation
+---
+
+<div ng-controller="demoAnimationController">
+
+  <h3 class="docs-subsection-title">Bouncer</h3>
+  <div class="docs-example">
+    <p>
+      Count:
+      <span av-bounce="counter" class="badge badge-primary">{{counter}}</span>
+    </p>
+    <p>
+      <span av-bounce av-bounce-on="click" av-bounce-on-load="false" class="badge badge-success">Click Me!</span>
+    </p>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <p>
+      Count:
+      <span av-bounce="counter" class="badge badge-primary">{{counter}}</span>
+    </p>
+    <p>
+      <span av-bounce av-bounce-on="click" av-bounce-on-load="false" class="badge badge-success">Click Me!</span>
+    </p>
+  </code>
+
+  <h3 class="docs-subsection-title">Loader</h3>
+  <div class="docs-example" >
+    <div data-av-loader=""></div>
+  </div>
+
+  <code class="language-markup">
+    <div data-av-loader=""></div>
+  </code>
+</div>
