@@ -17,8 +17,8 @@
     "release": "node dev/index.js -c release",
     "prepublish": "in-publish && npm run build || true",
     "lint": "node dev/index.js -c lint",
-    "docs:prepare": "gitbook install",
-    "docs:watch": "npm run docs:prepare && gitbook serve"
+    "book:prepare": "gitbook install",
+    "book": "npm run book:prepare && gitbook serve"
   },
   "repository": {
     "type": "git",
