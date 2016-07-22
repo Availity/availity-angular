@@ -16,6 +16,17 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
+  module: {
+
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: 'babel-istanbul-loader',
+        exclude: /(bower_components|node_modules)/
+      }
+    ]
+  },
+
   devtool: 'cheap-module-source-map',
 
   debug: false,
@@ -103,14 +114,12 @@ module.exports = function(config) {
 
     frameworks: ['jasmine', 'sinon'],
 
-    reporters: ['nyan', 'coverage', 'saucelabs'],
+    reporters: ['progress', 'coverage', 'saucelabs'],
 
-    // reporter options
-    nyanReporter: {
-      // suppress the red background on errors in the error
-      // report at the end of the test run
-      suppressErrorHighlighting: true,
-      renderOnRunCompleteOnly: true
+    coverageReporter: {
+      reporters: [
+        {type: 'text-summary'}
+      ]
     },
 
     port: 9876,
@@ -131,7 +140,7 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-coverage'),
       require('karma-sinon'),
-      require('karma-nyan-reporter'),
+      require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack-with-fast-source-maps')
     ]
