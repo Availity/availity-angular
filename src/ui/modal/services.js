@@ -3,7 +3,7 @@ import ngModule from '../module';
 import '../templates';
 import './constants';
 import './directive';
-import { uuid } from '../../core/utils/';
+import { uuid } from 'core/utils/';
 
 ngModule.factory('avModalManager', () => {
 

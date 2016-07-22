@@ -1,7 +1,7 @@
 import angular from 'angular';
 import ngModule from '../module';
-import { uuid } from '../../core/utils';
-import '../../core/validation';
+import { uuid } from 'core/utils';
+import 'core/validation';
 import Base from '../base';
 
 class AvValFieldController extends Base {

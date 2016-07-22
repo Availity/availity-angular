@@ -3,7 +3,7 @@
 import angular from 'angular';
 import Tester from 'tester';
 
-import '../../../core/analytics/index.js';
+import 'core/analytics/index.js';
 import '../';
 
 describe('avAnalytics', () => {
