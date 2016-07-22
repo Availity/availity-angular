@@ -47,19 +47,19 @@ module.exports = function(config) {
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   const customLaunchers = {
 
-    // sl_ie_11: {
-    //   base: 'SauceLabs',
-    //   browserName: 'Internet Explorer',
-    //   platform: 'Windows 8.1',
-    //   version: '11'
-    // },
+    sl_ie_11: {
+      base: 'SauceLabs',
+      browserName: 'Internet Explorer',
+      platform: 'Windows 8.1',
+      version: '11'
+    },
 
-    // sl_ie_10: {
-    //   base: 'SauceLabs',
-    //   browserName: 'Internet Explorer',
-    //   platform: 'Windows 8',
-    //   version: '10'
-    // },
+    sl_ie_10: {
+      base: 'SauceLabs',
+      browserName: 'Internet Explorer',
+      platform: 'Windows 8',
+      version: '10'
+    },
 
     sl_ie_9: {
       base: 'SauceLabs',
@@ -114,7 +114,7 @@ module.exports = function(config) {
 
     frameworks: ['jasmine', 'sinon'],
 
-    reporters: ['progress', 'coverage', 'saucelabs'],
+    reporters: ['spec', 'coverage', 'saucelabs'],
 
     coverageReporter: {
       reporters: [
