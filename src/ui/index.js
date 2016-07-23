@@ -5,7 +5,6 @@ import './analytics';
 import './datepicker';
 import './dropdown';
 // import './labels';
-// import './mask';
 import './modal';
 import './permissions';
 import './placeholder';

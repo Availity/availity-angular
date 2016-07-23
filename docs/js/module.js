@@ -7,6 +7,7 @@ export default angular.module('availity.demo', [
   'availity.ui',
   'availity.config',
   'ngAnimate',
+  'ui.mask',
   'ngSanitize',
   'ui.router',
   'ngMockE2E'
