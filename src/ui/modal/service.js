@@ -1,58 +1,11 @@
 import angular from 'angular';
+
 import ngModule from '../module';
 import '../templates';
 import './constants';
 import './directive';
+import './manager';
 import { uuid } from 'core/utils/';
-
-ngModule.factory('avModalManager', () => {
-
-  class AvModalManager {
-
-    constructor() {
-      this.instances = [];
-    }
-
-    add(id) {
-      this.instances.push(id);
-    }
-
-    remove(id) {
-      this.instances = this.instances.filter(instance => instance !== id);
-    }
-
-    closeAll() {
-
-      this.instances.forEach(id => {
-
-        const $el = angular.element( document.getElementById(id));
-
-        if (!$el) {
-          return;
-        }
-
-        const bsModal = $el.data('bs.modal');
-        if (bsModal) {
-          bsModal.removeBackdrop();
-          bsModal.$body.removeClass('modal-open');
-          bsModal.resetAdjustments();
-          bsModal.resetScrollbar();
-        }
-
-        const avModal = $el.data('AvModal');
-        if (avModal) {
-          avModal.destroy();
-        }
-
-      });
-
-    }
-
-  }
-
-  return new AvModalManager();
-
-});
 
 const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) => {
 
