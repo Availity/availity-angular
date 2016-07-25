@@ -1,4 +1,6 @@
 import angular from 'angular';
+import 'bootstrap-datepicker';
+
 import ngModule from '../module';
 
 ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
