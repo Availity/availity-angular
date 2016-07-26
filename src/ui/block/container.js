@@ -24,6 +24,7 @@ class AvBlockContainerDirective extends Base {
       throw new Error('No parent av-block service instance located.');
     }
 
+    // add state to scope of this directive
     $scope.state = service.state();
 
   }

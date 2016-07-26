@@ -1,4 +1,5 @@
 import ngModule from '../module';
+
 import './config';
 
 ngModule.config( ($provide, $httpProvider, $log) => {

@@ -17,7 +17,6 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
       this.startPromise;
       this.doneCallbacks = [];
       this._id = id;
-      this._refs = 0;
 
       this._state = {
         id,
@@ -38,9 +37,11 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
       messageOrOptions = messageOrOptions || {};
 
       if (angular.isString(messageOrOptions)) {
+
         messageOrOptions = {
           message: messageOrOptions
         };
+
       } else {
 
         angular.forEach(reservedStateProperties, x => {
@@ -68,13 +69,11 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
 
         // Let the active element lose focus and store a reference
         // to restore focus when we're done (reset)
-
         self._restoreFocus = $ae[0];
 
         // https://github.com/McNull/angular-block-ui/issues/13
         // http://stackoverflow.com/questions/22698058/apply-already-in-progress-error-when-using-typeahead-plugin-found-to-be-relate
         // Queue the blur after any ng-blur expression.
-
         $timeout(() => {
           // Ensure we still need to blur
           // Don't restore if active element is body, since this causes IE to switch windows (see http://tjvantoll.com/2013/08/30/bugs-with-document-activeelement-in-internet-explorer/)
@@ -92,18 +91,22 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
     }
 
     stop() {
+
       this._state.blockCount = Math.max(0, --this._state.blockCount);
 
       if (this._state.blockCount === 0) {
         this.reset(true);
       }
+
     }
 
     _cancelStartTimeout() {
+
       if (this.startPromise) {
         $timeout.cancel(this.startPromise);
         this.startPromise = null;
       }
+
     }
 
     isBlocking() {
@@ -154,6 +157,7 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
       }
 
       try {
+
         if (executeCallbacks) {
           angular.forEach(this.doneCallbacks, cb => {
             cb();
@@ -162,6 +166,7 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
       } finally {
         this.doneCallbacks.length = 0;
       }
+
     }
 
     done(fn) {
@@ -170,16 +175,6 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
 
     state() {
       return this._state;
-    }
-
-    addRef() {
-      this._refs += 1;
-    }
-
-    release() {
-      if (--this._refs <= 0) {
-        // mainBlock.instances._destroy(self);
-      }
     }
 
 

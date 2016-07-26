@@ -50,7 +50,7 @@ ngModule.factory('blockHttpInterceptor', ($q, $injector, avBlockConfig, $templat
 
           this.injectBlock();
 
-          config.$_blocks = this.avBlockManager.instances.locate(config);
+          config.$_blocks = this.avBlockManager.locate(config);
           config.$_blocks.start(result);
         }
       }

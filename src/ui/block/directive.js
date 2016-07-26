@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 import ngModule from '../module';
-import { buildRegExp} from './utils';
+import { buildRegExp } from './utils';
 import Base from '../base';
 
 // Inspiration from https://github.com/McNull/angular-block-ui.
@@ -30,22 +30,14 @@ class BlockController extends Base {
     this.instanceId = this.av.$attrs.avBlock || `_${this.av.$scope.$id}`;
     this.serviceInstance = this.av.avBlockManager.get(this.instanceId);
 
-    if (this.instanceId === 'main') {
-      this.blockNavigation();
-    } else {
-      // Locate the parent block instance
-      const parentInstance = this.av.$element.inheritedData('av-block');
+    // Locate the parent block instance
+    const parentInstance = this.av.$element.inheritedData('av-block');
 
-      if (parentInstance) {
-        this.serviceInstance._parent = parentInstance;
-      }
+    if (parentInstance) {
+      this.serviceInstance._parent = parentInstance;
     }
 
-    // Increase the reference count
-    this.serviceInstance.addRef();
-
     // Expose the state on the scope
-
     this.av.$scope.$_blockState = this.serviceInstance.state();
 
     this.av.$scope.$watch('$_blockState.blocking', value => {
@@ -59,7 +51,6 @@ class BlockController extends Base {
     });
 
     // If a pattern is provided assign it to the state
-
     const pattern = this.av.$attrs.blockPattern;
 
     if (pattern) {
@@ -134,8 +125,8 @@ class BlockController extends Base {
 
   $postLink() {
 
-    const $el = this.av.$compile('<av-block-container class="av-block-container"></av-block-container >')(this.av.$scope);
-    this.av.$element.append($el);
+    this.container = this.av.$compile('<av-block-container class="av-block-container"></av-block-container >')(this.av.$scope);
+    this.av.$element.append(this.container);
 
     // If the element does not have the class 'av-block' set, we set the
     // default css classes from the config.

@@ -1,4 +1,9 @@
 <div class="av-block-overlay"></div>
-<div class="av-block-message-container" aria-live="assertive" aria-atomic="true">
-  <div class="av-block-message" ng-class="$_blockMessageClass">{{ state.message }}</div>
+<div
+  class="av-block-message-container"
+  aria-live="assertive"
+  aria-atomic="true">
+  <div class="av-block-message">
+    <av-loader ng-if="state.blockCount > 0"></av-loader>
+  </div>
 </div>
