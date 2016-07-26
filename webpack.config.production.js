@@ -44,7 +44,10 @@ function getConfig() {
       'moment': 'moment',
       'availity-uikit': 'availity-uikit',
       'lodash': '_',
-      'tracekit': 'TraceKit'
+      'select2': 'select2',
+      'tracekit': 'TraceKit',
+      'bootstrap-datepicker': 'bootstrap-datepicker',
+      'angular-ui-mask': 'angular-ui-mask'
     },
 
     devtool: 'source-map',
