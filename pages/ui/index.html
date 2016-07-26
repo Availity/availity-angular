@@ -59,11 +59,11 @@
           </li>
         
           <li>
-            <a href="../../pages/ui" title="UI">UI</a>
+            <a href="../../pages/core" title="Core">Core</a>
           </li>
         
           <li>
-            <a href="../../pages/core" title="Core">Core</a>
+            <a href="../../pages/ui" title="UI">UI</a>
           </li>
         
       </ul>
@@ -84,7 +84,7 @@
     <p class="docs-section-description"></p>
     
 <div ng-controller="demoAnimationController">
-  <a class="docs-headings-anchor" href="#animate-on-value-change"><h3 class="docs-subsection-title" id="animate-on-value-change">Animate on value change</h3></a>
+  <a class="docs-headings-anchor" href="#on-value-change"><h3 class="docs-subsection-title" id="on-value-change">On value change</h3></a>
   <div class="docs-example">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
@@ -115,7 +115,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>counter<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>badge badge-primary<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>{{counter}}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#animate-on-load"><h3 class="docs-subsection-title" id="animate-on-load">Animate on load</h3></a>
+  <a class="docs-headings-anchor" href="#on-load"><h3 class="docs-subsection-title" id="on-load">On load</h3></a>
   <div class="docs-example">
     <av-animate class="card card-block">
       I will animate on load!
@@ -127,7 +127,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#animate-on-event"><h3 class="docs-subsection-title" id="animate-on-event">Animate on event</h3></a>
+  <a class="docs-headings-anchor" href="#on-event"><h3 class="docs-subsection-title" id="on-event">On event</h3></a>
   <div class="docs-example">
     <button type="button" class="btn btn-default" av-animate="" av-animate-on="click">
       Click Me!
@@ -139,7 +139,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#animate-with-children"><h3 class="docs-subsection-title" id="animate-with-children">Animate with children</h3></a>
+  <a class="docs-headings-anchor" href="#with-children"><h3 class="docs-subsection-title" id="with-children">With children</h3></a>
   <div class="docs-example">
     <div av-animate="" av-animate-type="&apos;transition.slideRightBigIn&apos;" av-animate-options="{ stagger: 500 }">
       <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
@@ -156,7 +156,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#animate-options"><h3 class="docs-subsection-title" id="animate-options">Animate options</h3></a>
+  <a class="docs-headings-anchor" href="#options"><h3 class="docs-subsection-title" id="options">Options</h3></a>
   <div class="docs-example">
     <p>
       <select id="animDropdown" av-dropdown="" ng-model="anim.selectedAnimation" ng-options="animation.name for animation in anim.velocityEffects" placeholder="{{anim.placeholder}}" options="{ allowClear: false }" ng-change="anim.onChange(anim.selectedAnimation)">
@@ -264,6 +264,51 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
   </code>
 </div>
+
+  </section>
+
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#dimmer"><h2 class="docs-section-header" id="dimmer">Dimmer</h2></a>
+    <p class="docs-section-description"></p>
+    <a class="docs-headings-anchor" href="#default-dimmer"><h3 class="docs-subsection-title" id="default-dimmer">Default Dimmer</h3></a>
+<div class="docs-example">
+  <div av-dimmer="" class="card card-block">
+    <div class="dimmer-content dimmer-content-dark text-center">
+      <p> Dimmer Message </p>
+    </div>
+    <h4 class="card-title">Example title</h4>
+    <p class="card-text">Example text</p>
+  </div>
+</div>
+<code class="language-markup">
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">av-dimmer</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card card-block<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dimmer-content dimmer-content-dark text-center<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span> Dimmer Message <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card-title<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Example title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card-text<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Example text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code>
+
+<a class="docs-headings-anchor" href="#dimmer-with-configuration"><h3 class="docs-subsection-title" id="dimmer-with-configuration">Dimmer with configuration</h3></a>
+<div class="docs-example">
+  <div av-dimmer="" av-dimmer-config="{ showAnimation: &apos;transition.slideLeftBigIn&apos;, hideAnimation: &apos;transition.slideRightBigOut&apos;, animationConfig: { duration: 1000 }}" class="card card-block">
+    <div class="dimmer-content dimmer-content-dark text-center">
+      <p> Dimmer Message </p>
+    </div>
+    <h4 class="card-title">Example title</h4>
+    <p class="card-text">Example text</p>
+  </div>
+</div>
+<code class="language-markup">
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">av-dimmer</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card card-block<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dimmer-content dimmer-content-dark text-center<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span> Dimmer Message <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card-title<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Example title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card-text<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Example text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code>
 
   </section>
 
@@ -722,6 +767,8 @@ app<span class="token punctuation">.</span><span class="token function">config</
     
   
     
+  
+    
       <ol class="nav docs-nav">
         
           <li>
@@ -732,35 +779,35 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#animate-on-value-change" title="Animate on value change" target="_self">Animate on value change</a></li>
+                <li><a href="#on-value-change" title="On value change" target="_self">On value change</a></li>
 
               
           
 
               
 
-                <li><a href="#animate-on-load" title="Animate on load" target="_self">Animate on load</a></li>
+                <li><a href="#on-load" title="On load" target="_self">On load</a></li>
 
               
           
 
               
 
-                <li><a href="#animate-on-event" title="Animate on event" target="_self">Animate on event</a></li>
+                <li><a href="#on-event" title="On event" target="_self">On event</a></li>
 
               
           
 
               
 
-                <li><a href="#animate-with-children" title="Animate with children" target="_self">Animate with children</a></li>
+                <li><a href="#with-children" title="With children" target="_self">With children</a></li>
 
               
           
 
               
 
-                <li><a href="#animate-options" title="Animate options" target="_self">Animate options</a></li>
+                <li><a href="#options" title="Options" target="_self">Options</a></li>
 
               
           
@@ -783,6 +830,29 @@ app<span class="token punctuation">.</span><span class="token function">config</
           <li>
             <a href="#datepicker" title="Datepicker" target="_self">Datepicker</a>
             
+          </li>
+        
+          <li>
+            <a href="#dimmer" title="Dimmer" target="_self">Dimmer</a>
+            
+
+              
+              <ol class="nav docs-nav">
+              
+
+                <li><a href="#default-dimmer" title="Default Dimmer" target="_self">Default Dimmer</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#dimmer-with-configuration" title="Dimmer with configuration" target="_self">Dimmer with configuration</a></li>
+
+              
+              </ol>
+              
+          
           </li>
         
           <li>
@@ -892,8 +962,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
           </li>
         
       </ol>
-    
-  
     
   
 </nav>

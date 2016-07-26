@@ -1,6 +1,6 @@
 
 <div ng-controller="demoAnimationController">
-  <h3 class="docs-subsection-title">Animate on value change</h3>
+  <h3 class="docs-subsection-title">On value change</h3>
   <div class="docs-example">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
@@ -31,7 +31,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>counter<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>badge badge-primary<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>{{counter}}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <h3 class="docs-subsection-title">Animate on load</h3>
+  <h3 class="docs-subsection-title">On load</h3>
   <div class="docs-example">
     <av-animate class="card card-block">
       I will animate on load!
@@ -43,7 +43,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <h3 class="docs-subsection-title">Animate on event</h3>
+  <h3 class="docs-subsection-title">On event</h3>
   <div class="docs-example">
     <button type="button" class="btn btn-default" av-animate="" av-animate-on="click">
       Click Me!
@@ -55,7 +55,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <h3 class="docs-subsection-title">Animate with children</h3>
+  <h3 class="docs-subsection-title">With children</h3>
   <div class="docs-example">
     <div av-animate="" av-animate-type="&apos;transition.slideRightBigIn&apos;" av-animate-options="{ stagger: 500 }">
       <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
@@ -72,7 +72,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <h3 class="docs-subsection-title">Animate options</h3>
+  <h3 class="docs-subsection-title">Options</h3>
   <div class="docs-example">
     <p>
       <select id="animDropdown" av-dropdown="" ng-model="anim.selectedAnimation" ng-options="animation.name for animation in anim.velocityEffects" placeholder="{{anim.placeholder}}" options="{ allowClear: false }" ng-change="anim.onChange(anim.selectedAnimation)">
