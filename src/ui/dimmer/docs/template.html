@@ -1,8 +1,9 @@
 ---
 title: Dimmer
 ---
+<h3 class="docs-subsection-title">Default Dimmer</h3>
 <div class="docs-example">
-  <div av-dimmer="" class="card card-block">
+  <div av-dimmer class="card card-block">
     <div class="dimmer-content dimmer-content-dark text-center">
       <p> Dimmer Message </p>
     </div>
@@ -11,7 +12,27 @@ title: Dimmer
   </div>
 </div>
 <code class="language-markup">
-  <div av-dimmer="" class="card card-block">
+  <div av-dimmer class="card card-block">
+    <div class="dimmer-content dimmer-content-dark text-center">
+      <p> Dimmer Message </p>
+    </div>
+    <h4 class="card-title">Example title</h4>
+    <p class="card-text">Example text</p>
+  </div>
+</code>
+
+<h3 class="docs-subsection-title">Dimmer with configuration</h3>
+<div class="docs-example">
+  <div av-dimmer av-dimmer-config="{ showAnimation: 'transition.slideLeftBigIn', hideAnimation: 'transition.slideRightBigOut', animationConfig: { duration: 1000 }}" class="card card-block">
+    <div class="dimmer-content dimmer-content-dark text-center">
+      <p> Dimmer Message </p>
+    </div>
+    <h4 class="card-title">Example title</h4>
+    <p class="card-text">Example text</p>
+  </div>
+</div>
+<code class="language-markup">
+  <div av-dimmer class="card card-block">
     <div class="dimmer-content dimmer-content-dark text-center">
       <p> Dimmer Message </p>
     </div>

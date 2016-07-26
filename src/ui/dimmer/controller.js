@@ -4,17 +4,18 @@ import Base from '../base';
 
 class AvDimmerController extends Base {
 
-  static $inject = ['$element', '$attrs', 'avDimmerConfig'];
+  static $inject = ['$scope', '$element', 'avDimmerConfig'];
 
   constructor(...args) {
 
     super(...args);
 
-    this.config = angular.extend({}, this.av.avDimmerConfig, this.av.$attrs.avDimmerConfig);
+    this.config = angular.extend({}, this.av.avDimmerConfig, (this.av.$scope.avDimmerConfig || {}));
   }
 
   show() {
     this.av.$element.find(this.config.overlaySelector)
+    .velocity('stop', true)
     .velocity(this.config.showAnimation, this.config.animationConfig);
   }
 
@@ -23,14 +24,41 @@ class AvDimmerController extends Base {
     .velocity(this.config.hideAnimation, this.config.animationConfig);
   }
 
-  $onInit() {
+  createListeners() {
     this.av.$element.on(this.config.showEvent, this.show.bind(this));
     this.av.$element.on(this.config.hideEvent, this.hide.bind(this));
   }
 
-  $destroy() {
+  destroyListeners() {
     this.av.$element.off(this.config.showEvent, this.show.bind(this));
     this.av.$element.off(this.config.hideEvent, this.hide.bind(this));
+  }
+
+  $onChanges(changesObj) {
+    if (changesObj && changesObj.avDimmerConfig) {
+      const newConfig = angular.extend({}, this.av.avDimmerConfig, changesObj.avDimmerConfig.currentValue);
+
+      const resetListeners = !angular.equals(this.config.showEvent, newConfig.showEvent)
+      || !angular.equals(this.config.hideEvent, newConfig.hideEvent);
+
+      if (resetListeners) {
+        this.destroyListeners();
+      }
+
+      this.config = newConfig;
+
+      if (resetListeners) {
+        this.createListeners();
+      }
+    }
+  }
+
+  $onInit() {
+    this.createListeners();
+  }
+
+  $destroy() {
+    this.destroyListeners();
   }
 }
 

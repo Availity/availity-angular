@@ -5,9 +5,9 @@ const CONFIG = {
   animationConfig: {
     duration: 250
   },
-  showAnimation: 'fadeIn',
+  showAnimation: 'transition.fadeIn',
   showEvent: 'mouseenter',
-  hideAnimation: 'fadeOut',
+  hideAnimation: 'transition.fadeOut',
   hideEvent: 'mouseleave',
   overlaySelector: '.dimmer-content'
 };

@@ -5,6 +5,9 @@ import avDimmerController from './controller';
 ngModule.directive('avDimmer', () => {
   return {
     restrict: 'AE',
+    scope: {
+      avDimmerConfig: '<?'
+    },
     controller: avDimmerController
   };
 });

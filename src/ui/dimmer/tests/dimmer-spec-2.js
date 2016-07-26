@@ -21,7 +21,7 @@ describe('avDimmer', () => {
   beforeEach(() => {
     el = tester.compileDirective(template);
     spy = spyOn($.fn, 'find').and.callThrough();
-    spyVelocity = spyOn($.fn, 'velocity');
+    spyVelocity = spyOn($.fn, 'velocity').and.callThrough();
   });
 
   it('should show dimmer on mouseenter', ()=> {
