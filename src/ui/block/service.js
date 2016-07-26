@@ -177,7 +177,6 @@ avModule.factory('AvBlock', (avBlockConfig, $timeout, $document) => {
     }
 
     release() {
-      debugger;
       if (--this._refs <= 0) {
         // mainBlock.instances._destroy(self);
       }

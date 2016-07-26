@@ -147,18 +147,10 @@ class BlockController extends Base {
 
 }
 
-class BlockDirective {
-
-  constructor() {
-    this.scope = {};
-    this.restrict = 'AE';
-  }
-
-  controller($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile) {
-    return new BlockController($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile);
-  }
-
-}
-
-ngModule.directive('avBlock', () => new BlockDirective());
-
+ngModule.directive('avBlock', () => {
+  return {
+    scope: {},
+    restrict: 'AE',
+    controller: BlockController
+  };
+});
