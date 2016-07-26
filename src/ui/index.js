@@ -3,6 +3,7 @@ import './analytics';
 import './animation';
 import './block';
 import './datepicker';
+import './dimmer';
 import './dropdown';
 import './modal';
 import './permissions';

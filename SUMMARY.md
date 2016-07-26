@@ -6,3 +6,4 @@
 * [Animation](/src/ui/animation/README.md)
   * [avAnimate](/src/ui/animation/DIRECTIVE.md)
   * [avLoader](/src/ui/animation/loader/README.md)
+* [Dimmer](/src/ui/dimmer/README.md)
