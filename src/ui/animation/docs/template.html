@@ -1,0 +1,122 @@
+---
+title: Animation
+---
+
+<div ng-controller="demoAnimationController">
+  <h3 class="docs-subsection-title">Animate on value change</h3>
+  <div class="docs-example">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#availity-angular-animation-example-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand-availity">
+            <div class="navbar-logo-availity"></div>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="availity-angular-animation-example-nav">
+          <ul class="nav navbar-nav">
+            <li><a>
+              <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
+              <span av-animate="anim.counter" class="badge badge-success">{{anim.counter}}</span>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <span av-animate="counter" class="badge badge-primary">{{counter}}</span>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate on load</h3>
+  <div class="docs-example">
+    <av-animate class="card card-block">
+      I will animate on load!
+    </av-animate>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div class="card card-block" av-animate>
+      I will animate on load!
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate on event</h3>
+  <div class="docs-example">
+    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+      Click Me!
+    </button>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+      Click Me!
+    </button>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate with children</h3>
+  <div class="docs-example" >
+    <div av-animate
+      av-animate-type="'transition.slideRightBigIn'"
+      av-animate-options="{ stagger: 500 }">
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+    </div>
+  </div>
+
+  <code class="language-markup" ng-non-bindable>
+    <div class="loading-indicator"
+      av-animate
+      av-animate-type="'transition.slideRightBigIn'"
+      av-animate-options="{ stagger: 500 }">
+      <p> ... </p>
+      <p> ... </p>
+      <p> ... </p>
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">Animate options</h3>
+  <div class="docs-example">
+    <p>
+      <select id="animDropdown"
+        av-dropdown
+        ng-model="anim.selectedAnimation"
+        ng-options="animation.name for animation in anim.velocityEffects"
+        placeholder="{{anim.placeholder}}"
+        options="{ allowClear: false }"
+        ng-change="anim.onChange(anim.selectedAnimation)"
+        >
+        </select>
+    </p>
+    <p>
+      <div av-animate="anim.actualAnimation"
+        av-animate-on-load="false"
+        av-animate-type="anim.actualAnimation"
+        class="card card-default text-center card-block">
+        {{anim.actualAnimation}}
+      </div>
+    </p>
+  </div>
+  <code class="language-markup">
+    <div av-animate
+      av-animate-on-load="false"
+      av-animate-type="{{anim.actualAnimation}}"
+      class="card card-default text-center card-block">
+      ...
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">Loader</h3>
+  <div class="docs-example" >
+    <div data-av-loader></div>
+  </div>
+
+  <code class="language-markup">
+    <div data-av-loader></div>
+  </code>
+</div>

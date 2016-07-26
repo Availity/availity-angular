@@ -10,6 +10,7 @@ import '../../src/core/analytics/docs';
 import '../../src/core/utils/docs';
 import '../../src/core/authorizations/docs';
 
+import '../../src/ui/animation/docs';
 import '../../src/ui/validation/docs';
 import '../../src/ui/modal/docs';
 import '../../src/ui/datepicker/docs';

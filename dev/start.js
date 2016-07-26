@@ -40,10 +40,7 @@ function start() {
 
   return metalsmith()
     .then(serv)
-    .then(watch)
-    .catch( (err) => {
-      Logger.error(err);
-    });
+    .then(watch);
 }
 
 module.exports = start;

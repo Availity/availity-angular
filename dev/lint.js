@@ -17,7 +17,7 @@ function lint() {
       '**/**.js',
       '!node_modules/**',
       '!bower_components/**',
-      '!reports/**',
+      '!coverage/**',
       '!_book/**',
       '!build/**',
       '!dist/**',
@@ -29,9 +29,8 @@ function lint() {
       const formatter = engine.getFormatter();
 
       if (report.errorCount || report.warningCount) {
-        Logger.failed('eslint');
         Logger.info(`${formatter(report.results)}`);
-        reject();
+        reject('eslint failed');
       } else {
         Logger.ok('eslint');
         resolve();
