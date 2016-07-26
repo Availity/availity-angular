@@ -1,13 +1,19 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/19/2016)
+ * availity-angular v2.0.0-beta.0 (07/25/2016)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(1);__webpack_require__(299);__webpack_require__(352);
+	'use strict';
+	
+	__webpack_require__(1);
+	
+	__webpack_require__(299);
+	
+	__webpack_require__(352);
 
 /***/ },
 /* 1 */
@@ -8065,639 +8071,6007 @@ webpackJsonp([0],[
 /* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(300);__webpack_require__(328);__webpack_require__(332);__webpack_require__(334);__webpack_require__(324);__webpack_require__(310);__webpack_require__(336);
+	'use strict';
+	
+	__webpack_require__(300);
+	
+	__webpack_require__(330);
+	
+	__webpack_require__(333);
+	
+	__webpack_require__(334);
+	
+	__webpack_require__(325);
+	
+	__webpack_require__(312);
+	
+	__webpack_require__(336);
 
 /***/ },
 /* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(301);__webpack_require__(306);__webpack_require__(308);__webpack_require__(309);__webpack_require__(317);__webpack_require__(326);__webpack_require__(327);
+	'use strict';
+	
+	__webpack_require__(301);
+	
+	__webpack_require__(308);
+	
+	__webpack_require__(310);
+	
+	__webpack_require__(311);
+	
+	__webpack_require__(319);
+	
+	__webpack_require__(327);
+	
+	__webpack_require__(329);
 
 /***/ },
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_ANALYTICS',{VIRTUAL_PAGE_TRACKING:true,SERVICES:{PIWIK:'avPiwikAnalytics',SPLUNK:'avSplunkAnalytics'},EVENTS:{PAGE:'$locationChangeSuccess',DEFAULT:'click'},PRE_FIX:/^avAnalytics(.*)$/,// should ignore these since they are part of the directives API
-	IGNORE:['avAnalyticsOn'],ENV:{// not sure if this should live here
-	PROD:{DOMAIN:'apps.availity.com',URL:'https://piwik.availity.com/piwik/'},QA:{URL:'https://qa-piwik.availity.com/piwik/'}}});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _lodash = __webpack_require__(306);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var CONFIG = {
+	  VIRTUAL_PAGE_TRACKING: true,
+	  SERVICES: {
+	    PIWIK: 'avPiwikAnalytics',
+	    SPLUNK: 'avSplunkAnalytics'
+	  },
+	  EVENTS: {
+	    PAGE: '$locationChangeSuccess',
+	    DEFAULT: 'click'
+	  },
+	  PRE_FIX: /^avAnalytics(.*)$/,
+	  // should ignore these since they are part of the directives API
+	  IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
+	  ENV: { // not sure if this should live here
+	    PROD: {
+	      DOMAIN: 'apps.availity.com',
+	      URL: 'https://piwik.availity.com/piwik/'
+	    },
+	    QA: {
+	      URL: 'https://qa-piwik.availity.com/piwik/'
+	    }
+	  }
+	};
+	
+	var AvAnalyticsConfigProvider = function () {
+	  function AvAnalyticsConfigProvider() {
+	    _classCallCheck(this, AvAnalyticsConfigProvider);
+	
+	    this.options = CONFIG;
+	  }
+	
+	  AvAnalyticsConfigProvider.prototype.get = function get() {
+	    return _angular2.default.copy(this.options);
+	  };
+	
+	  AvAnalyticsConfigProvider.prototype.set = function set(options) {
+	    _lodash2.default.merge(this.options, options);
+	  };
+	
+	  AvAnalyticsConfigProvider.prototype.$get = function $get() {
+	    return _angular2.default.copy(this.options);
+	  };
+	
+	  return AvAnalyticsConfigProvider;
+	}();
+	
+	_module2.default.provider('avAnalyticsConfig', AvAnalyticsConfigProvider);
+	
+	exports.default = _module2.default;
 
 /***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}exports.default=_angular2.default.module('availity',['ng']);
-
-/***/ },
+/* 302 */,
 /* 303 */,
 /* 304 */,
-/* 305 */,
-/* 306 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _base=__webpack_require__(307);var _base2=_interopRequireDefault(_base);__webpack_require__(301);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvAnalyticsProvider=function(_Base){_inherits(AvAnalyticsProvider,_Base);function AvAnalyticsProvider(){var _Object$getPrototypeO;_classCallCheck(this,AvAnalyticsProvider);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}var _this=_possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvAnalyticsProvider)).call.apply(_Object$getPrototypeO,[this].concat(args)));_this.plugins=[];_this.virtualPageTracking=_this.av.AV_ANALYTICS.VIRTUAL_PAGE_TRACKING;_this.appId;_this.plugins;return _this;}_createClass(AvAnalyticsProvider,[{key:'registerPlugins',value:function registerPlugins(_plugins){if(_angular2.default.isString(_plugins)){this.plugins=[_plugins];}else if(Array.isArray(_plugins)){this.plugins=_plugins;}else{throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');}return this.plugins;}},{key:'setVirtualPageTracking',value:function setVirtualPageTracking(value){if(arguments.length){this.virtualPageTracking=!!value;}}},{key:'isVirtualPageTracking',value:function isVirtualPageTracking(){return this.virtualPageTracking;}},{key:'setAppID',value:function setAppID(id){this.appId=id;return this.appId;}},{key:'$get',value:function $get($injector,$q,$log,$rootScope,$location){var self=this;var AvAnalytics=function(){function AvAnalytics(){var _this2=this;_classCallCheck(this,AvAnalytics);this.services={};if(!self.plugins||self.plugins.length===0){self.plugins=[self.av.AV_ANALYTICS.SERVICES.PIWIK,self.av.AV_ANALYTICS.SERVICES.SPLUNK];}_angular2.default.forEach(self.plugins,function(plugin){try{_this2.services[plugin]=$injector.get(plugin);}catch(err){$log.error('Could not load '+plugin+' plugin');}});}_createClass(AvAnalytics,[{key:'init',value:function init(){var _this3=this;if(this.isVirtualPageTracking()){$rootScope.$on(self.av.AV_ANALYTICS.EVENTS.PAGE,function(){_this3.trackPageView($location.absUrl());});}_angular2.default.forEach(this.services,function(handler){if(handler.isEnabled()&&handler.init){handler.init();}});}},{key:'trackEvent',value:function trackEvent(properties){var promises=[];_angular2.default.forEach(this.services,function(handler){var promise=handler.trackEvent(properties);promises.push(promise);});return $q.all(promises);}},{key:'getAppId',value:function getAppId(){return self.appId;}},{key:'isVirtualPageTracking',value:function isVirtualPageTracking(){return self.virtualPageTracking;}},{key:'trackPageView',value:function trackPageView(url){var promises=[];_angular2.default.forEach(this.services,function(handler){var promise=handler.trackPageView(url);promises.push(promise);});return $q.all(promises);}}]);return AvAnalytics;}();return new AvAnalytics();}}]);return AvAnalyticsProvider;}(_base2.default);AvAnalyticsProvider.$inject=['AV_ANALYTICS'];_module2.default.provider('avAnalytics',AvAnalyticsProvider);exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _angular2.default.module('availity', ['ng']);
 
 /***/ },
-/* 307 */
-/***/ function(module, exports) {
-
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}// Inspiration: https://github.com/seeden/angular-es6
-	function storeInjections(){var injected=arguments.length<=0||arguments[0]===undefined?[]:arguments[0];var instance=arguments[1];var args=arguments[2];var name=arguments.length<=3||arguments[3]===undefined?'av':arguments[3];var instanceInject=instance[name]=instance[name]||{};injected.forEach(function(injectName,index){instanceInject[injectName]=args[index];});}var Base=function Base(){_classCallCheck(this,Base);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}storeInjections(this.constructor.$inject,this,args);};Base.$inject=[];exports.default=Base;
-
-/***/ },
+/* 306 */,
+/* 307 */,
 /* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _module=_angular2.default.module('availity.config',['ng','availity']);_module.run(function(avAnalytics){return avAnalytics.init();});
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _base = __webpack_require__(309);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	__webpack_require__(301);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvAnalyticsProvider = function (_Base) {
+	  _inherits(AvAnalyticsProvider, _Base);
+	
+	  function AvAnalyticsProvider() {
+	    _classCallCheck(this, AvAnalyticsProvider);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.plugins = [];
+	    _this.virtualPageTracking = _this.av.avAnalyticsConfigProvider.get().VIRTUAL_PAGE_TRACKING;
+	    _this.appId;
+	    _this.plugins;
+	
+	    return _this;
+	  }
+	
+	  AvAnalyticsProvider.prototype.registerPlugins = function registerPlugins(_plugins) {
+	
+	    if (_angular2.default.isString(_plugins)) {
+	      this.plugins = [_plugins];
+	    } else if (Array.isArray(_plugins)) {
+	      this.plugins = _plugins;
+	    } else {
+	      throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
+	    }
+	
+	    return this.plugins;
+	  };
+	
+	  AvAnalyticsProvider.prototype.setVirtualPageTracking = function setVirtualPageTracking(value) {
+	    if (arguments.length) {
+	      this.virtualPageTracking = !!value;
+	    }
+	  };
+	
+	  AvAnalyticsProvider.prototype.isVirtualPageTracking = function isVirtualPageTracking() {
+	    return this.virtualPageTracking;
+	  };
+	
+	  AvAnalyticsProvider.prototype.setAppID = function setAppID(id) {
+	    this.appId = id;
+	    return this.appId;
+	  };
+	
+	  AvAnalyticsProvider.prototype.$get = function $get($injector, $q, $log, $rootScope, $location, avAnalyticsConfig) {
+	
+	    var self = this;
+	
+	    var AvAnalytics = function () {
+	      function AvAnalytics() {
+	        var _this2 = this;
+	
+	        _classCallCheck(this, AvAnalytics);
+	
+	        this.services = {};
+	
+	        if (!self.plugins || self.plugins.length === 0) {
+	          self.plugins = [avAnalyticsConfig.SERVICES.PIWIK, avAnalyticsConfig.SERVICES.SPLUNK];
+	        }
+	
+	        _angular2.default.forEach(self.plugins, function (plugin) {
+	
+	          try {
+	            _this2.services[plugin] = $injector.get(plugin);
+	          } catch (err) {
+	            $log.error('Could not load ' + plugin + ' plugin');
+	          }
+	        });
+	      }
+	
+	      AvAnalytics.prototype.init = function init() {
+	        var _this3 = this;
+	
+	        if (this.isVirtualPageTracking()) {
+	
+	          $rootScope.$on(avAnalyticsConfig.EVENTS.PAGE, function () {
+	            _this3.trackPageView($location.absUrl());
+	          });
+	        }
+	
+	        _angular2.default.forEach(this.services, function (handler) {
+	
+	          if (handler.isEnabled() && handler.init) {
+	            handler.init();
+	          }
+	        });
+	      };
+	
+	      AvAnalytics.prototype.trackEvent = function trackEvent(properties) {
+	
+	        var promises = [];
+	
+	        _angular2.default.forEach(this.services, function (handler) {
+	          var promise = handler.trackEvent(properties);
+	          promises.push(promise);
+	        });
+	
+	        return $q.all(promises);
+	      };
+	
+	      AvAnalytics.prototype.getAppId = function getAppId() {
+	        return self.appId;
+	      };
+	
+	      AvAnalytics.prototype.isVirtualPageTracking = function isVirtualPageTracking() {
+	        return self.virtualPageTracking;
+	      };
+	
+	      AvAnalytics.prototype.trackPageView = function trackPageView(url) {
+	
+	        var promises = [];
+	
+	        _angular2.default.forEach(this.services, function (handler) {
+	          var promise = handler.trackPageView(url);
+	          promises.push(promise);
+	        });
+	
+	        return $q.all(promises);
+	      };
+	
+	      return AvAnalytics;
+	    }();
+	
+	    return new AvAnalytics();
+	  };
+	
+	  return AvAnalyticsProvider;
+	}(_base2.default);
+	
+	AvAnalyticsProvider.$inject = ['avAnalyticsConfigProvider'];
+	
+	
+	_module2.default.provider('avAnalytics', AvAnalyticsProvider);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 309 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _utils=__webpack_require__(310);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}_module2.default.factory('avAnalyticsUtils',function(AV_ANALYTICS,$log){var AnalyticsUtils=function(){function AnalyticsUtils(){_classCallCheck(this,AnalyticsUtils);}_createClass(AnalyticsUtils,[{key:'getProperties',value:function getProperties(attributes){var self=this;var props={};Object.keys(attributes).forEach(function(key){if(self.isValidAttribute(key)&&self.isNotIgnored(key)){var result=self.getAttribute(key,attributes[key]);props[result.key]=result.value;}});return props;}// Function detects external links in order to allow the analytics framework to run
-	// before the browser follows a link.
-	//
-	//    - target="_self" - This opens an anchor in the same frame
-	//    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
-	//    - target="_top" - Opens the link as top document in the browser window
-	//    - target="_blank" - Opens link in new tab new tab
-	//
-	},{key:'isExternalLink',value:function isExternalLink(attrs){return attrs.href&&!attrs.ngClick;}},{key:'isNotIgnored',value:function isNotIgnored(key){var ignored=AV_ANALYTICS.IGNORE.indexOf(key)>-1;return!ignored;}},{key:'isValidAttribute',value:function isValidAttribute(key){return AV_ANALYTICS.PRE_FIX.test(key);}},{key:'lowercase',value:function lowercase(str){return str.substr(0,1).toLowerCase()+str.substr(1);}},{key:'getAttribute',value:function getAttribute(key,value){var simpleKey=key.match(AV_ANALYTICS.PRE_FIX);if(simpleKey&&simpleKey[1]){return{key:this.lowercase(simpleKey[1]),value:value};}}},{key:'toNum',value:function toNum(value){var parsed=parseInt(value,10);return isNaN(parsed)?0:parsed;}},{key:'isValid',value:function isValid(trackingValues){var valid=true;if(trackingValues.value||trackingValues.value===0){delete trackingValues.value;}Object.keys(trackingValues).forEach(function(key){var value=trackingValues[key];if((0,_utils.isBlank)(value)||_angular2.default.isUndefined(value)){$log.warn('The analytic tracking value for '+key.toUpperCase()+' is not defined.');valid=false;}});return valid;}}]);return AnalyticsUtils;}();return new AnalyticsUtils();});
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Inspiration: https://github.com/seeden/angular-es6
+	
+	function storeInjections() {
+	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var instance = arguments[1];
+	  var args = arguments[2];
+	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	
+	
+	  var instanceInject = instance[name] = instance[name] || {};
+	
+	  injected.forEach(function (injectName, index) {
+	    instanceInject[injectName] = args[index];
+	  });
+	}
+	
+	var Base = function Base() {
+	  _classCallCheck(this, Base);
+	
+	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	    args[_key] = arguments[_key];
+	  }
+	
+	  storeInjections(this.constructor.$inject, this, args);
+	};
+	
+	Base.$inject = [];
+	exports.default = Base;
 
 /***/ },
 /* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.print=exports.uuid=exports.REGEX_API_URL=exports.regions=exports.getRelativeUrl=exports.isBlank=exports.stringify=undefined;var _strings=__webpack_require__(311);var _urls=__webpack_require__(312);var _uuid=__webpack_require__(313);var _uuid2=_interopRequireDefault(_uuid);var _print=__webpack_require__(314);var _print2=_interopRequireDefault(_print);var _regions=__webpack_require__(315);var _regions2=_interopRequireDefault(_regions);__webpack_require__(316);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}exports.stringify=_strings.stringify;exports.isBlank=_strings.isBlank;exports.getRelativeUrl=_urls.getRelativeUrl;exports.regions=_regions2.default;exports.REGEX_API_URL=_urls.REGEX_API_URL;exports.uuid=_uuid2.default;exports.print=_print2.default;
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _module = _angular2.default.module('availity.config', ['availity']);
+	
+	_module.run(function (avAnalytics) {
+	  return avAnalytics.init();
+	});
 
 /***/ },
 /* 311 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.stringify=stringify;exports.isBlank=isBlank;// https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/helper/makeString.js
-	function stringify(object){if(object===null){return'';}return''+object;}// https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/isBlank.js
-	function isBlank(str){return (/^\s*$/.test(stringify(str)));}
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _utils = __webpack_require__(312);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.factory('avAnalyticsUtils', function (avAnalyticsConfig, $log) {
+	  var AnalyticsUtils = function () {
+	    function AnalyticsUtils() {
+	      _classCallCheck(this, AnalyticsUtils);
+	    }
+	
+	    AnalyticsUtils.prototype.getProperties = function getProperties(attributes) {
+	
+	      var self = this;
+	      var props = {};
+	
+	      Object.keys(attributes).forEach(function (key) {
+	        if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
+	          var result = self.getAttribute(key, attributes[key]);
+	          props[result.key] = result.value;
+	        }
+	      });
+	
+	      return props;
+	    };
+	
+	    // Function detects external links in order to allow the analytics framework to run
+	    // before the browser follows a link.
+	    //
+	    //    - target="_self" - This opens an anchor in the same frame
+	    //    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
+	    //    - target="_top" - Opens the link as top document in the browser window
+	    //    - target="_blank" - Opens link in new tab new tab
+	    //
+	
+	
+	    AnalyticsUtils.prototype.isExternalLink = function isExternalLink(attrs) {
+	      return attrs.href && !attrs.ngClick;
+	    };
+	
+	    AnalyticsUtils.prototype.isNotIgnored = function isNotIgnored(key) {
+	      var ignored = avAnalyticsConfig.IGNORE.indexOf(key) > -1;
+	      return !ignored;
+	    };
+	
+	    AnalyticsUtils.prototype.isValidAttribute = function isValidAttribute(key) {
+	      return avAnalyticsConfig.PRE_FIX.test(key);
+	    };
+	
+	    AnalyticsUtils.prototype.lowercase = function lowercase(str) {
+	      return str.substr(0, 1).toLowerCase() + str.substr(1);
+	    };
+	
+	    AnalyticsUtils.prototype.getAttribute = function getAttribute(key, value) {
+	
+	      var simpleKey = key.match(avAnalyticsConfig.PRE_FIX);
+	
+	      if (simpleKey && simpleKey[1]) {
+	        return {
+	          key: this.lowercase(simpleKey[1]),
+	          value: value
+	        };
+	      }
+	    };
+	
+	    AnalyticsUtils.prototype.toNum = function toNum(value) {
+	      var parsed = parseInt(value, 10);
+	      return isNaN(parsed) ? 0 : parsed;
+	    };
+	
+	    AnalyticsUtils.prototype.isValid = function isValid(trackingValues) {
+	
+	      var valid = true;
+	
+	      if (trackingValues.value || trackingValues.value === 0) {
+	        delete trackingValues.value;
+	      }
+	
+	      Object.keys(trackingValues).forEach(function (key) {
+	        var value = trackingValues[key];
+	        if ((0, _utils.isBlank)(value) || _angular2.default.isUndefined(value)) {
+	          $log.warn('The analytic tracking value for ' + key.toUpperCase() + ' is not defined.');
+	          valid = false;
+	        }
+	      });
+	
+	      return valid;
+	    };
+	
+	    return AnalyticsUtils;
+	  }();
+	
+	  return new AnalyticsUtils();
+	});
 
 /***/ },
 /* 312 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";Object.defineProperty(exports,"__esModule",{value:true});var REGEX_API_URL=/^.*?api.availity.com(.*)$/;function getRelativeUrl(url){var result=url.match(REGEX_API_URL);if(result&&result[1]){return"/api"+result[1];}return url;}exports.REGEX_API_URL=REGEX_API_URL;exports.getRelativeUrl=getRelativeUrl;
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.print = exports.uuid = exports.REGEX_API_URL = exports.regions = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
+	
+	var _strings = __webpack_require__(313);
+	
+	var _urls = __webpack_require__(314);
+	
+	var _uuid = __webpack_require__(315);
+	
+	var _uuid2 = _interopRequireDefault(_uuid);
+	
+	var _print = __webpack_require__(316);
+	
+	var _print2 = _interopRequireDefault(_print);
+	
+	var _regions = __webpack_require__(317);
+	
+	var _regions2 = _interopRequireDefault(_regions);
+	
+	__webpack_require__(318);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.stringify = _strings.stringify;
+	exports.isBlank = _strings.isBlank;
+	exports.getRelativeUrl = _urls.getRelativeUrl;
+	exports.regions = _regions2.default;
+	exports.REGEX_API_URL = _urls.REGEX_API_URL;
+	exports.uuid = _uuid2.default;
+	exports.print = _print2.default;
 
 /***/ },
 /* 313 */
 /***/ function(module, exports) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=uuid;var uid=['0','0','0'];function uuid(prefix){var index=uid.length;var digit=void 0;while(index){index--;digit=uid[index].charCodeAt(0);if(digit===57/* '9' */){uid[index]='A';return prefix?prefix+uid.join(''):uid.join('');}if(digit===90/* 'Z' */){uid[index]='0';}else{uid[index]=String.fromCharCode(digit+1);return prefix?prefix+uid.join(''):uid.join('');}}uid.unshift('0');return prefix?prefix+uid.join(''):uid.join('');}
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.stringify = stringify;
+	exports.isBlank = isBlank;
+	// https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/helper/makeString.js
+	function stringify(object) {
+	  if (object === null) {
+	    return '';
+	  }
+	  return '' + object;
+	}
+	
+	// https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/isBlank.js
+	function isBlank(str) {
+	  return (/^\s*$/.test(stringify(str))
+	  );
+	}
 
 /***/ },
 /* 314 */
 /***/ function(module, exports) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.print=print;// https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
-	function print(){if(document.queryCommandSupported('print')){document.execCommand('print',false,null);}else{window.focus();window.print();}}
+	"use strict";
+	
+	exports.__esModule = true;
+	var REGEX_API_URL = /^.*?api.availity.com(.*)$/;
+	
+	function getRelativeUrl(url) {
+	  var result = url.match(REGEX_API_URL);
+	  if (result && result[1]) {
+	    return "/api" + result[1];
+	  }
+	
+	  return url;
+	}
+	
+	exports.REGEX_API_URL = REGEX_API_URL;
+	exports.getRelativeUrl = getRelativeUrl;
 
 /***/ },
 /* 315 */
 /***/ function(module, exports) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var regions=[{'name':'Alabama','code':'AL'},{'name':'Alaska','code':'AK'},{'name':'Arizona','code':'AZ'},{'name':'Arkansas','code':'AR'},{'name':'California','code':'CA'},{'name':'Colorado','code':'CO'},{'name':'Connecticut','code':'CT'},{'name':'Delaware','code':'DE'},{'name':'District Of Columbia','code':'DC'},{'name':'Florida','code':'FL'},{'name':'Georgia','code':'GA'},{'name':'Hawaii','code':'HI'},{'name':'Idaho','code':'ID'},{'name':'Illinois','code':'IL'},{'name':'Indiana','code':'IN'},{'name':'Iowa','code':'IA'},{'name':'Kansas','code':'KS'},{'name':'Kentucky','code':'KY'},{'name':'Louisiana','code':'LA'},{'name':'Maine','code':'ME'},{'name':'Maryland','code':'MD'},{'name':'Massachusetts','code':'MA'},{'name':'Michigan','code':'MI'},{'name':'Minnesota','code':'MN'},{'name':'Mississippi','code':'MS'},{'name':'Missouri','code':'MO'},{'name':'Montana','code':'MT'},{'name':'Nebraska','code':'NE'},{'name':'Nevada','code':'NV'},{'name':'New Hampshire','code':'NH'},{'name':'New Jersey','code':'NJ'},{'name':'New Mexico','code':'NM'},{'name':'New York','code':'NY'},{'name':'North Carolina','code':'NC'},{'name':'North Dakota','code':'ND'},{'name':'Ohio','code':'OH'},{'name':'Oklahoma','code':'OK'},{'name':'Oregon','code':'OR'},{'name':'Pennsylvania','code':'PA'},{'name':'Rhode Island','code':'RI'},{'name':'South Carolina','code':'SC'},{'name':'South Dakota','code':'SD'},{'name':'Tennessee','code':'TN'},{'name':'Texas','code':'TX'},{'name':'Utah','code':'UT'},{'name':'Vermont','code':'VT'},{'name':'Virginia','code':'VA'},{'name':'Washington','code':'WA'},{'name':'West Virginia','code':'WV'},{'name':'Wisconsin','code':'WI'},{'name':'Wyoming','code':'WY'}];exports.default=regions;
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.default = uuid;
+	var uid = ['0', '0', '0'];
+	
+	function uuid(prefix) {
+	
+	  var index = uid.length;
+	  var digit = void 0;
+	
+	  while (index) {
+	    index--;
+	    digit = uid[index].charCodeAt(0);
+	    if (digit === 57 /* '9' */) {
+	        uid[index] = 'A';
+	        return prefix ? prefix + uid.join('') : uid.join('');
+	      }
+	    if (digit === 90 /* 'Z' */) {
+	        uid[index] = '0';
+	      } else {
+	      uid[index] = String.fromCharCode(digit + 1);
+	      return prefix ? prefix + uid.join('') : uid.join('');
+	    }
+	  }
+	  uid.unshift('0');
+	
+	  return prefix ? prefix + uid.join('') : uid.join('');
+	}
 
 /***/ },
 /* 316 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _regions=__webpack_require__(315);var _regions2=_interopRequireDefault(_regions);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_GLOBALS',{REGIONS:_regions2.default});
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.print = print;
+	// https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
+	
+	function print() {
+	
+	  if (document.queryCommandSupported('print')) {
+	    document.execCommand('print', false, null);
+	  } else {
+	    window.focus();
+	    window.print();
+	  }
+	}
 
 /***/ },
 /* 317 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _moment=__webpack_require__(318);var _moment2=_interopRequireDefault(_moment);var _tracekit=__webpack_require__(320);var _tracekit2=_interopRequireDefault(_tracekit);var _jquery=__webpack_require__(305);var _jquery2=_interopRequireDefault(_jquery);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(321);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}_module2.default.constant('AV_EXCEPTIONS',{MESSAGES:{NOT_APPLICABLE:'N/A'},TYPES:{EXCEPTION:'exception'}});var AvExceptionAnalyticsProvider=function(){function AvExceptionAnalyticsProvider(){_classCallCheck(this,AvExceptionAnalyticsProvider);this._enabled=true;this.appId;}_createClass(AvExceptionAnalyticsProvider,[{key:'enabled',value:function enabled(_enabled){this._enabled=!!_enabled;}},{key:'setAppId',value:function setAppId(_id){this.appId=_id;}},{key:'$get',value:function $get($location,AV_EXCEPTIONS,$injector){var that=this;var AvExceptionAnalytics=function(){function AvExceptionAnalytics(){_classCallCheck(this,AvExceptionAnalytics);}_createClass(AvExceptionAnalytics,[{key:'init',value:function init(){var self=this;if(!that._enabled){return;}_tracekit2.default.remoteFetching=false;_tracekit2.default.surroundingLinesToCollect=11;// subscribe() hooks into window.error
-	_tracekit2.default.report.subscribe(function(stacktrace){self.onError(stacktrace);});}},{key:'prettyPrint',value:function prettyPrint(stacktrace){var message='';var length=stacktrace.stack.length;for(var i=0;i<length;i++){message+=['['+i.toString().padStart(2,'0')+'] ',stacktrace.stack[i].func,' ',stacktrace.stack[i].url,':',stacktrace.stack[i].line,':',stacktrace.stack[i].column,i+1<length?'\n':''].join('');}return message;}},{key:'onError',value:function onError(stacktrace){var userAgent=window.navigator&&window.navigator.userAgent?window.navigator.userAgent:AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE;var message={errorDate:(0,_moment2.default)(new Date()).format('YYYY-MM-DDTHH:mm:ssZZ'),errorName:stacktrace.name,errorMessage:stacktrace.message,errorStack:this.prettyPrint(stacktrace),url:$location.$$absUrl,appId:that.appId||AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,appVersion:("Unknown")||AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,userAgent:userAgent,userLanguage:navigator.userLanguage,referrer:document.referrer,host:document.domain,screenWidth:(0,_jquery2.default)(window).width(),screenHeight:(0,_jquery2.default)(window).height(),sdkVersion:("2.0.0-beta.0")};return this.log(message);}},{key:'log',value:function log(message){var avLogMessagesResource=$injector.get('avLogMessagesResource');return avLogMessagesResource.error(message);}},{key:'trackEvent',value:function trackEvent(exception){if(!that._enabled){return null;}var stacktrace=_tracekit2.default.computeStackTrace(exception);return this.onError(stacktrace);}}]);return AvExceptionAnalytics;}();return new AvExceptionAnalytics();}}]);return AvExceptionAnalyticsProvider;}();_module2.default.provider('avExceptionAnalytics',AvExceptionAnalyticsProvider);_module2.default.config(function($provide){$provide.decorator('$exceptionHandler',function($delegate,$injector){return function(exception,cause){$delegate(exception,cause);var errorTacking=$injector.get('avExceptionAnalytics');errorTacking.trackEvent(exception);};});});_module2.default.run(function(avExceptionAnalytics){return avExceptionAnalytics.init();});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	var regions = [{
+	  'name': 'Alabama',
+	  'code': 'AL'
+	}, {
+	  'name': 'Alaska',
+	  'code': 'AK'
+	}, {
+	  'name': 'Arizona',
+	  'code': 'AZ'
+	}, {
+	  'name': 'Arkansas',
+	  'code': 'AR'
+	}, {
+	  'name': 'California',
+	  'code': 'CA'
+	}, {
+	  'name': 'Colorado',
+	  'code': 'CO'
+	}, {
+	  'name': 'Connecticut',
+	  'code': 'CT'
+	}, {
+	  'name': 'Delaware',
+	  'code': 'DE'
+	}, {
+	  'name': 'District Of Columbia',
+	  'code': 'DC'
+	}, {
+	  'name': 'Florida',
+	  'code': 'FL'
+	}, {
+	  'name': 'Georgia',
+	  'code': 'GA'
+	}, {
+	  'name': 'Hawaii',
+	  'code': 'HI'
+	}, {
+	  'name': 'Idaho',
+	  'code': 'ID'
+	}, {
+	  'name': 'Illinois',
+	  'code': 'IL'
+	}, {
+	  'name': 'Indiana',
+	  'code': 'IN'
+	}, {
+	  'name': 'Iowa',
+	  'code': 'IA'
+	}, {
+	  'name': 'Kansas',
+	  'code': 'KS'
+	}, {
+	  'name': 'Kentucky',
+	  'code': 'KY'
+	}, {
+	  'name': 'Louisiana',
+	  'code': 'LA'
+	}, {
+	  'name': 'Maine',
+	  'code': 'ME'
+	}, {
+	  'name': 'Maryland',
+	  'code': 'MD'
+	}, {
+	  'name': 'Massachusetts',
+	  'code': 'MA'
+	}, {
+	  'name': 'Michigan',
+	  'code': 'MI'
+	}, {
+	  'name': 'Minnesota',
+	  'code': 'MN'
+	}, {
+	  'name': 'Mississippi',
+	  'code': 'MS'
+	}, {
+	  'name': 'Missouri',
+	  'code': 'MO'
+	}, {
+	  'name': 'Montana',
+	  'code': 'MT'
+	}, {
+	  'name': 'Nebraska',
+	  'code': 'NE'
+	}, {
+	  'name': 'Nevada',
+	  'code': 'NV'
+	}, {
+	  'name': 'New Hampshire',
+	  'code': 'NH'
+	}, {
+	  'name': 'New Jersey',
+	  'code': 'NJ'
+	}, {
+	  'name': 'New Mexico',
+	  'code': 'NM'
+	}, {
+	  'name': 'New York',
+	  'code': 'NY'
+	}, {
+	  'name': 'North Carolina',
+	  'code': 'NC'
+	}, {
+	  'name': 'North Dakota',
+	  'code': 'ND'
+	}, {
+	  'name': 'Ohio',
+	  'code': 'OH'
+	}, {
+	  'name': 'Oklahoma',
+	  'code': 'OK'
+	}, {
+	  'name': 'Oregon',
+	  'code': 'OR'
+	}, {
+	  'name': 'Pennsylvania',
+	  'code': 'PA'
+	}, {
+	  'name': 'Rhode Island',
+	  'code': 'RI'
+	}, {
+	  'name': 'South Carolina',
+	  'code': 'SC'
+	}, {
+	  'name': 'South Dakota',
+	  'code': 'SD'
+	}, {
+	  'name': 'Tennessee',
+	  'code': 'TN'
+	}, {
+	  'name': 'Texas',
+	  'code': 'TX'
+	}, {
+	  'name': 'Utah',
+	  'code': 'UT'
+	}, {
+	  'name': 'Vermont',
+	  'code': 'VT'
+	}, {
+	  'name': 'Virginia',
+	  'code': 'VA'
+	}, {
+	  'name': 'Washington',
+	  'code': 'WA'
+	}, {
+	  'name': 'West Virginia',
+	  'code': 'WV'
+	}, {
+	  'name': 'Wisconsin',
+	  'code': 'WI'
+	}, {
+	  'name': 'Wyoming',
+	  'code': 'WY'
+	}];
+	
+	exports.default = regions;
 
 /***/ },
-/* 318 */,
-/* 319 */,
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _regions = __webpack_require__(317);
+	
+	var _regions2 = _interopRequireDefault(_regions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_GLOBALS', { REGIONS: _regions2.default });
+
+/***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _moment = __webpack_require__(320);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _tracekit = __webpack_require__(321);
+	
+	var _tracekit2 = _interopRequireDefault(_tracekit);
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(322);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.constant('AV_EXCEPTIONS', {
+	  MESSAGES: {
+	    NOT_APPLICABLE: 'N/A'
+	  },
+	  TYPES: {
+	    EXCEPTION: 'exception'
+	  }
+	});
+	
+	var AvExceptionAnalyticsProvider = function () {
+	  function AvExceptionAnalyticsProvider() {
+	    _classCallCheck(this, AvExceptionAnalyticsProvider);
+	
+	    this._enabled = true;
+	    this.appId;
+	  }
+	
+	  AvExceptionAnalyticsProvider.prototype.enabled = function enabled(_enabled) {
+	    this._enabled = !!_enabled;
+	  };
+	
+	  AvExceptionAnalyticsProvider.prototype.setAppId = function setAppId(_id) {
+	    this.appId = _id;
+	  };
+	
+	  AvExceptionAnalyticsProvider.prototype.$get = function $get($location, AV_EXCEPTIONS, $injector) {
+	
+	    var that = this;
+	
+	    var AvExceptionAnalytics = function () {
+	      function AvExceptionAnalytics() {
+	        _classCallCheck(this, AvExceptionAnalytics);
+	      }
+	
+	      AvExceptionAnalytics.prototype.init = function init() {
+	
+	        var self = this;
+	
+	        if (!that._enabled) {
+	          return;
+	        }
+	
+	        _tracekit2.default.remoteFetching = false;
+	        _tracekit2.default.surroundingLinesToCollect = 11;
+	
+	        // subscribe() hooks into window.error
+	        _tracekit2.default.report.subscribe(function (stacktrace) {
+	          self.onError(stacktrace);
+	        });
+	      };
+	
+	      AvExceptionAnalytics.prototype.prettyPrint = function prettyPrint(stacktrace) {
+	
+	        var message = '';
+	
+	        var length = stacktrace.stack.length;
+	
+	        for (var i = 0; i < length; i++) {
+	          message += ['[' + i.toString().padStart(2, '0') + '] ', stacktrace.stack[i].func, ' ', stacktrace.stack[i].url, ':', stacktrace.stack[i].line, ':', stacktrace.stack[i].column, i + 1 < length ? '\n' : ''].join('');
+	        }
+	
+	        return message;
+	      };
+	
+	      AvExceptionAnalytics.prototype.onError = function onError(stacktrace) {
+	
+	        var userAgent = window.navigator && window.navigator.userAgent ? window.navigator.userAgent : AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE;
+	
+	        var message = {
+	          errorDate: (0, _moment2.default)(new Date()).format('YYYY-MM-DDTHH:mm:ssZZ'),
+	          errorName: stacktrace.name,
+	          errorMessage: stacktrace.message,
+	          errorStack: this.prettyPrint(stacktrace),
+	          url: $location.$$absUrl,
+	          appId: that.appId || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+	          appVersion: ("Unknown") || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+	          userAgent: userAgent,
+	          userLanguage: navigator.userLanguage,
+	          referrer: document.referrer,
+	          host: document.domain,
+	          screenWidth: (0, _jquery2.default)(window).width(),
+	          screenHeight: (0, _jquery2.default)(window).height(),
+	          sdkVersion: ("2.0.0-beta.0")
+	        };
+	
+	        return this.log(message);
+	      };
+	
+	      AvExceptionAnalytics.prototype.log = function log(message) {
+	        var avLogMessagesResource = $injector.get('avLogMessagesResource');
+	        return avLogMessagesResource.error(message);
+	      };
+	
+	      AvExceptionAnalytics.prototype.trackEvent = function trackEvent(exception) {
+	
+	        if (!that._enabled) {
+	          return null;
+	        }
+	
+	        var stacktrace = _tracekit2.default.computeStackTrace(exception);
+	
+	        return this.onError(stacktrace);
+	      };
+	
+	      return AvExceptionAnalytics;
+	    }();
+	
+	    return new AvExceptionAnalytics();
+	  };
+	
+	  return AvExceptionAnalyticsProvider;
+	}();
+	
+	_module2.default.provider('avExceptionAnalytics', AvExceptionAnalyticsProvider);
+	
+	_module2.default.config(function ($provide) {
+	
+	  $provide.decorator('$exceptionHandler', function ($delegate, $injector) {
+	
+	    return function (exception, cause) {
+	      $delegate(exception, cause);
+	      var errorTacking = $injector.get('avExceptionAnalytics');
+	      errorTacking.trackEvent(exception);
+	    };
+	  });
+	});
+	
+	_module2.default.run(function (avExceptionAnalytics) {
+	  return avExceptionAnalytics.init();
+	});
+	
+	exports.default = _module2.default;
+
+/***/ },
 /* 320 */,
-/* 321 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(322);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var LogMessagesProvider=function(){function LogMessagesProvider(){_classCallCheck(this,LogMessagesProvider);}_createClass(LogMessagesProvider,[{key:'$get',value:function $get(AvApiResource){var AvLogMessagesResource=function(_AvApiResource){_inherits(AvLogMessagesResource,_AvApiResource);function AvLogMessagesResource(){_classCallCheck(this,AvLogMessagesResource);return _possibleConstructorReturn(this,Object.getPrototypeOf(AvLogMessagesResource).call(this,{version:'/v1',name:'/log-messages'}));}_createClass(AvLogMessagesResource,[{key:'buildRequest',value:function buildRequest(level,entries){var requestPayload={};if(entries.level){delete entries.level;}requestPayload.level=level;requestPayload.entries=entries;return requestPayload;}},{key:'debug',value:function debug(entries){return this.create(this.buildRequest('debug',entries));}},{key:'info',value:function info(entries){return this.create(this.buildRequest('info',entries));}},{key:'warn',value:function warn(entries){return this.create(this.buildRequest('warn',entries));}},{key:'error',value:function error(entries){return this.create(this.buildRequest('error',entries));}}]);return AvLogMessagesResource;}(AvApiResource);return new AvLogMessagesResource();}}]);return LogMessagesProvider;}();_module2.default.provider('avLogMessagesResource',LogMessagesProvider);exports.default=_module2.default;
-
-/***/ },
+/* 321 */,
 /* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(323);__webpack_require__(324);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var ApiResourceProvider=function(){function ApiResourceProvider(AV_API){_classCallCheck(this,ApiResourceProvider);this.defaultOptions=_extends({},AV_API.OPTIONS);}_createClass(ApiResourceProvider,[{key:'setOptions',value:function setOptions(options){_extends(this.defaultOptions,options);}},{key:'getOptions',value:function getOptions(){return _angular2.default.copy(this.defaultOptions);}},{key:'$get',value:function $get($http,$q,avPollingService){var that=this;var AvApiResource=function(){function AvApiResource(_options){_classCallCheck(this,AvApiResource);this.options=_options;if(!this.options){throw new Error('[options] cannot be null or undefined');}if(this.options.name){this.options.name=this.options.name.charAt(0)==='/'?this.options.name:'/'+this.options.name;}if(!this.options.url&&!this.options.name){throw new Error('AvApiResource options [url] or [name] cannot be null');}// get the default options and merge into this instance
-	this.options=_angular2.default.extend({},that.defaultOptions,this.options);}_createClass(AvApiResource,[{key:'config',value:function config(_config2){return _angular2.default.extend({},this.options,_config2||{});}},{key:'cacheBust',value:function cacheBust(config){config.cacheBust=null;config.params=config.params||{};config.params.cacheBust=new Date().getTime();return config;}},{key:'getUrl',value:function getUrl(id){if(this.options.api){return this.getApiUrl(id);}return this.options.url;}},{key:'createResponse',value:function createResponse(data,status,headers,config){return{data:data,status:status,headers:headers,config:config};}},{key:'request',value:function request(config,afterCallback){var self=this;var defer=$q.defer();$http(config).success(function(data,status,headers,_config){var _response={data:data,status:status,headers:headers,config:_config};// handle the async response if applicable
-	var _promise=$q.when(avPollingService.response(_response));// notify the promise listener of the original response
-	defer.notify(_response);// handle the polling service promise
-	_promise.then(function(_successResponse){var successResponse=_successResponse;if(afterCallback){successResponse=afterCallback.call(self,successResponse,config.data);}defer.resolve(successResponse);},function(errorResponse){return defer.reject(errorResponse);},function(notifyResponse){return defer.notify(notifyResponse);});}).error(function(data,status,headers,_config){var response=self.createResponse(data,status,headers,_config);defer.reject(response);});var promise=defer.promise;// recreate the success callback ala $http
-	promise.success=function(fn){promise.then(function(response){fn(response.data,response.status,response.headers,response.config);});return promise;};// recreate the error callback ala $http
-	promise.error=function(fn){promise.then(null,function(response){fn(response.data,response.status,response.headers,config);});return promise;};promise.always=promise.finally;return promise;}},{key:'normalize',value:function normalize(url){return url.replace(/[\/]+/g,'/').replace(/\/$/,'');}},{key:'join',value:function join(){var joined=[].slice.call(arguments,0).join('/');return this.normalize(joined);}},{key:'getApiUrl',value:function getApiUrl(_id){var id=_id?'/'+_id:'';var uri=void 0;var _options2=this.options;var path=_options2.path;var version=_options2.version;var name=_options2.name;var url=_options2.url;if(name){uri=this.join('/',path,version,name,id);}else{uri=this.join(url,id);}return uri;}},{key:'create',value:function create(_data,_config){var data=_data;var config=_config;if(!data){throw new Error('called method without [data]');}if(this.beforeCreate){data=this.beforeCreate(data);}config=this.config(config);config.method='POST';config.url=this.getUrl();config.data=data;return this.request(config,this.afterCreate);}},{key:'get',value:function get(id,_config){var config=_config;if(!id){throw new Error('called method without [id]');}config=this.config(config);if(config.cacheBust){config=this.cacheBust(config);}config.method='GET';config.url=this.getUrl(id);return this.request(config,this.afterGet);}},{key:'query',value:function query(_config){var config=_config;config=this.config(config);if(config.cacheBust){config=this.cacheBust(config);}config.method='GET';config.url=this.getUrl();return this.request(config,this.afterQuery);}},{key:'update',value:function update(id,_data,_config){var config=_config;var data=_data;var url=void 0;if(_angular2.default.isString(id)||_angular2.default.isNumber(id)){url=this.getUrl(id);}else{url=this.getUrl();// At this point the function signature becomes:
-	//
-	// update(data, config) {} a.k.a function(id, data)
-	//
-	config=data;// config is really the 2nd param
-	data=id;// data is really the first param
-	}if(this.beforeUpdate){data=this.beforeUpdate(data);}config=this.config(config);config.method='PUT';config.url=url;config.data=data;return this.request(config,this.afterUpdate);}},{key:'remove',value:function remove(id,_config){var config=_config;var url=void 0;var data=void 0;if(_angular2.default.isString(id)||_angular2.default.isNumber(id)){url=this.getUrl(id);}else{// At this point the function signature becomes:
-	//
-	// remove(data, config)
-	//
-	url=this.getUrl();data=id;}config=this.config(config);config.method='DELETE';config.url=url;config.data=data;return this.request(config,this.afterRemove);}},{key:'beforeCreate',value:function beforeCreate(data){return data;}},{key:'afterCreate',value:function afterCreate(response){return response;}},{key:'afterQuery',value:function afterQuery(response){return response;}},{key:'afterGet',value:function afterGet(response){return response;}},{key:'beforeUpdate',value:function beforeUpdate(data){return data;}},{key:'afterUpdate',value:function afterUpdate(response){return response;}},{key:'afterRemove',value:function afterRemove(response){return response;}}],[{key:'create',value:function create(){return new AvApiResource();}}]);return AvApiResource;}();return AvApiResource;}}]);return ApiResourceProvider;}();_module2.default.provider('AvApiResource',ApiResourceProvider);exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(323);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var LogMessagesProvider = function () {
+	  function LogMessagesProvider() {
+	    _classCallCheck(this, LogMessagesProvider);
+	  }
+	
+	  LogMessagesProvider.prototype.$get = function $get(AvApiResource) {
+	    var AvLogMessagesResource = function (_AvApiResource) {
+	      _inherits(AvLogMessagesResource, _AvApiResource);
+	
+	      function AvLogMessagesResource() {
+	        _classCallCheck(this, AvLogMessagesResource);
+	
+	        return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	          version: '/v1',
+	          name: '/log-messages'
+	        }));
+	      }
+	
+	      AvLogMessagesResource.prototype.buildRequest = function buildRequest(level, entries) {
+	
+	        var requestPayload = {};
+	
+	        if (entries.level) {
+	          delete entries.level;
+	        }
+	
+	        requestPayload.level = level;
+	        requestPayload.entries = entries;
+	
+	        return requestPayload;
+	      };
+	
+	      AvLogMessagesResource.prototype.debug = function debug(entries) {
+	        return this.create(this.buildRequest('debug', entries));
+	      };
+	
+	      AvLogMessagesResource.prototype.info = function info(entries) {
+	        return this.create(this.buildRequest('info', entries));
+	      };
+	
+	      AvLogMessagesResource.prototype.warn = function warn(entries) {
+	        return this.create(this.buildRequest('warn', entries));
+	      };
+	
+	      AvLogMessagesResource.prototype.error = function error(entries) {
+	        return this.create(this.buildRequest('error', entries));
+	      };
+	
+	      return AvLogMessagesResource;
+	    }(AvApiResource);
+	
+	    return new AvLogMessagesResource();
+	  };
+	
+	  return LogMessagesProvider;
+	}();
+	
+	_module2.default.provider('avLogMessagesResource', LogMessagesProvider);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_API',{HEADERS:{SERVER:{ID:'X-API-ID',LOCATION:'Location',STATUS:'X-Status-Message',GLOBAL_ID:'X-Global-Transaction-ID'},CLIENT:{SESSION_ID:'X-Session-ID',AUTH:'Authorization',OVERRIDE:'X-HTTP-Method-Override',CALLBACK_URL:'X-Callback-URL',CUSTOMER_ID:'X-Availity-Customer-ID',RESPONSE_ENCODING:'X-Response-Encoding-Context'}},OPTIONS:{// default base segment for Availity API endpoints
-	path:'/api',// full url to api resource
-	url:null,// name of resource
-	name:null,// defaults version for api
-	version:'/v1',// cache all request by default
-	cache:true,// flag used to enable behaviors around the Availity Rest API
-	api:true,// in ms
-	pollingInterval:1000,// % the polling interval decays after every retry
-	pollingDecay:1.2,// maximum time polling is allowed before rejecting the request
-	pollingMaxInterval:30000,// default headers
-	headers:{// Turn off content encoding for angular apis
-	'X-Response-Encoding-Context':'NONE'}}});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(324);
+	
+	__webpack_require__(325);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ApiResourceProvider = function () {
+	  function ApiResourceProvider(AV_API) {
+	    _classCallCheck(this, ApiResourceProvider);
+	
+	    this.defaultOptions = _extends({}, AV_API.OPTIONS);
+	  }
+	
+	  ApiResourceProvider.prototype.setOptions = function setOptions(options) {
+	    _extends(this.defaultOptions, options);
+	  };
+	
+	  ApiResourceProvider.prototype.getOptions = function getOptions() {
+	    return _angular2.default.copy(this.defaultOptions);
+	  };
+	
+	  ApiResourceProvider.prototype.$get = function $get($http, $q, avPollingService) {
+	
+	    var that = this;
+	
+	    var AvApiResource = function () {
+	      function AvApiResource(_options) {
+	        _classCallCheck(this, AvApiResource);
+	
+	        this.options = _options;
+	
+	        if (!this.options) {
+	          throw new Error('[options] cannot be null or undefined');
+	        }
+	
+	        if (this.options.name) {
+	          this.options.name = this.options.name.charAt(0) === '/' ? this.options.name : '/' + this.options.name;
+	        }
+	
+	        if (!this.options.url && !this.options.name) {
+	          throw new Error('AvApiResource options [url] or [name] cannot be null');
+	        }
+	
+	        // get the default options and merge into this instance
+	        this.options = _angular2.default.extend({}, that.defaultOptions, this.options);
+	      }
+	
+	      AvApiResource.prototype.config = function config(_config2) {
+	        return _angular2.default.extend({}, this.options, _config2 || {});
+	      };
+	
+	      AvApiResource.prototype.cacheBust = function cacheBust(config) {
+	
+	        config.cacheBust = null;
+	        config.params = config.params || {};
+	        config.params.cacheBust = new Date().getTime();
+	
+	        return config;
+	      };
+	
+	      AvApiResource.prototype.getUrl = function getUrl(id) {
+	
+	        if (this.options.api) {
+	          return this.getApiUrl(id);
+	        }
+	
+	        return this.options.url;
+	      };
+	
+	      AvApiResource.prototype.createResponse = function createResponse(data, status, headers, config) {
+	        return {
+	          data: data,
+	          status: status,
+	          headers: headers,
+	          config: config
+	        };
+	      };
+	
+	      AvApiResource.prototype.request = function request(config, afterCallback) {
+	
+	        var self = this;
+	        var defer = $q.defer();
+	
+	        $http(config).success(function (data, status, headers, _config) {
+	
+	          var _response = {
+	            data: data,
+	            status: status,
+	            headers: headers,
+	            config: _config
+	          };
+	
+	          // handle the async response if applicable
+	          var _promise = $q.when(avPollingService.response(_response));
+	          // notify the promise listener of the original response
+	          defer.notify(_response);
+	
+	          // handle the polling service promise
+	          _promise.then(function (_successResponse) {
+	
+	            var successResponse = _successResponse;
+	
+	            if (afterCallback) {
+	              successResponse = afterCallback.call(self, successResponse, config.data);
+	            }
+	            defer.resolve(successResponse);
+	          }, function (errorResponse) {
+	            return defer.reject(errorResponse);
+	          }, function (notifyResponse) {
+	            return defer.notify(notifyResponse);
+	          });
+	        }).error(function (data, status, headers, _config) {
+	          var response = self.createResponse(data, status, headers, _config);
+	          defer.reject(response);
+	        });
+	
+	        var promise = defer.promise;
+	
+	        // recreate the success callback ala $http
+	        promise.success = function (fn) {
+	          promise.then(function (response) {
+	            fn(response.data, response.status, response.headers, response.config);
+	          });
+	          return promise;
+	        };
+	
+	        // recreate the error callback ala $http
+	        promise.error = function (fn) {
+	
+	          promise.then(null, function (response) {
+	            fn(response.data, response.status, response.headers, config);
+	          });
+	
+	          return promise;
+	        };
+	
+	        promise.always = promise.finally;
+	
+	        return promise;
+	      };
+	
+	      AvApiResource.prototype.normalize = function normalize(url) {
+	        return url.replace(/[\/]+/g, '/').replace(/\/$/, '');
+	      };
+	
+	      AvApiResource.prototype.join = function join() {
+	        var joined = [].slice.call(arguments, 0).join('/');
+	        return this.normalize(joined);
+	      };
+	
+	      AvApiResource.prototype.getApiUrl = function getApiUrl(_id) {
+	
+	        var id = _id ? '/' + _id : '';
+	
+	        var uri = void 0;
+	
+	        var _options2 = this.options;
+	        var path = _options2.path;
+	        var version = _options2.version;
+	        var name = _options2.name;
+	        var url = _options2.url;
+	
+	
+	        if (name) {
+	          uri = this.join('/', path, version, name, id);
+	        } else {
+	          uri = this.join(url, id);
+	        }
+	
+	        return uri;
+	      };
+	
+	      AvApiResource.prototype.create = function create(_data, _config) {
+	
+	        var data = _data;
+	        var config = _config;
+	
+	        if (!data) {
+	          throw new Error('called method without [data]');
+	        }
+	
+	        if (this.beforeCreate) {
+	          data = this.beforeCreate(data);
+	        }
+	
+	        config = this.config(config);
+	        config.method = 'POST';
+	        config.url = this.getUrl();
+	        config.data = data;
+	
+	        return this.request(config, this.afterCreate);
+	      };
+	
+	      AvApiResource.prototype.get = function get(id, _config) {
+	
+	        var config = _config;
+	
+	        if (!id) {
+	          throw new Error('called method without [id]');
+	        }
+	
+	        config = this.config(config);
+	        if (config.cacheBust) {
+	          config = this.cacheBust(config);
+	        }
+	        config.method = 'GET';
+	        config.url = this.getUrl(id);
+	
+	        return this.request(config, this.afterGet);
+	      };
+	
+	      AvApiResource.prototype.query = function query(_config) {
+	
+	        var config = _config;
+	
+	        config = this.config(config);
+	        if (config.cacheBust) {
+	          config = this.cacheBust(config);
+	        }
+	        config.method = 'GET';
+	        config.url = this.getUrl();
+	
+	        return this.request(config, this.afterQuery);
+	      };
+	
+	      AvApiResource.prototype.update = function update(id, _data, _config) {
+	
+	        var config = _config;
+	        var data = _data;
+	
+	        var url = void 0;
+	
+	        if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
+	          url = this.getUrl(id);
+	        } else {
+	          url = this.getUrl();
+	
+	          // At this point the function signature becomes:
+	          //
+	          // update(data, config) {} a.k.a function(id, data)
+	          //
+	          config = data; // config is really the 2nd param
+	          data = id; // data is really the first param
+	        }
+	
+	        if (this.beforeUpdate) {
+	          data = this.beforeUpdate(data);
+	        }
+	
+	        config = this.config(config);
+	        config.method = 'PUT';
+	        config.url = url;
+	        config.data = data;
+	
+	        return this.request(config, this.afterUpdate);
+	      };
+	
+	      AvApiResource.prototype.remove = function remove(id, _config) {
+	
+	        var config = _config;
+	
+	        var url = void 0;
+	        var data = void 0;
+	
+	        if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
+	          url = this.getUrl(id);
+	        } else {
+	
+	          // At this point the function signature becomes:
+	          //
+	          // remove(data, config)
+	          //
+	          url = this.getUrl();
+	          data = id;
+	        }
+	
+	        config = this.config(config);
+	        config.method = 'DELETE';
+	        config.url = url;
+	        config.data = data;
+	
+	        return this.request(config, this.afterRemove);
+	      };
+	
+	      AvApiResource.create = function create() {
+	        return new AvApiResource();
+	      };
+	
+	      AvApiResource.prototype.beforeCreate = function beforeCreate(data) {
+	        return data;
+	      };
+	
+	      AvApiResource.prototype.afterCreate = function afterCreate(response) {
+	        return response;
+	      };
+	
+	      AvApiResource.prototype.afterQuery = function afterQuery(response) {
+	        return response;
+	      };
+	
+	      AvApiResource.prototype.afterGet = function afterGet(response) {
+	        return response;
+	      };
+	
+	      AvApiResource.prototype.beforeUpdate = function beforeUpdate(data) {
+	        return data;
+	      };
+	
+	      AvApiResource.prototype.afterUpdate = function afterUpdate(response) {
+	        return response;
+	      };
+	
+	      AvApiResource.prototype.afterRemove = function afterRemove(response) {
+	        return response;
+	      };
+	
+	      return AvApiResource;
+	    }();
+	
+	    return AvApiResource;
+	  };
+	
+	  return ApiResourceProvider;
+	}();
+	
+	_module2.default.provider('AvApiResource', ApiResourceProvider);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _constants=__webpack_require__(325);var _constants2=_interopRequireDefault(_constants);var _utils=__webpack_require__(310);var _base=__webpack_require__(307);var _base2=_interopRequireDefault(_base);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvPollingService=function(_Base){_inherits(AvPollingService,_Base);function AvPollingService(){var _Object$getPrototypeO;_classCallCheck(this,AvPollingService);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}var _this=_possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvPollingService)).call.apply(_Object$getPrototypeO,[this].concat(args)));_this.pendingRequests=[];// stores all request for polling
-	return _this;}_createClass(AvPollingService,[{key:'response',value:function response(_response){if(this.isAsyncResponse(_response)){return this.onAsyncReponse(_response);}return _response||this.av.$q.when(_response);}},{key:'setDefaults',value:function setDefaults(config){var defaultOptions={pollingInterval:this.av.AV_POLLING.INTERVAL,pollingDecay:this.av.AV_POLLING.DECAY,pollingMaxInterval:this.av.AV_POLLING.MAX_ELAPSED_TIME,pollingRetryCount:0,pollingStartTime:new Date().getTime()};return _extends(defaultOptions,config);}},{key:'responseError',value:function responseError(response){// Return the promise rejection
-	return this.av.$q.reject(response);}/**
-	   * API layer return a link with a polling url for
-	   * async responses.
-	   *
-	   * @param  {Object}  response ajax response
-	   * @return {Boolean} true if response has status of 202 (accepted) and location param in header with uri+session link
-	   */},{key:'isAsyncResponse',value:function isAsyncResponse(response){return response&&response.config&&response.config.api&&response.status&&response.status===202&&_angular2.default.isFunction(response.headers)&&!(0,_utils.isBlank)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));}},{key:'onAsyncReponse',value:function onAsyncReponse(response){response.config=this.setDefaults(response.config);var deferred=this.av.$q.defer();this.queueRequest(deferred,response);// [rm3]: Can't call notify before you return promise object?
-	this.av.$timeout(function(){// Notify deferred listeners with the original server response
-	deferred.notify(response);},0,false);return deferred.promise;}},{key:'getUrl',value:function getUrl(url){var result=url.match(this.av.AV_POLLING.REGEX_URL);if(result&&result[1]){return'/api'+result[1];}return url;}},{key:'queueRequest',value:function queueRequest(deferred,response){var self=this;// server replies with location header so set the url into config
-	var _url=(0,_utils.getRelativeUrl)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));var _config=response.config;// headers – {Object} – Map of strings or functions which return strings representing HTTP headers
-	//  to send to the server. If the return value of a function is null, the header
-	//  will not be sent. Functions accept a config object as an argument.
-	var config={method:'GET',api:true,headers:_config.headers,pollingInterval:_config.pollingInterval,pollingMaxRetry:_config.pollingMaxRetry,pollingMaxInterval:_config.pollingMaxInterval,pollingStartTime:_config.pollingStartTime,_pollingDecay:_config._pollingDecay,pollingRetryCount:_config.pollingRetryCount,pollingDecay:_config.pollingDecay,url:_url,/* set the url from the server response */cache:false};var request={id:(0,_utils.uuid)('request-'),config:config,deferred:deferred};var timeout=this.getPollingTimeout(config);// each async request should run on its own timer
-	var timer=this.av.$timeout(function(){self.retryRequest(request.id);},timeout,false);request.timer=timer;// add the async request to the queue
-	this.pushRequest(request);}},{key:'popRequest',value:function popRequest(id){var index=null;var request=null;for(var i=0;i<this.pendingRequests.length;i++){if(this.pendingRequests[i].id===id){index=i;break;}}request=this.pendingRequests[index];this.pendingRequests.splice(index,1);return request;}},{key:'pushRequest',value:function pushRequest(request){this.pendingRequests.push(request);}},{key:'getPollingTimeout',value:function getPollingTimeout(config){return config.pollingDecay*config.pollingInterval;}},{key:'isPollingMaxTimeout',value:function isPollingMaxTimeout(config){var now=new Date().getTime();var elaspedTime=now-config.pollingStartTime;var isElapsed=elaspedTime>config.pollingMaxInterval;return isElapsed;}},{key:'isMaxRetried',value:function isMaxRetried(config){return config.pollingRetryCount>=this.av.AV_POLLING.MAX_RETRY;}},{key:'isPollable',value:function isPollable(config){var _isTimeout=this.isPollingMaxTimeout(config);var _isMax=this.isMaxRetried(config);return _isTimeout||_isMax?false:true;}},{key:'retryRequest',value:function retryRequest(id){var self=this;var request=this.popRequest(id);this.av.$timeout.cancel(request.timer);var config=request.config;var deferred=request.deferred;if(!this.isPollable(config)){this.av.$log.info('Rejecting pollable response due to timeout');return deferred.reject(request);}// increment counters and polling timeouts
-	this.increment(config);function successCallback(response){if(self.isAsyncResponse(response)){deferred.notify(response);self.queueRequest(request.deferred,response);}else{deferred.resolve(response);}}function errorCallback(response){deferred.reject(response);}// Silly circular dependency trick
-	var $http=this.av.$injector.get('$http');$http(config).then(successCallback,errorCallback);}},{key:'increment',value:function increment(config){this.incrementCounter(config);this.incrementDecay(config);}},{key:'incrementDecay',value:function incrementDecay(config){if(!config._pollingDecay){// store the original decay param
-	config._pollingDecay=config.pollingDecay;}config.pollingDecay*=config._pollingDecay;}},{key:'incrementCounter',value:function incrementCounter(config){config.pollingRetryCount++;}},{key:'clearRequests',value:function clearRequests(){var self=this;_angular2.default.forEach(this.pendingRequests,function(request){self.av.$timeout.cancel(request.timer);});this.pendingRequests=[];}}]);return AvPollingService;}(_base2.default);AvPollingService.$inject=['$rootScope','$q','$injector','$timeout','$log','AV_POLLING','AV_API'];_constants2.default.service('avPollingService',AvPollingService);exports.default=_constants2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_API', {
+	  HEADERS: {
+	    SERVER: {
+	      ID: 'X-API-ID',
+	      LOCATION: 'Location',
+	      STATUS: 'X-Status-Message',
+	      GLOBAL_ID: 'X-Global-Transaction-ID'
+	    },
+	    CLIENT: {
+	      SESSION_ID: 'X-Session-ID',
+	      AUTH: 'Authorization',
+	      OVERRIDE: 'X-HTTP-Method-Override',
+	      CALLBACK_URL: 'X-Callback-URL',
+	      CUSTOMER_ID: 'X-Availity-Customer-ID',
+	      RESPONSE_ENCODING: 'X-Response-Encoding-Context'
+	    }
+	  },
+	  OPTIONS: {
+	
+	    // default base segment for Availity API endpoints
+	    path: '/api',
+	
+	    // full url to api resource
+	    url: null,
+	
+	    // name of resource
+	    name: null,
+	
+	    // defaults version for api
+	    version: '/v1',
+	
+	    // cache all request by default
+	    cache: true,
+	
+	    // flag used to enable behaviors around the Availity Rest API
+	    api: true,
+	
+	    // in ms
+	    pollingInterval: 1000,
+	
+	    // % the polling interval decays after every retry
+	    pollingDecay: 1.2,
+	
+	    // maximum time polling is allowed before rejecting the request
+	    pollingMaxInterval: 30000,
+	
+	    // default headers
+	    headers: {
+	      // Turn off content encoding for angular apis
+	      'X-Response-Encoding-Context': 'NONE'
+	    }
+	  }
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_POLLING',{INTERVAL:1000,// delay in ms before retrying an async request
-	MAX_ELAPSED_TIME:5000,// max time in ms before polling stops and rejects original request
-	MAX_RETRY:30,// # of times the request will be tried
-	DECAY:1.2,// % the polling interval decays after every retry
-	// maximum time polling is allowed before rejecting the request
-	EVENTS:{MAX_RETRY:'av:polling:max:retry'},REGEX_URL:/^.*?api.availity.com(.*)$/// capture the relative url from API
-	});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _constants = __webpack_require__(326);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	var _utils = __webpack_require__(312);
+	
+	var _base = __webpack_require__(309);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvPollingService = function (_Base) {
+	  _inherits(AvPollingService, _Base);
+	
+	  function AvPollingService() {
+	    _classCallCheck(this, AvPollingService);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.pendingRequests = []; // stores all request for polling
+	    return _this;
+	  }
+	
+	  AvPollingService.prototype.response = function response(_response) {
+	
+	    if (this.isAsyncResponse(_response)) {
+	      return this.onAsyncReponse(_response);
+	    }
+	
+	    return _response || this.av.$q.when(_response);
+	  };
+	
+	  AvPollingService.prototype.setDefaults = function setDefaults(config) {
+	
+	    var defaultOptions = {
+	      pollingInterval: this.av.AV_POLLING.INTERVAL,
+	      pollingDecay: this.av.AV_POLLING.DECAY,
+	      pollingMaxInterval: this.av.AV_POLLING.MAX_ELAPSED_TIME,
+	      pollingRetryCount: 0,
+	      pollingStartTime: new Date().getTime()
+	    };
+	
+	    return _extends(defaultOptions, config);
+	  };
+	
+	  AvPollingService.prototype.responseError = function responseError(response) {
+	    // Return the promise rejection
+	    return this.av.$q.reject(response);
+	  };
+	
+	  /**
+	   * API layer return a link with a polling url for
+	   * async responses.
+	   *
+	   * @param  {Object}  response ajax response
+	   * @return {Boolean} true if response has status of 202 (accepted) and location param in header with uri+session link
+	   */
+	
+	
+	  AvPollingService.prototype.isAsyncResponse = function isAsyncResponse(response) {
+	
+	    return response && response.config && response.config.api && response.status && response.status === 202 && _angular2.default.isFunction(response.headers) && !(0, _utils.isBlank)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
+	  };
+	
+	  AvPollingService.prototype.onAsyncReponse = function onAsyncReponse(response) {
+	
+	    response.config = this.setDefaults(response.config);
+	
+	    var deferred = this.av.$q.defer();
+	
+	    this.queueRequest(deferred, response);
+	
+	    // [rm3]: Can't call notify before you return promise object?
+	    this.av.$timeout(function () {
+	      // Notify deferred listeners with the original server response
+	      deferred.notify(response);
+	    }, 0, false);
+	
+	    return deferred.promise;
+	  };
+	
+	  AvPollingService.prototype.getUrl = function getUrl(url) {
+	
+	    var result = url.match(this.av.AV_POLLING.REGEX_URL);
+	    if (result && result[1]) {
+	      return '/api' + result[1];
+	    }
+	
+	    return url;
+	  };
+	
+	  AvPollingService.prototype.queueRequest = function queueRequest(deferred, response) {
+	
+	    var self = this;
+	    // server replies with location header so set the url into config
+	    var _url = (0, _utils.getRelativeUrl)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
+	    var _config = response.config;
+	
+	    // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
+	    //  to send to the server. If the return value of a function is null, the header
+	    //  will not be sent. Functions accept a config object as an argument.
+	    var config = {
+	      method: 'GET',
+	      api: true,
+	      headers: _config.headers,
+	      pollingInterval: _config.pollingInterval,
+	      pollingMaxRetry: _config.pollingMaxRetry,
+	      pollingMaxInterval: _config.pollingMaxInterval,
+	      pollingStartTime: _config.pollingStartTime,
+	      _pollingDecay: _config._pollingDecay,
+	      pollingRetryCount: _config.pollingRetryCount,
+	      pollingDecay: _config.pollingDecay,
+	      url: _url, /* set the url from the server response */
+	      cache: false
+	    };
+	
+	    var request = {
+	      id: (0, _utils.uuid)('request-'),
+	      config: config,
+	      deferred: deferred
+	    };
+	
+	    var timeout = this.getPollingTimeout(config);
+	
+	    // each async request should run on its own timer
+	    var timer = this.av.$timeout(function () {
+	      self.retryRequest(request.id);
+	    }, timeout, false);
+	
+	    request.timer = timer;
+	
+	    // add the async request to the queue
+	    this.pushRequest(request);
+	  };
+	
+	  AvPollingService.prototype.popRequest = function popRequest(id) {
+	
+	    var index = null;
+	    var request = null;
+	
+	    for (var i = 0; i < this.pendingRequests.length; i++) {
+	      if (this.pendingRequests[i].id === id) {
+	        index = i;
+	        break;
+	      }
+	    }
+	
+	    request = this.pendingRequests[index];
+	    this.pendingRequests.splice(index, 1);
+	
+	    return request;
+	  };
+	
+	  AvPollingService.prototype.pushRequest = function pushRequest(request) {
+	    this.pendingRequests.push(request);
+	  };
+	
+	  AvPollingService.prototype.getPollingTimeout = function getPollingTimeout(config) {
+	    return config.pollingDecay * config.pollingInterval;
+	  };
+	
+	  AvPollingService.prototype.isPollingMaxTimeout = function isPollingMaxTimeout(config) {
+	    var now = new Date().getTime();
+	    var elaspedTime = now - config.pollingStartTime;
+	    var isElapsed = elaspedTime > config.pollingMaxInterval;
+	    return isElapsed;
+	  };
+	
+	  AvPollingService.prototype.isMaxRetried = function isMaxRetried(config) {
+	    return config.pollingRetryCount >= this.av.AV_POLLING.MAX_RETRY;
+	  };
+	
+	  AvPollingService.prototype.isPollable = function isPollable(config) {
+	    var _isTimeout = this.isPollingMaxTimeout(config);
+	    var _isMax = this.isMaxRetried(config);
+	
+	    return _isTimeout || _isMax ? false : true;
+	  };
+	
+	  AvPollingService.prototype.retryRequest = function retryRequest(id) {
+	
+	    var self = this;
+	    var request = this.popRequest(id);
+	    this.av.$timeout.cancel(request.timer);
+	
+	    var config = request.config;
+	
+	    var deferred = request.deferred;
+	
+	    if (!this.isPollable(config)) {
+	      this.av.$log.info('Rejecting pollable response due to timeout');
+	      return deferred.reject(request);
+	    }
+	
+	    // increment counters and polling timeouts
+	    this.increment(config);
+	
+	    function successCallback(response) {
+	      if (self.isAsyncResponse(response)) {
+	        deferred.notify(response);
+	        self.queueRequest(request.deferred, response);
+	      } else {
+	        deferred.resolve(response);
+	      }
+	    }
+	
+	    function errorCallback(response) {
+	      deferred.reject(response);
+	    }
+	
+	    // Silly circular dependency trick
+	    var $http = this.av.$injector.get('$http');
+	
+	    $http(config).then(successCallback, errorCallback);
+	  };
+	
+	  AvPollingService.prototype.increment = function increment(config) {
+	    this.incrementCounter(config);
+	    this.incrementDecay(config);
+	  };
+	
+	  AvPollingService.prototype.incrementDecay = function incrementDecay(config) {
+	    if (!config._pollingDecay) {
+	      // store the original decay param
+	      config._pollingDecay = config.pollingDecay;
+	    }
+	    config.pollingDecay *= config._pollingDecay;
+	  };
+	
+	  AvPollingService.prototype.incrementCounter = function incrementCounter(config) {
+	    config.pollingRetryCount++;
+	  };
+	
+	  AvPollingService.prototype.clearRequests = function clearRequests() {
+	    var self = this;
+	    _angular2.default.forEach(this.pendingRequests, function (request) {
+	      self.av.$timeout.cancel(request.timer);
+	    });
+	    this.pendingRequests = [];
+	  };
+	
+	  return AvPollingService;
+	}(_base2.default);
+	
+	AvPollingService.$inject = ['$rootScope', '$q', '$injector', '$timeout', '$log', 'AV_POLLING', 'AV_API'];
+	
+	
+	_constants2.default.service('avPollingService', AvPollingService);
+	
+	exports.default = _constants2.default;
 
 /***/ },
 /* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _jquery=__webpack_require__(305);var _jquery2=_interopRequireDefault(_jquery);var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(310);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvPiwikAnalyticsProvider=function(){function AvPiwikAnalyticsProvider(){_classCallCheck(this,AvPiwikAnalyticsProvider);this.siteId;this.enabled=false;this.customVariables=[];}_createClass(AvPiwikAnalyticsProvider,[{key:'enable',value:function enable(_enabled){this.enabled=!!_enabled;}// can not push these items to `_paq` because it is defined
-	// after page has loaded
-	},{key:'_setCustomVariable',value:function _setCustomVariable(index,valueName,value,scope){if(!index||isNaN(index)){throw new Error('index must be a number');}else if(!valueName){throw new Error('valueName must be declared');}else{this.customVariables.push(['setCustomVariable',index,valueName,value,scope]);}}},{key:'setSiteID',value:function setSiteID(_siteID){this.enable(true);this.siteId=_siteID;}// allow the user to pass a array of visit variables
-	},{key:'setVisitVariables',value:function setVisitVariables(items){var _this=this;items.forEach(function(item){_this._setCustomVariable(item[0],item[1],item[2],'visit');});}},{key:'setPageVariables',value:function setPageVariables(index,name,value){this._setCustomVariable(index,name,value,'page');}},{key:'$get',value:function $get(avAnalyticsUtils,avUsersResource,AV_ANALYTICS,$injector,$log,$q,$document,$location){var that=this;var AvPiwikAnalytics=function(){function AvPiwikAnalytics(){_classCallCheck(this,AvPiwikAnalytics);window._paq=window._paq||[];}_createClass(AvPiwikAnalytics,[{key:'trackEvent',value:function trackEvent(properties){if(!window._paq){$log.warn('Piwik object `_paq` not found in global scope');return $q.when(false);}// http://piwik.org/docs/event-tracking/
-	//
-	// PAQ requires that eventValue be an integer.
-	// Check to make sure value is a number if not convert it to 0.
-	//
-	if(properties.value){properties.value=avAnalyticsUtils.toNum(properties.event);}// check to make sure that data being sent to piwik is a string and not null, empty or undefined
-	if(!avAnalyticsUtils.isValid(properties)){$log.warn('Invalid properties being passed. Tracking info will not be sent.');return $q.when(false);}return $q.when(window._paq.push(['trackEvent',properties.category,properties.action||properties.event,properties.label,properties.value]));}},{key:'trackPageView',value:function trackPageView(url){if(!window._paq){$log.warn('Piwik object `_paq` not found in global scope');return $q.when(false);}return $q.when([window._paq.push(['setCustomUrl',url]),window._paq.push(['trackPageView',url])]);}},{key:'init',value:function init(){avUsersResource.me().then(function(user){return window._paq.push(['setUserId',user.id]);});if(!isFinite(that.siteId)){$log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');return;}var url=void 0;if($location.$$host===AV_ANALYTICS.ENV.PROD.DOMAIN){url=AV_ANALYTICS.ENV.PROD.URL;}else{url=AV_ANALYTICS.ENV.QA.URL;}window._paq.push(['enableLinkTracking']);window._paq.push(['setTrackerUrl',url+'piwik.php']);window._paq.push(['setSiteId',that.siteId]);that.customVariables.forEach(function(variable){window._paq.push(variable);});_jquery2.default.getScript(url+'piwik.js',_angular2.default.noop);}},{key:'isEnabled',value:function isEnabled(){return that.enabled&&that.siteId;}}]);return AvPiwikAnalytics;}();return new AvPiwikAnalytics();}}]);return AvPiwikAnalyticsProvider;}();_module2.default.provider('avPiwikAnalytics',AvPiwikAnalyticsProvider);exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_POLLING', {
+	  INTERVAL: 1000, // delay in ms before retrying an async request
+	  MAX_ELAPSED_TIME: 5000, // max time in ms before polling stops and rejects original request
+	  MAX_RETRY: 30, // # of times the request will be tried
+	  DECAY: 1.2, // % the polling interval decays after every retry
+	  // maximum time polling is allowed before rejecting the request
+	  EVENTS: {
+	    MAX_RETRY: 'av:polling:max:retry'
+	  },
+	  REGEX_URL: /^.*?api.availity.com(.*)$/ // capture the relative url from API
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}_module2.default.factory('avSplunkAnalytics',function($log,avLogMessagesResource,$location){var SplunkAnalyticsService=function(){function SplunkAnalyticsService(){_classCallCheck(this,SplunkAnalyticsService);}_createClass(SplunkAnalyticsService,[{key:'trackEvent',value:function trackEvent(properties){properties.url=$location.$$absUrl||'N/A';properties.level=properties.level||'info';return avLogMessagesResource[properties.level](properties);}},{key:'trackPageView',value:function trackPageView(url){var properties={event:'page',level:'info',url:url||$location.$$absUrl()};return avLogMessagesResource[properties.level](properties);}},{key:'isEnabled',value:function isEnabled(){return true;}}]);return SplunkAnalyticsService;}();return new SplunkAnalyticsService();});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(311);
+	
+	__webpack_require__(301);
+	
+	__webpack_require__(328);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvPiwikAnalyticsProvider = function () {
+	  function AvPiwikAnalyticsProvider() {
+	    _classCallCheck(this, AvPiwikAnalyticsProvider);
+	
+	    this.siteId;
+	    this.enabled = false;
+	    this.customVariables = [];
+	  }
+	
+	  AvPiwikAnalyticsProvider.prototype.enable = function enable(_enabled) {
+	    this.enabled = !!_enabled;
+	  };
+	
+	  // can not push these items to `_paq` because it is defined
+	  // after page has loaded
+	
+	
+	  AvPiwikAnalyticsProvider.prototype._setCustomVariable = function _setCustomVariable(index, valueName, value, scope) {
+	
+	    if (!index || isNaN(index)) {
+	      throw new Error('index must be a number');
+	    } else if (!valueName) {
+	      throw new Error('valueName must be declared');
+	    } else {
+	      this.customVariables.push(['setCustomVariable', index, valueName, value, scope]);
+	    }
+	  };
+	
+	  AvPiwikAnalyticsProvider.prototype.setSiteID = function setSiteID(_siteID) {
+	    this.enable(true);
+	    this.siteId = _siteID;
+	  };
+	
+	  // allow the user to pass a array of visit variables
+	
+	
+	  AvPiwikAnalyticsProvider.prototype.setVisitVariables = function setVisitVariables(items) {
+	    var _this = this;
+	
+	    items.forEach(function (item) {
+	      _this._setCustomVariable(item[0], item[1], item[2], 'visit');
+	    });
+	  };
+	
+	  AvPiwikAnalyticsProvider.prototype.setPageVariables = function setPageVariables(index, name, value) {
+	    this._setCustomVariable(index, name, value, 'page');
+	  };
+	
+	  AvPiwikAnalyticsProvider.prototype.$get = function $get(avAnalyticsUtils, avUsersResource, avAnalyticsConfig, $injector, $log, $q, $document, $location) {
+	
+	    var that = this;
+	
+	    var AvPiwikAnalytics = function () {
+	      function AvPiwikAnalytics() {
+	        _classCallCheck(this, AvPiwikAnalytics);
+	
+	        window._paq = window._paq || [];
+	      }
+	
+	      AvPiwikAnalytics.prototype.trackEvent = function trackEvent(properties) {
+	
+	        if (!window._paq) {
+	          $log.warn('Piwik object `_paq` not found in global scope');
+	          return $q.when(false);
+	        }
+	
+	        // http://piwik.org/docs/event-tracking/
+	        //
+	        // PAQ requires that eventValue be an integer.
+	        // Check to make sure value is a number if not convert it to 0.
+	        //
+	        if (properties.value) {
+	          properties.value = avAnalyticsUtils.toNum(properties.event);
+	        }
+	
+	        // check to make sure that data being sent to piwik is a string and not null, empty or undefined
+	        if (!avAnalyticsUtils.isValid(properties)) {
+	          $log.warn('Invalid properties being passed. Tracking info will not be sent.');
+	          return $q.when(false);
+	        }
+	
+	        return $q.when(window._paq.push(['trackEvent', properties.category, properties.action || properties.event, properties.label, properties.value]));
+	      };
+	
+	      AvPiwikAnalytics.prototype.trackPageView = function trackPageView(url) {
+	
+	        if (!window._paq) {
+	          $log.warn('Piwik object `_paq` not found in global scope');
+	          return $q.when(false);
+	        }
+	
+	        return $q.when([window._paq.push(['setCustomUrl', url]), window._paq.push(['trackPageView', url])]);
+	      };
+	
+	      AvPiwikAnalytics.prototype.init = function init() {
+	
+	        avUsersResource.me().then(function (user) {
+	          return window._paq.push(['setUserId', user.id]);
+	        });
+	
+	        if (!isFinite(that.siteId)) {
+	          $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
+	          return;
+	        }
+	
+	        var url = void 0;
+	
+	        if ($location.$$host === avAnalyticsConfig.ENV.PROD.DOMAIN) {
+	          url = avAnalyticsConfig.ENV.PROD.URL;
+	        } else {
+	          url = avAnalyticsConfig.ENV.QA.URL;
+	        }
+	
+	        window._paq.push(['enableLinkTracking']);
+	        window._paq.push(['setTrackerUrl', url + 'piwik.php']);
+	        window._paq.push(['setSiteId', that.siteId]);
+	
+	        that.customVariables.forEach(function (variable) {
+	          window._paq.push(variable);
+	        });
+	
+	        _jquery2.default.getScript(url + 'piwik.js', _angular2.default.noop);
+	      };
+	
+	      AvPiwikAnalytics.prototype.isEnabled = function isEnabled() {
+	        return that.enabled && that.siteId;
+	      };
+	
+	      return AvPiwikAnalytics;
+	    }();
+	
+	    return new AvPiwikAnalytics();
+	  };
+	
+	  return AvPiwikAnalyticsProvider;
+	}();
+	
+	_module2.default.provider('avPiwikAnalytics', AvPiwikAnalyticsProvider);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(323);__webpack_require__(321);__webpack_require__(329);__webpack_require__(330);__webpack_require__(322);__webpack_require__(331);
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserServiceFactory = function UserServiceFactory(AvApiResource) {
+	  var AvUsersResource = function (_AvApiResource) {
+	    _inherits(AvUsersResource, _AvApiResource);
+	
+	    function AvUsersResource() {
+	      _classCallCheck(this, AvUsersResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'users' }));
+	    }
+	
+	    AvUsersResource.prototype.afterGet = function afterGet(response) {
+	      var user = response.data.user ? response.data.user : response.data;
+	      return user;
+	    };
+	
+	    AvUsersResource.prototype.me = function me(config) {
+	      return this.get('me', config);
+	    };
+	
+	    return AvUsersResource;
+	  }(AvApiResource);
+	
+	  return new AvUsersResource();
+	};
+	
+	_module2.default.factory('avUsersResource', UserServiceFactory);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var OrganizationResourceFactory=function OrganizationResourceFactory(AvApiResource){var OrganizationResource=function(_AvApiResource){_inherits(OrganizationResource,_AvApiResource);function OrganizationResource(){_classCallCheck(this,OrganizationResource);return _possibleConstructorReturn(this,Object.getPrototypeOf(OrganizationResource).call(this,{name:'organizations'}));}_createClass(OrganizationResource,[{key:'getOrganizations',value:function getOrganizations(config){return this.query(config).then(function(response){return response.data.organizations?response.data.organizations:response.data;});}}]);return OrganizationResource;}(AvApiResource);return new OrganizationResource();};_module2.default.factory('avOrganizationsResource',OrganizationResourceFactory);exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(322);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.factory('avSplunkAnalytics', function ($log, avLogMessagesResource, $location) {
+	  var SplunkAnalyticsService = function () {
+	    function SplunkAnalyticsService() {
+	      _classCallCheck(this, SplunkAnalyticsService);
+	    }
+	
+	    SplunkAnalyticsService.prototype.trackEvent = function trackEvent(properties) {
+	
+	      properties.url = $location.$$absUrl || 'N/A';
+	      properties.level = properties.level || 'info';
+	
+	      return avLogMessagesResource[properties.level](properties);
+	    };
+	
+	    SplunkAnalyticsService.prototype.trackPageView = function trackPageView(url) {
+	
+	      var properties = {
+	        event: 'page',
+	        level: 'info',
+	        url: url || $location.$$absUrl()
+	      };
+	
+	      return avLogMessagesResource[properties.level](properties);
+	    };
+	
+	    SplunkAnalyticsService.prototype.isEnabled = function isEnabled() {
+	      return true;
+	    };
+	
+	    return SplunkAnalyticsService;
+	  }();
+	
+	  return new SplunkAnalyticsService();
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _moment=__webpack_require__(318);var _moment2=_interopRequireDefault(_moment);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvUserPermissionsResourceFactory=function AvUserPermissionsResourceFactory(AvApiResource){var AvUserPermissionsResource=function(_AvApiResource){_inherits(AvUserPermissionsResource,_AvApiResource);function AvUserPermissionsResource(){_classCallCheck(this,AvUserPermissionsResource);var _this=_possibleConstructorReturn(this,Object.getPrototypeOf(AvUserPermissionsResource).call(this,{path:'/api/internal',version:'/v1',name:'/axi-user-permissions'}));_this.cacheBust=(0,_moment2.default)().unix();return _this;}_createClass(AvUserPermissionsResource,[{key:'afterQuery',value:function afterQuery(response){return response.data.axiUserPermissions?response.data.axiUserPermissions:[];}},{key:'getPermissions',value:function getPermissions(permissionIds,region){return this.query({params:{permissionId:permissionIds,region:region,cacheBust:this.cacheBust}});}}]);return AvUserPermissionsResource;}(AvApiResource);return new AvUserPermissionsResource();};_module2.default.factory('avUserPermissionsResource',AvUserPermissionsResourceFactory);exports.default=_module2.default;
+	'use strict';
+	
+	__webpack_require__(324);
+	
+	__webpack_require__(322);
+	
+	__webpack_require__(331);
+	
+	__webpack_require__(332);
+	
+	__webpack_require__(323);
+	
+	__webpack_require__(328);
 
 /***/ },
 /* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var UserServiceFactory=function UserServiceFactory(AvApiResource){var AvUsersResource=function(_AvApiResource){_inherits(AvUsersResource,_AvApiResource);function AvUsersResource(){_classCallCheck(this,AvUsersResource);return _possibleConstructorReturn(this,Object.getPrototypeOf(AvUsersResource).call(this,{name:'users'}));}_createClass(AvUsersResource,[{key:'afterGet',value:function afterGet(response){var user=response.data.user?response.data.user:response.data;return user;}},{key:'me',value:function me(config){return this.get('me',config);}}]);return AvUsersResource;}(AvApiResource);return new AvUsersResource();};_module2.default.factory('avUsersResource',UserServiceFactory);exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource) {
+	  var OrganizationResource = function (_AvApiResource) {
+	    _inherits(OrganizationResource, _AvApiResource);
+	
+	    function OrganizationResource() {
+	      _classCallCheck(this, OrganizationResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'organizations' }));
+	    }
+	
+	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
+	      return this.query(config).then(function (response) {
+	        return response.data.organizations ? response.data.organizations : response.data;
+	      });
+	    };
+	
+	    return OrganizationResource;
+	  }(AvApiResource);
+	
+	  return new OrganizationResource();
+	};
+	
+	_module2.default.factory('avOrganizationsResource', OrganizationResourceFactory);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _lodash=__webpack_require__(333);var _lodash2=_interopRequireDefault(_lodash);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(328);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvUserAuthorizationsFactory=function AvUserAuthorizationsFactory($q,$log,avUserPermissionsResource){var AvUserAuthorizations=function(){function AvUserAuthorizations(){_classCallCheck(this,AvUserAuthorizations);/**
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _moment = __webpack_require__(320);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      var _this = _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	
+	      _this.cacheBust = (0, _moment2.default)().unix();
+	      return _this;
+	    }
+	
+	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+	    };
+	
+	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
+	
+	      return this.query({
+	        params: {
+	          permissionId: permissionIds,
+	          region: region,
+	          cacheBust: this.cacheBust
+	        }
+	      });
+	    };
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _lodash = __webpack_require__(306);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(330);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvUserAuthorizationsFactory = function AvUserAuthorizationsFactory($q, $log, avUserPermissionsResource) {
+	  var AvUserAuthorizations = function () {
+	    function AvUserAuthorizations() {
+	      _classCallCheck(this, AvUserAuthorizations);
+	
+	      /**
 	       * Region is used to return permission/resources relative to region. If null service will
 	       * return all permission relative to current.  If value 'ALL' used it will return value relative
 	       * to all regions the user has access to.
-	       */this.region=null;/**
+	       */
+	      this.region = null;
+	
+	      /**
 	       * PermissionIds contains the set of permissionIds to request from service. If user of service calls
 	       * setPermissionIds() or call getPermissions() with complete set of permissionIds needed by application,
 	       * then service should only make that one hit to retrieve permission information.
-	       */this.permissionIds=[];}_createClass(AvUserAuthorizations,[{key:'setRegion',value:function setRegion(region){this.region=region;return this;}},{key:'setPermissionIds',value:function setPermissionIds(permissionIds){if(!_angular2.default.isArray(permissionIds)){throw new Error('permissionsIds must be an array of strings in setPermissionIds()');}this.permissionIds=permissionIds;return this;}},{key:'isAuthorized',value:function isAuthorized(permissionId){return this.getPermission(permissionId).then(function(permission){return permission.isAuthorized;});}},{key:'isAnyAuthorized',value:function isAnyAuthorized(permissionIds){return this.getPermissions(permissionIds).then(function(permissions){return permissions.some(function(permission){return permission.isAuthorized;});});}},{key:'getPermission',value:function getPermission(permissionId){if(!_angular2.default.isString(permissionId)){throw new Error('permissionsId must be a string ID for getPermission()');}return this.getPermissions([permissionId]).then(function(permissions){return permissions.find(function(permission){return permission.id===permissionId;});});}},{key:'getPermissions',value:function getPermissions(permissionIds){var _this=this;if(!_angular2.default.isArray(permissionIds)){throw new Error('permissionsIds must be an array of string IDs for getPermissions()');}// Combine pre-loaded permission ids with the ids from this function invocation
-	this.permissionIds=_lodash2.default.union(this.permissionIds,permissionIds);return avUserPermissionsResource.getPermissions(this.permissionIds,this.region).then(function(permissions){return _this.map(permissionIds,permissions);});}},{key:'getOrganizations',value:function getOrganizations(permissionId){return this.getPermission(permissionId).then(function(permission){return permission.organizations;});}},{key:'getPayers',value:function getPayers(permissionId,organizationId){return this.getPermission(permissionId).then(function(permission){var organization=permission.organizations.find(function(thisPermission){return thisPermission.id===organizationId;});if(organization&&organization.resources){return organization.resources;}return[];});}},{key:'map',value:function map(permissionIds,permissions){var self=this;var result=permissionIds.map(function(permissionId){var key={id:permissionId};var permission=permissions.find(function(thisPermission){return thisPermission.id===permissionId;});permission=permission?self.convert(permission):self.convert(key);return permission;});return result;}},{key:'convert',value:function convert(permission){permission.isAuthorized=permission.organizations?permission.organizations.length>0:false;permission.geographies=permission.geographies||[];permission.organizations=permission.organizations||[];return permission;}}]);return AvUserAuthorizations;}();return new AvUserAuthorizations();};_module2.default.factory('avUserAuthorizations',AvUserAuthorizationsFactory);
+	       */
+	      this.permissionIds = [];
+	    }
+	
+	    AvUserAuthorizations.prototype.setRegion = function setRegion(region) {
+	      this.region = region;
+	      return this;
+	    };
+	
+	    AvUserAuthorizations.prototype.setPermissionIds = function setPermissionIds(permissionIds) {
+	
+	      if (!_angular2.default.isArray(permissionIds)) {
+	        throw new Error('permissionsIds must be an array of strings in setPermissionIds()');
+	      }
+	
+	      this.permissionIds = permissionIds;
+	
+	      return this;
+	    };
+	
+	    AvUserAuthorizations.prototype.isAuthorized = function isAuthorized(permissionId) {
+	      return this.getPermission(permissionId).then(function (permission) {
+	        return permission.isAuthorized;
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.isAnyAuthorized = function isAnyAuthorized(permissionIds) {
+	      return this.getPermissions(permissionIds).then(function (permissions) {
+	        return permissions.some(function (permission) {
+	          return permission.isAuthorized;
+	        });
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.getPermission = function getPermission(permissionId) {
+	
+	      if (!_angular2.default.isString(permissionId)) {
+	        throw new Error('permissionsId must be a string ID for getPermission()');
+	      }
+	
+	      return this.getPermissions([permissionId]).then(function (permissions) {
+	        return permissions.find(function (permission) {
+	          return permission.id === permissionId;
+	        });
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.getPermissions = function getPermissions(permissionIds) {
+	      var _this = this;
+	
+	      if (!_angular2.default.isArray(permissionIds)) {
+	        throw new Error('permissionsIds must be an array of string IDs for getPermissions()');
+	      }
+	
+	      // Combine pre-loaded permission ids with the ids from this function invocation
+	      this.permissionIds = _lodash2.default.union(this.permissionIds, permissionIds);
+	
+	      return avUserPermissionsResource.getPermissions(this.permissionIds, this.region).then(function (permissions) {
+	        return _this.map(permissionIds, permissions);
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.getOrganizations = function getOrganizations(permissionId) {
+	      return this.getPermission(permissionId).then(function (permission) {
+	        return permission.organizations;
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.getPayers = function getPayers(permissionId, organizationId) {
+	
+	      return this.getPermission(permissionId).then(function (permission) {
+	
+	        var organization = permission.organizations.find(function (thisPermission) {
+	          return thisPermission.id === organizationId;
+	        });
+	
+	        if (organization && organization.resources) {
+	          return organization.resources;
+	        }
+	
+	        return [];
+	      });
+	    };
+	
+	    AvUserAuthorizations.prototype.map = function map(permissionIds, permissions) {
+	
+	      var self = this;
+	
+	      var result = permissionIds.map(function (permissionId) {
+	
+	        var key = { id: permissionId };
+	        var permission = permissions.find(function (thisPermission) {
+	          return thisPermission.id === permissionId;
+	        });
+	        permission = permission ? self.convert(permission) : self.convert(key);
+	        return permission;
+	      });
+	
+	      return result;
+	    };
+	
+	    AvUserAuthorizations.prototype.convert = function convert(permission) {
+	
+	      permission.isAuthorized = permission.organizations ? permission.organizations.length > 0 : false;
+	      permission.geographies = permission.geographies || [];
+	      permission.organizations = permission.organizations || [];
+	
+	      return permission;
+	    };
+	
+	    return AvUserAuthorizations;
+	  }();
+	
+	  return new AvUserAuthorizations();
+	};
+	
+	_module2.default.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
 
 /***/ },
-/* 333 */,
 /* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _jquery=__webpack_require__(305);var _jquery2=_interopRequireDefault(_jquery);var _lodash=__webpack_require__(333);var _=_interopRequireWildcard(_lodash);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(335);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}// https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
-	var AvMessageProvider=function(){function AvMessageProvider(){_classCallCheck(this,AvMessageProvider);this.enabled=true;}_createClass(AvMessageProvider,[{key:'enable',value:function enable(value){if(arguments.length){this.enabled=!!value;}return this.enabled;}},{key:'$get',value:function $get($rootScope,$log,AV_MESSAGES){var that=this;var AvMessages=function(){function AvMessages(){var _this=this;_classCallCheck(this,AvMessages);this.onResize=_.debounce(function(){var height=(0,_jquery2.default)('html').height();_this.send({event:AV_MESSAGES.EVENTS.AV_RESIZE,height:height});},AV_MESSAGES.RESIZE_DEBOUNCE);}_createClass(AvMessages,[{key:'init',value:function init(){var $window=(0,_jquery2.default)(window);$window.on(AV_MESSAGES.EVENTS.MESSAGE,this.onMessage.bind(this));$window.on(AV_MESSAGES.EVENTS.RESIZE,this.onResize.bind(this));$window.on(AV_MESSAGES.EVENTS.UNLOAD,this.onUnload.bind(this));$rootScope.$on('$destroy',this.destroy.bind(this));}},{key:'destroy',value:function destroy(){(0,_jquery2.default)(window).off(AV_MESSAGES.EVENTS.MESSAGE);(0,_jquery2.default)(window).off(AV_MESSAGES.EVENTS.RESIZE);(0,_jquery2.default)(window).off(AV_MESSAGES.EVENTS.UNLOAD);}},{key:'onUnload',value:function onUnload(){this.send({event:AV_MESSAGES.EVENTS.UNLOAD});}},{key:'isDomain',value:function isDomain(url){if(AV_MESSAGES.DOMAIN.test(this.domain())){return AV_MESSAGES.DOMAIN.test(url);}return AV_MESSAGES.LOCAL.test(url);}},{key:'isEnabled',value:function isEnabled(){return that.enabled;}},{key:'onMessage',value:function onMessage(_event){var event=_event;event=event.originalEvent||event;// jQuery wraps in `originalEvent`
-	if(!event&&!event.data){// no op
-	return;}// don't process messages emitted from same window
-	if(event.source===window){return;}if(!this.isDomain(event.origin)){$log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');return;}var data=event.data;try{data=_angular2.default.fromJson(data);}catch(err){$log.warn('avMessages.onMessage() failed to convert event to json payload');}if(_angular2.default.isString(data)){event=data;data=null;}else{event=data.event?data.event:AV_MESSAGES.AV_RECEIVED;}$rootScope.$root.$broadcast(event,data);}},{key:'isIframe',value:function isIframe(){return window.self!==window.parent;}},{key:'domain',value:function domain(){if(window.location.origin){return window.location.origin;}if(window.location.hostname){return window.location.protocol+'//'+window.location.hostname+(window.location.port?':'+window.location.port:'');}return'*';}},{key:'send',value:function send(payload){try{var message=_.isString(payload)?payload:JSON.stringify(payload);this.postMessage(message,this.domain());}catch(err){$log.error('avMessages.send() ',err);}}},{key:'postMessage',value:function postMessage(message,domain){window.parent.postMessage(message,domain);}}]);return AvMessages;}();return new AvMessages();}}]);return AvMessageProvider;}();_module2.default.provider('avMessages',AvMessageProvider);_module2.default.run(function(avMessages){if(avMessages.isEnabled()){avMessages.init();}});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _lodash = __webpack_require__(306);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(335);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
+	var AvMessageProvider = function () {
+	  function AvMessageProvider() {
+	    _classCallCheck(this, AvMessageProvider);
+	
+	    this.enabled = true;
+	  }
+	
+	  AvMessageProvider.prototype.enable = function enable(value) {
+	
+	    if (arguments.length) {
+	      this.enabled = !!value;
+	    }
+	
+	    return this.enabled;
+	  };
+	
+	  AvMessageProvider.prototype.$get = function $get($rootScope, $log, AV_MESSAGES) {
+	
+	    var that = this;
+	
+	    var AvMessages = function () {
+	      function AvMessages() {
+	        var _this = this;
+	
+	        _classCallCheck(this, AvMessages);
+	
+	        this.onResize = _.debounce(function () {
+	
+	          var height = (0, _jquery2.default)('html').height();
+	          _this.send({
+	            event: AV_MESSAGES.EVENTS.AV_RESIZE,
+	            height: height
+	          });
+	        }, AV_MESSAGES.RESIZE_DEBOUNCE);
+	      }
+	
+	      AvMessages.prototype.init = function init() {
+	
+	        var $window = (0, _jquery2.default)(window);
+	
+	        $window.on(AV_MESSAGES.EVENTS.MESSAGE, this.onMessage.bind(this));
+	
+	        $window.on(AV_MESSAGES.EVENTS.RESIZE, this.onResize.bind(this));
+	
+	        $window.on(AV_MESSAGES.EVENTS.UNLOAD, this.onUnload.bind(this));
+	
+	        $rootScope.$on('$destroy', this.destroy.bind(this));
+	      };
+	
+	      AvMessages.prototype.destroy = function destroy() {
+	
+	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.MESSAGE);
+	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.RESIZE);
+	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.UNLOAD);
+	      };
+	
+	      AvMessages.prototype.onUnload = function onUnload() {
+	
+	        this.send({
+	          event: AV_MESSAGES.EVENTS.UNLOAD
+	        });
+	      };
+	
+	      AvMessages.prototype.isDomain = function isDomain(url) {
+	
+	        if (AV_MESSAGES.DOMAIN.test(this.domain())) {
+	          return AV_MESSAGES.DOMAIN.test(url);
+	        }
+	
+	        return AV_MESSAGES.LOCAL.test(url);
+	      };
+	
+	      AvMessages.prototype.isEnabled = function isEnabled() {
+	        return that.enabled;
+	      };
+	
+	      AvMessages.prototype.onMessage = function onMessage(_event) {
+	
+	        var event = _event;
+	
+	        event = event.originalEvent || event; // jQuery wraps in `originalEvent`
+	
+	        if (!event && !event.data) {
+	          // no op
+	          return;
+	        }
+	
+	        // don't process messages emitted from same window
+	        if (event.source === window) {
+	          return;
+	        }
+	
+	        if (!this.isDomain(event.origin)) {
+	          $log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');
+	          return;
+	        }
+	
+	        var data = event.data;
+	
+	        try {
+	          data = _angular2.default.fromJson(data);
+	        } catch (err) {
+	          $log.warn('avMessages.onMessage() failed to convert event to json payload');
+	        }
+	
+	        if (_angular2.default.isString(data)) {
+	          event = data;
+	          data = null;
+	        } else {
+	          event = data.event ? data.event : AV_MESSAGES.AV_RECEIVED;
+	        }
+	
+	        $rootScope.$root.$broadcast(event, data);
+	      };
+	
+	      AvMessages.prototype.isIframe = function isIframe() {
+	        return window.self !== window.parent;
+	      };
+	
+	      AvMessages.prototype.domain = function domain() {
+	
+	        if (window.location.origin) {
+	          return window.location.origin;
+	        }
+	
+	        if (window.location.hostname) {
+	          return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+	        }
+	
+	        return '*';
+	      };
+	
+	      AvMessages.prototype.send = function send(payload) {
+	
+	        try {
+	
+	          var message = _.isString(payload) ? payload : JSON.stringify(payload);
+	          this.postMessage(message, this.domain());
+	        } catch (err) {
+	          $log.error('avMessages.send() ', err);
+	        }
+	      };
+	
+	      AvMessages.prototype.postMessage = function postMessage(message, domain) {
+	        window.parent.postMessage(message, domain);
+	      };
+	
+	      return AvMessages;
+	    }();
+	
+	    return new AvMessages();
+	  };
+	
+	  return AvMessageProvider;
+	}();
+	
+	_module2.default.provider('avMessages', AvMessageProvider);
+	
+	_module2.default.run(function (avMessages) {
+	
+	  if (avMessages.isEnabled()) {
+	    avMessages.init();
+	  }
+	});
 
 /***/ },
 /* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_MESSAGES',{EVENTS:{MESSAGE:'message',// post message window event
-	RESIZE:'resize.av.message',UNLOAD:'unload.av.message'},RESIZE_DEBOUNCE:400,DOMAIN:/https?:\/\/([\w\d\-]+\.)?availity\.(com|net)/,LOCAL:/http:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0):(\d+)/});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_MESSAGES', {
+	
+	  EVENTS: {
+	
+	    MESSAGE: 'message', // post message window event
+	    RESIZE: 'resize.av.message',
+	    UNLOAD: 'unload.av.message'
+	
+	  },
+	
+	  RESIZE_DEBOUNCE: 400,
+	
+	  DOMAIN: /https?:\/\/([\w\d\-]+\.)?availity\.(com|net)/,
+	  LOCAL: /http:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0):(\d+)/
+	
+	});
 
 /***/ },
 /* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(337);__webpack_require__(338);
+	'use strict';
+	
+	__webpack_require__(337);
+	
+	__webpack_require__(338);
 
 /***/ },
 /* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _rules=__webpack_require__(337);var _rules2=_interopRequireDefault(_rules);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.factory('avRules',function(){return _rules2.default;});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _rules = __webpack_require__(337);
+	
+	var _rules2 = _interopRequireDefault(_rules);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.factory('avRules', function () {
+	  return _rules2.default;
+	});
 
 /***/ },
 /* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);__webpack_require__(339);__webpack_require__(340);__webpack_require__(341);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvValProvider=function(){function AvValProvider(){_classCallCheck(this,AvValProvider);this.validators=[];this.rules={};this.services={};}_createClass(AvValProvider,[{key:'addRules',value:function addRules(_rules){this.rules=_angular2.default.extend({},this.rules,_rules);return this.rules;}},{key:'addValidators',value:function addValidators(_validators){this.validators=this.validators.concat(_validators);return this.validators;}},{key:'$get',value:function $get($injector,$rootScope,avValConfig,AV_VAL){var that=this;var AvValidation=function(){function AvValidation(){_classCallCheck(this,AvValidation);this.initValidators();}_createClass(AvValidation,[{key:'initValidators',value:function initValidators(){var self=this;that.validators=avValConfig.validators.concat(that.validators);_angular2.default.forEach(that.validators,function(name){self.addValidator(name);});}},{key:'addValidator',value:function addValidator(name){var validator=$injector.get(name);that.services[validator.name]=validator;}},{key:'addRules',value:function addRules(rules){that.rules=_angular2.default.extend({},that.rules,rules);$rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);}},{key:'getRule',value:function getRule(key){return that.rules[key];}},{key:'getService',value:function getService(name){return that.services[name];}}]);return AvValidation;}();return new AvValidation();}}]);return AvValProvider;}();_module2.default.provider('avVal',AvValProvider);
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(339);
+	
+	__webpack_require__(340);
+	
+	__webpack_require__(341);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvValProvider = function () {
+	  function AvValProvider() {
+	    _classCallCheck(this, AvValProvider);
+	
+	    this.validators = [];
+	    this.rules = {};
+	    this.services = {};
+	  }
+	
+	  AvValProvider.prototype.addRules = function addRules(_rules) {
+	    this.rules = _angular2.default.extend({}, this.rules, _rules);
+	    return this.rules;
+	  };
+	
+	  AvValProvider.prototype.addValidators = function addValidators(_validators) {
+	    this.validators = this.validators.concat(_validators);
+	    return this.validators;
+	  };
+	
+	  AvValProvider.prototype.$get = function $get($injector, $rootScope, avValConfig, AV_VAL) {
+	
+	    var that = this;
+	
+	    var AvValidation = function () {
+	      function AvValidation() {
+	        _classCallCheck(this, AvValidation);
+	
+	        this.initValidators();
+	      }
+	
+	      AvValidation.prototype.initValidators = function initValidators() {
+	
+	        var self = this;
+	
+	        that.validators = avValConfig.validators.concat(that.validators);
+	
+	        _angular2.default.forEach(that.validators, function (name) {
+	          self.addValidator(name);
+	        });
+	      };
+	
+	      AvValidation.prototype.addValidator = function addValidator(name) {
+	        var validator = $injector.get(name);
+	        that.services[validator.name] = validator;
+	      };
+	
+	      AvValidation.prototype.addRules = function addRules(rules) {
+	        that.rules = _angular2.default.extend({}, that.rules, rules);
+	        $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
+	      };
+	
+	      AvValidation.prototype.getRule = function getRule(key) {
+	        return that.rules[key];
+	      };
+	
+	      AvValidation.prototype.getService = function getService(name) {
+	        return that.services[name];
+	      };
+	
+	      return AvValidation;
+	    }();
+	
+	    return new AvValidation();
+	  };
+	
+	  return AvValProvider;
+	}();
+	
+	_module2.default.provider('avVal', AvValProvider);
 
 /***/ },
 /* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.value('avValConfig',{classes:{valid:'ng-valid',invalid:'ng-invalid',dirty:'ng-dirty',pristine:'ng-pristine',touched:'ng-touched',untouched:'ng-untouched',submitted:'ng-submitted'},validators:['avValPattern','avValSize','avValRequired','avValDateRange','avValDate','avValPhone','avValEmail','avValNpi']});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.value('avValConfig', {
+	  classes: {
+	    valid: 'ng-valid',
+	    invalid: 'ng-invalid',
+	    dirty: 'ng-dirty',
+	    pristine: 'ng-pristine',
+	    touched: 'ng-touched',
+	    untouched: 'ng-untouched',
+	    submitted: 'ng-submitted'
+	  },
+	  validators: ['avValPattern', 'avValSize', 'avValRequired', 'avValDateRange', 'avValDate', 'avValPhone', 'avValEmail', 'avValNpi']
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_VAL',{EVENTS:{REVALIDATE:'av:val:revalidate',SUBMITTED:'av:val:submitted',FAILED:'av:val:failed',RESET:'av:val:reset'},DEBOUNCE:800,DATE_FORMAT:{SIMPLE:'MM/DD/YYYY'},PATTERNS:{ALPHA_ONLY:/[^A-Za-z]+/g,NUMERIC_ONLY:/[^0-9]+/g}});exports.default=_module2.default;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_VAL', {
+	  EVENTS: {
+	    REVALIDATE: 'av:val:revalidate',
+	    SUBMITTED: 'av:val:submitted',
+	    FAILED: 'av:val:failed',
+	    RESET: 'av:val:reset'
+	  },
+	  DEBOUNCE: 800,
+	  DATE_FORMAT: {
+	    SIMPLE: 'MM/DD/YYYY'
+	  },
+	  PATTERNS: {
+	    ALPHA_ONLY: /[^A-Za-z]+/g,
+	    NUMERIC_ONLY: /[^0-9]+/g
+	  }
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(342);__webpack_require__(345);__webpack_require__(346);__webpack_require__(348);__webpack_require__(347);__webpack_require__(349);__webpack_require__(350);__webpack_require__(351);__webpack_require__(344);
+	'use strict';
+	
+	__webpack_require__(342);
+	
+	__webpack_require__(345);
+	
+	__webpack_require__(346);
+	
+	__webpack_require__(348);
+	
+	__webpack_require__(347);
+	
+	__webpack_require__(349);
+	
+	__webpack_require__(350);
+	
+	__webpack_require__(351);
+	
+	__webpack_require__(344);
 
 /***/ },
 /* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _moment=__webpack_require__(318);var _moment2=_interopRequireDefault(_moment);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(340);__webpack_require__(344);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValDate',function(AV_VAL,avValUtils){var DateValidator=function(_Validator){_inherits(DateValidator,_Validator);function DateValidator(){_classCallCheck(this,DateValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(DateValidator).call(this,'dateFormat'));}_createClass(DateValidator,[{key:'validate',value:function validate(_ref){var value=_ref.value;var constraint=_ref.constraint;var format=_ref.format;var _format=constraint&&format?format:AV_VAL.DATE_FORMAT.SIMPLE;return avValUtils.isEmpty(value)||_angular2.default.isDate(value)||(0,_moment2.default)(value,_format,true).isValid();}}]);return DateValidator;}(_validator2.default);return new DateValidator();});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _moment = __webpack_require__(320);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(340);
+	
+	__webpack_require__(344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValDate', function (AV_VAL, avValUtils) {
+	  var DateValidator = function (_Validator) {
+	    _inherits(DateValidator, _Validator);
+	
+	    function DateValidator() {
+	      _classCallCheck(this, DateValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'dateFormat'));
+	    }
+	
+	    DateValidator.prototype.validate = function validate(_ref) {
+	      var value = _ref.value;
+	      var constraint = _ref.constraint;
+	      var format = _ref.format;
+	
+	
+	      var _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
+	      return avValUtils.isEmpty(value) || _angular2.default.isDate(value) || (0, _moment2.default)(value, _format, true).isValid();
+	    };
+	
+	    return DateValidator;
+	  }(_validator2.default);
+	
+	  return new DateValidator();
+	});
 
 /***/ },
 /* 343 */
 /***/ function(module, exports) {
 
-	"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var Validator=function Validator(name){_classCallCheck(this,Validator);this.name=name;};exports.default=Validator;
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Validator = function Validator(name) {
+	  _classCallCheck(this, Validator);
+	
+	  this.name = name;
+	};
+	
+	exports.default = Validator;
 
 /***/ },
 /* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.factory('avValUtils',function(){return{isDefined:function isDefined(value){return _angular2.default.isDefined(value)&&value!==''&&value!==null;},isEmpty:function isEmpty(value){return!this.isDefined(value)||_angular2.default.isString(value)&&value.trim()==='';}};});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.factory('avValUtils', function () {
+	
+	  return {
+	    isDefined: function isDefined(value) {
+	      return _angular2.default.isDefined(value) && value !== '' && value !== null;
+	    },
+	    isEmpty: function isEmpty(value) {
+	      return !this.isDefined(value) || _angular2.default.isString(value) && value.trim() === '';
+	    }
+	  };
+	});
 
 /***/ },
 /* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _moment=__webpack_require__(318);var _moment2=_interopRequireDefault(_moment);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(340);__webpack_require__(344);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValDateRange',function(AV_VAL,avValUtils){var DateRangeValidator=function(_Validator){_inherits(DateRangeValidator,_Validator);function DateRangeValidator(){_classCallCheck(this,DateRangeValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(DateRangeValidator).call(this,'dateRange'));}_createClass(DateRangeValidator,[{key:'getStartDate',value:function getStartDate(start){return this.setMin((0,_moment2.default)().add(start.value,start.units));}},{key:'getEndDate',value:function getEndDate(end){return this.setMax((0,_moment2.default)().add(end.value,end.units));}},{key:'setMin',value:function setMin(value){value.set('hours',0);value.set('minutes',0);value.set('seconds',0);return value;}},{key:'setMax',value:function setMax(value){value.set('hours',23);value.set('minutes',59);value.set('seconds',59);return value;}},{key:'validation',value:function validation(_ref){var value=_ref.value;var constraint=_ref.constraint;var startDate=void 0;var endDate=void 0;var date=_angular2.default.isDate(value)?(0,_moment2.default)(value):(0,_moment2.default)(value,constraint.format||AV_VAL.DATE_FORMAT.SIMPLE);date.set('hours',0);date.set('minutes',0);date.set('seconds',0);if(!avValUtils.isEmpty(constraint.start.units)&&!avValUtils.isEmpty(constraint.end.units)){startDate=this.getStartDate(constraint.start);endDate=this.getEndDate(constraint.end);}else{startDate=(0,_moment2.default)(constraint.start.value,constraint.start.format||constraint.format);endDate=this.setMax((0,_moment2.default)(constraint.end.value,constraint.end.format||constraint.format));}return(_angular2.default.isDate(value)||date.isValid())&&(date.isBetween(startDate,endDate,'day')||date.isSame(startDate,'day')||date.isSame(endDate,'day'));}},{key:'validate',value:function validate(context){return avValUtils.isEmpty(context.value)||this.validation(context);}}]);return DateRangeValidator;}(_validator2.default);return new DateRangeValidator();});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _moment = __webpack_require__(320);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(340);
+	
+	__webpack_require__(344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValDateRange', function (AV_VAL, avValUtils) {
+	  var DateRangeValidator = function (_Validator) {
+	    _inherits(DateRangeValidator, _Validator);
+	
+	    function DateRangeValidator() {
+	      _classCallCheck(this, DateRangeValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'dateRange'));
+	    }
+	
+	    DateRangeValidator.prototype.getStartDate = function getStartDate(start) {
+	      return this.setMin((0, _moment2.default)().add(start.value, start.units));
+	    };
+	
+	    DateRangeValidator.prototype.getEndDate = function getEndDate(end) {
+	      return this.setMax((0, _moment2.default)().add(end.value, end.units));
+	    };
+	
+	    DateRangeValidator.prototype.setMin = function setMin(value) {
+	
+	      value.set('hours', 0);
+	      value.set('minutes', 0);
+	      value.set('seconds', 0);
+	
+	      return value;
+	    };
+	
+	    DateRangeValidator.prototype.setMax = function setMax(value) {
+	
+	      value.set('hours', 23);
+	      value.set('minutes', 59);
+	      value.set('seconds', 59);
+	
+	      return value;
+	    };
+	
+	    DateRangeValidator.prototype.validation = function validation(_ref) {
+	      var value = _ref.value;
+	      var constraint = _ref.constraint;
+	
+	
+	      var startDate = void 0;
+	      var endDate = void 0;
+	
+	      var date = _angular2.default.isDate(value) ? (0, _moment2.default)(value) : (0, _moment2.default)(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
+	      date.set('hours', 0);
+	      date.set('minutes', 0);
+	      date.set('seconds', 0);
+	
+	      if (!avValUtils.isEmpty(constraint.start.units) && !avValUtils.isEmpty(constraint.end.units)) {
+	        startDate = this.getStartDate(constraint.start);
+	        endDate = this.getEndDate(constraint.end);
+	      } else {
+	        startDate = (0, _moment2.default)(constraint.start.value, constraint.start.format || constraint.format);
+	        endDate = this.setMax((0, _moment2.default)(constraint.end.value, constraint.end.format || constraint.format));
+	      }
+	      return (_angular2.default.isDate(value) || date.isValid()) && (date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day'));
+	    };
+	
+	    DateRangeValidator.prototype.validate = function validate(context) {
+	      return avValUtils.isEmpty(context.value) || this.validation(context);
+	    };
+	
+	    return DateRangeValidator;
+	  }(_validator2.default);
+	
+	  return new DateRangeValidator();
+	});
 
 /***/ },
 /* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(347);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValEmail',function(avValPattern){var EMAIL_PATTERN=/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;var EmailValidator=function(_Validator){_inherits(EmailValidator,_Validator);function EmailValidator(){_classCallCheck(this,EmailValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(EmailValidator).call(this,'email'));}_createClass(EmailValidator,[{key:'validate',value:function validate(context){context.constraint=context.constraint||{};context.constraint.value=EMAIL_PATTERN;return avValPattern.validate(context);}}]);return EmailValidator;}(_validator2.default);return new EmailValidator();});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(347);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValEmail', function (avValPattern) {
+	
+	  var EMAIL_PATTERN = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+	
+	  var EmailValidator = function (_Validator) {
+	    _inherits(EmailValidator, _Validator);
+	
+	    function EmailValidator() {
+	      _classCallCheck(this, EmailValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'email'));
+	    }
+	
+	    EmailValidator.prototype.validate = function validate(context) {
+	
+	      context.constraint = context.constraint || {};
+	      context.constraint.value = EMAIL_PATTERN;
+	
+	      return avValPattern.validate(context);
+	    };
+	
+	    return EmailValidator;
+	  }(_validator2.default);
+	
+	  return new EmailValidator();
+	});
 
 /***/ },
 /* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(344);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValPattern',function(avValUtils){var PatternValidator=function(_Validator){_inherits(PatternValidator,_Validator);function PatternValidator(){_classCallCheck(this,PatternValidator);var _this=_possibleConstructorReturn(this,Object.getPrototypeOf(PatternValidator).call(this,'pattern'));_this.REGEX=/^\/(.*)\/([gim]*)$/;// regular expression to test a regular expression
-	return _this;}_createClass(PatternValidator,[{key:'asRegExp',value:function asRegExp(pattern){// if regex then return it
-	if(pattern.test){return pattern;}// if string then test for valid regex then convert to regex and return
-	var match=pattern.match(this.REGEX);if(match){return new RegExp(match[1],match[2]);}throw new Error('Expected '+pattern+' to be a RegExp');}},{key:'validate',value:function validate(context){var value=context.value;var constraint=context.constraint;var self=this;var values=Array.isArray(constraint.value)?constraint.value:[constraint.value];var valid=false;values.forEach(function(expression){var pattern=self.asRegExp(expression);if(avValUtils.isEmpty(value)||pattern.test(value)){valid=true;}});return valid;}}]);return PatternValidator;}(_validator2.default);return new PatternValidator();});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValPattern', function (avValUtils) {
+	  var PatternValidator = function (_Validator) {
+	    _inherits(PatternValidator, _Validator);
+	
+	    function PatternValidator() {
+	      _classCallCheck(this, PatternValidator);
+	
+	      var _this = _possibleConstructorReturn(this, _Validator.call(this, 'pattern'));
+	
+	      _this.REGEX = /^\/(.*)\/([gim]*)$/; // regular expression to test a regular expression
+	      return _this;
+	    }
+	
+	    PatternValidator.prototype.asRegExp = function asRegExp(pattern) {
+	
+	      // if regex then return it
+	      if (pattern.test) {
+	        return pattern;
+	      }
+	
+	      // if string then test for valid regex then convert to regex and return
+	      var match = pattern.match(this.REGEX);
+	      if (match) {
+	        return new RegExp(match[1], match[2]);
+	      }
+	
+	      throw new Error('Expected ' + pattern + ' to be a RegExp');
+	    };
+	
+	    PatternValidator.prototype.validate = function validate(context) {
+	      var value = context.value;
+	      var constraint = context.constraint;
+	
+	
+	      var self = this;
+	
+	      var values = Array.isArray(constraint.value) ? constraint.value : [constraint.value];
+	
+	      var valid = false;
+	
+	      values.forEach(function (expression) {
+	        var pattern = self.asRegExp(expression);
+	        if (avValUtils.isEmpty(value) || pattern.test(value)) {
+	          valid = true;
+	        }
+	      });
+	
+	      return valid;
+	    };
+	
+	    return PatternValidator;
+	  }(_validator2.default);
+	
+	  return new PatternValidator();
+	});
 
 /***/ },
 /* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValNpi',function(avValUtils){var NpiValidator=function(_Validator){_inherits(NpiValidator,_Validator);function NpiValidator(){_classCallCheck(this,NpiValidator);var _this=_possibleConstructorReturn(this,Object.getPrototypeOf(NpiValidator).call(this,'npi'));_this.INTEGER_REGEX=/^\d*$/;return _this;}_createClass(NpiValidator,[{key:'validate',value:function validate(context){var value=context.value;var npi=value||'';if(avValUtils.isEmpty(npi)){return true;}if(!this.INTEGER_REGEX.test(npi)||npi.length!==10){return false;}var firstDigit=npi.charAt(0);if(!['1','2','3','4'].includes(firstDigit)){return false;}var digit=parseInt(npi.charAt(9),10);npi=npi.substring(0,9);npi='80840'+npi;var alternate=true;var total=0;for(var i=npi.length;i>0;i--){var next=parseInt(npi.charAt(i-1),10);if(alternate){next=next*2;if(next>9){next=next%10+1;}}total+=next;alternate=!alternate;}var roundUp=Math.ceil(total/10)*10;var calculatedCheck=roundUp-total;return calculatedCheck===digit;}}]);return NpiValidator;}(_validator2.default);return new NpiValidator();});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValNpi', function (avValUtils) {
+	  var NpiValidator = function (_Validator) {
+	    _inherits(NpiValidator, _Validator);
+	
+	    function NpiValidator() {
+	      _classCallCheck(this, NpiValidator);
+	
+	      var _this = _possibleConstructorReturn(this, _Validator.call(this, 'npi'));
+	
+	      _this.INTEGER_REGEX = /^\d*$/;
+	      return _this;
+	    }
+	
+	    NpiValidator.prototype.validate = function validate(context) {
+	      var value = context.value;
+	
+	
+	      var npi = value || '';
+	
+	      if (avValUtils.isEmpty(npi)) {
+	        return true;
+	      }
+	
+	      if (!this.INTEGER_REGEX.test(npi) || npi.length !== 10) {
+	        return false;
+	      }
+	
+	      var firstDigit = npi.charAt(0);
+	      if (!['1', '2', '3', '4'].includes(firstDigit)) {
+	        return false;
+	      }
+	
+	      var digit = parseInt(npi.charAt(9), 10);
+	      npi = npi.substring(0, 9);
+	      npi = '80840' + npi;
+	
+	      var alternate = true;
+	      var total = 0;
+	
+	      for (var i = npi.length; i > 0; i--) {
+	        var next = parseInt(npi.charAt(i - 1), 10);
+	        if (alternate) {
+	          next = next * 2;
+	          if (next > 9) {
+	            next = next % 10 + 1;
+	          }
+	        }
+	        total += next;
+	        alternate = !alternate;
+	      }
+	
+	      var roundUp = Math.ceil(total / 10) * 10;
+	      var calculatedCheck = roundUp - total;
+	
+	      return calculatedCheck === digit;
+	    };
+	
+	    return NpiValidator;
+	  }(_validator2.default);
+	
+	  return new NpiValidator();
+	});
 
 /***/ },
 /* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(347);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValPhone',function(avValPattern){var PHONE_PATTERN=/^([0-9][\.\-]?)?[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;var PhoneValidator=function(_Validator){_inherits(PhoneValidator,_Validator);function PhoneValidator(){_classCallCheck(this,PhoneValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(PhoneValidator).call(this,'phone'));}_createClass(PhoneValidator,[{key:'validate',value:function validate(context){context.constraint=context.contraint||{};context.constraint.value=PHONE_PATTERN;return avValPattern.validate(context);}}]);return PhoneValidator;}(_validator2.default);return new PhoneValidator();});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(347);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValPhone', function (avValPattern) {
+	
+	  var PHONE_PATTERN = /^([0-9][\.\-]?)?[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+	
+	  var PhoneValidator = function (_Validator) {
+	    _inherits(PhoneValidator, _Validator);
+	
+	    function PhoneValidator() {
+	      _classCallCheck(this, PhoneValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'phone'));
+	    }
+	
+	    PhoneValidator.prototype.validate = function validate(context) {
+	      context.constraint = context.contraint || {};
+	      context.constraint.value = PHONE_PATTERN;
+	      return avValPattern.validate(context);
+	    };
+	
+	    return PhoneValidator;
+	  }(_validator2.default);
+	
+	  return new PhoneValidator();
+	});
 
 /***/ },
 /* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);__webpack_require__(344);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValRequired',function(avValUtils){var RequiredValidator=function(_Validator){_inherits(RequiredValidator,_Validator);function RequiredValidator(){_classCallCheck(this,RequiredValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(RequiredValidator).call(this,'required'));}_createClass(RequiredValidator,[{key:'validate',value:function validate(context){var value=context.value;var element=context.element;// Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
-	// type of field:
-	//
-	//    - radio
-	//    - checkbox
-	//    - text
-	//    - lists
-	//
-	// You can override $isEmpty for input directives whose concept of being empty is different to the
-	// default. Radio and checkboxes directive do this because in its case a value of `false`
-	// implies empty.
-	//
-	var ctrl=element&&element.data('$ngModelController');if(ctrl){return!ctrl.$isEmpty(value);}return!avValUtils.isEmpty(value);}}]);return RequiredValidator;}(_validator2.default);return new RequiredValidator();});
+	'use strict';
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	__webpack_require__(344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValRequired', function (avValUtils) {
+	  var RequiredValidator = function (_Validator) {
+	    _inherits(RequiredValidator, _Validator);
+	
+	    function RequiredValidator() {
+	      _classCallCheck(this, RequiredValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'required'));
+	    }
+	
+	    RequiredValidator.prototype.validate = function validate(context) {
+	      var value = context.value;
+	      var element = context.element;
+	
+	      // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
+	      // type of field:
+	      //
+	      //    - radio
+	      //    - checkbox
+	      //    - text
+	      //    - lists
+	      //
+	      // You can override $isEmpty for input directives whose concept of being empty is different to the
+	      // default. Radio and checkboxes directive do this because in its case a value of `false`
+	      // implies empty.
+	      //
+	
+	      var ctrl = element && element.data('$ngModelController');
+	      if (ctrl) {
+	        return !ctrl.$isEmpty(value);
+	      }
+	
+	      return !avValUtils.isEmpty(value);
+	    };
+	
+	    return RequiredValidator;
+	  }(_validator2.default);
+	
+	  return new RequiredValidator();
+	});
 
 /***/ },
 /* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _validator=__webpack_require__(343);var _validator2=_interopRequireDefault(_validator);var _module=__webpack_require__(302);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}_module2.default.factory('avValSize',function(avValUtils){var SizeValidator=function(_Validator){_inherits(SizeValidator,_Validator);function SizeValidator(){_classCallCheck(this,SizeValidator);return _possibleConstructorReturn(this,Object.getPrototypeOf(SizeValidator).call(this,'size'));}_createClass(SizeValidator,[{key:'validate',value:function validate(context){var value=context.value;var constraint=context.constraint;var _value=value;var min=constraint.min||0;var max=constraint.max;var type=constraint.type?constraint.type.toLowerCase():'text';if(_value===null||_angular2.default.isUndefined(_value)){_value='';}if(type==='text'){_value=''+_value;return avValUtils.isEmpty(_value)||_value.length>=min&&(max===undefined||_value.length<=max);}// ... must be a Number
-	if(!_angular2.default.isNumber(_value)&&/^\d+$/.test(_value)){_value=parseInt(_value,10);}return avValUtils.isEmpty(_value)||_value>=min&&(max===undefined||_value<=max);}}]);return SizeValidator;}(_validator2.default);return new SizeValidator();});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _validator = __webpack_require__(343);
+	
+	var _validator2 = _interopRequireDefault(_validator);
+	
+	var _module = __webpack_require__(305);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_module2.default.factory('avValSize', function (avValUtils) {
+	  var SizeValidator = function (_Validator) {
+	    _inherits(SizeValidator, _Validator);
+	
+	    function SizeValidator() {
+	      _classCallCheck(this, SizeValidator);
+	
+	      return _possibleConstructorReturn(this, _Validator.call(this, 'size'));
+	    }
+	
+	    SizeValidator.prototype.validate = function validate(context) {
+	      var value = context.value;
+	      var constraint = context.constraint;
+	
+	      var _value = value;
+	
+	      var min = constraint.min || 0;
+	      var max = constraint.max;
+	      var type = constraint.type ? constraint.type.toLowerCase() : 'text';
+	
+	      if (_value === null || _angular2.default.isUndefined(_value)) {
+	        _value = '';
+	      }
+	
+	      if (type === 'text') {
+	        _value = '' + _value;
+	        return avValUtils.isEmpty(_value) || _value.length >= min && (max === undefined || _value.length <= max);
+	      }
+	
+	      // ... must be a Number
+	      if (!_angular2.default.isNumber(_value) && /^\d+$/.test(_value)) {
+	        _value = parseInt(_value, 10);
+	      }
+	
+	      return avValUtils.isEmpty(_value) || _value >= min && (max === undefined || _value <= max);
+	    };
+	
+	    return SizeValidator;
+	  }(_validator2.default);
+	
+	  return new SizeValidator();
+	});
 
 /***/ },
 /* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(353);__webpack_require__(354);__webpack_require__(358);__webpack_require__(366);__webpack_require__(372);__webpack_require__(378);__webpack_require__(381);__webpack_require__(382);__webpack_require__(387);__webpack_require__(374);__webpack_require__(392);__webpack_require__(399);
+	'use strict';
+	
+	__webpack_require__(353);
+	
+	__webpack_require__(354);
+	
+	__webpack_require__(359);
+	
+	__webpack_require__(366);
+	
+	__webpack_require__(375);
+	
+	__webpack_require__(383);
+	
+	__webpack_require__(390);
+	
+	__webpack_require__(397);
+	
+	__webpack_require__(400);
+	
+	__webpack_require__(401);
+	
+	__webpack_require__(406);
+	
+	__webpack_require__(392);
+	
+	__webpack_require__(411);
+	
+	__webpack_require__(418);
 
 /***/ },
 /* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var ngModule=_angular2.default.module('availity.ui',['ng']);exports.default=ngModule;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ngModule = _angular2.default.module('availity.ui', ['ng']);
+	
+	exports.default = ngModule;
 
 /***/ },
 /* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(355);__webpack_require__(356);__webpack_require__(357);
+	'use strict';
+	
+	__webpack_require__(355);
+	
+	__webpack_require__(357);
+	
+	__webpack_require__(358);
 
 /***/ },
 /* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.controller('AvAnalyticsController',function(avAnalyticsUtils,avAnalytics){this.onEvent=function(event,element,options){var properties=_angular2.default.extend({level:'info',label:element.text()},{event:event.type},options);if(avAnalyticsUtils.isExternalLink(properties)){event.preventDefault();event.stopPropagation();}var promise=avAnalytics.trackEvent(properties);promise.finally(function(){if(avAnalyticsUtils.isExternalLink(properties)){document.location=element.attr('href');}});};});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	__webpack_require__(311);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvAnalyticsController = function (_Base) {
+	  _inherits(AvAnalyticsController, _Base);
+	
+	  function AvAnalyticsController() {
+	    _classCallCheck(this, AvAnalyticsController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	  }
+	
+	  AvAnalyticsController.prototype.onEvent = function onEvent(event, element, options) {
+	    var _this2 = this;
+	
+	    var properties = _angular2.default.extend({
+	      level: 'info',
+	      label: element.text()
+	    }, {
+	      event: event.type
+	    }, options);
+	
+	    if (this.av.avAnalyticsUtils.isExternalLink(properties)) {
+	      event.preventDefault();
+	      event.stopPropagation();
+	    }
+	
+	    var promise = this.av.avAnalytics.trackEvent(properties);
+	    promise.finally(function () {
+	      if (_this2.av.avAnalyticsUtils.isExternalLink(properties)) {
+	        document.location = element.attr('href');
+	      }
+	    });
+	  };
+	
+	  return AvAnalyticsController;
+	}(_base2.default);
+	
+	AvAnalyticsController.$inject = ['avAnalyticsUtils', 'avAnalytics'];
+	
+	
+	_module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 
 /***/ },
 /* 356 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avAnalytics',function(){return{restrict:'A',scope:{options:'=avAnalytics'},controller:function controller($scope){this.getOptions=function(){return $scope.options;};}};});
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Inspiration: https://github.com/seeden/angular-es6
+	
+	function storeInjections() {
+	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var instance = arguments[1];
+	  var args = arguments[2];
+	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	
+	
+	  var instanceInject = instance[name] = instance[name] || {};
+	
+	  injected.forEach(function (injectName, index) {
+	    instanceInject[injectName] = args[index];
+	  });
+	}
+	
+	var Base = function Base() {
+	  _classCallCheck(this, Base);
+	
+	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	    args[_key] = arguments[_key];
+	  }
+	
+	  storeInjections(this.constructor.$inject, this, args);
+	};
+	
+	Base.$inject = [];
+	exports.default = Base;
 
 /***/ },
 /* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avAnalyticsOn',function(AV_ANALYTICS,avAnalyticsUtils){return{restrict:'A',controller:'AvAnalyticsController',require:['avAnalyticsOn','?^avAnalytics'],link:function link(scope,element,attrs,controllers){var childCtrl=controllers[0];var parentCtrl={};var parentOptions={};if(controllers[1]){parentCtrl=controllers[1];parentOptions=parentCtrl.getOptions();}var eventType=attrs.avAnalyticsOn||AV_ANALYTICS.EVENTS.DEFAULT;element.on(eventType,function(event){if(parentCtrl.getOptions){parentOptions=parentCtrl.getOptions();}var options=_angular2.default.extend({},parentOptions,avAnalyticsUtils.getProperties(attrs));childCtrl.onEvent(event,element,options);});}};});
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avAnalytics', function () {
+	  return {
+	    restrict: 'A',
+	    scope: {
+	      options: '=avAnalytics'
+	    },
+	    controller: function controller($scope) {
+	      this.getOptions = function () {
+	        return $scope.options;
+	      };
+	    }
+	  };
+	});
 
 /***/ },
 /* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(359);__webpack_require__(360);__webpack_require__(361);__webpack_require__(362);__webpack_require__(364);__webpack_require__(365);
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(300);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avAnalyticsOn', function (avAnalyticsConfig, avAnalyticsUtils) {
+	  return {
+	    restrict: 'A',
+	    controller: 'AvAnalyticsController',
+	    require: ['avAnalyticsOn', '?^avAnalytics'],
+	    link: function link(scope, element, attrs, controllers) {
+	      var childCtrl = controllers[0];
+	      var parentCtrl = {};
+	      var parentOptions = {};
+	
+	      if (controllers[1]) {
+	        parentCtrl = controllers[1];
+	        parentOptions = parentCtrl.getOptions();
+	      }
+	
+	      var eventType = attrs.avAnalyticsOn || avAnalyticsConfig.EVENTS.DEFAULT;
+	
+	      element.on(eventType, function (event) {
+	        if (parentCtrl.getOptions) {
+	          parentOptions = parentCtrl.getOptions();
+	        }
+	
+	        var options = _angular2.default.extend({}, parentOptions, avAnalyticsUtils.getProperties(attrs));
+	
+	        childCtrl.onEvent(event, element, options);
+	      });
+	    }
+	  };
+	});
 
 /***/ },
 /* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function dateConfig($provide){// duck punch built in input validation to not date validation since it doesn't support different formats.
-	$provide.decorator('inputDirective',function($delegate){var directive=$delegate[0];var link=directive.link;directive.compile=function(){return{pre:function pre(scope,element,attr,ctrls){if(ctrls[0]&&_angular2.default.lowercase(attr.type)==='date'&&_angular2.default.isDefined(attr.avDatepicker)){// do not use the default date validation;
-	}else{link.pre.apply(this,arguments);}}};};return $delegate;});}_module2.default.config(dateConfig);
+	'use strict';
+	
+	__webpack_require__(360);
+	
+	__webpack_require__(361);
+	
+	__webpack_require__(362);
+	
+	__webpack_require__(365);
 
 /***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}// Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
-	_module2.default.constant('AV_DATEPICKER',{CONTROLLER:'$ngModelController',ADD_ON_SELECTOR:'[data-toggle="datepicker"]',OPTIONS:['autoclose','beforeShowDay','beforeShowMonth','calendarWeeks','clearBtn','toggleActive','container','daysOfWeekDisabled','datesDisabled','defaultViewDate','endDate','forceParse','format','inputs','keyboardNavigation','language','minViewMode','multidate','multidateSeparator','orientation','startDate','startView','todayBtn','todayHighlight','weekStart','showOnFocus','disableTouchKeyboard','enableOnReadonly','modelFormat'],DEFAULTS:{MODELFORMAT:'YYYY-MM-DD'}});
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var config={autoclose:true,todayHighlight:true,format:'MM/DD/YYYY',forceParse:false};var AvDatepickerConfig=function(){function AvDatepickerConfig(){_classCallCheck(this,AvDatepickerConfig);}_createClass(AvDatepickerConfig,[{key:'set',value:function set(options){_extends(config,options);}},{key:'$get',value:function $get(){return _angular2.default.copy(config);}}]);return AvDatepickerConfig;}();_module2.default.provider('avDatepickerConfig',AvDatepickerConfig);
-
-/***/ },
+/* 360 */,
+/* 361 */,
 /* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _moment=__webpack_require__(318);var _moment2=_interopRequireDefault(_moment);var _base=__webpack_require__(363);var _base2=_interopRequireDefault(_base);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function hasDateInput(){var i=document.createElement('input');i.setAttribute('type','date');return i.type!=='text';}var hasDateInputSupport=hasDateInput();// Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
-	var AvDatepickerController=function(_Base){_inherits(AvDatepickerController,_Base);function AvDatepickerController(){var _Object$getPrototypeO;_classCallCheck(this,AvDatepickerController);for(var _len=arguments.length,args=Array(_len),_key2=0;_key2<_len;_key2++){args[_key2]=arguments[_key2];}var _this=_possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvDatepickerController)).call.apply(_Object$getPrototypeO,[this].concat(args)));_this.hasDateInputSupport=hasDateInputSupport;return _this;}_createClass(AvDatepickerController,[{key:'setValue',value:function setValue(){var viewValue=this.ngModel.$viewValue;var plugin=this.plugin();if(!viewValue||!plugin){return;}plugin.setDate(viewValue);}},{key:'setNgModel',value:function setNgModel(ngModel){this.ngModel=ngModel;}},{key:'findModel',value:function findModel(){var ngModel=null;var $input=this.av.$element.find('input:first').andSelf();if($input.length){ngModel=$input.data(this.av.AV_DATEPICKER.CONTROLLER);this.setNgModel(ngModel);}return ngModel;}},{key:'modelToView',value:function modelToView(modelValue){return(0,_moment2.default)(modelValue).format(this.options.format);}},{key:'viewToModel',value:function viewToModel(viewValue){var plugin=this.plugin();if(!plugin||!viewValue){return null;}var parsed=(0,_moment2.default)(viewValue,this.options.format,true);if(parsed.isValid()){// jscs: disable
-	return plugin._utc_to_local(parsed.utc().toDate());// jscs: enable
-	}}},{key:'init',value:function init(){var _this2=this;this.options=_angular2.default.copy(this.av.avDatepickerConfig);Object.keys(this.av.$attrs).forEach(function(key){var value=_this2.av.$attrs[key];var _key=key.replace('data-','');if(_this2.av.AV_DATEPICKER.OPTIONS.includes(_key)){_this2.options[_key]=_this2.av.$scope.$eval(value);}});if(!this.options.modelFormat||this.options.modelFormat&&this.options.modelFormat.toLowerCase()==='default'){this.options.modelFormat=this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;}if(this.av.$attrs.type==='date'&&this.hasDateInputSupport){this.options.format=this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;}}},{key:'plugin',value:function plugin(){return this.av.$element.data('datepicker');}},{key:'destroy',value:function destroy(){var plugin=this.plugin();if(plugin){plugin.remove();this.av.$element.data('datepicker',null);}}},{key:'hide',value:function hide(){var plugin=this.plugin();if(plugin){plugin.hide();}}}]);return AvDatepickerController;}(_base2.default);AvDatepickerController.$inject=['$element','$attrs','AV_DATEPICKER','$scope','avDatepickerConfig'];_module2.default.controller('AvDatepickerController',AvDatepickerController);
+	'use strict';
+	
+	__webpack_require__(363);
 
 /***/ },
 /* 363 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}// Inspiration: https://github.com/seeden/angular-es6
-	function storeInjections(){var injected=arguments.length<=0||arguments[0]===undefined?[]:arguments[0];var instance=arguments[1];var args=arguments[2];var name=arguments.length<=3||arguments[3]===undefined?'av':arguments[3];var instanceInject=instance[name]=instance[name]||{};injected.forEach(function(injectName,index){instanceInject[injectName]=args[index];});}var Base=function Base(){_classCallCheck(this,Base);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}storeInjections(this.constructor.$inject,this,args);};Base.$inject=[];exports.default=Base;
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _template = __webpack_require__(364);
+	
+	var _template2 = _interopRequireDefault(_template);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avLoader', function () {
+	  return {
+	    restrict: 'AE',
+	    replace: true,
+	    templateUrl: _template2.default,
+	    link: function link(scope, element, attr) {
+	
+	      var active = void 0;
+	
+	      var endAnimation = function endAnimation() {
+	        element.find('.loading-bullet').velocity('stop', true);
+	        element.removeData();
+	      };
+	
+	      var animate = function animate() {
+	        element.find('.loading-bullet').velocity('transition.slideRightIn', { stagger: 250 }).velocity({ opacity: 0 }, {
+	          delay: 750,
+	          duration: 500,
+	          complete: function complete() {
+	            if (active) {
+	              setTimeout(function () {
+	                animate();
+	              }, 500);
+	            } else {
+	              endAnimation();
+	            }
+	          }
+	        });
+	      };
+	
+	      if (!attr.delay) {
+	        active = true;
+	        animate();
+	      }
+	
+	      scope.$on('$destroy', function () {
+	        active = false;
+	      });
+	    }
+	  };
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 364 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avDatepicker',function($window,$log,AV_DATEPICKER){return{restrict:'A',require:['ngModel','avDatepicker'],controller:'AvDatepickerController',link:function link(scope,element,attrs,controllers){var ngModel=controllers[0];var avDatepicker=controllers[1];if(!ngModel){ngModel=avDatepicker.findModel();if(!ngModel){$log.error('avDatepicker requires ngModel');return;}}avDatepicker.init();avDatepicker.setNgModel(ngModel);ngModel.$parsers.push(avDatepicker.viewToModel.bind(avDatepicker));ngModel.$formatters.push(avDatepicker.modelToView.bind(avDatepicker));var _$render=ngModel.$render;ngModel.$render=function(){_$render();avDatepicker.setValue();};var win=_angular2.default.element($window);win.bind('scroll',function(){avDatepicker.hide();});var target=element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);target=target.length?target:element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR.replace('data-',''));if(target.length){target.on('click.datepicker',function(){if(!element.prop('disabled')){// Hack check for IE 8
-	element.focus();}});}scope.$on('destroy',function(){avDatepicker.destroy();if(target.length){target.off('click.datepicker');}});scope.$evalAsync(function(){// why are their so many different ways to format the same date... MM/DD/YYYY -> mm/dd/yyyy makes a difference. between moment and the datepicker plugin.
-	var options=_extends({},avDatepicker.options);options.format=_angular2.default.lowercase(options.format);element.datepicker(options);});}};});
+	var path = 'src/ui/animation/loader/template.html';
+	var html = "<div class=\"loading-indicator\">\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n</div>\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ },
 /* 365 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avAnimate', function () {
+	  return {
+	    restrict: 'AE',
+	    scope: {
+	      watch: '<?avAnimate',
+	      animation: '<?avAnimateType',
+	      eventType: '@?avAnimateOn',
+	      onLoad: '<?avAnimateOnLoad',
+	      veclocityOptions: '<?avAnimateOptions'
+	    },
+	    link: function link(scope, element) {
+	
+	      var loaded = false;
+	
+	      var hasWatch = !_angular2.default.isUndefined(scope.watch);
+	      var hasEvent = !_angular2.default.isUndefined(scope.eventType);
+	
+	      var eventType = scope.eventType;
+	
+	      var onLoad = _angular2.default.isUndefined(scope.onLoad) ? !hasEvent : scope.onLoad;
+	
+	      var elmToBounce = element.children().length > 0 ? element.children() : element;
+	
+	      var animate = function animate() {
+	        var velocityAnimation = scope.animation || 'transition.bounceIn';
+	        var animationOptions = _angular2.default.extend({}, {
+	          duration: 1000
+	        }, scope.veclocityOptions);
+	
+	        elmToBounce.velocity(velocityAnimation, animationOptions);
+	      };
+	
+	      if (onLoad && !hasWatch) {
+	        animate();
+	      }
+	
+	      if (!_angular2.default.isUndefined(eventType)) {
+	        element.on(eventType, function () {
+	          animate();
+	        });
+	      }
+	
+	      if (!_angular2.default.isUndefined(scope.watch)) {
+	        scope.$watch('watch', function () {
+	          if (loaded || onLoad) {
+	            animate();
+	          }
+	          loaded = true;
+	        });
+	      }
+	    }
+	  };
+	});
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(367);__webpack_require__(368);__webpack_require__(370);__webpack_require__(371);
+	'use strict';
+	
+	__webpack_require__(367);
+	
+	__webpack_require__(368);
+	
+	__webpack_require__(370);
+	
+	__webpack_require__(372);
+	
+	__webpack_require__(371);
+	
+	__webpack_require__(373);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.run(function ($document, avBlockConfig, $templateCache) {
+	
+	  if (avBlockConfig.autoInjectBodyBlock) {
+	    $document.find('body').attr('av-block', 'main');
+	  }
+	
+	  if (avBlockConfig.template) {
+	
+	    // Swap the builtin template with the custom template.
+	    // Create a magic cache key and place the template in the cache.
+	
+	    avBlockConfig.templateUrl = '$$av-block-template$$';
+	    $templateCache.put(avBlockConfig.templateUrl, avBlockConfig.template);
+	  }
+	});
+	// import './integration';
 
 /***/ },
 /* 367 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvConfig=function(){function AvConfig(){_classCallCheck(this,AvConfig);// 1: value expression (valueFn)
-	// 2: label expression (displayFn)
-	// 3: group by expression (groupByFn)
-	// 4: disable when expression (disableWhenFn)
-	// 5: array item variable name
-	// 6: object item key variable name
-	// 7: object item value variable name
-	// 8: collection expression
-	// 9: track by expression
-	this.NG_OPTIONS_REGEXP=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;this.SELECT2_OPTIONS=['width','minimumInputLength','maximumInputLength','minimumResultsForSearch','maximumSelectionSize','placeholderOption','separator','allowClear','multiple','closeOnSelect','openOnEnter','id','matcher','sortResults','formatSelection','formatResult','formatResultCssClass','formatNoMatches','formatSearching','formatAjaxError','formatInputTooShort','formatInputTooLong','formatSelectionTooBig','formatLoadMore','createSearchChoice','createSearchChoicePosition','initSelection','tokenizer','tokenSeparators','query','ajax','data','tags','containerCss','containerCssClass','dropdownCss','dropdownCssClass','dropdownAutoWidth','adaptContainerCssClass','adaptDropdownCssClass','escapeMarkup','selectOnBlur','loadMorePadding','nextSearchTerm','correlationId','eventListeners'];this.DEFAULTS={closeOnResize:true,dropdownAutoWidth:true,minimumResultsForSearch:5,width:'100%'};}_createClass(AvConfig,[{key:'set',value:function set(options){_angular2.default.extend(this.DEFAULTS,options);}},{key:'$get',value:function $get(){return _angular2.default.copy({SELECT2_OPTIONS:this.SELECT2_OPTIONS,DEFAULTS:this.DEFAULTS,NG_OPTIONS_REGEXP:this.NG_OPTIONS_REGEXP});}}]);return AvConfig;}();_module2.default.provider('avDropdownConfig',AvConfig);
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _jquery=__webpack_require__(305);var _jquery2=_interopRequireDefault(_jquery);__webpack_require__(369);__webpack_require__(370);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}// import angular from 'angular';
-	_module2.default.directive('avDropdown',function($timeout){return{restrict:'A',priority:10,// select directive priority is 1
-	require:['ngModel','avDropdown'],controller:'AvDropdownController',link:function link(scope,element,attrs,controllers){element.addClass('select2');var ngModel=controllers[0];var avDropdown=controllers[1];avDropdown.init({ngModel:ngModel});if(attrs.ngOptions){avDropdown.ngOptions();}ngModel.$parsers.push(function(value){var parent=element.prev();parent.toggleClass('ng-invalid',!ngModel.$valid).toggleClass('ng-valid',ngModel.$valid).toggleClass('ng-invalid-required',!ngModel.$valid).toggleClass('ng-valid-required',ngModel.$valid).toggleClass('ng-dirty',ngModel.$dirty).toggleClass('ng-pristine',ngModel.$pristine);return value;});element.on('change',function(e){// special case since the ajax handling doesn't bind to the model correctly
-	// this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
-	if(avDropdown.options.query){$timeout(function(){if(avDropdown.isRemoteMultiple()){avDropdown.setRemoteViewValue(e);}else{avDropdown.setViewValue(e);}},false,0);}});var _$render=ngModel.$render;ngModel.$render=function(){_$render();avDropdown.setValue();};if(attrs.ngFocus){element.on('select2-focus',function(){scope.$eval(scope.$eval(attrs.ngFocus));});}if(attrs.ngBlur){element.on('select2-blur',function(){scope.$eval(scope.$eval(attrs.ngBlur));});}// https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
-	element.on('select2-open',function(){// look for .has-success, .has-warning, .has-error
-	// (really look for .has-* … might interfere with other CSS-classes starting with "has-")
-	if(element.parents('[class*="has-"]').length){// get all CSS-classes from the element where we found "has-*" and collect them in an array
-	var classNames=(0,_jquery2.default)(this).parents('[class*="has-"]')[0].className.split(/\s+/);// go through the class names, find "has-"
-	for(var i=0;i<classNames.length;++i){if(classNames[i].match('has-')){(0,_jquery2.default)('#select2-drop').addClass(classNames[i]);}}}});if(avDropdown.options.closeOnResize){(0,_jquery2.default)(window).on('resize.select2',function(){element.select2('close');});}attrs.$observe('disabled',function(value){element.select2('enable',!value);});attrs.$observe('readonly',function(value){element.select2('readonly',!!value);});scope.$on('$destroy',function(){(0,_jquery2.default)(window).off('resize.select2');element.select2('destroy');});$timeout(function(){element.select2(avDropdown.options);});}};});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _utils = __webpack_require__(369);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Inspiration from https://github.com/McNull/angular-block-ui.
+	//
+	//  - Need npm compatible library
+	//  - Re-factor with better life-cyle hooks for starting and stopping animations
+	
+	var BlockController = function (_Base) {
+	  _inherits(BlockController, _Base);
+	
+	  function BlockController() {
+	    _classCallCheck(this, BlockController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    // Expose the blockMessageClass attribute value on the scope
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.av.$attrs.$observe('blockMessageClass', function (value) {
+	      _this.av.$scope.$_blockMessageClass = value;
+	    });
+	
+	    // Create the block instance
+	    // Prefix underscore to prevent integers:
+	    // https://github.com/McNull/angular-block-ui/pull/8
+	
+	    _this.instanceId = _this.av.$attrs.avBlock || '_' + _this.av.$scope.$id;
+	    _this.serviceInstance = _this.av.avBlockManager.get(_this.instanceId);
+	
+	    if (_this.instanceId === 'main') {
+	      _this.blockNavigation();
+	    } else {
+	      // Locate the parent block instance
+	      var parentInstance = _this.av.$element.inheritedData('av-block');
+	
+	      if (parentInstance) {
+	        _this.serviceInstance._parent = parentInstance;
+	      }
+	    }
+	
+	    // Increase the reference count
+	    _this.serviceInstance.addRef();
+	
+	    // Expose the state on the scope
+	
+	    _this.av.$scope.$_blockState = _this.serviceInstance.state();
+	
+	    _this.av.$scope.$watch('$_blockState.blocking', function (value) {
+	      // Set the aria-busy attribute if needed
+	      _this.av.$element.attr('aria-busy', !!value);
+	      _this.av.$element.toggleClass('av-block-visible', !!value);
+	    });
+	
+	    _this.av.$scope.$watch('$_blockState.blockCount > 0', function (value) {
+	      _this.av.$element.toggleClass('av-block-active', !!value);
+	    });
+	
+	    // If a pattern is provided assign it to the state
+	
+	    var pattern = _this.av.$attrs.blockPattern;
+	
+	    if (pattern) {
+	      var regExp = (0, _utils.buildRegExp)(pattern);
+	      _this.serviceInstance.pattern(regExp);
+	    }
+	
+	    // Store a reference to the service instance on the element
+	
+	    _this.av.$element.data('av-block', _this.serviceInstance);
+	
+	    return _this;
+	  }
+	
+	  BlockController.prototype.moduleLoaded = function moduleLoaded(name) {
+	
+	    try {
+	      _angular2.default.module(name);
+	    } catch (ex) {
+	      return false;
+	    }
+	
+	    return true;
+	  };
+	
+	  BlockController.prototype.registerLocationChange = function registerLocationChange() {
+	
+	    this.av.$scope.$on('$locationChangeStart', function (event) {
+	
+	      if (this.serviceInstance.$_blockLocationChange && this.serviceInstance.state().blockCount > 0) {
+	        event.preventDefault();
+	      }
+	    });
+	
+	    this.av.$scope.$on('$locationChangeSuccess', function () {
+	      this.serviceInstance.$_blockLocationChange = this.serviceInstance.blockBrowserNavigation;
+	    });
+	  };
+	
+	  BlockController.prototype.blockNavigation = function blockNavigation() {
+	    var _this2 = this;
+	
+	    if (this.av.avBlockConfig.blockBrowserNavigation) {
+	
+	      if (this.moduleLoaded('ngRoute')) {
+	        (function () {
+	
+	          // After the initial content has been loaded we'll spy on any location
+	          // changes and discard them when needed.
+	
+	          var fn = _this2.av.$scope.$on('$viewContentLoaded', function () {
+	
+	            // Unhook the view loaded and hook a function that will prevent
+	            // location changes while the block is active.
+	
+	            fn();
+	            _this2.registerLocationChange();
+	          });
+	        })();
+	      } else {
+	        this.registerLocationChange();
+	      }
+	    }
+	  };
+	
+	  // Ensure the instance is released when the scope is destroyed
+	
+	
+	  BlockController.prototype.$destroy = function $destroy() {
+	    this.serviceInstance.release();
+	    this.av.$element.data('av-block', null);
+	  };
+	
+	  BlockController.prototype.$postLink = function $postLink() {
+	
+	    var $el = this.av.$compile('<av-block-container class="av-block-container"></av-block-container >')(this.av.$scope);
+	    this.av.$element.append($el);
+	
+	    // If the element does not have the class 'av-block' set, we set the
+	    // default css classes from the config.
+	
+	    if (!this.av.$element.hasClass('av-block')) {
+	      this.av.$element.addClass(this.av.avBlockConfig.cssClass);
+	    }
+	  };
+	
+	  return BlockController;
+	}(_base2.default);
+	
+	BlockController.$inject = ['$element', 'avBlockManager', 'avBlockConfig', '$attrs', '$scope', '$compile'];
+	
+	var BlockDirective = function () {
+	  function BlockDirective() {
+	    _classCallCheck(this, BlockDirective);
+	
+	    this.scope = {};
+	    this.restrict = 'AE';
+	  }
+	
+	  BlockDirective.prototype.controller = function controller($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile) {
+	    return new BlockController($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile);
+	  };
+	
+	  return BlockDirective;
+	}();
+	
+	_module2.default.directive('avBlock', function () {
+	  return new BlockDirective();
+	});
 
 /***/ },
-/* 369 */,
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.buildRegExp = buildRegExp;
+	exports.forEachFn = forEachFn;
+	exports.forEachFnHook = forEachFnHook;
+	exports.isElementInBlockScope = isElementInBlockScope;
+	exports.findElement = findElement;
+	exports.indexOf = indexOf;
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function buildRegExp(pattern) {
+	
+	  var match = pattern.match(/^\/(.*)\/([gim]*)$/);
+	  var regExp = void 0;
+	
+	  if (match) {
+	    regExp = new RegExp(match[1], match[2]);
+	  } else {
+	    throw Error('Incorrect regular expression format: ' + pattern);
+	  }
+	
+	  return regExp;
+	}
+	
+	function forEachFn(arr, fnName, args) {
+	  var i = arr.length;
+	  while (i--) {
+	    var t = arr[i];
+	    t[fnName].apply(t, args);
+	  }
+	}
+	
+	function forEachFnHook(arr, fnName) {
+	  arr[fnName] = function () {
+	    forEachFn(this, fnName, arguments);
+	  };
+	}
+	
+	function isElementInBlockScope($element, blockScope) {
+	
+	  var c = $element.inheritedData('av-block');
+	
+	  while (c) {
+	    if (c === blockScope) {
+	      return true;
+	    }
+	
+	    c = c._parent;
+	  }
+	
+	  return false;
+	}
+	
+	function findElement($element, predicateFn, traverse) {
+	  var ret = null;
+	
+	  if (predicateFn($element)) {
+	    ret = $element;
+	  } else {
+	
+	    var $elements = void 0;
+	
+	    if (traverse) {
+	      $elements = $element.parent();
+	    } else {
+	      $elements = $element.children();
+	    }
+	
+	    var i = $elements.length;
+	    while (!ret && i--) {
+	      ret = findElement(_angular2.default.element($elements[i]), predicateFn, traverse);
+	    }
+	  }
+	
+	  return ret;
+	}
+	
+	function indexOf(arr, obj, start) {
+	
+	  for (var i = start || 0, j = arr.length; i < j; i++) {
+	    if (arr[i] === obj) {
+	      return i;
+	    }
+	  }
+	
+	  return -1;
+	}
+
+/***/ },
 /* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _lodash=__webpack_require__(333);var _=_interopRequireWildcard(_lodash);var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _base=__webpack_require__(363);var _base2=_interopRequireDefault(_base);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);var _utils=__webpack_require__(310);__webpack_require__(367);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvDropdownController=function(_Base){_inherits(AvDropdownController,_Base);function AvDropdownController(){var _Object$getPrototypeO;_classCallCheck(this,AvDropdownController);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}var _this=_possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvDropdownController)).call.apply(_Object$getPrototypeO,[this].concat(args)));_this.options={};_this.match=null;_this.ngModel=null;_this.locals={};return _this;}_createClass(AvDropdownController,[{key:'init',value:function init(context){var _this2=this;this.ngModel=context.ngModel;this.multiple=_angular2.default.isDefined(this.av.$attrs.multiple);this.options=_angular2.default.extend({},this.av.avDropdownConfig.DEFAULTS,this.av.$scope.$eval(this.av.$attrs.options));if(this.isRemoteMultiple()){this.options.multiple=_angular2.default.isDefined(this.av.$attrs.multiple);}if(this.options.query){// Map AvSelectResource into Select2 options
-	this.resource=this.options.query;// Function used to query results for the search term.
-	this.options.query=function(options){_this2.query(options);};// Function used to get the id from the choice object or a string representing the key under which the id is stored.
-	this.options.id=this.resource.getId;this.options.initSelection=this.resource.initSelection;}}},{key:'isRemoteMultiple',value:function isRemoteMultiple(){return _angular2.default.isDefined(this.av.$attrs.multiple)&&this.av.$element.get(0).tagName.toLowerCase()==='input';}},{key:'initSelection',value:function initSelection(){}},{key:'setRemoteViewValue',value:function setRemoteViewValue(e){var values=this.ngModel.$viewValue;if(!_angular2.default.isArray(values)||!_angular2.default.isObject(values)){values=[];}if(e.added){// Adding to collection
-	values.push(e.added);}else{// Removing from collection
-	var index=values.findIndex(function(value){return _.matches(e.removed)(value);});values.splice(index,1);}this.ngModel.$setViewValue(values);}},{key:'setViewValue',value:function setViewValue(e){this.ngModel.$setViewValue(e.added);}},{key:'hashKey',value:function hashKey(obj,nextUidFn){var key=obj&&obj.$$hashKey;if(key){if(typeof key==='function'){key=obj.$$hashKey();}return key;}var objType=typeof obj==='undefined'?'undefined':_typeof(obj);if(objType==='function'||objType==='object'&&obj!==null){key=obj.$$hashKey=objType+':'+(nextUidFn||(0,_utils.uuid)())();}else{key=objType+':'+obj;}return key;}},{key:'getTrackByValueFn',value:function getTrackByValueFn(value,locals){if(this.trackBy){return this.trackByFn(this.av.$scope,locals);}return this.hashKey(value);}},{key:'getSelected',value:function getSelected(model){var self=this;if(this.options.query){return 0;}if(!this.collection){// If we're not using ng-options, the model value is just the raw value of the option,
-	// rather than an index, so return it as is.
-	return model;}var optionValues=this.valuesFn(self.av.$scope)||[];var optionValuesKeys=this.getOptionValuesKeys(optionValues);var index=this.collection.findIndex(function(item){return _angular2.default.equals(model,item);});var key=optionValues===optionValuesKeys?index:optionValuesKeys[index];var value=optionValues[key];var locals=self.getLocals(value,key);var viewValue=self.viewValueFn(self.av.$scope,locals);var selectValue=self.getTrackByValueFn(viewValue,locals);// const label = this.displayFn(this.av.$scope, locals);
-	// const group = this.groupByFn(this.av.$scope, locals);
-	// const disabled = this.disableWhenFn(this.av.$scope, locals);
-	return selectValue;}},{key:'getMultiSelected',value:function getMultiSelected(viewValues){var self=this;var values=[];if(!viewValues){return values;}if(this.av.$element.get(0).tagName.toLowerCase()!=='input'){viewValues.forEach(function(viewValue){var selected=self.getSelected(viewValue);values.push(selected);});}return values;}// Wrapper around the query function for Select2.  When the promise resolves
-	// the callback
-	},{key:'query',value:function query(options){this.resource.onQuery(options).then(function(response){// Callback function that should be called with the result object. The result object:
-	//
-	// result.results (object) - Array of result objects. The default renderers
-	//    expect objects with id and text keys. The id property is required,
-	//    even if custom renderers are used. The object may also contain a children
-	//    key if hierarchical data is displayed. The object may also contain a disabled
-	//    boolean property indicating whether this result can be selected.
-	//
-	// result.more (boolean) - true if more results are available for the current
-	//    search term.
-	//
-	// results.context (object) - A user-defined object that should be made available
-	//    as the context parameter to the query function on subsequent queries to load
-	//    more result pages for the same search term. See the description of
-	//    options.context parameter.
-	options.callback({more:response.more,results:response.results});});}},{key:'setValue',value:function setValue(){var self=this;var viewValue=this.ngModel.$viewValue;var selected=null;if(this.multiple){selected=this.getMultiSelected(viewValue);}else{selected=this.getSelected(viewValue);}// null === '' for Select2
-	selected=selected===null||selected==='undefined'?'':selected;this.av.$timeout(function(){self.av.$element.select2('val',selected);});}},{key:'setValues',value:function setValues(){var _this3=this;var viewValue=this.ngModel.$viewValue;if(!_angular2.default.isArray(viewValue)){viewValue=[];}if(!_.isEmpty(viewValue)&&_angular2.default.isObject(viewValue[0])){viewValue=this.getMultiSelected(viewValue);}this.av.$timeout(function(){return _this3.av.$element.select2('val',viewValue);});}},{key:'ngOptions',value:function ngOptions(){this.match=this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);if(!this.match){throw new Error('Invalid ngOptions for avDropdown.  @See https://docs.angularjs.org/api/ng/directive/ngOptions');}// NG_OPTIONS_REGEXP regex will parse into arrays like below:
-	// 1: value expression (valueFn)
-	// 2: label expression (displayFn)
-	// 3: group by expression (groupByFn)
-	// 4: disable when expression (disableWhenFn)
-	// 5: array item variable name
-	// 6: object item key variable name
-	// 7: object item value variable name
-	// 8: collection expression
-	// 9: track by expression
-	// The variable name for the value of the item in the collection
-	this.valueName=this.match[5]||this.match[7];// An expression that generates the viewValue for an option if there is no label expression
-	this.valueFn=this.av.$parse(this.match[2]?this.match[1]:this.valueName);// The variable name for the key of the item in the collection
-	this.keyName=this.match[6];// An expression that generates the viewValue for an option if there is a label expression
-	this.selectAs=/ as /.test(this.match[0])&&this.match[1];// An expression that generates the viewValue for an option if there is a label expression
-	// An expression that is used to track the id of each object in the options collection
-	this.trackBy=this.match[9];this.selectAsFn=this.selectAs&&this.av.$parse(this.selectAs);this.viewValueFn=this.selectAsFn||this.valueFn;this.trackByFn=this.trackBy&&this.av.$parse(this.trackBy);this.displayFn=this.av.$parse(this.match[2]||this.match[1]);this.groupByFn=this.av.$parse(this.match[3]||'');this.disableWhenFn=this.av.$parse(this.match[4]||'');this.valuesFn=this.av.$parse(this.match[8]);this.collection=this.valuesFn(this.av.$scope);this.av.$scope.$watchCollection(this.collection,function(newVal,oldVal){if(_angular2.default.equals(newVal,oldVal)){return;}self.setValue();},true);}},{key:'getLocals',value:function getLocals(value,key){var locals={};if(this.keyName){locals[this.keyName]=key;locals[this.valueName]=value;}else{locals[this.valueName]=value;}return locals;}},{key:'getOptionValuesKeys',value:function getOptionValuesKeys(optionValues){var optionValuesKeys=void 0;if(!this.keyName&&_.isArray(optionValues)){optionValuesKeys=optionValues;}else{// if object, extract keys, in enumeration order, unsorted
-	optionValuesKeys=[];for(var itemKey in optionValues){if(optionValues.hasOwnProperty(itemKey)&&itemKey.charAt(0)!=='$'){optionValuesKeys.push(itemKey);}}}return optionValuesKeys;}}]);return AvDropdownController;}(_base2.default);AvDropdownController.$inject=['$element','$attrs','avDropdownConfig','$scope','$timeout','$parse'];_module2.default.controller('AvDropdownController',AvDropdownController);exports.default=AvDropdownController;
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(371);
+	
+	var _utils = __webpack_require__(369);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.factory('avBlockManager', function ($injector) {
+	  var AvBlockManager = function () {
+	    function AvBlockManager() {
+	      _classCallCheck(this, AvBlockManager);
+	
+	      this.instances = [];
+	    }
+	
+	    AvBlockManager.prototype.get = function get(id) {
+	
+	      // if (!this.main) {
+	      //   mainBlock.addRef();
+	      //   this.main = null;
+	      // }
+	
+	      if (!isNaN(id)) {
+	        throw new Error('AvBlock id cannot be a number');
+	      }
+	
+	      var instance = this.instances[id];
+	
+	      if (!instance) {
+	        var AvBlock = $injector.get('AvBlock');
+	        instance = this.instances[id] = new AvBlock(id);
+	        this.instances.push(instance);
+	      }
+	
+	      return instance;
+	    };
+	
+	    AvBlockManager.prototype.destroy = function destroy(idOrInstance) {
+	
+	      if (_angular2.default.isString(idOrInstance)) {
+	        idOrInstance = this.instances[idOrInstance];
+	      }
+	
+	      if (idOrInstance) {
+	        idOrInstance.reset();
+	
+	        var i = (0, _utils.indexOf)(this.instances, idOrInstance);
+	        this.instances.splice(i, 1);
+	
+	        delete this.instances[idOrInstance.state().id];
+	      }
+	    };
+	
+	    AvBlockManager.prototype.reset = function reset() {
+	      this.instances.forEach(function (instance) {
+	        return instance.reset();
+	      });
+	    };
+	
+	    AvBlockManager.prototype.locate = function locate(request) {
+	
+	      var result = [];
+	
+	      // Add function wrappers that will be executed on every item
+	      // in the array.
+	
+	      (0, _utils.forEachFnHook)(result, 'start');
+	      (0, _utils.forEachFnHook)(result, 'stop');
+	
+	      var i = this.instances.length;
+	
+	      while (i--) {
+	        var instance = this.instances[i];
+	        var pattern = instance._pattern;
+	
+	        if (pattern && pattern.test(request.url)) {
+	          result.push(instance);
+	        }
+	      }
+	
+	      if (result.length === 0) {
+	        result.push(this.mainBlock);
+	      }
+	
+	      return result;
+	    };
+	
+	    return AvBlockManager;
+	  }();
+	
+	  return new AvBlockManager();
+	});
 
 /***/ },
 /* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var SelectResourceFactory=function SelectResourceFactory(AvApiResource){var AvSelectResource=function(_AvApiResource){_inherits(AvSelectResource,_AvApiResource);function AvSelectResource(options){_classCallCheck(this,AvSelectResource);return _possibleConstructorReturn(this,Object.getPrototypeOf(AvSelectResource).call(this,options));}_createClass(AvSelectResource,[{key:'onQuery',value:function onQuery(data){var _this2=this;var config=this.getConfig(data);return this.query(config).then(function(response){var results=_this2.getResults(response.data);results=_this2.mapResults(results);return _this2.getResponse(response,results);});}},{key:'getConfig',value:function getConfig(data){// config for the api resource query
-	var config={params:{}};if(data.page){config.params.offset=this.getPageSize()*(data.page-1);}if(data.offset){config.params.offset=data.offset;}if(data.term){config.params.q=data.term;}return config;}},{key:'getResponse',value:function getResponse(response,results){// Calculate if we want to continue searching.
-	// True if more results are available for the current search term
-	var more=response.data.offset<response.data.totalCount-response.data.limit;return{more:more,results:results};}},{key:'getResult',value:function getResult()/* item */{// return  item.code;
-	throw new Error('getResult() must be implemented when extending from AvSelectResource');}// Format the collection items for Select2:
-	//
-	//    http://select2.github.io/select2/#documentation
-	//
-	//    The default renderers expect objects with `id` and `text` keys.
-	//    The id property is required, even if custom renderers are used.
-	//    The object may also contain a children key if hierarchical data is displayed.
-	//    The object may also contain a disabled boolean property indicating whether this result can be selected.
-	//
-	},{key:'mapResults',value:function mapResults(results){var _this3=this;if(results&&(!results[0].id||!results[0].text)){results=results.map(function(item){var _mapResult=_this3.mapResult(item);var id=_mapResult.id;var text=_mapResult.text;item.id=id;item.text=text;return item;});}return results;}// Result:
-	//
-	// {
-	//   "code": "252Y00000X",
-	//   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
-	//   "id": "252Y00000X"
-	// }
-	},{key:'getId',value:function getId(result){return result.id;}},{key:'initSelection',value:function initSelection(element,callback){callback(null);}},{key:'getResults',value:function getResults()/* response */{// EX:
-	//  return response.data.codes
-	throw new Error('getResults() must be implemented when extending from AvSelectResource');}},{key:'getPageSize',value:function getPageSize(){return 50;}}]);return AvSelectResource;}(AvApiResource);return AvSelectResource;};_module2.default.factory('AvSelectResource',SelectResourceFactory);exports.default=_module2.default;
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _utils = __webpack_require__(369);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.factory('AvBlock', function (avBlockConfig, $timeout, $document) {
+	
+	  var $body = $document.find('body');
+	
+	  // These properties are not allowed to be specified in the start method.
+	  var reservedStateProperties = ['id', 'blockCount', 'blocking'];
+	
+	  var AvBlock = function () {
+	    function AvBlock(id) {
+	      _classCallCheck(this, AvBlock);
+	
+	      this.startPromise;
+	      this.doneCallbacks = [];
+	      this._id = id;
+	      this._refs = 0;
+	
+	      this._state = {
+	        id: id,
+	        blockCount: 0,
+	        message: avBlockConfig.message,
+	        blocking: false
+	      };
+	    }
+	
+	    AvBlock.prototype.block = function block() {
+	      this.startPromise = null;
+	      this._state.blocking = true;
+	    };
+	
+	    AvBlock.prototype.start = function start(messageOrOptions) {
+	      var _this = this;
+	
+	      messageOrOptions = messageOrOptions || {};
+	
+	      if (_angular2.default.isString(messageOrOptions)) {
+	        messageOrOptions = {
+	          message: messageOrOptions
+	        };
+	      } else {
+	
+	        _angular2.default.forEach(reservedStateProperties, function (x) {
+	          if (messageOrOptions[x]) {
+	            throw new Error('The property ' + x + ' is reserved for the block state.');
+	          }
+	        });
+	      }
+	
+	      _angular2.default.extend(this._state, messageOrOptions);
+	
+	      if (this._state.blockCount > 0) {
+	        this._state.message = messageOrOptions.message || this._state.message || avBlockConfig.message;
+	      } else {
+	        this._state.message = messageOrOptions.message || avBlockConfig.message;
+	      }
+	
+	      this._state.blockCount++;
+	
+	      // Check if the focused element is part of the block scope
+	      var $ae = _angular2.default.element($document[0].activeElement);
+	
+	      if ($ae.length && (0, _utils.isElementInBlockScope)($ae, self)) {
+	
+	        // Let the active element lose focus and store a reference
+	        // to restore focus when we're done (reset)
+	
+	        self._restoreFocus = $ae[0];
+	
+	        // https://github.com/McNull/angular-block-ui/issues/13
+	        // http://stackoverflow.com/questions/22698058/apply-already-in-progress-error-when-using-typeahead-plugin-found-to-be-relate
+	        // Queue the blur after any ng-blur expression.
+	
+	        $timeout(function () {
+	          // Ensure we still need to blur
+	          // Don't restore if active element is body, since this causes IE to switch windows (see http://tjvantoll.com/2013/08/30/bugs-with-document-activeelement-in-internet-explorer/)
+	          if (self._restoreFocus && self._restoreFocus !== $body[0]) {
+	            self._restoreFocus.blur();
+	          }
+	        });
+	      }
+	
+	      if (!this.startPromise && avBlockConfig.delay !== 0) {
+	        this.startPromise = $timeout(function () {
+	          return _this.block();
+	        }, avBlockConfig.delay);
+	      } else if (avBlockConfig.delay === 0) {
+	        this.block();
+	      }
+	    };
+	
+	    AvBlock.prototype.stop = function stop() {
+	      this._state.blockCount = Math.max(0, --this._state.blockCount);
+	
+	      if (this._state.blockCount === 0) {
+	        this.reset(true);
+	      }
+	    };
+	
+	    AvBlock.prototype._cancelStartTimeout = function _cancelStartTimeout() {
+	      if (this.startPromise) {
+	        $timeout.cancel(this.startPromise);
+	        this.startPromise = null;
+	      }
+	    };
+	
+	    AvBlock.prototype.isBlocking = function isBlocking() {
+	      return this._state.blocking;
+	    };
+	
+	    AvBlock.prototype.message = function message(value) {
+	      this._state.message = value;
+	    };
+	
+	    AvBlock.prototype.pattern = function pattern(regexp) {
+	      if (regexp !== undefined) {
+	        this._pattern = regexp;
+	      }
+	
+	      return this._pattern;
+	    };
+	
+	    AvBlock.prototype.reset = function reset(executeCallbacks) {
+	      var _this2 = this;
+	
+	      this._cancelStartTimeout();
+	      this._state.blockCount = 0;
+	      this._state.blocking = false;
+	
+	      // Restore the focus to the element that was active
+	      // before the block start, but not if the user has
+	      // focused something else while the block was active.
+	
+	      if (this._restoreFocus && (!$document[0].activeElement || $document[0].activeElement === $body[0])) {
+	
+	        // IE8 will throw if element for setting focus is invisible
+	        try {
+	          this._restoreFocus.focus();
+	        } catch (e1) {
+	          (function () {
+	
+	            var elementToFocus = _this2._restoreFocus;
+	            $timeout(function () {
+	              if (elementToFocus) {
+	                try {
+	                  elementToFocus.focus();
+	                } catch (e2) {/* no op */}
+	              }
+	            }, 100);
+	          })();
+	        }
+	
+	        this._restoreFocus = null;
+	      }
+	
+	      try {
+	        if (executeCallbacks) {
+	          _angular2.default.forEach(this.doneCallbacks, function (cb) {
+	            cb();
+	          });
+	        }
+	      } finally {
+	        this.doneCallbacks.length = 0;
+	      }
+	    };
+	
+	    AvBlock.prototype.done = function done(fn) {
+	      this.doneCallbacks.push(fn);
+	    };
+	
+	    AvBlock.prototype.state = function state() {
+	      return this._state;
+	    };
+	
+	    AvBlock.prototype.addRef = function addRef() {
+	      this._refs += 1;
+	    };
+	
+	    AvBlock.prototype.release = function release() {
+	      debugger;
+	      if (--this._refs <= 0) {
+	        // mainBlock.instances._destroy(self);
+	      }
+	    };
+	
+	    return AvBlock;
+	  }();
+	
+	  return AvBlock;
+	});
 
 /***/ },
 /* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(373);__webpack_require__(376);__webpack_require__(375);
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvBlockContainerDirective = function (_Base) {
+	  _inherits(AvBlockContainerDirective, _Base);
+	
+	  function AvBlockContainerDirective() {
+	    _classCallCheck(this, AvBlockContainerDirective);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.scope = true;
+	    _this.restrict = 'AE';
+	
+	    _this.templateUrl = _this.av.avBlockConfig.templateUrl;
+	
+	    return _this;
+	  }
+	
+	  AvBlockContainerDirective.prototype.controller = function controller($scope, $element) {
+	
+	    var service = $element.inheritedData('av-block');
+	
+	    if (!service) {
+	      throw new Error('No parent av-block service instance located.');
+	    }
+	
+	    $scope.state = service.state();
+	  };
+	
+	  return AvBlockContainerDirective;
+	}(_base2.default);
+	
+	AvBlockContainerDirective.$inject = ['avBlockConfig'];
+	
+	
+	_module2.default.directive('avBlockContainer', function (avBlockConfig) {
+	  return new AvBlockContainerDirective(avBlockConfig);
+	});
 
 /***/ },
 /* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);__webpack_require__(374);__webpack_require__(375);__webpack_require__(376);var _utils=__webpack_require__(310);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}_module2.default.factory('avModalManager',function($document){var AvModalManager=function(){function AvModalManager(){_classCallCheck(this,AvModalManager);this.instances=[];}_createClass(AvModalManager,[{key:'add',value:function add(id){this.instances.push(id);}},{key:'remove',value:function remove(id){this.instances=this.instances.filter(function(instance){return instance!==id;});}},{key:'closeAll',value:function closeAll(){this.instances.forEach(function(id){var $el=_angular2.default.element($document.getElementById(id));if(!$el){return;}var bsModal=$el.data('bs.modal');if(bsModal){bsModal.removeBackdrop();bsModal.$body.removeClass('modal-open');bsModal.resetAdjustments();bsModal.resetScrollbar();}var avModal=$el.data('AvModal');if(avModal){avModal.destroy();}});}}]);return AvModalManager;}();return new AvModalManager();});var ModalFactory=function ModalFactory($rootScope,$timeout,$compile,AV_MODAL,avTemplateCache,$q,avModalManager){var Modal=function(){function Modal(options){_classCallCheck(this,Modal);var self=this;this.templateDefer=$q.defer();this.templatePromise=this.templateDefer.promise;this.options=_angular2.default.extend({},AV_MODAL.OPTIONS,{scope:$rootScope.$new()},options);avTemplateCache.get(options).then(function(_template){self.options.template=_template;self.build();});}_createClass(Modal,[{key:'build',value:function build(){var _this=this;var scope=this.options.scope;this.$element=_angular2.default.element(this.options.template);this.createId();this.scope();$compile(this.$element)(scope);$timeout(function(){_this.init();},0,true);// Append to container or <body>
-	this.options.container?this.$element.appendTo(this.options.container):this.$element.appendTo('body');}},{key:'init',value:function init(){this.$element.data('AvModal',this);this.templateDefer.resolve(true);// Initialize Bootstrap jQuery plugin
-	this.$element.modal({'backdrop':this.options.backdrop,'keyboard':this.options.keyboard,'show':false,'remote':this.options.remote});this.listeners();if(_angular2.default.isUndefined(this.options.show)||this.options.show){this.$element.modal('show');}}// Add helpers to scope so clients can call internal methods
-	},{key:'scope',value:function scope(){var self=this;var scope=this.options.scope;scope.modalShow=function(){return self.show();};scope.modalToggle=function(){return self.toggle();};scope.modalHide=function(){return self.hide();};}},{key:'listeners',value:function listeners(){var self=this;var scope=this.options.scope;var $element=this.$element;this.animationShowDefer=$q.defer();this.animationHideDefer=$q.defer();$element.on(AV_MODAL.BS_EVENTS.SHOW,function(event){scope.$emit(AV_MODAL.EVENTS.SHOW,event,self);});$element.on(AV_MODAL.BS_EVENTS.SHOWN,function(event){if(_angular2.default.isFunction(self.options.onShown)){self.options.onShown();}self.animationShowDefer.resolve(true);scope.$emit(AV_MODAL.EVENTS.SHOWN,event,self);});$element.on(AV_MODAL.BS_EVENTS.HIDE,function(event){scope.$emit(AV_MODAL.EVENTS.HIDE,event,self);});$element.on(AV_MODAL.BS_EVENTS.HIDDEN,function(event){if(_angular2.default.isFunction(self.options.onHidden)){self.options.onHidden.call(this);}self.animationHideDefer.resolve(true);scope.$emit(AV_MODAL.EVENTS.HIDDEN,event,self);scope.$evalAsync(function(){self.destroy();});});// Garbage collection
-	scope.$on('$destroy',function(){avModalManager.remove(self.id);self.destroy();});}},{key:'show',value:function show(){var _this2=this;this.animationShowDefer=$q.defer();this.templatePromise.then(function(){_this2.isShown()?_this2.animationShowDefer.resolve(true):_this2.$element.modal('show');});return this.animationShowDefer.promise;}},{key:'hide',value:function hide(){var _this3=this;this.animationHideDefer=$q.defer();this.templatePromise.then(function(){!_this3.isShown()?_this3.animationHideDefer.resolve(true):_this3.$element.modal('hide');});return this.animationHideDefer.promise;}},{key:'isShown',value:function isShown(){return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;}},{key:'toggle',value:function toggle(){var _this4=this;return this.templatePromise.then(function(){return _this4.isShown()?_this4.hide():_this4.show();});}},{key:'destroy',value:function destroy(){var _this5=this;return this.templatePromise.then(function(){_this5.$element.data('AvModal',null);_this5.$element.remove();});}},{key:'createId',value:function createId(){// Create a unique id for the modal if not present or passed in via options
-	var id=this.$element.attr('id');if(!id){// Get id from options or create a unique id
-	id=this.options.id?this.options.id:(0,_utils.uuid)('av-modal-id');this.$element.attr('id',id);}this.id=id;avModalManager.add(id);}}],[{key:'create',value:function create(options){return new Modal(options);}}]);return Modal;}();return Modal;};_module2.default.factory('AvModal',ModalFactory);
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _block = __webpack_require__(374);
+	
+	var _block2 = _interopRequireDefault(_block);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('avBlockConfig', {
+	  templateUrl: _block2.default,
+	  delay: 250,
+	  message: 'Loading ...',
+	  autoBlock: false,
+	  resetOnException: true,
+	  requestFilter: _angular2.default.noop,
+	  autoInjectBodyBlock: false,
+	  cssClass: 'av-block av-block-anim-fade',
+	  blockBrowserNavigation: false
+	});
 
 /***/ },
 /* 374 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.factory('avTemplateCache',function($q,$templateCache,$http){return{get:function get(options){var valid=!options.template||!options.templateUrl;if(!valid){throw new Error('Either options.template or options.templateUrl must be defined for avTemplateCache');}return options.template?$q.when(options.template):$http.get(options.templateUrl,{cache:$templateCache}).then(function(result){return result.data;});}};});
+	var path = 'src/ui/block/block.html';
+	var html = "<div class=\"av-block-overlay\"></div>\n<div class=\"av-block-message-container\" aria-live=\"assertive\" aria-atomic=\"true\">\n  <div class=\"av-block-message\" ng-class=\"$_blockMessageClass\">{{ state.message }}</div>\n</div>\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ },
 /* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_MODAL',{OPTIONS:{scope:null,templateUrl:null,template:null,id:null,container:null,// Bootstrap defaults
-	keyboard:true,backdrop:true,show:false,remote:false},EVENTS:{SHOW:'show.av.modal',SHOWN:'shown.av.modal',HIDE:'hide.av.modal',HIDDEN:'hidden.av.modal'},NAMESPACE:{MODAL:'bs.modal'},BS_EVENTS:{SHOW:'show.bs.modal',SHOWN:'shown.bs.modal',HIDE:'hide.bs.modal',HIDDEN:'hidden.bs.modal'}});
+	'use strict';
+	
+	__webpack_require__(376);
+	
+	__webpack_require__(377);
+	
+	__webpack_require__(378);
+	
+	__webpack_require__(379);
+	
+	__webpack_require__(380);
+	
+	__webpack_require__(382);
 
 /***/ },
 /* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);var _modal=__webpack_require__(377);var _modal2=_interopRequireDefault(_modal);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avModal',function(){return{restrict:'A',replace:true,transclude:true,scope:{size:'@'},templateUrl:_modal2.default};});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function dateConfig($provide) {
+	  // duck punch built in input validation to not date validation since it doesn't support different formats.
+	  $provide.decorator('inputDirective', function ($delegate) {
+	    var directive = $delegate[0];
+	    var link = directive.link;
+	    directive.compile = function () {
+	      return {
+	        pre: function pre(scope, element, attr, ctrls) {
+	          if (ctrls[0] && _angular2.default.lowercase(attr.type) === 'date' && _angular2.default.isDefined(attr.avDatepicker)) {
+	            // do not use the default date validation;
+	          } else {
+	              link.pre.apply(this, arguments);
+	            }
+	        }
+	      };
+	    };
+	
+	    return $delegate;
+	  });
+	}
+	
+	_module2.default.config(dateConfig);
 
 /***/ },
 /* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Options: http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
+	_module2.default.constant('AV_DATEPICKER', {
+	  CONTROLLER: '$ngModelController',
+	  ADD_ON_SELECTOR: '[data-toggle="datepicker"]',
+	  OPTIONS: ['autoclose', 'beforeShowDay', 'beforeShowMonth', 'calendarWeeks', 'clearBtn', 'toggleActive', 'container', 'daysOfWeekDisabled', 'datesDisabled', 'defaultViewDate', 'endDate', 'forceParse', 'format', 'inputs', 'keyboardNavigation', 'language', 'minViewMode', 'multidate', 'multidateSeparator', 'orientation', 'startDate', 'startView', 'todayBtn', 'todayHighlight', 'weekStart', 'showOnFocus', 'disableTouchKeyboard', 'enableOnReadonly', 'modelFormat'],
+	  DEFAULTS: {
+	    MODELFORMAT: 'YYYY-MM-DD'
+	  }
+	});
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var config = {
+	  autoclose: true,
+	  todayHighlight: true,
+	  format: 'MM/DD/YYYY',
+	  forceParse: false
+	};
+	
+	var AvDatepickerConfig = function () {
+	  function AvDatepickerConfig() {
+	    _classCallCheck(this, AvDatepickerConfig);
+	  }
+	
+	  AvDatepickerConfig.prototype.set = function set(options) {
+	    _extends(config, options);
+	  };
+	
+	  AvDatepickerConfig.prototype.$get = function $get() {
+	    return _angular2.default.copy(config);
+	  };
+	
+	  return AvDatepickerConfig;
+	}();
+	
+	_module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
+
+/***/ },
+/* 379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _moment = __webpack_require__(320);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function hasDateInput() {
+	  var i = document.createElement('input');
+	  i.setAttribute('type', 'date');
+	  return i.type !== 'text';
+	}
+	
+	var hasDateInputSupport = hasDateInput();
+	
+	// Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
+	
+	var AvDatepickerController = function (_Base) {
+	  _inherits(AvDatepickerController, _Base);
+	
+	  function AvDatepickerController() {
+	    _classCallCheck(this, AvDatepickerController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key2 = 0; _key2 < _len; _key2++) {
+	      args[_key2] = arguments[_key2];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.hasDateInputSupport = hasDateInputSupport;
+	    return _this;
+	  }
+	
+	  AvDatepickerController.prototype.setValue = function setValue() {
+	
+	    var viewValue = this.ngModel.$viewValue;
+	    var plugin = this.plugin();
+	
+	    if (!viewValue || !plugin) {
+	      return;
+	    }
+	
+	    plugin.setDate(viewValue);
+	  };
+	
+	  AvDatepickerController.prototype.setNgModel = function setNgModel(ngModel) {
+	    this.ngModel = ngModel;
+	  };
+	
+	  AvDatepickerController.prototype.findModel = function findModel() {
+	
+	    var ngModel = null;
+	
+	    var $input = this.av.$element.find('input:first').andSelf();
+	    if ($input.length) {
+	      ngModel = $input.data(this.av.AV_DATEPICKER.CONTROLLER);
+	      this.setNgModel(ngModel);
+	    }
+	
+	    return ngModel;
+	  };
+	
+	  AvDatepickerController.prototype.modelToView = function modelToView(modelValue) {
+	    return (0, _moment2.default)(modelValue).format(this.options.format);
+	  };
+	
+	  AvDatepickerController.prototype.viewToModel = function viewToModel(viewValue) {
+	
+	    var plugin = this.plugin();
+	
+	    if (!plugin || !viewValue) {
+	      return null;
+	    }
+	
+	    var parsed = (0, _moment2.default)(viewValue, this.options.format, true);
+	
+	    if (parsed.isValid()) {
+	      // jscs: disable
+	      return plugin._utc_to_local(parsed.utc().toDate());
+	      // jscs: enable
+	    }
+	  };
+	
+	  AvDatepickerController.prototype.init = function init() {
+	    var _this2 = this;
+	
+	    this.options = _angular2.default.copy(this.av.avDatepickerConfig);
+	
+	    Object.keys(this.av.$attrs).forEach(function (key) {
+	      var value = _this2.av.$attrs[key];
+	      var _key = key.replace('data-', '');
+	      if (_this2.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
+	        _this2.options[_key] = _this2.av.$scope.$eval(value);
+	      }
+	    });
+	
+	    if (!this.options.modelFormat || this.options.modelFormat && this.options.modelFormat.toLowerCase() === 'default') {
+	      this.options.modelFormat = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
+	    }
+	
+	    if (this.av.$attrs.type === 'date' && this.hasDateInputSupport) {
+	      this.options.format = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
+	    }
+	  };
+	
+	  AvDatepickerController.prototype.plugin = function plugin() {
+	    return this.av.$element.data('datepicker');
+	  };
+	
+	  AvDatepickerController.prototype.destroy = function destroy() {
+	    var plugin = this.plugin();
+	    if (plugin) {
+	      plugin.remove();
+	      this.av.$element.data('datepicker', null);
+	    }
+	  };
+	
+	  AvDatepickerController.prototype.hide = function hide() {
+	    var plugin = this.plugin();
+	    if (plugin) {
+	      plugin.hide();
+	    }
+	  };
+	
+	  return AvDatepickerController;
+	}(_base2.default);
+	
+	AvDatepickerController.$inject = ['$element', '$attrs', 'AV_DATEPICKER', '$scope', 'avDatepickerConfig'];
+	
+	
+	_module2.default.controller('AvDatepickerController', AvDatepickerController);
+
+/***/ },
+/* 380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	__webpack_require__(381);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avDatepicker', function ($window, $log, AV_DATEPICKER) {
+	  return {
+	    restrict: 'A',
+	    require: ['ngModel', 'avDatepicker'],
+	    controller: 'AvDatepickerController',
+	    link: function link(scope, element, attrs, controllers) {
+	
+	      var ngModel = controllers[0];
+	      var avDatepicker = controllers[1];
+	
+	      if (!ngModel) {
+	        ngModel = avDatepicker.findModel();
+	        if (!ngModel) {
+	          $log.error('avDatepicker requires ngModel');
+	          return;
+	        }
+	      }
+	
+	      avDatepicker.init();
+	      avDatepicker.setNgModel(ngModel);
+	
+	      ngModel.$parsers.push(avDatepicker.viewToModel.bind(avDatepicker));
+	      ngModel.$formatters.push(avDatepicker.modelToView.bind(avDatepicker));
+	
+	      var _$render = ngModel.$render;
+	      ngModel.$render = function () {
+	        _$render();
+	        avDatepicker.setValue();
+	      };
+	
+	      var win = _angular2.default.element($window);
+	
+	      win.bind('scroll', function () {
+	        avDatepicker.hide();
+	      });
+	
+	      var target = element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR);
+	      target = target.length ? target : element.siblings(AV_DATEPICKER.ADD_ON_SELECTOR.replace('data-', ''));
+	      if (target.length) {
+	        target.on('click.datepicker', function () {
+	          if (!element.prop('disabled')) {
+	            // Hack check for IE 8
+	            element.focus();
+	          }
+	        });
+	      }
+	
+	      scope.$on('destroy', function () {
+	        avDatepicker.destroy();
+	        if (target.length) {
+	          target.off('click.datepicker');
+	        }
+	      });
+	
+	      scope.$evalAsync(function () {
+	        // why are their so many different ways to format the same date... MM/DD/YYYY -> mm/dd/yyyy makes a difference. between moment and the datepicker plugin.
+	        var options = _extends({}, avDatepicker.options);
+	        options.format = _angular2.default.lowercase(options.format);
+	        element.datepicker(options);
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 381 */,
+/* 382 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(384);
+	
+	__webpack_require__(385);
+	
+	__webpack_require__(388);
+	
+	__webpack_require__(389);
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvConfig = function () {
+	  function AvConfig() {
+	    _classCallCheck(this, AvConfig);
+	
+	    // 1: value expression (valueFn)
+	    // 2: label expression (displayFn)
+	    // 3: group by expression (groupByFn)
+	    // 4: disable when expression (disableWhenFn)
+	    // 5: array item variable name
+	    // 6: object item key variable name
+	    // 7: object item value variable name
+	    // 8: collection expression
+	    // 9: track by expression
+	    this.NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
+	
+	    this.SELECT2_OPTIONS = ['width', 'minimumInputLength', 'maximumInputLength', 'minimumResultsForSearch', 'maximumSelectionSize', 'placeholderOption', 'separator', 'allowClear', 'multiple', 'closeOnSelect', 'openOnEnter', 'id', 'matcher', 'sortResults', 'formatSelection', 'formatResult', 'formatResultCssClass', 'formatNoMatches', 'formatSearching', 'formatAjaxError', 'formatInputTooShort', 'formatInputTooLong', 'formatSelectionTooBig', 'formatLoadMore', 'createSearchChoice', 'createSearchChoicePosition', 'initSelection', 'tokenizer', 'tokenSeparators', 'query', 'ajax', 'data', 'tags', 'containerCss', 'containerCssClass', 'dropdownCss', 'dropdownCssClass', 'dropdownAutoWidth', 'adaptContainerCssClass', 'adaptDropdownCssClass', 'escapeMarkup', 'selectOnBlur', 'loadMorePadding', 'nextSearchTerm', 'correlationId', 'eventListeners'];
+	
+	    this.DEFAULTS = {
+	      closeOnResize: true,
+	      dropdownAutoWidth: true,
+	      minimumResultsForSearch: 5,
+	      width: '100%'
+	    };
+	  }
+	
+	  AvConfig.prototype.set = function set(options) {
+	    _angular2.default.extend(this.DEFAULTS, options);
+	  };
+	
+	  AvConfig.prototype.$get = function $get() {
+	
+	    return _angular2.default.copy({
+	      SELECT2_OPTIONS: this.SELECT2_OPTIONS,
+	      DEFAULTS: this.DEFAULTS,
+	      NG_OPTIONS_REGEXP: this.NG_OPTIONS_REGEXP
+	    });
+	  };
+	
+	  return AvConfig;
+	}();
+	
+	_module2.default.provider('avDropdownConfig', AvConfig);
+
+/***/ },
+/* 385 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	__webpack_require__(386);
+	
+	__webpack_require__(388);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// import angular from 'angular';
+	_module2.default.directive('avDropdown', function ($timeout) {
+	
+	  return {
+	    restrict: 'A',
+	    priority: 10, // select directive priority is 1
+	    require: ['ngModel', 'avDropdown'],
+	    controller: 'AvDropdownController',
+	    link: function link(scope, element, attrs, controllers) {
+	
+	      element.addClass('select2');
+	
+	      var ngModel = controllers[0];
+	      var avDropdown = controllers[1];
+	
+	      avDropdown.init({
+	        ngModel: ngModel
+	      });
+	
+	      if (attrs.ngOptions) {
+	        avDropdown.ngOptions();
+	      }
+	
+	      ngModel.$parsers.push(function (value) {
+	
+	        var parent = element.prev();
+	        parent.toggleClass('ng-invalid', !ngModel.$valid).toggleClass('ng-valid', ngModel.$valid).toggleClass('ng-invalid-required', !ngModel.$valid).toggleClass('ng-valid-required', ngModel.$valid).toggleClass('ng-dirty', ngModel.$dirty).toggleClass('ng-pristine', ngModel.$pristine);
+	        return value;
+	      });
+	
+	      element.on('change', function (e) {
+	
+	        // special case since the ajax handling doesn't bind to the model correctly
+	        // this has to do with select2 (v3.5.2) using a hidden field instead of a select for ajax
+	        if (avDropdown.options.query) {
+	
+	          $timeout(function () {
+	            if (avDropdown.isRemoteMultiple()) {
+	              avDropdown.setRemoteViewValue(e);
+	            } else {
+	              avDropdown.setViewValue(e);
+	            }
+	          }, false, 0);
+	        }
+	      });
+	
+	      var _$render = ngModel.$render;
+	      ngModel.$render = function () {
+	        _$render();
+	        avDropdown.setValue();
+	      };
+	
+	      if (attrs.ngFocus) {
+	        element.on('select2-focus', function () {
+	          scope.$eval(scope.$eval(attrs.ngFocus));
+	        });
+	      }
+	
+	      if (attrs.ngBlur) {
+	        element.on('select2-blur', function () {
+	          scope.$eval(scope.$eval(attrs.ngBlur));
+	        });
+	      }
+	
+	      // https://github.com/t0m/select2-bootstrap-css/issues/37#issuecomment-42714589
+	      element.on('select2-open', function () {
+	
+	        // look for .has-success, .has-warning, .has-error
+	        // (really look for .has-* … might interfere with other CSS-classes starting with "has-")
+	        if (element.parents('[class*="has-"]').length) {
+	
+	          // get all CSS-classes from the element where we found "has-*" and collect them in an array
+	          var classNames = (0, _jquery2.default)(this).parents('[class*="has-"]')[0].className.split(/\s+/);
+	
+	          // go through the class names, find "has-"
+	          for (var i = 0; i < classNames.length; ++i) {
+	            if (classNames[i].match('has-')) {
+	              (0, _jquery2.default)('#select2-drop').addClass(classNames[i]);
+	            }
+	          }
+	        }
+	      });
+	
+	      if (avDropdown.options.closeOnResize) {
+	
+	        (0, _jquery2.default)(window).on('resize.select2', function () {
+	          element.select2('close');
+	        });
+	      }
+	
+	      attrs.$observe('disabled', function (value) {
+	        element.select2('enable', !value);
+	      });
+	
+	      attrs.$observe('readonly', function (value) {
+	        element.select2('readonly', !!value);
+	      });
+	
+	      scope.$on('$destroy', function () {
+	        (0, _jquery2.default)(window).off('resize.select2');
+	        element.select2('destroy');
+	      });
+	
+	      $timeout(function () {
+	        element.select2(avDropdown.options);
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 386 */,
+/* 387 */,
+/* 388 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _lodash = __webpack_require__(306);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _utils = __webpack_require__(312);
+	
+	__webpack_require__(384);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvDropdownController = function (_Base) {
+	  _inherits(AvDropdownController, _Base);
+	
+	  function AvDropdownController() {
+	    _classCallCheck(this, AvDropdownController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.options = {};
+	    _this.match = null;
+	    _this.ngModel = null;
+	    _this.locals = {};
+	
+	    return _this;
+	  }
+	
+	  AvDropdownController.prototype.init = function init(context) {
+	    var _this2 = this;
+	
+	    this.ngModel = context.ngModel;
+	
+	    this.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
+	
+	    this.options = _angular2.default.extend({}, this.av.avDropdownConfig.DEFAULTS, this.av.$scope.$eval(this.av.$attrs.options));
+	
+	    if (this.isRemoteMultiple()) {
+	      this.options.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
+	    }
+	
+	    if (this.options.query) {
+	
+	      // Map AvSelectResource into Select2 options
+	      this.resource = this.options.query;
+	
+	      // Function used to query results for the search term.
+	      this.options.query = function (options) {
+	        _this2.query(options);
+	      };
+	      // Function used to get the id from the choice object or a string representing the key under which the id is stored.
+	      this.options.id = this.resource.getId;
+	      this.options.initSelection = this.resource.initSelection;
+	    }
+	  };
+	
+	  AvDropdownController.prototype.isRemoteMultiple = function isRemoteMultiple() {
+	    return _angular2.default.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
+	  };
+	
+	  AvDropdownController.prototype.initSelection = function initSelection() {};
+	
+	  AvDropdownController.prototype.setRemoteViewValue = function setRemoteViewValue(e) {
+	
+	    var values = this.ngModel.$viewValue;
+	
+	    if (!_angular2.default.isArray(values) || !_angular2.default.isObject(values)) {
+	      values = [];
+	    }
+	
+	    if (e.added) {
+	      // Adding to collection
+	      values.push(e.added);
+	    } else {
+	      // Removing from collection
+	      var index = values.findIndex(function (value) {
+	        return _.matches(e.removed)(value);
+	      });
+	      values.splice(index, 1);
+	    }
+	
+	    this.ngModel.$setViewValue(values);
+	  };
+	
+	  AvDropdownController.prototype.setViewValue = function setViewValue(e) {
+	    this.ngModel.$setViewValue(e.added);
+	  };
+	
+	  AvDropdownController.prototype.hashKey = function hashKey(obj, nextUidFn) {
+	    var key = obj && obj.$$hashKey;
+	
+	    if (key) {
+	      if (typeof key === 'function') {
+	        key = obj.$$hashKey();
+	      }
+	      return key;
+	    }
+	
+	    var objType = typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+	    if (objType === 'function' || objType === 'object' && obj !== null) {
+	      key = obj.$$hashKey = objType + ':' + (nextUidFn || (0, _utils.uuid)())();
+	    } else {
+	      key = objType + ':' + obj;
+	    }
+	
+	    return key;
+	  };
+	
+	  AvDropdownController.prototype.getTrackByValueFn = function getTrackByValueFn(value, locals) {
+	
+	    if (this.trackBy) {
+	      return this.trackByFn(this.av.$scope, locals);
+	    }
+	
+	    return this.hashKey(value);
+	  };
+	
+	  AvDropdownController.prototype.getSelected = function getSelected(model) {
+	
+	    var self = this;
+	
+	    if (this.options.query) {
+	      return 0;
+	    }
+	
+	    if (!this.collection) {
+	      // If we're not using ng-options, the model value is just the raw value of the option,
+	      // rather than an index, so return it as is.
+	      return model;
+	    }
+	
+	    var optionValues = this.valuesFn(self.av.$scope) || [];
+	    var optionValuesKeys = this.getOptionValuesKeys(optionValues);
+	
+	    var index = this.collection.findIndex(function (item) {
+	      return _angular2.default.equals(model, item);
+	    });
+	
+	    var key = optionValues === optionValuesKeys ? index : optionValuesKeys[index];
+	    var value = optionValues[key];
+	    var locals = self.getLocals(value, key);
+	    var viewValue = self.viewValueFn(self.av.$scope, locals);
+	    var selectValue = self.getTrackByValueFn(viewValue, locals);
+	    // const label = this.displayFn(this.av.$scope, locals);
+	    // const group = this.groupByFn(this.av.$scope, locals);
+	    // const disabled = this.disableWhenFn(this.av.$scope, locals);
+	
+	    return selectValue;
+	  };
+	
+	  AvDropdownController.prototype.getMultiSelected = function getMultiSelected(viewValues) {
+	
+	    var self = this;
+	
+	    var values = [];
+	
+	    if (!viewValues) {
+	      return values;
+	    }
+	
+	    if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
+	
+	      viewValues.forEach(function (viewValue) {
+	
+	        var selected = self.getSelected(viewValue);
+	
+	        values.push(selected);
+	      });
+	    }
+	
+	    return values;
+	  };
+	
+	  // Wrapper around the query function for Select2.  When the promise resolves
+	  // the callback
+	
+	
+	  AvDropdownController.prototype.query = function query(options) {
+	
+	    this.resource.onQuery(options).then(function (response) {
+	
+	      // Callback function that should be called with the result object. The result object:
+	      //
+	      // result.results (object) - Array of result objects. The default renderers
+	      //    expect objects with id and text keys. The id property is required,
+	      //    even if custom renderers are used. The object may also contain a children
+	      //    key if hierarchical data is displayed. The object may also contain a disabled
+	      //    boolean property indicating whether this result can be selected.
+	      //
+	      // result.more (boolean) - true if more results are available for the current
+	      //    search term.
+	      //
+	      // results.context (object) - A user-defined object that should be made available
+	      //    as the context parameter to the query function on subsequent queries to load
+	      //    more result pages for the same search term. See the description of
+	      //    options.context parameter.
+	      options.callback({ more: response.more, results: response.results });
+	    });
+	  };
+	
+	  AvDropdownController.prototype.setValue = function setValue() {
+	
+	    var self = this;
+	
+	    var viewValue = this.ngModel.$viewValue;
+	
+	    var selected = null;
+	    if (this.multiple) {
+	      selected = this.getMultiSelected(viewValue);
+	    } else {
+	      selected = this.getSelected(viewValue);
+	    }
+	
+	    // null === '' for Select2
+	    selected = selected === null || selected === 'undefined' ? '' : selected;
+	
+	    this.av.$timeout(function () {
+	      self.av.$element.select2('val', selected);
+	    });
+	  };
+	
+	  AvDropdownController.prototype.setValues = function setValues() {
+	    var _this3 = this;
+	
+	    var viewValue = this.ngModel.$viewValue;
+	
+	    if (!_angular2.default.isArray(viewValue)) {
+	      viewValue = [];
+	    }
+	
+	    if (!_.isEmpty(viewValue) && _angular2.default.isObject(viewValue[0])) {
+	      viewValue = this.getMultiSelected(viewValue);
+	    }
+	
+	    this.av.$timeout(function () {
+	      return _this3.av.$element.select2('val', viewValue);
+	    });
+	  };
+	
+	  AvDropdownController.prototype.ngOptions = function ngOptions() {
+	
+	    this.match = this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);
+	    if (!this.match) {
+	      throw new Error('Invalid ngOptions for avDropdown.  @See https://docs.angularjs.org/api/ng/directive/ngOptions');
+	    }
+	
+	    // NG_OPTIONS_REGEXP regex will parse into arrays like below:
+	
+	    // 1: value expression (valueFn)
+	    // 2: label expression (displayFn)
+	    // 3: group by expression (groupByFn)
+	    // 4: disable when expression (disableWhenFn)
+	    // 5: array item variable name
+	    // 6: object item key variable name
+	    // 7: object item value variable name
+	    // 8: collection expression
+	    // 9: track by expression
+	
+	    // The variable name for the value of the item in the collection
+	    this.valueName = this.match[5] || this.match[7];
+	
+	    // An expression that generates the viewValue for an option if there is no label expression
+	    this.valueFn = this.av.$parse(this.match[2] ? this.match[1] : this.valueName);
+	
+	    // The variable name for the key of the item in the collection
+	    this.keyName = this.match[6];
+	
+	    // An expression that generates the viewValue for an option if there is a label expression
+	    this.selectAs = / as /.test(this.match[0]) && this.match[1];
+	
+	    // An expression that generates the viewValue for an option if there is a label expression
+	    // An expression that is used to track the id of each object in the options collection
+	    this.trackBy = this.match[9];
+	    this.selectAsFn = this.selectAs && this.av.$parse(this.selectAs);
+	    this.viewValueFn = this.selectAsFn || this.valueFn;
+	    this.trackByFn = this.trackBy && this.av.$parse(this.trackBy);
+	
+	    this.displayFn = this.av.$parse(this.match[2] || this.match[1]);
+	    this.groupByFn = this.av.$parse(this.match[3] || '');
+	    this.disableWhenFn = this.av.$parse(this.match[4] || '');
+	    this.valuesFn = this.av.$parse(this.match[8]);
+	    this.collection = this.valuesFn(this.av.$scope);
+	
+	    this.av.$scope.$watchCollection(this.collection, function (newVal, oldVal) {
+	
+	      if (_angular2.default.equals(newVal, oldVal)) {
+	        return;
+	      }
+	
+	      self.setValue();
+	    }, true);
+	  };
+	
+	  AvDropdownController.prototype.getLocals = function getLocals(value, key) {
+	
+	    var locals = {};
+	
+	    if (this.keyName) {
+	      locals[this.keyName] = key;
+	      locals[this.valueName] = value;
+	    } else {
+	      locals[this.valueName] = value;
+	    }
+	
+	    return locals;
+	  };
+	
+	  AvDropdownController.prototype.getOptionValuesKeys = function getOptionValuesKeys(optionValues) {
+	
+	    var optionValuesKeys = void 0;
+	
+	    if (!this.keyName && _.isArray(optionValues)) {
+	      optionValuesKeys = optionValues;
+	    } else {
+	      // if object, extract keys, in enumeration order, unsorted
+	      optionValuesKeys = [];
+	      for (var itemKey in optionValues) {
+	        if (optionValues.hasOwnProperty(itemKey) && itemKey.charAt(0) !== '$') {
+	          optionValuesKeys.push(itemKey);
+	        }
+	      }
+	    }
+	    return optionValuesKeys;
+	  };
+	
+	  return AvDropdownController;
+	}(_base2.default);
+	
+	AvDropdownController.$inject = ['$element', '$attrs', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
+	
+	
+	_module2.default.controller('AvDropdownController', AvDropdownController);
+	
+	exports.default = AvDropdownController;
+
+/***/ },
+/* 389 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SelectResourceFactory = function SelectResourceFactory(AvApiResource) {
+	  var AvSelectResource = function (_AvApiResource) {
+	    _inherits(AvSelectResource, _AvApiResource);
+	
+	    function AvSelectResource(options) {
+	      _classCallCheck(this, AvSelectResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, options));
+	    }
+	
+	    AvSelectResource.prototype.onQuery = function onQuery(data) {
+	      var _this2 = this;
+	
+	      var config = this.getConfig(data);
+	
+	      return this.query(config).then(function (response) {
+	
+	        var results = _this2.getResults(response.data);
+	        results = _this2.mapResults(results);
+	
+	        return _this2.getResponse(response, results);
+	      });
+	    };
+	
+	    AvSelectResource.prototype.getConfig = function getConfig(data) {
+	
+	      // config for the api resource query
+	      var config = {
+	        params: {}
+	      };
+	
+	      if (data.page) {
+	        config.params.offset = this.getPageSize() * (data.page - 1);
+	      }
+	      if (data.offset) {
+	        config.params.offset = data.offset;
+	      }
+	
+	      if (data.term) {
+	        config.params.q = data.term;
+	      }
+	
+	      return config;
+	    };
+	
+	    AvSelectResource.prototype.getResponse = function getResponse(response, results) {
+	
+	      // Calculate if we want to continue searching.
+	      // True if more results are available for the current search term
+	      var more = response.data.offset < response.data.totalCount - response.data.limit;
+	
+	      return {
+	        more: more,
+	        results: results
+	      };
+	    };
+	
+	    AvSelectResource.prototype.getResult = function getResult() /* item */{
+	      // return  item.code;
+	      throw new Error('getResult() must be implemented when extending from AvSelectResource');
+	    };
+	
+	    // Format the collection items for Select2:
+	    //
+	    //    http://select2.github.io/select2/#documentation
+	    //
+	    //    The default renderers expect objects with `id` and `text` keys.
+	    //    The id property is required, even if custom renderers are used.
+	    //    The object may also contain a children key if hierarchical data is displayed.
+	    //    The object may also contain a disabled boolean property indicating whether this result can be selected.
+	    //
+	
+	
+	    AvSelectResource.prototype.mapResults = function mapResults(results) {
+	      var _this3 = this;
+	
+	      if (results && (!results[0].id || !results[0].text)) {
+	
+	        results = results.map(function (item) {
+	          var _mapResult = _this3.mapResult(item);
+	
+	          var id = _mapResult.id;
+	          var text = _mapResult.text;
+	
+	          item.id = id;
+	          item.text = text;
+	          return item;
+	        });
+	      }
+	
+	      return results;
+	    };
+	
+	    // Result:
+	    //
+	    // {
+	    //   "code": "252Y00000X",
+	    //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
+	    //   "id": "252Y00000X"
+	    // }
+	
+	
+	    AvSelectResource.prototype.getId = function getId(result) {
+	      return result.id;
+	    };
+	
+	    AvSelectResource.prototype.initSelection = function initSelection(element, callback) {
+	      callback(null);
+	    };
+	
+	    AvSelectResource.prototype.getResults = function getResults() /* response */{
+	      // EX:
+	      //  return response.data.codes
+	      throw new Error('getResults() must be implemented when extending from AvSelectResource');
+	    };
+	
+	    AvSelectResource.prototype.getPageSize = function getPageSize() {
+	      return 50;
+	    };
+	
+	    return AvSelectResource;
+	  }(AvApiResource);
+	
+	  return AvSelectResource;
+	};
+	
+	_module2.default.factory('AvSelectResource', SelectResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 390 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(391);
+	
+	__webpack_require__(394);
+	
+	__webpack_require__(393);
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(392);
+	
+	__webpack_require__(393);
+	
+	__webpack_require__(394);
+	
+	__webpack_require__(396);
+	
+	var _utils = __webpack_require__(312);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ModalFactory = function ModalFactory($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) {
+	  var Modal = function () {
+	    function Modal(options) {
+	      _classCallCheck(this, Modal);
+	
+	      var self = this;
+	
+	      this.templateDefer = $q.defer();
+	      this.templatePromise = this.templateDefer.promise;
+	
+	      this.options = this.buildOptions(options);
+	
+	      avTemplateCache.get(options).then(function (_template) {
+	        self.options.template = _template;
+	        self.build();
+	      });
+	    }
+	
+	    Modal.create = function create(options) {
+	      return new Modal(options);
+	    };
+	
+	    Modal.prototype.buildOptions = function buildOptions(userOptions) {
+	      var options = _angular2.default.extend({}, AV_MODAL.OPTIONS, userOptions);
+	
+	      options.scope = options.scope || $rootScope.$new();
+	
+	      if (options.controller) {
+	        var locals = _angular2.default.extend({ $scope: options.scope }, options.locals);
+	
+	        var controller = $controller(options.controller, locals);
+	
+	        if (options.controllerAs) {
+	          if (options.scope[options.controllerAs]) {
+	            $log.warn('Overwriting ' + options.controllerAs + 'on scope with AvModal controllerAs, consider passing in no scope, or specifying a different controllerAs than the existing controller');
+	          }
+	          options.scope[options.controllerAs] = controller;
+	        }
+	      }
+	      return options;
+	    };
+	
+	    Modal.prototype.build = function build() {
+	      var _this = this;
+	
+	      var scope = this.options.scope;
+	      this.$element = _angular2.default.element(this.options.template);
+	
+	      this.createId();
+	
+	      this.scope();
+	
+	      $compile(this.$element)(scope);
+	
+	      $timeout(function () {
+	        _this.init();
+	      }, 0, true);
+	
+	      // Append to container or <body>
+	      this.options.container ? this.$element.appendTo(this.options.container) : this.$element.appendTo('body');
+	    };
+	
+	    Modal.prototype.init = function init() {
+	
+	      this.$element.data('AvModal', this);
+	
+	      this.templateDefer.resolve(true);
+	
+	      this.listeners();
+	
+	      // Initialize Bootstrap jQuery plugin
+	      this.$element.modal({
+	        'backdrop': this.options.backdrop,
+	        'keyboard': this.options.keyboard,
+	        'show': this.options.show,
+	        'remote': this.options.remote
+	      });
+	    };
+	
+	    // Add helpers to scope so clients can call internal methods
+	
+	
+	    Modal.prototype.scope = function scope() {
+	
+	      var self = this;
+	      var scope = this.options.scope;
+	
+	      scope.modalShow = function () {
+	        return self.show();
+	      };
+	
+	      scope.modalToggle = function () {
+	        return self.toggle();
+	      };
+	
+	      scope.modalHide = function () {
+	        return self.hide();
+	      };
+	    };
+	
+	    Modal.prototype.listeners = function listeners() {
+	
+	      var self = this;
+	      var scope = this.options.scope;
+	      var $element = this.$element;
+	
+	      this.animationShowDefer = $q.defer();
+	      this.animationHideDefer = $q.defer();
+	
+	      $element.on(AV_MODAL.BS_EVENTS.SHOW, function (event) {
+	        scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
+	      });
+	
+	      $element.on(AV_MODAL.BS_EVENTS.SHOWN, function (event) {
+	
+	        if (_angular2.default.isFunction(self.options.onShown)) {
+	          self.options.onShown();
+	        }
+	
+	        self.animationShowDefer.resolve(true);
+	
+	        scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
+	      });
+	
+	      $element.on(AV_MODAL.BS_EVENTS.HIDE, function (event) {
+	        scope.$emit(AV_MODAL.EVENTS.HIDE, event, self);
+	      });
+	
+	      $element.on(AV_MODAL.BS_EVENTS.HIDDEN, function (event) {
+	
+	        if (_angular2.default.isFunction(self.options.onHidden)) {
+	          self.options.onHidden.call(this);
+	        }
+	
+	        self.animationHideDefer.resolve(true);
+	        scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
+	
+	        scope.$evalAsync(function () {
+	          self.destroy();
+	        });
+	      });
+	
+	      // Garbage collection
+	      scope.$on('$destroy', function () {
+	        avModalManager.remove(self.id);
+	        self.destroy();
+	      });
+	    };
+	
+	    Modal.prototype.show = function show() {
+	      var _this2 = this;
+	
+	      this.animationShowDefer = $q.defer();
+	
+	      this.templatePromise.then(function () {
+	        _this2.isShown() ? _this2.animationShowDefer.resolve(true) : _this2.$element.modal('show');
+	      });
+	
+	      return this.animationShowDefer.promise;
+	    };
+	
+	    Modal.prototype.hide = function hide() {
+	      var _this3 = this;
+	
+	      this.animationHideDefer = $q.defer();
+	
+	      this.templatePromise.then(function () {
+	        !_this3.isShown() ? _this3.animationHideDefer.resolve(true) : _this3.$element.modal('hide');
+	      });
+	
+	      return this.animationHideDefer.promise;
+	    };
+	
+	    Modal.prototype.isShown = function isShown() {
+	      return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
+	    };
+	
+	    Modal.prototype.toggle = function toggle() {
+	      var _this4 = this;
+	
+	      return this.templatePromise.then(function () {
+	        return _this4.isShown() ? _this4.hide() : _this4.show();
+	      });
+	    };
+	
+	    Modal.prototype.destroy = function destroy() {
+	      var _this5 = this;
+	
+	      return this.templatePromise.then(function () {
+	        _this5.$element.data('AvModal', null);
+	        _this5.$element.remove();
+	      });
+	    };
+	
+	    Modal.prototype.createId = function createId() {
+	      // Create a unique id for the modal if not present or passed in via options
+	      var id = this.$element.attr('id');
+	      if (!id) {
+	        // Get id from options or create a unique id
+	        id = this.options.id ? this.options.id : (0, _utils.uuid)('av-modal-id');
+	        this.$element.attr('id', id);
+	      }
+	
+	      this.id = id;
+	
+	      avModalManager.add(id);
+	    };
+	
+	    return Modal;
+	  }();
+	
+	  return Modal;
+	};
+	
+	_module2.default.factory('AvModal', ModalFactory);
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.factory('avTemplateCache', function ($q, $templateCache, $http) {
+	
+	  return {
+	    get: function get(options) {
+	
+	      var valid = !options.template || !options.templateUrl;
+	
+	      if (!valid) {
+	        throw new Error('Either options.template or options.templateUrl must be defined for avTemplateCache');
+	      }
+	
+	      return options.template ? $q.when(options.template) : $http.get(options.templateUrl, { cache: $templateCache }).then(function (result) {
+	        return result.data;
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_MODAL', {
+	
+	  OPTIONS: {
+	    scope: null,
+	    templateUrl: null,
+	    template: null,
+	    id: null,
+	    container: null,
+	
+	    // Bootstrap defaults
+	    keyboard: true,
+	    backdrop: true,
+	    show: false,
+	    remote: false
+	  },
+	
+	  EVENTS: {
+	    SHOW: 'show.av.modal',
+	    SHOWN: 'shown.av.modal',
+	    HIDE: 'hide.av.modal',
+	    HIDDEN: 'hidden.av.modal'
+	  },
+	
+	  NAMESPACE: {
+	    MODAL: 'bs.modal'
+	  },
+	
+	  BS_EVENTS: {
+	    SHOW: 'show.bs.modal',
+	    SHOWN: 'shown.bs.modal',
+	    HIDE: 'hide.bs.modal',
+	    HIDDEN: 'hidden.bs.modal'
+	  }
+	
+	});
+
+/***/ },
+/* 394 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _modal = __webpack_require__(395);
+	
+	var _modal2 = _interopRequireDefault(_modal);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avModal', function () {
+	  return {
+	    restrict: 'A',
+	    replace: true,
+	    transclude: true,
+	    scope: {
+	      size: '@'
+	    },
+	    templateUrl: _modal2.default
+	  };
+	});
+
+/***/ },
+/* 395 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/modal.html';
@@ -8706,173 +14080,1243 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';__webpack_require__(379);
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);__webpack_require__(380);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvHidePermissionController=function(){function AvHidePermissionController($element,avUserAuthorizations){_classCallCheck(this,AvHidePermissionController);this.$element=$element;this.avUserAuthorizations=avUserAuthorizations;}_createClass(AvHidePermissionController,[{key:'$onInit',value:function $onInit(){this.$element.hide();}},{key:'$onChanges',value:function $onChanges(changed){var _this=this;var permissions=changed.avHidePermission.currentValue;if(!_angular2.default.isArray(permissions)){permissions=(''+permissions).split(/\s+/);}this.avUserAuthorizations.isAnyAuthorized(permissions).then(function(isAuthorized){return _this.onSuccess(isAuthorized);},function(){return _this.onError();});}},{key:'onSuccess',value:function onSuccess(isAuthorized){if(isAuthorized){this.$element.removeClass('ng-hide');this.$element.show();}else{this.$element.remove();}}},{key:'onError',value:function onError(){this.$element.remove();}}]);return AvHidePermissionController;}();_module2.default.directive('avHidePermission',function(){return{restrict:'A',controller:AvHidePermissionController,scope:{},bindToController:{avHidePermission:'<'// array or comma delimited supported
-	},controllerAs:'vm'};});
-
-/***/ },
-/* 380 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 381 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.requires.push('ng.shims.placeholder');_module2.default.config(function($provide){$provide.decorator('placeholderDirective',function($delegate,$log){var directive=$delegate[0];var originalLink=directive.link;var newLink=function newLink(scope,element,attrs){if(originalLink&&Object.keys(attrs).indexOf('avMask')>-1){$log.info('placeholder shim not running on an element due to avMask on same element');}else if(originalLink){originalLink.apply(this,arguments);}};directive.compile=function(){return newLink;};return $delegate;});});
-
-/***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';__webpack_require__(383);__webpack_require__(384);__webpack_require__(385);__webpack_require__(386);
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_POPOVER',{NAME:'bs.popover'});
-
-/***/ },
-/* 384 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var config={showDelay:10000};var AvPopoverConfig=function(){function AvPopoverConfig(){_classCallCheck(this,AvPopoverConfig);}_createClass(AvPopoverConfig,[{key:'set',value:function set(options){_extends(config,options);}},{key:'$get',value:function $get(){return _extends({},config);}}]);return AvPopoverConfig;}();_module2.default.provider('avPopoverConfig',AvPopoverConfig);
-
-/***/ },
-/* 385 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvPopoverController=function(){function AvPopoverController($element,$scope,AV_POPOVER,$timeout,avPopoverConfig){_classCallCheck(this,AvPopoverController);this.di={$element:$element,$scope:$scope,AV_POPOVER:AV_POPOVER,$timeout:$timeout};this.options=_extends({},avPopoverConfig);}_createClass(AvPopoverController,[{key:'listeners',value:function listeners(){var _this=this;['show','shown','hide','hidden'].forEach(function(name){_this.di.$element.on(name+'.bs.popover',function(ev){return _this.di.$scope.$emit('av:popover:'+name,ev);});});this.di.$scope.$on('$destroy',this.destroy.bind(this));}},{key:'plugin',value:function plugin(){return this.di.$element.data(this.di.AV_POPOVER.NAME);}},{key:'show',value:function show(){this.di.$element.popover('show');}},{key:'hide',value:function hide(){this.di.$element.popover('hide');}},{key:'toggle',value:function toggle(){this.di.$element.popover('toggle');}},{key:'destroy',value:function destroy(){this.di.$element.popover('destroy');}},{key:'init',value:function init(){this.listeners();if(this.di.$scope.show){// give the UI a chance to settle first.
-	this.di.$timeout(this.show.bind(this),0,false);if(this.di.$scope.delay&&this.di.$scope.delay.hide){this.di.$timeout(this.hide.bind(this),this.di.$scope.delay.hide,false);return;}// If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
-	this.di.$timeout(this.hide.bind(this),this.options.showDelay,false);}}}]);return AvPopoverController;}();_module2.default.controller('AvPopoverController',AvPopoverController);
-
-/***/ },
-/* 386 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avPopover',function(){return{restrict:'A',controller:'AvPopoverController',scope:{show:'=',delay:'='},link:function link(scope,element,attrs,avPopover){var options={};scope.$evalAsync(function(){element.popover(_angular2.default.extend({},options,{html:true}));avPopover.init();});}};});
-
-/***/ },
-/* 387 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';__webpack_require__(388);__webpack_require__(389);__webpack_require__(390);__webpack_require__(391);
-
-/***/ },
-/* 388 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_TOOLTIP',{NAME:'bs.tooltip'});
-
-/***/ },
-/* 389 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var config={showDelay:10000};var AvTooltipConfig=function(){function AvTooltipConfig(){_classCallCheck(this,AvTooltipConfig);}_createClass(AvTooltipConfig,[{key:'set',value:function set(options){_extends(config,options);}},{key:'$get',value:function $get(){return _extends({},config);}}]);return AvTooltipConfig;}();_module2.default.provider('avTooltipConfig',AvTooltipConfig);
-
-/***/ },
-/* 390 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvTooltipController=function(){function AvTooltipController($element,$scope,AV_TOOLTIP,$timeout,avTooltipConfig){_classCallCheck(this,AvTooltipController);this.di={$element:$element,$scope:$scope,AV_TOOLTIP:AV_TOOLTIP,$timeout:$timeout};this.options=_extends({},avTooltipConfig);}_createClass(AvTooltipController,[{key:'listeners',value:function listeners(){var _this=this;['show','shown','hide','hidden'].forEach(function(name){_this.di.$element.on(name+'.bs.tooltip',function(ev){return _this.di.$scope.$emit('av:tooltip:'+name,ev);});});this.di.$scope.$on('$destroy',this.destroy.bind(this));}},{key:'plugin',value:function plugin(){return this.di.$element.data(this.di.AV_TOOLTIP.NAME);}},{key:'show',value:function show(){this.di.$element.tooltip('show');}},{key:'hide',value:function hide(){this.di.$element.tooltip('hide');}},{key:'toggle',value:function toggle(){this.di.$element.tooltip('toggle');}},{key:'destroy',value:function destroy(){this.di.$element.tooltip('destroy');}},{key:'init',value:function init(){this.listeners();if(this.di.$scope.show){// give the UI a chance to settle first.
-	this.di.$timeout(this.show.bind(this),0,false);if(this.di.$scope.delay&&this.di.$scope.delay.hide){this.di.$timeout(this.hide.bind(this),this.di.$scope.delay.hide,false);return;}// If no delay is found or cannot be parsed, set a default timeout so that the tooltip doesn't stick around forever
-	this.di.$timeout(this.hide.bind(this),this.options.showDelay,false);}}}]);return AvTooltipController;}();_module2.default.controller('AvTooltipController',AvTooltipController);
-
-/***/ },
-/* 391 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.directive('avTooltip',function(){return{restrict:'A',controller:'AvTooltipController',scope:{show:'=',delay:'='},link:function link(scope,element,attrs,avTooltip){var options={};scope.$evalAsync(function(){element.tooltip(_angular2.default.extend({},options,{html:true}));avTooltip.init();});}};});
-
-/***/ },
-/* 392 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';__webpack_require__(393);__webpack_require__(395);__webpack_require__(394);__webpack_require__(396);__webpack_require__(397);__webpack_require__(398);
-
-/***/ },
-/* 393 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _jquery=__webpack_require__(305);var _jquery2=_interopRequireDefault(_jquery);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);__webpack_require__(394);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.factory('avValBootstrapAdapter',function(AV_BOOTSTRAP_ADAPTER,$timeout,$log){return{element:function element(context){var ngModel=context.ngModel;var element=context.element;if(ngModel.$valid){element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);}else{element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);}},reset:function reset(element){element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);},message:function message(context){var element=context.element;var selector='.'+AV_BOOTSTRAP_ADAPTER.CLASSES.HELP;var $el=(0,_jquery2.default)(element);var target=$el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.CONTAINER);target=target||$el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.DATA_CONTAINER);// default to siblings
-	target=target?(0,_jquery2.default)('#'+target):$el.siblings(selector);if(target.length===0){$log.warn('avValBootstrapAdapter could not find validation container for '+element);return;}var el=target[0];$el=_angular2.default.element(el);var avValModel=$el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER);// get the av val message controller
-	if(avValModel){avValModel.message(context);}},scroll:function scroll(form){// Bootstrap fixed navbars causes bad scroll-to offsets so find them all
-	var navbarSelector='.'+AV_BOOTSTRAP_ADAPTER.CLASSES.NAVBAR;// Add up all the heights to find the true offset
-	var offset=0;(0,_jquery2.default)(navbarSelector).each(function(){offset+=(0,_jquery2.default)(this).outerHeight();});var selector='.'+AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR+':first';var $target=(0,_jquery2.default)(form).find(selector);$timeout(function(){// scroll to offset top of first error minus the offset of the navbars
-	(0,_jquery2.default)('body, html').animate({scrollTop:$target.offset().top-offset},'fast');},0,false);}};});
-
-/***/ },
-/* 394 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}_module2.default.constant('AV_UI',{FALLBACK_VALIDATION_MESSAGE:'This field is invalid.'});_module2.default.constant('AV_BOOTSTRAP_ADAPTER',{CLASSES:{SUCCESS:'has-success',WARNING:'has-warning',ERROR:'has-error',FEEDBACK:'has-feedback',HELP:'help-block',FORM_GROUP:'.form-group:first',NAVBAR:'navbar-fixed-top'},SELECTORS:{CONTAINER:'container-id',DATA_CONTAINER:'data-container-id'},CONTROLLER:'$avValContainerController'});_module2.default.constant('AV_VAL_ADAPTER',{DEFAULT:'avValBootstrapAdapter'});
-
-/***/ },
-/* 395 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);__webpack_require__(394);__webpack_require__(393);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}_module2.default.provider('avValAdapter',function(){var that=this;this.setAdapter=function(adapter){this.adapter=adapter;};this.$get=function(AV_VAL_ADAPTER,$injector){var Adapter=function(){function Adapter(){_classCallCheck(this,Adapter);var adapterName=that.adapter||AV_VAL_ADAPTER.DEFAULT;this.adapter=$injector.get(adapterName);}_createClass(Adapter,[{key:'element',value:function element(context){this.adapter.element(context);}},{key:'reset',value:function reset(element){this.adapter.reset(element);}},{key:'message',value:function message(context){this.adapter.message(context);}},{key:'scroll',value:function scroll(form){this.adapter.scroll(form);}}]);return Adapter;}();return new Adapter();};});
-
-/***/ },
 /* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);var _base=__webpack_require__(363);var _base2=_interopRequireDefault(_base);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvValContainerController=function(_Base){_inherits(AvValContainerController,_Base);function AvValContainerController(){var _Object$getPrototypeO;_classCallCheck(this,AvValContainerController);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvValContainerController)).call.apply(_Object$getPrototypeO,[this].concat(args)));}_createClass(AvValContainerController,[{key:'message',value:function message(context){var _this2=this;var ngModel=context.ngModel;var message=null;var violations=Object.keys(ngModel.$error);if(violations.length){var validator=violations[0];var constraint=ngModel.$validators[validator]&&ngModel.$validators[validator].constraint;if(constraint){message=constraint.message;}else{message=this.av.AV_UI.FALLBACK_VALIDATION_MESSAGE;}}else{message=null;}// $timeout is needed to update the UI from $broadcast events
-	this.av.$timeout(function(){_this2.av.$scope.vm.message=_this2.av.$sce.trustAsHtml(message);});}}]);return AvValContainerController;}(_base2.default);AvValContainerController.$inject=['$sce','$scope','$timeout','AV_UI'];_module2.default.directive('avValContainer',function(){return{restrict:'A',controller:AvValContainerController,template:'<p class="help-block" data-ng-bind-html="vm.message"></p>',replace:true,scope:{},link:function link(scope){scope.vm={message:null,id:null};}};});
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.factory('avModalManager', function () {
+	  var AvModalManager = function () {
+	    function AvModalManager() {
+	      _classCallCheck(this, AvModalManager);
+	
+	      this.instances = [];
+	    }
+	
+	    AvModalManager.prototype.add = function add(id) {
+	      this.instances.push(id);
+	    };
+	
+	    AvModalManager.prototype.remove = function remove(id) {
+	      this.instances = this.instances.filter(function (instance) {
+	        return instance !== id;
+	      });
+	    };
+	
+	    AvModalManager.prototype.closeAll = function closeAll() {
+	
+	      this.instances.forEach(function (id) {
+	
+	        var $el = _angular2.default.element(document.getElementById(id));
+	
+	        if (!$el) {
+	          return;
+	        }
+	
+	        var bsModal = $el.data('bs.modal');
+	        if (bsModal) {
+	          bsModal.removeBackdrop();
+	          bsModal.$body.removeClass('modal-open');
+	          bsModal.resetAdjustments();
+	          bsModal.resetScrollbar();
+	        }
+	
+	        var avModal = $el.data('AvModal');
+	        if (avModal) {
+	          avModal.destroy();
+	        }
+	      });
+	    };
+	
+	    return AvModalManager;
+	  }();
+	
+	  return new AvModalManager();
+	});
 
 /***/ },
 /* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _angular=__webpack_require__(303);var _angular2=_interopRequireDefault(_angular);var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);var _utils=__webpack_require__(310);__webpack_require__(336);var _base=__webpack_require__(363);var _base2=_interopRequireDefault(_base);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var AvValFieldController=function(_Base){_inherits(AvValFieldController,_Base);function AvValFieldController(){var _Object$getPrototypeO;_classCallCheck(this,AvValFieldController);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}var _this=_possibleConstructorReturn(this,(_Object$getPrototypeO=Object.getPrototypeOf(AvValFieldController)).call.apply(_Object$getPrototypeO,[this].concat(args)));_this.ngModel=null;_this.rule=null;_this.avValForm=null;_this.avValInvalid=false;_this.noEvent={};_this.placeholder=_this.av.$element[0].placeholder;return _this;}_createClass(AvValFieldController,[{key:'init',value:function init(options){_extends(this,options);this.createId();this.setupValidators();}},{key:'createId',value:function createId(){this.ngModel.avId=(0,_utils.uuid)('avVal');}},{key:'updateElement',value:function updateElement(){this.av.avValAdapter.element({element:this.av.$element,ngModel:this.ngModel});this.av.avValAdapter.message({element:this.av.$element,ngModel:this.ngModel});}},{key:'setupValidators',value:function setupValidators(){var self=this;var schemaName=this.avValForm.rulesSchema;var ruleConfig=this.av.avVal.getRule(schemaName);if(!ruleConfig){this.av.$log.error('Failed to get rules schema named ['+schemaName+'].  Forms must be tagged with a rules schema name for validation to work.');return;}var constraints=ruleConfig[this.ruleName];if(!constraints){this.av.$log.info('Rule named ['+this.ruleName+'] could not be found in the current schema.');constraints={};}Object.keys(constraints).forEach(function(constraintName){var constraint=constraints[constraintName];if(!constraint){// When extending rule sets, previous rules can be overridden with null so
-	// delete the previous $validator
-	delete self.ngModel.$validators[constraintName];return;}var validator=self.av.avVal.getService(constraintName);if(_angular2.default.isUndefined(validator)){self.vm.$log.warn('No validator defined for '+constraintName);return;}self.ngModel.$validators[constraintName]=function contraintValidator(modelValue,viewValue){var value=modelValue||viewValue;var valid=validator.validate({value:value,constraint:constraint,element:self.av.$element});return valid;};// Attach the constrain to the validator so that the message is available
-	// to the validation container that is going to paint the message on screen.
-	self.ngModel.$validators[constraintName].constraint=constraint;});}},{key:'onRunValidators',value:function onRunValidators(){if(this.ngModel.$dirty){this.updateElement();}}}]);return AvValFieldController;}(_base2.default);AvValFieldController.$inject=['$element','avValAdapter','avVal','$log','$timeout','$scope'];_module2.default.controller('AvValFieldController',AvValFieldController);_module2.default.directive('avValField',function($log,$timeout,avVal,avValAdapter,AV_VAL){return{restrict:'A',controller:'AvValFieldController',require:['^avValForm','ngModel','avValField'],link:function link(scope,element,attrs,controllers){var ruleName=attrs.avValField;var avValForm=controllers[0];var ngModel=controllers[1];var avValField=controllers[2];// Wrap $$runValidators with our own function so we can intercept when the validation
-	// pipeline finishes.
-	var $$runValidators=ngModel.$$runValidators;var runValidators=function runValidators(modelValue,viewValue,doneCallback){$$runValidators(modelValue,viewValue,function(allValid){doneCallback(allValid);avValField.onRunValidators();});};ngModel.$$runValidators=runValidators;if(!ngModel&&!ruleName){$log.error('avValField requires ngModel and a validation rule name to run.');return;}avValField.init({ngModel:ngModel,ruleName:ruleName,avValForm:avValForm});scope.$on(AV_VAL.EVENTS.REVALIDATE,function(){ngModel.$validate();});scope.$on(AV_VAL.EVENTS.SUBMITTED,function(){ngModel.$dirty=true;ngModel.$validate();});// - Removes all errors on page,
-	// - does not reset view or model values.  This should to be handled by the application.
-	scope.$on(AV_VAL.EVENTS.RESET,function(){// avValField.reset();
-	});}};});
+	'use strict';
+	
+	__webpack_require__(398);
 
 /***/ },
 /* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _module=__webpack_require__(353);var _module2=_interopRequireDefault(_module);__webpack_require__(336);__webpack_require__(394);__webpack_require__(395);__webpack_require__(397);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var AvValController=function(){function AvValController(){_classCallCheck(this,AvValController);this.ngForm=null;this.rulesSchema=null;this.avValOn=null;this.avValDebounce=null;this.avValInvalid=false;}_createClass(AvValController,[{key:'init',value:function init(options){_extends(this,options);}},{key:'reset',value:function reset(){this.ngForm.$setPristine();this.ngForm.$submitted=false;}}]);return AvValController;}();_module2.default.controller('AvValFormController',AvValController);// $pristine - True if user has not interacted with the form yet.
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(399);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvHidePermissionController = function () {
+	  function AvHidePermissionController($element, avUserAuthorizations) {
+	    _classCallCheck(this, AvHidePermissionController);
+	
+	    this.$element = $element;
+	    this.avUserAuthorizations = avUserAuthorizations;
+	  }
+	
+	  AvHidePermissionController.prototype.$onInit = function $onInit() {
+	    this.$element.hide();
+	  };
+	
+	  AvHidePermissionController.prototype.$onChanges = function $onChanges(changed) {
+	    var _this = this;
+	
+	    var permissions = changed.avHidePermission.currentValue;
+	
+	    if (!_angular2.default.isArray(permissions)) {
+	      permissions = ('' + permissions).split(/\s+/);
+	    }
+	
+	    this.avUserAuthorizations.isAnyAuthorized(permissions).then(function (isAuthorized) {
+	      return _this.onSuccess(isAuthorized);
+	    }, function () {
+	      return _this.onError();
+	    });
+	  };
+	
+	  AvHidePermissionController.prototype.onSuccess = function onSuccess(isAuthorized) {
+	    if (isAuthorized) {
+	      this.$element.removeClass('ng-hide');
+	      this.$element.show();
+	    } else {
+	      this.$element.remove();
+	    }
+	  };
+	
+	  AvHidePermissionController.prototype.onError = function onError() {
+	    this.$element.remove();
+	  };
+	
+	  return AvHidePermissionController;
+	}();
+	
+	_module2.default.directive('avHidePermission', function () {
+	  return {
+	    restrict: 'A',
+	    controller: AvHidePermissionController,
+	    scope: {},
+	    bindToController: {
+	      avHidePermission: '<' // array or comma delimited supported
+	    },
+	    controllerAs: 'vm'
+	  };
+	});
+
+/***/ },
+/* 399 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.requires.push('ng.shims.placeholder');
+	
+	_module2.default.config(function ($provide) {
+	
+	  $provide.decorator('placeholderDirective', function ($delegate, $log) {
+	
+	    var directive = $delegate[0];
+	    var originalLink = directive.link;
+	
+	    var newLink = function newLink(scope, element, attrs) {
+	
+	      if (originalLink && Object.keys(attrs).indexOf('avMask') > -1) {
+	        $log.info('placeholder shim not running on an element due to avMask on same element');
+	      } else if (originalLink) {
+	        originalLink.apply(this, arguments);
+	      }
+	    };
+	
+	    directive.compile = function () {
+	      return newLink;
+	    };
+	
+	    return $delegate;
+	  });
+	});
+
+/***/ },
+/* 401 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(402);
+	
+	__webpack_require__(403);
+	
+	__webpack_require__(404);
+	
+	__webpack_require__(405);
+
+/***/ },
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_POPOVER', {
+	  NAME: 'bs.popover'
+	});
+
+/***/ },
+/* 403 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var config = {
+	  showDelay: 10000
+	};
+	
+	var AvPopoverConfig = function () {
+	  function AvPopoverConfig() {
+	    _classCallCheck(this, AvPopoverConfig);
+	  }
+	
+	  AvPopoverConfig.prototype.set = function set(options) {
+	    _extends(config, options);
+	  };
+	
+	  AvPopoverConfig.prototype.$get = function $get() {
+	    return _extends({}, config);
+	  };
+	
+	  return AvPopoverConfig;
+	}();
+	
+	_module2.default.provider('avPopoverConfig', AvPopoverConfig);
+
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvPopoverController = function () {
+	  function AvPopoverController($element, $scope, AV_POPOVER, $timeout, avPopoverConfig) {
+	    _classCallCheck(this, AvPopoverController);
+	
+	    this.di = { $element: $element, $scope: $scope, AV_POPOVER: AV_POPOVER, $timeout: $timeout };
+	    this.options = _extends({}, avPopoverConfig);
+	  }
+	
+	  AvPopoverController.prototype.listeners = function listeners() {
+	    var _this = this;
+	
+	    ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
+	      _this.di.$element.on(name + '.bs.popover', function (ev) {
+	        return _this.di.$scope.$emit('av:popover:' + name, ev);
+	      });
+	    });
+	
+	    this.di.$scope.$on('$destroy', this.destroy.bind(this));
+	  };
+	
+	  AvPopoverController.prototype.plugin = function plugin() {
+	    return this.di.$element.data(this.di.AV_POPOVER.NAME);
+	  };
+	
+	  AvPopoverController.prototype.show = function show() {
+	    this.di.$element.popover('show');
+	  };
+	
+	  AvPopoverController.prototype.hide = function hide() {
+	    this.di.$element.popover('hide');
+	  };
+	
+	  AvPopoverController.prototype.toggle = function toggle() {
+	    this.di.$element.popover('toggle');
+	  };
+	
+	  AvPopoverController.prototype.destroy = function destroy() {
+	    this.di.$element.popover('destroy');
+	  };
+	
+	  AvPopoverController.prototype.init = function init() {
+	    this.listeners();
+	
+	    if (this.di.$scope.show) {
+	
+	      // give the UI a chance to settle first.
+	      this.di.$timeout(this.show.bind(this), 0, false);
+	
+	      if (this.di.$scope.delay && this.di.$scope.delay.hide) {
+	        this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
+	        return;
+	      }
+	
+	      // If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
+	      this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
+	    }
+	  };
+	
+	  return AvPopoverController;
+	}();
+	
+	_module2.default.controller('AvPopoverController', AvPopoverController);
+
+/***/ },
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avPopover', function () {
+	  return {
+	    restrict: 'A',
+	    controller: 'AvPopoverController',
+	    scope: {
+	      show: '=',
+	      delay: '='
+	    },
+	    link: function link(scope, element, attrs, avPopover) {
+	
+	      var options = {};
+	
+	      scope.$evalAsync(function () {
+	        element.popover(_angular2.default.extend({}, options, {
+	          html: true
+	        }));
+	        avPopover.init();
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 406 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(407);
+	
+	__webpack_require__(408);
+	
+	__webpack_require__(409);
+	
+	__webpack_require__(410);
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_TOOLTIP', {
+	  NAME: 'bs.tooltip'
+	});
+
+/***/ },
+/* 408 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var config = {
+	  showDelay: 10000
+	};
+	
+	var AvTooltipConfig = function () {
+	  function AvTooltipConfig() {
+	    _classCallCheck(this, AvTooltipConfig);
+	  }
+	
+	  AvTooltipConfig.prototype.set = function set(options) {
+	    _extends(config, options);
+	  };
+	
+	  AvTooltipConfig.prototype.$get = function $get() {
+	    return _extends({}, config);
+	  };
+	
+	  return AvTooltipConfig;
+	}();
+	
+	_module2.default.provider('avTooltipConfig', AvTooltipConfig);
+
+/***/ },
+/* 409 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvTooltipController = function () {
+	  function AvTooltipController($element, $scope, AV_TOOLTIP, $timeout, avTooltipConfig) {
+	    _classCallCheck(this, AvTooltipController);
+	
+	    this.di = { $element: $element, $scope: $scope, AV_TOOLTIP: AV_TOOLTIP, $timeout: $timeout };
+	    this.options = _extends({}, avTooltipConfig);
+	  }
+	
+	  AvTooltipController.prototype.listeners = function listeners() {
+	    var _this = this;
+	
+	    ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
+	      _this.di.$element.on(name + '.bs.tooltip', function (ev) {
+	        return _this.di.$scope.$emit('av:tooltip:' + name, ev);
+	      });
+	    });
+	
+	    this.di.$scope.$on('$destroy', this.destroy.bind(this));
+	  };
+	
+	  AvTooltipController.prototype.plugin = function plugin() {
+	    return this.di.$element.data(this.di.AV_TOOLTIP.NAME);
+	  };
+	
+	  AvTooltipController.prototype.show = function show() {
+	    this.di.$element.tooltip('show');
+	  };
+	
+	  AvTooltipController.prototype.hide = function hide() {
+	    this.di.$element.tooltip('hide');
+	  };
+	
+	  AvTooltipController.prototype.toggle = function toggle() {
+	    this.di.$element.tooltip('toggle');
+	  };
+	
+	  AvTooltipController.prototype.destroy = function destroy() {
+	    this.di.$element.tooltip('destroy');
+	  };
+	
+	  AvTooltipController.prototype.init = function init() {
+	    this.listeners();
+	
+	    if (this.di.$scope.show) {
+	
+	      // give the UI a chance to settle first.
+	      this.di.$timeout(this.show.bind(this), 0, false);
+	
+	      if (this.di.$scope.delay && this.di.$scope.delay.hide) {
+	        this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
+	        return;
+	      }
+	
+	      // If no delay is found or cannot be parsed, set a default timeout so that the tooltip doesn't stick around forever
+	      this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
+	    }
+	  };
+	
+	  return AvTooltipController;
+	}();
+	
+	_module2.default.controller('AvTooltipController', AvTooltipController);
+
+/***/ },
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avTooltip', function () {
+	  return {
+	    restrict: 'A',
+	    controller: 'AvTooltipController',
+	    scope: {
+	      show: '=',
+	      delay: '='
+	    },
+	    link: function link(scope, element, attrs, avTooltip) {
+	
+	      var options = {};
+	
+	      scope.$evalAsync(function () {
+	        element.tooltip(_angular2.default.extend({}, options, {
+	          html: true
+	        }));
+	        avTooltip.init();
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 411 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(412);
+	
+	__webpack_require__(414);
+	
+	__webpack_require__(413);
+	
+	__webpack_require__(415);
+	
+	__webpack_require__(416);
+	
+	__webpack_require__(417);
+
+/***/ },
+/* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _jquery = __webpack_require__(304);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(413);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.factory('avValBootstrapAdapter', function (AV_BOOTSTRAP_ADAPTER, $timeout, $log) {
+	  return {
+	    element: function element(context) {
+	      var ngModel = context.ngModel;
+	      var element = context.element;
+	
+	
+	      if (ngModel.$valid) {
+	        element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+	      } else {
+	        element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).addClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+	      }
+	    },
+	    reset: function reset(element) {
+	      element.parents(AV_BOOTSTRAP_ADAPTER.CLASSES.FORM_GROUP).removeClass(AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR);
+	    },
+	    message: function message(context) {
+	      var element = context.element;
+	
+	
+	      var selector = '.' + AV_BOOTSTRAP_ADAPTER.CLASSES.HELP;
+	
+	      var $el = (0, _jquery2.default)(element);
+	
+	      var target = $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.CONTAINER);
+	      target = target || $el.attr(AV_BOOTSTRAP_ADAPTER.SELECTORS.DATA_CONTAINER);
+	      // default to siblings
+	      target = target ? (0, _jquery2.default)('#' + target) : $el.siblings(selector);
+	
+	      if (target.length === 0) {
+	        $log.warn('avValBootstrapAdapter could not find validation container for ' + element);
+	        return;
+	      }
+	
+	      var el = target[0];
+	      $el = _angular2.default.element(el);
+	      var avValModel = $el.data(AV_BOOTSTRAP_ADAPTER.CONTROLLER); // get the av val message controller
+	      if (avValModel) {
+	        avValModel.message(context);
+	      }
+	    },
+	    scroll: function scroll(form) {
+	
+	      // Bootstrap fixed navbars causes bad scroll-to offsets so find them all
+	      var navbarSelector = '.' + AV_BOOTSTRAP_ADAPTER.CLASSES.NAVBAR;
+	
+	      // Add up all the heights to find the true offset
+	      var offset = 0;
+	      (0, _jquery2.default)(navbarSelector).each(function () {
+	        offset += (0, _jquery2.default)(this).outerHeight();
+	      });
+	
+	      var selector = '.' + AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR + ':first';
+	
+	      var $target = (0, _jquery2.default)(form).find(selector);
+	      $timeout(function () {
+	        // scroll to offset top of first error minus the offset of the navbars
+	        (0, _jquery2.default)('body, html').animate({ scrollTop: $target.offset().top - offset }, 'fast');
+	      }, 0, false);
+	    }
+	  };
+	});
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_UI', {
+	  FALLBACK_VALIDATION_MESSAGE: 'This field is invalid.'
+	});
+	
+	_module2.default.constant('AV_BOOTSTRAP_ADAPTER', {
+	  CLASSES: {
+	    SUCCESS: 'has-success',
+	    WARNING: 'has-warning',
+	    ERROR: 'has-error',
+	    FEEDBACK: 'has-feedback',
+	    HELP: 'help-block',
+	    FORM_GROUP: '.form-group:first',
+	    NAVBAR: 'navbar-fixed-top'
+	  },
+	  SELECTORS: {
+	    CONTAINER: 'container-id',
+	    DATA_CONTAINER: 'data-container-id'
+	  },
+	  CONTROLLER: '$avValContainerController'
+	});
+	
+	_module2.default.constant('AV_VAL_ADAPTER', {
+	  DEFAULT: 'avValBootstrapAdapter'
+	});
+
+/***/ },
+/* 414 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(413);
+	
+	__webpack_require__(412);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	_module2.default.provider('avValAdapter', function () {
+	
+	  var that = this;
+	
+	  this.setAdapter = function (adapter) {
+	    this.adapter = adapter;
+	  };
+	
+	  this.$get = function (AV_VAL_ADAPTER, $injector) {
+	    var Adapter = function () {
+	      function Adapter() {
+	        _classCallCheck(this, Adapter);
+	
+	        var adapterName = that.adapter || AV_VAL_ADAPTER.DEFAULT;
+	        this.adapter = $injector.get(adapterName);
+	      }
+	
+	      Adapter.prototype.element = function element(context) {
+	        this.adapter.element(context);
+	      };
+	
+	      Adapter.prototype.reset = function reset(element) {
+	        this.adapter.reset(element);
+	      };
+	
+	      Adapter.prototype.message = function message(context) {
+	        this.adapter.message(context);
+	      };
+	
+	      Adapter.prototype.scroll = function scroll(form) {
+	        this.adapter.scroll(form);
+	      };
+	
+	      return Adapter;
+	    }();
+	
+	    return new Adapter();
+	  };
+	});
+
+/***/ },
+/* 415 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvValContainerController = function (_Base) {
+	  _inherits(AvValContainerController, _Base);
+	
+	  function AvValContainerController() {
+	    _classCallCheck(this, AvValContainerController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	  }
+	
+	  AvValContainerController.prototype.message = function message(context) {
+	    var _this2 = this;
+	
+	    var ngModel = context.ngModel;
+	
+	
+	    var message = null;
+	    var violations = Object.keys(ngModel.$error);
+	    if (violations.length) {
+	      var validator = violations[0];
+	      var constraint = ngModel.$validators[validator] && ngModel.$validators[validator].constraint;
+	      if (constraint) {
+	        message = constraint.message;
+	      } else {
+	        message = this.av.AV_UI.FALLBACK_VALIDATION_MESSAGE;
+	      }
+	    } else {
+	      message = null;
+	    }
+	
+	    // $timeout is needed to update the UI from $broadcast events
+	    this.av.$timeout(function () {
+	      _this2.av.$scope.vm.message = _this2.av.$sce.trustAsHtml(message);
+	    });
+	  };
+	
+	  return AvValContainerController;
+	}(_base2.default);
+	
+	AvValContainerController.$inject = ['$sce', '$scope', '$timeout', 'AV_UI'];
+	
+	
+	_module2.default.directive('avValContainer', function () {
+	  return {
+	    restrict: 'A',
+	    controller: AvValContainerController,
+	    template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
+	    replace: true,
+	    scope: {},
+	
+	    link: function link(scope) {
+	      scope.vm = { message: null, id: null };
+	    }
+	  };
+	});
+
+/***/ },
+/* 416 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _angular = __webpack_require__(302);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _utils = __webpack_require__(312);
+	
+	__webpack_require__(336);
+	
+	var _base = __webpack_require__(356);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvValFieldController = function (_Base) {
+	  _inherits(AvValFieldController, _Base);
+	
+	  function AvValFieldController() {
+	    _classCallCheck(this, AvValFieldController);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	
+	    _this.ngModel = null;
+	    _this.rule = null;
+	    _this.avValForm = null;
+	    _this.avValInvalid = false;
+	    _this.noEvent = {};
+	    _this.placeholder = _this.av.$element[0].placeholder;
+	
+	    return _this;
+	  }
+	
+	  AvValFieldController.prototype.init = function init(options) {
+	    _extends(this, options);
+	    this.createId();
+	    this.setupValidators();
+	  };
+	
+	  AvValFieldController.prototype.createId = function createId() {
+	    this.ngModel.avId = (0, _utils.uuid)('avVal');
+	  };
+	
+	  AvValFieldController.prototype.updateElement = function updateElement() {
+	
+	    this.av.avValAdapter.element({
+	      element: this.av.$element,
+	      ngModel: this.ngModel
+	    });
+	
+	    this.av.avValAdapter.message({
+	      element: this.av.$element,
+	      ngModel: this.ngModel
+	    });
+	  };
+	
+	  AvValFieldController.prototype.setupValidators = function setupValidators() {
+	
+	    var self = this;
+	
+	    var schemaName = this.avValForm.rulesSchema;
+	    var ruleConfig = this.av.avVal.getRule(schemaName);
+	
+	    if (!ruleConfig) {
+	      this.av.$log.error('Failed to get rules schema named [' + schemaName + '].  Forms must be tagged with a rules schema name for validation to work.');
+	      return;
+	    }
+	
+	    var constraints = ruleConfig[this.ruleName];
+	    if (!constraints) {
+	      this.av.$log.info('Rule named [' + this.ruleName + '] could not be found in the current schema.');
+	      constraints = {};
+	    }
+	
+	    Object.keys(constraints).forEach(function (constraintName) {
+	      var constraint = constraints[constraintName];
+	      if (!constraint) {
+	
+	        // When extending rule sets, previous rules can be overridden with null so
+	        // delete the previous $validator
+	        delete self.ngModel.$validators[constraintName];
+	        return;
+	      }
+	
+	      var validator = self.av.avVal.getService(constraintName);
+	
+	      if (_angular2.default.isUndefined(validator)) {
+	        self.vm.$log.warn('No validator defined for ' + constraintName);
+	        return;
+	      }
+	
+	      self.ngModel.$validators[constraintName] = function contraintValidator(modelValue, viewValue) {
+	
+	        var value = modelValue || viewValue;
+	
+	        var valid = validator.validate({
+	          value: value,
+	          constraint: constraint,
+	          element: self.av.$element
+	        });
+	
+	        return valid;
+	      };
+	
+	      // Attach the constrain to the validator so that the message is available
+	      // to the validation container that is going to paint the message on screen.
+	      self.ngModel.$validators[constraintName].constraint = constraint;
+	    });
+	  };
+	
+	  AvValFieldController.prototype.onRunValidators = function onRunValidators() {
+	
+	    if (this.ngModel.$dirty) {
+	      this.updateElement();
+	    }
+	  };
+	
+	  return AvValFieldController;
+	}(_base2.default);
+	
+	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope'];
+	
+	
+	_module2.default.controller('AvValFieldController', AvValFieldController);
+	
+	_module2.default.directive('avValField', function ($log, $timeout, avVal, avValAdapter, AV_VAL) {
+	  return {
+	    restrict: 'A',
+	    controller: 'AvValFieldController',
+	    require: ['^avValForm', 'ngModel', 'avValField'],
+	    link: function link(scope, element, attrs, controllers) {
+	
+	      var ruleName = attrs.avValField;
+	
+	      var avValForm = controllers[0];
+	      var ngModel = controllers[1];
+	      var avValField = controllers[2];
+	
+	      // Wrap $$runValidators with our own function so we can intercept when the validation
+	      // pipeline finishes.
+	      var $$runValidators = ngModel.$$runValidators;
+	      var runValidators = function runValidators(modelValue, viewValue, doneCallback) {
+	
+	        $$runValidators(modelValue, viewValue, function (allValid) {
+	          doneCallback(allValid);
+	          avValField.onRunValidators();
+	        });
+	      };
+	
+	      ngModel.$$runValidators = runValidators;
+	
+	      if (!ngModel && !ruleName) {
+	        $log.error('avValField requires ngModel and a validation rule name to run.');
+	        return;
+	      }
+	
+	      avValField.init({
+	        ngModel: ngModel,
+	        ruleName: ruleName,
+	        avValForm: avValForm
+	      });
+	
+	      scope.$on(AV_VAL.EVENTS.REVALIDATE, function () {
+	        ngModel.$validate();
+	      });
+	
+	      scope.$on(AV_VAL.EVENTS.SUBMITTED, function () {
+	        ngModel.$dirty = true;
+	        ngModel.$validate();
+	      });
+	
+	      // - Removes all errors on page,
+	      // - does not reset view or model values.  This should to be handled by the application.
+	      scope.$on(AV_VAL.EVENTS.RESET, function () {
+	        // avValField.reset();
+	      });
+	    }
+	  };
+	});
+
+/***/ },
+/* 417 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _module = __webpack_require__(353);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(336);
+	
+	__webpack_require__(413);
+	
+	__webpack_require__(414);
+	
+	__webpack_require__(416);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvValController = function () {
+	  function AvValController() {
+	    _classCallCheck(this, AvValController);
+	
+	    this.ngForm = null;
+	    this.rulesSchema = null;
+	    this.avValOn = null;
+	    this.avValDebounce = null;
+	    this.avValInvalid = false;
+	  }
+	
+	  AvValController.prototype.init = function init(options) {
+	    _extends(this, options);
+	  };
+	
+	  AvValController.prototype.reset = function reset() {
+	    this.ngForm.$setPristine();
+	    this.ngForm.$submitted = false;
+	  };
+	
+	  return AvValController;
+	}();
+	
+	_module2.default.controller('AvValFormController', AvValController);
+	
+	// $pristine - True if user has not interacted with the form yet.
 	// $dirty - True if user has already interacted with the form.
 	// $valid - True if all of the containing forms and controls are valid.
 	// $invalid - True if at least one containing control or form is invalid.
 	// $pending - True if at least one containing control or form is pending.
 	// $submitted - True if user has submitted the form even if its invalid.
 	//
-	_module2.default.directive('avValForm',function($log,$timeout,$parse,AV_VAL,avValAdapter,$rootScope){return{restrict:'A',priority:10,require:['form','avValForm'],controller:'AvValFormController',compile:function compile(){return{pre:function pre(scope,iEl,iAttrs,controllers){var ruleFn=$parse(iAttrs.avValForm);var rulesSchema=ruleFn(scope);var ngForm=controllers[0];var avForm=controllers[1];rulesSchema=rulesSchema||iAttrs.avValForm;// interpolated rule from scope || fixed string
-	if(!rulesSchema){$log.error('avValForm requires a rules schema in order to run the proper set of validation rules');return;}scope.$watch(ruleFn,function(_rulesSchema,_oldRulesSchema){if(_rulesSchema!==_oldRulesSchema){$timeout(function(){$log.info('avValForm revalidate');$rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);});}});// Allow form attributes to define the validation behavior of the form fields
-	// inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
-	// fields inside the form would inherit this behavior.
-	avForm.avValOn=iAttrs.avValOn||null;avForm.avValDebounce=iAttrs.avValDebounce||null;// Allows fields to update with invalid data for dirty form saving
-	avForm.avValInvalid=iAttrs.avValInvalid||false;avForm.init({ngForm:ngForm,rulesSchema:rulesSchema});},post:function post(scope,el,iAttrs,controllers){// Prevent HTML5 validation from kicking in
-	el.attr('novalidate','novalidate');// Disable ng-submit or ng-click handlers and store the function to call for submitting
-	var fn=void 0;if(iAttrs.ngSubmit){// Disable ng-submit event
-	el.off('submit');fn=$parse(iAttrs.ngSubmit,null,true);}else if(iAttrs.ngClick){// Disable ng-click event
-	el.off('click');fn=$parse(iAttrs.ngClick,null,true);}var ngForm=controllers[0];var avForm=controllers[1];scope.$on(AV_VAL.EVENTS.RESET,function(){avForm.reset();});var watcher=function watcher(){return ngForm.$pending;};var unwatch=void 0;scope.$watch(watcher,function(pending){if(!pending){// pendingWatch();
-	// performSubmit();
-	}});el.bind('submit',function(event){scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);ngForm.$setSubmitted();if(ngForm.$invalid||ngForm.$pending){// scope.$broadcast(AV_VAL.EVENTS.FAILED);
-	// $log.info('avValForm is invalid.  Preventing default submit action');
-	event.preventDefault();event.stopImmediatePropagation();scope.$broadcast(event);if(ngForm.$pending){unwatch=scope.$watch(watcher,function(pending){if(!pending){avValAdapter.scroll(el);}});}else{avValAdapter.scroll(el);}return;}ngForm.$setPristine();if(!fn){return;}var callback=function callback(){fn(scope,{$event:event});};scope.$apply(callback);});scope.$on('$destroy',function(){try{unwatch();}catch(e){/* no op */}});}};}};});
+	_module2.default.directive('avValForm', function ($log, $timeout, $parse, AV_VAL, avValAdapter, $rootScope) {
+	  return {
+	
+	    restrict: 'A',
+	    priority: 10,
+	    require: ['form', 'avValForm'],
+	    controller: 'AvValFormController',
+	    compile: function compile() {
+	      return {
+	        pre: function pre(scope, iEl, iAttrs, controllers) {
+	
+	          var ruleFn = $parse(iAttrs.avValForm);
+	          var rulesSchema = ruleFn(scope);
+	
+	          var ngForm = controllers[0];
+	          var avForm = controllers[1];
+	
+	          rulesSchema = rulesSchema || iAttrs.avValForm; // interpolated rule from scope || fixed string
+	
+	          if (!rulesSchema) {
+	            $log.error('avValForm requires a rules schema in order to run the proper set of validation rules');
+	            return;
+	          }
+	
+	          scope.$watch(ruleFn, function (_rulesSchema, _oldRulesSchema) {
+	
+	            if (_rulesSchema !== _oldRulesSchema) {
+	              $timeout(function () {
+	                $log.info('avValForm revalidate');
+	                $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
+	              });
+	            }
+	          });
+	
+	          // Allow form attributes to define the validation behavior of the form fields
+	          // inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
+	          // fields inside the form would inherit this behavior.
+	          avForm.avValOn = iAttrs.avValOn || null;
+	          avForm.avValDebounce = iAttrs.avValDebounce || null;
+	          // Allows fields to update with invalid data for dirty form saving
+	          avForm.avValInvalid = iAttrs.avValInvalid || false;
+	
+	          avForm.init({
+	            ngForm: ngForm,
+	            rulesSchema: rulesSchema
+	          });
+	        },
+	        post: function post(scope, el, iAttrs, controllers) {
+	
+	          // Prevent HTML5 validation from kicking in
+	          el.attr('novalidate', 'novalidate');
+	
+	          // Disable ng-submit or ng-click handlers and store the function to call for submitting
+	          var fn = void 0;
+	          if (iAttrs.ngSubmit) {
+	            // Disable ng-submit event
+	            el.off('submit');
+	            fn = $parse(iAttrs.ngSubmit, null, true);
+	          } else if (iAttrs.ngClick) {
+	            // Disable ng-click event
+	            el.off('click');
+	            fn = $parse(iAttrs.ngClick, null, true);
+	          }
+	
+	          var ngForm = controllers[0];
+	          var avForm = controllers[1];
+	
+	          scope.$on(AV_VAL.EVENTS.RESET, function () {
+	            avForm.reset();
+	          });
+	
+	          var watcher = function watcher() {
+	            return ngForm.$pending;
+	          };
+	          var unwatch = void 0;
+	
+	          scope.$watch(watcher, function (pending) {
+	            if (!pending) {
+	              // pendingWatch();
+	              // performSubmit();
+	            }
+	          });
+	
+	          el.bind('submit', function (event) {
+	
+	            scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
+	            ngForm.$setSubmitted();
+	
+	            if (ngForm.$invalid || ngForm.$pending) {
+	
+	              // scope.$broadcast(AV_VAL.EVENTS.FAILED);
+	              // $log.info('avValForm is invalid.  Preventing default submit action');
+	
+	              event.preventDefault();
+	              event.stopImmediatePropagation();
+	              scope.$broadcast(event);
+	
+	              if (ngForm.$pending) {
+	
+	                unwatch = scope.$watch(watcher, function (pending) {
+	                  if (!pending) {
+	                    avValAdapter.scroll(el);
+	                  }
+	                });
+	              } else {
+	                avValAdapter.scroll(el);
+	              }
+	
+	              return;
+	            }
+	
+	            ngForm.$setPristine();
+	
+	            if (!fn) {
+	              return;
+	            }
+	
+	            var callback = function callback() {
+	              fn(scope, { $event: event });
+	            };
+	
+	            scope.$apply(callback);
+	          });
+	
+	          scope.$on('$destroy', function () {
+	            try {
+	              unwatch();
+	            } catch (e) {/* no op */}
+	          });
+	        }
+	      };
+	    }
+	  };
+	});
 
 /***/ },
-/* 399 */
+/* 418 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

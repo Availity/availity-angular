@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Availity Angular - UI</title>
 <link rel="stylesheet" href="../../css/vendor.css">
+<link rel="stylesheet" href="../../css/availity-angular.css">
 <link rel="stylesheet" href="../../css/docs.css">
 
 
@@ -58,11 +59,11 @@
           </li>
         
           <li>
-            <a href="../../pages/core" title="Core">Core</a>
+            <a href="../../pages/ui" title="UI">UI</a>
           </li>
         
           <li>
-            <a href="../../pages/ui" title="UI">UI</a>
+            <a href="../../pages/core" title="Core">Core</a>
           </li>
         
       </ul>
@@ -78,6 +79,133 @@
     <div class="row">
       <div class="col-md-8 col-sm-9">
         
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#animation"><h2 class="docs-section-header" id="animation">Animation</h2></a>
+    <p class="docs-section-description"></p>
+    
+<div ng-controller="demoAnimationController">
+  <a class="docs-headings-anchor" href="#animate-on-value-change"><h3 class="docs-subsection-title" id="animate-on-value-change">Animate on value change</h3></a>
+  <div class="docs-example">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#availity-angular-animation-example-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand-availity">
+            <div class="navbar-logo-availity"></div>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="availity-angular-animation-example-nav">
+          <ul class="nav navbar-nav">
+            <li><a>
+              <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
+              <span av-animate="anim.counter" class="badge badge-success">{{anim.counter}}</span>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>counter<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>badge badge-primary<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>{{counter}}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <a class="docs-headings-anchor" href="#animate-on-load"><h3 class="docs-subsection-title" id="animate-on-load">Animate on load</h3></a>
+  <div class="docs-example">
+    <av-animate class="card card-block">
+      I will animate on load!
+    </av-animate>
+  </div>
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card card-block<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      I will animate on load!
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <a class="docs-headings-anchor" href="#animate-on-event"><h3 class="docs-subsection-title" id="animate-on-event">Animate on event</h3></a>
+  <div class="docs-example">
+    <button type="button" class="btn btn-default" av-animate="" av-animate-on="click">
+      Click Me!
+    </button>
+  </div>
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>btn btn-default<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate-on</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>click<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      Click Me!
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <a class="docs-headings-anchor" href="#animate-with-children"><h3 class="docs-subsection-title" id="animate-with-children">Animate with children</h3></a>
+  <div class="docs-example">
+    <div av-animate="" av-animate-type="&apos;transition.slideRightBigIn&apos;" av-animate-options="{ stagger: 500 }">
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+    </div>
+  </div>
+
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>loading-indicator<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate-type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&apos;</span>transition.slideRightBigIn<span class="token punctuation">&apos;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ stagger: 500 }<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span> ... <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span> ... <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span> ... <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <a class="docs-headings-anchor" href="#animate-options"><h3 class="docs-subsection-title" id="animate-options">Animate options</h3></a>
+  <div class="docs-example">
+    <p>
+      <select id="animDropdown" av-dropdown="" ng-model="anim.selectedAnimation" ng-options="animation.name for animation in anim.velocityEffects" placeholder="{{anim.placeholder}}" options="{ allowClear: false }" ng-change="anim.onChange(anim.selectedAnimation)">
+        </select>
+    </p>
+    <p>
+      <div av-animate="anim.actualAnimation" av-animate-on-load="false" av-animate-type="anim.actualAnimation" class="card card-default text-center card-block">
+        {{anim.actualAnimation}}
+      </div>
+    </p>
+  </div>
+  <code class="language-markup">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate-on-load</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>false<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-animate-type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{{anim.actualAnimation}}<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>card card-default text-center card-block<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <a class="docs-headings-anchor" href="#loader"><h3 class="docs-subsection-title" id="loader">Loader</h3></a>
+  <div class="docs-example">
+    <div data-av-loader=""></div>
+  </div>
+
+  <code class="language-markup">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-av-loader</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  </code>
+</div>
+
+  </section>
+
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#block-ui"><h2 class="docs-section-header" id="block-ui">Block UI</h2></a>
+    <p class="docs-section-description"></p>
+    <div ng-controller="DemoBlockController">
+  <div class="docs-example">
+    <div av-block="blockDemo">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <button ng-click="vm.toggleBlock()" class="btn btn-primary btn-large">
+      Toggle Block
+    </button>
+  </div>
+  <code class="language-markup">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ng-non-bindable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-block-ui</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>blockDemo<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  </code>
+</div>
+
+  </section>
+
   <section class="docs-section">
     <a class="docs-headings-anchor" href="#datepicker"><h2 class="docs-section-header" id="datepicker">Datepicker</h2></a>
     <p class="docs-section-description"></p>
@@ -283,12 +411,63 @@
     <form>
       <div class="form-group">
         <label for="dropdownQuery">Photos</label>
-        <input type="hidden" id="dropdownQuery" class="form-control" data-av-dropdown="" data-ng-model="vm.selectedPhoto" ng-change="vm.onChange(vm.selectedPhoto)" options="vm.getOptions()">
+        <input type="hidden" id="dropdownQuery" class="form-control" av-dropdown="" ng-model="vm.selectedPhoto" ng-change="vm.onChange(vm.selectedPhoto)" options="vm.getOptions()">
       </div>
     </form>
   </div>
 
 </div>
+
+  </section>
+
+  <section class="docs-section">
+    <a class="docs-headings-anchor" href="#mask"><h2 class="docs-section-header" id="mask">Mask</h2></a>
+    <p class="docs-section-description"></p>
+    
+<div data-ng-controller="DemoMaskController">
+  <div class="docs-example">
+    <form name="datepickerForm">
+      <div class="form-group">
+        <label for="demoDate">Date</label>
+        <input type="text" name="date" id="demoDate" class="form-control" data-ng-model="vm.date" ui-mask="{{mask.date}}">
+      </div>
+      <div class="form-group">
+        <label for="demoPhone">Phone</label>
+        <input type="text" name="phone" id="demoPhone" class="form-control" data-ng-model="vm.phone" ui-mask="{{mask.phone}}">
+      </div>
+      <div class="form-group">
+        <label for="demoSSN">SSN</label>
+        <input type="text" name="SSN" id="demoSSN" class="form-control" data-ng-model="vm.ssn" ui-mask="{{mask.ssn}}">
+      </div>
+      <div class="form-group">
+        <label for="demoRandom">AA9A*</label>
+        <input type="text" name="SSN" id="demoRandom" class="form-control" data-ng-model="vm.random" ui-mask="AA9A*">
+      </div>
+    </form>
+  </div>
+
+<code class="language-markup">
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>datepickerForm<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoDate<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Date<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>date<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoDate<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.date<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ui-mask</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{{mask.date}}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoPhone<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Phone<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>phone<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoPhone<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.phone<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ui-mask</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{{mask.phone}}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoSSN<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>SSN<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>SSN<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoSSN<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.ssn<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ui-mask</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{{mask.ssn}}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoRandom<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>AA9A*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>SSN<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoRandom<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.random<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ui-mask</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>AA9A*<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+</code>
+
+ </div>
 
   </section>
 
@@ -543,13 +722,68 @@ app<span class="token punctuation">.</span><span class="token function">config</
     
   
     
-  
-    
       <ol class="nav docs-nav">
+        
+          <li>
+            <a href="#animation" title="Animation" target="_self">Animation</a>
+            
+
+              
+              <ol class="nav docs-nav">
+              
+
+                <li><a href="#animate-on-value-change" title="Animate on value change" target="_self">Animate on value change</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#animate-on-load" title="Animate on load" target="_self">Animate on load</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#animate-on-event" title="Animate on event" target="_self">Animate on event</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#animate-with-children" title="Animate with children" target="_self">Animate with children</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#animate-options" title="Animate options" target="_self">Animate options</a></li>
+
+              
+          
+
+              
+
+                <li><a href="#loader" title="Loader" target="_self">Loader</a></li>
+
+              
+              </ol>
+              
+          
+          </li>
+        
+          <li>
+            <a href="#block-ui" title="Block UI" target="_self">Block UI</a>
+            
+          </li>
         
           <li>
             <a href="#datepicker" title="Datepicker" target="_self">Datepicker</a>
             
+          </li>
         
           <li>
             <a href="#dropdowns" title="Dropdowns" target="_self">Dropdowns</a>
@@ -562,7 +796,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#simple" title="Simple" target="_self">Simple</a></li>
 
               
-          </li>
           
 
               
@@ -570,7 +803,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#array" title="Array" target="_self">Array</a></li>
 
               
-          </li>
           
 
               
@@ -578,7 +810,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#label-for-value-in-array" title="Label for Value in Array" target="_self">Label for Value in Array</a></li>
 
               
-          </li>
           
 
               
@@ -586,7 +817,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#select-as-label-for-value-in-array" title="Select as Label for Value in Array" target="_self">Select as Label for Value in Array</a></li>
 
               
-          </li>
           
 
               
@@ -594,7 +824,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#label-for-value-in-array-track-by" title="Label for Value in Array Track By" target="_self">Label for Value in Array Track By</a></li>
 
               
-          </li>
           
 
               
@@ -602,7 +831,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#multiple" title="Multiple" target="_self">Multiple</a></li>
 
               
-          </li>
           
 
               
@@ -612,8 +840,13 @@ app<span class="token punctuation">.</span><span class="token function">config</
               
               </ol>
               
-          </li>
           
+          </li>
+        
+          <li>
+            <a href="#mask" title="Mask" target="_self">Mask</a>
+            
+          </li>
         
           <li>
             <a href="#modals" title="Modals" target="_self">Modals</a>
@@ -626,7 +859,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
                 <li><a href="#optional-sizes" title="Optional Sizes" target="_self">Optional Sizes</a></li>
 
               
-          </li>
           
 
               
@@ -636,26 +868,32 @@ app<span class="token punctuation">.</span><span class="token function">config</
               
               </ol>
               
-          </li>
           
+          </li>
         
           <li>
             <a href="#permissions" title="Permissions" target="_self">Permissions</a>
             
+          </li>
         
           <li>
             <a href="#popovers" title="Popovers" target="_self">Popovers</a>
             
+          </li>
         
           <li>
             <a href="#tooltips" title="Tooltips" target="_self">Tooltips</a>
             
+          </li>
         
           <li>
             <a href="#validation" title="Validation" target="_self">Validation</a>
             
+          </li>
         
       </ol>
+    
+  
     
   
 </nav>
