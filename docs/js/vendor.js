@@ -14,3 +14,4 @@ import 'angular-animate';
 import 'angular-ui-router';
 import 'angular-shims-placeholder';
 import 'angular-mocks';
+import 'angular-ui-mask';

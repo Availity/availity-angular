@@ -15,6 +15,8 @@ import '../../src/ui/validation/docs';
 import '../../src/ui/modal/docs';
 import '../../src/ui/datepicker/docs';
 import '../../src/ui/popover/docs';
+import '../../src/ui/mask/docs';
+import '../../src/ui/block/docs';
 import '../../src/ui/tooltip/docs';
 import '../../src/ui/permissions/docs';
 import '../../src/ui/dropdown/docs';
