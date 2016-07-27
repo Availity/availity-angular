@@ -120,6 +120,7 @@ module.exports = {
       './lib/ui/breadcrumbs/breadcrumbs.js',
       './lib/ui/breadcrumbs/breadcrumbs-spaces.js',
       './lib/ui/filters/approximate.js',
+      './lib/ui/accordion/accordion.js',
       './lib/ui/badge/badge.js',
       './lib/ui/labels/removable-label.js',
       './lib/ui/animation/loader.js',
