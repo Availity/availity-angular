@@ -1,7 +1,7 @@
 /**
- * availity-angular v1.11.1 -- June-17
+ * availity-angular v1.12.0 -- July-27
  * Copyright 2016 Availity, LLC 
  */
 
-[data-ng-click],[ng-click],[x-ng-click]{cursor:pointer}[data-ng-click].disabled,[data-ng-click][disabled],[ng-click].disabled,[ng-click][disabled],[x-ng-click].disabled,[x-ng-click][disabled]{cursor:auto;pointer-events:none}.block-ui-container{z-index:1010}.av-block-ui-message{color:#333;background:0 0;z-index:1011}.dimmer-content{position:absolute;top:0;bottom:0;right:0;left:0;padding:1.25rem;display:none;z-index:2}.dimmer-content.dimmer-content-dark{background:rgba(77,79,83,.9);color:#FFF!important}
+[data-ng-click],[ng-click],[x-ng-click]{cursor:pointer}[data-ng-click].disabled,[data-ng-click][disabled],[ng-click].disabled,[ng-click][disabled],[x-ng-click].disabled,[x-ng-click][disabled]{cursor:auto;pointer-events:none}.block-ui-container{z-index:1010}.av-block-ui-message{color:#333;background:0 0;z-index:1011}.dimmer-content{position:absolute;top:0;bottom:0;right:0;left:0;padding:1.25rem;display:none;z-index:2}.dimmer-content.dimmer-content-dark{background:rgba(77,79,83,.9);color:#FFF!important}.breadcrumb-space>li+li:before{margin-left:.5em}
 /*# sourceMappingURL=maps/availity-angular.min.css.map */
