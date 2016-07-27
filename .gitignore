@@ -6,3 +6,4 @@ reports
 
 /build/
 .DS_Store
+/npm-debug.log
