@@ -26,4 +26,16 @@
     }
 }
 
+// Angular strips whitespace so a little margin to fix the UI
+.breadcrumb-space {
+
+  > li {
+
+    + li:before {
+      margin-left: .5em;
+    }
+
+  }
+}
+
 

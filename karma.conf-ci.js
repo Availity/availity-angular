@@ -19,24 +19,6 @@ module.exports = function(config) {
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   var customLaunchers = {
 
-    // sl_ms_edge: {
-    //   base: "SauceLabs",
-    //   browserName: "microsoftedge",
-    //   platform: "Windows 10",
-    // },
-    // sl_ie_11: {
-    //   base: "SauceLabs",
-    //   browserName: "Internet Explorer",
-    //   platform: "Windows 8.1",
-    //   version: "11"
-    // },
-    // sl_ie_10: {
-    //   base: "SauceLabs",
-    //   browserName: "Internet Explorer",
-    //   platform: "Windows 8",
-    //   version: "10"
-    // },
-
     sl_ie_9: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
@@ -55,10 +37,13 @@ module.exports = function(config) {
     startConnect: false,
     testName: 'availity-angular',
     recordScreenshots: false,
+    transports: ['xhr-polling']
   };
 
   if(process.env.TRAVIS_JOB_NUMBER) {
+    sauceLabs.build = "TRAVIS #" + process.env.TRAVIS_BUILD_NUMBER + " (" + process.env.TRAVIS_BUILD_ID + ")";
     sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
+    sauceLabs.tags = [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST];
   } else {
     sauceLabs.startConnect = true;
   }
@@ -68,6 +53,9 @@ module.exports = function(config) {
     files: files,
     autoWatch: false,
     browsers: Object.keys(customLaunchers),
+    browserDisconnectTimeout: 10000,      // default 2000
+    browserNoActivityTimeout: 20000,  // default 10000
+    captureTimeout: 20000,            // default 60000
     customLaunchers: customLaunchers,
     frameworks: ['jasmine'],
     reporters: ['mocha', 'saucelabs'],
@@ -75,10 +63,6 @@ module.exports = function(config) {
     colors: true,
     sauceLabs: sauceLabs,
     logLevel: config.LOG_INFO,
-    captureTimeout: 120000,
-    browserDisconnectTimeout: 10000,
-    browserDisconnectTolerance: 2,
-    browserNoActivityTimeout: 20000,
     singleRun: true,
     preprocessors: {
       'lib/**/*-tpl.html': ['ng-html2js'],
