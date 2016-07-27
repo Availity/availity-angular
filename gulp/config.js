@@ -118,6 +118,7 @@ module.exports = {
       './lib/ui/analytics/analytics.js',
       './lib/ui/placeholder/placeholder.js',
       './lib/ui/breadcrumbs/breadcrumbs.js',
+      './lib/ui/breadcrumbs/breadcrumbs-spaces.js',
       './lib/ui/filters/approximate.js',
       './lib/ui/badge/badge.js',
       './lib/ui/labels/removable-label.js',
