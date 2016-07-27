@@ -4,6 +4,7 @@ import '../';
 import states from './fixtures/states';
 import pokemon from './fixtures/pokemon';
 import './resource';
+import picturesFormatResult from './picturesResultFormat';
 
 demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
 
@@ -98,6 +99,17 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
         placeholder: 'Find a photo',
         minimumInputLength: 3,
         query: demoDropdownResource
+      };
+    }
+
+    getOptions2() {
+      return {
+        allowClear: true,
+        placeholder: 'Find a photo',
+        minimumInputLength: 3,
+        query: demoDropdownResource,
+        formatResult: picturesFormatResult,
+        formatSelection: picturesFormatResult
       };
     }
 
