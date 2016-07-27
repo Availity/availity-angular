@@ -14,8 +14,11 @@ notifications:
 before_install:
   - npm install --quiet -g bower
   - npm install --quiet -g gulp
+install:
+  - npm install --no-optional
 cache:
   directories:
     - node_modules
+    - bower_components
 script:
   - gulp test:sauce
