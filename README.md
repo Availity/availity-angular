@@ -178,4 +178,4 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 
 
 ## License
-Copyright (c) 2015 Availity, LLC
+Copyright (c) 2016 Availity, LLC
