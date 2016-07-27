@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/26/2016)
+ * availity-angular v2.0.0-beta.0 (07/27/2016)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
