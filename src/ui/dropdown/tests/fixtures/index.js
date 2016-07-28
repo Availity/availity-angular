@@ -1,13 +1,9 @@
 import standard from './standard.html';
-import multiple from './multiple.html';
-import params from './params.json';
-import remoteMultiple from './remote-multiple.html';
-import remoteResponse from './remote-response.json';
+import query from './query.html';
+import objects from './object.html';
 
 export default {
   standard,
-  multiple,
-  params,
-  remoteResponse,
-  remoteMultiple
+  query,
+  objects
 };
