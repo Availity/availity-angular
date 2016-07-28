@@ -23,7 +23,7 @@ title: Animation
           <ul class="nav navbar-nav">
             <li><a>
               <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
-              <span av-animate="anim.counter" class="badge badge-success">{{anim.counter}}</span>
+              <span av-animate="anim.counter" class="badge badge-success" ng-bind="anim.counter"></span>
             </a></li>
           </ul>
         </div>
@@ -31,7 +31,7 @@ title: Animation
     </nav>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <span av-animate="counter" class="badge badge-primary">{{counter}}</span>
+    <span av-animate="counter" class="badge badge-primary" ng-bind="anim.counter"></span>
   </code>
 
   <h3 class="docs-subsection-title">On load</h3>
@@ -102,7 +102,7 @@ title: Animation
       </div>
     </p>
   </div>
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <div av-animate
       av-animate-on-load="false"
       av-animate-type="{{anim.actualAnimation}}"
@@ -116,7 +116,7 @@ title: Animation
     <div data-av-loader></div>
   </div>
 
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <div data-av-loader></div>
   </code>
 </div>

@@ -37,7 +37,7 @@ title: Dropdowns
       </div>
     </form>
   </div>
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <select
       id="dropdownSimple"
       class="form-control"
@@ -83,7 +83,7 @@ title: Dropdowns
       </div>
     </form>
   </div>
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <select
       id="dropdownPoke"
       class="form-control"
@@ -129,7 +129,7 @@ title: Dropdowns
       </div>
     </form>
   </div>
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <select
       id="dropdownStates1"
       class="form-control"
@@ -250,6 +250,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">Query Large Data-sets</h3>
   <div class="docs-example">
+    <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
     <form>
       <div class="form-group">
         <label for="dropdownQuery">Photos</label>
@@ -268,6 +269,7 @@ title: Dropdowns
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
   <div class="docs-example">
+    <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
     <form>
       <div class="form-group">
         <label for="dropdownQuery">Photos</label>
@@ -283,7 +285,8 @@ title: Dropdowns
       </div>
     </form>
   </div>
-  <code class="language-markup">
+  <code class="language-javascript">
+
   import picturesFormatResult from './picturesResultFormat';
 
   demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
@@ -307,7 +310,7 @@ title: Dropdowns
     return new DemoDropdownService();
   });
 
-  ---- picturesResultFormat.js ----
+  // picturesResultFormat.js
 
   export default (item) => {
     return `<div>
