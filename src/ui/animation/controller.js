@@ -67,7 +67,7 @@ class AvAnimationController extends Base {
     } else if (angular.isString(anim.animation) || angular.isObject(anim.animation)){
       let start = this.elms;
       if (!anim.useQueue) {
-        start = start.velocity('stop', true).velocity('reverse');
+        start = start.velocity('finish', true);
       }
       start.velocity(anim.animation, anim.animationConfig);
     }
