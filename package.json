@@ -39,6 +39,10 @@
     {
       "name": "Bobby Bennett",
       "email": "Bobby.Bennett@availity.com"
+    },
+    {
+        "name": "Kasey Powers",
+        "email": "Kasey.Powers@availity.com"
     }
   ],
   "license": "MIT",
