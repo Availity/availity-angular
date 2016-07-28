@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.12.1 -- July-27
+ * availity-angular v1.12.2 -- July-28
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.12.1';
+  availity.VERSION = 'v1.12.2';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -1113,7 +1113,7 @@
 
     // sdk/platform/v1/spaces/10939061011461209623076300008435
     return new AvApiResource({
-      version: '/v1',
+      version: '',
       url: '/sdk/platform/v1/spaces'
     });
 
