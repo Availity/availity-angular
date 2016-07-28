@@ -5,7 +5,7 @@
   "v1/permissions": {
     "file": "permissions.json"
   },
-  "v1/sdk/platform/v1/spaces/1093906101146120962309999999": {
+  "sdk/platform/v1/spaces/1093906101146120962309999999": {
     "file": "space.json"
   },
   "v1/codes": {
