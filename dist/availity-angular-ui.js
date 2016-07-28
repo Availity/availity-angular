@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.12.0 -- July-27
+ * availity-angular v1.12.1 -- July-27
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2373,7 +2373,7 @@
     TEMPLATE: 'ui/breadcrumbs/breadcrumbs-tpl.html'
   });
 
-  function AvBreadcrumbsController($state) {
+  function AvBreadcrumbsController($state, avBreadcrumbsService) {
 
     this.getBreadcrumb = function(breadcrumbs, state) {
       if(!state || !state.data) {
@@ -2397,6 +2397,9 @@
     };
 
     this.getBreadcrumbs = function() {
+      if ($state.current.data && $state.current.data.breadcrumb && $state.current.data.breadcrumb.level) {
+        return avBreadcrumbsService.getBreadcrumbs();
+      }
       var breadcrumbs = [];
       this.getBreadcrumb(breadcrumbs, $state.current);
       return breadcrumbs;
@@ -2404,7 +2407,7 @@
 
   }
 
-  AvBreadcrumbsController.$inject = ['$state'];
+  AvBreadcrumbsController.$inject = ['$state', 'avBreadcrumbsService'];
   availity.ui.controller('AvBreadcrumbsController', AvBreadcrumbsController);
 
   function avBreadcrumbs(AV_BREADCRUMBS) {
@@ -2425,6 +2428,51 @@
 
   avBreadcrumbs.$inject = ['AV_BREADCRUMBS'];
   availity.ui.directive('avBreadcrumbs', avBreadcrumbs);
+
+
+  function avBreadcrumbsService($rootScope) {
+    var self = {};
+    var breadcrumbs = [];
+
+    function _createBreadcrumbModel(state) {
+      return {
+        level: state.data.breadcrumb.level,
+        state: state.name,
+        displayName: state.data.breadcrumb.displayName
+      };
+    }
+
+    function _updateBreadcrumbs(event, toState) {
+      if (!toState.data || !toState.data.breadcrumb || !toState.data.breadcrumb.level) {
+        return;
+      }
+
+      var latestBreadcrumb = _.last(breadcrumbs);
+
+      while (latestBreadcrumb && toState.data.breadcrumb.level <= latestBreadcrumb.level) {
+        breadcrumbs.pop();
+        latestBreadcrumb = _.last(breadcrumbs);
+      }
+      breadcrumbs.push(_createBreadcrumbModel(toState));
+    }
+
+    function activate() {
+      $rootScope.$on('$stateChangeSuccess', _updateBreadcrumbs);
+    }
+
+    function getBreadcrumbs() {
+      return breadcrumbs;
+    }
+
+    self.getBreadcrumbs = getBreadcrumbs;
+    activate();
+
+    return self;
+  }
+
+  avBreadcrumbsService.$inject = ['$rootScope'];
+  availity.ui.factory('avBreadcrumbsService', avBreadcrumbsService);
+
 
 })(window);
 
