@@ -1,12 +1,9 @@
 import angular from 'angular';
-import _ from 'lodash';
-
 import Base from '../base';
 
-// example object
-// config = {
-//   animationName: {
-//     elements: default self/children, if defined use .find
+// example
+// animations: [
+//   {
 //     animation: String/object, function(element)
 //     animationConfig: if animation not function, use as second argument
 //     loop: loop count or true for infinite loop
@@ -17,11 +14,10 @@ import Base from '../base';
 //     onEvent: listen element.on
 //     angularEvent: listen scope.on
 //     onLoad: fire animation on init, default is true if only one defined, and if no event specified
-
-//     active: store the velocity promise here
+//     active: boolean if active
 //     activeCount: if loop is an integer, count iterations here
 //   }
-// }
+// ]
 
 class AvAnimationController extends Base {
 
@@ -29,14 +25,24 @@ class AvAnimationController extends Base {
 
   constructor(...args) {
     super(...args);
-    this.options = {};
+    this.options = [];
+    this.elms = this.av.$element.children().length > 0 ? this.av.$element.children() : this.av.$element;
+    this.hasRegisteredElms = false;
   }
 
-  getElm(anim) {
-    if (anim.elements) {
-      return this.av.$element.find(anim.elements);
+  registerElm(newElement) {
+    if (!this.hasRegisteredElms) {
+      this.elms = newElement;
+      this.hasRegisteredElms = true;
+    } else {
+      this.elms = this.elms.add(newElement);
     }
-    return this.av.$element.children().length > 0 ? this.av.$element.children() : this.av.$element;
+  }
+
+  deregisterElm(removedElelment) {
+    if (this.hasRegisteredElms) {
+      this.elms = this.elms.not(removedElelment);
+    }
   }
 
   startAnimation(anim) {
@@ -52,21 +58,18 @@ class AvAnimationController extends Base {
   }
 
   runAnimation(anim) {
-    const elm = this.getElm(anim);
-
     if (angular.isFunction(anim.animation)) {
       // assume animation is a promised function
-      Promise.resolve(anim.animation(elm))
+      Promise.resolve(anim.animation(this.elms))
       .then(() => {
         this.onComplete(anim);
       });
     } else if (angular.isString(anim.animation) || angular.isObject(anim.animation)){
-      const config = this.buildConfig(anim);
-      let start = elm;
+      let start = this.elms;
       if (!anim.useQueue) {
-        start = start.velocity('finish', true);
+        start = start.velocity('stop', true).velocity('reverse');
       }
-      start.velocity(anim.animation, config);
+      start.velocity(anim.animation, anim.animationConfig);
     }
   }
 
@@ -86,102 +89,43 @@ class AvAnimationController extends Base {
     }
   }
 
-  buildConfig(anim) {
-    const config = angular.extend({}, anim.animationConfig);
-    if (config.complete) {
-      const self = this;
-      const givenComplete = config.complete;
-      config.complete = () => {
-        Promise.resolve(givenComplete)
-        .then(() => {
-          self.onComplete(anim);
-        });
-      };
-    } else {
-      config.complete = ()=> {
-        this.onComplete(anim);
-      };
-    }
-
-    return config;
-  }
-
-
   stopAll() {
-    for (const key in this.options) {
-      if (this.options.hasOwnProperty(key)) {
-        this.stopAnimation(this.options[key]);
-      }
-    }
+    this.options.forEach((anim) => {
+      this.stopAnimation(anim);
+    });
   }
 
-  checkAnimate(newAnim, oldAnim) {
-    if (newAnim && !oldAnim && newAnim.onLoad) {
-      this.startAnimation(newAnim);
+  addListeners(anim) {
+    if (!angular.isUndefined(anim.onEvent)) {
+      this.addEventListener(anim);
+    }
+    if (!angular.isUndefined(anim.angularEvent)) {
+      this.addAngularListener(anim);
+    }
+    if (!angular.isUndefined(anim.watch)) {
+      this.addAngularWatcher(anim);
     }
   }
-
-  refreshListeners(newAnim, oldAnim) {
-    let createEvents = false;
-    let removeEvents = false;
-    let createAngEvents = false;
-    let removeAngEvents = false;
-    let createAngWatcher = false;
-    let removeAngWatcher = false;
-
-    if (newAnim && oldAnim) {
-      // compare
-      const changedEvent = newAnim.onEvent !== oldAnim.onEvent;
-      const changedAng = newAnim.angularEvent !== oldAnim.angularEvent;
-      const changedWatch = newAnim.watch !== oldAnim.watch;
-
-      createEvents = changedEvent && !angular.isUndefined(newAnim.onEvent);
-      removeEvents = changedEvent && !angular.isUndefined(oldAnim.onEvent);
-      createAngEvents = changedAng && !angular.isUndefined(newAnim.angularEvent);
-      removeAngEvents = changedAng && !angular.isUndefined(oldAnim.angularEvent);
-      createAngWatcher = changedWatch && !angular.isUndefined(newAnim.watch);
-      removeAngWatcher = changedWatch && !angular.isUndefined(oldAnim.watch);
-
-    } else if (oldAnim) {
-      // if only oldAnim passed in (newAnim would be undefined/false/etc) remove listeners
-      removeEvents = !angular.isUndefined(oldAnim.onEvent);
-      removeAngEvents = !angular.isUndefined(oldAnim.angularEvent);
-      removeAngWatcher = !angular.isUndefined(oldAnim.watch);
-    } else if (newAnim) {
-      // if only new anim passed in, just create listeners
-      createEvents = !angular.isUndefined(newAnim.onEvent);
-      createAngEvents = !angular.isUndefined(newAnim.angularEvent);
-      createAngWatcher = !angular.isUndefined(newAnim.watch);
+  removeListeners(anim) {
+    if (!angular.isUndefined(anim.onEvent)) {
+      this.removeEventListener(anim);
     }
-
-    if (removeEvents) {
-      this.removeEventListener(oldAnim);
+    if (!angular.isUndefined(anim.angularEvent)) {
+      this.removeAngularListener(anim);
     }
-    if (removeAngEvents) {
-      this.removeAngularListener(oldAnim);
-    }
-    if (removeAngWatcher) {
-      this.removeAngularWatcher(oldAnim);
-    }
-    if (createEvents) {
-      this.addEventListener(newAnim);
-    }
-    if (createAngEvents) {
-      this.addAngularListener(newAnim);
-    }
-    if (createAngWatcher) {
-      this.addAngularWatcher(newAnim);
+    if (!angular.isUndefined(anim.watch)) {
+      this.removeAngularWatcher(anim);
     }
   }
 
   addEventListener(anim) {
-    (this.getElm(anim)).on(anim.onEvent, () => {
+    this.elms.on(anim.onEvent, () => {
       this.startAnimation(anim);
     });
   }
 
   removeEventListener(anim) {
-    (this.getElm(anim)).on(anim.onEvent, () => {
+    this.elms.on(anim.onEvent, () => {
       this.startAnimation(anim);
     });
   }
@@ -199,44 +143,82 @@ class AvAnimationController extends Base {
   }
 
   addAngularWatcher(anim) {
-    anim.angularWatcher = this.av.$scope.$watch(anim.watch, () => {
-      this.startAnimation(anim);
+    anim.angularWatcher = this.av.$scope.$watch(anim.watch, (newVal, oldVal) => {
+      if (!angular.equals(newVal, oldVal)) {
+        this.startAnimation(anim);
+      }
     });
   }
   removeAngularWatcher(anim) {
     anim.angularWatcher();
   }
 
-  refreshConfig(newConfig) {
-    const newOptions = {};
-    const newKeys = Object.keys(newConfig);
-    const oldKeys = Object.keys(this.options);
+  buildOptions(newConfig) {
+    this.options.forEach((anim) => {
+      this.stopAnimation(anim);
+      this.removeListeners(anim);
+    });
+    this.options = [];
 
-    const defaultAnim = {
-      animation: 'transition.bounceIn',
-      useQueue: false
-    };
-    defaultAnim.onLoad = newKeys.length === 1;
+    const checkedNewConfig = angular.isArray(newConfig) ? newConfig : [];
+    if (angular.isObject(newConfig)) {
+      checkedNewConfig.push(newConfig);
+    }
+    if (angular.isString(newConfig)) {
+      checkedNewConfig.push({
+        animation: newConfig
+      });
+    }
 
-    const allKeys = _.union(newKeys, oldKeys);
+    // if only one animation is defined, and its not triggered by any events, its default value is true
+    if (checkedNewConfig.length === 1 && angular.isUndefined(checkedNewConfig[0].onLoad)) {
+      checkedNewConfig[0].onLoad = angular.isUndefined(checkedNewConfig[0].onEvent) &&
+      angular.isUndefined(checkedNewConfig[0].angularEvent);
+    }
 
-    // refresh all listeners
-    allKeys.forEach((key) => {
-      const newAnim = newConfig[key] ? angular.extend({}, defaultAnim, newConfig[key]) : false;
-      const oldAnim = this.options[key] ? angular.extend({}, defaultAnim, this.options[key]) : false;
-      this.refreshListeners(newAnim, oldAnim);
-      this.checkAnimate(newAnim, oldAnim);
-      if (newAnim) {
-        newOptions[key] = newAnim;
+    checkedNewConfig.forEach((newAnim) => {
+      this.buildConfig(newAnim);
+      this.addListeners(newAnim);
+      this.options.push(newAnim);
+    });
+  }
+
+  buildConfig(anim) {
+    anim.animationConfig = anim.animationConfig || {};
+    // if (angular.isUndefined(anim.animationConfig.queue)) {
+    //   anim.animationConfig.queue = true;
+    // }
+    if (anim.animationConfig.complete) {
+      const self = this;
+      const givenComplete = anim.animationConfig.complete;
+      anim.animationConfig.complete = () => {
+        Promise.resolve(givenComplete)
+        .then(() => {
+          self.onComplete(anim);
+        });
+      };
+    } else {
+      anim.animationConfig.complete = ()=> {
+        this.onComplete(anim);
+      };
+    }
+  }
+
+  $postLink() {
+    this.options.forEach((anim) => {
+      if (anim.onLoad) {
+        this.startAnimation(anim);
       }
     });
-    this.options = newOptions;
   }
 
   $onChanges(changesObj) {
     // check for changes and re-create listeners or trigger animation
-    if (changesObj && changesObj.animationConfig && changesObj.animationConfig.currentValue) {
-      this.refreshConfig(changesObj.animationConfig.currentValue);
+    if (changesObj &&
+      changesObj.animationConfig &&
+      changesObj.animationConfig.currentValue &&
+      !angular.equals(changesObj.animationConfig.currentValue, changesObj.animationConfig.previousValue)) {
+      this.buildOptions(angular.copy(changesObj.animationConfig.currentValue));
     }
   }
 
