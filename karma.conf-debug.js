@@ -89,12 +89,11 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
-      require('karma-sourcemap-loader'),
+      require('karma-webpack-with-fast-source-maps'),
       require('karma-notify-reporter'),
       require('karma-spec-reporter'),
       require('karma-nyan-reporter'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack'),
       require('karma-sinon')
     ]
 
