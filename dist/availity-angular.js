@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.11.1 -- June-17
+ * availity-angular v1.12.0 -- July-27
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.11.1';
+  availity.VERSION = 'v1.12.0';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -1099,6 +1099,27 @@
   };
 
   availity.core.factory('avLogMessagesResource', LogMessagesFactory);
+
+})(window);
+
+// Source: -v1/lib/core/api/api-spaces.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  var SpacesFactory = function(AvApiResource) {
+
+    // sdk/platform/v1/spaces/10939061011461209623076300008435
+    return new AvApiResource({
+      version: '/v1',
+      url: '/sdk/platform/v1/spaces'
+    });
+
+  };
+
+  availity.core.factory('avSpacesResource', SpacesFactory);
 
 })(window);
 

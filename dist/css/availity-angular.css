@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.11.1 -- June-17
+ * availity-angular v1.12.0 -- July-27
  * Copyright 2016 Availity, LLC 
  */
 
@@ -38,6 +38,9 @@
 .dimmer-content.dimmer-content-dark {
   background: rgba(77, 79, 83, 0.9);
   color: #FFFFFF !important;
+}
+.breadcrumb-space > li + li:before {
+  margin-left: .5em;
 }
 
 /*# sourceMappingURL=maps/availity-angular.css.map */
