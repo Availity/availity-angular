@@ -165,7 +165,7 @@ title: Animation
         ng-bind="anim.selectedAnimation ? anim.selectedAnimation.name : anim.placeholder"></div>
     </p>
   </div>
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <div av-animate
       av-animate-on-load="false"
       av-animate-type="{{anim.actualAnimation}}"
@@ -179,7 +179,7 @@ title: Animation
     <div data-av-loader></div>
   </div>
 
-  <code class="language-markup">
+  <code class="language-markup" ng-non-bindable>
     <div data-av-loader></div>
   </code>
 </div>
