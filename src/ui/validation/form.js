@@ -1,5 +1,5 @@
 import ngModule from '../module';
-import 'core/validation';
+import '../../core/validation';
 import './constants';
 import './adapter';
 import './field';

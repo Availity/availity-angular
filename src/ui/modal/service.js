@@ -5,7 +5,7 @@ import '../templates';
 import './constants';
 import './directive';
 import './manager';
-import { uuid } from 'core/utils/';
+import { uuid } from '../../core/utils/';
 
 const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) => {
 

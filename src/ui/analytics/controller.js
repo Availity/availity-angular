@@ -2,7 +2,7 @@ import angular from 'angular';
 import ngModule from '../module';
 import Base from '../base';
 
-import 'core/analytics/utils';
+import '../../core/analytics/utils';
 
 class AvAnalyticsController extends Base {
 
