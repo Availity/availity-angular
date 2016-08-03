@@ -1,7 +1,7 @@
 import angular from 'angular';
 import ngModule from '../module';
 
-import 'core/analytics';
+import '../../core/analytics';
 
 ngModule.directive('avAnalyticsOn', (avAnalyticsConfig, avAnalyticsUtils) => {
   return {

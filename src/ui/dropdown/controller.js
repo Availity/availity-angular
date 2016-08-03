@@ -3,7 +3,7 @@ import angular from 'angular';
 
 import Base from '../base';
 import ngModule from '../module';
-import { uuid } from 'core/utils';
+import { uuid } from '../../core/utils';
 import './provider';
 
 class AvDropdownController extends Base {
