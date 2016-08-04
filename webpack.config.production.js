@@ -4,19 +4,14 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-const nconf = require('nconf');
-
-nconf.use('memory').defaults({
-  'optimize': true
-});
 
 const webpackCommon = require('./webpack.config.common');
 const banner = require('./dev/banner');
 const VERSION = require('./package.json').version;
 
-function getConfig() {
+function getConfig(options) {
 
-  const optimize = nconf.get('optimize');
+  const optimize = options.optimize;
 
   const ENV_VAR = {
     'process.env': {

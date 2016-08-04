@@ -4,11 +4,11 @@ const webpack = require('webpack');
 const Logger = require('./logger');
 const webpackConfig = require('../webpack.config.production');
 
-function bundle() {
+function bundle(options) {
 
   return new Promise((resolve, reject) => {
 
-    webpack(webpackConfig()).run((err, stats) => {
+    webpack(webpackConfig(options)).run((err, stats) => {
 
       if (err) {
         Logger.failed('webpack bundle');
