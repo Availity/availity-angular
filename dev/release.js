@@ -140,7 +140,7 @@ function prompt() {
 
   return new Promise( resolve => {
 
-    inquirer.prompt(questions, function(answers) {
+    inquirer.prompt(questions).then( answers => {
 
       VERSION = answers.bump !== 'other' ? answers.bump : answers.version;
 
