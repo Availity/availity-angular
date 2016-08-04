@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (08/03/2016)
+ * availity-angular v2.0.0-beta.1 (08/03/2016)
  * (c) Availity, LLC
  */
 /*!
