@@ -34,13 +34,15 @@ function lint() {
       const report = engine.executeOnFiles(paths);
       const formatter = engine.getFormatter();
 
+      spinner.stop();
+
       if (report.errorCount || report.warningCount) {
-        spinner.failed();
+
         Logger.info(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
         reject();
       } else {
-        spinner.stop();
+
         Logger.ok('Finished linting');
         resolve();
       }
