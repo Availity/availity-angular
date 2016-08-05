@@ -7,7 +7,7 @@ const metalsmith = require('./metalsmith');
 function docs() {
 
   return metalsmith()
-    .then(bundle)
+    .then(bundle({optimize: false}))
     .catch( (err) => {
       Logger.error(err);
     });
