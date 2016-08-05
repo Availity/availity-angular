@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.1 (08/03/2016)
+ * availity-angular v2.0.0-beta.2 (08/04/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (08/03/2016)
+ * availity-angular v2.0.0-beta.1 (08/04/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -10035,7 +10035,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.0")
+	          sdkVersion: ("2.0.0-beta.1")
 	        };
 	
 	        return this.log(message);

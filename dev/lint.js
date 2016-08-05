@@ -2,6 +2,7 @@
 
 const eslint = require('eslint');
 const globby = require('globby');
+const ora = require('ora');
 
 const Logger = require('./logger');
 
@@ -12,6 +13,11 @@ function lint() {
   });
 
   return new Promise((resolve, reject) => {
+
+    Logger.info('Started linting');
+    const spinner = ora('running linter rules');
+    spinner.color = 'yellow';
+    spinner.start();
 
     globby([
       '**/**.js',
@@ -29,10 +35,13 @@ function lint() {
       const formatter = engine.getFormatter();
 
       if (report.errorCount || report.warningCount) {
+        spinner.failed();
         Logger.info(`${formatter(report.results)}`);
-        reject('eslint failed');
+        Logger.failed('Failed linting');
+        reject();
       } else {
-        Logger.ok('eslint');
+        spinner.stop();
+        Logger.ok('Finished linting');
         resolve();
       }
 
