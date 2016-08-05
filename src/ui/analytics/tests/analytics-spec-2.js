@@ -3,7 +3,6 @@
 import angular from 'angular';
 import Tester from 'tester';
 
-import '.../../core/analytics';
 import '../';
 
 describe('avAnalytics', () => {
@@ -17,9 +16,9 @@ describe('avAnalytics', () => {
 
   tester.directive();
 
-  beforeEach(inject(function(_avAnalytics_, $q) {
+  beforeEach(inject( (_avAnalytics_, $q) => {
     avAnalytics = _avAnalytics_;
-    spyOn(avAnalytics, 'trackEvent').and.callFake(function() {
+    spyOn(avAnalytics, 'trackEvent').and.callFake( () => {
       return $q.when(true);
     });
   }));

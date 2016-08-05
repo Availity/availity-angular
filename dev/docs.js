@@ -1,36 +1,8 @@
 'use strict';
 
-const webpack = require('webpack');
-
+const bundle = require('./bundle');
 const Logger = require('./logger');
 const metalsmith = require('./metalsmith');
-const wepackConfig = require('../webpack.config.development');
-
-function bundle() {
-
-  return new Promise((resolve, reject) => {
-
-    // If path is not set to 'build' => Error: EACCES: permission denied, mkdir '/build'
-    wepackConfig.output.path = 'build';
-
-    webpack(wepackConfig).run((err, stats) => {
-
-      if (err) {
-        Logger.failed('webpack bundle');
-        return reject(err);
-      }
-
-      Logger.log(stats.toString(wepackConfig.stats));
-      Logger.ok('webpack bundle');
-      resolve();
-
-    });
-
-
-  });
-
-}
-
 
 function docs() {
 

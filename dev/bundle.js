@@ -1,22 +1,56 @@
 'use strict';
 
 const webpack = require('webpack');
+const ora = require('ora');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+
 const Logger = require('./logger');
 const webpackConfig = require('../webpack.config.production');
 
-function bundle() {
+function bundle(options) {
 
   return new Promise((resolve, reject) => {
 
-    webpack(webpackConfig()).run((err, stats) => {
+    const optimized = options.optimize ? 'with optimizations' : 'with no optimizations';
 
-      if (err) {
-        Logger.failed('webpack bundle');
-        return reject(err);
+    Logger.info(`Started compiling ${optimized}`);
+    const spinner = ora('Running webpack');
+    spinner.color = 'yellow';
+    spinner.start();
+
+    const config = webpackConfig(options);
+
+    config.plugins.push(new ProgressPlugin( (percentage, msg) => {
+
+      const percent = percentage * 100;
+
+      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
+        spinner.text = `webpack ${msg}`;
       }
 
-      Logger.log(stats.toString(webpackConfig.stats));
-      Logger.ok('webpack bundle');
+    }));
+
+    webpack(config).run((err, stats) => {
+
+      if (err) {
+        spinner.fail();
+        Logger.failed('Failed compiling');
+        reject(err);
+      }
+
+      spinner.stop();
+
+      const statistics = stats.toString({
+        colors: true,
+        cached: true,
+        reasons: false,
+        source: false,
+        chunks: false,
+        children: false
+      });
+
+      Logger.info(statistics);
+      Logger.ok(`Finished compiling ${optimized}`);
       resolve();
 
     });
