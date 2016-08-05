@@ -125,7 +125,7 @@ describe('avDropdown', () => {
       tester.$scope.$apply();
       tester.flush();
 
-      expect($el.select2('val')).toBe('object:229');
+      expect($el.select2('data').text).toBe('second');
 
     });
 
