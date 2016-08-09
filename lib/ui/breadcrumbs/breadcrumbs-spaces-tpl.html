@@ -1,6 +1,6 @@
 <ul class="breadcrumb breadcrumb-space">
   <li>
-    <a href="/availity/web/Home" target="_top"
+    <a href="/public/apps/dashboard" target="newBody"
       data-av-analytics-on="click"
       data-av-analytics-action="click"
       data-av-analytics-label="home"
@@ -8,7 +8,7 @@
       Home
     </a>
   </li>
-  <li>
+  <li ng-if="spaceId">
     <a href="/public/apps/spaces/#/{{spaceId}}"
       data-av-analytics-on="click"
       data-av-analytics-action="click"
