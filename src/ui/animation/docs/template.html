@@ -49,8 +49,10 @@ title: Animation
     </div>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <div av-animate="'transition.bounceIn'" class="card card-block">
+    <div av-animate="'transition.bounceIn'" av-animate-element class="card card-inverse card-primary card-block">
+      <div class="card-blockquote">
       I will animate on load!
+      </div>
     </div>
   </code>
 
@@ -61,7 +63,7 @@ title: Animation
     </button>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+    <button type="button" class="btn btn-default" av-animate="{ animation: 'transition.bounceIn', onEvent: 'click'}">
       Click Me!
     </button>
   </code>
@@ -112,8 +114,21 @@ title: Animation
     </div>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <div av-animate="'transition.bounceIn'" class="card card-block">
-      I will animate on load!
+    <div class="card card-inverse card-block card-info" av-animate="[
+        {
+          animation:'callout.pulse',
+          useQueue: true,
+          onEvent: 'mouseenter'
+        },
+        {
+          animation:'callout.swing',
+          useQueue: true,
+          onEvent: 'click'
+        }
+      ]" av-animate-element>
+      <div class="card-blockquote">
+        hover or click here
+      </div>
     </div>
   </code>
 
