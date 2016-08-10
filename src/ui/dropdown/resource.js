@@ -30,19 +30,28 @@ const SelectResourceFactory = AvApiResource => {
         params: {}
       };
 
-      if (data.page) {
-        config.params.offset = this.getPageSize() * (data.page - 1);
-      }
-      if (data.offset) {
-        config.params.offset = data.offset;
-      }
+      config.params.offset = this.getOffset(data);
 
       if (data.term) {
-        config.params.q = data.term;
+        config.params[this.getQueryParam()] = data.term;
       }
 
       return config;
+    }
 
+    getOffset(data) {
+      let offset;
+      if (data.page) {
+        offset = this.getPageSize() * (data.page - 1);
+      }
+      if (data.offset) {
+        offset = data.offset;
+      }
+      return offset;
+    }
+
+    getQueryParam() {
+      return 'q';
     }
 
     getResponse(response, results) {
@@ -123,4 +132,3 @@ const SelectResourceFactory = AvApiResource => {
 ngModule.factory('AvSelectResource', SelectResourceFactory);
 
 export default ngModule;
-
