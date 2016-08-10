@@ -51,8 +51,10 @@ function serv() {
       }
 
       if (hasErrors) {
-        Logger.failed('Failed webpack compiling');
-        reject('Failed webpack compiling');
+
+        Logger.failed('Failed compiling');
+        Logger.info(stats.compilation.errors);
+        reject(stats.compilation.errors);
       }
 
     });
@@ -81,7 +83,14 @@ function serv() {
       }
     });
 
-    server.listen(PORT, () => {
+    server.listen(PORT, (err) => {
+
+      if (err) {
+        Logger.failed(err);
+        reject(err);
+      }
+
+
       Logger.ok('Finished development server');
       resolve();
     });
