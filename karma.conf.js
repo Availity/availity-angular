@@ -56,7 +56,21 @@ module.exports = function(config) {
     webpack: wpConfig,
 
     webpackMiddleware: {
-      noInfo: 'errors-only'
+      stats: {
+        hash: false,
+        version: false,
+        timings: false,
+        assets: false,
+        chunks: false,
+        modules: false,
+        reasons: false,
+        children: false,
+        source: false,
+        errors: true,
+        errorDetails: true,
+        warnings: false,
+        publicPath: false
+      }
     },
 
     reporters: ['notify', 'nyan'],
@@ -81,7 +95,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_WARN,
 
     browsers: ['PhantomJS'],
 
