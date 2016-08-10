@@ -176,6 +176,18 @@ title: Dropdowns
       </div>
     </form>
   </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownStates1"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedState1"
+      ng-options="state.id as state.name for state in vm.states"
+      ng-change="vm.onChange(vm.selectedState1)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
 
   <h3 class="docs-subsection-title">Label for Value in Array Track By</h3>
   <div class="docs-example">
@@ -211,6 +223,18 @@ title: Dropdowns
       </div>
     </form>
   </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownStates1"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedState1"
+      ng-options="state.name for state in vm.states track by state.id"
+      ng-change="vm.onChange(vm.selectedState1)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
 
   <h3 class="docs-subsection-title">Multiple</h3>
   <div class="docs-example">
@@ -247,6 +271,19 @@ title: Dropdowns
       </div>
     </form>
   </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownMultiple"
+      class="form-control"
+      multiple
+      av-dropdown
+      ng-model="vm.selectedStates"
+      ng-options="state.name for state in vm.states track by state.id"
+      ng-change="vm.onChange(vm.selectedStates)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
 
   <h3 class="docs-subsection-title">Query Large Data-sets</h3>
   <div class="docs-example">
@@ -266,6 +303,19 @@ title: Dropdowns
       </div>
     </form>
   </div>
+  <code class="language-markup" ng-non-bindable>
+    <div>
+      <label for="dropdownQuery">Photos</label>
+      <input
+        type="hidden"
+        id="dropdownQuery"
+        class="form-control"
+        av-dropdown
+        ng-model="vm.selectedPhoto"
+        ng-change="vm.onChange(vm.selectedPhoto)"
+        options="vm.getOptions()">
+    </div>
+  </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
   <div class="docs-example">
