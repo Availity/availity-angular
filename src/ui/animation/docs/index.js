@@ -5,7 +5,7 @@ import animations from './fixtures';
 import '../index';
 
 
-demo.factory('demoAnimationsService', ($interval, $timeout) => {
+demo.factory('demoAnimationsService', ($interval) => {
 
   class DemoAnimationsService {
 
@@ -18,30 +18,37 @@ demo.factory('demoAnimationsService', ($interval, $timeout) => {
       this.selectedAnimation = null;
       this.velocityEffects = animations;
       this.placeholder = 'Select an animation';
-      this.actualAnimation = this.placeholder;
-    }
-
-    onChange(newAnimation) {
-      if (newAnimation.type) {
-        if (newAnimation.type === 'transition') {
-
-          this.actualAnimation = newAnimation.name + 'Out';
-
-          $timeout( () => {
-            this.actualAnimation = newAnimation.name + 'In';
-          }, 1500);
-
-        } else if (newAnimation.type === 'callout') {
-          this.actualAnimation = newAnimation.name;
+      this.animationConfig = {
+        watch: 'anim.selectedAnimation',
+        onLoad: false,
+        animation: (elm) => {
+          return new Promise((resolve) => {
+            if (this.selectedAnimation) {
+              const state = elm.velocity('finish', true);
+              const animConfig = {
+                complete() {
+                  resolve();
+                }
+              };
+              if (this.selectedAnimation.type === 'transition') {
+                state.velocity((this.selectedAnimation.name + 'Out'))
+                .velocity((this.selectedAnimation.name + 'In'), animConfig);
+              } else if (this.selectedAnimation.type === 'callout') {
+                state.velocity(this.selectedAnimation.name, animConfig);
+              }
+            } else {
+              resolve();
+            }
+          });
         }
-      }
+      };
     }
   }
 
   return new DemoAnimationsService();
-
 });
 
 demo.controller('demoAnimationController', ($scope, demoAnimationsService) => {
   $scope.anim = demoAnimationsService;
+  $scope.exampleText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur';
 });

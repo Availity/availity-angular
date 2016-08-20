@@ -23,7 +23,10 @@ title: Animation
           <ul class="nav navbar-nav">
             <li><a>
               <i class="icon icon-bell-alt navbar-default-icon"></i> Notifications
-              <span av-animate="anim.counter" class="badge badge-success" ng-bind="anim.counter"></span>
+              <span av-animate="{
+                watch: 'anim.counter',
+                animation: 'transition.bounceIn'
+              }" class="badge badge-success" ng-bind="anim.counter"></span>
             </a></li>
           </ul>
         </div>
@@ -31,52 +34,132 @@ title: Animation
     </nav>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <span av-animate="counter" class="badge badge-primary" ng-bind="anim.counter"></span>
+    <span av-animate="{
+      watch: 'counter',
+      animation: 'transition.bounceIn'
+    }" class="badge badge-success" ng-bind="counter"></span>
   </code>
 
   <h3 class="docs-subsection-title">On load</h3>
   <div class="docs-example">
-    <av-animate class="card card-block">
+    <div av-animate="'transition.bounceIn'" av-animate-element class="card card-inverse card-primary card-block">
+      <div class="card-blockquote">
       I will animate on load!
-    </av-animate>
+      </div>
+    </div>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <div class="card card-block" av-animate>
+    <div av-animate="'transition.bounceIn'" av-animate-element class="card card-inverse card-primary card-block">
+      <div class="card-blockquote">
       I will animate on load!
+      </div>
     </div>
   </code>
 
   <h3 class="docs-subsection-title">On event</h3>
   <div class="docs-example">
-    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+    <button type="button" class="btn btn-default" av-animate="{ animation: 'transition.bounceIn', onEvent: 'click'}">
       Click Me!
     </button>
   </div>
   <code class="language-markup" ng-non-bindable>
-    <button type="button" class="btn btn-default" av-animate av-animate-on="click">
+    <button type="button" class="btn btn-default" av-animate="{ animation: 'transition.bounceIn', onEvent: 'click'}">
       Click Me!
     </button>
   </code>
 
   <h3 class="docs-subsection-title">With children</h3>
   <div class="docs-example" >
-    <div av-animate
-      av-animate-type="'transition.slideRightBigIn'"
-      av-animate-options="{ stagger: 500 }">
-      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
-      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
-      <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
+    <div av-animate="{
+        animation:'transition.slideRightBigIn',
+        onLoad: true,
+        onEvent: 'click',
+        animationConfig: { stagger: 500 }
+      }">
+      <p ng-bind="exampleText"></p>
+      <p ng-bind="exampleText"></p>
+      <p ng-bind="exampleText"></p>
     </div>
   </div>
-
   <code class="language-markup" ng-non-bindable>
-    <div class="loading-indicator"
-      av-animate
-      av-animate-type="'transition.slideRightBigIn'"
-      av-animate-options="{ stagger: 500 }">
+    <div av-animate="{
+        animation:'transition.slideRightBigIn',
+        onLoad: true,
+        onEvent: 'click',
+        animationConfig: { stagger: 500 }
+      }">
       <p> ... </p>
       <p> ... </p>
       <p> ... </p>
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">Listen For multiple events</h3>
+  <div class="docs-example">
+    <div class="card card-inverse card-block card-info" av-animate="[
+        {
+          animation:'callout.pulse',
+          useQueue: true,
+          onEvent: 'mouseenter'
+        },
+        {
+          animation:'callout.swing',
+          useQueue: true,
+          onEvent: 'click'
+        }
+      ]" av-animate-element>
+      <div class="card-blockquote">
+        hover or click here
+      </div>
+    </div>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div class="card card-inverse card-block card-info" av-animate="[
+        {
+          animation:'callout.pulse',
+          useQueue: true,
+          onEvent: 'mouseenter'
+        },
+        {
+          animation:'callout.swing',
+          useQueue: true,
+          onEvent: 'click'
+        }
+      ]" av-animate-element>
+      <div class="card-blockquote">
+        hover or click here
+      </div>
+    </div>
+  </code>
+
+
+  <h3 class="docs-subsection-title">av-animate-element</h3>
+  <div class="docs-example">
+    <p> Click on the cards</p>
+    <div av-animate="{
+        animation:'transition.bounceIn',
+        onEvent: 'click'
+      }">
+      <div av-animate-element class="card card-inverse card-success card-block">
+        I will bounce
+      </div>
+      <div class="card card-default card-block">
+        I won't bounce
+      </div>
+      <div av-animate-element class="card card-inverse card-success card-block">
+        I will bounce
+      </div>
+    </div>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div av-animate="{
+          animation:'transition.bounceIn',
+          onEvent: 'click'
+        }">
+      <div av-animate-element class="card card-inverse card-success card-block">
+        I will bounce
+      </div>
+      <div class="card card-default card-block">I won't bounce </div>
     </div>
   </code>
 
@@ -88,18 +171,13 @@ title: Animation
         ng-model="anim.selectedAnimation"
         ng-options="animation.name for animation in anim.velocityEffects"
         placeholder="{{anim.placeholder}}"
-        options="{ allowClear: false }"
-        ng-change="anim.onChange(anim.selectedAnimation)"
-        >
+        options="{ allowClear: false }">
         </select>
     </p>
     <p>
-      <div av-animate="anim.actualAnimation"
-        av-animate-on-load="false"
-        av-animate-type="anim.actualAnimation"
-        class="card card-default text-center card-block">
-        {{anim.actualAnimation}}
-      </div>
+      <div av-animate="anim.animationConfig"
+        class="card card-default text-center card-block"
+        ng-bind="anim.selectedAnimation ? anim.selectedAnimation.name : anim.placeholder"></div>
     </p>
   </div>
   <code class="language-markup" ng-non-bindable>
