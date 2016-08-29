@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test:ci",
+    "test:debug": "gulp test:server",
     "postinstall": "bower install"
   },
   "repository": {
