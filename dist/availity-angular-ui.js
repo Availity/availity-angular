@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.12.4 -- August-29
+ * availity-angular v1.12.5 -- August-29
  * Copyright 2016 Availity, LLC 
  */
 
@@ -2492,7 +2492,9 @@
         'spaceId': '@?'
       },
       templateUrl: 'ui/breadcrumbs/breadcrumbs-spaces-tpl.html',
-      link: function(scope, element, attrs) {
+      link: function(scope) {
+
+        var spaceId = scope.spaceId;
 
         function parseQuery(queryString) {
             var query = {};
@@ -2505,19 +2507,20 @@
         }
 
         // Find paramter in query string after hash (#)
-        if(!scope.spaceId) {
-          scope.spaceId = $location.search().spaceId;
+        if(!spaceId) {
+          spaceId = $location.search().spaceId;
         }
 
         // Find parameter in normal query string
-        if(!scope.spaceId) {
+        if(!spaceId) {
           var params = parseQuery(window.location.search);
-          scope.spaceId = params.spaceId;
+          spaceId = params.spaceId;
         }
 
-        if(scope.spaceId) {
-          avSpacesResource.get(scope.spaceId).then(function(response) {
+        if(spaceId) {
+          avSpacesResource.get(spaceId).then(function(response) {
             scope.spaceName = response.data.name;
+            scope.spaceId = spaceId;
           });
         } else {
           $log.warn("avSpacesBreadcrumbs could NOT detect a spaceId through scope or by parsing the URL.");
