@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.12.5 -- August-29
+ * availity-angular v1.12.6 -- September-15
  * Copyright 2016 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.12.5';
+  availity.VERSION = 'v1.12.6';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -1911,7 +1911,7 @@
 
         var ruleConfig = rules[key];
         if(!ruleConfig) {
-          $log.error('Failed to get rules key [' + key + '].  Forms must be tagged with a rules set name for validation to work.');
+          $log.warn('Could not resolve the form rules key [' + key + '].  This can happen when the rules key is inside a promise and the key value has not resolved on page load.');
           return;
         }
 
