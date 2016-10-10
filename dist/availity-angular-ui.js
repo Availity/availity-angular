@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.12.6 -- September-15
+ * availity-angular v1.12.7 -- October-10
  * Copyright 2016 Availity, LLC 
  */
 
@@ -1211,10 +1211,12 @@
         ].join('');
 
         var $target = $(form).find(selector);
-        $timeout(function() {
-          // scroll to offset top of first error minus the offset of the navbars
-          $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
-        }, 0, false);
+        if ($target && $target.offset()) {
+          $timeout(function() {
+            // scroll to offset top of first error minus the offset of the navbars
+            $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
+          }, 0, false);
+        }
       }
     };
   });
