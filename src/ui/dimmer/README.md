@@ -13,7 +13,9 @@ angular.module('app', ['availity.ui']);
 ### avDimmerConfig
 
 The avDimmer directive checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.
+
 By default, the directive will use:
+
 * A child element with the css class `.dimmer-content`
 * The velocity animations `fadeIn` and `fadeOut`
 * The velocity options of `{ duration: 250 }`
