@@ -2,7 +2,7 @@
 
 import angular from 'angular';
 
-import '../users';
+import ngModule from '../users';
 
 describe('avUsersResource', () => {
 
@@ -11,7 +11,7 @@ describe('avUsersResource', () => {
 
   beforeEach(() => {
 
-    angular.mock.module('availity');
+    angular.mock.module(ngModule.name);
 
     inject((_avUsersResource_, _$q_) => {
       avUsersResource = _avUsersResource_;

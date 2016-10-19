@@ -1,7 +1,7 @@
 /* global describe, beforeEach, inject, module, expect, it */
 import angular from 'angular';
 
-import '../permissions';
+import '../user-permissions';
 
 describe('avUserPermissionsResource', () => {
 
@@ -20,4 +20,5 @@ describe('avUserPermissionsResource', () => {
   it('should exist', () => {
     expect(avUserPermissionsResource).toBeDefined();
   });
+
 });

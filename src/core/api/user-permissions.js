@@ -20,7 +20,6 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
 
     getPermissions(permissionIds, region) {
 
-      debugger;
       return this.query({
         sessionBust: true,
         params: {
