@@ -108,11 +108,11 @@ describe('AvApiResource', () => {
     it('should build url', () => {
 
       const users = new AvApiResource({
-        url: '/availity/JwsServlet',
+        url: '/availity/login',
         api: false
       });
 
-      expect(users.getUrl()).toBe('/availity/JwsServlet');
+      expect(users.getUrl()).toBe('/availity/login');
 
     });
   });
@@ -179,6 +179,19 @@ describe('AvApiResource', () => {
         $httpBackend.flush();
         expect(callback).toHaveBeenCalled();
 
+      });
+
+      it('should have a sessionBust parameter when sessionBust is true', () => {
+
+        $httpBackend.expectGET(/\/api\/v1\/users\?sessionBust=\d+/).respond(200, responseData);
+
+        users.query({sessionBust: true}).success(function(data) {
+          expect(data).toBeEqual(responseData);
+          callback();
+        });
+
+        $httpBackend.flush();
+        expect(callback).toHaveBeenCalled();
       });
 
     });
