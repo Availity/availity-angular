@@ -1,10 +1,10 @@
-/* global inject, describe, it, module, beforeEach, expect */
+/* global inject, describe, it, fit, module, beforeEach, expect */
 
 import angular from 'angular';
 import * as _ from 'lodash';
 import Tester from 'tester';
 
-import '../';
+import ngModule from '../';
 
 import FIXTURES from './fixtures/';
 
@@ -21,7 +21,7 @@ describe('avUserAuthorizations', () => {
     expect(permission.organizations.length).toBe(1);
   };
 
-  beforeEach(() => angular.mock.module('availity'));
+  beforeEach(() => angular.mock.module(ngModule.name));
 
   beforeEach(inject((_$httpBackend_, _avUserAuthorizations_, avUserPermissionsResource) => {
     avUserAuthorizations = _avUserAuthorizations_;
@@ -37,9 +37,10 @@ describe('avUserAuthorizations', () => {
 
   describe('getPermissions()', () => {
 
-    it('should return valid permission', () => {
+    fit('should return valid permission', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
+      debugger;
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']).then(permissions => {
         validatePermission(permissions[0]);
       });
@@ -50,7 +51,7 @@ describe('avUserAuthorizations', () => {
     it('should include region if set', () => {
 
       avUserAuthorizations.setRegion('ALL');
-      tester.$httpBackend.expectGET(FIXTURES.URI_452_999_ALL).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452_999_ALL).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']).then(permissions => {
         expect(_.size(permissions)).toBe(2);
         validatePermission(permissions[0]);
@@ -60,12 +61,12 @@ describe('avUserAuthorizations', () => {
 
     it('should include merge permissionIds', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']);
       expect(avUserAuthorizations.permissionIds.length).toBe(2);
       tester.$httpBackend.flush();
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452_999_1000).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452_999_1000).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '1000']);
       expect(avUserAuthorizations.permissionIds.length).toBe(3);
       tester.$httpBackend.flush();
@@ -77,7 +78,7 @@ describe('avUserAuthorizations', () => {
 
     it('should get single permission', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermission('452').then(permission => {
         validatePermission(permission);
       });
@@ -86,7 +87,7 @@ describe('avUserAuthorizations', () => {
 
     it('should not have permission 999', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPermission('999').then(permission => {
         expect(permission.isAuthorized).toBeFalsy();
       });
@@ -98,7 +99,7 @@ describe('avUserAuthorizations', () => {
 
     it('should return true when valid', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.isAuthorized('452').then(isAuthorized => {
         expect(isAuthorized).toBe(true);
       });
@@ -107,7 +108,7 @@ describe('avUserAuthorizations', () => {
 
     it('should return false when invalid', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.isAuthorized('999').then(isAuthorized => {
         expect(isAuthorized).toBe(false);
       });
@@ -119,7 +120,7 @@ describe('avUserAuthorizations', () => {
 
     it('should return true when permission is valid', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.isAnyAuthorized(['452']).then(isAuthorized => {
         expect(isAuthorized).toBe(true);
       });
@@ -128,7 +129,7 @@ describe('avUserAuthorizations', () => {
 
     it('should return false permission is invalid', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.isAnyAuthorized(['999']).then(isAuthorized => {
         expect(isAuthorized).toBe(false);
       });
@@ -137,7 +138,7 @@ describe('avUserAuthorizations', () => {
 
     it('should return true if either permission is valid', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
       avUserAuthorizations.isAnyAuthorized(['452', '999']).then(isAuthorized => {
         expect(isAuthorized).toBe(true);
       });
@@ -150,7 +151,7 @@ describe('avUserAuthorizations', () => {
 
     it('should have one organization for 452', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getOrganizations('452').then(organizations => {
         expect(_.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(1);
@@ -164,7 +165,7 @@ describe('avUserAuthorizations', () => {
 
     it('should no organizations for 999', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getOrganizations('999').then(organizations => {
         expect(_.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(0);
@@ -177,7 +178,7 @@ describe('avUserAuthorizations', () => {
 
     it('should have one payer for 452 and 1435', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.VALID);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPayers('452', '1435').then(payers => {
         expect(_.isArray(payers)).toBe(true);
         expect(payers.length).toBe(1);
@@ -191,7 +192,7 @@ describe('avUserAuthorizations', () => {
 
     it('should no payers for 452 and 1001', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_452).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('452', '1001').then(payers => {
         expect(_.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);
@@ -201,7 +202,7 @@ describe('avUserAuthorizations', () => {
 
     it('should no payers for 999', () => {
 
-      tester.$httpBackend.expectGET(FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
+      tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('999', '1435').then(payers => {
         expect(_.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);

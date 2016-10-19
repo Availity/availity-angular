@@ -132,3 +132,5 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
 };
 
 ngModule.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
+
+export default ngModule;

@@ -11,15 +11,18 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
         version: '/v1',
         name: '/axi-user-permissions'
       });
+
     }
 
     afterQuery(response) {
-      return response.data.permissions ? response.data.permissions : [];
+      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
     }
 
     getPermissions(permissionIds, region) {
 
+      debugger;
       return this.query({
+        sessionBust: true,
         params: {
           permissionId: permissionIds,
           region
@@ -33,7 +36,7 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
 
 };
 
-ngModule.factory('avPermissionsResource', AvUserPermissionsResourceFactory);
+ngModule.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
 
 export default ngModule;
 
