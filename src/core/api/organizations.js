@@ -5,7 +5,10 @@ const OrganizationResourceFactory = function(AvApiResource) {
   class OrganizationResource extends AvApiResource {
 
     constructor() {
-      super({name: 'organizations'});
+      super({
+        path: '/api/sdk/platform',
+        name: 'organizations'
+      });
     }
 
     getOrganizations(config) {

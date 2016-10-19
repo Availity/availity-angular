@@ -1,7 +1,7 @@
 /* global inject, module, describe, beforeEach, it, expect */
 
 import angular from 'angular';
-import '../organizations';
+import ngModule from '../organizations';
 
 import Tester from 'tester';
 
@@ -18,7 +18,7 @@ describe('avOrganizationsResource', () => {
 
   beforeEach(() => {
 
-    angular.mock.module('availity');
+    angular.mock.module(ngModule.name);
 
     inject((_$httpBackend_, _avOrganizationsResource_) => {
       $httpBackend = _$httpBackend_;
@@ -33,7 +33,7 @@ describe('avOrganizationsResource', () => {
 
   it('should allow params', () => {
 
-    $httpBackend.expect('GET', '/api/v1/organizations?limit=9001').respond(200, responseData);
+    $httpBackend.expect('GET', '/api/sdk/platform/v1/organizations?limit=9001').respond(200, responseData);
     avOrganizationsResource.getOrganizations(exampleParams).then(data => {
       expect(data).toBeEqual(responseData);
     });
