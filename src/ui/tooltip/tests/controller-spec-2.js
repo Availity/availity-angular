@@ -71,7 +71,7 @@ describe('AvTooltip Controller', function() {
       expect(this.mockElement.on.calls.argsFor(3)).toEqual(['hidden.bs.tooltip', jasmine.any(Function)]);
     });
 
-    it('should set a listner on scope for $destroy', () => {
+    it('should set a listener on scope for $destroy', () => {
       expect(this.mockScope.$on).toHaveBeenCalledWith('$destroy', jasmine.any(Function));
     });
   });
