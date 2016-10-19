@@ -15,7 +15,7 @@ class LogMessagesProvider {
         });
       }
 
-      buildRequest(level, entries) {
+      request(level, entries) {
 
         const requestPayload = {};
 
@@ -31,19 +31,19 @@ class LogMessagesProvider {
       }
 
       debug(entries) {
-        return this.create(this.buildRequest('debug', entries));
+        return this.create(this.request('debug', entries));
       }
 
       info(entries) {
-        return this.create(this.buildRequest('info', entries));
+        return this.create(this.request('info', entries));
       }
 
       warn(entries) {
-        return this.create(this.buildRequest('warn', entries));
+        return this.create(this.request('warn', entries));
       }
 
       error(entries) {
-        return this.create(this.buildRequest('error', entries));
+        return this.create(this.request('error', entries));
       }
 
     }
