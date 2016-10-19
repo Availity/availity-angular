@@ -1,6 +1,6 @@
 ## Analytics
 
-Analytics is a way for you to track how users interact with your data. The two analytic services that are provided are Piwik and Splunk.  By default analytic tracking is not setup in the application. This means that page views and events will not be tracked. To enable page tracking and custom event tracking follow the steps below.
+Analytics is a way for you to track how users interact with your data. 
 
 ### Adding the Analytics Module
 
@@ -62,32 +62,6 @@ app.config( (avAnalyticsProvider) => {
     ]);
 });
 ```
-### Enabling Plugins
-
-To `enable` your plugins and set the site ID correctly, use `avPiwikAnalyticsProvider.enabled(true)` and `avPiwikAnalyticsProvider.setSiteID(1)`.
-
-```javascript
-app.config(function(avPiwikAnalyticsProvider) {
-    avPiwikAnalyticsProvider.enabled(true);
-    avPiwikAnalyticsProvider.setSiteID(1);
-});
-```
-
-### Custom Variables
-
-Currently custom variables are only provided via Piwik and are scoped throughout the users session.
-
-In order to access custom variables you must go through the `avPiwikAnalyticsServiceProvider` from your configuration and use `.setVisitVariable` with parameters `index`, `valueName` and `value`.
-
-Due to restrictions on Piwik you are currently limited to only 5 variables in index 1 through 5, reusing an index will reset the values assigned to it, but not the amount of actions associated with it.
-
-> **Note:** `index` must be an int and `valueName` must be defined or the function will return errors.
-
-```javascript
-app.config( (avPiwikAnalyticsProvider) => {
-    avPiwikAnalyticsProvider.setVisitVariable(1, 'name', 'value');
-});
-```
 
 ### Exception Handler
 
@@ -112,8 +86,9 @@ Open debugger to see `exceptionHandler` send a message to `api/v1/log-messages` 
     "errorDate": "2015-06-21T19:21:17.283Z",
     "errorName": "Error",
     "errorMessage": "Oh snap!",
-    "errorStack": "[00] Object.$scope.analytics.createError http://localhost:3000/js/docs-demos.js:46:15\n[01] Parser.functionCall http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js:10903:21\n[02] ngEventDirectives.(anonymous function).compile.element.on.callback http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js:19259:17\n[03] Scope.$get.Scope.$eval http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js:12811:28\n[04] Scope.$get.Scope.$apply http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js:12909:23\n[05] HTMLButtonElement.&lt;anonymous&gt; http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js:19264:23\n[06] HTMLButtonElement.m.event.dispatch http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js:3:8436\n[07] HTMLButtonElement.m.event.add.r.handle http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js:3:5146",
-    "url": "http://localhost:3000/core.html",
+    "errorStack": "[00] Object.$scope.analytics.createError http://localhost:3000/js/docs-demos.js:46:15\n[01] Parser.functionCall http://
+    ...
+    ...",
     "appId": "N/A",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36",
     "referrer": "http://localhost:3000/core.html",
