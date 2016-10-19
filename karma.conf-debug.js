@@ -16,7 +16,7 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 
   debug: true,
   cache: false,
