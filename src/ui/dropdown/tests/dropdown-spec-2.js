@@ -121,11 +121,17 @@ describe('avDropdown', () => {
 
       tester.flush();
 
-      tester.$scope.demo.selected = tester.$scope.demo.selections[1];
+      tester.$scope.demo.selected = tester.$scope.demo.selections[0];
       tester.$scope.$apply();
       tester.flush();
 
-      expect($el.select2('val')).toBe('object:229');
+      // Angular adds a property called $$hashkey to objects in order to track them in a collection.
+      //
+      //  @see https://github.com/angular/angular.js/blob/ddb4ef13a9793b93280e6b5ab2e0593af1c04743/src/ng/directive/ngOptions.js#L282.
+      //  @see https://github.com/angular/angular.js/blob/07849779ba365f371a8caa3b58e23f677cfdc5ad/src/apis.js#L28
+      //
+      // We use the same method here to get the key and compare it so the value in Select2.
+      expect($el.select2('val')).toBe(tester.$scope.demo.selections[0].$$hashKey);
 
     });
 
