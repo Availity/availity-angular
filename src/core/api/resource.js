@@ -1,4 +1,6 @@
 import angular from 'angular';
+import moment from 'moment';
+
 import ngModule from '../module';
 import './constants';
 import '../polling';
@@ -7,6 +9,7 @@ class ApiResourceProvider {
 
   constructor(AV_API) {
     this.defaultOptions = {...AV_API.OPTIONS};
+    this.sessionBust = moment().unix();
   }
 
   setOptions(options) {
@@ -48,14 +51,25 @@ class ApiResourceProvider {
         return angular.extend({}, this.options, (config || {}));
       }
 
-      cacheBust(config) {
+      cacheBust(_config) {
 
+        const config = angular.copy(_config);
         config.cacheBust = null;
         config.params = config.params || {};
-        config.params.cacheBust = new Date().getTime();
+        config.params.cacheBust = moment().unix();
 
         return config;
 
+      }
+
+      sessionBust(_config) {
+
+        const config = angular.copy(_config);
+        config.sessionBust = null;
+        config.params = config.params || {};
+        config.params.sessionBust = that.sessionBust;
+
+        return config;
       }
 
       getUrl(id) {
@@ -94,6 +108,7 @@ class ApiResourceProvider {
 
             // handle the async response if applicable
             const _promise = $q.when(avPollingService.response(_response));
+
             // notify the promise listener of the original response
             defer.notify(_response);
 
@@ -204,6 +219,7 @@ class ApiResourceProvider {
         if (config.cacheBust) {
           config = this.cacheBust(config);
         }
+
         config.method = 'GET';
         config.url = this.getUrl(id);
 
@@ -216,10 +232,17 @@ class ApiResourceProvider {
 
         let config = _config;
 
+        // If true cache bust the api on every call
         config = this.config(config);
         if (config.cacheBust) {
           config = this.cacheBust(config);
         }
+
+        // Cache bust api once per application load
+        if (config.sessionBust) {
+          config = this.sessionBust(config);
+        }
+
         config.method = 'GET';
         config.url = this.getUrl();
 

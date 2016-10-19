@@ -75,6 +75,8 @@ angular.module('app', ['availity'])
 * **pollingInterval** -  time in `ms` before a request is retried for asynchronous rest services.  **default**: `1000`
 * **pollingDecay** - the polling decay factor that slows down the polling interval on subsequent retries. **default**: `1.2`
 * **pollingMaxInterval** - maximum time in `ms` polling is allowed before rejecting the request. **default**: `30000`
+* **cacheBust** - when `true` every request url will include a `cacheBust` timestamp in order to break browser cache
+* **sessionBust** - when `true` a `cacheBust` parameter is appended to the url but the timestamp is consistent on every call.  The timestamp is created when the application first loads and reused for all API call with `cacheBust` set to true.
 
 ## Resources
 
