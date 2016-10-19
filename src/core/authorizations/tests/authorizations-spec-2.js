@@ -1,4 +1,4 @@
-/* global inject, describe, it, fit, module, beforeEach, expect */
+/* global inject, describe, it, module, beforeEach, expect */
 
 import angular from 'angular';
 import * as _ from 'lodash';
@@ -37,9 +37,8 @@ describe('avUserAuthorizations', () => {
 
   describe('getPermissions()', () => {
 
-    fit('should return valid permission', () => {
+    it('should return valid permissions', () => {
 
-      debugger;
       tester.$httpBackend.expect('GET', FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']).then(permissions => {
         validatePermission(permissions[0]);
@@ -48,7 +47,7 @@ describe('avUserAuthorizations', () => {
 
     });
 
-    it('should include region if set', () => {
+    it('should include region', () => {
 
       avUserAuthorizations.setRegion('ALL');
       tester.$httpBackend.expect('GET', FIXTURES.URI_452_999_ALL).respond(200, FIXTURES.VALID);
@@ -59,7 +58,7 @@ describe('avUserAuthorizations', () => {
       tester.$httpBackend.flush();
     });
 
-    it('should include merge permissionIds', () => {
+    it('should include merged permission ids', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452_999).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']);

@@ -8,5 +8,5 @@ export default {
   URI_999: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=999&sessionBust=.*/,
   URI_452_999: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=452&permissionId=999&sessionBust=.*/,
   URI_452_999_ALL: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=452&permissionId=999&region=ALL&sessionBust=.*/,
-  URI_452_999_1000: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=452&permissionId=999&permissionId=100&sessionBust=.*0/
+  URI_452_999_1000: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=452&permissionId=999&permissionId=1000&sessionBust=.*/
 };
