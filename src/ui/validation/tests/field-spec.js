@@ -1,7 +1,5 @@
 /* global availity, angular, inject, describe, it, beforeEach, expect, module*/
 
-/* global availity, angular, inject, describe, it, beforeEach, expect, module*/
-
 import $ from 'jquery';
 
 describe('avValField', function() {

@@ -1,7 +1,5 @@
 /* global inject, describe, availity, it, expect, beforeEach, module */
 
-/* global inject, describe, availity, it, expect, beforeEach, module */
-
 describe('avHasPermission', function() {
 
   let $el;
