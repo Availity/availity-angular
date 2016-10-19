@@ -64,7 +64,6 @@ ngModule.directive('avValForm', ($log, $timeout, $parse, AV_VAL, avValAdapter, $
 
           if (_rulesSchema !== _oldRulesSchema) {
             $timeout(() => {
-              $log.info('avValForm revalidate');
               $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
             });
           }
