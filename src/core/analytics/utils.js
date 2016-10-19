@@ -11,7 +11,7 @@ ngModule.factory('avAnalyticsUtils', (avAnalyticsConfig, $log) => {
       const self = this;
       const props = {};
 
-      Object.keys(attributes).forEach((key) => {
+      Object.keys(attributes).forEach(key => {
         if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
           const result = self.getAttribute(key, attributes[key]);
           props[result.key] = result.value;
@@ -71,7 +71,7 @@ ngModule.factory('avAnalyticsUtils', (avAnalyticsConfig, $log) => {
         delete trackingValues.value;
       }
 
-      Object.keys(trackingValues).forEach((key) => {
+      Object.keys(trackingValues).forEach(key => {
         const value = trackingValues[key];
         if (isBlank(value) || angular.isUndefined(value)) {
           $log.warn(`The analytic tracking value for ${key.toUpperCase()} is not defined.`);
