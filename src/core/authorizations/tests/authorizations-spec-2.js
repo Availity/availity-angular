@@ -47,7 +47,7 @@ describe('avUserAuthorizations', () => {
 
     });
 
-    it('should include region', () => {
+    it('should include ALL region in request', () => {
 
       avUserAuthorizations.setRegion('ALL');
       tester.$httpBackend.expect('GET', FIXTURES.URI_452_999_ALL).respond(200, FIXTURES.VALID);
@@ -84,7 +84,7 @@ describe('avUserAuthorizations', () => {
       tester.$httpBackend.flush();
     });
 
-    it('should not have permission 999', () => {
+    it('should NOT have permission 999', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPermission('999').then(permission => {
@@ -96,7 +96,7 @@ describe('avUserAuthorizations', () => {
 
   describe('isAuthorized()', () => {
 
-    it('should return true when valid', () => {
+    it('should return true when authorized', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.isAuthorized('452').then(isAuthorized => {
@@ -105,7 +105,7 @@ describe('avUserAuthorizations', () => {
       tester.$httpBackend.flush();
     });
 
-    it('should return false when invalid', () => {
+    it('should return false when NOT authorized', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.isAuthorized('999').then(isAuthorized => {
