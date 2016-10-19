@@ -7,7 +7,7 @@ import Base from '../base';
 // Inspiration from https://github.com/McNull/angular-block-ui.
 //
 //  - Need npm compatible library
-//  - Re-factor with better life-cyle hooks for starting and stopping animations
+//  - Re-factor with better life-cycle hooks for starting and stopping animations
 
 class BlockController extends Base {
 
@@ -99,7 +99,7 @@ class BlockController extends Base {
 
         // After the initial content has been loaded we'll spy on any location
         // changes and discard them when needed.
-
+        //
         const fn = this.av.$scope.$on('$viewContentLoaded', () => {
 
           // Unhook the view loaded and hook a function that will prevent
