@@ -10,14 +10,14 @@ A service can be created by invoking the constructor:
 
 ```javascript
 
-// http://local.dev/api/v1/providers
+// /api/v1/providers
 angular.module('app', ['availity'])
     .factory('healthplanProvidersResource', AvApiResource => {        
         return new AvApiResource({name: 'providers'});
     });
 ```
 
-A service can also be created by extending the `AvApiResource` class.  Use classes allows developers to easily add helper methods for resource types
+A service can also be created by extending the `AvApiResource` class.  Using classes allows developers to easily add helper methods for resource types
 
 ```javascript
 
@@ -80,38 +80,15 @@ angular.module('app', ['availity'])
 
 ## Resources
 
-The SDK includes some pre-configured Angular services Availity RESt services.
+The SDK includes some pre-configured Angular services for the Availity REST API.
 
-### avOrganizationsResource
-
-Retrieves the currently logged in users organizations
-
-### Usage
-
-```javascript
-angular.module('app', ['availity'])
-    .config( avOrganizationsResource => {    
-
-    avOrganizationsResource.query().then(payload => {
-        // do something with payload
-    });
-
-    
-
-// http://local.dev/api/v2/users
-angular.module('app', ['availity'])
-    .factory('usersResource', AvApiResource => {        
-    return new AvApiResource({name: 'users'});
-});
-```
-
-
-
-
-- **avUsers**: Get information about the logged in user
-- **avPermissions**: Retrieves a list of permissions for a user
-- **avUserPermissions**: Retrieves permissions along with a user's organizations and the set of resources a user is allowed to control
-- **avLogMessagesResource**: Use by services to stream events into Availity's analytics platform
+### avUser
+- **avOrganizationsResource** - Retrieves the currently logged in user's organizations
+- **avUsers** - Gets information about the logged in user
+- **avPermissions** - Retrieves a list of permissions for a user
+- **avUserPermissions** - Retrieves permissions along with a user's organizations and the set of resources a user is allowed to control
+- **avLogMessagesResource** - Used by services to stream events into the analytics
+- **avSpacesResource** - Get information about content in the spaces catalog
 
 
 
