@@ -9,6 +9,7 @@ ngModule.directive('avAnalyticsOn', (avAnalyticsConfig, avAnalyticsUtils) => {
     controller: 'AvAnalyticsController',
     require: ['avAnalyticsOn', '?^avAnalytics'],
     link(scope, element, attrs, controllers) {
+
       const childCtrl = controllers[0];
       let parentCtrl = {};
       let parentOptions = {};
@@ -21,6 +22,7 @@ ngModule.directive('avAnalyticsOn', (avAnalyticsConfig, avAnalyticsUtils) => {
       const eventType = attrs.avAnalyticsOn || avAnalyticsConfig.EVENTS.DEFAULT;
 
       element.on(eventType, function(event) {
+
         if (parentCtrl.getOptions) {
           parentOptions = parentCtrl.getOptions();
         }
