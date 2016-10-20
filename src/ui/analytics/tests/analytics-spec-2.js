@@ -91,6 +91,35 @@ describe('avAnalytics', () => {
       expect(avAnalytics.trackEvent).toHaveBeenCalledWith({ event: 'play', level: 'info', label: 'Test', category: 'testCategory'});
     });
 
+    it('should allow static label', () => {
+      tester.$scope.label = 'Testing';
+      const $el = tester.compileDirective('<div><div data-av-analytics-on="click" data-av-analytics-label="{{label}}"></div></div>');
+      const controller = $el.children().data('$avAnalyticsOnController');
+
+      spyOn(controller, 'onEvent').and.callThrough();
+
+      $el.children().trigger('click');
+      tester.flush();
+      expect(controller.onEvent).toHaveBeenCalled();
+      expect(avAnalytics.trackEvent).toHaveBeenCalledWith({ event: 'click', level: 'info', label: 'Testing'});
+
+    });
+
+    it('should allow dynamic label', () => {
+      tester.$scope.label = 'Testing';
+      const $el = tester.compileDirective('<div><div data-av-analytics-on="click" data-av-analytics-label="{{label}}"></div></div>');
+      const controller = $el.children().data('$avAnalyticsOnController');
+      tester.$scope.label = 'Testing2';
+      tester.$scope.$digest();
+      spyOn(controller, 'onEvent').and.callThrough();
+
+      $el.children().trigger('click');
+      tester.flush();
+      expect(controller.onEvent).toHaveBeenCalled();
+      expect(avAnalytics.trackEvent).toHaveBeenCalledWith({ event: 'click', level: 'info', label: 'Testing2'});
+
+    });
+
   });
 
 });
