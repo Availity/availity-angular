@@ -18,6 +18,7 @@ describe('avValEmail', () => {
     expect(valEmail.validate({value: 'test@availity.com'})).toBe(true);
     expect(valEmail.validate({value: 'a@a.a'})).toBe(true);
     expect(valEmail.validate({value: '1@1.1'})).toBe(true);
+    expect(valEmail.validate({value: 'A@A.A'})).toBe(true);
   });
 
   it('should NOT be valid', () => {
