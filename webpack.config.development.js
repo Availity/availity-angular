@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const chalk = require('chalk');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const merge = require('webpack-merge');
@@ -51,10 +52,12 @@ const config = merge(webpackCommon, {
   plugins: [
     new webpack.DefinePlugin(ENV_VAR),
     new WebpackNotifierPlugin({excludeWarnings: true}),
-    new ProgressPlugin(function(percentage, msg) {
+    new ProgressPlugin( (percentage, msg) => {
 
-      if ((percentage * 100) % 10 === 0 ){
-        Logger.info(`${(percentage * 100)} ${msg}`);
+      const percent = percentage * 100;
+
+      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
+        Logger.info(`${chalk.dim('Webpack')} ${msg}`);
       }
 
     }),
