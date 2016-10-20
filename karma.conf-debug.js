@@ -16,7 +16,7 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 
   debug: true,
   cache: false,
@@ -35,7 +35,7 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine', 'sinon'],
 
-    files: [{ pattern: 'specs.js', watched: false }],
+    files: ['specs.js'],
 
     reportSlowerThan: 500,
 
@@ -50,7 +50,7 @@ module.exports = function(config) {
       '*.css'
     ],
 
-    preprocessors: { 'specs.js': ['webpack'] },
+    preprocessors: { 'specs.js': ['webpack', 'sourcemap'] },
 
     webpack: wpConfig,
 
@@ -72,13 +72,15 @@ module.exports = function(config) {
       }
     },
 
-    reporters: ['notify', 'spec'],
+    reporters: ['notify', 'webpack-error', 'spec'],
 
-    // reporter options
-    nyanReporter: {
-      // suppress the red background on errors in the error
-      // report at the end of the test run
-      suppressErrorHighlighting: true
+    specReporter: {
+      maxLogLines: 5,         // limit number of lines logged per test
+      suppressErrorSummary: false,  // do not print error summary
+      suppressFailed: false,
+      suppressPassed: true,
+      suppressSkipped: false,
+      showSpecTiming: true
     },
 
     // web server port
@@ -103,11 +105,11 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
-      require('karma-webpack-with-fast-source-maps'),
+      require('karma-webpack'),
       require('karma-notify-reporter'),
       require('karma-spec-reporter'),
-      require('karma-nyan-reporter'),
-      require('karma-phantomjs-launcher'),
+      require('karma-webpack-error-reporter'),
+      require('karma-sourcemap-loader'),
       require('karma-sinon')
     ]
 
