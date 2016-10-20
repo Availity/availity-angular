@@ -43,7 +43,7 @@ describe('AvApiResourceProvider', () => {
 
     });
 
-    afterEach(function() {
+    afterEach( () => {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     });
