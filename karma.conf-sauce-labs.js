@@ -27,7 +27,7 @@ const wpConfig = merge(webpackConfig, {
     ]
   },
 
-  devtool: 'cheap-module-source-map',
+  devtool: 'inline-source-map',
 
   debug: false,
   cache: false,
@@ -149,14 +149,15 @@ module.exports = function(config) {
     singleRun: true,
 
     plugins: [
-      require('karma-chrome-launcher'),
       require('karma-sauce-launcher'),
       require('karma-jasmine'),
       require('karma-coverage'),
       require('karma-sinon'),
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack-with-fast-source-maps')
+      require('karma-webpack-error-reporter'),
+      require('karma-sourcemap-loader'),
+      require('karma-webpack')
     ]
   });
 };
