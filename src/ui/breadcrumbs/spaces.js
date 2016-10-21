@@ -4,7 +4,7 @@ import '../../core/api/spaces';
 
 ngModule.directive('avSpacesBreadcrumbs', ($location, avSpacesResource, $log) =>{
   return {
-    restrict: 'A',
+    restrict: 'AE',
     replace: true,
     scope: {
       'pageName': '@',
