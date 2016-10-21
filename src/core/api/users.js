@@ -5,7 +5,10 @@ const UserServiceFactory = function(AvApiResource) {
   class AvUsersResource extends AvApiResource {
 
     constructor() {
-      super({name: 'users'});
+      super({
+        path: '/sdk/platform',
+        name: '/users'
+      });
     }
 
     afterGet(response) {
