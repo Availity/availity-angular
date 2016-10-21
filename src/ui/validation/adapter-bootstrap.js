@@ -62,10 +62,12 @@ ngModule.factory('avValBootstrapAdapter', (AV_BOOTSTRAP_ADAPTER, $timeout, $log)
     const selector = `.${AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR}:first`;
 
     const $target = $(form).find(selector);
-    $timeout(() => {
-      // scroll to offset top of first error minus the offset of the navbars
-      $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
-    }, 0, false);
+    if ($target && $target.offset()) {
+      $timeout(() => {
+        // scroll to offset top of first error minus the offset of the navbars
+        $('body, html').animate({scrollTop: $target.offset().top - offset}, 'fast');
+      }, 0, false);
+    }
 
   }
 }));
