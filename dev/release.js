@@ -71,11 +71,6 @@ function git() {
     shell.exec(`git commit -m "v${VERSION}"`);
     shell.exec(`git tag -a v${VERSION} -m "v${VERSION}"`);
 
-    // if (push) {
-    //   shell.exec('git push', 'Push to remote');
-    //   shell.exec('git push --tags', `Push new tag v${VERSION} to remote`);
-    // }
-
     resolve();
 
   });
