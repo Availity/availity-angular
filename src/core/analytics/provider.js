@@ -57,7 +57,7 @@ class AvAnalyticsProvider extends Base {
         this.services = {};
 
         if (!self.plugins || self.plugins.length === 0) {
-          self.plugins = [avAnalyticsConfig.SERVICES.PIWIK, avAnalyticsConfig.SERVICES.SPLUNK];
+          self.plugins = [avAnalyticsConfig.SERVICES.SPLUNK];
         }
 
         angular.forEach(self.plugins, plugin => {

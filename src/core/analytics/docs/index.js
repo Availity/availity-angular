@@ -9,7 +9,3 @@ demo.controller('DemoAnalyticsController', ($scope) => {
   };
 
 });
-
-demo.config( (avPiwikAnalyticsProvider) => {
-  avPiwikAnalyticsProvider.enable(true);
-});
