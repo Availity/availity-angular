@@ -12,6 +12,26 @@ const webpackConfig = require('../webpack.config.development');
 
 const PORT = 9200;
 
+const friendlySyntaxErrorLabel = 'Syntax error:';
+
+function isLikelyASyntaxError(message) {
+  return message.indexOf(friendlySyntaxErrorLabel) !== -1;
+}
+
+function formatMessage(message) {
+  return message
+    .replace(
+      'Module build failed: SyntaxError:',
+      friendlySyntaxErrorLabel
+    )
+    .replace(
+      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
+      'Module not found:'
+    )
+    .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
+    .replace('./~/css-loader!./~/postcss-loader!', '');
+}
+
 function serv() {
 
   Logger.info('Starting development server');
@@ -24,58 +44,76 @@ function serv() {
       Logger.info('Started compiling');
     });
 
-    const message = _.once(stats => {
+    const message = _.debounce(stats => {
 
-      const hasErrors = stats.hasErrors();
-      const hasWarnings = stats.hasWarnings();
+      const statistics = stats.toString({
+        colors: true,
+        cached: true,
+        reasons: false,
+        source: false,
+        chunks: false,
+        children: false
+      });
 
-      if (!hasErrors && !hasWarnings) {
+      const uri = `http://localhost:${PORT}/`;
 
-        const statistics = stats.toString({
-          colors: true,
-          cached: true,
-          reasons: false,
-          source: false,
-          chunks: false,
-          children: false
-        });
+      Logger.info(statistics);
+      Logger.ok('Finished webpack compiling');
+      Logger.log(`The app is running at ${chalk.magenta(uri)}`);
 
-        const uri = `http://localhost:${PORT}/`;
-
-        Logger.info(statistics);
-        Logger.ok('Finished webpack compiling');
-        Logger.log(`The app is running at ${chalk.magenta(uri)}`);
-
-        return;
-
-      }
-
-      if (hasErrors) {
-
-        Logger.failed('Failed compiling');
-        Logger.info(stats.compilation.errors);
-        reject(stats.compilation.errors);
-      }
 
     });
 
     compiler.plugin('done', stats => {
 
-      // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
-      // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs.
-      // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
-      // great than the IE9 limit.
-      //
-      // https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
-      //
-      message(stats);
+      const hasErrors = stats.hasErrors();
+      const hasWarnings = stats.hasWarnings();
+
+      if (!hasErrors && !hasWarnings) {
+        message(stats);
+      }
+
+      if (hasErrors) {
+
+        const json = stats.toJson({
+          assets: false,
+          colors: true,
+          version: false,
+          hash: false,
+          timings: false,
+          chunks: false,
+          chunkModules: false,
+          errorDetails: false
+        });
+
+        let formattedErrors = json.errors.map(msg => {
+          return 'Error in ' + formatMessage(msg);
+        });
+
+        if (formattedErrors.some(isLikelyASyntaxError)) {
+          formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
+        }
+
+        Logger.failed('Failed compiling');
+
+        formattedErrors.forEach(error => {
+          Logger.empty();
+          Logger.simple(`${chalk.red(error)}`);
+          Logger.empty();
+        });
+
+        reject('Failed compiling');
+      }
 
     });
 
     const server = new WebpackDevServer(compiler, {
       contentBase: './build',
-      noInfo: true, // display no info to console (only warnings and errors)
-      quiet: true, // display nothing to the console
+      // It suppress error shown in console, so it has to be set to false.
+      quiet: true,
+      // It suppress everything except error, so it has to be set to false as well
+      // to see success build.
+      noInfo: true,
       compress: true,
       hot: true,
       watchOptions: {

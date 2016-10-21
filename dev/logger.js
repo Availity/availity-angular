@@ -23,6 +23,14 @@ class Logger {
     this._log(entry);
   }
 
+  static empty() {
+    console.log('');
+  }
+
+  static simple(entry) {
+    console.log(entry);
+  }
+
   // graphics
 
   static failed(entry) {
