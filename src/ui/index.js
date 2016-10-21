@@ -5,6 +5,7 @@ import './block';
 import './datepicker';
 import './dimmer';
 import './dropdown';
+import './breadcrumbs';
 import './modal';
 import './permissions';
 import './placeholder';

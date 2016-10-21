@@ -20,6 +20,7 @@ import '../../src/ui/block/docs';
 import '../../src/ui/tooltip/docs';
 import '../../src/ui/permissions/docs';
 import '../../src/ui/dropdown/docs';
+import '../../src/ui/breadcrumbs/docs';
 
 demo.controller('PageController', () => {
   // no op
@@ -70,5 +71,5 @@ $(document).ready( () => {
 demo.config($locationProvider => $locationProvider.html5Mode({enabled: true, requireBase: false}));
 
 demo.run($httpBackend => {
-  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({});
+  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({'logMessage': 'OK'});
 });
