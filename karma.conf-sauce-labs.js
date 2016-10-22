@@ -87,7 +87,7 @@ module.exports = function(config) {
   config.set({
     basePath: 'src',
 
-    files: [{ pattern: 'specs.js', watched: false }],
+    files: ['specs.js'],
 
     // files to exclude
     exclude: [
@@ -96,8 +96,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'specs.js': ['webpack'],
-      '*-specs2.js': ['webpack']
+      'specs.js': ['webpack', 'sourcemap']
     },
 
     webpack: wpConfig,
@@ -114,7 +113,7 @@ module.exports = function(config) {
         children: false,
         source: false,
         errors: true,
-        errorDetails: true,
+        errorDetails: false,
         warnings: false,
         publicPath: false
       }
@@ -154,7 +153,6 @@ module.exports = function(config) {
       require('karma-coverage'),
       require('karma-sinon'),
       require('karma-spec-reporter'),
-      require('karma-phantomjs-launcher'),
       require('karma-webpack-error-reporter'),
       require('karma-sourcemap-loader'),
       require('karma-webpack')
