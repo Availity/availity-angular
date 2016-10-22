@@ -1,4 +1,5 @@
 import angular from 'angular';
+import _ from 'lodash';
 
 import ngModule from '../module';
 import '../templates';
@@ -32,12 +33,16 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
     }
 
     buildOptions(userOptions) {
+
       const options = angular.extend({}, AV_MODAL.OPTIONS, userOptions);
 
       options.scope = options.scope || $rootScope.$new();
 
       if (options.controller) {
+
         const locals = angular.extend({ $scope: options.scope }, options.locals);
+
+        debugger;
 
         const controller = $controller(options.controller, locals);
 
@@ -83,9 +88,14 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
       this.$element.modal({
         'backdrop': this.options.backdrop,
         'keyboard': this.options.keyboard,
-        'show': this.options.show,
+        'show': false,
         'remote': this.options.remote
       });
+
+      if (_.isUndefined(this.options.show) || this.options.show) {
+        this.$element.modal('show');
+      }
+
     }
 
       // Add helpers to scope so clients can call internal methods

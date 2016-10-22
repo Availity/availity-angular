@@ -175,4 +175,57 @@ describe('AvModal', () => {
 
   });
 
+  it('should instantiate a controller if specified', () =>{
+
+    modal = new AvModal({
+      template,
+      scope: tester.$scope,
+      controller: tester.spy
+    });
+
+    expect(tester.spy).toHaveBeenCalled();
+
+  });
+
+  it('should attach controller to scope if controllerAs is specified', () => {
+
+    const controllerInstance = {};
+    tester.spy.and.returnValue(controllerInstance);
+
+    modal = new AvModal({
+      template,
+      scope: tester.$scope,
+      controller: tester.spy,
+      controllerAs: 'vm'
+    });
+
+    expect(tester.$scope.vm).toBe(controllerInstance);
+  });
+
+  it('should make locals available to be injected into the controller', () => {
+
+    let controllerCalled = false;
+    const expectedInjectedLocal = {};
+
+    function MyController(localInjectedValue) {
+
+      expect(localInjectedValue).toBe(expectedInjectedLocal);
+      controllerCalled = true;
+    }
+
+    modal = new AvModal({
+      template,
+      scope: tester.$scope,
+      controller: MyController,
+      locals: {
+        localInjectedValue: expectedInjectedLocal
+      }
+    });
+
+      // Ensure the expect statement inside MyController was hit
+    expect(controllerCalled).toBe(true);
+
+  });
+
+
 });

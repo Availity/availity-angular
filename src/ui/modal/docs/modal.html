@@ -11,7 +11,7 @@ title: Modals
   </div>
 
   <h3 class="docs-subsection-title">Optional Sizes</h3>
-  <div class="docs-example">
+  <div class="docs-example" ng-non-bindable>
     <button class="btn btn-default" data-ng-click="vm.modalOpenLarge()">
       Large Modal
     </button>
@@ -22,10 +22,34 @@ title: Modals
   </div>
 
   <h3 class="docs-subsection-title">Modal Manager</h3>
-  <div class="docs-example">
+  <div class="docs-example" ng-non-bindable>
     <button class="btn btn-default" data-ng-click="vm.routeChange()">
       Route Change
     </button>
   </div>
+
+  <h3 class="docs-subsection-title">Modal Manager</h3>
+  <div class="docs-example" ng-non-bindable>
+    <button class="btn btn-default" data-ng-click="vm.routeChange()">
+      Route Change
+    </button>
+  </div>
+
+  <h3 class="docs-subsection-title">Modal With Controller</h3>
+  <div class="docs-example">
+    <button class="btn btn-default btn-sm" data-ng-click="vm.openWithController()">
+      Modal With Dedicated Controller
+    </button>
+  </div>
+  <code class="language-javascript" ng-non-bindable>
+  AvModal.create({
+    show: true,
+    controller: 'SomeController',
+    controllerAs: 'vm',
+    locals: {
+      someValue: 'This is a value passed in using locals, it could be params passed from the external scope required by the modal.'
+    }
+  });
+  </code>
 
 </div>

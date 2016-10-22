@@ -8,6 +8,9 @@ ngModule.constant('AV_MODAL', {
     template: null,
     id: null,
     container: null,
+    controller: null,
+    controllerAs: null,
+    locals: null,
 
     // Bootstrap defaults
     keyboard: true,
