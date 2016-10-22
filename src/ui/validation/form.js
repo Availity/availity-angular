@@ -56,7 +56,7 @@ ngModule.directive('avValForm', ($log, $timeout, $parse, AV_VAL, avValAdapter, $
         rulesSchema = rulesSchema || iAttrs.avValForm; // interpolated rule from scope || fixed string
 
         if (!rulesSchema) {
-          $log.error('avValForm requires a rules schema in order to run the proper set of validation rules');
+          $log.error('avValForm requires a rules schema in order to run a set of validation rules');
           return;
         }
 
