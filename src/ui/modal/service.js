@@ -41,9 +41,6 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
       if (options.controller) {
 
         const locals = angular.extend({ $scope: options.scope }, options.locals);
-
-        debugger;
-
         const controller = $controller(options.controller, locals);
 
         if (options.controllerAs) {
