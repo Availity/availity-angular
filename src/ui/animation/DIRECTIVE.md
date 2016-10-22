@@ -1,13 +1,13 @@
 ### avAnimate
 
-The avAnimate directive `av-animate` will handle basic animations within your application and can have those animations triggered by different events. and can be defined as an attribute or element.
+The `av-animate` directive can handle basic animations can be defined as an attribute or element. The animations can be triggered by different events.
 
 ```html
      <span av-animate>...</span>
      <av-animate>...</av-animate>
 ```
 
-There are multiple ways to customize this directive, to change when and how it animates.
+.
 
 * **av-animate** - when this attribute equals a variable, it will be watched and the animation will trigger whenever that variable changes.
 * **av-animate-type** - Use this to customize which velocity animation is used, it defaults to 'transition.bounceIn'
