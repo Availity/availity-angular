@@ -66,9 +66,7 @@ class AvDatepickerController extends Base {
     const parsed = moment(viewValue, this.options.format, true);
 
     if (parsed.isValid()) {
-      // jscs: disable
       return plugin._utc_to_local(parsed.utc().toDate());
-      // jscs: enable
     }
   }
 
