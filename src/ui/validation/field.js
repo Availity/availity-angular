@@ -63,7 +63,8 @@ class AvValFieldController extends Base {
       constraints = {};
     }
 
-    Object.keys(constraints).forEach((constraintName) => {
+
+    Object.keys(constraints).forEach(constraintName => {
       const constraint = constraints[constraintName];
       if (!constraint) {
 
@@ -126,6 +127,17 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       const avValForm = controllers[0];
       const ngModel = controllers[1];
       const avValField = controllers[2];
+
+      const avValOn = scope.avValOn || avValForm.avValOn || 'default';
+      const avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+      const avValInvalid = attrs.avValInvalid || avValForm.avValInvalid || false;
+
+      ngModel.$$setOptions({
+        updateOnDefault: true,
+        updateOn: avValOn,
+        allowInvalid: avValInvalid,
+        debounce: avValDebounce
+      });
 
       // Wrap $$runValidators with our own function so we can intercept when the validation
       // pipeline finishes.
