@@ -1,30 +1,19 @@
 ## Dimmer
 
-avDimmer is a directive that displays a message or effect over an element.
+`avDimmer` is a directive that displays a message or effect over an element. `avDimmer` checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.
 
 ### Usage
-
-Have the 'availity.ui' module in your application
 
 ```javascript
 angular.module('app', ['availity.ui']);
 ```
 
-### avDimmerConfig
+### Configuration
 
-The avDimmer directive checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.
-
-By default, the directive will use:
-
-* A child element with the css class `.dimmer-content`
-* The velocity animations `fadeIn` and `fadeOut`
-* The velocity options of `{ duration: 250 }`
-* Calling the show behavior on `mouseenter`
-* Calling the hide behavior on `mouseleave`
-
-The overall structure of this is:
+`avDimmerConfigProvider` can be used to globally set values for all `avDimmer` instances.  Directive overrides are allow passing the configuration to attribute `av-dimmer-config`.
 
 ```javascript
+
   {
     animationConfig: {
       duration: 250
@@ -37,9 +26,7 @@ The overall structure of this is:
   }
 ```
 
-using the provider avDimmerConfig, you can ovverride each of these values globally, or in the directive, use `av-dimmer-config` to pass in the object for that instance.
-
-### avDimmer
+### Directive
 
 The directive `av-dimmer` can be used as an element or an attribute
 
