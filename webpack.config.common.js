@@ -73,7 +73,6 @@ const config = {
         loader: 'url?limit=32768?name=images/[name].[ext]'
       },
       {
-        // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
         test: /tests.*\.html$/,
         loader: 'html'
       },
