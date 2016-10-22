@@ -1,6 +1,6 @@
 ### avAnimate
 
-The avAnimate directive `av-animate` will handle basic animations within your apps, and can have those animations triggered by different events. and can be defined as an attribute or element.
+The avAnimate directive `av-animate` will handle basic animations within your application and can have those animations triggered by different events. and can be defined as an attribute or element.
 
 ```html
      <span av-animate>...</span>

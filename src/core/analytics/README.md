@@ -2,9 +2,9 @@
 
 Analytics is a way for you to track how users interact with your data. 
 
-### Adding the Analytics Module
+### Configuration
 
-Initialize the `availity.config` module in your app application. 
+Initialize the `availity.config` module in your application. 
 
 ```javascript
 angular.module('app', ['availity.config']);
@@ -12,12 +12,11 @@ angular.module('app', ['availity.config']);
 
 ### Virtual Page Tracking
 
-Virtual page tracking is enabled by default, to enable virtual page tracking you will need to set to call `avPiwikAnalyticsProvider.virtualPageTracking()` or `avSplunkAnalyticsProvider.virtualPageTracking()` and pass in true. Once this is enabled all page visits will be tracked.
-</div>
+Virtual page tracking is enabled by default.  Virtual page can be disabled using `avAnalyticsConfigProvider`.
 
 ```javascript
-app.config( ($scope, avPiwikAnalyticsProvider) => {
-    avPiwikAnalyticsProvider.setVirtualPageTracking(true);
+app.config( ($scope, avAnalyticsConfigProvider) => {
+    avAnalyticsConfigProvider.setVirtualPageTracking(true);
 });
 ```
 
@@ -25,20 +24,22 @@ app.config( ($scope, avPiwikAnalyticsProvider) => {
 
 > The following descriptions were copied from [http://www.statstory.com/](http://www.statstory.com/tracking-events-in-google-analytics/)
 
-* **category** - This is the name you want to give for the collection where actions you want to track will occur. An example of category could be Video’s or Datasheets.
+* **category** - This is the name you want to give for the collection where actions you want to track will occur. An example of category could be Video’s or Datasheets.  Categories are useful for grouping events in analytics reports.
 * **label** - This is an optional string which can be valuable in adding a dimension to the event data. Usually I use it to differentiate content. For example, if you want to know which specific video is played or which datasheet is downloaded.
 * **action** - This is a string which is paired with each category, and most often is used to describe the user interaction with your content. An example could be play, click or download.
-* **value** - This is a number, which you can use to provide a numerical dimension to a user action. Normally, I leave this blank unless I have an ecommerce reason. For example if you have a form, where a user can fill in a price or quantity, you can pass this value via an event.
+* **value** - This is a number, which you can use to provide a numerical dimension to a user action. Normally, I leave this blank unless I have an e-commerce reason. For example if you have a form, where a user can fill in a price or quantity, you can pass this value via an event.
 
 ### Event Tracking
 
-To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. The example below will demonstrate how to use the directive. When applying analytics with Piwik you should include the `av-analytics-on` directive on the element you want to track, this will pull the inner text of the element and set it as a label. Optionally if no inner text exists, include the `av-analytics-label` attribute on the element . There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
+To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. When applying analytics  you should include the `av-analytics-on` directive on the element you want to track, this will pull the inner text of the element and set it as a label. Optionally if no inner text exists, include the `av-analytics-label` attribute on the element . There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
 
 * **av-analytics** - required for tracking analytics, you can set your category on this directive
 * **av-analytics-on** - required for tracking analytics, defaults to `click`
 * **av-analytics-label** - required for Piwik
 * **av-analytics-action** - optional for Piwik
 * **av-analytics-value** - optional for Piwik - numeric only
+
+The example below will demonstrate how to use the directive. 
 
 ```html
 <div av-analytics="{'category': 'Category One'}">
@@ -52,10 +53,12 @@ To add event tracking to an element on the page you will need to use the `av-ana
 </div>
 ```
 
+### Plugins
+
 To register a new analytic service you would call `analyticsProvider.registerPlugins()` passing in a array of services you want to register.
 
 ```javascript
-app.config( (avAnalyticsProvider) => {
+app.config( avAnalyticsProvider => {
     avAnalyticsProvider.registerPlugins([
       'test1AnalyticService',
       'test2AnalyticService'
@@ -67,15 +70,7 @@ app.config( (avAnalyticsProvider) => {
 
 The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://github.com/csnover/TraceKit) for consistent metrics on stack traces occurring across all browsers.
 
-Open debugger to see `exceptionHandler` send a message to `api/v1/log-messages` with normalized error message information along with the stack trace.
-
-```html
-<p>
-    <button data-ng-click="analytics.createError()" class="btn btn-danger">
-    Create Error
-    </button>
-</p>
-```
+Below is an example of an an error event when captured through the exception handler.
 
 ```javascript
 // sample payload
