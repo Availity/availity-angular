@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.3 (10/24/2016)
+ * availity-angular v2.0.0-beta.4 (10/24/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.2 (10/24/2016)
+ * availity-angular v2.0.0-beta.3 (10/24/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -5968,7 +5968,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.2")
+	          sdkVersion: ("2.0.0-beta.3")
 	        };
 	
 	        return this.log(message);
@@ -6481,7 +6481,7 @@ return webpackJsonpavaility_angular([1,0],[
 	      _classCallCheck(this, AvUsersResource);
 	
 	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/sdk/platform',
+	        path: '/api/sdk/platform',
 	        name: '/users'
 	      }));
 	    }
