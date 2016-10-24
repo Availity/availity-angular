@@ -14,7 +14,7 @@
     "test:debug": "karma start ./karma.conf-debug.js",
     "test:ci": "npm run lint && karma start ./karma.conf-sauce-labs.js",
     "test:coverage": "karma start ./karma.conf-coverage.js",
-    "release": "node cli.js release",
+    "release": "npm run build:lib && node cli.js release",
     "prepublish": "in-publish && npm run build || true",
     "lint": "node cli.js lint",
     "book:prepare": "gitbook install",
