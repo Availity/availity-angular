@@ -70,5 +70,13 @@ describe('avExceptionAnalyticsProvider', () => {
 
     });
 
+    it('should not track rapid exceptions more than once', function() {
+      $exceptionHandler(exception);
+      $exceptionHandler(exception);
+      expect(service.trackEvent.calls.count()).toEqual(2);
+      expect(service.onError.calls.count()).toEqual(1);
+      expect(service.log.calls.count()).toEqual(1);
+    });
+
   });
 });
