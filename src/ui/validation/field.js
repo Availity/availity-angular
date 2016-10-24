@@ -77,7 +77,7 @@ class AvValFieldController extends Base {
       const validator = self.av.avVal.getService(constraintName);
 
       if (angular.isUndefined(validator)) {
-        self.vm.$log.warn(`No validator defined for ${constraintName}`);
+        self.av.$log.warn(`No validator defined for ${constraintName}`);
         return;
       }
 
@@ -101,6 +101,13 @@ class AvValFieldController extends Base {
 
     });
 
+  }
+
+  reset() {
+    this.ngModel.$setPristine();
+    this.ngModel.$setUntouched();
+    this.ngModel.$error = {};
+    this.av.avValAdapter.reset(this.av.$element);
   }
 
   onRunValidators() {
@@ -176,7 +183,7 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       // - Removes all errors on page,
       // - does not reset view or model values.  This should to be handled by the application.
       scope.$on(AV_VAL.EVENTS.RESET, () => {
-        // avValField.reset();
+        avValField.reset();
       });
 
     }

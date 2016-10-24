@@ -6,13 +6,14 @@ import './field';
 
 class AvValController {
 
-  constructor() {
+  constructor($scope) {
 
     this.ngForm = null;
     this.rulesSchema = null;
     this.avValOn = null;
     this.avValDebounce = null;
     this.avValInvalid = false;
+    this.di = {$scope};
 
   }
 
@@ -22,6 +23,7 @@ class AvValController {
 
   reset() {
     this.ngForm.$setPristine();
+    this.ngForm.$setUntouched();
     this.ngForm.$submitted = false;
   }
 

@@ -7,6 +7,7 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
   return {
     restrict: 'A',
     require: ['ngModel', 'avDatepicker'],
+    priority: 1,
     controller: 'AvDatepickerController',
     link(scope, element, attrs, controllers) {
 
@@ -24,11 +25,21 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
       avDatepicker.init();
       avDatepicker.setNgModel(ngModel);
 
+      // Datepicker plugin triggers a change event on load that will read in
+      // the input value and update the Angular model shortly after.  In order
+      // to preserve model values on load, we read the model in from scope and
+      // set the input value with jQuery
+      const value = scope.$eval(attrs.ngModel);
+      if (value) {
+        const viewValue = avDatepicker.modelToView(value);
+        element.val(viewValue);
+      }
+
       ngModel.$parsers.push(::avDatepicker.viewToModel);
       ngModel.$formatters.push(::avDatepicker.modelToView);
 
       const _$render = ngModel.$render;
-      ngModel.$render = () => {
+      ngModel.$render = function() {
         _$render();
         avDatepicker.setValue();
       };
@@ -65,3 +76,5 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
     }
   };
 });
+
+export default ngModule;

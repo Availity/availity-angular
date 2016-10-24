@@ -1,19 +1,19 @@
 <ul class="breadcrumb breadcrumb-space">
   <li>
     <a href="/public/apps/dashboard" target="newBody"
-      data-av-analytics-on="click"
-      data-av-analytics-action="click"
-      data-av-analytics-label="home"
-      data-av-analytics-category="home breadcrumb">
+      av-analytics-on="click"
+      av-analytics-action="click"
+      av-analytics-label="home"
+      av-analytics-category="home breadcrumb">
       Home
     </a>
   </li>
   <li ng-if="spaceName">
     <a href="/public/apps/spaces/#/{{spaceId}}"
-      data-av-analytics-on="click"
-      data-av-analytics-action="click"
-      data-av-analytics-label="{{spaceId}}"
-      data-av-analytics-category="page breadcrumb">{{spaceName}}</a>
+      av-analytics-on="click"
+      av-analytics-action="click"
+      av-analytics-label="{{spaceId}}"
+      av-analytics-category="page breadcrumb">{{spaceName}}</a>
   </li>
   <li class="active">
     {{pageName}}

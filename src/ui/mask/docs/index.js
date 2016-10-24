@@ -1,7 +1,7 @@
 import demo from 'demo';
 import 'angular-ui-mask';
 
-import '../constants';
+import '../';
 
 demo.service('demoMaskService', () => {
 
@@ -15,7 +15,6 @@ demo.service('demoMaskService', () => {
 });
 
 demo.controller('DemoMaskController', ($scope, demoMaskService, AV_MASK) => {
-
   $scope.vm = demoMaskService;
   $scope.mask = AV_MASK;
 });

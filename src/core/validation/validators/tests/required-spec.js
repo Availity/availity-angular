@@ -5,6 +5,7 @@ import angular from 'angular';
 import '../required';
 
 describe('avValRequired', () => {
+
   let required;
 
   beforeEach(angular.mock.module('availity'));
@@ -14,13 +15,13 @@ describe('avValRequired', () => {
   }));
 
   it('should be a valid', () => {
-    expect(required.validate('test')).toBe(true);
+    expect(required.validate({value: 'test'})).toBe(true);
 
   });
 
   it('should Not be a valid', () => {
-    expect(required.validate('')).toBe(false);
-    expect(required.validate(undefined)).toBe(false);
+    expect(required.validate({value: ''})).toBe(false);
+    expect(required.validate({value: undefined})).toBe(false);
 
   });
 });

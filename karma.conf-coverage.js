@@ -77,7 +77,7 @@ module.exports = function(config) {
         children: false,
         source: false,
         errors: true,
-        errorDetails: true,
+        errorDetails: false,
         warnings: false,
         publicPath: false
       }
@@ -115,6 +115,8 @@ module.exports = function(config) {
       require('karma-coverage'),
       require('karma-sinon'),
       require('karma-notify-reporter'),
+      require('karma-webpack-error-reporter'),
+      require('karma-sourcemap-loader'),
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-webpack')

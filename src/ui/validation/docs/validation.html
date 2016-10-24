@@ -160,7 +160,7 @@ title: Validation
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="submit" class="btn btn-primary" ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
     <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules</button>
-    <button type="button" class="btn btn-default" ng-click="vm.reset($scope)">Reset</button>
+    <button type="button" class="btn btn-default" ng-click="vm.reset(this)">Reset</button>
   </form>
 </div>
 

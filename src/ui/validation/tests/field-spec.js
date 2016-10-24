@@ -1,144 +1,162 @@
-/* global availity, angular, inject, describe, it, beforeEach, expect, module*/
+/* global describe, it, beforeEach, expect, module*/
 
 import $ from 'jquery';
+import angular from 'angular';
+import Tester from 'tester';
 
-describe('avValField', function() {
+import template from './field.html';
+import '../../datepicker';
 
-  beforeEach(function() {
-    module('availity', 'availity.ui', 'availity.ui.templates', function(avValProvider) {
+describe('avValField', () => {
+
+  const tester = new Tester();
+  let DEBOUNCE;
+
+  beforeEach( () => {
+    angular.mock.module('availity', 'availity.ui', (avValProvider, AV_VAL) => {
+
       avValProvider.addRules({
-        'default': {
-          'lastName': {
-            'size': {
-              'min': 2,
-              'max': 10,
-              'message': 'Last name must be between 2 and 10 characters.'
+        default: {
+          lastName: {
+            size: {
+              min: 2,
+              max: 10,
+              message: 'Last name must be between 2 and 10 characters.'
             },
-            'required': {
-              'message': 'Last name is required.'
+            required: {
+              message: 'Last name is required.'
             }
           },
-          'zip': {
-            'required': {
-              'message': 'Zip is required.'
+          zip: {
+            required: {
+              message: 'Zip is required.'
             }
           },
-          'dateFormat': {
-            'format': 'MM/DD/YYYY',
-            'message': 'Format needs to be MM/DD/YYYY'
+          dateFormat: {
+            format: 'MM/DD/YYYY',
+            message: 'Format needs to be MM/DD/YYYY'
           }
         }
       });
+
+      DEBOUNCE = AV_VAL.DEBOUNCE + 100;
+
     });
   });
 
-  availity.mock.directiveSpecHelper();
+  tester.directive();
 
   let $el;
 
-  beforeEach(function() {
+  beforeEach( () => {
 
-    availity.mock.$scope.demo = {};
-    availity.mock.$scope.demo.rules = 'default';
+    tester.$scope.demo = {};
+    tester.$scope.demo.rules = 'default';
+    $el = tester.compileDirective(template);
 
   });
 
-  beforeEach(inject(function(_$templateCache_) {
+  it('should be valid and model should updated with new value', () => {
+    tester.$scope.mockForm.lastName.$setViewValue('lastName');
 
-    const $templateCache = _$templateCache_;
-    const template = $templateCache.get('ui/validation/tests/field-fixture.html');
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
 
-    $el = availity.mock.compileDirective(template);
-
-  }));
-
-  it('should be valid and model should updated with new value', function() {
-    availity.mock.$scope.myForm.lastName.$setViewValue('lastName');
-    availity.mock.$scope.$digest();
-
-    expect(availity.mock.$scope.myForm.lastName.$invalid).toBe(false);
-    expect(availity.mock.$scope.demo.lastName).toBe('lastName');
+    expect(tester.$scope.mockForm.lastName.$invalid).toBe(false);
+    expect(tester.$scope.demo.lastName).toBe('lastName');
   });
 
-  it('should NOT be valid and model should NOT be updated', function() {
-    availity.mock.$scope.myForm.lastName.$setViewValue('1');
-    availity.mock.$scope.$digest();
+  it('should NOT be valid and model should NOT be updated', () => {
+    tester.$scope.mockForm.lastName.$setViewValue('1');
 
-    expect(availity.mock.$scope.myForm.lastName.$invalid).toBe(true);
-    expect(availity.mock.$scope.demo.lastName).toBeUndefined();
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
+
+    expect(tester.$scope.mockForm.lastName.$invalid).toBe(true);
+    expect(tester.$scope.demo.lastName).toBeUndefined();
   });
 
-  it('should NOT be valid and model should be updated', function() {
-    availity.mock.$scope.myForm.invalidAllowed.$setViewValue('1');
-    availity.mock.$scope.$digest();
+  it('should NOT be valid and model should be updated', () => {
 
-    expect(availity.mock.$scope.myForm.invalidAllowed.$invalid).toBe(true);
-    expect(availity.mock.$scope.demo.invalidAllowed).toBe('1');
+    tester.$scope.mockForm.invalidAllowed.$setViewValue('1');
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
+
+    expect(tester.$scope.mockForm.invalidAllowed.$invalid).toBe(true);
+    expect(tester.$scope.demo.invalidAllowed).toBe('1');
   });
 
-  it('should have .has-error class on form group when options.show === true', function() {
-    availity.mock.$scope.myForm.showOnLoad.$setViewValue('1');
-    availity.mock.$scope.$digest();
+  it('should have .has-error class on form group when options.show === true', () => {
+    tester.$scope.mockForm.showOnLoad.$setViewValue('1');
+
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
 
     const formGroup = $('#showOnLoadFormGroup');
-    expect(availity.mock.$scope.myForm.invalidAllowed.$invalid).toBe(true);
+    expect(tester.$scope.mockForm.invalidAllowed.$invalid).toBe(true);
     expect(formGroup.hasClass('has-error')).toBeTruthy();
   });
 
-  it('should have .has-error class on form-group', function() {
-    availity.mock.$scope.myForm.lastName.$setViewValue('1');
-    availity.mock.$scope.$digest();
+  it('should have .has-error class on form-group', () => {
+    tester.$scope.mockForm.lastName.$setViewValue('1');
+
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
 
     const formGroup = $('#lastNameFormGroup');
-    expect(availity.mock.$scope.myForm.lastName.$invalid).toBe(true);
+    expect(tester.$scope.mockForm.lastName.$invalid).toBe(true);
     expect(formGroup.hasClass('has-error')).toBeTruthy();
   });
 
-  describe('events', function() {
+  describe('events', () => {
 
-    it('should validate on blur', function() {
-      availity.mock.$scope.demo.zip = null;
+    it('should validate on blur', () => {
+      tester.$scope.demo.zip = null;
 
       $el.find('[name="zip"]').blur();
-      availity.mock.$scope.$digest();
-      availity.mock.flush();
-      expect(availity.mock.$scope.myForm.zip.$invalid).toBe(true);
+      tester.flush(DEBOUNCE);
+      tester.$scope.$digest();
+      expect(tester.$scope.mockForm.zip.$invalid).toBe(true);
     });
 
-    it('should reset form', function() {
-      availity.mock.$scope.myForm.lastName.$setViewValue('1');
-      availity.mock.$scope.$digest();
-      availity.mock.$scope.$broadcast('av:val:reset');
+    it('should reset form', () => {
+      tester.$scope.mockForm.lastName.$setViewValue('1');
+      tester.flush(DEBOUNCE);
+      tester.$scope.$digest();
+      tester.$scope.$broadcast('av:val:reset');
 
-      availity.mock.$scope.$digest();
-      availity.mock.flush();
+      tester.$scope.$digest();
+      tester.flush(DEBOUNCE);
       const formGroup = $('#lastNameFormGroup');
 
-      expect(availity.mock.$scope.myForm.lastName.$invalid).toBe(true);
+      expect(tester.$scope.mockForm.lastName.$invalid).toBe(true);
       expect(formGroup.hasClass('has-error')).toBeFalsy();
     });
 
   });
 
-  describe('with avDatePicker', function() {
+  describe('with avDatePicker', () => {
 
-    it('should validate model using default format', function() {
-      availity.mock.$scope.demo.date = new Date(1986, 0, 22);
-      availity.mock.$scope.$digest();
+    it('should validate model using default format', () => {
+      tester.$scope.demo.date = new Date(1986, 0, 22);
 
-      expect(availity.mock.$scope.myForm.date.$invalid).toBe(false);
-      expect(availity.mock.$scope.myForm.date.$viewValue).toBe('01/22/1986');
+      tester.flush(DEBOUNCE);
+      tester.$scope.$digest();
+
+      expect(tester.$scope.mockForm.date.$invalid).toBe(false);
+      expect(tester.$scope.mockForm.date.$viewValue).toBe('01/22/1986');
     });
 
-    it('should validate ISO 8601 string date model using default format', function() {
-      availity.mock.$scope.demo.date = '2014-12-31T23:00:00Z';
+    it('should validate ISO 8601 string date model using default format', () => {
+      tester.$scope.demo.date = '2014-12-31T23:00:00Z';
 
       /* eslint new-cap: 0*/
       angular.mock.TzDate(+1, '2014-12-31T23:00:00Z');
-      availity.mock.$scope.$digest();
+      tester.flush(DEBOUNCE);
+      tester.$scope.$digest();
 
-      expect(availity.mock.$scope.myForm.date.$invalid).toBe(false);
-      expect(availity.mock.$scope.myForm.date.$viewValue).toBe('12/31/2014');
+      expect(tester.$scope.mockForm.date.$invalid).toBe(false);
+      expect(tester.$scope.mockForm.date.$viewValue).toBe('12/31/2014');
     });
 
   });

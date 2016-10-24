@@ -1,23 +1,28 @@
-/* global inject, describe, availity, it, expect, beforeEach, module */
+/* global describe, it, expect, beforeEach, module */
 
-describe('avHasPermission', function() {
+import angular from 'angular';
+import Tester from 'tester';
+
+import '../';
+
+describe('avHasPermission', () => {
+
+  const tester = new Tester();
 
   let $el;
 
-  beforeEach(function() {
-    module('availity', 'availity.ui');
+  beforeEach( () => {
+    angular.mock.module('availity', 'availity.ui');
   });
-
-  availity.mock.directiveSpecHelper();
 
   const FIXTURES = {
     MARKUP: {
-      VALID: '<div ng-cloak data-av-has-permission="1000"></button>',
-      INVALID: '<div ng-cloak data-av-has-permission="2000"></button>'
+      VALID: '<div ng-cloak data-av-hide-permission="1000"></button>',
+      INVALID: '<div ng-cloak data-av-hide-permission="2000"></button>'
     },
     REQUESTS: {
-      VALID: '/api/internal/v1/axi-user-permissions?permissionId=1000',
-      INVALID: '/api/internal/v1/axi-user-permissions?permissionId=2000'
+      VALID: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=1000.*&sessionBust=.*/,
+      INVALID: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=2000.*&sessionBust=.*/
     },
     RESPONSE: {
       'axiUserPermissions': [
@@ -37,25 +42,26 @@ describe('avHasPermission', function() {
     }
   };
 
-  beforeEach(inject(function(_$httpBackend_, _avUserAuthorizations_, avUserPermissionsResource) {
-    availity.mock.$scope.demo = {};
-    availity.mock.$scope.demo.permissions = ['1000'];
-    avUserPermissionsResource.sessionDate = null; // clear session date for tests
-  }));
+  tester.directive();
 
-  it('should show content with VALID permission ', function() {
-    availity.mock.$httpBackend.expectGET(FIXTURES.REQUESTS.VALID).respond(200, FIXTURES.RESPONSE);
-    $el = availity.mock.compileDirective(FIXTURES.MARKUP.VALID);
-    availity.mock.$scope.$digest();
-    availity.mock.$httpBackend.flush();
+  beforeEach( () => {
+    tester.$scope.demo = {};
+    tester.$scope.demo.permissions = ['1000'];
+  });
+
+  it('should show content with VALID permission ', () => {
+    tester.$httpBackend.expectGET(FIXTURES.REQUESTS.VALID).respond(200, FIXTURES.RESPONSE);
+    $el = tester.compileDirective(FIXTURES.MARKUP.VALID);
+    tester.$scope.$digest();
+    tester.$httpBackend.flush();
     expect($el.is(':visible')).toBe(true);
   });
 
-  it('should NOT show content with INVALID permission ', function() {
-    availity.mock.$httpBackend.expectGET(FIXTURES.REQUESTS.INVALID).respond(200, FIXTURES.RESPONSE);
-    $el = availity.mock.compileDirective(FIXTURES.MARKUP.INVALID);
-    availity.mock.$scope.$digest();
-    availity.mock.$httpBackend.flush();
+  it('should NOT show content with INVALID permission ', () => {
+    tester.$httpBackend.expectGET(FIXTURES.REQUESTS.INVALID).respond(200, FIXTURES.RESPONSE);
+    $el = tester.compileDirective(FIXTURES.MARKUP.INVALID);
+    tester.$scope.$digest();
+    tester.$httpBackend.flush();
     expect($el.is(':visible')).toBe(false);
   });
 
