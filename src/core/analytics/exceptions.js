@@ -11,7 +11,8 @@ ngModule.constant('AV_EXCEPTIONS', {
   },
   TYPES: {
     EXCEPTION: 'exception'
-  }
+  },
+  REPEAT_LIMIT_TIME: 5000
 });
 
 class AvExceptionAnalyticsProvider {
@@ -51,6 +52,7 @@ class AvExceptionAnalyticsProvider {
           self.onError(stacktrace);
         });
 
+        this.messageTimestampMap = {};
       }
 
       prettyPrint(stacktrace) {
@@ -113,10 +115,30 @@ class AvExceptionAnalyticsProvider {
           return null;
         }
 
+        // If we've already logged this error recently, don't log it again (no need to spam the API)
+        if (this._isRepeatError(exception)) {
+          return;
+        }
+
         const stacktrace = TraceKit.computeStackTrace(exception);
 
         return this.onError(stacktrace);
 
+      }
+
+      // Check to see if this error was reported within the last 5 seconds
+      _isRepeatError(exception) {
+        const timestamp = moment();
+        const message = exception.message;
+        const lastTimestamp = this.messageTimestampMap[message];
+        let isRepeat = false;
+
+        if (lastTimestamp && timestamp.diff(lastTimestamp) < AV_EXCEPTIONS.REPEAT_LIMIT_TIME) {
+          isRepeat = true;
+        }
+
+        this.messageTimestampMap[message] = timestamp;
+        return isRepeat;
       }
 
     }
