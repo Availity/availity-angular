@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "main": "lib/index.js",
   "scripts": {
     "start": "NODE_ENV=development node cli.js start",
