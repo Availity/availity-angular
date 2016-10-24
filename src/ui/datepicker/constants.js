@@ -6,37 +6,42 @@ ngModule.constant('AV_DATEPICKER', {
   ADD_ON_SELECTOR: '[data-toggle="datepicker"]',
   OPTIONS: [
     'autoclose',
+    'assumeNearbyYear',
+    'beforeShowCentury',
     'beforeShowDay',
+    'beforeShowDecade',
     'beforeShowMonth',
+    'beforeShowYear',
     'calendarWeeks',
     'clearBtn',
-    'toggleActive',
     'container',
-    'daysOfWeekDisabled',
     'datesDisabled',
+    'daysOfWeekDisabled',
     'defaultViewDate',
+    'disableTouchKeyboard',
+    'enableOnReadonly',
     'endDate',
     'forceParse',
     'format',
+    'immediateUpdates',
     'inputs',
     'keyboardNavigation',
     'language',
+    'maxViewMode',
     'minViewMode',
+    'modelFormat',
     'multidate',
     'multidateSeparator',
     'orientation',
+    'showOnFocus',
     'startDate',
     'startView',
+    'title',
     'todayBtn',
     'todayHighlight',
+    'toggleActive',
     'weekStart',
-    'showOnFocus',
-    'disableTouchKeyboard',
-    'enableOnReadonly',
-    'modelFormat'
-  ],
-  DEFAULTS: {
-    MODELFORMAT: 'YYYY-MM-DD'
-  }
+    'zIndexOffset'
+  ]
 });
 

@@ -6,6 +6,7 @@ import './datepicker';
 import './dimmer';
 import './dropdown';
 import './mask';
+import './permissions';
 import './breadcrumbs';
 import './modal';
 import './permissions';

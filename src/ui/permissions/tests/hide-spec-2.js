@@ -1,7 +1,9 @@
-/* global inject, describe, it, expect, beforeEach, module */
+/* global describe, it, expect, beforeEach, module */
 
 import angular from 'angular';
 import Tester from 'tester';
+
+import '../';
 
 describe('avHasPermission', () => {
 
@@ -15,12 +17,12 @@ describe('avHasPermission', () => {
 
   const FIXTURES = {
     MARKUP: {
-      VALID: '<div ng-cloak data-av-has-permission="1000"></button>',
-      INVALID: '<div ng-cloak data-av-has-permission="2000"></button>'
+      VALID: '<div ng-cloak data-av-hide-permission="1000"></button>',
+      INVALID: '<div ng-cloak data-av-hide-permission="2000"></button>'
     },
     REQUESTS: {
-      VALID: '/api/internal/v1/axi-user-permissions?permissionId=1000',
-      INVALID: '/api/internal/v1/axi-user-permissions?permissionId=2000'
+      VALID: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=1000.*&sessionBust=.*/,
+      INVALID: /\/api\/internal\/v1\/axi-user-permissions\?permissionId=2000.*&sessionBust=.*/
     },
     RESPONSE: {
       'axiUserPermissions': [
@@ -42,11 +44,10 @@ describe('avHasPermission', () => {
 
   tester.directive();
 
-  beforeEach(inject( (_$httpBackend_, _avUserAuthorizations_, avUserPermissionsResource) => {
+  beforeEach( () => {
     tester.$scope.demo = {};
     tester.$scope.demo.permissions = ['1000'];
-    avUserPermissionsResource.sessionDate = null; // clear session date for tests
-  }));
+  });
 
   it('should show content with VALID permission ', () => {
     tester.$httpBackend.expectGET(FIXTURES.REQUESTS.VALID).respond(200, FIXTURES.RESPONSE);

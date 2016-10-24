@@ -183,7 +183,6 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       // - Removes all errors on page,
       // - does not reset view or model values.  This should to be handled by the application.
       scope.$on(AV_VAL.EVENTS.RESET, () => {
-        debugger;
         avValField.reset();
       });
 

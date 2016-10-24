@@ -5,6 +5,7 @@ import angular from 'angular';
 import Tester from 'tester';
 
 import template from './field.html';
+import '../../datepicker';
 
 describe('avValField', () => {
 
