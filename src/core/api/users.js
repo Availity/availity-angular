@@ -6,7 +6,7 @@ const UserServiceFactory = function(AvApiResource) {
 
     constructor() {
       super({
-        path: '/sdk/platform',
+        path: '/api/sdk/platform',
         name: '/users'
       });
     }

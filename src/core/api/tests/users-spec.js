@@ -25,6 +25,10 @@ describe('avUsersResource', () => {
     expect(avUsersResource.me).toBeDefined();
   });
 
+  it('should build url', () => {
+    expect(avUsersResource.getUrl()).toBe('/api/sdk/platform/v1/users');
+  });
+
   it('should allow config object for avUsersResource.me()', () => {
 
     const spyMe = spyOn(avUsersResource, 'me').and.callFake(() => $q.when({name: 'Ariana'}));
