@@ -1,6 +1,8 @@
 /* global it, spyOn, inject, module, beforeEach, expect, describe */
 
 import Tester from 'tester';
+import angular from 'angular';
+
 import '../exceptions';
 
 describe('avExceptionAnalyticsProvider', () => {
@@ -13,9 +15,9 @@ describe('avExceptionAnalyticsProvider', () => {
   const tester = new Tester();
   tester.provider();
 
-  beforeEach(window.module('availity'));
+  beforeEach(angular.mock.module('availity'));
 
-  beforeEach(window.module( (avExceptionAnalyticsProvider, $exceptionHandlerProvider) => {
+  beforeEach(angular.mock.module( (avExceptionAnalyticsProvider, $exceptionHandlerProvider) => {
     provider = avExceptionAnalyticsProvider;
     $exceptionHandlerProvider.mode('log');
   }));
@@ -71,11 +73,13 @@ describe('avExceptionAnalyticsProvider', () => {
     });
 
     it('should not track rapid exceptions more than once', function() {
+
       $exceptionHandler(exception);
       $exceptionHandler(exception);
       expect(service.trackEvent.calls.count()).toEqual(2);
       expect(service.onError.calls.count()).toEqual(1);
       expect(service.log.calls.count()).toEqual(1);
+
     });
 
   });
