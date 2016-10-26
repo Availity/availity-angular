@@ -1,23 +1,23 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.4 (10/24/2016)
+ * availity-angular v2.0.0-beta.5 (10/26/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.3 (10/24/2016)
+ * availity-angular v2.0.0-beta.4 (10/26/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("angular"), require("jQuery"), require("_"), require("moment"), require("TraceKit"), require("bootstrap-datepicker"), require("select2"));
+		module.exports = factory(require("angular"), require("_"), require("jQuery"), require("moment"), require("TraceKit"), require("bootstrap-datepicker"), require("select2"));
 	else if(typeof define === 'function' && define.amd)
-		define(["angular", "jQuery", "_", "moment", "TraceKit", "bootstrap-datepicker", "select2"], factory);
+		define(["angular", "_", "jQuery", "moment", "TraceKit", "bootstrap-datepicker", "select2"], factory);
 	else if(typeof exports === 'object')
-		exports["availity-angular"] = factory(require("angular"), require("jQuery"), require("_"), require("moment"), require("TraceKit"), require("bootstrap-datepicker"), require("select2"));
+		exports["availity-angular"] = factory(require("angular"), require("_"), require("jQuery"), require("moment"), require("TraceKit"), require("bootstrap-datepicker"), require("select2"));
 	else
-		root["availity-angular"] = factory(root["angular"], root["jQuery"], root["_"], root["moment"], root["TraceKit"], root["bootstrap-datepicker"], root["select2"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_57__, __WEBPACK_EXTERNAL_MODULE_58__, __WEBPACK_EXTERNAL_MODULE_419__, __WEBPACK_EXTERNAL_MODULE_420__, __WEBPACK_EXTERNAL_MODULE_421__) {
+		root["availity-angular"] = factory(root["angular"], root["_"], root["jQuery"], root["moment"], root["TraceKit"], root["bootstrap-datepicker"], root["select2"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_53__, __WEBPACK_EXTERNAL_MODULE_58__, __WEBPACK_EXTERNAL_MODULE_419__, __WEBPACK_EXTERNAL_MODULE_420__, __WEBPACK_EXTERNAL_MODULE_421__) {
 return webpackJsonpavaility_angular([1,0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -328,7 +328,7 @@ return webpackJsonpavaility_angular([1,0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
-	var IObject = __webpack_require__(55)
+	var IObject = __webpack_require__(56)
 	  , defined = __webpack_require__(23);
 	module.exports = function(it){
 	  return IObject(defined(it));
@@ -338,7 +338,7 @@ return webpackJsonpavaility_angular([1,0],[
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var pIE            = __webpack_require__(56)
+	var pIE            = __webpack_require__(57)
 	  , createDesc     = __webpack_require__(35)
 	  , toIObject      = __webpack_require__(19)
 	  , toPrimitive    = __webpack_require__(27)
@@ -417,7 +417,7 @@ return webpackJsonpavaility_angular([1,0],[
 	// 5 -> Array#find
 	// 6 -> Array#findIndex
 	var ctx      = __webpack_require__(30)
-	  , IObject  = __webpack_require__(55)
+	  , IObject  = __webpack_require__(56)
 	  , toObject = __webpack_require__(13)
 	  , toLength = __webpack_require__(12)
 	  , asc      = __webpack_require__(228);
@@ -636,7 +636,7 @@ return webpackJsonpavaility_angular([1,0],[
 	    , toPrimitive         = __webpack_require__(27)
 	    , has                 = __webpack_require__(14)
 	    , same                = __webpack_require__(141)
-	    , classof             = __webpack_require__(54)
+	    , classof             = __webpack_require__(55)
 	    , isObject            = __webpack_require__(8)
 	    , toObject            = __webpack_require__(13)
 	    , isArrayIter         = __webpack_require__(83)
@@ -1467,6 +1467,12 @@ return webpackJsonpavaility_angular([1,0],[
 
 /***/ },
 /* 53 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_53__;
+
+/***/ },
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1494,7 +1500,7 @@ return webpackJsonpavaility_angular([1,0],[
 	});
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
@@ -1522,7 +1528,7 @@ return webpackJsonpavaility_angular([1,0],[
 	};
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
@@ -1532,16 +1538,10 @@ return webpackJsonpavaility_angular([1,0],[
 	};
 
 /***/ },
-/* 56 */
-/***/ function(module, exports) {
-
-	exports.f = {}.propertyIsEnumerable;
-
-/***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_57__;
+	exports.f = {}.propertyIsEnumerable;
 
 /***/ },
 /* 58 */
@@ -2013,7 +2013,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(53);
+	__webpack_require__(54);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2968,7 +2968,7 @@ return webpackJsonpavaility_angular([1,0],[
 /* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(54)
+	var classof   = __webpack_require__(55)
 	  , ITERATOR  = __webpack_require__(9)('iterator')
 	  , Iterators = __webpack_require__(49);
 	module.exports = __webpack_require__(29).getIteratorMethod = function(it){
@@ -3032,7 +3032,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _lodash = __webpack_require__(57);
+	var _lodash = __webpack_require__(52);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -4216,7 +4216,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _lodash = __webpack_require__(57);
+	var _lodash = __webpack_require__(52);
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
@@ -4753,7 +4753,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _jquery = __webpack_require__(52);
+	var _jquery = __webpack_require__(53);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -5167,7 +5167,7 @@ return webpackJsonpavaility_angular([1,0],[
 
 	var aFunction = __webpack_require__(15)
 	  , toObject  = __webpack_require__(13)
-	  , IObject   = __webpack_require__(55)
+	  , IObject   = __webpack_require__(56)
 	  , toLength  = __webpack_require__(12);
 	
 	module.exports = function(that, callbackfn, aLen, memo, isRight){
@@ -5375,7 +5375,7 @@ return webpackJsonpavaility_angular([1,0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/DavidBruant/Map-Set.prototype.toJSON
-	var classof = __webpack_require__(54)
+	var classof = __webpack_require__(55)
 	  , from    = __webpack_require__(122);
 	module.exports = function(NAME){
 	  return function toJSON(){
@@ -5533,9 +5533,9 @@ return webpackJsonpavaility_angular([1,0],[
 	// 19.1.2.1 Object.assign(target, source, ...)
 	var getKeys  = __webpack_require__(41)
 	  , gOPS     = __webpack_require__(68)
-	  , pIE      = __webpack_require__(56)
+	  , pIE      = __webpack_require__(57)
 	  , toObject = __webpack_require__(13)
-	  , IObject  = __webpack_require__(55)
+	  , IObject  = __webpack_require__(56)
 	  , $assign  = Object.assign;
 	
 	// should work with symbols and should have deterministic property order (V8 bug)
@@ -5634,7 +5634,7 @@ return webpackJsonpavaility_angular([1,0],[
 
 	var getKeys   = __webpack_require__(41)
 	  , toIObject = __webpack_require__(19)
-	  , isEnum    = __webpack_require__(56).f;
+	  , isEnum    = __webpack_require__(57).f;
 	module.exports = function(isEntries){
 	  return function(it){
 	    var O      = toIObject(it)
@@ -5872,7 +5872,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _tracekit2 = _interopRequireDefault(_tracekit);
 	
-	var _jquery = __webpack_require__(52);
+	var _jquery = __webpack_require__(53);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -5892,7 +5892,8 @@ return webpackJsonpavaility_angular([1,0],[
 	  },
 	  TYPES: {
 	    EXCEPTION: 'exception'
-	  }
+	  },
+	  REPEAT_LIMIT_TIME: 5000
 	});
 	
 	var AvExceptionAnalyticsProvider = function () {
@@ -5935,6 +5936,8 @@ return webpackJsonpavaility_angular([1,0],[
 	        _tracekit2.default.report.subscribe(function (stacktrace) {
 	          self.onError(stacktrace);
 	        });
+	
+	        this.messageTimestampMap = {};
 	      };
 	
 	      AvExceptionAnalytics.prototype.prettyPrint = function prettyPrint(stacktrace) {
@@ -5968,7 +5971,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.3")
+	          sdkVersion: ("2.0.0-beta.4")
 	        };
 	
 	        return this.log(message);
@@ -5985,9 +5988,31 @@ return webpackJsonpavaility_angular([1,0],[
 	          return null;
 	        }
 	
+	        // If we've already logged this error recently, don't log it again (no need to spam the API)
+	        if (this._isRepeatError(exception)) {
+	          return;
+	        }
+	
 	        var stacktrace = _tracekit2.default.computeStackTrace(exception);
 	
 	        return this.onError(stacktrace);
+	      };
+	
+	      // Check to see if this error was reported within the last 5 seconds
+	
+	
+	      AvExceptionAnalytics.prototype._isRepeatError = function _isRepeatError(exception) {
+	        var timestamp = (0, _moment2.default)();
+	        var message = exception.message;
+	        var lastTimestamp = this.messageTimestampMap[message];
+	        var isRepeat = false;
+	
+	        if (lastTimestamp && timestamp.diff(lastTimestamp) < AV_EXCEPTIONS.REPEAT_LIMIT_TIME) {
+	          isRepeat = true;
+	        }
+	
+	        this.messageTimestampMap[message] = timestamp;
+	        return isRepeat;
 	      };
 	
 	      return AvExceptionAnalytics;
@@ -6252,6 +6277,10 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	exports.__esModule = true;
 	
+	var _lodash = __webpack_require__(52);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
 	var _module = __webpack_require__(6);
 	
 	var _module2 = _interopRequireDefault(_module);
@@ -6264,7 +6293,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource) {
+	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource, avUsersResource) {
 	  var OrganizationResource = function (_AvApiResource) {
 	    _inherits(OrganizationResource, _AvApiResource);
 	
@@ -6277,9 +6306,29 @@ return webpackJsonpavaility_angular([1,0],[
 	      }));
 	    }
 	
-	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
-	      return this.query(config).then(function (response) {
-	        return response.data.organizations ? response.data.organizations : response.data;
+	    OrganizationResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.organizations || [];
+	    };
+	
+	    OrganizationResource.prototype.queryUserOrganizations = function queryUserOrganizations(user, config) {
+	
+	      var params = {
+	        params: {
+	          userId: user.id
+	        }
+	      };
+	
+	      // merge in params with user ID
+	      var queryConfig = _lodash2.default.merge({}, params, config);
+	
+	      return this.query(queryConfig);
+	    };
+	
+	    OrganizationResource.prototype.getUserOrganizations = function getUserOrganizations(config) {
+	      var _this2 = this;
+	
+	      return avUsersResource.me().then(function (user) {
+	        return _this2.queryUserOrganizations.call(_this2, user, config);
 	      });
 	    };
 	
@@ -6517,7 +6566,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _lodash = __webpack_require__(57);
+	var _lodash = __webpack_require__(52);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -6726,11 +6775,11 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _jquery = __webpack_require__(52);
+	var _jquery = __webpack_require__(53);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _lodash = __webpack_require__(57);
+	var _lodash = __webpack_require__(52);
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
@@ -7185,7 +7234,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	__webpack_require__(72);
 	
-	__webpack_require__(53);
+	__webpack_require__(54);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -7288,7 +7337,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	__webpack_require__(72);
 	
-	__webpack_require__(53);
+	__webpack_require__(54);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -7397,7 +7446,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	__webpack_require__(175);
 	
-	__webpack_require__(53);
+	__webpack_require__(54);
 
 /***/ },
 /* 172 */
@@ -7547,7 +7596,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(53);
+	__webpack_require__(54);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9080,7 +9129,7 @@ return webpackJsonpavaility_angular([1,0],[
 
 	'use strict';
 	
-	var _jquery = __webpack_require__(52);
+	var _jquery = __webpack_require__(53);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -9525,7 +9574,7 @@ return webpackJsonpavaility_angular([1,0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _lodash = __webpack_require__(57);
+	var _lodash = __webpack_require__(52);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -10645,7 +10694,7 @@ return webpackJsonpavaility_angular([1,0],[
 	// all enumerable object keys, includes symbols
 	var getKeys = __webpack_require__(41)
 	  , gOPS    = __webpack_require__(68)
-	  , pIE     = __webpack_require__(56);
+	  , pIE     = __webpack_require__(57);
 	module.exports = function(it){
 	  var result     = getKeys(it)
 	    , getSymbols = gOPS.f;
@@ -10920,7 +10969,7 @@ return webpackJsonpavaility_angular([1,0],[
 	  , arrayJoin = [].join;
 	
 	// fallback for not array-like strings
-	$export($export.P + $export.F * (__webpack_require__(55) != Object || !__webpack_require__(24)(arrayJoin)), 'Array', {
+	$export($export.P + $export.F * (__webpack_require__(56) != Object || !__webpack_require__(24)(arrayJoin)), 'Array', {
 	  join: function join(separator){
 	    return arrayJoin.call(toIObject(this), separator === undefined ? ',' : separator);
 	  }
@@ -12026,7 +12075,7 @@ return webpackJsonpavaility_angular([1,0],[
 
 	'use strict';
 	// 19.1.3.6 Object.prototype.toString()
-	var classof = __webpack_require__(54)
+	var classof = __webpack_require__(55)
 	  , test    = {};
 	test[__webpack_require__(9)('toStringTag')] = 'z';
 	if(test + '' != '[object z]'){
@@ -12061,7 +12110,7 @@ return webpackJsonpavaility_angular([1,0],[
 	var LIBRARY            = __webpack_require__(38)
 	  , global             = __webpack_require__(5)
 	  , ctx                = __webpack_require__(30)
-	  , classof            = __webpack_require__(54)
+	  , classof            = __webpack_require__(55)
 	  , $export            = __webpack_require__(1)
 	  , isObject           = __webpack_require__(8)
 	  , aFunction          = __webpack_require__(15)
@@ -13360,7 +13409,7 @@ return webpackJsonpavaility_angular([1,0],[
 	  $GOPD.f = $getOwnPropertyDescriptor;
 	  $DP.f   = $defineProperty;
 	  __webpack_require__(40).f = gOPNExt.f = $getOwnPropertyNames;
-	  __webpack_require__(56).f  = $propertyIsEnumerable;
+	  __webpack_require__(57).f  = $propertyIsEnumerable;
 	  __webpack_require__(68).f = $getOwnPropertySymbols;
 	
 	  if(DESCRIPTORS && !__webpack_require__(38)){
@@ -19520,7 +19569,7 @@ return webpackJsonpavaility_angular([1,0],[
 	 Velocity, however, doesn't make this distinction. Thus, converting to or from the % unit with these subproperties
 	 will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(52), __webpack_require__(52)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(53), __webpack_require__(53)))
 
 /***/ },
 /* 419 */
