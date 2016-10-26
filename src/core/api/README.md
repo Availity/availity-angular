@@ -80,15 +80,15 @@ angular.module('app', ['availity'])
 
 ## Resources
 
-The SDK includes some pre-configured Angular services for the Availity REST API.
+The SDK includes some configured Angular services for the Availity REST API.
 
-### avUser
 - **avOrganizationsResource** - Retrieves the currently logged in user's organizations
-- **avUsers** - Gets information about the logged in user
-- **avPermissions** - Retrieves a list of permissions for a user
-- **avUserPermissions** - Retrieves permissions along with a user's organizations and the set of resources a user is allowed to control
+- **avUsersResource** - Gets information about the logged in user
+- **avPermissionsResource** - Retrieves a list of permissions for a user
+- **avUserPermissionsResource** - Retrieves permissions along with a user's organizations and the set of resources a user is allowed to control
 - **avLogMessagesResource** - Used by services to stream events into the analytics
 - **avSpacesResource** - Get information about content in the spaces catalog
+- **avRegionsResource** - List the regions that a user's organization is participating and also get the current selected region.
 
 
 

@@ -1,6 +1,8 @@
+import _ from 'lodash';
+
 import ngModule from '../module';
 
-const OrganizationResourceFactory = function(AvApiResource) {
+const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
 
   class OrganizationResource extends AvApiResource {
 
@@ -11,10 +13,31 @@ const OrganizationResourceFactory = function(AvApiResource) {
       });
     }
 
-    getOrganizations(config) {
-      return this.query(config).then(response => {
-        return response.data.organizations ? response.data.organizations : response.data;
-      });
+    afterQuery(response) {
+      return response.data.organizations || [];
+    }
+
+    queryUserOrganizations(user, config) {
+
+      const params = {
+        params: {
+          userId: user.id
+        }
+      };
+
+      // merge in params with user ID
+      const queryConfig = _.merge({}, params, config);
+
+      return this.query(queryConfig);
+    }
+
+    getUserOrganizations(config) {
+
+      return avUsersResource
+        .me()
+        .then(user => {
+          return ::this.queryUserOrganizations(user, config);
+        });
     }
 
   }

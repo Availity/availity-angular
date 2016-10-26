@@ -66,7 +66,6 @@ describe('AvApiResourceProvider', () => {
       it('should build url with resource name and forward slash', () => {
 
         const users = new AvApiResource({name: '/users'});
-
         expect(users.getUrl()).toBe('/api/v1/users');
 
       });

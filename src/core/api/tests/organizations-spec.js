@@ -1,9 +1,11 @@
 /* global inject, module, describe, beforeEach, it, expect */
 
 import angular from 'angular';
-import ngModule from '../organizations';
-
 import Tester from 'tester';
+
+import ngModule from '../organizations';
+import userData from './user.json';
+import orgData from './organizations.json';
 
 describe('avOrganizationsResource', () => {
 
@@ -11,10 +13,6 @@ describe('avOrganizationsResource', () => {
 
   let avOrganizationsResource;
   let $httpBackend;
-
-  const exampleParams = {params: {limit: 9001}};
-
-  const responseData = [{a: 1, b: 2}, {a: 1, b: 2}];
 
   beforeEach(() => {
 
@@ -31,11 +29,13 @@ describe('avOrganizationsResource', () => {
     expect(avOrganizationsResource).toBeDefined();
   });
 
-  it('should allow params', () => {
+  it('should allow add user id to query params', () => {
 
-    $httpBackend.expect('GET', '/api/sdk/platform/v1/organizations?limit=9001').respond(200, responseData);
-    avOrganizationsResource.getOrganizations(exampleParams).then(data => {
-      expect(data).toBeEqual(responseData);
+    $httpBackend.expect('GET', '/api/sdk/platform/v1/users/me').respond(200, userData);
+    $httpBackend.expect('GET', '/api/sdk/platform/v1/organizations?limit=100&offset=20&userId=rm3').respond(200, orgData);
+
+    avOrganizationsResource.getUserOrganizations({params: {limit: 100, offset: 20}}).then(data => {
+      expect(data[0].a).toBeTruthy();
     });
     $httpBackend.flush();
 
