@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.5 (10/26/2016)
+ * availity-angular v2.0.0-beta.6 (10/26/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.4 (10/26/2016)
+ * availity-angular v2.0.0-beta.5 (10/26/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -5971,7 +5971,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.4")
+	          sdkVersion: ("2.0.0-beta.5")
 	        };
 	
 	        return this.log(message);
@@ -6310,7 +6310,7 @@ return webpackJsonpavaility_angular([1,0],[
 	      return response.data.organizations || [];
 	    };
 	
-	    OrganizationResource.prototype.queryUserOrganizations = function queryUserOrganizations(user, config) {
+	    OrganizationResource.prototype.queryOrganizations = function queryOrganizations(user, config) {
 	
 	      var params = {
 	        params: {
@@ -6324,11 +6324,11 @@ return webpackJsonpavaility_angular([1,0],[
 	      return this.query(queryConfig);
 	    };
 	
-	    OrganizationResource.prototype.getUserOrganizations = function getUserOrganizations(config) {
+	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
 	      var _this2 = this;
 	
 	      return avUsersResource.me().then(function (user) {
-	        return _this2.queryUserOrganizations.call(_this2, user, config);
+	        return _this2.queryOrganizations.call(_this2, user, config);
 	      });
 	    };
 	
