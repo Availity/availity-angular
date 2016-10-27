@@ -17,7 +17,7 @@ const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
       return response.data.organizations || [];
     }
 
-    queryUserOrganizations(user, config) {
+    queryOrganizations(user, config) {
 
       const params = {
         params: {
@@ -31,12 +31,12 @@ const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
       return this.query(queryConfig);
     }
 
-    getUserOrganizations(config) {
+    getOrganizations(config) {
 
       return avUsersResource
         .me()
         .then(user => {
-          return ::this.queryUserOrganizations(user, config);
+          return ::this.queryOrganizations(user, config);
         });
     }
 

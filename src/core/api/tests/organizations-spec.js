@@ -34,7 +34,7 @@ describe('avOrganizationsResource', () => {
     $httpBackend.expect('GET', '/api/sdk/platform/v1/users/me').respond(200, userData);
     $httpBackend.expect('GET', '/api/sdk/platform/v1/organizations?limit=100&offset=20&userId=rm3').respond(200, orgData);
 
-    avOrganizationsResource.getUserOrganizations({params: {limit: 100, offset: 20}}).then(data => {
+    avOrganizationsResource.getOrganizations({params: {limit: 100, offset: 20}}).then(data => {
       expect(data[0].a).toBeTruthy();
     });
     $httpBackend.flush();
