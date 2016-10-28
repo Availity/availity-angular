@@ -140,9 +140,6 @@ class AvDropdownController extends Base {
     const locals = self.getLocals(value, key);
     const viewValue = self.viewValueFn(self.av.$scope, locals);
     const selectValue = self.getTrackByValueFn(viewValue, locals);
-    // const label = this.displayFn(this.av.$scope, locals);
-    // const group = this.groupByFn(this.av.$scope, locals);
-    // const disabled = this.disableWhenFn(this.av.$scope, locals);
 
     return selectValue;
 
