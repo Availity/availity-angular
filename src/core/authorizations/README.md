@@ -1,6 +1,6 @@
 ## Authorizations
 
-`avUserAuthorizationsFactory` is a service that allows you to get user and 
+`avUserAuthorizations` is a service that allows you to get user and 
 permission information.
 
 ### Configuration
@@ -13,7 +13,7 @@ angular.module('app', ['availity']);
 
 ### Usage
 
-`avUserAuthorizationsFactory` is accessed in the standard way.
+`avUserAuthorizations` is accessed in the standard way.
 
 ```javascript
 angular.module('app', ['availity'])
