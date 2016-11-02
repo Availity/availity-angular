@@ -4,6 +4,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const _ = require('lodash');
 const chalk = require('chalk');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 const metalsmith = require('./metalsmith');
 const Logger = require('./logger');
@@ -36,9 +37,20 @@ function serv() {
 
   Logger.info('Starting development server');
 
+  webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
+
+    const percent = percentage * 100;
+
+    if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
+      Logger.info(`${chalk.dim('Webpack')} ${msg}`);
+    }
+
+  }));
+
   return new Promise( (resolve, reject) => {
 
     const compiler = webpack(webpackConfig);
+
 
     compiler.plugin('compile', () => {
       Logger.info('Started compiling');

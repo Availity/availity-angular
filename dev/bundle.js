@@ -6,6 +6,7 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 const Logger = require('./logger');
 const webpackConfig = require('../webpack.config.production');
+const webpackConfigDocs = require('../webpack.config.docs');
 
 function bundle(options) {
 
@@ -18,7 +19,7 @@ function bundle(options) {
     spinner.color = 'yellow';
     spinner.start();
 
-    const config = webpackConfig(options);
+    const config = options.production ? webpackConfig(options) : webpackConfigDocs;
 
     config.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
@@ -36,6 +37,7 @@ function bundle(options) {
         spinner.fail();
         Logger.failed('Failed compiling');
         reject(err);
+        return;
       }
 
       spinner.stop();
