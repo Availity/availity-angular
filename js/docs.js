@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/27/2016)
+ * availity-angular v2.0.0-beta.8 (11/02/2016)
  * (c) Availity, LLC
  */
 webpackJsonp([1],{
@@ -14,41 +14,43 @@ webpackJsonp([1],{
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _module = __webpack_require__(423);
+	var _module = __webpack_require__(427);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(427);
-	
-	__webpack_require__(422);
-	
-	__webpack_require__(428);
-	
-	__webpack_require__(429);
-	
-	__webpack_require__(430);
-	
 	__webpack_require__(431);
+	
+	__webpack_require__(426);
+	
+	__webpack_require__(432);
+	
+	__webpack_require__(433);
 	
 	__webpack_require__(434);
 	
-	__webpack_require__(436);
+	__webpack_require__(435);
+	
+	__webpack_require__(438);
 	
 	__webpack_require__(440);
 	
-	__webpack_require__(446);
+	__webpack_require__(444);
 	
-	__webpack_require__(447);
-	
-	__webpack_require__(448);
+	__webpack_require__(451);
 	
 	__webpack_require__(452);
 	
 	__webpack_require__(453);
 	
-	__webpack_require__(454);
+	__webpack_require__(456);
 	
-	__webpack_require__(455);
+	__webpack_require__(457);
+	
+	__webpack_require__(458);
+	
+	__webpack_require__(459);
+	
+	__webpack_require__(467);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -89,8 +91,12 @@ webpackJsonp([1],{
 	  toggleButtons();
 	});
 	
+	_module2.default.config(function ($locationProvider) {
+	  return $locationProvider.html5Mode({ enabled: true, requireBase: false });
+	});
+	
 	_module2.default.run(function ($httpBackend) {
-	  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({});
+	  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({ 'logMessage': 'OK' });
 	});
 
 /***/ },
@@ -124,10 +130,10 @@ webpackJsonp([1],{
 	// Inspiration: https://github.com/seeden/angular-es6
 	
 	function storeInjections() {
-	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var instance = arguments[1];
 	  var args = arguments[2];
-	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
 	
 	
 	  var instanceInject = instance[name] = instance[name] || {};
@@ -158,7 +164,7 @@ webpackJsonp([1],{
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.print = exports.uuid = exports.REGEX_API_URL = exports.regions = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
+	exports.print = exports.uuid = exports.REGEX_API_URL = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
 	
 	var _strings = __webpack_require__(312);
 	
@@ -172,18 +178,11 @@ webpackJsonp([1],{
 	
 	var _print2 = _interopRequireDefault(_print);
 	
-	var _regions = __webpack_require__(316);
-	
-	var _regions2 = _interopRequireDefault(_regions);
-	
-	__webpack_require__(317);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.stringify = _strings.stringify;
 	exports.isBlank = _strings.isBlank;
 	exports.getRelativeUrl = _urls.getRelativeUrl;
-	exports.regions = _regions2.default;
 	exports.REGEX_API_URL = _urls.REGEX_API_URL;
 	exports.uuid = _uuid2.default;
 	exports.print = _print2.default;
@@ -292,191 +291,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 316:
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	var regions = [{
-	  'name': 'Alabama',
-	  'code': 'AL'
-	}, {
-	  'name': 'Alaska',
-	  'code': 'AK'
-	}, {
-	  'name': 'Arizona',
-	  'code': 'AZ'
-	}, {
-	  'name': 'Arkansas',
-	  'code': 'AR'
-	}, {
-	  'name': 'California',
-	  'code': 'CA'
-	}, {
-	  'name': 'Colorado',
-	  'code': 'CO'
-	}, {
-	  'name': 'Connecticut',
-	  'code': 'CT'
-	}, {
-	  'name': 'Delaware',
-	  'code': 'DE'
-	}, {
-	  'name': 'District Of Columbia',
-	  'code': 'DC'
-	}, {
-	  'name': 'Florida',
-	  'code': 'FL'
-	}, {
-	  'name': 'Georgia',
-	  'code': 'GA'
-	}, {
-	  'name': 'Hawaii',
-	  'code': 'HI'
-	}, {
-	  'name': 'Idaho',
-	  'code': 'ID'
-	}, {
-	  'name': 'Illinois',
-	  'code': 'IL'
-	}, {
-	  'name': 'Indiana',
-	  'code': 'IN'
-	}, {
-	  'name': 'Iowa',
-	  'code': 'IA'
-	}, {
-	  'name': 'Kansas',
-	  'code': 'KS'
-	}, {
-	  'name': 'Kentucky',
-	  'code': 'KY'
-	}, {
-	  'name': 'Louisiana',
-	  'code': 'LA'
-	}, {
-	  'name': 'Maine',
-	  'code': 'ME'
-	}, {
-	  'name': 'Maryland',
-	  'code': 'MD'
-	}, {
-	  'name': 'Massachusetts',
-	  'code': 'MA'
-	}, {
-	  'name': 'Michigan',
-	  'code': 'MI'
-	}, {
-	  'name': 'Minnesota',
-	  'code': 'MN'
-	}, {
-	  'name': 'Mississippi',
-	  'code': 'MS'
-	}, {
-	  'name': 'Missouri',
-	  'code': 'MO'
-	}, {
-	  'name': 'Montana',
-	  'code': 'MT'
-	}, {
-	  'name': 'Nebraska',
-	  'code': 'NE'
-	}, {
-	  'name': 'Nevada',
-	  'code': 'NV'
-	}, {
-	  'name': 'New Hampshire',
-	  'code': 'NH'
-	}, {
-	  'name': 'New Jersey',
-	  'code': 'NJ'
-	}, {
-	  'name': 'New Mexico',
-	  'code': 'NM'
-	}, {
-	  'name': 'New York',
-	  'code': 'NY'
-	}, {
-	  'name': 'North Carolina',
-	  'code': 'NC'
-	}, {
-	  'name': 'North Dakota',
-	  'code': 'ND'
-	}, {
-	  'name': 'Ohio',
-	  'code': 'OH'
-	}, {
-	  'name': 'Oklahoma',
-	  'code': 'OK'
-	}, {
-	  'name': 'Oregon',
-	  'code': 'OR'
-	}, {
-	  'name': 'Pennsylvania',
-	  'code': 'PA'
-	}, {
-	  'name': 'Rhode Island',
-	  'code': 'RI'
-	}, {
-	  'name': 'South Carolina',
-	  'code': 'SC'
-	}, {
-	  'name': 'South Dakota',
-	  'code': 'SD'
-	}, {
-	  'name': 'Tennessee',
-	  'code': 'TN'
-	}, {
-	  'name': 'Texas',
-	  'code': 'TX'
-	}, {
-	  'name': 'Utah',
-	  'code': 'UT'
-	}, {
-	  'name': 'Vermont',
-	  'code': 'VT'
-	}, {
-	  'name': 'Virginia',
-	  'code': 'VA'
-	}, {
-	  'name': 'Washington',
-	  'code': 'WA'
-	}, {
-	  'name': 'West Virginia',
-	  'code': 'WV'
-	}, {
-	  'name': 'Wisconsin',
-	  'code': 'WI'
-	}, {
-	  'name': 'Wyoming',
-	  'code': 'WY'
-	}];
-	
-	exports.default = regions;
-
-/***/ },
-
-/***/ 317:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	var _regions = __webpack_require__(316);
-	
-	var _regions2 = _interopRequireDefault(_regions);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	_module2.default.constant('AV_GLOBALS', { REGIONS: _regions2.default });
-
-/***/ },
-
-/***/ 321:
+/***/ 319:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -487,7 +302,7 @@ webpackJsonp([1],{
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(322);
+	__webpack_require__(320);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -515,7 +330,7 @@ webpackJsonp([1],{
 	        }));
 	      }
 	
-	      AvLogMessagesResource.prototype.buildRequest = function buildRequest(level, entries) {
+	      AvLogMessagesResource.prototype.request = function request(level, entries) {
 	
 	        var requestPayload = {};
 	
@@ -530,19 +345,19 @@ webpackJsonp([1],{
 	      };
 	
 	      AvLogMessagesResource.prototype.debug = function debug(entries) {
-	        return this.create(this.buildRequest('debug', entries));
+	        return this.create(this.request('debug', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.info = function info(entries) {
-	        return this.create(this.buildRequest('info', entries));
+	        return this.create(this.request('info', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.warn = function warn(entries) {
-	        return this.create(this.buildRequest('warn', entries));
+	        return this.create(this.request('warn', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.error = function error(entries) {
-	        return this.create(this.buildRequest('error', entries));
+	        return this.create(this.request('error', entries));
 	      };
 	
 	      return AvLogMessagesResource;
@@ -560,7 +375,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 322:
+/***/ 320:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -573,13 +388,17 @@ webpackJsonp([1],{
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
+	var _moment = __webpack_require__(317);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(323);
+	__webpack_require__(321);
 	
-	__webpack_require__(324);
+	__webpack_require__(322);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -590,6 +409,7 @@ webpackJsonp([1],{
 	    _classCallCheck(this, ApiResourceProvider);
 	
 	    this.defaultOptions = _extends({}, AV_API.OPTIONS);
+	    this.sessionBust = (0, _moment2.default)().unix();
 	  }
 	
 	  ApiResourceProvider.prototype.setOptions = function setOptions(options) {
@@ -630,11 +450,22 @@ webpackJsonp([1],{
 	        return _angular2.default.extend({}, this.options, _config2 || {});
 	      };
 	
-	      AvApiResource.prototype.cacheBust = function cacheBust(config) {
+	      AvApiResource.prototype.cacheBust = function cacheBust(_config) {
 	
+	        var config = _angular2.default.copy(_config);
 	        config.cacheBust = null;
 	        config.params = config.params || {};
-	        config.params.cacheBust = new Date().getTime();
+	        config.params.cacheBust = (0, _moment2.default)().unix();
+	
+	        return config;
+	      };
+	
+	      AvApiResource.prototype.sessionBust = function sessionBust(_config) {
+	
+	        var config = _angular2.default.copy(_config);
+	        config.sessionBust = null;
+	        config.params = config.params || {};
+	        config.params.sessionBust = that.sessionBust;
 	
 	        return config;
 	      };
@@ -673,6 +504,7 @@ webpackJsonp([1],{
 	
 	          // handle the async response if applicable
 	          var _promise = $q.when(avPollingService.response(_response));
+	
 	          // notify the promise listener of the original response
 	          defer.notify(_response);
 	
@@ -735,11 +567,11 @@ webpackJsonp([1],{
 	
 	        var uri = void 0;
 	
-	        var _options2 = this.options;
-	        var path = _options2.path;
-	        var version = _options2.version;
-	        var name = _options2.name;
-	        var url = _options2.url;
+	        var _options2 = this.options,
+	            path = _options2.path,
+	            version = _options2.version,
+	            name = _options2.name,
+	            url = _options2.url;
 	
 	
 	        if (name) {
@@ -784,6 +616,7 @@ webpackJsonp([1],{
 	        if (config.cacheBust) {
 	          config = this.cacheBust(config);
 	        }
+	
 	        config.method = 'GET';
 	        config.url = this.getUrl(id);
 	
@@ -794,10 +627,17 @@ webpackJsonp([1],{
 	
 	        var config = _config;
 	
+	        // If true cache bust the api on every call
 	        config = this.config(config);
 	        if (config.cacheBust) {
 	          config = this.cacheBust(config);
 	        }
+	
+	        // Cache bust api once per application load
+	        if (config.sessionBust) {
+	          config = this.sessionBust(config);
+	        }
+	
 	        config.method = 'GET';
 	        config.url = this.getUrl();
 	
@@ -910,7 +750,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 323:
+/***/ 321:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -981,7 +821,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 324:
+/***/ 322:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -994,7 +834,7 @@ webpackJsonp([1],{
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _constants = __webpack_require__(325);
+	var _constants = __webpack_require__(323);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
@@ -1258,7 +1098,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 325:
+/***/ 323:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1287,7 +1127,289 @@ webpackJsonp([1],{
 
 /***/ },
 
+/***/ 325:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(321);
+	
+	__webpack_require__(319);
+	
+	__webpack_require__(326);
+	
+	__webpack_require__(327);
+	
+	__webpack_require__(328);
+	
+	__webpack_require__(320);
+	
+	__webpack_require__(329);
+	
+	__webpack_require__(330);
+
+/***/ },
+
+/***/ 326:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _lodash = __webpack_require__(305);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource, avUsersResource) {
+	  var OrganizationResource = function (_AvApiResource) {
+	    _inherits(OrganizationResource, _AvApiResource);
+	
+	    function OrganizationResource() {
+	      _classCallCheck(this, OrganizationResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/sdk/platform',
+	        name: 'organizations'
+	      }));
+	    }
+	
+	    OrganizationResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.organizations || [];
+	    };
+	
+	    OrganizationResource.prototype.queryOrganizations = function queryOrganizations(user, config) {
+	
+	      var params = {
+	        params: {
+	          userId: user.id
+	        }
+	      };
+	
+	      // merge in params with user ID
+	      var queryConfig = _lodash2.default.merge({}, params, config);
+	
+	      return this.query(queryConfig);
+	    };
+	
+	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
+	      var _this2 = this;
+	
+	      return avUsersResource.me().then(function (user) {
+	        return _this2.queryOrganizations.call(_this2, user, config);
+	      });
+	    };
+	
+	    return OrganizationResource;
+	  }(AvApiResource);
+	
+	  return new OrganizationResource();
+	};
+	
+	_module2.default.factory('avOrganizationsResource', OrganizationResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+
 /***/ 327:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	    }
+	
+	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.permissions ? response.data.permissions : [];
+	    };
+	
+	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
+	
+	      return this.query({
+	        params: {
+	          permissionId: permissionIds,
+	          region: region
+	        }
+	      });
+	    };
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+
+/***/ 328:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	    }
+	
+	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+	    };
+	
+	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
+	
+	      return this.query({
+	        sessionBust: true,
+	        params: {
+	          permissionId: permissionIds,
+	          region: region
+	        }
+	      });
+	    };
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+
+/***/ 329:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _lodash = __webpack_require__(305);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ProvidersResourceFactory = function ProvidersResourceFactory(AvApiResource) {
+	  var ProvidersResource = function (_AvApiResource) {
+	    _inherits(ProvidersResource, _AvApiResource);
+	
+	    function ProvidersResource() {
+	      _classCallCheck(this, ProvidersResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        name: 'providers'
+	      }));
+	    }
+	
+	    ProvidersResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.providers || [];
+	    };
+	
+	    ProvidersResource.prototype.getProviders = function getProviders(customerId, config) {
+	
+	      var params = {
+	        params: {
+	          customerId: customerId
+	        }
+	      };
+	
+	      // merge in params with user ID
+	      var queryConfig = _lodash2.default.merge({}, params, config);
+	
+	      return this.query(queryConfig);
+	    };
+	
+	    return ProvidersResource;
+	  }(AvApiResource);
+	
+	  return new ProvidersResource();
+	};
+	
+	_module2.default.factory('avProvidersResource', ProvidersResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+
+/***/ 330:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1313,7 +1435,10 @@ webpackJsonp([1],{
 	    function AvUsersResource() {
 	      _classCallCheck(this, AvUsersResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'users' }));
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/sdk/platform',
+	        name: '/users'
+	      }));
 	    }
 	
 	    AvUsersResource.prototype.afterGet = function afterGet(response) {
@@ -1337,143 +1462,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 329:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	__webpack_require__(323);
-	
-	__webpack_require__(321);
-	
-	__webpack_require__(330);
-	
-	__webpack_require__(331);
-	
-	__webpack_require__(322);
-	
-	__webpack_require__(327);
-
-/***/ },
-
-/***/ 330:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource) {
-	  var OrganizationResource = function (_AvApiResource) {
-	    _inherits(OrganizationResource, _AvApiResource);
-	
-	    function OrganizationResource() {
-	      _classCallCheck(this, OrganizationResource);
-	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'organizations' }));
-	    }
-	
-	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
-	      return this.query(config).then(function (response) {
-	        return response.data.organizations ? response.data.organizations : response.data;
-	      });
-	    };
-	
-	    return OrganizationResource;
-	  }(AvApiResource);
-	
-	  return new OrganizationResource();
-	};
-	
-	_module2.default.factory('avOrganizationsResource', OrganizationResourceFactory);
-	
-	exports.default = _module2.default;
-
-/***/ },
-
 /***/ 331:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
-	
-	var _moment = __webpack_require__(319);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
-	  var AvUserPermissionsResource = function (_AvApiResource) {
-	    _inherits(AvUserPermissionsResource, _AvApiResource);
-	
-	    function AvUserPermissionsResource() {
-	      _classCallCheck(this, AvUserPermissionsResource);
-	
-	      var _this = _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/api/internal',
-	        version: '/v1',
-	        name: '/axi-user-permissions'
-	      }));
-	
-	      _this.cacheBust = (0, _moment2.default)().unix();
-	      return _this;
-	    }
-	
-	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
-	    };
-	
-	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
-	
-	      return this.query({
-	        params: {
-	          permissionId: permissionIds,
-	          region: region,
-	          cacheBust: this.cacheBust
-	        }
-	      });
-	    };
-	
-	    return AvUserPermissionsResource;
-	  }(AvApiResource);
-	
-	  return new AvUserPermissionsResource();
-	};
-	
-	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
-	
-	exports.default = _module2.default;
-
-/***/ },
-
-/***/ 332:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	
 	var _angular = __webpack_require__(301);
 	
@@ -1487,7 +1481,7 @@ webpackJsonp([1],{
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(329);
+	__webpack_require__(325);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1626,10 +1620,12 @@ webpackJsonp([1],{
 	};
 	
 	_module2.default.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
+	
+	exports.default = _module2.default;
 
 /***/ },
 
-/***/ 352:
+/***/ 351:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1648,7 +1644,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 355:
+/***/ 354:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1660,10 +1656,10 @@ webpackJsonp([1],{
 	// Inspiration: https://github.com/seeden/angular-es6
 	
 	function storeInjections() {
-	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var instance = arguments[1];
 	  var args = arguments[2];
-	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
 	
 	
 	  var instanceInject = instance[name] = instance[name] || {};
@@ -1688,48 +1684,44 @@ webpackJsonp([1],{
 
 /***/ },
 
+/***/ 357:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(358);
+	
+	__webpack_require__(362);
+
+/***/ },
+
 /***/ 358:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(359);
-	
-	__webpack_require__(360);
-	
-	__webpack_require__(361);
-	
-	__webpack_require__(364);
 
 /***/ },
 
-/***/ 361:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	__webpack_require__(362);
-
-/***/ },
-
-/***/ 362:
+/***/ 359:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	__webpack_require__(359);
+	__webpack_require__(360);
 	
-	var _template = __webpack_require__(363);
+	var _template = __webpack_require__(361);
 	
 	var _template2 = _interopRequireDefault(_template);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -1813,7 +1805,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 363:
+/***/ 361:
 /***/ function(module, exports) {
 
 	var path = 'src/ui/animation/loader/template.html';
@@ -1823,14 +1815,14 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 364:
+/***/ 362:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -1898,22 +1890,22 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 387:
+/***/ 385:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(388);
+	__webpack_require__(386);
 	
-	__webpack_require__(389);
+	__webpack_require__(387);
 	
-	__webpack_require__(392);
+	__webpack_require__(390);
 	
-	__webpack_require__(393);
+	__webpack_require__(391);
 
 /***/ },
 
-/***/ 388:
+/***/ 386:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1922,7 +1914,7 @@ webpackJsonp([1],{
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -1975,7 +1967,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 389:
+/***/ 387:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1984,11 +1976,11 @@ webpackJsonp([1],{
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	__webpack_require__(388);
+	
 	__webpack_require__(390);
 	
-	__webpack_require__(392);
-	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -2106,14 +2098,14 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 392:
+/***/ 390:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _lodash = __webpack_require__(305);
 	
@@ -2123,17 +2115,17 @@ webpackJsonp([1],{
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
 	var _utils = __webpack_require__(311);
 	
-	__webpack_require__(388);
+	__webpack_require__(386);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2280,9 +2272,6 @@ webpackJsonp([1],{
 	    var locals = self.getLocals(value, key);
 	    var viewValue = self.viewValueFn(self.av.$scope, locals);
 	    var selectValue = self.getTrackByValueFn(viewValue, locals);
-	    // const label = this.displayFn(this.av.$scope, locals);
-	    // const group = this.groupByFn(this.av.$scope, locals);
-	    // const disabled = this.disableWhenFn(this.av.$scope, locals);
 	
 	    return selectValue;
 	  };
@@ -2474,14 +2463,14 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 393:
+/***/ 391:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -2524,18 +2513,28 @@ webpackJsonp([1],{
 	        params: {}
 	      };
 	
-	      if (data.page) {
-	        config.params.offset = this.getPageSize() * (data.page - 1);
-	      }
-	      if (data.offset) {
-	        config.params.offset = data.offset;
-	      }
+	      config.params.offset = this.getOffset(data);
 	
 	      if (data.term) {
-	        config.params.q = data.term;
+	        config.params[this.getQueryParam()] = data.term;
 	      }
 	
 	      return config;
+	    };
+	
+	    AvSelectResource.prototype.getOffset = function getOffset(data) {
+	      var offset = void 0;
+	      if (data.page) {
+	        offset = this.getPageSize() * (data.page - 1);
+	      }
+	      if (data.offset) {
+	        offset = data.offset;
+	      }
+	      return offset;
+	    };
+	
+	    AvSelectResource.prototype.getQueryParam = function getQueryParam() {
+	      return 'q';
 	    };
 	
 	    AvSelectResource.prototype.getResponse = function getResponse(response, results) {
@@ -2572,10 +2571,9 @@ webpackJsonp([1],{
 	      if (results && (!results[0].id || !results[0].text)) {
 	
 	        results = results.map(function (item) {
-	          var _mapResult = _this3.mapResult(item);
-	
-	          var id = _mapResult.id;
-	          var text = _mapResult.text;
+	          var _mapResult = _this3.mapResult(item),
+	              id = _mapResult.id,
+	              text = _mapResult.text;
 	
 	          item.id = id;
 	          item.text = text;
@@ -2625,14 +2623,33 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 422:
+/***/ 392:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _module = __webpack_require__(351);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_MASK', {
+	  date: '99/99/9999',
+	  phone: '(999) 999-9999',
+	  ssn: '999-99-9999'
+	});
+
+/***/ },
+
+/***/ 426:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 423:
+/***/ 427:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2643,9 +2660,9 @@ webpackJsonp([1],{
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	__webpack_require__(424);
+	__webpack_require__(428);
 	
-	__webpack_require__(426);
+	__webpack_require__(430);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2653,26 +2670,26 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 427:
+/***/ 431:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 428:
+/***/ 432:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 429:
+/***/ 433:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -2686,19 +2703,15 @@ webpackJsonp([1],{
 	    }
 	  };
 	});
-	
-	_demo2.default.config(function (avPiwikAnalyticsProvider) {
-	  avPiwikAnalyticsProvider.enable(true);
-	});
 
 /***/ },
 
-/***/ 430:
+/***/ 434:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -2717,18 +2730,18 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 431:
+/***/ 435:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(432);
+	__webpack_require__(436);
 	
-	var _permissions = __webpack_require__(433);
+	var _permissions = __webpack_require__(437);
 	
 	var _permissions2 = _interopRequireDefault(_permissions);
 	
@@ -2739,21 +2752,21 @@ webpackJsonp([1],{
 	});
 	
 	_demo2.default.run(function ($httpBackend) {
-	  $httpBackend.whenRoute('GET', /\/api\/internal\/v1\/axi-user-permissions\?cacheBust=.*&permissionId=(7100|8100|9100)/).respond(_permissions2.default);
+	  $httpBackend.whenRoute('GET', /\/api\/internal\/v1\/axi-user-permissions\?permissionId=(7100|8100|9100).*&sessionBust=.*/).respond(_permissions2.default);
 	});
 
 /***/ },
 
-/***/ 432:
+/***/ 436:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(332);
+	__webpack_require__(331);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2787,7 +2800,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 433:
+/***/ 437:
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -2841,20 +2854,20 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 434:
+/***/ 438:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	var _fixtures = __webpack_require__(435);
+	var _fixtures = __webpack_require__(439);
 	
 	var _fixtures2 = _interopRequireDefault(_fixtures);
 	
-	__webpack_require__(358);
+	__webpack_require__(357);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2907,7 +2920,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 435:
+/***/ 439:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3013,27 +3026,27 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 436:
+/***/ 440:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(437);
+	__webpack_require__(441);
 
 /***/ },
 
-/***/ 437:
+/***/ 441:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(438);
+	__webpack_require__(442);
 	
-	var _validationRules = __webpack_require__(439);
+	var _validationRules = __webpack_require__(443);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3051,7 +3064,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 438:
+/***/ 442:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3060,7 +3073,7 @@ webpackJsonp([1],{
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3108,7 +3121,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 439:
+/***/ 443:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3255,23 +3268,43 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 440:
+/***/ 444:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(441);
+	__webpack_require__(445);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	_demo2.default.controller('DemoModalController', function ($scope, demoModalService) {
 	  demoModalService.init($scope);
 	  $scope.vm = demoModalService;
 	});
+	
+	var DemoModalController = function DemoModalController($scope, demoModalService) {
+	  _classCallCheck(this, DemoModalController);
+	
+	  demoModalService.init($scope);
+	  $scope.vm = demoModalService;
+	};
+	
+	_demo2.default.controller('DemoModalController', DemoModalController);
+	
+	var DemoModalDedicatedController = function DemoModalDedicatedController(someValue) {
+	  _classCallCheck(this, DemoModalDedicatedController);
+	
+	  this.message = 'This is a message from a controller specified on AvModal';
+	  this.localsMessage = someValue;
+	};
+	
+	_demo2.default.controller('DemoModalDedicatedController', DemoModalDedicatedController);
 	
 	_demo2.default.config(function ($stateProvider) {
 	
@@ -3286,30 +3319,34 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 441:
+/***/ 445:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	var _modalTemplate = __webpack_require__(442);
+	var _modalTemplate = __webpack_require__(446);
 	
 	var _modalTemplate2 = _interopRequireDefault(_modalTemplate);
 	
-	var _modalLgTemplate = __webpack_require__(443);
+	var _modalLgTemplate = __webpack_require__(447);
 	
 	var _modalLgTemplate2 = _interopRequireDefault(_modalLgTemplate);
 	
-	var _modalSmTemplate = __webpack_require__(444);
+	var _modalSmTemplate = __webpack_require__(448);
 	
 	var _modalSmTemplate2 = _interopRequireDefault(_modalSmTemplate);
 	
-	var _modalRouteTemplate = __webpack_require__(445);
+	var _modalRouteTemplate = __webpack_require__(449);
 	
 	var _modalRouteTemplate2 = _interopRequireDefault(_modalRouteTemplate);
+	
+	var _modelControllerTemplate = __webpack_require__(450);
+	
+	var _modelControllerTemplate2 = _interopRequireDefault(_modelControllerTemplate);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3386,6 +3423,19 @@ webpackJsonp([1],{
 	      });
 	    };
 	
+	    AvDemoService.prototype.openWithController = function openWithController() {
+	
+	      AvModal.create({
+	        show: true,
+	        templateUrl: _modelControllerTemplate2.default,
+	        controller: 'DemoModalDedicatedController',
+	        controllerAs: 'vm',
+	        locals: {
+	          someValue: 'This is a value passed in using locals, they become injectable values into the controller based on their key name.'
+	        }
+	      });
+	    };
+	
 	    return AvDemoService;
 	  }();
 	
@@ -3394,52 +3444,62 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 442:
+/***/ 446:
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/docs/templates/modal-template.html';
-	var html = "<div data-av-modal>\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    <h4>Text in a modal</h4>\n    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>\n\n    <h4>Popover in a modal</h4>\n    <p>This <a role=\"button\" class=\"btn btn-default\" data-av-popover data-content=\"And here's some amazing content. It's very engaging. right?\" title=\"A Title\">button</a> should trigger a popover on click.</p>\n\n    <h4>Tooltips in a modal</h4>\n    <p><a href=\"#\" class=\"tooltip-test\" data-av-tooltip title=\"Tooltip\">This link</a> and <a href=\"#\" class=\"tooltip-test\" data-av-tooltip title=\"Tooltip\">that link</a> should have tooltips on hover.</p>\n\n    <hr>\n\n    <h4>Overflowing text to show scroll behavior</h4>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n  </div>\n</div>\n";
+	var html = "<div av-modal>\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    <h4>Text in a modal</h4>\n    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>\n\n    <h4>Popover in a modal</h4>\n    <p>This <a role=\"button\" class=\"btn btn-default\" data-av-popover data-content=\"And here's some amazing content. It's very engaging. right?\" title=\"A Title\">button</a> should trigger a popover on click.</p>\n\n    <h4>Tooltips in a modal</h4>\n    <p><a href=\"#\" class=\"tooltip-test\" data-av-tooltip title=\"Tooltip\">This link</a> and <a href=\"#\" class=\"tooltip-test\" data-av-tooltip title=\"Tooltip\">that link</a> should have tooltips on hover.</p>\n\n    <hr>\n\n    <h4>Overflowing text to show scroll behavior</h4>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>\n    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>\n    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n    <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n  </div>\n</div>\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
 
-/***/ 443:
+/***/ 447:
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/docs/templates/modal-lg-template.html';
-	var html = "<div data-av-modal data-size=\"lg\">\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
+	var html = "<div data-av-modal size=\"lg\">\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
 
-/***/ 444:
+/***/ 448:
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/docs/templates/modal-sm-template.html';
-	var html = "<div data-av-modal data-size=\"sm\">\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
+	var html = "<div av-modal size=\"sm\">\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
 
-/***/ 445:
+/***/ 449:
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/docs/templates/modal-route-template.html';
-	var html = "<div data-av-modal>\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Route Change</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button class=\"btn btn-default\" ng-click=\"vm.navigate()\">Change Route</button>\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
+	var html = "<div av-modal>\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Route Change</h4>\n  </div>\n  <div class=\"modal-body\">\n    ...\n  </div>\n  <div class=\"modal-footer\">\n    <button class=\"btn btn-default\" ng-click=\"vm.navigate()\">Change Route</button>\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
 
-/***/ 446:
+/***/ 450:
+/***/ function(module, exports) {
+
+	var path = 'src/ui/modal/docs/templates/model-controller-template.html';
+	var html = "<div av-modal data-size=\"lg\">\n  <div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n    <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n  </div>\n  <div class=\"modal-body\">\n\n    <p data-ng-bind=\"vm.myMessage\"></p>\n    <p data-ng-bind=\"vm.localsMessage\"></p>\n\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\n  </div>\n</div>\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+
+/***/ 451:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3456,12 +3516,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 447:
+/***/ 452:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3473,18 +3533,18 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 448:
+/***/ 453:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(449);
+	__webpack_require__(454);
 	
-	__webpack_require__(451);
+	__webpack_require__(392);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3499,38 +3559,18 @@ webpackJsonp([1],{
 	});
 	
 	_demo2.default.controller('DemoMaskController', function ($scope, demoMaskService, AV_MASK) {
-	
 	  $scope.vm = demoMaskService;
 	  $scope.mask = AV_MASK;
 	});
 
 /***/ },
 
-/***/ 451:
+/***/ 456:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	_module2.default.constant('AV_MASK', {
-	  date: '99/99/9999',
-	  phone: '(999) 999-9999',
-	  ssn: '999-99-9999'
-	});
-
-/***/ },
-
-/***/ 452:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3553,12 +3593,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 453:
+/***/ 457:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3570,12 +3610,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 454:
+/***/ 458:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -3585,22 +3625,22 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 455:
+/***/ 459:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(456);
+	__webpack_require__(460);
 	
-	var _photos = __webpack_require__(461);
+	var _photos = __webpack_require__(465);
 	
 	var _photos2 = _interopRequireDefault(_photos);
 	
-	var _photos3 = __webpack_require__(462);
+	var _photos3 = __webpack_require__(466);
 	
 	var _photos4 = _interopRequireDefault(_photos3);
 	
@@ -3619,28 +3659,28 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 456:
+/***/ 460:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
-	__webpack_require__(387);
+	__webpack_require__(385);
 	
-	var _states = __webpack_require__(457);
+	var _states = __webpack_require__(461);
 	
 	var _states2 = _interopRequireDefault(_states);
 	
-	var _pokemon = __webpack_require__(458);
+	var _pokemon = __webpack_require__(462);
 	
 	var _pokemon2 = _interopRequireDefault(_pokemon);
 	
-	__webpack_require__(459);
+	__webpack_require__(463);
 	
-	var _picturesResultFormat = __webpack_require__(460);
+	var _picturesResultFormat = __webpack_require__(464);
 	
 	var _picturesResultFormat2 = _interopRequireDefault(_picturesResultFormat);
 	
@@ -3759,7 +3799,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 457:
+/***/ 461:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3946,7 +3986,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 458:
+/***/ 462:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3956,12 +3996,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 459:
+/***/ 463:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _demo = __webpack_require__(423);
+	var _demo = __webpack_require__(427);
 	
 	var _demo2 = _interopRequireDefault(_demo);
 	
@@ -4002,7 +4042,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 460:
+/***/ 464:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4015,7 +4055,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 461:
+/***/ 465:
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -4393,7 +4433,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 462:
+/***/ 466:
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -4766,6 +4806,88 @@ webpackJsonp([1],{
 				"url": "http://placehold.it/600/14ba42",
 				"thumbnailUrl": "http://placehold.it/24/93d242"
 			}
+		]
+	};
+
+/***/ },
+
+/***/ 467:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _demo = __webpack_require__(427);
+	
+	var _demo2 = _interopRequireDefault(_demo);
+	
+	var _space = __webpack_require__(468);
+	
+	var _space2 = _interopRequireDefault(_space);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_demo2.default.controller('DemoBreadcrumbsController', function ($scope, demoDropdownService) {
+	  $scope.vm = demoDropdownService;
+	});
+	
+	_demo2.default.run(function ($httpBackend) {
+	
+	  $httpBackend.whenRoute('GET', /\/api\/sdk\/platform\/v1\/spaces\/1093906101146120962309999999/).respond(_space2.default);
+	});
+
+/***/ },
+
+/***/ 468:
+/***/ function(module, exports) {
+
+	module.exports = {
+		"id": "1093906101146120962309999999",
+		"name": "Acme Maryland",
+		"link": {
+			"text": "Acme",
+			"url": "/public/apps/spaces/#/1093906101146120962309999999"
+		},
+		"type": "space",
+		"brand": {
+			"name": "Acme",
+			"colors": {
+				"primary": "#008dc8"
+			}
+		},
+		"owners": [
+			{
+				"id": "ABCDEFG",
+				"name": "Acme",
+				"link": {}
+			}
+		],
+		"feature": {
+			"title": "Welcome Acme providers.",
+			"subtitle": "Looking for your Acme resources?",
+			"message": "They've moved to the resources tab below."
+		},
+		"regions": [
+			"MD"
+		],
+		"permissions": [
+			"7178"
+		],
+		"resources": [
+			"10595"
+		],
+		"images": {
+			"billboard": "/static/spaces/1093906101146120962309999999/billboard.jpg",
+			"logo": "/static/spaces/1093906101146120962309999999/banner.png",
+			"tile": "/static/spaces/1093906101146120962309999999/tile.png"
+		},
+		"activeDate": "2016-07-01T04:00:00.000+0000",
+		"parentIds": [
+			"payer_spaces"
+		],
+		"childIds": [
+			"7316254620144726724645099999999",
+			"1046759434145392258588799999999",
+			"7316254620145589579777099999999"
 		]
 	};
 

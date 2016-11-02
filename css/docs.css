@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/27/2016)
+ * availity-angular v2.0.0-beta.8 (11/02/2016)
  * (c) Availity, LLC
  */
 [av-datepicker]::-webkit-calendar-picker-indicator,
@@ -43,7 +43,6 @@ pre[class*="language-"] {
   color: black;
   background: none;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  direction: ltr;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
@@ -306,16 +305,17 @@ pre .line-highlight {
 }
 .nav.docs-nav .nav.docs-nav {
   margin-top: 0;
+  margin-left: 1.5rem;
 }
 .nav.docs-nav .nav.docs-nav > li {
-  padding-left: 15px;
-  list-style-type: circle;
-  list-style-position: inside;
-  display: list-item;
   font-size: 90%;
 }
 .nav.docs-nav .nav.docs-nav > li > a {
   color: #81878b;
+}
+.nav.docs-nav .nav.docs-nav > li > a:before {
+  content: "\2022";
+  padding-right: .5rem;
 }
 .nav.docs-nav > li {
   font-size: 18px;
@@ -627,7 +627,7 @@ pre[class*="language-"] {
 
 /*!
  * animate.css -http://daneden.me/animate
- * Version - 3.5.0
+ * Version - 3.5.1
  * Licensed under the MIT license - http://opensource.org/licenses/MIT
  *
  * Copyright (c) 2016 Daniel Eden

@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Analytics | Availity Angular SDK</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../../src/ui/animation/index.html" />
+    
+    
+    <link rel="prev" href="../../../src/core/api/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2" data-chapter-title="Analytics" data-filepath="src/core/analytics/README.md" data-basepath="../../.." data-revision="Wed Nov 02 2016 12:20:20 GMT-0400 (EDT)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="https://github.com/Availity/availity-angular" target="blank" class="custom-link">Home</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="src/core/api/index.html">
+            
+                
+                    <a href="../../../src/core/api/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2" data-path="src/core/analytics/index.html">
+            
+                
+                    <a href="../../../src/core/analytics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Analytics
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="src/ui/animation/index.html">
+            
+                
+                    <a href="../../../src/ui/animation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Animation
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="src/ui/animation/DIRECTIVE.html">
+            
+                
+                    <a href="../../../src/ui/animation/DIRECTIVE.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        avAnimate
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="src/ui/animation/loader/index.html">
+            
+                
+                    <a href="../../../src/ui/animation/loader/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        avLoader
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="src/core/authorizations/index.html">
+            
+                
+                    <a href="../../../src/core/authorizations/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Authorizations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="src/ui/dimmer/index.html">
+            
+                
+                    <a href="../../../src/ui/dimmer/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Dimmer
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../../" >Availity Angular SDK</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="analytics">Analytics</h2>
+<p>Analytics is a way for you to track how users interact with your data. </p>
+<h3 id="configuration">Configuration</h3>
+<p>Initialize the <code>availity.config</code> module in your application. </p>
+<pre><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity.config&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="virtual-page-tracking">Virtual Page Tracking</h3>
+<p>Virtual page tracking is enabled by default.  Virtual page can be disabled using <code>avAnalyticsConfigProvider</code>.</p>
+<pre><code class="lang-javascript">app<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>$scope<span class="token punctuation">,</span> avAnalyticsConfigProvider<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    avAnalyticsConfigProvider<span class="token punctuation">.</span><span class="token function">setVirtualPageTracking</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="anatomy-of-an-event">Anatomy of an Event</h3>
+<blockquote>
+<p>The following descriptions were copied from <a href="http://www.statstory.com/tracking-events-in-google-analytics/" target="_blank">http://www.statstory.com/</a></p>
+</blockquote>
+<ul>
+<li><strong>category</strong> - This is the name you want to give for the collection where actions you want to track will occur. An example of category could be Video&#x2019;s or Datasheets.  Categories are useful for grouping events in analytics reports.</li>
+<li><strong>label</strong> - This is an optional string which can be valuable in adding a dimension to the event data. Usually I use it to differentiate content. For example, if you want to know which specific video is played or which datasheet is downloaded.</li>
+<li><strong>action</strong> - This is a string which is paired with each category, and most often is used to describe the user interaction with your content. An example could be play, click or download.</li>
+<li><strong>value</strong> - This is a number, which you can use to provide a numerical dimension to a user action. Normally, I leave this blank unless I have an e-commerce reason. For example if you have a form, where a user can fill in a price or quantity, you can pass this value via an event.</li>
+</ul>
+<h3 id="event-tracking">Event Tracking</h3>
+<p>To add event tracking to an element on the page you will need to use the <code>av-analytics-on</code> directive. When applying analytics  you should include the <code>av-analytics-on</code> directive on the element you want to track, this will pull the inner text of the element and set it as a label. Optionally if no inner text exists, include the <code>av-analytics-label</code> attribute on the element . There are also two optional attributes <code>av-analytics-value</code>, <code>av-analytics-category</code> that you can append to an element for more detailed events.</p>
+<ul>
+<li><strong>av-analytics</strong> - required for tracking analytics, you can set your category on this directive</li>
+<li><strong>av-analytics-on</strong> - required for tracking analytics, defaults to <code>click</code></li>
+<li><strong>av-analytics-label</strong> - required for Piwik</li>
+<li><strong>av-analytics-action</strong> - optional for Piwik</li>
+<li><strong>av-analytics-value</strong> - optional for Piwik - numeric only</li>
+</ul>
+<p>The example below will demonstrate how to use the directive. </p>
+<pre><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">av-analytics</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{<span class="token punctuation">&apos;</span>category<span class="token punctuation">&apos;</span>: <span class="token punctuation">&apos;</span>Category One<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">av-analytics-on</span>
+        <span class="token attr-name">av-analytics-label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Intro Movie<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">av-analytics-action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Play<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">av-analytics-value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>0<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    Button
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="plugins">Plugins</h3>
+<p>To register a new analytic service you would call <code>analyticsProvider.registerPlugins()</code> passing in a array of services you want to register.</p>
+<pre><code class="lang-javascript">app<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span> avAnalyticsProvider <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    avAnalyticsProvider<span class="token punctuation">.</span><span class="token function">registerPlugins</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">&apos;test1AnalyticService&apos;</span><span class="token punctuation">,</span>
+      <span class="token string">&apos;test2AnalyticService&apos;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="exception-handler">Exception Handler</h3>
+<p>The Angular <code>$exceptionHandler</code> has been enhanced using <a href="https://github.com/csnover/TraceKit" target="_blank">Tracekit</a> for consistent metrics on stack traces occurring across all browsers.</p>
+<p>Below is an example of an an error event when captured through the exception handler.</p>
+<pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// sample payload</span>
+
+<span class="token punctuation">{</span>
+<span class="token string">&quot;level&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;error&quot;</span><span class="token punctuation">,</span>
+<span class="token string">&quot;entries&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;errorDate&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;2015-06-21T19:21:17.283Z&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;errorName&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;Error&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;errorMessage&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;Oh snap!&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;errorStack&quot;</span><span class="token punctuation">:</span> &quot;<span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">]</span> Object<span class="token punctuation">.</span>$scope<span class="token punctuation">.</span>analytics<span class="token punctuation">.</span>createError http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">3000</span><span class="token operator">/</span>js<span class="token operator">/</span>docs<span class="token operator">-</span>demos<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">46</span><span class="token punctuation">:</span><span class="token number">15</span>\n<span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">]</span> Parser<span class="token punctuation">.</span>functionCall http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>&quot;<span class="token punctuation">,</span>
+    <span class="token string">&quot;appId&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;N/A&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;userAgent&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;referrer&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;http://localhost:3000/core.html&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;host&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;screenWidth&quot;</span><span class="token punctuation">:</span> <span class="token number">744</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;screenHeight&quot;</span><span class="token punctuation">:</span> <span class="token number">723</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;sdkVersion&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;v0.0.0&quot;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../../src/core/api/index.html" class="navigation navigation-prev " aria-label="Previous page: API"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../../src/ui/animation/index.html" class="navigation navigation-next " aria-label="Next page: Animation"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../../gitbook/app.js"></script>
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"prism":{},"search":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

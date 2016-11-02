@@ -1,0 +1,378 @@
+---
+title: Dropdowns
+---
+<div ng-controller="DemoDropdownController">
+
+  <h3 class="docs-subsection-title">Simple</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownSimple">Numbers</label>
+        <select
+          id="dropdownSimple"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedNumber"
+          options="{ allowClear: false, placeholder: 'Select your favorite number'}"
+          ng-change="vm.onChange(vm.selectedNumber)"
+          >
+          <option value="">Select One</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="4">Four</option>
+          <option value="5">Five</option>
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetNumber()"
+          ng-disabled="vm.isNumberDisabled()"
+        >
+          Reset
+        </button>
+
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownSimple"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedNumber"
+      options="{ allowClear: false, placeholder: 'Select your favorite number'}"
+      >
+      <option value="">Select One</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+      <option value="4">Four</option>
+      <option value="5">Five</option>
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Array</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownPokemon">Pokemon</label>
+        <select
+          id="dropdownPokemon"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedPoke"
+          ng-options="poke for poke in vm.pokemon"
+          options="{ allowClear: false, placeholder: 'Select a Pokemon'}"
+          ng-change="vm.onChange(vm.selectedPoke)"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetPoke()"
+          ng-disabled="vm.isPokeDisabled()"
+        >
+          Reset
+        </button>
+
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownPoke"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedPoke"
+      ng-options="poke for poke in vm.pokemon"
+      options="{ allowClear: false, placeholder: 'Select a Pokemon'}"
+      >
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Label for Value in Array</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownStates">States</label>
+        <select
+          id="dropdownStates"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedState1"
+          ng-options="state.name for state in vm.states"
+          ng-change="vm.onChange(vm.selectedState1)"
+          options="{ allowClear: true, placeholder: 'Select State'}"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setState1()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetState1()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownStates1"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedState1"
+      ng-options="state.name for state in vm.states"
+      ng-change="vm.onChange(vm.selectedState1)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Select as Label for Value in Array</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownStates2">States</label>
+        <select
+          id="dropdownStates2"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedState2"
+          ng-options="state.id as state.name for state in vm.states"
+          ng-change="vm.onChange(vm.selectedState2)"
+          options="{ allowClear: true, placeholder: 'Select State'}"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setState2()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetState2()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownStates1"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedState1"
+      ng-options="state.id as state.name for state in vm.states"
+      ng-change="vm.onChange(vm.selectedState1)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Label for Value in Array Track By</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownStates3">States</label>
+        <select
+          id="dropdownStates3"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedState3"
+          ng-options="state.name for state in vm.states track by state.id"
+          ng-change="vm.onChange(vm.selectedState3)"
+          options="{ allowClear: true, placeholder: 'Select State'}"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setState3()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetState3()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownStates1"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.selectedState1"
+      ng-options="state.name for state in vm.states track by state.id"
+      ng-change="vm.onChange(vm.selectedState1)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Multiple</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownMultiple">States</label>
+        <select
+          id="dropdownMultiple"
+          class="form-control"
+          multiple
+          av-dropdown
+          ng-model="vm.selectedStates"
+          ng-options="state.name for state in vm.states track by state.id"
+          ng-change="vm.onChange(vm.selectedStates)"
+          options="{ allowClear: true, placeholder: 'Select State'}"
+          >
+        </select>
+      </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setMultiple()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetMultiple()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <select
+      id="dropdownMultiple"
+      class="form-control"
+      multiple
+      av-dropdown
+      ng-model="vm.selectedStates"
+      ng-options="state.name for state in vm.states track by state.id"
+      ng-change="vm.onChange(vm.selectedStates)"
+      options="{ allowClear: true, placeholder: 'Select State'}"
+      >
+    </select>
+  </code>
+
+  <h3 class="docs-subsection-title">Query Large Data-sets</h3>
+  <div class="docs-example">
+    <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
+    <form>
+      <div class="form-group">
+        <label for="dropdownQuery">Photos</label>
+        <input
+          type="hidden"
+          id="dropdownQuery"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedPhoto"
+          ng-change="vm.onChange(vm.selectedPhoto)"
+          options="vm.getOptions()"
+        >
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+    <div>
+      <label for="dropdownQuery">Photos</label>
+      <input
+        type="hidden"
+        id="dropdownQuery"
+        class="form-control"
+        av-dropdown
+        ng-model="vm.selectedPhoto"
+        ng-change="vm.onChange(vm.selectedPhoto)"
+        options="vm.getOptions()">
+    </div>
+  </code>
+
+  <h3 class="docs-subsection-title">HTML in selection</h3>
+  <div class="docs-example">
+    <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
+    <form>
+      <div class="form-group">
+        <label for="dropdownQuery">Photos</label>
+        <input
+          type="hidden"
+          id="dropdownQuery"
+          class="form-control"
+          av-dropdown
+          ng-model="vm.selectedPhoto"
+          ng-change="vm.onChange(vm.selectedPhoto)"
+          options="vm.getOptions2()"
+        >
+      </div>
+    </form>
+  </div>
+  <code class="language-javascript">
+
+  import picturesFormatResult from './picturesResultFormat';
+
+  demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
+
+    class DemoDropdownService {
+      ...
+      getOptions() {
+        return {
+          allowClear: true,
+          placeholder: 'Find a photo',
+          minimumInputLength: 3,
+          query: demoDropdownResource,
+          formatResult: picturesFormatResult,
+          formatSelection: picturesFormatResult
+        };
+      }
+      ...
+
+    }
+
+    return new DemoDropdownService();
+  });
+
+  // picturesResultFormat.js
+
+  export default (item) => {
+    return `<div>
+      <div style='display:inline-block'>
+        <img src='${item.thumbnailUrl}'>
+      </div>
+      <div style='display:inline-block; padding-left: 5px'>
+        ${item.text}
+      </div>
+    </div>`;
+  };
+  </code>
+
+
+</div>

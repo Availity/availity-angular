@@ -74,12 +74,12 @@
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="submit" class="btn btn-primary" ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
     <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules</button>
-    <button type="button" class="btn btn-default" ng-click="vm.reset($scope)">Reset</button>
+    <button type="button" class="btn btn-default" ng-click="vm.reset(this)">Reset</button>
   </form>
 </div>
 
 
-<code class="language-markup">
+<code class="language-markup" ng-non-bindable="">
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoForm<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-val-form</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.rule<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>

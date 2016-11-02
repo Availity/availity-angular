@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>API | Availity Angular SDK</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../../src/core/analytics/index.html" />
+    
+    
+    <link rel="prev" href="../../../index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1" data-chapter-title="API" data-filepath="src/core/api/README.md" data-basepath="../../.." data-revision="Wed Nov 02 2016 12:20:20 GMT-0400 (EDT)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="https://github.com/Availity/availity-angular" target="blank" class="custom-link">Home</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1" data-path="src/core/api/index.html">
+            
+                
+                    <a href="../../../src/core/api/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="src/core/analytics/index.html">
+            
+                
+                    <a href="../../../src/core/analytics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Analytics
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="src/ui/animation/index.html">
+            
+                
+                    <a href="../../../src/ui/animation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Animation
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="src/ui/animation/DIRECTIVE.html">
+            
+                
+                    <a href="../../../src/ui/animation/DIRECTIVE.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        avAnimate
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="src/ui/animation/loader/index.html">
+            
+                
+                    <a href="../../../src/ui/animation/loader/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        avLoader
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="src/core/authorizations/index.html">
+            
+                
+                    <a href="../../../src/core/authorizations/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Authorizations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="src/ui/dimmer/index.html">
+            
+                
+                    <a href="../../../src/ui/dimmer/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Dimmer
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../../" >Availity Angular SDK</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="api">API</h2>
+<p><code>AvApiResource</code> is a lightweight class that wraps Angular&apos;s <code>$http</code> service and provides some sensible defaults when connecting to Availity&apos;s REST API.</p>
+<ul>
+<li>Automatic polling of restful endpoints with timeouts</li>
+<li>Simple URI builder for API resources</li>
+<li>Life-cycle hooks into HTTP calls for GET, PUT, POST and DELETE</li>
+</ul>
+<p>A service can be created by invoking the constructor:</p>
+<pre><code class="lang-javascript">
+<span class="token comment" spellcheck="true">// /api/v1/providers</span>
+angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">factory</span><span class="token punctuation">(</span><span class="token string">&apos;healthplanProvidersResource&apos;</span><span class="token punctuation">,</span> AvApiResource <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>        
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AvApiResource</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;providers&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>A service can also be created by extending the <code>AvApiResource</code> class.  Using classes allows developers to easily add helper methods for resource types</p>
+<pre><code class="lang-javascript">
+<span class="token keyword">class</span> <span class="token class-name">HealthplanProvidersResource</span> <span class="token keyword">extends</span> <span class="token class-name">AvApiResource</span> <span class="token punctuation">{</span>
+
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span> <span class="token string">&apos;/proxy/healthplan&apos;</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span> <span class="token string">&apos;/providers&apos;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">getProviders</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> response<span class="token punctuation">.</span>data<span class="token punctuation">.</span>providers <span class="token operator">?</span> response<span class="token punctuation">.</span>data<span class="token punctuation">.</span>providers <span class="token punctuation">:</span> response<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HealthPlanProvidersResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> module <span class="token operator">=</span> module<span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token string">&apos;healthplanProvidersResource&apos;</span><span class="token punctuation">,</span> HealthplanProvidersResource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p><code>AvApiResource</code> can be configured by passing options into it&apos;s constructor or globally by overriding the defaults using <code>AvApiResourceProvider</code>.</p>
+<pre><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>AvApiResourceProvider<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>    
+    AvApiResourceProvider<span class="token punctuation">.</span><span class="token function">setOptions</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        version<span class="token punctuation">:</span> <span class="token string">&apos;v2&apos;</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// http://local.dev/api/v2/users</span>
+angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">factory</span><span class="token punctuation">(</span><span class="token string">&apos;usersResource&apos;</span><span class="token punctuation">,</span> AvApiResource <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>        
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AvApiResource</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;users&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="options">Options</h3>
+<ul>
+<li><strong>path</strong> - default base segment for REST urls. <strong>default</strong>: <code>/api</code></li>
+<li><strong>name</strong> - name of rest api resource. <em>Ex</em>: <code>users</code></li>
+<li><strong>version</strong> - rest API version. <strong>default</strong>: <code>v1</code></li>
+<li><strong>url</strong> - full URI to resource path.  If <code>url</code> is passed into constructor the options <code>path</code>, <code>name</code> and <code>version</code> are ignored.</li>
+<li><strong>cache</strong> - caches all rest responses.  <strong>default</strong>: <code>true</code></li>
+<li><strong>api</strong> - instructs to turn on Availity specific functionality like automatic polling for asynchronous responses.  <strong>default</strong>: <code>true</code></li>
+<li><strong>pollingInterval</strong> -  time in <code>ms</code> before a request is retried for asynchronous rest services.  <strong>default</strong>: <code>1000</code></li>
+<li><strong>pollingDecay</strong> - the polling decay factor that slows down the polling interval on subsequent retries. <strong>default</strong>: <code>1.2</code></li>
+<li><strong>pollingMaxInterval</strong> - maximum time in <code>ms</code> polling is allowed before rejecting the request. <strong>default</strong>: <code>30000</code></li>
+<li><strong>cacheBust</strong> - when <code>true</code> every request url will include a <code>cacheBust</code> timestamp in order to break browser cache</li>
+<li><strong>sessionBust</strong> - when <code>true</code> a <code>cacheBust</code> parameter is appended to the url but the timestamp is consistent on every call.  The timestamp is created when the application first loads and reused for all API call with <code>cacheBust</code> set to true.</li>
+</ul>
+<h2 id="resources">Resources</h2>
+<p>The SDK includes some configured Angular services for the Availity REST API.</p>
+<ul>
+<li><strong>avOrganizationsResource</strong> - Retrieves the currently logged in user&apos;s organizations</li>
+<li><strong>avUsersResource</strong> - Gets information about the logged in user</li>
+<li><strong>avPermissionsResource</strong> - Retrieves a list of permissions for a user</li>
+<li><strong>avUserPermissionsResource</strong> - Retrieves permissions along with a user&apos;s organizations and the set of resources a user is allowed to control</li>
+<li><strong>avLogMessagesResource</strong> - Used by services to stream events into the analytics</li>
+<li><strong>avSpacesResource</strong> - Get information about content in the spaces catalog</li>
+<li><strong>avRegionsResource</strong> - List the regions that a user&apos;s organization is participating and also get the current selected region.</li>
+</ul>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../../index.html" class="navigation navigation-prev " aria-label="Previous page: Read Me"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../../src/core/analytics/index.html" class="navigation navigation-next " aria-label="Next page: Analytics"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../../gitbook/app.js"></script>
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"prism":{},"search":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

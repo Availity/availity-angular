@@ -1,12 +1,12 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/27/2016)
+ * availity-angular v2.0.0-beta.8 (11/02/2016)
  * (c) Availity, LLC
  */
 @font-face {
   font-family: 'availity-icon-font';
   src: url(../fonts/availity-icon-font.eot);
-  src: url(../fonts/availity-icon-font.eot#iefix) format('embedded-opentype'), url(../fonts/availity-icon-font.woff) format('woff'), url(../fonts/availity-icon-font.ttf) format('truetype'), url(../fonts/availity-icon-font.svg) format('svg');
+  src: url(../fonts/availity-icon-font.eot#iefix) format('embedded-opentype'), url(../fonts/availity-icon-font.woff2) format('woff2'), url(../fonts/availity-icon-font.woff) format('woff'), url(../fonts/availity-icon-font.ttf) format('truetype'), url(../fonts/availity-icon-font.svg#availity-icon-font) format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -894,6 +894,18 @@
   content: '\E8D1';
 }
 /* '' */
+.icon-smile:before {
+  content: '\F118';
+}
+/* '' */
+.icon-frown:before {
+  content: '\F119';
+}
+/* '' */
+.icon-meh:before {
+  content: '\F11A';
+}
+/* '' */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
@@ -1181,7 +1193,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3087,7 +3098,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3683,7 +3693,6 @@ input[type=text]::-ms-clear {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8579,6 +8588,7 @@ button.close {
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
     transition: transform 0.6s ease-in-out;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     perspective: 1000px;
   }
@@ -8840,9 +8850,6 @@ button.close {
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #fff;
-}
-.datepicker > div {
-  display: none;
 }
 .datepicker table {
   margin: 0;
@@ -10637,7 +10644,6 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
 }
 .checkbox input[type="checkbox"]:focus + label::before,
 .checkbox input[type="radio"]:focus + label::before {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -10804,7 +10810,6 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
   z-index: 1;
 }
 .radio input[type="radio"]:focus + label::before {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }

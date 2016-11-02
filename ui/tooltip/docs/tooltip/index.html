@@ -1,34 +1,42 @@
 <div data-ng-controller="DemoTooltipController">
 
   <div class="docs-example">
-      <button type="button"
-        class="btn btn-default"
-        data-av-tooltip
-        data-trigger="click"
-        data-placement="top"
-        title="What is HIPAA"
-      >
+      <button type="button" class="btn btn-default" data-av-tooltip="" data-trigger="click" data-placement="top" title="What is HIPAA">
           Click to toggle tooltip
       </button>
-      <button type="button"
-        class="btn btn-default"
-        data-av-tooltip
-        data-placement="top"
-        data-trigger="hover"
-        title="Protected Health Information (PHI)"
-      >
+      <button type="button" class="btn btn-default" data-av-tooltip="" data-placement="top" data-trigger="hover" title="Protected Health Information (PHI)">
           Hover to show tooltip
       </button>
-      <button type="button"
-        class="btn btn-default"
-        data-av-tooltip
-        data-trigger="manual"
-        title="Need an immediate tooltip?"
-        data-placement="top"
-        data-show="showOnLoad"
-      >
+      <button type="button" class="btn btn-default" data-av-tooltip="" data-trigger="manual" title="Need an immediate tooltip?" data-placement="top" data-show="showOnLoad">
           Show tooltip on load
       </button>
   </div>
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>btn btn-default<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-av-tooltip</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>click<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-placement</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>top<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>What is HIPAA<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        Click to toggle tooltip
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>btn btn-default<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-av-tooltip</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-placement</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>top<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hover<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Protected Health Information (PHI)<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        Hover to show tooltip
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>btn btn-default<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-av-tooltip</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>manual<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Need an immediate tooltip?<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-placement</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>top<span class="token punctuation">&quot;</span></span> <span class="token attr-name">data-show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>showOnLoad<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        Show tooltip on load
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  </code>
+
+  <h3 class="docs-subsection-title">Inline Help</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="memberID">
+          Member ID
+          <inline-help title="Hello World"></inline-help>
+        </label>
+        <input type="text" class="form-control">
+      </div>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable="">
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>inline-help</span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Hello World<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>inline-help</span><span class="token punctuation">&gt;</span></span>
+  </code>
 
 </div>

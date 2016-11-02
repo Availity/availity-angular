@@ -1,28 +1,52 @@
 
 <div ng-controller="DemoModalController">
 
-  <div class="docs-example" >
-    <button class="btn btn-primary" data-ng-click="vm.modalOpen()">
+  <div class="docs-example">
+    <button class="btn btn-primary" ng-click="vm.modalOpen()">
       Launch Modal
     </button>
   </div>
 
   <h3 class="docs-subsection-title">Optional Sizes</h3>
-  <div class="docs-example">
-    <button class="btn btn-default" data-ng-click="vm.modalOpenLarge()">
+  <div class="docs-example" ng-non-bindable="">
+    <button class="btn btn-default" ng-click="vm.modalOpenLarge()">
       Large Modal
     </button>
 
-    <button class="btn btn-default btn-sm" data-ng-click="vm.modalOpenSmall()">
+    <button class="btn btn-default btn-sm" ng-click="vm.modalOpenSmall()">
       Small Modal
     </button>
   </div>
 
   <h3 class="docs-subsection-title">Modal Manager</h3>
-  <div class="docs-example">
-    <button class="btn btn-default" data-ng-click="vm.routeChange()">
+  <div class="docs-example" ng-non-bindable="">
+    <button class="btn btn-default" ng-click="vm.routeChange()">
       Route Change
     </button>
   </div>
+
+  <h3 class="docs-subsection-title">Modal Manager</h3>
+  <div class="docs-example" ng-non-bindable="">
+    <button class="btn btn-default" ng-click="vm.routeChange()">
+      Route Change
+    </button>
+  </div>
+
+  <h3 class="docs-subsection-title">Modal With Controller</h3>
+  <div class="docs-example">
+    <button class="btn btn-default btn-sm" ng-click="vm.openWithController()">
+      Modal With Dedicated Controller
+    </button>
+  </div>
+  <code class="language-javascript" ng-non-bindable="">
+  AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    show<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    controller<span class="token punctuation">:</span> <span class="token string">&apos;SomeController&apos;</span><span class="token punctuation">,</span>
+    controllerAs<span class="token punctuation">:</span> <span class="token string">&apos;vm&apos;</span><span class="token punctuation">,</span>
+    locals<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      someValue<span class="token punctuation">:</span> <span class="token string">&apos;This is a value passed in using locals, it could be params passed from the external scope required by the modal.&apos;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
 
 </div>

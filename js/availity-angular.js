@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.0 (07/27/2016)
+ * availity-angular v2.0.0-beta.8 (11/02/2016)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -9,11 +9,18 @@ webpackJsonp([0],[
 
 	'use strict';
 	
+	exports.__esModule = true;
+	exports.availityConfig = exports.availityUi = exports.availity = undefined;
+	
 	__webpack_require__(1);
 	
 	__webpack_require__(298);
 	
-	__webpack_require__(351);
+	__webpack_require__(350);
+	
+	var availity = exports.availity = 'availity';
+	var availityUi = exports.availityUi = 'availity.ui';
+	var availityConfig = exports.availityConfig = 'availity.config';
 
 /***/ },
 /* 1 */
@@ -27,14 +34,10 @@ webpackJsonp([0],[
 	
 	__webpack_require__(295);
 	
-	/* eslint max-len: 0 */
-	
 	if (global._babelPolyfill) {
 	  throw new Error("only one instance of babel-polyfill is allowed");
 	}
 	global._babelPolyfill = true;
-	
-	// Should be removed in the next major release:
 	
 	var DEFINE_PROPERTY = "defineProperty";
 	function define(O, key, value) {
@@ -7932,7 +7935,6 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	// shim for using process in browser
-	
 	var process = module.exports = {};
 	
 	// cached from whatever global is present so that test runners that stub it
@@ -7943,22 +7945,84 @@ webpackJsonp([0],[
 	var cachedSetTimeout;
 	var cachedClearTimeout;
 	
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout () {
+	    throw new Error('clearTimeout has not been defined');
+	}
 	(function () {
-	  try {
-	    cachedSetTimeout = setTimeout;
-	  } catch (e) {
-	    cachedSetTimeout = function () {
-	      throw new Error('setTimeout is not defined');
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
 	    }
-	  }
-	  try {
-	    cachedClearTimeout = clearTimeout;
-	  } catch (e) {
-	    cachedClearTimeout = function () {
-	      throw new Error('clearTimeout is not defined');
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
 	    }
-	  }
 	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+	
+	
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+	
+	
+	
+	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -7983,7 +8047,7 @@ webpackJsonp([0],[
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout.call(null, cleanUpNextTick);
+	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -8000,7 +8064,7 @@ webpackJsonp([0],[
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout.call(null, timeout);
+	    runClearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -8012,7 +8076,7 @@ webpackJsonp([0],[
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout.call(null, drainQueue, 0);
+	        runTimeout(drainQueue);
 	    }
 	};
 	
@@ -8091,17 +8155,17 @@ webpackJsonp([0],[
 	
 	__webpack_require__(299);
 	
-	__webpack_require__(329);
+	__webpack_require__(325);
+	
+	__webpack_require__(331);
 	
 	__webpack_require__(332);
 	
-	__webpack_require__(333);
-	
-	__webpack_require__(324);
+	__webpack_require__(322);
 	
 	__webpack_require__(311);
 	
-	__webpack_require__(335);
+	__webpack_require__(334);
 
 /***/ },
 /* 299 */
@@ -8117,11 +8181,9 @@ webpackJsonp([0],[
 	
 	__webpack_require__(310);
 	
-	__webpack_require__(318);
+	__webpack_require__(316);
 	
-	__webpack_require__(326);
-	
-	__webpack_require__(328);
+	__webpack_require__(324);
 
 /***/ },
 /* 300 */
@@ -8150,7 +8212,6 @@ webpackJsonp([0],[
 	var CONFIG = {
 	  VIRTUAL_PAGE_TRACKING: true,
 	  SERVICES: {
-	    PIWIK: 'avPiwikAnalytics',
 	    SPLUNK: 'avSplunkAnalytics'
 	  },
 	  EVENTS: {
@@ -8159,16 +8220,7 @@ webpackJsonp([0],[
 	  },
 	  PRE_FIX: /^avAnalytics(.*)$/,
 	  // should ignore these since they are part of the directives API
-	  IGNORE: ['avAnalyticsOn', 'avAnalyticsIf'],
-	  ENV: { // not sure if this should live here
-	    PROD: {
-	      DOMAIN: 'apps.availity.com',
-	      URL: 'https://piwik.availity.com/piwik/'
-	    },
-	    QA: {
-	      URL: 'https://qa-piwik.availity.com/piwik/'
-	    }
-	  }
+	  IGNORE: ['avAnalyticsOn', 'avAnalyticsIf']
 	};
 	
 	var AvAnalyticsConfigProvider = function () {
@@ -8309,7 +8361,7 @@ webpackJsonp([0],[
 	        this.services = {};
 	
 	        if (!self.plugins || self.plugins.length === 0) {
-	          self.plugins = [avAnalyticsConfig.SERVICES.PIWIK, avAnalyticsConfig.SERVICES.SPLUNK];
+	          self.plugins = [avAnalyticsConfig.SERVICES.SPLUNK];
 	        }
 	
 	        _angular2.default.forEach(self.plugins, function (plugin) {
@@ -8401,10 +8453,10 @@ webpackJsonp([0],[
 	// Inspiration: https://github.com/seeden/angular-es6
 	
 	function storeInjections() {
-	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var instance = arguments[1];
 	  var args = arguments[2];
-	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
 	
 	
 	  var instanceInject = instance[name] = instance[name] || {};
@@ -8562,7 +8614,7 @@ webpackJsonp([0],[
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.print = exports.uuid = exports.REGEX_API_URL = exports.regions = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
+	exports.print = exports.uuid = exports.REGEX_API_URL = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
 	
 	var _strings = __webpack_require__(312);
 	
@@ -8576,18 +8628,11 @@ webpackJsonp([0],[
 	
 	var _print2 = _interopRequireDefault(_print);
 	
-	var _regions = __webpack_require__(316);
-	
-	var _regions2 = _interopRequireDefault(_regions);
-	
-	__webpack_require__(317);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.stringify = _strings.stringify;
 	exports.isBlank = _strings.isBlank;
 	exports.getRelativeUrl = _urls.getRelativeUrl;
-	exports.regions = _regions2.default;
 	exports.REGEX_API_URL = _urls.REGEX_API_URL;
 	exports.uuid = _uuid2.default;
 	exports.print = _print2.default;
@@ -8692,199 +8737,17 @@ webpackJsonp([0],[
 
 /***/ },
 /* 316 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	var regions = [{
-	  'name': 'Alabama',
-	  'code': 'AL'
-	}, {
-	  'name': 'Alaska',
-	  'code': 'AK'
-	}, {
-	  'name': 'Arizona',
-	  'code': 'AZ'
-	}, {
-	  'name': 'Arkansas',
-	  'code': 'AR'
-	}, {
-	  'name': 'California',
-	  'code': 'CA'
-	}, {
-	  'name': 'Colorado',
-	  'code': 'CO'
-	}, {
-	  'name': 'Connecticut',
-	  'code': 'CT'
-	}, {
-	  'name': 'Delaware',
-	  'code': 'DE'
-	}, {
-	  'name': 'District Of Columbia',
-	  'code': 'DC'
-	}, {
-	  'name': 'Florida',
-	  'code': 'FL'
-	}, {
-	  'name': 'Georgia',
-	  'code': 'GA'
-	}, {
-	  'name': 'Hawaii',
-	  'code': 'HI'
-	}, {
-	  'name': 'Idaho',
-	  'code': 'ID'
-	}, {
-	  'name': 'Illinois',
-	  'code': 'IL'
-	}, {
-	  'name': 'Indiana',
-	  'code': 'IN'
-	}, {
-	  'name': 'Iowa',
-	  'code': 'IA'
-	}, {
-	  'name': 'Kansas',
-	  'code': 'KS'
-	}, {
-	  'name': 'Kentucky',
-	  'code': 'KY'
-	}, {
-	  'name': 'Louisiana',
-	  'code': 'LA'
-	}, {
-	  'name': 'Maine',
-	  'code': 'ME'
-	}, {
-	  'name': 'Maryland',
-	  'code': 'MD'
-	}, {
-	  'name': 'Massachusetts',
-	  'code': 'MA'
-	}, {
-	  'name': 'Michigan',
-	  'code': 'MI'
-	}, {
-	  'name': 'Minnesota',
-	  'code': 'MN'
-	}, {
-	  'name': 'Mississippi',
-	  'code': 'MS'
-	}, {
-	  'name': 'Missouri',
-	  'code': 'MO'
-	}, {
-	  'name': 'Montana',
-	  'code': 'MT'
-	}, {
-	  'name': 'Nebraska',
-	  'code': 'NE'
-	}, {
-	  'name': 'Nevada',
-	  'code': 'NV'
-	}, {
-	  'name': 'New Hampshire',
-	  'code': 'NH'
-	}, {
-	  'name': 'New Jersey',
-	  'code': 'NJ'
-	}, {
-	  'name': 'New Mexico',
-	  'code': 'NM'
-	}, {
-	  'name': 'New York',
-	  'code': 'NY'
-	}, {
-	  'name': 'North Carolina',
-	  'code': 'NC'
-	}, {
-	  'name': 'North Dakota',
-	  'code': 'ND'
-	}, {
-	  'name': 'Ohio',
-	  'code': 'OH'
-	}, {
-	  'name': 'Oklahoma',
-	  'code': 'OK'
-	}, {
-	  'name': 'Oregon',
-	  'code': 'OR'
-	}, {
-	  'name': 'Pennsylvania',
-	  'code': 'PA'
-	}, {
-	  'name': 'Rhode Island',
-	  'code': 'RI'
-	}, {
-	  'name': 'South Carolina',
-	  'code': 'SC'
-	}, {
-	  'name': 'South Dakota',
-	  'code': 'SD'
-	}, {
-	  'name': 'Tennessee',
-	  'code': 'TN'
-	}, {
-	  'name': 'Texas',
-	  'code': 'TX'
-	}, {
-	  'name': 'Utah',
-	  'code': 'UT'
-	}, {
-	  'name': 'Vermont',
-	  'code': 'VT'
-	}, {
-	  'name': 'Virginia',
-	  'code': 'VA'
-	}, {
-	  'name': 'Washington',
-	  'code': 'WA'
-	}, {
-	  'name': 'West Virginia',
-	  'code': 'WV'
-	}, {
-	  'name': 'Wisconsin',
-	  'code': 'WI'
-	}, {
-	  'name': 'Wyoming',
-	  'code': 'WY'
-	}];
-	
-	exports.default = regions;
-
-/***/ },
-/* 317 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	var _regions = __webpack_require__(316);
-	
-	var _regions2 = _interopRequireDefault(_regions);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	_module2.default.constant('AV_GLOBALS', { REGIONS: _regions2.default });
-
-/***/ },
-/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _moment = __webpack_require__(319);
+	var _moment = __webpack_require__(317);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _tracekit = __webpack_require__(320);
+	var _tracekit = __webpack_require__(318);
 	
 	var _tracekit2 = _interopRequireDefault(_tracekit);
 	
@@ -8896,7 +8759,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(321);
+	__webpack_require__(319);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8908,7 +8771,8 @@ webpackJsonp([0],[
 	  },
 	  TYPES: {
 	    EXCEPTION: 'exception'
-	  }
+	  },
+	  REPEAT_LIMIT_TIME: 5000
 	});
 	
 	var AvExceptionAnalyticsProvider = function () {
@@ -8951,6 +8815,8 @@ webpackJsonp([0],[
 	        _tracekit2.default.report.subscribe(function (stacktrace) {
 	          self.onError(stacktrace);
 	        });
+	
+	        this.messageTimestampMap = {};
 	      };
 	
 	      AvExceptionAnalytics.prototype.prettyPrint = function prettyPrint(stacktrace) {
@@ -8984,7 +8850,7 @@ webpackJsonp([0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.0")
+	          sdkVersion: ("2.0.0-beta.8")
 	        };
 	
 	        return this.log(message);
@@ -9001,9 +8867,31 @@ webpackJsonp([0],[
 	          return null;
 	        }
 	
+	        // If we've already logged this error recently, don't log it again (no need to spam the API)
+	        if (this._isRepeatError(exception)) {
+	          return;
+	        }
+	
 	        var stacktrace = _tracekit2.default.computeStackTrace(exception);
 	
 	        return this.onError(stacktrace);
+	      };
+	
+	      // Check to see if this error was reported within the last 5 seconds
+	
+	
+	      AvExceptionAnalytics.prototype._isRepeatError = function _isRepeatError(exception) {
+	        var timestamp = (0, _moment2.default)();
+	        var message = exception.message;
+	        var lastTimestamp = this.messageTimestampMap[message];
+	        var isRepeat = false;
+	
+	        if (lastTimestamp && timestamp.diff(lastTimestamp) < AV_EXCEPTIONS.REPEAT_LIMIT_TIME) {
+	          isRepeat = true;
+	        }
+	
+	        this.messageTimestampMap[message] = timestamp;
+	        return isRepeat;
 	      };
 	
 	      return AvExceptionAnalytics;
@@ -9036,9 +8924,9 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 319 */,
-/* 320 */,
-/* 321 */
+/* 317 */,
+/* 318 */,
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9049,7 +8937,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(322);
+	__webpack_require__(320);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9077,7 +8965,7 @@ webpackJsonp([0],[
 	        }));
 	      }
 	
-	      AvLogMessagesResource.prototype.buildRequest = function buildRequest(level, entries) {
+	      AvLogMessagesResource.prototype.request = function request(level, entries) {
 	
 	        var requestPayload = {};
 	
@@ -9092,19 +8980,19 @@ webpackJsonp([0],[
 	      };
 	
 	      AvLogMessagesResource.prototype.debug = function debug(entries) {
-	        return this.create(this.buildRequest('debug', entries));
+	        return this.create(this.request('debug', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.info = function info(entries) {
-	        return this.create(this.buildRequest('info', entries));
+	        return this.create(this.request('info', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.warn = function warn(entries) {
-	        return this.create(this.buildRequest('warn', entries));
+	        return this.create(this.request('warn', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.error = function error(entries) {
-	        return this.create(this.buildRequest('error', entries));
+	        return this.create(this.request('error', entries));
 	      };
 	
 	      return AvLogMessagesResource;
@@ -9121,7 +9009,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 322 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9134,13 +9022,17 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
+	var _moment = __webpack_require__(317);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(323);
+	__webpack_require__(321);
 	
-	__webpack_require__(324);
+	__webpack_require__(322);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9151,6 +9043,7 @@ webpackJsonp([0],[
 	    _classCallCheck(this, ApiResourceProvider);
 	
 	    this.defaultOptions = _extends({}, AV_API.OPTIONS);
+	    this.sessionBust = (0, _moment2.default)().unix();
 	  }
 	
 	  ApiResourceProvider.prototype.setOptions = function setOptions(options) {
@@ -9191,11 +9084,22 @@ webpackJsonp([0],[
 	        return _angular2.default.extend({}, this.options, _config2 || {});
 	      };
 	
-	      AvApiResource.prototype.cacheBust = function cacheBust(config) {
+	      AvApiResource.prototype.cacheBust = function cacheBust(_config) {
 	
+	        var config = _angular2.default.copy(_config);
 	        config.cacheBust = null;
 	        config.params = config.params || {};
-	        config.params.cacheBust = new Date().getTime();
+	        config.params.cacheBust = (0, _moment2.default)().unix();
+	
+	        return config;
+	      };
+	
+	      AvApiResource.prototype.sessionBust = function sessionBust(_config) {
+	
+	        var config = _angular2.default.copy(_config);
+	        config.sessionBust = null;
+	        config.params = config.params || {};
+	        config.params.sessionBust = that.sessionBust;
 	
 	        return config;
 	      };
@@ -9234,6 +9138,7 @@ webpackJsonp([0],[
 	
 	          // handle the async response if applicable
 	          var _promise = $q.when(avPollingService.response(_response));
+	
 	          // notify the promise listener of the original response
 	          defer.notify(_response);
 	
@@ -9296,11 +9201,11 @@ webpackJsonp([0],[
 	
 	        var uri = void 0;
 	
-	        var _options2 = this.options;
-	        var path = _options2.path;
-	        var version = _options2.version;
-	        var name = _options2.name;
-	        var url = _options2.url;
+	        var _options2 = this.options,
+	            path = _options2.path,
+	            version = _options2.version,
+	            name = _options2.name,
+	            url = _options2.url;
 	
 	
 	        if (name) {
@@ -9345,6 +9250,7 @@ webpackJsonp([0],[
 	        if (config.cacheBust) {
 	          config = this.cacheBust(config);
 	        }
+	
 	        config.method = 'GET';
 	        config.url = this.getUrl(id);
 	
@@ -9355,10 +9261,17 @@ webpackJsonp([0],[
 	
 	        var config = _config;
 	
+	        // If true cache bust the api on every call
 	        config = this.config(config);
 	        if (config.cacheBust) {
 	          config = this.cacheBust(config);
 	        }
+	
+	        // Cache bust api once per application load
+	        if (config.sessionBust) {
+	          config = this.sessionBust(config);
+	        }
+	
 	        config.method = 'GET';
 	        config.url = this.getUrl();
 	
@@ -9470,7 +9383,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 323 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9540,7 +9453,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 324 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9553,7 +9466,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _constants = __webpack_require__(325);
+	var _constants = __webpack_require__(323);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
@@ -9816,7 +9729,7 @@ webpackJsonp([0],[
 	exports.default = _constants2.default;
 
 /***/ },
-/* 325 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9844,178 +9757,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 326 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _jquery = __webpack_require__(303);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _angular = __webpack_require__(301);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	__webpack_require__(310);
-	
-	__webpack_require__(300);
-	
-	__webpack_require__(327);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var AvPiwikAnalyticsProvider = function () {
-	  function AvPiwikAnalyticsProvider() {
-	    _classCallCheck(this, AvPiwikAnalyticsProvider);
-	
-	    this.siteId;
-	    this.enabled = false;
-	    this.customVariables = [];
-	  }
-	
-	  AvPiwikAnalyticsProvider.prototype.enable = function enable(_enabled) {
-	    this.enabled = !!_enabled;
-	  };
-	
-	  // can not push these items to `_paq` because it is defined
-	  // after page has loaded
-	
-	
-	  AvPiwikAnalyticsProvider.prototype._setCustomVariable = function _setCustomVariable(index, valueName, value, scope) {
-	
-	    if (!index || isNaN(index)) {
-	      throw new Error('index must be a number');
-	    } else if (!valueName) {
-	      throw new Error('valueName must be declared');
-	    } else {
-	      this.customVariables.push(['setCustomVariable', index, valueName, value, scope]);
-	    }
-	  };
-	
-	  AvPiwikAnalyticsProvider.prototype.setSiteID = function setSiteID(_siteID) {
-	    this.enable(true);
-	    this.siteId = _siteID;
-	  };
-	
-	  // allow the user to pass a array of visit variables
-	
-	
-	  AvPiwikAnalyticsProvider.prototype.setVisitVariables = function setVisitVariables(items) {
-	    var _this = this;
-	
-	    items.forEach(function (item) {
-	      _this._setCustomVariable(item[0], item[1], item[2], 'visit');
-	    });
-	  };
-	
-	  AvPiwikAnalyticsProvider.prototype.setPageVariables = function setPageVariables(index, name, value) {
-	    this._setCustomVariable(index, name, value, 'page');
-	  };
-	
-	  AvPiwikAnalyticsProvider.prototype.$get = function $get(avAnalyticsUtils, avUsersResource, avAnalyticsConfig, $injector, $log, $q, $document, $location) {
-	
-	    var that = this;
-	
-	    var AvPiwikAnalytics = function () {
-	      function AvPiwikAnalytics() {
-	        _classCallCheck(this, AvPiwikAnalytics);
-	
-	        window._paq = window._paq || [];
-	      }
-	
-	      AvPiwikAnalytics.prototype.trackEvent = function trackEvent(properties) {
-	
-	        if (!window._paq) {
-	          $log.warn('Piwik object `_paq` not found in global scope');
-	          return $q.when(false);
-	        }
-	
-	        // http://piwik.org/docs/event-tracking/
-	        //
-	        // PAQ requires that eventValue be an integer.
-	        // Check to make sure value is a number if not convert it to 0.
-	        //
-	        if (properties.value) {
-	          properties.value = avAnalyticsUtils.toNum(properties.event);
-	        }
-	
-	        // check to make sure that data being sent to piwik is a string and not null, empty or undefined
-	        if (!avAnalyticsUtils.isValid(properties)) {
-	          $log.warn('Invalid properties being passed. Tracking info will not be sent.');
-	          return $q.when(false);
-	        }
-	
-	        return $q.when(window._paq.push(['trackEvent', properties.category, properties.action || properties.event, properties.label, properties.value]));
-	      };
-	
-	      AvPiwikAnalytics.prototype.trackPageView = function trackPageView(url) {
-	
-	        if (!window._paq) {
-	          $log.warn('Piwik object `_paq` not found in global scope');
-	          return $q.when(false);
-	        }
-	
-	        return $q.when([window._paq.push(['setCustomUrl', url]), window._paq.push(['trackPageView', url])]);
-	      };
-	
-	      AvPiwikAnalytics.prototype.init = function init() {
-	
-	        avUsersResource.me().then(function (user) {
-	          return window._paq.push(['setUserId', user.id]);
-	        });
-	
-	        if (!isFinite(that.siteId)) {
-	          $log.warn('Invalid Piwik Site Id.  Piwik analytics has been disabled.');
-	          return;
-	        }
-	
-	        var url = void 0;
-	
-	        if ($location.$$host === avAnalyticsConfig.ENV.PROD.DOMAIN) {
-	          url = avAnalyticsConfig.ENV.PROD.URL;
-	        } else {
-	          url = avAnalyticsConfig.ENV.QA.URL;
-	        }
-	
-	        window._paq.push(['enableLinkTracking']);
-	        window._paq.push(['setTrackerUrl', url + 'piwik.php']);
-	        window._paq.push(['setSiteId', that.siteId]);
-	
-	        that.customVariables.forEach(function (variable) {
-	          window._paq.push(variable);
-	        });
-	
-	        _jquery2.default.getScript(url + 'piwik.js', _angular2.default.noop);
-	      };
-	
-	      AvPiwikAnalytics.prototype.isEnabled = function isEnabled() {
-	        return that.enabled && that.siteId;
-	      };
-	
-	      return AvPiwikAnalytics;
-	    }();
-	
-	    return new AvPiwikAnalytics();
-	  };
-	
-	  return AvPiwikAnalyticsProvider;
-	}();
-	
-	_module2.default.provider('avPiwikAnalytics', AvPiwikAnalyticsProvider);
-	
-	exports.default = _module2.default;
-
-/***/ },
-/* 327 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10026,56 +9768,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var UserServiceFactory = function UserServiceFactory(AvApiResource) {
-	  var AvUsersResource = function (_AvApiResource) {
-	    _inherits(AvUsersResource, _AvApiResource);
-	
-	    function AvUsersResource() {
-	      _classCallCheck(this, AvUsersResource);
-	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'users' }));
-	    }
-	
-	    AvUsersResource.prototype.afterGet = function afterGet(response) {
-	      var user = response.data.user ? response.data.user : response.data;
-	      return user;
-	    };
-	
-	    AvUsersResource.prototype.me = function me(config) {
-	      return this.get('me', config);
-	    };
-	
-	    return AvUsersResource;
-	  }(AvApiResource);
-	
-	  return new AvUsersResource();
-	};
-	
-	_module2.default.factory('avUsersResource', UserServiceFactory);
-	
-	exports.default = _module2.default;
-
-/***/ },
-/* 328 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	__webpack_require__(321);
+	__webpack_require__(319);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10119,22 +9812,281 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(321);
+	
+	__webpack_require__(319);
+	
+	__webpack_require__(326);
+	
+	__webpack_require__(327);
+	
+	__webpack_require__(328);
+	
+	__webpack_require__(320);
+	
+	__webpack_require__(329);
+	
+	__webpack_require__(330);
+
+/***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _lodash = __webpack_require__(305);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource, avUsersResource) {
+	  var OrganizationResource = function (_AvApiResource) {
+	    _inherits(OrganizationResource, _AvApiResource);
+	
+	    function OrganizationResource() {
+	      _classCallCheck(this, OrganizationResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/sdk/platform',
+	        name: 'organizations'
+	      }));
+	    }
+	
+	    OrganizationResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.organizations || [];
+	    };
+	
+	    OrganizationResource.prototype.queryOrganizations = function queryOrganizations(user, config) {
+	
+	      var params = {
+	        params: {
+	          userId: user.id
+	        }
+	      };
+	
+	      // merge in params with user ID
+	      var queryConfig = _lodash2.default.merge({}, params, config);
+	
+	      return this.query(queryConfig);
+	    };
+	
+	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
+	      var _this2 = this;
+	
+	      return avUsersResource.me().then(function (user) {
+	        return _this2.queryOrganizations.call(_this2, user, config);
+	      });
+	    };
+	
+	    return OrganizationResource;
+	  }(AvApiResource);
+	
+	  return new OrganizationResource();
+	};
+	
+	_module2.default.factory('avOrganizationsResource', OrganizationResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 327 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	    }
+	
+	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.permissions ? response.data.permissions : [];
+	    };
+	
+	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
+	
+	      return this.query({
+	        params: {
+	          permissionId: permissionIds,
+	          region: region
+	        }
+	      });
+	    };
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 328 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	    }
+	
+	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+	    };
+	
+	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
+	
+	      return this.query({
+	        sessionBust: true,
+	        params: {
+	          permissionId: permissionIds,
+	          region: region
+	        }
+	      });
+	    };
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
 /* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(323);
+	exports.__esModule = true;
 	
-	__webpack_require__(321);
+	var _lodash = __webpack_require__(305);
 	
-	__webpack_require__(330);
+	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	__webpack_require__(331);
+	var _module = __webpack_require__(304);
 	
-	__webpack_require__(322);
+	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(327);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ProvidersResourceFactory = function ProvidersResourceFactory(AvApiResource) {
+	  var ProvidersResource = function (_AvApiResource) {
+	    _inherits(ProvidersResource, _AvApiResource);
+	
+	    function ProvidersResource() {
+	      _classCallCheck(this, ProvidersResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/internal',
+	        name: 'providers'
+	      }));
+	    }
+	
+	    ProvidersResource.prototype.afterQuery = function afterQuery(response) {
+	      return response.data.providers || [];
+	    };
+	
+	    ProvidersResource.prototype.getProviders = function getProviders(customerId, config) {
+	
+	      var params = {
+	        params: {
+	          customerId: customerId
+	        }
+	      };
+	
+	      // merge in params with user ID
+	      var queryConfig = _lodash2.default.merge({}, params, config);
+	
+	      return this.query(queryConfig);
+	    };
+	
+	    return ProvidersResource;
+	  }(AvApiResource);
+	
+	  return new ProvidersResource();
+	};
+	
+	_module2.default.factory('avProvidersResource', ProvidersResourceFactory);
+	
+	exports.default = _module2.default;
 
 /***/ },
 /* 330 */
@@ -10156,29 +10108,35 @@ webpackJsonp([0],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var OrganizationResourceFactory = function OrganizationResourceFactory(AvApiResource) {
-	  var OrganizationResource = function (_AvApiResource) {
-	    _inherits(OrganizationResource, _AvApiResource);
+	var UserServiceFactory = function UserServiceFactory(AvApiResource) {
+	  var AvUsersResource = function (_AvApiResource) {
+	    _inherits(AvUsersResource, _AvApiResource);
 	
-	    function OrganizationResource() {
-	      _classCallCheck(this, OrganizationResource);
+	    function AvUsersResource() {
+	      _classCallCheck(this, AvUsersResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, { name: 'organizations' }));
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/sdk/platform',
+	        name: '/users'
+	      }));
 	    }
 	
-	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
-	      return this.query(config).then(function (response) {
-	        return response.data.organizations ? response.data.organizations : response.data;
-	      });
+	    AvUsersResource.prototype.afterGet = function afterGet(response) {
+	      var user = response.data.user ? response.data.user : response.data;
+	      return user;
 	    };
 	
-	    return OrganizationResource;
+	    AvUsersResource.prototype.me = function me(config) {
+	      return this.get('me', config);
+	    };
+	
+	    return AvUsersResource;
 	  }(AvApiResource);
 	
-	  return new OrganizationResource();
+	  return new AvUsersResource();
 	};
 	
-	_module2.default.factory('avOrganizationsResource', OrganizationResourceFactory);
+	_module2.default.factory('avUsersResource', UserServiceFactory);
 	
 	exports.default = _module2.default;
 
@@ -10189,70 +10147,6 @@ webpackJsonp([0],[
 	'use strict';
 	
 	exports.__esModule = true;
-	
-	var _moment = __webpack_require__(319);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
-	  var AvUserPermissionsResource = function (_AvApiResource) {
-	    _inherits(AvUserPermissionsResource, _AvApiResource);
-	
-	    function AvUserPermissionsResource() {
-	      _classCallCheck(this, AvUserPermissionsResource);
-	
-	      var _this = _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/api/internal',
-	        version: '/v1',
-	        name: '/axi-user-permissions'
-	      }));
-	
-	      _this.cacheBust = (0, _moment2.default)().unix();
-	      return _this;
-	    }
-	
-	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
-	    };
-	
-	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
-	
-	      return this.query({
-	        params: {
-	          permissionId: permissionIds,
-	          region: region,
-	          cacheBust: this.cacheBust
-	        }
-	      });
-	    };
-	
-	    return AvUserPermissionsResource;
-	  }(AvApiResource);
-	
-	  return new AvUserPermissionsResource();
-	};
-	
-	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
-	
-	exports.default = _module2.default;
-
-/***/ },
-/* 332 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	
 	var _angular = __webpack_require__(301);
 	
@@ -10266,7 +10160,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(329);
+	__webpack_require__(325);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10405,9 +10299,11 @@ webpackJsonp([0],[
 	};
 	
 	_module2.default.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
+	
+	exports.default = _module2.default;
 
 /***/ },
-/* 333 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10428,7 +10324,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(334);
+	__webpack_require__(333);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -10603,7 +10499,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 334 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10632,17 +10528,17 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 335 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(336);
+	__webpack_require__(335);
 	
-	__webpack_require__(337);
+	__webpack_require__(336);
 
 /***/ },
-/* 336 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10651,7 +10547,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _rules = __webpack_require__(336);
+	var _rules = __webpack_require__(335);
 	
 	var _rules2 = _interopRequireDefault(_rules);
 	
@@ -10662,7 +10558,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 337 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10675,11 +10571,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
+	__webpack_require__(337);
+	
 	__webpack_require__(338);
 	
 	__webpack_require__(339);
-	
-	__webpack_require__(340);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10756,7 +10652,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avVal', AvValProvider);
 
 /***/ },
-/* 338 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10785,7 +10681,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 339 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10818,31 +10714,31 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 340 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(341);
+	__webpack_require__(340);
+	
+	__webpack_require__(343);
 	
 	__webpack_require__(344);
+	
+	__webpack_require__(346);
 	
 	__webpack_require__(345);
 	
 	__webpack_require__(347);
 	
-	__webpack_require__(346);
-	
 	__webpack_require__(348);
 	
 	__webpack_require__(349);
 	
-	__webpack_require__(350);
-	
-	__webpack_require__(343);
+	__webpack_require__(342);
 
 /***/ },
-/* 341 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10851,7 +10747,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(319);
+	var _moment = __webpack_require__(317);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -10859,13 +10755,13 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(339);
+	__webpack_require__(338);
 	
-	__webpack_require__(343);
+	__webpack_require__(342);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10886,9 +10782,9 @@ webpackJsonp([0],[
 	    }
 	
 	    DateValidator.prototype.validate = function validate(_ref) {
-	      var value = _ref.value;
-	      var constraint = _ref.constraint;
-	      var format = _ref.format;
+	      var value = _ref.value,
+	          constraint = _ref.constraint,
+	          format = _ref.format;
 	
 	
 	      var _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
@@ -10902,7 +10798,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 342 */
+/* 341 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10920,7 +10816,7 @@ webpackJsonp([0],[
 	exports.default = Validator;
 
 /***/ },
-/* 343 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10948,7 +10844,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 344 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10957,7 +10853,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(319);
+	var _moment = __webpack_require__(317);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -10965,13 +10861,13 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(339);
+	__webpack_require__(338);
 	
-	__webpack_require__(343);
+	__webpack_require__(342);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11018,8 +10914,8 @@ webpackJsonp([0],[
 	    };
 	
 	    DateRangeValidator.prototype.validation = function validation(_ref) {
-	      var value = _ref.value;
-	      var constraint = _ref.constraint;
+	      var value = _ref.value,
+	          constraint = _ref.constraint;
 	
 	
 	      var startDate = void 0;
@@ -11051,7 +10947,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 345 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11060,11 +10956,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(346);
+	__webpack_require__(345);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11076,7 +10972,7 @@ webpackJsonp([0],[
 	
 	_module2.default.factory('avValEmail', function (avValPattern) {
 	
-	  var EMAIL_PATTERN = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+	  var EMAIL_PATTERN = /[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/;
 	
 	  var EmailValidator = function (_Validator) {
 	    _inherits(EmailValidator, _Validator);
@@ -11102,7 +10998,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 346 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11111,11 +11007,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(343);
+	__webpack_require__(342);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11155,8 +11051,8 @@ webpackJsonp([0],[
 	    };
 	
 	    PatternValidator.prototype.validate = function validate(context) {
-	      var value = context.value;
-	      var constraint = context.constraint;
+	      var value = context.value,
+	          constraint = context.constraint;
 	
 	
 	      var self = this;
@@ -11182,7 +11078,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 347 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11191,7 +11087,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -11267,7 +11163,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 348 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11276,11 +11172,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(346);
+	__webpack_require__(345);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11316,7 +11212,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 349 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11325,11 +11221,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(343);
+	__webpack_require__(342);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11350,8 +11246,8 @@ webpackJsonp([0],[
 	    }
 	
 	    RequiredValidator.prototype.validate = function validate(context) {
-	      var value = context.value;
-	      var element = context.element;
+	      var value = context.value,
+	          element = context.element;
 	
 	      // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
 	      // type of field:
@@ -11381,7 +11277,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 350 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11390,7 +11286,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _validator = __webpack_require__(342);
+	var _validator = __webpack_require__(341);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -11417,8 +11313,8 @@ webpackJsonp([0],[
 	    }
 	
 	    SizeValidator.prototype.validate = function validate(context) {
-	      var value = context.value;
-	      var constraint = context.constraint;
+	      var value = context.value,
+	          constraint = context.constraint;
 	
 	      var _value = value;
 	
@@ -11450,43 +11346,47 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 351 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+	__webpack_require__(351);
+	
 	__webpack_require__(352);
 	
-	__webpack_require__(353);
+	__webpack_require__(357);
 	
-	__webpack_require__(358);
+	__webpack_require__(363);
 	
-	__webpack_require__(365);
+	__webpack_require__(372);
 	
-	__webpack_require__(374);
+	__webpack_require__(380);
 	
-	__webpack_require__(382);
+	__webpack_require__(385);
 	
-	__webpack_require__(387);
+	__webpack_require__(392);
 	
-	__webpack_require__(394);
-	
-	__webpack_require__(401);
-	
-	__webpack_require__(404);
-	
-	__webpack_require__(405);
-	
-	__webpack_require__(410);
+	__webpack_require__(393);
 	
 	__webpack_require__(396);
 	
-	__webpack_require__(415);
+	__webpack_require__(400);
 	
-	__webpack_require__(422);
+	__webpack_require__(407);
+	
+	__webpack_require__(408);
+	
+	__webpack_require__(413);
+	
+	__webpack_require__(402);
+	
+	__webpack_require__(419);
+	
+	__webpack_require__(426);
 
 /***/ },
-/* 352 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11504,19 +11404,19 @@ webpackJsonp([0],[
 	exports.default = ngModule;
 
 /***/ },
-/* 353 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(354);
+	__webpack_require__(353);
+	
+	__webpack_require__(355);
 	
 	__webpack_require__(356);
-	
-	__webpack_require__(357);
 
 /***/ },
-/* 354 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11525,11 +11425,11 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -11588,7 +11488,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 
 /***/ },
-/* 355 */
+/* 354 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11600,10 +11500,10 @@ webpackJsonp([0],[
 	// Inspiration: https://github.com/seeden/angular-es6
 	
 	function storeInjections() {
-	  var injected = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var instance = arguments[1];
 	  var args = arguments[2];
-	  var name = arguments.length <= 3 || arguments[3] === undefined ? 'av' : arguments[3];
+	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
 	
 	
 	  var instanceInject = instance[name] = instance[name] || {};
@@ -11627,12 +11527,12 @@ webpackJsonp([0],[
 	exports.default = Base;
 
 /***/ },
-/* 356 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11653,7 +11553,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 357 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11662,7 +11562,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11676,6 +11576,7 @@ webpackJsonp([0],[
 	    controller: 'AvAnalyticsController',
 	    require: ['avAnalyticsOn', '?^avAnalytics'],
 	    link: function link(scope, element, attrs, controllers) {
+	
 	      var childCtrl = controllers[0];
 	      var parentCtrl = {};
 	      var parentOptions = {};
@@ -11688,6 +11589,7 @@ webpackJsonp([0],[
 	      var eventType = attrs.avAnalyticsOn || avAnalyticsConfig.EVENTS.DEFAULT;
 	
 	      element.on(eventType, function (event) {
+	
 	        if (parentCtrl.getOptions) {
 	          parentOptions = parentCtrl.getOptions();
 	        }
@@ -11701,48 +11603,42 @@ webpackJsonp([0],[
 	});
 
 /***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(358);
+	
+	__webpack_require__(362);
+
+/***/ },
 /* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(359);
-	
-	__webpack_require__(360);
-	
-	__webpack_require__(361);
-	
-	__webpack_require__(364);
 
 /***/ },
-/* 359 */,
-/* 360 */,
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	__webpack_require__(362);
-
-/***/ },
-/* 362 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	__webpack_require__(359);
+	__webpack_require__(360);
 	
-	var _template = __webpack_require__(363);
+	var _template = __webpack_require__(361);
 	
 	var _template2 = _interopRequireDefault(_template);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11825,7 +11721,8 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 363 */
+/* 360 */,
+/* 361 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/animation/loader/template.html';
@@ -11834,14 +11731,14 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 364 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11908,24 +11805,24 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 365 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(366);
+	__webpack_require__(364);
+	
+	__webpack_require__(365);
 	
 	__webpack_require__(367);
 	
 	__webpack_require__(369);
 	
-	__webpack_require__(371);
+	__webpack_require__(368);
 	
 	__webpack_require__(370);
 	
-	__webpack_require__(372);
-	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11949,13 +11846,13 @@ webpackJsonp([0],[
 	// import './integration';
 
 /***/ },
-/* 366 */
+/* 364 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 367 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11964,13 +11861,13 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(368);
+	var _utils = __webpack_require__(366);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -11985,7 +11882,7 @@ webpackJsonp([0],[
 	// Inspiration from https://github.com/McNull/angular-block-ui.
 	//
 	//  - Need npm compatible library
-	//  - Re-factor with better life-cyle hooks for starting and stopping animations
+	//  - Re-factor with better life-cycle hooks for starting and stopping animations
 	
 	var BlockController = function (_Base) {
 	  _inherits(BlockController, _Base);
@@ -12081,7 +11978,7 @@ webpackJsonp([0],[
 	
 	          // After the initial content has been loaded we'll spy on any location
 	          // changes and discard them when needed.
-	
+	          //
 	          var fn = _this2.av.$scope.$on('$viewContentLoaded', function () {
 	
 	            // Unhook the view loaded and hook a function that will prevent
@@ -12133,7 +12030,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 368 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12231,7 +12128,7 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 369 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12240,13 +12137,13 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(370);
+	__webpack_require__(368);
 	
-	var _utils = __webpack_require__(368);
+	var _utils = __webpack_require__(366);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12339,7 +12236,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 370 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12348,11 +12245,11 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(368);
+	var _utils = __webpack_require__(366);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12538,16 +12435,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 371 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -12602,7 +12499,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 372 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12611,11 +12508,11 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _block = __webpack_require__(373);
+	var _block = __webpack_require__(371);
 	
 	var _block2 = _interopRequireDefault(_block);
 	
@@ -12634,7 +12531,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 373 */
+/* 371 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/block/block.html';
@@ -12643,10 +12540,14 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 374 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	__webpack_require__(373);
+	
+	__webpack_require__(374);
 	
 	__webpack_require__(375);
 	
@@ -12654,14 +12555,10 @@ webpackJsonp([0],[
 	
 	__webpack_require__(377);
 	
-	__webpack_require__(378);
-	
 	__webpack_require__(379);
-	
-	__webpack_require__(381);
 
 /***/ },
-/* 375 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12670,7 +12567,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12700,12 +12597,12 @@ webpackJsonp([0],[
 	_module2.default.config(dateConfig);
 
 /***/ },
-/* 376 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12715,14 +12612,11 @@ webpackJsonp([0],[
 	_module2.default.constant('AV_DATEPICKER', {
 	  CONTROLLER: '$ngModelController',
 	  ADD_ON_SELECTOR: '[data-toggle="datepicker"]',
-	  OPTIONS: ['autoclose', 'beforeShowDay', 'beforeShowMonth', 'calendarWeeks', 'clearBtn', 'toggleActive', 'container', 'daysOfWeekDisabled', 'datesDisabled', 'defaultViewDate', 'endDate', 'forceParse', 'format', 'inputs', 'keyboardNavigation', 'language', 'minViewMode', 'multidate', 'multidateSeparator', 'orientation', 'startDate', 'startView', 'todayBtn', 'todayHighlight', 'weekStart', 'showOnFocus', 'disableTouchKeyboard', 'enableOnReadonly', 'modelFormat'],
-	  DEFAULTS: {
-	    MODELFORMAT: 'YYYY-MM-DD'
-	  }
+	  OPTIONS: ['autoclose', 'assumeNearbyYear', 'beforeShowCentury', 'beforeShowDay', 'beforeShowDecade', 'beforeShowMonth', 'beforeShowYear', 'calendarWeeks', 'clearBtn', 'container', 'datesDisabled', 'daysOfWeekDisabled', 'defaultViewDate', 'disableTouchKeyboard', 'enableOnReadonly', 'endDate', 'forceParse', 'format', 'immediateUpdates', 'inputs', 'keyboardNavigation', 'language', 'maxViewMode', 'minViewMode', 'modelFormat', 'multidate', 'multidateSeparator', 'orientation', 'showOnFocus', 'startDate', 'startView', 'title', 'todayBtn', 'todayHighlight', 'toggleActive', 'weekStart', 'zIndexOffset']
 	});
 
 /***/ },
-/* 377 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12733,7 +12627,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12767,7 +12661,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 /***/ },
-/* 378 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12776,15 +12670,15 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(319);
+	var _moment = __webpack_require__(317);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12859,16 +12753,16 @@ webpackJsonp([0],[
 	
 	    var plugin = this.plugin();
 	
-	    if (!plugin || !viewValue) {
+	    if (!plugin || !viewValue || viewValue === '') {
 	      return null;
 	    }
 	
 	    var parsed = (0, _moment2.default)(viewValue, this.options.format, true);
 	
+	    // options.format must be supported by moment.js.  Moment parses format and then
+	    // we convert to bootstrap datepicker UTC format
 	    if (parsed.isValid()) {
-	      // jscs: disable
 	      return plugin._utc_to_local(parsed.utc().toDate());
-	      // jscs: enable
 	    }
 	  };
 	
@@ -12884,14 +12778,6 @@ webpackJsonp([0],[
 	        _this2.options[_key] = _this2.av.$scope.$eval(value);
 	      }
 	    });
-	
-	    if (!this.options.modelFormat || this.options.modelFormat && this.options.modelFormat.toLowerCase() === 'default') {
-	      this.options.modelFormat = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
-	    }
-	
-	    if (this.av.$attrs.type === 'date' && this.hasDateInputSupport) {
-	      this.options.format = this.av.AV_DATEPICKER.DEFAULTS.MODELFORMAT;
-	    }
 	  };
 	
 	  AvDatepickerController.prototype.plugin = function plugin() {
@@ -12922,10 +12808,12 @@ webpackJsonp([0],[
 	_module2.default.controller('AvDatepickerController', AvDatepickerController);
 
 /***/ },
-/* 379 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	exports.__esModule = true;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -12933,9 +12821,9 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	__webpack_require__(380);
+	__webpack_require__(378);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12945,6 +12833,7 @@ webpackJsonp([0],[
 	  return {
 	    restrict: 'A',
 	    require: ['ngModel', 'avDatepicker'],
+	    priority: 1,
 	    controller: 'AvDatepickerController',
 	    link: function link(scope, element, attrs, controllers) {
 	
@@ -12961,6 +12850,16 @@ webpackJsonp([0],[
 	
 	      avDatepicker.init();
 	      avDatepicker.setNgModel(ngModel);
+	
+	      // Datepicker plugin triggers a change event on load that will read in
+	      // the input value and update the Angular model shortly after.  In order
+	      // to preserve model values on load, we read the model in from scope and
+	      // set the input value with jQuery
+	      var value = scope.$eval(attrs.ngModel);
+	      if (value) {
+	        var viewValue = avDatepicker.modelToView(value);
+	        element.val(viewValue);
+	      }
 	
 	      ngModel.$parsers.push(avDatepicker.viewToModel.bind(avDatepicker));
 	      ngModel.$formatters.push(avDatepicker.modelToView.bind(avDatepicker));
@@ -13004,9 +12903,29 @@ webpackJsonp([0],[
 	    }
 	  };
 	});
+	
+	exports.default = _module2.default;
 
 /***/ },
-/* 380 */,
+/* 378 */,
+/* 379 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(381);
+	
+	__webpack_require__(382);
+	
+	__webpack_require__(383);
+
+/***/ },
 /* 381 */
 /***/ function(module, exports) {
 
@@ -13018,27 +12937,9 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	__webpack_require__(383);
-	
-	__webpack_require__(384);
-	
-	__webpack_require__(385);
-
-/***/ },
-/* 383 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 384 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13088,18 +12989,18 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 385 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _controller = __webpack_require__(386);
+	var _controller = __webpack_require__(384);
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
@@ -13118,7 +13019,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 386 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13129,7 +13030,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -13208,21 +13109,21 @@ webpackJsonp([0],[
 	exports.default = AvDimmerController;
 
 /***/ },
-/* 387 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(388);
+	__webpack_require__(386);
 	
-	__webpack_require__(389);
+	__webpack_require__(387);
 	
-	__webpack_require__(392);
+	__webpack_require__(390);
 	
-	__webpack_require__(393);
+	__webpack_require__(391);
 
 /***/ },
-/* 388 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13231,7 +13132,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13283,7 +13184,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avDropdownConfig', AvConfig);
 
 /***/ },
-/* 389 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13292,11 +13193,11 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	__webpack_require__(388);
+	
 	__webpack_require__(390);
 	
-	__webpack_require__(392);
-	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13413,16 +13314,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 390 */,
-/* 391 */,
-/* 392 */
+/* 388 */,
+/* 389 */,
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _lodash = __webpack_require__(305);
 	
@@ -13432,17 +13333,17 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
 	var _utils = __webpack_require__(311);
 	
-	__webpack_require__(388);
+	__webpack_require__(386);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -13589,9 +13490,6 @@ webpackJsonp([0],[
 	    var locals = self.getLocals(value, key);
 	    var viewValue = self.viewValueFn(self.av.$scope, locals);
 	    var selectValue = self.getTrackByValueFn(viewValue, locals);
-	    // const label = this.displayFn(this.av.$scope, locals);
-	    // const group = this.groupByFn(this.av.$scope, locals);
-	    // const disabled = this.disableWhenFn(this.av.$scope, locals);
 	
 	    return selectValue;
 	  };
@@ -13782,14 +13680,14 @@ webpackJsonp([0],[
 	exports.default = AvDropdownController;
 
 /***/ },
-/* 393 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13832,18 +13730,28 @@ webpackJsonp([0],[
 	        params: {}
 	      };
 	
-	      if (data.page) {
-	        config.params.offset = this.getPageSize() * (data.page - 1);
-	      }
-	      if (data.offset) {
-	        config.params.offset = data.offset;
-	      }
+	      config.params.offset = this.getOffset(data);
 	
 	      if (data.term) {
-	        config.params.q = data.term;
+	        config.params[this.getQueryParam()] = data.term;
 	      }
 	
 	      return config;
+	    };
+	
+	    AvSelectResource.prototype.getOffset = function getOffset(data) {
+	      var offset = void 0;
+	      if (data.page) {
+	        offset = this.getPageSize() * (data.page - 1);
+	      }
+	      if (data.offset) {
+	        offset = data.offset;
+	      }
+	      return offset;
+	    };
+	
+	    AvSelectResource.prototype.getQueryParam = function getQueryParam() {
+	      return 'q';
 	    };
 	
 	    AvSelectResource.prototype.getResponse = function getResponse(response, results) {
@@ -13880,10 +13788,9 @@ webpackJsonp([0],[
 	      if (results && (!results[0].id || !results[0].text)) {
 	
 	        results = results.map(function (item) {
-	          var _mapResult = _this3.mapResult(item);
-	
-	          var id = _mapResult.id;
-	          var text = _mapResult.text;
+	          var _mapResult = _this3.mapResult(item),
+	              id = _mapResult.id,
+	              text = _mapResult.text;
 	
 	          item.id = id;
 	          item.text = text;
@@ -13932,19 +13839,33 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 394 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(395);
+	var _module = __webpack_require__(351);
 	
-	__webpack_require__(398);
+	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(397);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_MASK', {
+	  date: '99/99/9999',
+	  phone: '(999) 999-9999',
+	  ssn: '999-99-9999'
+	});
 
 /***/ },
-/* 395 */
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(394);
+
+/***/ },
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13953,17 +13874,243 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(396);
+	__webpack_require__(395);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvHidePermissionController = function () {
+	  function AvHidePermissionController($element, avUserAuthorizations) {
+	    _classCallCheck(this, AvHidePermissionController);
+	
+	    this.$element = $element;
+	    this.avUserAuthorizations = avUserAuthorizations;
+	  }
+	
+	  AvHidePermissionController.prototype.$onInit = function $onInit() {
+	    this.$element.hide();
+	  };
+	
+	  AvHidePermissionController.prototype.$onChanges = function $onChanges(changed) {
+	    var _this = this;
+	
+	    var permissions = changed.avHidePermission.currentValue;
+	
+	    if (!_angular2.default.isArray(permissions)) {
+	      permissions = ('' + permissions).split(/\s+/);
+	    }
+	
+	    this.avUserAuthorizations.isAnyAuthorized(permissions).then(function (isAuthorized) {
+	      return _this.onSuccess(isAuthorized);
+	    }, function () {
+	      return _this.onError();
+	    });
+	  };
+	
+	  AvHidePermissionController.prototype.onSuccess = function onSuccess(isAuthorized) {
+	    if (isAuthorized) {
+	      this.$element.removeClass('ng-hide');
+	      this.$element.show();
+	    } else {
+	      this.$element.remove();
+	    }
+	  };
+	
+	  AvHidePermissionController.prototype.onError = function onError() {
+	    this.$element.remove();
+	  };
+	
+	  return AvHidePermissionController;
+	}();
+	
+	_module2.default.directive('avHidePermission', function () {
+	  return {
+	    restrict: 'A',
+	    controller: AvHidePermissionController,
+	    scope: {},
+	    bindToController: {
+	      avHidePermission: '<' // array or comma delimited supported
+	    },
+	    controllerAs: 'vm'
+	  };
+	});
+
+/***/ },
+/* 395 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
 	__webpack_require__(397);
+
+/***/ },
+/* 397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	__webpack_require__(398);
+	exports.__esModule = true;
 	
-	__webpack_require__(400);
+	var _module = __webpack_require__(351);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	var _spaces = __webpack_require__(398);
+	
+	var _spaces2 = _interopRequireDefault(_spaces);
+	
+	__webpack_require__(399);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.directive('avSpacesBreadcrumbs', function ($location, avSpacesResource, $log) {
+	  return {
+	    restrict: 'AE',
+	    replace: true,
+	    scope: {
+	      'pageName': '@',
+	      'spaceId': '@?'
+	    },
+	    templateUrl: _spaces2.default,
+	    link: function link(scope) {
+	
+	      var spaceId = scope.spaceId;
+	
+	      function parseQuery(queryString) {
+	        var query = {};
+	        var a = queryString.substr(1).split('&');
+	        for (var i = 0; i < a.length; i++) {
+	          var b = a[i].split('=');
+	          query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
+	        }
+	        return query;
+	      }
+	
+	      // Find paramter in query string after hash (#)
+	      if (!spaceId) {
+	        spaceId = $location.search().spaceId;
+	      }
+	
+	      // Find parameter in normal query string
+	      if (!spaceId) {
+	        var params = parseQuery(window.location.search);
+	        spaceId = params.spaceId;
+	      }
+	
+	      if (spaceId) {
+	        avSpacesResource.get(spaceId).then(function (response) {
+	          scope.spaceName = response.data.name;
+	          scope.spaceId = spaceId;
+	        });
+	      } else {
+	        $log.warn('avSpacesBreadcrumbs could NOT detect a spaceId through scope or by parsing the URL.');
+	      }
+	    }
+	  };
+	});
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 398 */
+/***/ function(module, exports) {
+
+	var path = 'src/ui/breadcrumbs/spaces.html';
+	var html = "<ul class=\"breadcrumb breadcrumb-space\">\n  <li>\n    <a href=\"/public/apps/dashboard\" target=\"newBody\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"home\"\n      av-analytics-category=\"home breadcrumb\">\n      Home\n    </a>\n  </li>\n  <li ng-if=\"spaceName\">\n    <a href=\"/public/apps/spaces/#/{{spaceId}}\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"{{spaceId}}\"\n      av-analytics-category=\"page breadcrumb\">{{spaceName}}</a>\n  </li>\n  <li class=\"active\">\n    {{pageName}}\n  </li>\n</ul>\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 399 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Spaces = function Spaces(AvApiResource) {
+	  var SpacesResource = function (_AvApiResource) {
+	    _inherits(SpacesResource, _AvApiResource);
+	
+	    function SpacesResource() {
+	      _classCallCheck(this, SpacesResource);
+	
+	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	        path: '/api/sdk/platform',
+	        name: '/spaces'
+	      }));
+	    }
+	
+	    return SpacesResource;
+	  }(AvApiResource);
+	
+	  return new SpacesResource();
+	};
+	
+	_module2.default.factory('avSpacesResource', Spaces);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(401);
+	
+	__webpack_require__(404);
+	
+	__webpack_require__(403);
+
+/***/ },
+/* 401 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _angular = __webpack_require__(301);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _lodash = __webpack_require__(305);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _module = __webpack_require__(351);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(402);
+	
+	__webpack_require__(403);
+	
+	__webpack_require__(404);
+	
+	__webpack_require__(406);
 	
 	var _utils = __webpack_require__(311);
 	
@@ -13994,13 +14141,14 @@ webpackJsonp([0],[
 	    };
 	
 	    Modal.prototype.buildOptions = function buildOptions(userOptions) {
+	
 	      var options = _angular2.default.extend({}, AV_MODAL.OPTIONS, userOptions);
 	
 	      options.scope = options.scope || $rootScope.$new();
 	
 	      if (options.controller) {
-	        var locals = _angular2.default.extend({ $scope: options.scope }, options.locals);
 	
+	        var locals = _angular2.default.extend({ $scope: options.scope }, options.locals);
 	        var controller = $controller(options.controller, locals);
 	
 	        if (options.controllerAs) {
@@ -14045,9 +14193,13 @@ webpackJsonp([0],[
 	      this.$element.modal({
 	        'backdrop': this.options.backdrop,
 	        'keyboard': this.options.keyboard,
-	        'show': this.options.show,
+	        'show': false,
 	        'remote': this.options.remote
 	      });
+	
+	      if (_lodash2.default.isUndefined(this.options.show) || this.options.show) {
+	        this.$element.modal('show');
+	      }
 	    };
 	
 	    // Add helpers to scope so clients can call internal methods
@@ -14188,12 +14340,12 @@ webpackJsonp([0],[
 	_module2.default.factory('AvModal', ModalFactory);
 
 /***/ },
-/* 396 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14218,12 +14370,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 397 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14237,6 +14389,9 @@ webpackJsonp([0],[
 	    template: null,
 	    id: null,
 	    container: null,
+	    controller: null,
+	    controllerAs: null,
+	    locals: null,
 	
 	    // Bootstrap defaults
 	    keyboard: true,
@@ -14266,16 +14421,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 398 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _modal = __webpack_require__(399);
+	var _modal = __webpack_require__(405);
 	
 	var _modal2 = _interopRequireDefault(_modal);
 	
@@ -14294,7 +14449,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 399 */
+/* 405 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/modal.html';
@@ -14303,7 +14458,7 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 400 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14312,7 +14467,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14370,102 +14525,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 401 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(402);
-
-/***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _angular = __webpack_require__(301);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _module = __webpack_require__(352);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	__webpack_require__(403);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var AvHidePermissionController = function () {
-	  function AvHidePermissionController($element, avUserAuthorizations) {
-	    _classCallCheck(this, AvHidePermissionController);
-	
-	    this.$element = $element;
-	    this.avUserAuthorizations = avUserAuthorizations;
-	  }
-	
-	  AvHidePermissionController.prototype.$onInit = function $onInit() {
-	    this.$element.hide();
-	  };
-	
-	  AvHidePermissionController.prototype.$onChanges = function $onChanges(changed) {
-	    var _this = this;
-	
-	    var permissions = changed.avHidePermission.currentValue;
-	
-	    if (!_angular2.default.isArray(permissions)) {
-	      permissions = ('' + permissions).split(/\s+/);
-	    }
-	
-	    this.avUserAuthorizations.isAnyAuthorized(permissions).then(function (isAuthorized) {
-	      return _this.onSuccess(isAuthorized);
-	    }, function () {
-	      return _this.onError();
-	    });
-	  };
-	
-	  AvHidePermissionController.prototype.onSuccess = function onSuccess(isAuthorized) {
-	    if (isAuthorized) {
-	      this.$element.removeClass('ng-hide');
-	      this.$element.show();
-	    } else {
-	      this.$element.remove();
-	    }
-	  };
-	
-	  AvHidePermissionController.prototype.onError = function onError() {
-	    this.$element.remove();
-	  };
-	
-	  return AvHidePermissionController;
-	}();
-	
-	_module2.default.directive('avHidePermission', function () {
-	  return {
-	    restrict: 'A',
-	    controller: AvHidePermissionController,
-	    scope: {},
-	    bindToController: {
-	      avHidePermission: '<' // array or comma delimited supported
-	    },
-	    controllerAs: 'vm'
-	  };
-	});
-
-/***/ },
-/* 403 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 404 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14498,26 +14563,26 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 405 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(406);
-	
-	__webpack_require__(407);
-	
-	__webpack_require__(408);
 	
 	__webpack_require__(409);
+	
+	__webpack_require__(410);
+	
+	__webpack_require__(411);
+	
+	__webpack_require__(412);
 
 /***/ },
-/* 406 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14528,14 +14593,14 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 407 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14566,14 +14631,14 @@ webpackJsonp([0],[
 	_module2.default.provider('avPopoverConfig', AvPopoverConfig);
 
 /***/ },
-/* 408 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14645,7 +14710,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvPopoverController', AvPopoverController);
 
 /***/ },
-/* 409 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14654,7 +14719,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14683,26 +14748,28 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 410 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(411);
-	
-	__webpack_require__(412);
-	
-	__webpack_require__(413);
 	
 	__webpack_require__(414);
+	
+	__webpack_require__(415);
+	
+	__webpack_require__(416);
+	
+	__webpack_require__(417);
+	
+	__webpack_require__(418);
 
 /***/ },
-/* 411 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14713,14 +14780,14 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 412 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14751,14 +14818,14 @@ webpackJsonp([0],[
 	_module2.default.provider('avTooltipConfig', AvTooltipConfig);
 
 /***/ },
-/* 413 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14830,7 +14897,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvTooltipController', AvTooltipController);
 
 /***/ },
-/* 414 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14839,7 +14906,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14868,25 +14935,45 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 415 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(416);
+	var _module = __webpack_require__(351);
 	
-	__webpack_require__(418);
+	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(417);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(419);
+	var inlineHelp = {
+	  template: function template($element, $attrs) {
+	    return '\n      <span class="inline-help"\n        av-tooltip\n        placement="top"\n        trigger="hover"\n        title="' + $attrs.title + '"\n        >\n        What\'s this\n      </span>\n      ';
+	  }
+	};
+	
+	_module2.default.component('inlineHelp', inlineHelp);
+
+/***/ },
+/* 419 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
 	__webpack_require__(420);
 	
+	__webpack_require__(422);
+	
 	__webpack_require__(421);
+	
+	__webpack_require__(423);
+	
+	__webpack_require__(424);
+	
+	__webpack_require__(425);
 
 /***/ },
-/* 416 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14899,19 +14986,19 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(417);
+	__webpack_require__(421);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	_module2.default.factory('avValBootstrapAdapter', function (AV_BOOTSTRAP_ADAPTER, $timeout, $log) {
 	  return {
 	    element: function element(context) {
-	      var ngModel = context.ngModel;
-	      var element = context.element;
+	      var ngModel = context.ngModel,
+	          element = context.element;
 	
 	
 	      if (ngModel.$valid) {
@@ -14962,21 +15049,23 @@ webpackJsonp([0],[
 	      var selector = '.' + AV_BOOTSTRAP_ADAPTER.CLASSES.ERROR + ':first';
 	
 	      var $target = (0, _jquery2.default)(form).find(selector);
-	      $timeout(function () {
-	        // scroll to offset top of first error minus the offset of the navbars
-	        (0, _jquery2.default)('body, html').animate({ scrollTop: $target.offset().top - offset }, 'fast');
-	      }, 0, false);
+	      if ($target && $target.offset()) {
+	        $timeout(function () {
+	          // scroll to offset top of first error minus the offset of the navbars
+	          (0, _jquery2.default)('body, html').animate({ scrollTop: $target.offset().top - offset }, 'fast');
+	        }, 0, false);
+	      }
 	    }
 	  };
 	});
 
 /***/ },
-/* 417 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -15008,18 +15097,18 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 418 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(417);
+	__webpack_require__(421);
 	
-	__webpack_require__(416);
+	__webpack_require__(420);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15066,16 +15155,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 419 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -15147,7 +15236,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 420 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15158,15 +15247,15 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
 	var _utils = __webpack_require__(311);
 	
-	__webpack_require__(335);
+	__webpack_require__(334);
 	
-	var _base = __webpack_require__(355);
+	var _base = __webpack_require__(354);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -15254,7 +15343,7 @@ webpackJsonp([0],[
 	      var validator = self.av.avVal.getService(constraintName);
 	
 	      if (_angular2.default.isUndefined(validator)) {
-	        self.vm.$log.warn('No validator defined for ' + constraintName);
+	        self.av.$log.warn('No validator defined for ' + constraintName);
 	        return;
 	      }
 	
@@ -15275,6 +15364,13 @@ webpackJsonp([0],[
 	      // to the validation container that is going to paint the message on screen.
 	      self.ngModel.$validators[constraintName].constraint = constraint;
 	    });
+	  };
+	
+	  AvValFieldController.prototype.reset = function reset() {
+	    this.ngModel.$setPristine();
+	    this.ngModel.$setUntouched();
+	    this.ngModel.$error = {};
+	    this.av.avValAdapter.reset(this.av.$element);
 	  };
 	
 	  AvValFieldController.prototype.onRunValidators = function onRunValidators() {
@@ -15304,6 +15400,17 @@ webpackJsonp([0],[
 	      var avValForm = controllers[0];
 	      var ngModel = controllers[1];
 	      var avValField = controllers[2];
+	
+	      var avValOn = scope.avValOn || avValForm.avValOn || 'default';
+	      var avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+	      var avValInvalid = attrs.avValInvalid || avValForm.avValInvalid || false;
+	
+	      ngModel.$$setOptions({
+	        updateOnDefault: true,
+	        updateOn: avValOn,
+	        allowInvalid: avValInvalid,
+	        debounce: avValDebounce
+	      });
 	
 	      // Wrap $$runValidators with our own function so we can intercept when the validation
 	      // pipeline finishes.
@@ -15341,38 +15448,38 @@ webpackJsonp([0],[
 	      // - Removes all errors on page,
 	      // - does not reset view or model values.  This should to be handled by the application.
 	      scope.$on(AV_VAL.EVENTS.RESET, function () {
-	        // avValField.reset();
+	        avValField.reset();
 	      });
 	    }
 	  };
 	});
 
 /***/ },
-/* 421 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(352);
+	var _module = __webpack_require__(351);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(335);
+	__webpack_require__(334);
 	
-	__webpack_require__(417);
+	__webpack_require__(421);
 	
-	__webpack_require__(418);
+	__webpack_require__(422);
 	
-	__webpack_require__(420);
+	__webpack_require__(424);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var AvValController = function () {
-	  function AvValController() {
+	  function AvValController($scope) {
 	    _classCallCheck(this, AvValController);
 	
 	    this.ngForm = null;
@@ -15380,6 +15487,7 @@ webpackJsonp([0],[
 	    this.avValOn = null;
 	    this.avValDebounce = null;
 	    this.avValInvalid = false;
+	    this.di = { $scope: $scope };
 	  }
 	
 	  AvValController.prototype.init = function init(options) {
@@ -15388,6 +15496,7 @@ webpackJsonp([0],[
 	
 	  AvValController.prototype.reset = function reset() {
 	    this.ngForm.$setPristine();
+	    this.ngForm.$setUntouched();
 	    this.ngForm.$submitted = false;
 	  };
 	
@@ -15423,7 +15532,7 @@ webpackJsonp([0],[
 	          rulesSchema = rulesSchema || iAttrs.avValForm; // interpolated rule from scope || fixed string
 	
 	          if (!rulesSchema) {
-	            $log.error('avValForm requires a rules schema in order to run the proper set of validation rules');
+	            $log.error('avValForm requires a rules schema in order to run a set of validation rules');
 	            return;
 	          }
 	
@@ -15431,7 +15540,6 @@ webpackJsonp([0],[
 	
 	            if (_rulesSchema !== _oldRulesSchema) {
 	              $timeout(function () {
-	                $log.info('avValForm revalidate');
 	                $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
 	              });
 	            }
@@ -15539,7 +15647,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 422 */
+/* 426 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
