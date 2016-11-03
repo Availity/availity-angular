@@ -1,4 +1,5 @@
 import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 
 import templateUrl from './template.html';
 import Base from '../../base';
