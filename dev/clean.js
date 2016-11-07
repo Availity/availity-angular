@@ -7,6 +7,7 @@ const argv = require('yargs').argv;
 function clean() {
 
   const directory = process.env.NODE_ENV === 'development' ? ['build/*'] : ['dist/*', 'lib/*'];
+
   if (!argv.dryRun) {
     del.sync(directory);
   }

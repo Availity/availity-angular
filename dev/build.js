@@ -5,9 +5,9 @@ const Logger = require('./logger');
 
 function build() {
 
-  return bundle({optimize: true})
+  return bundle({optimize: true, production: true})
     .then( () => {
-      return bundle({optimize: false});
+      return bundle({optimize: false, production: true});
     })
     .catch( (err) => {
       Logger.log(err);
