@@ -68,7 +68,7 @@ $(document).ready( () => {
   toggleButtons();
 });
 
-demo.config($locationProvider => $locationProvider.html5Mode({enabled: true, requireBase: false}));
+// demo.config($locationProvider => $locationProvider.html5Mode({enabled: true, requireBase: false}));
 
 demo.run($httpBackend => {
   $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({'logMessage': 'OK'});
