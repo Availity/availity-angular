@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.8 (10/31/2016)
+ * availity-angular v2.0.0-beta.9 (11/07/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.7 (10/31/2016)
+ * availity-angular v2.0.0-beta.8 (11/07/2016)
  * (c) Availity, LLC
  */
 /******/ (function(modules) { // webpackBootstrap

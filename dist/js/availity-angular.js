@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.8 (10/31/2016)
+ * availity-angular v2.0.0-beta.9 (11/07/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.7 (10/31/2016)
+ * availity-angular v2.0.0-beta.8 (11/07/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1977,7 +1977,8 @@ return webpackJsonpavaility_angular([1,0],[
 	    FAILED: 'av:val:failed',
 	    RESET: 'av:val:reset'
 	  },
-	  DEBOUNCE: 800,
+	  DEBOUNCE: 400,
+	  DEBOUNCE_QUICK: 100,
 	  DATE_FORMAT: {
 	    SIMPLE: 'MM/DD/YYYY'
 	  },
@@ -4951,6 +4952,14 @@ return webpackJsonpavaility_angular([1,0],[
 	    this.ngModel.avId = (0, _utils.uuid)('avVal');
 	  };
 	
+	  AvValFieldController.prototype.isRadio = function isRadio() {
+	    return this.av.$element.is('input') && this.av.$attrs.type === 'radio';
+	  };
+	
+	  AvValFieldController.prototype.isCheckbox = function isCheckbox() {
+	    return this.av.$element.is('input') && this.av.$attrs.type === 'checkbox';
+	  };
+	
 	  AvValFieldController.prototype.updateElement = function updateElement() {
 	
 	    this.av.avValAdapter.element({
@@ -5035,7 +5044,7 @@ return webpackJsonpavaility_angular([1,0],[
 	  return AvValFieldController;
 	}(_base2.default);
 	
-	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope'];
+	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope', '$attrs'];
 	
 	
 	_module2.default.controller('AvValFieldController', AvValFieldController);
@@ -5045,6 +5054,12 @@ return webpackJsonpavaility_angular([1,0],[
 	    restrict: 'A',
 	    controller: 'AvValFieldController',
 	    require: ['^avValForm', 'ngModel', 'avValField'],
+	    scope: {
+	      avValDebounce: '<?',
+	      avValOn: '<?',
+	      avValShowOnLoad: '<?',
+	      avValInvalid: '<?'
+	    },
 	    link: function link(scope, element, attrs, controllers) {
 	
 	      var ruleName = attrs.avValField;
@@ -5054,8 +5069,15 @@ return webpackJsonpavaility_angular([1,0],[
 	      var avValField = controllers[2];
 	
 	      var avValOn = scope.avValOn || avValForm.avValOn || 'default';
-	      var avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
-	      var avValInvalid = attrs.avValInvalid || avValForm.avValInvalid || false;
+	
+	      var avValDebounce = void 0;
+	      if (avValField.isCheckbox() || avValField.isRadio()) {
+	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
+	      } else {
+	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+	      }
+	
+	      var avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
 	
 	      ngModel.$$setOptions({
 	        updateOnDefault: true,
@@ -5098,7 +5120,7 @@ return webpackJsonpavaility_angular([1,0],[
 	      });
 	
 	      // - Removes all errors on page,
-	      // - does not reset view or model values.  This should to be handled by the application.
+	      // - Does not reset view or model values.  This should to be handled by the application.
 	      scope.$on(AV_VAL.EVENTS.RESET, function () {
 	        avValField.reset();
 	      });
@@ -5970,7 +5992,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.7")
+	          sdkVersion: ("2.0.0-beta.8")
 	        };
 	
 	        return this.log(message);
@@ -7060,7 +7082,7 @@ return webpackJsonpavaility_angular([1,0],[
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.print = print;
+	exports.default = print;
 	// https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
 	
 	function print() {
@@ -7106,6 +7128,7 @@ return webpackJsonpavaility_angular([1,0],[
 	var REGEX_API_URL = /^.*?api.availity.com(.*)$/;
 	
 	function getRelativeUrl(url) {
+	
 	  var result = url.match(REGEX_API_URL);
 	  if (result && result[1]) {
 	    return "/api" + result[1];
