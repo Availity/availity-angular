@@ -50,7 +50,9 @@ function bump() {
     contents = newLine(contents);
 
     // update package.json
-    fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    if (!argv.dryRun) {
+      fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    }
 
     resolve();
 
@@ -63,13 +65,13 @@ function git() {
 
   return new Promise( resolve => {
 
-    if (argv.dryRun) {
-      return;
-    }
+    if (!argv.dryRun) {
 
-    shell.exec('git add .');
-    shell.exec(`git commit -m "v${VERSION}"`);
-    shell.exec(`git tag -a v${VERSION} -m "v${VERSION}"`);
+      shell.exec('git add .');
+      shell.exec(`git commit -m "v${VERSION}"`);
+      shell.exec(`git tag -a v${VERSION} -m "v${VERSION}"`);
+
+    }
 
     resolve();
 
