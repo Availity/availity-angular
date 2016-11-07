@@ -21,15 +21,15 @@ describe('avValField', () => {
             size: {
               min: 2,
               max: 10,
-              message: 'Last name must be between 2 and 10 characters.'
+              message: 'Last name must be between 2 and 10 characters'
             },
             required: {
-              message: 'Last name is required.'
+              message: 'Last name is required'
             }
           },
           zip: {
             required: {
-              message: 'Zip is required.'
+              message: 'Zip is required'
             }
           },
           dateFormat: {
@@ -76,7 +76,7 @@ describe('avValField', () => {
     expect(tester.$scope.demo.lastName).toBeUndefined();
   });
 
-  it('should NOT be valid and model should be updated', () => {
+  it('ngModel should be update with invalid value when invalidAllowed attribute is set to true', () => {
 
     tester.$scope.mockForm.invalidAllowed.$setViewValue('1');
     tester.flush(DEBOUNCE);

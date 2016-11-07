@@ -7,7 +7,11 @@
   </div>
   <input ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" av-val-field="lastName" av-val-invalid="true"/>
   <div id="showOnLoadFormGroup" class="form-group">
-    <input ng-model="demo.showOnLoad" name="showOnLoad" type="text" av-val-field="lastName" av-val-show="true"/>
+    <input ng-model="demo.showOnLoad"
+      name="showOnLoad"
+      type="text"
+      av-val-field="lastName"
+      av-val-on-load="true"/>
     <p av-val-container></p>
   </div>
   <input data-ng-model="demo.city" name="city" type="text"/>
