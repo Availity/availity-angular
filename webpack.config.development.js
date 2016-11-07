@@ -2,15 +2,12 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const chalk = require('chalk');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const merge = require('webpack-merge');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const webpackCommon = require('./webpack.config.common');
 const VERSION = require('./package.json').version;
-const Logger = require('./dev/logger');
 
 const ENV_VAR = {
   'process.env': {
