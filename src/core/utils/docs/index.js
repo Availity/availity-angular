@@ -4,7 +4,7 @@ import { print } from '../';
 demo.controller('DemoUtilsController', $scope => {
 
   $scope.vm = {
-    print() {
+    onPrint() {
       print();
     }
   };

@@ -12,7 +12,6 @@ describe('AvApiResource', () => {
 
   beforeEach( () => {
 
-
     angular.mock.module(ngModule.name);
 
     inject(_AvProxyResource_ => {

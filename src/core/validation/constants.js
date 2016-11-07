@@ -7,7 +7,8 @@ ngModule.constant('AV_VAL', {
     FAILED: 'av:val:failed',
     RESET: 'av:val:reset'
   },
-  DEBOUNCE: 800,
+  DEBOUNCE: 400,
+  DEBOUNCE_QUICK: 100,
   DATE_FORMAT: {
     SIMPLE: 'MM/DD/YYYY'
   },
