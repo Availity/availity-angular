@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.8 (11/02/2016)
+ * availity-angular v2.0.0-beta.10 (11/08/2016)
  * (c) Availity, LLC
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -108,19 +108,19 @@
 	
 	__webpack_require__(303);
 	
-	__webpack_require__(469);
+	__webpack_require__(470);
 	
-	__webpack_require__(482);
+	__webpack_require__(483);
 	
 	__webpack_require__(317);
 	
-	__webpack_require__(388);
+	__webpack_require__(389);
 	
-	__webpack_require__(378);
+	__webpack_require__(379);
 	
 	__webpack_require__(360);
 	
-	__webpack_require__(485);
+	__webpack_require__(361);
 	
 	__webpack_require__(318);
 	
@@ -130,15 +130,15 @@
 	
 	__webpack_require__(486);
 	
-	__webpack_require__(428);
+	__webpack_require__(429);
 	
-	__webpack_require__(430);
+	__webpack_require__(431);
 	
 	__webpack_require__(488);
 	
 	__webpack_require__(490);
 	
-	__webpack_require__(454);
+	__webpack_require__(455);
 
 /***/ },
 
@@ -41754,7 +41754,7 @@
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
 	 * @license
 	 * lodash <https://lodash.com/>
-	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Copyright JS Foundation and other contributors <https://js.foundation/>
 	 * Released under MIT license <https://lodash.com/license>
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
 	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -41765,7 +41765,7 @@
 	  var undefined;
 	
 	  /** Used as the semantic version number. */
-	  var VERSION = '4.16.4';
+	  var VERSION = '4.16.6';
 	
 	  /** Used as the size to enable large array optimizations. */
 	  var LARGE_ARRAY_SIZE = 200;
@@ -41804,7 +41804,7 @@
 	      DEFAULT_TRUNC_OMISSION = '...';
 	
 	  /** Used to detect hot functions by number of calls within a span of milliseconds. */
-	  var HOT_COUNT = 500,
+	  var HOT_COUNT = 800,
 	      HOT_SPAN = 16;
 	
 	  /** Used to indicate the type of lazy iteratees. */
@@ -41839,13 +41839,16 @@
 	  /** `Object#toString` result references. */
 	  var argsTag = '[object Arguments]',
 	      arrayTag = '[object Array]',
+	      asyncTag = '[object AsyncFunction]',
 	      boolTag = '[object Boolean]',
 	      dateTag = '[object Date]',
+	      domExcTag = '[object DOMException]',
 	      errorTag = '[object Error]',
 	      funcTag = '[object Function]',
 	      genTag = '[object GeneratorFunction]',
 	      mapTag = '[object Map]',
 	      numberTag = '[object Number]',
+	      nullTag = '[object Null]',
 	      objectTag = '[object Object]',
 	      promiseTag = '[object Promise]',
 	      proxyTag = '[object Proxy]',
@@ -41853,6 +41856,7 @@
 	      setTag = '[object Set]',
 	      stringTag = '[object String]',
 	      symbolTag = '[object Symbol]',
+	      undefinedTag = '[object Undefined]',
 	      weakMapTag = '[object WeakMap]',
 	      weakSetTag = '[object WeakSet]';
 	
@@ -41978,13 +41982,15 @@
 	      rsZWJ = '\\u200d';
 	
 	  /** Used to compose unicode regexes. */
-	  var rsLowerMisc = '(?:' + rsLower + '|' + rsMisc + ')',
-	      rsUpperMisc = '(?:' + rsUpper + '|' + rsMisc + ')',
-	      rsOptLowerContr = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
-	      rsOptUpperContr = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
+	  var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
+	      rsMiscUpper = '(?:' + rsUpper + '|' + rsMisc + ')',
+	      rsOptContrLower = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
+	      rsOptContrUpper = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
 	      reOptMod = rsModifier + '?',
 	      rsOptVar = '[' + rsVarRange + ']?',
 	      rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+	      rsOrdLower = '\\d*(?:(?:1st|2nd|3rd|(?![123])\\dth)\\b)',
+	      rsOrdUpper = '\\d*(?:(?:1ST|2ND|3RD|(?![123])\\dTH)\\b)',
 	      rsSeq = rsOptVar + reOptMod + rsOptJoin,
 	      rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq,
 	      rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
@@ -42003,10 +42009,12 @@
 	
 	  /** Used to match complex or compound words. */
 	  var reUnicodeWord = RegExp([
-	    rsUpper + '?' + rsLower + '+' + rsOptLowerContr + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')',
-	    rsUpperMisc + '+' + rsOptUpperContr + '(?=' + [rsBreak, rsUpper + rsLowerMisc, '$'].join('|') + ')',
-	    rsUpper + '?' + rsLowerMisc + '+' + rsOptLowerContr,
-	    rsUpper + '+' + rsOptUpperContr,
+	    rsUpper + '?' + rsLower + '+' + rsOptContrLower + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')',
+	    rsMiscUpper + '+' + rsOptContrUpper + '(?=' + [rsBreak, rsUpper + rsMiscLower, '$'].join('|') + ')',
+	    rsUpper + '?' + rsMiscLower + '+' + rsOptContrLower,
+	    rsUpper + '+' + rsOptContrUpper,
+	    rsOrdUpper,
+	    rsOrdLower,
 	    rsDigits,
 	    rsEmoji
 	  ].join('|'), 'g');
@@ -42249,7 +42257,7 @@
 	   */
 	  function arrayAggregator(array, setter, iteratee, accumulator) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    while (++index < length) {
 	      var value = array[index];
@@ -42269,7 +42277,7 @@
 	   */
 	  function arrayEach(array, iteratee) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    while (++index < length) {
 	      if (iteratee(array[index], index, array) === false) {
@@ -42289,7 +42297,7 @@
 	   * @returns {Array} Returns `array`.
 	   */
 	  function arrayEachRight(array, iteratee) {
-	    var length = array ? array.length : 0;
+	    var length = array == null ? 0 : array.length;
 	
 	    while (length--) {
 	      if (iteratee(array[length], length, array) === false) {
@@ -42311,7 +42319,7 @@
 	   */
 	  function arrayEvery(array, predicate) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    while (++index < length) {
 	      if (!predicate(array[index], index, array)) {
@@ -42332,7 +42340,7 @@
 	   */
 	  function arrayFilter(array, predicate) {
 	    var index = -1,
-	        length = array ? array.length : 0,
+	        length = array == null ? 0 : array.length,
 	        resIndex = 0,
 	        result = [];
 	
@@ -42355,7 +42363,7 @@
 	   * @returns {boolean} Returns `true` if `target` is found, else `false`.
 	   */
 	  function arrayIncludes(array, value) {
-	    var length = array ? array.length : 0;
+	    var length = array == null ? 0 : array.length;
 	    return !!length && baseIndexOf(array, value, 0) > -1;
 	  }
 	
@@ -42370,7 +42378,7 @@
 	   */
 	  function arrayIncludesWith(array, value, comparator) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    while (++index < length) {
 	      if (comparator(value, array[index])) {
@@ -42391,7 +42399,7 @@
 	   */
 	  function arrayMap(array, iteratee) {
 	    var index = -1,
-	        length = array ? array.length : 0,
+	        length = array == null ? 0 : array.length,
 	        result = Array(length);
 	
 	    while (++index < length) {
@@ -42433,7 +42441,7 @@
 	   */
 	  function arrayReduce(array, iteratee, accumulator, initAccum) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    if (initAccum && length) {
 	      accumulator = array[++index];
@@ -42457,7 +42465,7 @@
 	   * @returns {*} Returns the accumulated value.
 	   */
 	  function arrayReduceRight(array, iteratee, accumulator, initAccum) {
-	    var length = array ? array.length : 0;
+	    var length = array == null ? 0 : array.length;
 	    if (initAccum && length) {
 	      accumulator = array[--length];
 	    }
@@ -42479,7 +42487,7 @@
 	   */
 	  function arraySome(array, predicate) {
 	    var index = -1,
-	        length = array ? array.length : 0;
+	        length = array == null ? 0 : array.length;
 	
 	    while (++index < length) {
 	      if (predicate(array[index], index, array)) {
@@ -42623,7 +42631,7 @@
 	   * @returns {number} Returns the mean.
 	   */
 	  function baseMean(array, iteratee) {
-	    var length = array ? array.length : 0;
+	    var length = array == null ? 0 : array.length;
 	    return length ? (baseSum(array, iteratee) / length) : NAN;
 	  }
 	
@@ -43163,7 +43171,7 @@
 	   * var defer = _.runInContext({ 'setTimeout': setImmediate }).defer;
 	   */
 	  var runInContext = (function runInContext(context) {
-	    context = context ? _.defaults(root.Object(), context, _.pick(root, contextProps)) : root;
+	    context = context == null ? root : _.defaults(root.Object(), context, _.pick(root, contextProps));
 	
 	    /** Built-in constructor references. */
 	    var Array = context.Array,
@@ -43184,12 +43192,6 @@
 	    /** Used to detect overreaching core-js shims. */
 	    var coreJsData = context['__core-js_shared__'];
 	
-	    /** Used to detect methods masquerading as native. */
-	    var maskSrcKey = (function() {
-	      var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-	      return uid ? ('Symbol(src)_1.' + uid) : '';
-	    }());
-	
 	    /** Used to resolve the decompiled source of functions. */
 	    var funcToString = funcProto.toString;
 	
@@ -43199,15 +43201,21 @@
 	    /** Used to generate unique IDs. */
 	    var idCounter = 0;
 	
-	    /** Used to infer the `Object` constructor. */
-	    var objectCtorString = funcToString.call(Object);
+	    /** Used to detect methods masquerading as native. */
+	    var maskSrcKey = (function() {
+	      var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	      return uid ? ('Symbol(src)_1.' + uid) : '';
+	    }());
 	
 	    /**
 	     * Used to resolve the
 	     * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
 	     * of values.
 	     */
-	    var objectToString = objectProto.toString;
+	    var nativeObjectToString = objectProto.toString;
+	
+	    /** Used to infer the `Object` constructor. */
+	    var objectCtorString = funcToString.call(Object);
 	
 	    /** Used to restore the original `_` reference in `_.noConflict`. */
 	    var oldDash = root._;
@@ -43224,11 +43232,12 @@
 	        Uint8Array = context.Uint8Array,
 	        allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined,
 	        getPrototype = overArg(Object.getPrototypeOf, Object),
-	        iteratorSymbol = Symbol ? Symbol.iterator : undefined,
 	        objectCreate = Object.create,
 	        propertyIsEnumerable = objectProto.propertyIsEnumerable,
 	        splice = arrayProto.splice,
-	        spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
+	        spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined,
+	        symIterator = Symbol ? Symbol.iterator : undefined,
+	        symToStringTag = Symbol ? Symbol.toStringTag : undefined;
 	
 	    var defineProperty = (function() {
 	      try {
@@ -43662,7 +43671,7 @@
 	     */
 	    function Hash(entries) {
 	      var index = -1,
-	          length = entries ? entries.length : 0;
+	          length = entries == null ? 0 : entries.length;
 	
 	      this.clear();
 	      while (++index < length) {
@@ -43766,7 +43775,7 @@
 	     */
 	    function ListCache(entries) {
 	      var index = -1,
-	          length = entries ? entries.length : 0;
+	          length = entries == null ? 0 : entries.length;
 	
 	      this.clear();
 	      while (++index < length) {
@@ -43883,7 +43892,7 @@
 	     */
 	    function MapCache(entries) {
 	      var index = -1,
-	          length = entries ? entries.length : 0;
+	          length = entries == null ? 0 : entries.length;
 	
 	      this.clear();
 	      while (++index < length) {
@@ -43987,7 +43996,7 @@
 	     */
 	    function SetCache(values) {
 	      var index = -1,
-	          length = values ? values.length : 0;
+	          length = values == null ? 0 : values.length;
 	
 	      this.__data__ = new MapCache;
 	      while (++index < length) {
@@ -44334,12 +44343,12 @@
 	     */
 	    function baseAt(object, paths) {
 	      var index = -1,
-	          isNil = object == null,
 	          length = paths.length,
-	          result = Array(length);
+	          result = Array(length),
+	          skip = object == null;
 	
 	      while (++index < length) {
-	        result[index] = isNil ? undefined : get(object, paths[index]);
+	        result[index] = skip ? undefined : get(object, paths[index]);
 	      }
 	      return result;
 	    }
@@ -44529,7 +44538,7 @@
 	      outer:
 	      while (++index < length) {
 	        var value = array[index],
-	            computed = iteratee ? iteratee(value) : value;
+	            computed = iteratee == null ? value : iteratee(value);
 	
 	        value = (comparator || value !== 0) ? value : 0;
 	        if (isCommon && computed === computed) {
@@ -44796,14 +44805,20 @@
 	    }
 	
 	    /**
-	     * The base implementation of `getTag`.
+	     * The base implementation of `getTag` without fallbacks for buggy environments.
 	     *
 	     * @private
 	     * @param {*} value The value to query.
 	     * @returns {string} Returns the `toStringTag`.
 	     */
 	    function baseGetTag(value) {
-	      return objectToString.call(value);
+	      if (value == null) {
+	        return value === undefined ? undefinedTag : nullTag;
+	      }
+	      value = Object(value);
+	      return (symToStringTag && symToStringTag in value)
+	        ? getRawTag(value)
+	        : objectToString(value);
 	    }
 	
 	    /**
@@ -44965,7 +44980,7 @@
 	     * @returns {boolean} Returns `true` if `value` is an `arguments` object,
 	     */
 	    function baseIsArguments(value) {
-	      return isObjectLike(value) && objectToString.call(value) == argsTag;
+	      return isObjectLike(value) && baseGetTag(value) == argsTag;
 	    }
 	
 	    /**
@@ -44976,7 +44991,7 @@
 	     * @returns {boolean} Returns `true` if `value` is an array buffer, else `false`.
 	     */
 	    function baseIsArrayBuffer(value) {
-	      return isObjectLike(value) && objectToString.call(value) == arrayBufferTag;
+	      return isObjectLike(value) && baseGetTag(value) == arrayBufferTag;
 	    }
 	
 	    /**
@@ -44987,7 +45002,7 @@
 	     * @returns {boolean} Returns `true` if `value` is a date object, else `false`.
 	     */
 	    function baseIsDate(value) {
-	      return isObjectLike(value) && objectToString.call(value) == dateTag;
+	      return isObjectLike(value) && baseGetTag(value) == dateTag;
 	    }
 	
 	    /**
@@ -45169,7 +45184,7 @@
 	     * @returns {boolean} Returns `true` if `value` is a regexp, else `false`.
 	     */
 	    function baseIsRegExp(value) {
-	      return isObject(value) && objectToString.call(value) == regexpTag;
+	      return isObjectLike(value) && baseGetTag(value) == regexpTag;
 	    }
 	
 	    /**
@@ -45192,7 +45207,7 @@
 	     */
 	    function baseIsTypedArray(value) {
 	      return isObjectLike(value) &&
-	        isLength(value.length) && !!typedArrayTags[objectToString.call(value)];
+	        isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
 	    }
 	
 	    /**
@@ -45853,7 +45868,7 @@
 	     */
 	    function baseSortedIndex(array, value, retHighest) {
 	      var low = 0,
-	          high = array ? array.length : low;
+	          high = array == null ? low : array.length;
 	
 	      if (typeof value == 'number' && value === value && high <= HALF_MAX_ARRAY_LENGTH) {
 	        while (low < high) {
@@ -45889,7 +45904,7 @@
 	      value = iteratee(value);
 	
 	      var low = 0,
-	          high = array ? array.length : 0,
+	          high = array == null ? 0 : array.length,
 	          valIsNaN = value !== value,
 	          valIsNull = value === null,
 	          valIsSymbol = isSymbol(value),
@@ -46139,18 +46154,24 @@
 	     * @returns {Array} Returns the new array of values.
 	     */
 	    function baseXor(arrays, iteratee, comparator) {
+	      var length = arrays.length;
+	      if (length < 2) {
+	        return length ? baseUniq(arrays[0]) : [];
+	      }
 	      var index = -1,
-	          length = arrays.length;
+	          result = Array(length);
 	
 	      while (++index < length) {
-	        var result = result
-	          ? arrayPush(
-	              baseDifference(result, arrays[index], iteratee, comparator),
-	              baseDifference(arrays[index], result, iteratee, comparator)
-	            )
-	          : arrays[index];
+	        var array = arrays[index],
+	            othIndex = -1;
+	
+	        while (++othIndex < length) {
+	          if (othIndex != index) {
+	            result[index] = baseDifference(result[index] || array, arrays[othIndex], iteratee, comparator);
+	          }
+	        }
 	      }
-	      return (result && result.length) ? baseUniq(result, iteratee, comparator) : [];
+	      return baseUniq(baseFlatten(result, 1), iteratee, comparator);
 	    }
 	
 	    /**
@@ -47688,6 +47709,33 @@
 	    }
 	
 	    /**
+	     * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	     *
+	     * @private
+	     * @param {*} value The value to query.
+	     * @returns {string} Returns the raw `toStringTag`.
+	     */
+	    function getRawTag(value) {
+	      var isOwn = hasOwnProperty.call(value, symToStringTag),
+	          tag = value[symToStringTag];
+	
+	      try {
+	        value[symToStringTag] = undefined;
+	        var unmasked = true;
+	      } catch (e) {}
+	
+	      var result = nativeObjectToString.call(value);
+	      if (unmasked) {
+	        if (isOwn) {
+	          value[symToStringTag] = tag;
+	        } else {
+	          delete value[symToStringTag];
+	        }
+	      }
+	      return result;
+	    }
+	
+	    /**
 	     * Creates an array of the own enumerable symbol properties of `object`.
 	     *
 	     * @private
@@ -47729,9 +47777,9 @@
 	        (Set && getTag(new Set) != setTag) ||
 	        (WeakMap && getTag(new WeakMap) != weakMapTag)) {
 	      getTag = function(value) {
-	        var result = objectToString.call(value),
+	        var result = baseGetTag(value),
 	            Ctor = result == objectTag ? value.constructor : undefined,
-	            ctorString = Ctor ? toSource(Ctor) : undefined;
+	            ctorString = Ctor ? toSource(Ctor) : '';
 	
 	        if (ctorString) {
 	          switch (ctorString) {
@@ -47812,7 +47860,7 @@
 	      if (result || ++index != length) {
 	        return result;
 	      }
-	      length = object ? object.length : 0;
+	      length = object == null ? 0 : object.length;
 	      return !!length && isLength(length) && isIndex(key, length) &&
 	        (isArray(object) || isArguments(object));
 	    }
@@ -48224,6 +48272,17 @@
 	    }
 	
 	    /**
+	     * Converts `value` to a string using `Object.prototype.toString`.
+	     *
+	     * @private
+	     * @param {*} value The value to convert.
+	     * @returns {string} Returns the converted string.
+	     */
+	    function objectToString(value) {
+	      return nativeObjectToString.call(value);
+	    }
+	
+	    /**
 	     * A specialized version of `baseRest` which transforms the rest array.
 	     *
 	     * @private
@@ -48433,7 +48492,7 @@
 	     * Converts `func` to its source code.
 	     *
 	     * @private
-	     * @param {Function} func The function to process.
+	     * @param {Function} func The function to convert.
 	     * @returns {string} Returns the source code.
 	     */
 	    function toSource(func) {
@@ -48513,7 +48572,7 @@
 	      } else {
 	        size = nativeMax(toInteger(size), 0);
 	      }
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length || size < 1) {
 	        return [];
 	      }
@@ -48544,7 +48603,7 @@
 	     */
 	    function compact(array) {
 	      var index = -1,
-	          length = array ? array.length : 0,
+	          length = array == null ? 0 : array.length,
 	          resIndex = 0,
 	          result = [];
 	
@@ -48716,7 +48775,7 @@
 	     * // => [1, 2, 3]
 	     */
 	    function drop(array, n, guard) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -48750,7 +48809,7 @@
 	     * // => [1, 2, 3]
 	     */
 	    function dropRight(array, n, guard) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -48810,8 +48869,7 @@
 	     * @since 3.0.0
 	     * @category Array
 	     * @param {Array} array The array to query.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the slice of `array`.
 	     * @example
 	     *
@@ -48872,7 +48930,7 @@
 	     * // => [4, '*', '*', 10]
 	     */
 	    function fill(array, value, start, end) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -48892,8 +48950,7 @@
 	     * @since 1.1.0
 	     * @category Array
 	     * @param {Array} array The array to inspect.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @param {number} [fromIndex=0] The index to search from.
 	     * @returns {number} Returns the index of the found element, else `-1`.
 	     * @example
@@ -48920,7 +48977,7 @@
 	     * // => 2
 	     */
 	    function findIndex(array, predicate, fromIndex) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return -1;
 	      }
@@ -48940,8 +48997,7 @@
 	     * @since 2.0.0
 	     * @category Array
 	     * @param {Array} array The array to inspect.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @param {number} [fromIndex=array.length-1] The index to search from.
 	     * @returns {number} Returns the index of the found element, else `-1`.
 	     * @example
@@ -48968,7 +49024,7 @@
 	     * // => 0
 	     */
 	    function findLastIndex(array, predicate, fromIndex) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return -1;
 	      }
@@ -48997,7 +49053,7 @@
 	     * // => [1, 2, [3, [4]], 5]
 	     */
 	    function flatten(array) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      return length ? baseFlatten(array, 1) : [];
 	    }
 	
@@ -49016,7 +49072,7 @@
 	     * // => [1, 2, 3, 4, 5]
 	     */
 	    function flattenDeep(array) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      return length ? baseFlatten(array, INFINITY) : [];
 	    }
 	
@@ -49041,7 +49097,7 @@
 	     * // => [1, 2, 3, [4], 5]
 	     */
 	    function flattenDepth(array, depth) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -49066,7 +49122,7 @@
 	     */
 	    function fromPairs(pairs) {
 	      var index = -1,
-	          length = pairs ? pairs.length : 0,
+	          length = pairs == null ? 0 : pairs.length,
 	          result = {};
 	
 	      while (++index < length) {
@@ -49122,7 +49178,7 @@
 	     * // => 3
 	     */
 	    function indexOf(array, value, fromIndex) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return -1;
 	      }
@@ -49148,7 +49204,7 @@
 	     * // => [1, 2]
 	     */
 	    function initial(array) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      return length ? baseSlice(array, 0, -1) : [];
 	    }
 	
@@ -49238,9 +49294,8 @@
 	      var comparator = last(arrays),
 	          mapped = arrayMap(arrays, castArrayLikeObject);
 	
-	      if (comparator === last(mapped)) {
-	        comparator = undefined;
-	      } else {
+	      comparator = typeof comparator == 'function' ? comparator : undefined;
+	      if (comparator) {
 	        mapped.pop();
 	      }
 	      return (mapped.length && mapped[0] === arrays[0])
@@ -49264,7 +49319,7 @@
 	     * // => 'a~b~c'
 	     */
 	    function join(array, separator) {
-	      return array ? nativeJoin.call(array, separator) : '';
+	      return array == null ? '' : nativeJoin.call(array, separator);
 	    }
 	
 	    /**
@@ -49282,7 +49337,7 @@
 	     * // => 3
 	     */
 	    function last(array) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      return length ? array[length - 1] : undefined;
 	    }
 	
@@ -49308,7 +49363,7 @@
 	     * // => 1
 	     */
 	    function lastIndexOf(array, value, fromIndex) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return -1;
 	      }
@@ -49411,8 +49466,7 @@
 	     * @category Array
 	     * @param {Array} array The array to modify.
 	     * @param {Array} values The values to remove.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {Array} Returns `array`.
 	     * @example
 	     *
@@ -49482,7 +49536,7 @@
 	     * // => ['b', 'd']
 	     */
 	    var pullAt = flatRest(function(array, indexes) {
-	      var length = array ? array.length : 0,
+	      var length = array == null ? 0 : array.length,
 	          result = baseAt(array, indexes);
 	
 	      basePullAt(array, arrayMap(indexes, function(index) {
@@ -49505,8 +49559,7 @@
 	     * @since 2.0.0
 	     * @category Array
 	     * @param {Array} array The array to modify.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the new array of removed elements.
 	     * @example
 	     *
@@ -49566,7 +49619,7 @@
 	     * // => [3, 2, 1]
 	     */
 	    function reverse(array) {
-	      return array ? nativeReverse.call(array) : array;
+	      return array == null ? array : nativeReverse.call(array);
 	    }
 	
 	    /**
@@ -49586,7 +49639,7 @@
 	     * @returns {Array} Returns the slice of `array`.
 	     */
 	    function slice(array, start, end) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -49633,8 +49686,7 @@
 	     * @category Array
 	     * @param {Array} array The sorted array to inspect.
 	     * @param {*} value The value to evaluate.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {number} Returns the index at which `value` should be inserted
 	     *  into `array`.
 	     * @example
@@ -49669,7 +49721,7 @@
 	     * // => 1
 	     */
 	    function sortedIndexOf(array, value) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (length) {
 	        var index = baseSortedIndex(array, value);
 	        if (index < length && eq(array[index], value)) {
@@ -49712,8 +49764,7 @@
 	     * @category Array
 	     * @param {Array} array The sorted array to inspect.
 	     * @param {*} value The value to evaluate.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {number} Returns the index at which `value` should be inserted
 	     *  into `array`.
 	     * @example
@@ -49748,7 +49799,7 @@
 	     * // => 3
 	     */
 	    function sortedLastIndexOf(array, value) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (length) {
 	        var index = baseSortedIndex(array, value, true) - 1;
 	        if (eq(array[index], value)) {
@@ -49816,7 +49867,7 @@
 	     * // => [2, 3]
 	     */
 	    function tail(array) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      return length ? baseSlice(array, 1, length) : [];
 	    }
 	
@@ -49879,7 +49930,7 @@
 	     * // => []
 	     */
 	    function takeRight(array, n, guard) {
-	      var length = array ? array.length : 0;
+	      var length = array == null ? 0 : array.length;
 	      if (!length) {
 	        return [];
 	      }
@@ -49898,8 +49949,7 @@
 	     * @since 3.0.0
 	     * @category Array
 	     * @param {Array} array The array to query.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the slice of `array`.
 	     * @example
 	     *
@@ -49940,8 +49990,7 @@
 	     * @since 3.0.0
 	     * @category Array
 	     * @param {Array} array The array to query.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the slice of `array`.
 	     * @example
 	     *
@@ -50004,8 +50053,7 @@
 	     * @since 4.0.0
 	     * @category Array
 	     * @param {...Array} [arrays] The arrays to inspect.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {Array} Returns the new array of combined values.
 	     * @example
 	     *
@@ -50047,9 +50095,7 @@
 	     */
 	    var unionWith = baseRest(function(arrays) {
 	      var comparator = last(arrays);
-	      if (isArrayLikeObject(comparator)) {
-	        comparator = undefined;
-	      }
+	      comparator = typeof comparator == 'function' ? comparator : undefined;
 	      return baseUniq(baseFlatten(arrays, 1, isArrayLikeObject, true), undefined, comparator);
 	    });
 	
@@ -50072,9 +50118,7 @@
 	     * // => [2, 1]
 	     */
 	    function uniq(array) {
-	      return (array && array.length)
-	        ? baseUniq(array)
-	        : [];
+	      return (array && array.length) ? baseUniq(array) : [];
 	    }
 	
 	    /**
@@ -50089,8 +50133,7 @@
 	     * @since 4.0.0
 	     * @category Array
 	     * @param {Array} array The array to inspect.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {Array} Returns the new duplicate free array.
 	     * @example
 	     *
@@ -50102,9 +50145,7 @@
 	     * // => [{ 'x': 1 }, { 'x': 2 }]
 	     */
 	    function uniqBy(array, iteratee) {
-	      return (array && array.length)
-	        ? baseUniq(array, getIteratee(iteratee, 2))
-	        : [];
+	      return (array && array.length) ? baseUniq(array, getIteratee(iteratee, 2)) : [];
 	    }
 	
 	    /**
@@ -50128,9 +50169,8 @@
 	     * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
 	     */
 	    function uniqWith(array, comparator) {
-	      return (array && array.length)
-	        ? baseUniq(array, undefined, comparator)
-	        : [];
+	      comparator = typeof comparator == 'function' ? comparator : undefined;
+	      return (array && array.length) ? baseUniq(array, undefined, comparator) : [];
 	    }
 	
 	    /**
@@ -50262,8 +50302,7 @@
 	     * @since 4.0.0
 	     * @category Array
 	     * @param {...Array} [arrays] The arrays to inspect.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee invoked per element.
+	     * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
 	     * @returns {Array} Returns the new array of filtered values.
 	     * @example
 	     *
@@ -50305,9 +50344,7 @@
 	     */
 	    var xorWith = baseRest(function(arrays) {
 	      var comparator = last(arrays);
-	      if (isArrayLikeObject(comparator)) {
-	        comparator = undefined;
-	      }
+	      comparator = typeof comparator == 'function' ? comparator : undefined;
 	      return baseXor(arrayFilter(arrays, isArrayLikeObject), undefined, comparator);
 	    });
 	
@@ -50378,7 +50415,8 @@
 	     * @since 3.8.0
 	     * @category Array
 	     * @param {...Array} [arrays] The arrays to process.
-	     * @param {Function} [iteratee=_.identity] The function to combine grouped values.
+	     * @param {Function} [iteratee=_.identity] The function to combine
+	     *  grouped values.
 	     * @returns {Array} Returns the new array of grouped elements.
 	     * @example
 	     *
@@ -50755,8 +50793,7 @@
 	     * @since 0.5.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee to transform keys.
+	     * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
 	     * @returns {Object} Returns the composed aggregate object.
 	     * @example
 	     *
@@ -50790,8 +50827,7 @@
 	     * @since 0.1.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
 	     * @returns {boolean} Returns `true` if all elements pass the predicate check,
 	     *  else `false`.
@@ -50837,8 +50873,7 @@
 	     * @since 0.1.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the new filtered array.
 	     * @see _.reject
 	     * @example
@@ -50878,8 +50913,7 @@
 	     * @since 0.1.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to inspect.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @param {number} [fromIndex=0] The index to search from.
 	     * @returns {*} Returns the matched element, else `undefined`.
 	     * @example
@@ -50916,8 +50950,7 @@
 	     * @since 2.0.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to inspect.
-	     * @param {Function} [predicate=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [predicate=_.identity] The function invoked per iteration.
 	     * @param {number} [fromIndex=collection.length-1] The index to search from.
 	     * @returns {*} Returns the matched element, else `undefined`.
 	     * @example
@@ -50939,8 +50972,7 @@
 	     * @since 4.0.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [iteratee=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the new flattened array.
 	     * @example
 	     *
@@ -50964,8 +50996,7 @@
 	     * @since 4.7.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [iteratee=_.identity] The function invoked per iteration.
 	     * @returns {Array} Returns the new flattened array.
 	     * @example
 	     *
@@ -50989,8 +51020,7 @@
 	     * @since 4.7.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The function invoked per iteration.
+	     * @param {Function} [iteratee=_.identity] The function invoked per iteration.
 	     * @param {number} [depth=1] The maximum recursion depth.
 	     * @returns {Array} Returns the new flattened array.
 	     * @example
@@ -51079,8 +51109,7 @@
 	     * @since 0.1.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee to transform keys.
+	     * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
 	     * @returns {Object} Returns the composed aggregate object.
 	     * @example
 	     *
@@ -51189,8 +51218,7 @@
 	     * @since 4.0.0
 	     * @category Collection
 	     * @param {Array|Object} collection The collection to iterate over.
-	     * @param {Function} [iteratee=_.identity]
-	     *  The iteratee to transform keys.
+	     * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
 	     * @returns {Object} Returns the composed aggregate object.
 	     * @example
 	     *
@@ -52205,7 +52233,7 @@
 	     * function. Its creation may be customized by replacing the `_.memoize.Cache`
 	     * constructor with one whose instances implement the
 	     * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
-	     * method interface of `delete`, `get`, `has`, and `set`.
+	     * method interface of `clear`, `delete`, `get`, `has`, and `set`.
 	     *
 	     * @static
 	     * @memberOf _
@@ -52239,7 +52267,7 @@
 	     * _.memoize.Cache = WeakMap;
 	     */
 	    function memoize(func, resolver) {
-	      if (typeof func != 'function' || (resolver && typeof resolver != 'function')) {
+	      if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
 	        throw new TypeError(FUNC_ERROR_TEXT);
 	      }
 	      var memoized = function() {
@@ -52655,8 +52683,7 @@
 	     * // => '<p>fred, barney, &amp; pebbles</p>'
 	     */
 	    function wrap(value, wrapper) {
-	      wrapper = wrapper == null ? identity : wrapper;
-	      return partial(wrapper, value);
+	      return partial(castFunction(wrapper), value);
 	    }
 	
 	    /*------------------------------------------------------------------------*/
@@ -52764,6 +52791,7 @@
 	     * // => 0
 	     */
 	    function cloneWith(value, customizer) {
+	      customizer = typeof customizer == 'function' ? customizer : undefined;
 	      return baseClone(value, false, true, customizer);
 	    }
 	
@@ -52818,6 +52846,7 @@
 	     * // => 20
 	     */
 	    function cloneDeepWith(value, customizer) {
+	      customizer = typeof customizer == 'function' ? customizer : undefined;
 	      return baseClone(value, true, true, customizer);
 	    }
 	
@@ -53081,7 +53110,7 @@
 	     */
 	    function isBoolean(value) {
 	      return value === true || value === false ||
-	        (isObjectLike(value) && objectToString.call(value) == boolTag);
+	        (isObjectLike(value) && baseGetTag(value) == boolTag);
 	    }
 	
 	    /**
@@ -53140,7 +53169,7 @@
 	     * // => false
 	     */
 	    function isElement(value) {
-	      return value != null && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value);
+	      return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
 	    }
 	
 	    /**
@@ -53177,6 +53206,9 @@
 	     * // => false
 	     */
 	    function isEmpty(value) {
+	      if (value == null) {
+	        return true;
+	      }
 	      if (isArrayLike(value) &&
 	          (isArray(value) || typeof value == 'string' || typeof value.splice == 'function' ||
 	            isBuffer(value) || isTypedArray(value) || isArguments(value))) {
@@ -53289,8 +53321,9 @@
 	      if (!isObjectLike(value)) {
 	        return false;
 	      }
-	      return (objectToString.call(value) == errorTag) ||
-	        (typeof value.message == 'string' && typeof value.name == 'string');
+	      var tag = baseGetTag(value);
+	      return tag == errorTag || tag == domExcTag ||
+	        (typeof value.message == 'string' && typeof value.name == 'string' && !isPlainObject(value));
 	    }
 	
 	    /**
@@ -53341,10 +53374,13 @@
 	     * // => false
 	     */
 	    function isFunction(value) {
+	      if (!isObject(value)) {
+	        return false;
+	      }
 	      // The use of `Object#toString` avoids issues with the `typeof` operator
-	      // in Safari 9 which returns 'object' for typed array and other constructors.
-	      var tag = isObject(value) ? objectToString.call(value) : '';
-	      return tag == funcTag || tag == genTag || tag == proxyTag;
+	      // in Safari 9 which returns 'object' for typed arrays and other constructors.
+	      var tag = baseGetTag(value);
+	      return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
 	    }
 	
 	    /**
@@ -53695,7 +53731,7 @@
 	     */
 	    function isNumber(value) {
 	      return typeof value == 'number' ||
-	        (isObjectLike(value) && objectToString.call(value) == numberTag);
+	        (isObjectLike(value) && baseGetTag(value) == numberTag);
 	    }
 	
 	    /**
@@ -53727,7 +53763,7 @@
 	     * // => true
 	     */
 	    function isPlainObject(value) {
-	      if (!isObjectLike(value) || objectToString.call(value) != objectTag) {
+	      if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
 	        return false;
 	      }
 	      var proto = getPrototype(value);
@@ -53735,8 +53771,8 @@
 	        return true;
 	      }
 	      var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	      return (typeof Ctor == 'function' &&
-	        Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+	      return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+	        funcToString.call(Ctor) == objectCtorString;
 	    }
 	
 	    /**
@@ -53827,7 +53863,7 @@
 	     */
 	    function isString(value) {
 	      return typeof value == 'string' ||
-	        (!isArray(value) && isObjectLike(value) && objectToString.call(value) == stringTag);
+	        (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
 	    }
 	
 	    /**
@@ -53849,7 +53885,7 @@
 	     */
 	    function isSymbol(value) {
 	      return typeof value == 'symbol' ||
-	        (isObjectLike(value) && objectToString.call(value) == symbolTag);
+	        (isObjectLike(value) && baseGetTag(value) == symbolTag);
 	    }
 	
 	    /**
@@ -53931,7 +53967,7 @@
 	     * // => false
 	     */
 	    function isWeakSet(value) {
-	      return isObjectLike(value) && objectToString.call(value) == weakSetTag;
+	      return isObjectLike(value) && baseGetTag(value) == weakSetTag;
 	    }
 	
 	    /**
@@ -54016,8 +54052,8 @@
 	      if (isArrayLike(value)) {
 	        return isString(value) ? stringToArray(value) : copyArray(value);
 	      }
-	      if (iteratorSymbol && value[iteratorSymbol]) {
-	        return iteratorToArray(value[iteratorSymbol]());
+	      if (symIterator && value[symIterator]) {
+	        return iteratorToArray(value[symIterator]());
 	      }
 	      var tag = getTag(value),
 	          func = tag == mapTag ? mapToArray : (tag == setTag ? setToArray : values);
@@ -54450,7 +54486,7 @@
 	     */
 	    function create(prototype, properties) {
 	      var result = baseCreate(prototype);
-	      return properties ? baseAssign(result, properties) : result;
+	      return properties == null ? result : baseAssign(result, properties);
 	    }
 	
 	    /**
@@ -55557,7 +55593,7 @@
 	     * // => ['h', 'i']
 	     */
 	    function values(object) {
-	      return object ? baseValues(object, keys(object)) : [];
+	      return object == null ? [] : baseValues(object, keys(object));
 	    }
 	
 	    /**
@@ -56944,7 +56980,7 @@
 	     * // => 'no match'
 	     */
 	    function cond(pairs) {
-	      var length = pairs ? pairs.length : 0,
+	      var length = pairs == null ? 0 : pairs.length,
 	          toIteratee = getIteratee();
 	
 	      pairs = !length ? [] : arrayMap(pairs, function(pair) {
@@ -58696,8 +58732,8 @@
 	    // Add lazy aliases.
 	    lodash.prototype.first = lodash.prototype.head;
 	
-	    if (iteratorSymbol) {
-	      lodash.prototype[iteratorSymbol] = wrapperToIterator;
+	    if (symIterator) {
+	      lodash.prototype[symIterator] = wrapperToIterator;
 	    }
 	    return lodash;
 	  });
@@ -63705,9 +63741,9 @@
 	            return null;
 	        }
 	
-	        var chrome = /^\s*at (.*?) ?\(((?:file|https?|blob|chrome-extension|native|eval).*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i,
-	            gecko = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)((?:file|https?|blob|chrome|\[native).*?)(?::(\d+))?(?::(\d+))?\s*$/i,
-	            winjs = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:ms-appx|https?|blob):.*?):(\d+)(?::(\d+))?\)?\s*$/i,
+	        var chrome = /^\s*at (.*?) ?\(((?:file|https?|blob|chrome-extension|native|webpack|eval).*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i,
+	            gecko = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)((?:file|https?|blob|chrome|webpack|\[native).*?)(?::(\d+))?(?::(\d+))?\s*$/i,
+	            winjs = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:ms-appx|https?|webpack|blob):.*?):(\d+)(?::(\d+))?\)?\s*$/i,
 	            lines = ex.stack.split('\n'),
 	            stack = [],
 	            parts,
@@ -64234,7 +64270,7 @@
 	}
 	
 	// UMD export
-	if (typeof module !== 'undefined' && module.exports && this.module !== module) {
+	if (typeof module !== 'undefined' && module.exports && window.module !== module) {
 	    module.exports = TraceKit;
 	} else if (true) {
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (TraceKit), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -68245,7 +68281,804 @@
 
 /***/ },
 
-/***/ 378:
+/***/ 361:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**********************
+	 Velocity UI Pack
+	 **********************/
+	
+	/* VelocityJS.org UI Pack (5.1.1). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License. Portions copyright Daniel Eden, Christian Pucci. */
+	
+	(function(factory) {
+		"use strict";
+		/* CommonJS module. */
+		if (true) {
+			module.exports = factory();
+			/* AMD module. */
+		} else if (typeof define === "function" && define.amd) {
+			define(["velocity"], factory);
+			/* Browser globals. */
+		} else {
+			factory();
+		}
+	}(function() {
+		"use strict";
+		return function(global, window, document, undefined) {
+	
+			/*************
+			 Checks
+			 *************/
+			var Velocity = global.Velocity;
+	
+			if (!Velocity || !Velocity.Utilities) {
+				if (window.console) {
+					console.log("Velocity UI Pack: Velocity must be loaded first. Aborting.");
+				}
+				return;
+			}
+			var $ = Velocity.Utilities;
+	
+			var velocityVersion = Velocity.version,
+					requiredVersion = {major: 1, minor: 1, patch: 0};
+	
+			function greaterSemver(primary, secondary) {
+				var versionInts = [];
+	
+				if (!primary || !secondary) {
+					return false;
+				}
+	
+				$.each([primary, secondary], function(i, versionObject) {
+					var versionIntsComponents = [];
+	
+					$.each(versionObject, function(component, value) {
+						while (value.toString().length < 5) {
+							value = "0" + value;
+						}
+						versionIntsComponents.push(value);
+					});
+	
+					versionInts.push(versionIntsComponents.join(""));
+				});
+	
+				return (parseFloat(versionInts[0]) > parseFloat(versionInts[1]));
+			}
+	
+			if (greaterSemver(requiredVersion, velocityVersion)) {
+				var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://github.com/julianshapiro/velocity.";
+				alert(abortError);
+				throw new Error(abortError);
+			}
+	
+			/************************
+			 Effect Registration
+			 ************************/
+	
+			/* Note: RegisterUI is a legacy name. */
+			Velocity.RegisterEffect = Velocity.RegisterUI = function(effectName, properties) {
+				/* Animate the expansion/contraction of the elements' parent's height for In/Out effects. */
+				function animateParentHeight(elements, direction, totalDuration, stagger) {
+					var totalHeightDelta = 0,
+							parentNode;
+	
+					/* Sum the total height (including padding and margin) of all targeted elements. */
+					$.each(elements.nodeType ? [elements] : elements, function(i, element) {
+						if (stagger) {
+							/* Increase the totalDuration by the successive delay amounts produced by the stagger option. */
+							totalDuration += i * stagger;
+						}
+	
+						parentNode = element.parentNode;
+	
+						propertiesToSum = ["height", "paddingTop", "paddingBottom", "marginTop", "marginBottom"];
+	
+						/* If box-sizing is border-box, the height already includes padding and margin */
+						if (Velocity.CSS.getPropertyValue(element, "boxSizing").toString().toLowerCase() === "border-box") {
+							propertiesToSum = ["height"];
+						}
+	
+						$.each(propertiesToSum, function(i, property) {
+							totalHeightDelta += parseFloat(Velocity.CSS.getPropertyValue(element, property));
+						});
+					});
+	
+					/* Animate the parent element's height adjustment (with a varying duration multiplier for aesthetic benefits). */
+					Velocity.animate(
+							parentNode,
+							{height: (direction === "In" ? "+" : "-") + "=" + totalHeightDelta},
+							{queue: false, easing: "ease-in-out", duration: totalDuration * (direction === "In" ? 0.6 : 1)}
+					);
+				}
+	
+				/* Register a custom redirect for each effect. */
+				Velocity.Redirects[effectName] = function(element, redirectOptions, elementsIndex, elementsSize, elements, promiseData) {
+					var finalElement = (elementsIndex === elementsSize - 1);
+	
+					if (typeof properties.defaultDuration === "function") {
+						properties.defaultDuration = properties.defaultDuration.call(elements, elements);
+					} else {
+						properties.defaultDuration = parseFloat(properties.defaultDuration);
+					}
+	
+					/* Iterate through each effect's call array. */
+					for (var callIndex = 0; callIndex < properties.calls.length; callIndex++) {
+						var call = properties.calls[callIndex],
+								propertyMap = call[0],
+								redirectDuration = 1000,
+								durationPercentage = call[1],
+								callOptions = call[2] || {},
+								opts = {};
+	
+						if (redirectOptions.duration !== undefined) {
+							redirectDuration = redirectOptions.duration;
+						} else if (properties.defaultDuration !== undefined) {
+							redirectDuration = properties.defaultDuration;
+						}
+	
+						/* Assign the whitelisted per-call options. */
+						opts.duration = redirectDuration * (durationPercentage || 1);
+						opts.queue = redirectOptions.queue || "";
+						opts.easing = callOptions.easing || "ease";
+						opts.delay = parseFloat(callOptions.delay) || 0;
+						opts._cacheValues = callOptions._cacheValues || true;
+	
+						/* Special processing for the first effect call. */
+						if (callIndex === 0) {
+							/* If a delay was passed into the redirect, combine it with the first call's delay. */
+							opts.delay += (parseFloat(redirectOptions.delay) || 0);
+	
+							if (elementsIndex === 0) {
+								opts.begin = function() {
+									/* Only trigger a begin callback on the first effect call with the first element in the set. */
+									if (redirectOptions.begin) {
+										redirectOptions.begin.call(elements, elements);
+									}
+	
+									var direction = effectName.match(/(In|Out)$/);
+	
+									/* Make "in" transitioning elements invisible immediately so that there's no FOUC between now
+									 and the first RAF tick. */
+									if ((direction && direction[0] === "In") && propertyMap.opacity !== undefined) {
+										$.each(elements.nodeType ? [elements] : elements, function(i, element) {
+											Velocity.CSS.setPropertyValue(element, "opacity", 0);
+										});
+									}
+	
+									/* Only trigger animateParentHeight() if we're using an In/Out transition. */
+									if (redirectOptions.animateParentHeight && direction) {
+										animateParentHeight(elements, direction[0], redirectDuration + opts.delay, redirectOptions.stagger);
+									}
+								};
+							}
+	
+							/* If the user isn't overriding the display option, default to "auto" for "In"-suffixed transitions. */
+							if (redirectOptions.display !== null) {
+								if (redirectOptions.display !== undefined && redirectOptions.display !== "none") {
+									opts.display = redirectOptions.display;
+								} else if (/In$/.test(effectName)) {
+									/* Inline elements cannot be subjected to transforms, so we switch them to inline-block. */
+									var defaultDisplay = Velocity.CSS.Values.getDisplayType(element);
+									opts.display = (defaultDisplay === "inline") ? "inline-block" : defaultDisplay;
+								}
+							}
+	
+							if (redirectOptions.visibility && redirectOptions.visibility !== "hidden") {
+								opts.visibility = redirectOptions.visibility;
+							}
+						}
+	
+						/* Special processing for the last effect call. */
+						if (callIndex === properties.calls.length - 1) {
+							/* Append promise resolving onto the user's redirect callback. */
+							var injectFinalCallbacks = function() {
+								if ((redirectOptions.display === undefined || redirectOptions.display === "none") && /Out$/.test(effectName)) {
+									$.each(elements.nodeType ? [elements] : elements, function(i, element) {
+										Velocity.CSS.setPropertyValue(element, "display", "none");
+									});
+								}
+								if (redirectOptions.complete) {
+									redirectOptions.complete.call(elements, elements);
+								}
+								if (promiseData) {
+									promiseData.resolver(elements || element);
+								}
+							};
+	
+							opts.complete = function() {
+								if (properties.reset) {
+									for (var resetProperty in properties.reset) {
+										if (!properties.reset.hasOwnProperty(resetProperty)) {
+											continue;
+										}
+										var resetValue = properties.reset[resetProperty];
+	
+										/* Format each non-array value in the reset property map to [ value, value ] so that changes apply
+										 immediately and DOM querying is avoided (via forcefeeding). */
+										/* Note: Don't forcefeed hooks, otherwise their hook roots will be defaulted to their null values. */
+										if (Velocity.CSS.Hooks.registered[resetProperty] === undefined && (typeof resetValue === "string" || typeof resetValue === "number")) {
+											properties.reset[resetProperty] = [properties.reset[resetProperty], properties.reset[resetProperty]];
+										}
+									}
+	
+									/* So that the reset values are applied instantly upon the next rAF tick, use a zero duration and parallel queueing. */
+									var resetOptions = {duration: 0, queue: false};
+	
+									/* Since the reset option uses up the complete callback, we trigger the user's complete callback at the end of ours. */
+									if (finalElement) {
+										resetOptions.complete = injectFinalCallbacks;
+									}
+	
+									Velocity.animate(element, properties.reset, resetOptions);
+									/* Only trigger the user's complete callback on the last effect call with the last element in the set. */
+								} else if (finalElement) {
+									injectFinalCallbacks();
+								}
+							};
+	
+							if (redirectOptions.visibility === "hidden") {
+								opts.visibility = redirectOptions.visibility;
+							}
+						}
+	
+						Velocity.animate(element, propertyMap, opts);
+					}
+				};
+	
+				/* Return the Velocity object so that RegisterUI calls can be chained. */
+				return Velocity;
+			};
+	
+			/*********************
+			 Packaged Effects
+			 *********************/
+	
+			/* Externalize the packagedEffects data so that they can optionally be modified and re-registered. */
+			/* Support: <=IE8: Callouts will have no effect, and transitions will simply fade in/out. IE9/Android 2.3: Most effects are fully supported, the rest fade in/out. All other browsers: full support. */
+			Velocity.RegisterEffect.packagedEffects =
+					{
+						/* Animate.css */
+						"callout.bounce": {
+							defaultDuration: 550,
+							calls: [
+								[{translateY: -30}, 0.25],
+								[{translateY: 0}, 0.125],
+								[{translateY: -15}, 0.125],
+								[{translateY: 0}, 0.25]
+							]
+						},
+						/* Animate.css */
+						"callout.shake": {
+							defaultDuration: 800,
+							calls: [
+								[{translateX: -11}, 0.125],
+								[{translateX: 11}, 0.125],
+								[{translateX: -11}, 0.125],
+								[{translateX: 11}, 0.125],
+								[{translateX: -11}, 0.125],
+								[{translateX: 11}, 0.125],
+								[{translateX: -11}, 0.125],
+								[{translateX: 0}, 0.125]
+							]
+						},
+						/* Animate.css */
+						"callout.flash": {
+							defaultDuration: 1100,
+							calls: [
+								[{opacity: [0, "easeInOutQuad", 1]}, 0.25],
+								[{opacity: [1, "easeInOutQuad"]}, 0.25],
+								[{opacity: [0, "easeInOutQuad"]}, 0.25],
+								[{opacity: [1, "easeInOutQuad"]}, 0.25]
+							]
+						},
+						/* Animate.css */
+						"callout.pulse": {
+							defaultDuration: 825,
+							calls: [
+								[{scaleX: 1.1, scaleY: 1.1}, 0.50, {easing: "easeInExpo"}],
+								[{scaleX: 1, scaleY: 1}, 0.50]
+							]
+						},
+						/* Animate.css */
+						"callout.swing": {
+							defaultDuration: 950,
+							calls: [
+								[{rotateZ: 15}, 0.20],
+								[{rotateZ: -10}, 0.20],
+								[{rotateZ: 5}, 0.20],
+								[{rotateZ: -5}, 0.20],
+								[{rotateZ: 0}, 0.20]
+							]
+						},
+						/* Animate.css */
+						"callout.tada": {
+							defaultDuration: 1000,
+							calls: [
+								[{scaleX: 0.9, scaleY: 0.9, rotateZ: -3}, 0.10],
+								[{scaleX: 1.1, scaleY: 1.1, rotateZ: 3}, 0.10],
+								[{scaleX: 1.1, scaleY: 1.1, rotateZ: -3}, 0.10],
+								["reverse", 0.125],
+								["reverse", 0.125],
+								["reverse", 0.125],
+								["reverse", 0.125],
+								["reverse", 0.125],
+								[{scaleX: 1, scaleY: 1, rotateZ: 0}, 0.20]
+							]
+						},
+						"transition.fadeIn": {
+							defaultDuration: 500,
+							calls: [
+								[{opacity: [1, 0]}]
+							]
+						},
+						"transition.fadeOut": {
+							defaultDuration: 500,
+							calls: [
+								[{opacity: [0, 1]}]
+							]
+						},
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipXIn": {
+							defaultDuration: 700,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [800, 800], rotateY: [0, -55]}]
+							],
+							reset: {transformPerspective: 0}
+						},
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipXOut": {
+							defaultDuration: 700,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [800, 800], rotateY: 55}]
+							],
+							reset: {transformPerspective: 0, rotateY: 0}
+						},
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipYIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [800, 800], rotateX: [0, -45]}]
+							],
+							reset: {transformPerspective: 0}
+						},
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipYOut": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [800, 800], rotateX: 25}]
+							],
+							reset: {transformPerspective: 0, rotateX: 0}
+						},
+						/* Animate.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipBounceXIn": {
+							defaultDuration: 900,
+							calls: [
+								[{opacity: [0.725, 0], transformPerspective: [400, 400], rotateY: [-10, 90]}, 0.50],
+								[{opacity: 0.80, rotateY: 10}, 0.25],
+								[{opacity: 1, rotateY: 0}, 0.25]
+							],
+							reset: {transformPerspective: 0}
+						},
+						/* Animate.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipBounceXOut": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [0.9, 1], transformPerspective: [400, 400], rotateY: -10}, 0.50],
+								[{opacity: 0, rotateY: 90}, 0.50]
+							],
+							reset: {transformPerspective: 0, rotateY: 0}
+						},
+						/* Animate.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipBounceYIn": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [0.725, 0], transformPerspective: [400, 400], rotateX: [-10, 90]}, 0.50],
+								[{opacity: 0.80, rotateX: 10}, 0.25],
+								[{opacity: 1, rotateX: 0}, 0.25]
+							],
+							reset: {transformPerspective: 0}
+						},
+						/* Animate.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.flipBounceYOut": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [0.9, 1], transformPerspective: [400, 400], rotateX: -15}, 0.50],
+								[{opacity: 0, rotateX: 90}, 0.50]
+							],
+							reset: {transformPerspective: 0, rotateX: 0}
+						},
+						/* Magic.css */
+						"transition.swoopIn": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [1, 0], transformOriginX: ["100%", "50%"], transformOriginY: ["100%", "100%"], scaleX: [1, 0], scaleY: [1, 0], translateX: [0, -700], translateZ: 0}]
+							],
+							reset: {transformOriginX: "50%", transformOriginY: "50%"}
+						},
+						/* Magic.css */
+						"transition.swoopOut": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [0, 1], transformOriginX: ["50%", "100%"], transformOriginY: ["100%", "100%"], scaleX: 0, scaleY: 0, translateX: -700, translateZ: 0}]
+							],
+							reset: {transformOriginX: "50%", transformOriginY: "50%", scaleX: 1, scaleY: 1, translateX: 0}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3. (Fades and scales only.) */
+						"transition.whirlIn": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 0], scaleY: [1, 0], rotateY: [0, 160]}, 1, {easing: "easeInOutSine"}]
+							]
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3. (Fades and scales only.) */
+						"transition.whirlOut": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [0, "easeInOutQuint", 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 0, scaleY: 0, rotateY: 160}, 1, {easing: "swing"}]
+							],
+							reset: {scaleX: 1, scaleY: 1, rotateY: 0}
+						},
+						"transition.shrinkIn": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 1.5], scaleY: [1, 1.5], translateZ: 0}]
+							]
+						},
+						"transition.shrinkOut": {
+							defaultDuration: 600,
+							calls: [
+								[{opacity: [0, 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 1.3, scaleY: 1.3, translateZ: 0}]
+							],
+							reset: {scaleX: 1, scaleY: 1}
+						},
+						"transition.expandIn": {
+							defaultDuration: 700,
+							calls: [
+								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 0.625], scaleY: [1, 0.625], translateZ: 0}]
+							]
+						},
+						"transition.expandOut": {
+							defaultDuration: 700,
+							calls: [
+								[{opacity: [0, 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 0.5, scaleY: 0.5, translateZ: 0}]
+							],
+							reset: {scaleX: 1, scaleY: 1}
+						},
+						/* Animate.css */
+						"transition.bounceIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], scaleX: [1.05, 0.3], scaleY: [1.05, 0.3]}, 0.40],
+								[{scaleX: 0.9, scaleY: 0.9, translateZ: 0}, 0.20],
+								[{scaleX: 1, scaleY: 1}, 0.50]
+							]
+						},
+						/* Animate.css */
+						"transition.bounceOut": {
+							defaultDuration: 800,
+							calls: [
+								[{scaleX: 0.95, scaleY: 0.95}, 0.35],
+								[{scaleX: 1.1, scaleY: 1.1, translateZ: 0}, 0.35],
+								[{opacity: [0, 1], scaleX: 0.3, scaleY: 0.3}, 0.30]
+							],
+							reset: {scaleX: 1, scaleY: 1}
+						},
+						/* Animate.css */
+						"transition.bounceUpIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], translateY: [-30, 1000]}, 0.60, {easing: "easeOutCirc"}],
+								[{translateY: 10}, 0.20],
+								[{translateY: 0}, 0.20]
+							]
+						},
+						/* Animate.css */
+						"transition.bounceUpOut": {
+							defaultDuration: 1000,
+							calls: [
+								[{translateY: 20}, 0.20],
+								[{opacity: [0, "easeInCirc", 1], translateY: -1000}, 0.80]
+							],
+							reset: {translateY: 0}
+						},
+						/* Animate.css */
+						"transition.bounceDownIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], translateY: [30, -1000]}, 0.60, {easing: "easeOutCirc"}],
+								[{translateY: -10}, 0.20],
+								[{translateY: 0}, 0.20]
+							]
+						},
+						/* Animate.css */
+						"transition.bounceDownOut": {
+							defaultDuration: 1000,
+							calls: [
+								[{translateY: -20}, 0.20],
+								[{opacity: [0, "easeInCirc", 1], translateY: 1000}, 0.80]
+							],
+							reset: {translateY: 0}
+						},
+						/* Animate.css */
+						"transition.bounceLeftIn": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [1, 0], translateX: [30, -1250]}, 0.60, {easing: "easeOutCirc"}],
+								[{translateX: -10}, 0.20],
+								[{translateX: 0}, 0.20]
+							]
+						},
+						/* Animate.css */
+						"transition.bounceLeftOut": {
+							defaultDuration: 750,
+							calls: [
+								[{translateX: 30}, 0.20],
+								[{opacity: [0, "easeInCirc", 1], translateX: -1250}, 0.80]
+							],
+							reset: {translateX: 0}
+						},
+						/* Animate.css */
+						"transition.bounceRightIn": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [1, 0], translateX: [-30, 1250]}, 0.60, {easing: "easeOutCirc"}],
+								[{translateX: 10}, 0.20],
+								[{translateX: 0}, 0.20]
+							]
+						},
+						/* Animate.css */
+						"transition.bounceRightOut": {
+							defaultDuration: 750,
+							calls: [
+								[{translateX: -30}, 0.20],
+								[{opacity: [0, "easeInCirc", 1], translateX: 1250}, 0.80]
+							],
+							reset: {translateX: 0}
+						},
+						"transition.slideUpIn": {
+							defaultDuration: 900,
+							calls: [
+								[{opacity: [1, 0], translateY: [0, 20], translateZ: 0}]
+							]
+						},
+						"transition.slideUpOut": {
+							defaultDuration: 900,
+							calls: [
+								[{opacity: [0, 1], translateY: -20, translateZ: 0}]
+							],
+							reset: {translateY: 0}
+						},
+						"transition.slideDownIn": {
+							defaultDuration: 900,
+							calls: [
+								[{opacity: [1, 0], translateY: [0, -20], translateZ: 0}]
+							]
+						},
+						"transition.slideDownOut": {
+							defaultDuration: 900,
+							calls: [
+								[{opacity: [0, 1], translateY: 20, translateZ: 0}]
+							],
+							reset: {translateY: 0}
+						},
+						"transition.slideLeftIn": {
+							defaultDuration: 1000,
+							calls: [
+								[{opacity: [1, 0], translateX: [0, -20], translateZ: 0}]
+							]
+						},
+						"transition.slideLeftOut": {
+							defaultDuration: 1050,
+							calls: [
+								[{opacity: [0, 1], translateX: -20, translateZ: 0}]
+							],
+							reset: {translateX: 0}
+						},
+						"transition.slideRightIn": {
+							defaultDuration: 1000,
+							calls: [
+								[{opacity: [1, 0], translateX: [0, 20], translateZ: 0}]
+							]
+						},
+						"transition.slideRightOut": {
+							defaultDuration: 1050,
+							calls: [
+								[{opacity: [0, 1], translateX: 20, translateZ: 0}]
+							],
+							reset: {translateX: 0}
+						},
+						"transition.slideUpBigIn": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [1, 0], translateY: [0, 75], translateZ: 0}]
+							]
+						},
+						"transition.slideUpBigOut": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [0, 1], translateY: -75, translateZ: 0}]
+							],
+							reset: {translateY: 0}
+						},
+						"transition.slideDownBigIn": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [1, 0], translateY: [0, -75], translateZ: 0}]
+							]
+						},
+						"transition.slideDownBigOut": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [0, 1], translateY: 75, translateZ: 0}]
+							],
+							reset: {translateY: 0}
+						},
+						"transition.slideLeftBigIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], translateX: [0, -75], translateZ: 0}]
+							]
+						},
+						"transition.slideLeftBigOut": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [0, 1], translateX: -75, translateZ: 0}]
+							],
+							reset: {translateX: 0}
+						},
+						"transition.slideRightBigIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], translateX: [0, 75], translateZ: 0}]
+							]
+						},
+						"transition.slideRightBigOut": {
+							defaultDuration: 750,
+							calls: [
+								[{opacity: [0, 1], translateX: 75, translateZ: 0}]
+							],
+							reset: {translateX: 0}
+						},
+						/* Magic.css */
+						"transition.perspectiveUpIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: ["100%", "100%"], rotateX: [0, -180]}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveUpOut": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: ["100%", "100%"], rotateX: -180}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateX: 0}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveDownIn": {
+							defaultDuration: 800,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateX: [0, 180]}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveDownOut": {
+							defaultDuration: 850,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateX: 180}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateX: 0}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveLeftIn": {
+							defaultDuration: 950,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [2000, 2000], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateY: [0, -180]}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveLeftOut": {
+							defaultDuration: 950,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [2000, 2000], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateY: -180}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateY: 0}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveRightIn": {
+							defaultDuration: 950,
+							calls: [
+								[{opacity: [1, 0], transformPerspective: [2000, 2000], transformOriginX: ["100%", "100%"], transformOriginY: [0, 0], rotateY: [0, 180]}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
+						},
+						/* Magic.css */
+						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
+						"transition.perspectiveRightOut": {
+							defaultDuration: 950,
+							calls: [
+								[{opacity: [0, 1], transformPerspective: [2000, 2000], transformOriginX: ["100%", "100%"], transformOriginY: [0, 0], rotateY: 180}]
+							],
+							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateY: 0}
+						}
+					};
+	
+			/* Register the packaged effects. */
+			for (var effectName in Velocity.RegisterEffect.packagedEffects) {
+				if (Velocity.RegisterEffect.packagedEffects.hasOwnProperty(effectName)) {
+					Velocity.RegisterEffect(effectName, Velocity.RegisterEffect.packagedEffects[effectName]);
+				}
+			}
+	
+			/*********************
+			 Sequence Running
+			 **********************/
+	
+			/* Note: Sequence calls must use Velocity's single-object arguments syntax. */
+			Velocity.RunSequence = function(originalSequence) {
+				var sequence = $.extend(true, [], originalSequence);
+	
+				if (sequence.length > 1) {
+					$.each(sequence.reverse(), function(i, currentCall) {
+						var nextCall = sequence[i + 1];
+	
+						if (nextCall) {
+							/* Parallel sequence calls (indicated via sequenceQueue:false) are triggered
+							 in the previous call's begin callback. Otherwise, chained calls are normally triggered
+							 in the previous call's complete callback. */
+							var currentCallOptions = currentCall.o || currentCall.options,
+									nextCallOptions = nextCall.o || nextCall.options;
+	
+							var timing = (currentCallOptions && currentCallOptions.sequenceQueue === false) ? "begin" : "complete",
+									callbackOriginal = nextCallOptions && nextCallOptions[timing],
+									options = {};
+	
+							options[timing] = function() {
+								var nextCallElements = nextCall.e || nextCall.elements;
+								var elements = nextCallElements.nodeType ? [nextCallElements] : nextCallElements;
+	
+								if (callbackOriginal) {
+									callbackOriginal.call(elements, elements);
+								}
+								Velocity(currentCall);
+							};
+	
+							if (nextCall.o) {
+								nextCall.o = $.extend({}, nextCallOptions, options);
+							} else {
+								nextCall.options = $.extend({}, nextCallOptions, options);
+							}
+						}
+					});
+	
+					sequence.reverse();
+				}
+	
+				Velocity(sequence[0]);
+			};
+		}((__webpack_provided_window_dot_jQuery || window.Zepto || window), window, document);
+	}));
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(303)))
+
+/***/ },
+
+/***/ 379:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -70348,16 +71181,16 @@
 
 /***/ },
 
-/***/ 388:
+/***/ 389:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery, $) {$ = jQuery = __webpack_require__(303);
-	module.exports = __webpack_require__(389);
+	module.exports = __webpack_require__(390);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(303), __webpack_require__(303)))
 
 /***/ },
 
-/***/ 389:
+/***/ 390:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*
@@ -73906,16 +74739,16 @@
 
 /***/ },
 
-/***/ 428:
+/***/ 429:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(429);
+	__webpack_require__(430);
 	module.exports = 'ngAnimate';
 
 
 /***/ },
 
-/***/ 429:
+/***/ 430:
 /***/ function(module, exports) {
 
 	/**
@@ -78061,12 +78894,12 @@
 
 /***/ },
 
-/***/ 430:
+/***/ 431:
 /***/ function(module, exports) {
 
 	/**
 	 * State-based routing for AngularJS
-	 * @version v0.3.1
+	 * @version v0.3.2
 	 * @link http://angular-ui.github.com/
 	 * @license MIT License, http://www.opensource.org/licenses/MIT
 	 */
@@ -78286,6 +79119,11 @@
 	    result[i] = callback(val, i);
 	  });
 	  return result;
+	}
+	
+	// issue #2676 #2889
+	function silenceUncaughtInPromise (promise) {
+	  return promise.then(undefined, function() {}) && promise;
 	}
 	
 	/**
@@ -79332,8 +80170,8 @@
 	  // If the slashes are simply URLEncoded, the browser can choose to pre-decode them,
 	  // and bidirectional encoding/decoding fails.
 	  // Tilde was chosen because it's not a RFC 3986 section 2.2 Reserved Character
-	  function valToString(val) { return val != null ? val.toString().replace(/~/g, "~~").replace(/\//g, "~2F") : val; }
-	  function valFromString(val) { return val != null ? val.toString().replace(/~2F/g, "/").replace(/~~/g, "~") : val; }
+	  function valToString(val) { return val != null ? val.toString().replace(/(~|\/)/g, function (m) { return {'~':'~~', '/':'~2F'}[m]; }) : val; }
+	  function valFromString(val) { return val != null ? val.toString().replace(/(~~|~2F)/g, function (m) { return {'~~':'~', '~2F':'/'}[m]; }) : val; }
 	
 	  var $types = {}, enqueue = true, typeQueue = [], injector, defaultTypes = {
 	    "string": {
@@ -80967,10 +81805,12 @@
 	  $get.$inject = ['$rootScope', '$q', '$view', '$injector', '$resolve', '$stateParams', '$urlRouter', '$location', '$urlMatcherFactory'];
 	  function $get(   $rootScope,   $q,   $view,   $injector,   $resolve,   $stateParams,   $urlRouter,   $location,   $urlMatcherFactory) {
 	
-	    var TransitionSuperseded = $q.reject(new Error('transition superseded'));
-	    var TransitionPrevented = $q.reject(new Error('transition prevented'));
-	    var TransitionAborted = $q.reject(new Error('transition aborted'));
-	    var TransitionFailed = $q.reject(new Error('transition failed'));
+	    var TransitionSupersededError = new Error('transition superseded');
+	
+	    var TransitionSuperseded = silenceUncaughtInPromise($q.reject(TransitionSupersededError));
+	    var TransitionPrevented = silenceUncaughtInPromise($q.reject(new Error('transition prevented')));
+	    var TransitionAborted = silenceUncaughtInPromise($q.reject(new Error('transition aborted')));
+	    var TransitionFailed = silenceUncaughtInPromise($q.reject(new Error('transition failed')));
 	
 	    // Handles the case where a state which is the target of a transition is not found, and the user
 	    // can optionally retry or defer the transition
@@ -81026,7 +81866,10 @@
 	      var retryTransition = $state.transition = $q.when(evt.retry);
 	
 	      retryTransition.then(function() {
-	        if (retryTransition !== $state.transition) return TransitionSuperseded;
+	        if (retryTransition !== $state.transition) {
+	          $rootScope.$broadcast('$stateChangeCancel', redirect.to, redirect.toParams, state, params);
+	          return TransitionSuperseded;
+	        }
 	        redirect.options.$retry = true;
 	        return $state.transitionTo(redirect.to, redirect.toParams, redirect.options);
 	      }, function() {
@@ -81365,7 +82208,10 @@
 	      var transition = $state.transition = resolved.then(function () {
 	        var l, entering, exiting;
 	
-	        if ($state.transition !== transition) return TransitionSuperseded;
+	        if ($state.transition !== transition) {
+	          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+	          return TransitionSuperseded;
+	        }
 	
 	        // Exit 'from' states not kept
 	        for (l = fromPath.length - 1; l >= keep; l--) {
@@ -81386,7 +82232,10 @@
 	        }
 	
 	        // Run it again, to catch any transitions in callbacks
-	        if ($state.transition !== transition) return TransitionSuperseded;
+	        if ($state.transition !== transition) {
+	          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+	          return TransitionSuperseded;
+	        }
 	
 	        // Update globals in $state
 	        $state.$current = to;
@@ -81422,7 +82271,14 @@
 	
 	        return $state.current;
 	      }).then(null, function (error) {
-	        if ($state.transition !== transition) return TransitionSuperseded;
+	        // propagate TransitionSuperseded error without emitting $stateChangeCancel
+	        // as it was already emitted in the success handler above
+	        if (error === TransitionSupersededError) return TransitionSuperseded;
+	
+	        if ($state.transition !== transition) {
+	          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+	          return TransitionSuperseded;
+	        }
 	
 	        $state.transition = null;
 	        /**
@@ -81446,7 +82302,7 @@
 	        evt = $rootScope.$broadcast('$stateChangeError', to.self, toParams, from.self, fromParams, error);
 	
 	        if (!evt.defaultPrevented) {
-	            $urlRouter.update();
+	          $urlRouter.update();
 	        }
 	
 	        return $q.reject(error);
@@ -81561,7 +82417,17 @@
 	      var state = findState(stateOrName, options.relative);
 	      if (!isDefined(state)) { return undefined; }
 	      if (!isDefined($state.$current.includes[state.name])) { return false; }
-	      return params ? equalForKeys(state.params.$$values(params), $stateParams, objectKeys(params)) : true;
+	      if (!params) { return true; }
+	
+	      var keys = objectKeys(params);
+	      for (var i = 0; i < keys.length; i++) {
+	        var key = keys[i], paramDef = state.params[key];
+	        if (paramDef && !paramDef.type.equals($stateParams[key], params[key])) {
+	          return false;
+	        }
+	      }
+	
+	      return true;
 	    };
 	
 	
@@ -82334,9 +83200,9 @@
 	
 	      if (!type.clickable) return;
 	      hookFn = clickHook(element, $state, $timeout, type, function() { return def; });
-	      element.bind("click", hookFn);
+	      element[element.on ? 'on' : 'bind']("click", hookFn);
 	      scope.$on('$destroy', function() {
-	        element.unbind("click", hookFn);
+	        element[element.off ? 'off' : 'unbind']("click", hookFn);
 	      });
 	    }
 	  };
@@ -82386,9 +83252,9 @@
 	
 	      if (!type.clickable) return;
 	      hookFn = clickHook(element, $state, $timeout, type, function() { return def; });
-	      element.bind("click", hookFn);
+	      element[element.on ? 'on' : 'bind']("click", hookFn);
 	      scope.$on('$destroy', function() {
-	        element.unbind("click", hookFn);
+	        element[element.off ? 'off' : 'unbind']("click", hookFn);
 	      });
 	    }
 	  };
@@ -82643,20 +83509,20 @@
 
 /***/ },
 
-/***/ 454:
+/***/ 455:
 /***/ function(module, exports, __webpack_require__) {
 
 	//https://github.com/angular/angular.js/pull/10732
 	
 	var angular = __webpack_require__(301);
-	var mask = __webpack_require__(455);
+	var mask = __webpack_require__(456);
 	
 	module.exports = 'ui.mask';
 
 
 /***/ },
 
-/***/ 455:
+/***/ 456:
 /***/ function(module, exports) {
 
 	/*!
@@ -83437,11 +84303,10 @@
 
 /***/ },
 
-/***/ 469:
+/***/ 470:
 /***/ function(module, exports, __webpack_require__) {
 
 	// This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
-	__webpack_require__(470)
 	__webpack_require__(471)
 	__webpack_require__(472)
 	__webpack_require__(473)
@@ -83453,10 +84318,11 @@
 	__webpack_require__(479)
 	__webpack_require__(480)
 	__webpack_require__(481)
+	__webpack_require__(482)
 
 /***/ },
 
-/***/ 470:
+/***/ 471:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -83523,7 +84389,7 @@
 
 /***/ },
 
-/***/ 471:
+/***/ 472:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -83625,7 +84491,7 @@
 
 /***/ },
 
-/***/ 472:
+/***/ 473:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -83758,7 +84624,7 @@
 
 /***/ },
 
-/***/ 473:
+/***/ 474:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -84003,7 +84869,7 @@
 
 /***/ },
 
-/***/ 474:
+/***/ 475:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -84223,7 +85089,7 @@
 
 /***/ },
 
-/***/ 475:
+/***/ 476:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -84396,7 +85262,7 @@
 
 /***/ },
 
-/***/ 476:
+/***/ 477:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -84743,7 +85609,7 @@
 
 /***/ },
 
-/***/ 477:
+/***/ 478:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -85271,7 +86137,7 @@
 
 /***/ },
 
-/***/ 478:
+/***/ 479:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -85387,7 +86253,7 @@
 
 /***/ },
 
-/***/ 479:
+/***/ 480:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -85567,7 +86433,7 @@
 
 /***/ },
 
-/***/ 480:
+/***/ 481:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -85730,7 +86596,7 @@
 
 /***/ },
 
-/***/ 481:
+/***/ 482:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -85900,821 +86766,24 @@
 
 /***/ },
 
-/***/ 482:
+/***/ 483:
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(483);__webpack_require__(484);
+	'use strict';__webpack_require__(484);__webpack_require__(485);
 
 /***/ },
 
-/***/ 483:
+/***/ 484:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';var _jquery=__webpack_require__(303);var _jquery2=_interopRequireDefault(_jquery);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var exists=_jquery2.default.fn.modal&&_jquery2.default.fn.modal.Constructor;function override(){var _setScrollBar=_jquery2.default.fn.modal.Constructor.prototype.setScrollbar;_jquery2.default.fn.modal.Constructor.prototype.setScrollbar=function(){_setScrollBar.apply(this);if(this.bodyIsOverflowing){(0,_jquery2.default)('.navbar-fixed-top').css('padding-right',this.scrollbarWidth);}};var _resetScrollbar=_jquery2.default.fn.modal.Constructor.prototype.resetScrollbar;_jquery2.default.fn.modal.Constructor.prototype.resetScrollbar=function(){_resetScrollbar.apply(this);(0,_jquery2.default)('.navbar-fixed-top').css('padding-right','');};}if(exists){override();}
 
 /***/ },
 
-/***/ 484:
+/***/ 485:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 485:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**********************
-	 Velocity UI Pack
-	 **********************/
-	
-	/* VelocityJS.org UI Pack (5.1.1). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License. Portions copyright Daniel Eden, Christian Pucci. */
-	
-	(function(factory) {
-		"use strict";
-		/* CommonJS module. */
-		if (true) {
-			module.exports = factory();
-			/* AMD module. */
-		} else if (typeof define === "function" && define.amd) {
-			define(["velocity"], factory);
-			/* Browser globals. */
-		} else {
-			factory();
-		}
-	}(function() {
-		"use strict";
-		return function(global, window, document, undefined) {
-	
-			/*************
-			 Checks
-			 *************/
-			var Velocity = global.Velocity;
-	
-			if (!Velocity || !Velocity.Utilities) {
-				if (window.console) {
-					console.log("Velocity UI Pack: Velocity must be loaded first. Aborting.");
-				}
-				return;
-			}
-			var $ = Velocity.Utilities;
-	
-			var velocityVersion = Velocity.version,
-					requiredVersion = {major: 1, minor: 1, patch: 0};
-	
-			function greaterSemver(primary, secondary) {
-				var versionInts = [];
-	
-				if (!primary || !secondary) {
-					return false;
-				}
-	
-				$.each([primary, secondary], function(i, versionObject) {
-					var versionIntsComponents = [];
-	
-					$.each(versionObject, function(component, value) {
-						while (value.toString().length < 5) {
-							value = "0" + value;
-						}
-						versionIntsComponents.push(value);
-					});
-	
-					versionInts.push(versionIntsComponents.join(""));
-				});
-	
-				return (parseFloat(versionInts[0]) > parseFloat(versionInts[1]));
-			}
-	
-			if (greaterSemver(requiredVersion, velocityVersion)) {
-				var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://github.com/julianshapiro/velocity.";
-				alert(abortError);
-				throw new Error(abortError);
-			}
-	
-			/************************
-			 Effect Registration
-			 ************************/
-	
-			/* Note: RegisterUI is a legacy name. */
-			Velocity.RegisterEffect = Velocity.RegisterUI = function(effectName, properties) {
-				/* Animate the expansion/contraction of the elements' parent's height for In/Out effects. */
-				function animateParentHeight(elements, direction, totalDuration, stagger) {
-					var totalHeightDelta = 0,
-							parentNode;
-	
-					/* Sum the total height (including padding and margin) of all targeted elements. */
-					$.each(elements.nodeType ? [elements] : elements, function(i, element) {
-						if (stagger) {
-							/* Increase the totalDuration by the successive delay amounts produced by the stagger option. */
-							totalDuration += i * stagger;
-						}
-	
-						parentNode = element.parentNode;
-	
-						propertiesToSum = ["height", "paddingTop", "paddingBottom", "marginTop", "marginBottom"];
-	
-						/* If box-sizing is border-box, the height already includes padding and margin */
-						if (Velocity.CSS.getPropertyValue(element, "boxSizing").toString().toLowerCase() === "border-box") {
-							propertiesToSum = ["height"];
-						}
-	
-						$.each(propertiesToSum, function(i, property) {
-							totalHeightDelta += parseFloat(Velocity.CSS.getPropertyValue(element, property));
-						});
-					});
-	
-					/* Animate the parent element's height adjustment (with a varying duration multiplier for aesthetic benefits). */
-					Velocity.animate(
-							parentNode,
-							{height: (direction === "In" ? "+" : "-") + "=" + totalHeightDelta},
-							{queue: false, easing: "ease-in-out", duration: totalDuration * (direction === "In" ? 0.6 : 1)}
-					);
-				}
-	
-				/* Register a custom redirect for each effect. */
-				Velocity.Redirects[effectName] = function(element, redirectOptions, elementsIndex, elementsSize, elements, promiseData) {
-					var finalElement = (elementsIndex === elementsSize - 1);
-	
-					if (typeof properties.defaultDuration === "function") {
-						properties.defaultDuration = properties.defaultDuration.call(elements, elements);
-					} else {
-						properties.defaultDuration = parseFloat(properties.defaultDuration);
-					}
-	
-					/* Iterate through each effect's call array. */
-					for (var callIndex = 0; callIndex < properties.calls.length; callIndex++) {
-						var call = properties.calls[callIndex],
-								propertyMap = call[0],
-								redirectDuration = 1000,
-								durationPercentage = call[1],
-								callOptions = call[2] || {},
-								opts = {};
-	
-						if (redirectOptions.duration !== undefined) {
-							redirectDuration = redirectOptions.duration;
-						} else if (properties.defaultDuration !== undefined) {
-							redirectDuration = properties.defaultDuration;
-						}
-	
-						/* Assign the whitelisted per-call options. */
-						opts.duration = redirectDuration * (durationPercentage || 1);
-						opts.queue = redirectOptions.queue || "";
-						opts.easing = callOptions.easing || "ease";
-						opts.delay = parseFloat(callOptions.delay) || 0;
-						opts._cacheValues = callOptions._cacheValues || true;
-	
-						/* Special processing for the first effect call. */
-						if (callIndex === 0) {
-							/* If a delay was passed into the redirect, combine it with the first call's delay. */
-							opts.delay += (parseFloat(redirectOptions.delay) || 0);
-	
-							if (elementsIndex === 0) {
-								opts.begin = function() {
-									/* Only trigger a begin callback on the first effect call with the first element in the set. */
-									if (redirectOptions.begin) {
-										redirectOptions.begin.call(elements, elements);
-									}
-	
-									var direction = effectName.match(/(In|Out)$/);
-	
-									/* Make "in" transitioning elements invisible immediately so that there's no FOUC between now
-									 and the first RAF tick. */
-									if ((direction && direction[0] === "In") && propertyMap.opacity !== undefined) {
-										$.each(elements.nodeType ? [elements] : elements, function(i, element) {
-											Velocity.CSS.setPropertyValue(element, "opacity", 0);
-										});
-									}
-	
-									/* Only trigger animateParentHeight() if we're using an In/Out transition. */
-									if (redirectOptions.animateParentHeight && direction) {
-										animateParentHeight(elements, direction[0], redirectDuration + opts.delay, redirectOptions.stagger);
-									}
-								};
-							}
-	
-							/* If the user isn't overriding the display option, default to "auto" for "In"-suffixed transitions. */
-							if (redirectOptions.display !== null) {
-								if (redirectOptions.display !== undefined && redirectOptions.display !== "none") {
-									opts.display = redirectOptions.display;
-								} else if (/In$/.test(effectName)) {
-									/* Inline elements cannot be subjected to transforms, so we switch them to inline-block. */
-									var defaultDisplay = Velocity.CSS.Values.getDisplayType(element);
-									opts.display = (defaultDisplay === "inline") ? "inline-block" : defaultDisplay;
-								}
-							}
-	
-							if (redirectOptions.visibility && redirectOptions.visibility !== "hidden") {
-								opts.visibility = redirectOptions.visibility;
-							}
-						}
-	
-						/* Special processing for the last effect call. */
-						if (callIndex === properties.calls.length - 1) {
-							/* Append promise resolving onto the user's redirect callback. */
-							var injectFinalCallbacks = function() {
-								if ((redirectOptions.display === undefined || redirectOptions.display === "none") && /Out$/.test(effectName)) {
-									$.each(elements.nodeType ? [elements] : elements, function(i, element) {
-										Velocity.CSS.setPropertyValue(element, "display", "none");
-									});
-								}
-								if (redirectOptions.complete) {
-									redirectOptions.complete.call(elements, elements);
-								}
-								if (promiseData) {
-									promiseData.resolver(elements || element);
-								}
-							};
-	
-							opts.complete = function() {
-								if (properties.reset) {
-									for (var resetProperty in properties.reset) {
-										if (!properties.reset.hasOwnProperty(resetProperty)) {
-											continue;
-										}
-										var resetValue = properties.reset[resetProperty];
-	
-										/* Format each non-array value in the reset property map to [ value, value ] so that changes apply
-										 immediately and DOM querying is avoided (via forcefeeding). */
-										/* Note: Don't forcefeed hooks, otherwise their hook roots will be defaulted to their null values. */
-										if (Velocity.CSS.Hooks.registered[resetProperty] === undefined && (typeof resetValue === "string" || typeof resetValue === "number")) {
-											properties.reset[resetProperty] = [properties.reset[resetProperty], properties.reset[resetProperty]];
-										}
-									}
-	
-									/* So that the reset values are applied instantly upon the next rAF tick, use a zero duration and parallel queueing. */
-									var resetOptions = {duration: 0, queue: false};
-	
-									/* Since the reset option uses up the complete callback, we trigger the user's complete callback at the end of ours. */
-									if (finalElement) {
-										resetOptions.complete = injectFinalCallbacks;
-									}
-	
-									Velocity.animate(element, properties.reset, resetOptions);
-									/* Only trigger the user's complete callback on the last effect call with the last element in the set. */
-								} else if (finalElement) {
-									injectFinalCallbacks();
-								}
-							};
-	
-							if (redirectOptions.visibility === "hidden") {
-								opts.visibility = redirectOptions.visibility;
-							}
-						}
-	
-						Velocity.animate(element, propertyMap, opts);
-					}
-				};
-	
-				/* Return the Velocity object so that RegisterUI calls can be chained. */
-				return Velocity;
-			};
-	
-			/*********************
-			 Packaged Effects
-			 *********************/
-	
-			/* Externalize the packagedEffects data so that they can optionally be modified and re-registered. */
-			/* Support: <=IE8: Callouts will have no effect, and transitions will simply fade in/out. IE9/Android 2.3: Most effects are fully supported, the rest fade in/out. All other browsers: full support. */
-			Velocity.RegisterEffect.packagedEffects =
-					{
-						/* Animate.css */
-						"callout.bounce": {
-							defaultDuration: 550,
-							calls: [
-								[{translateY: -30}, 0.25],
-								[{translateY: 0}, 0.125],
-								[{translateY: -15}, 0.125],
-								[{translateY: 0}, 0.25]
-							]
-						},
-						/* Animate.css */
-						"callout.shake": {
-							defaultDuration: 800,
-							calls: [
-								[{translateX: -11}, 0.125],
-								[{translateX: 11}, 0.125],
-								[{translateX: -11}, 0.125],
-								[{translateX: 11}, 0.125],
-								[{translateX: -11}, 0.125],
-								[{translateX: 11}, 0.125],
-								[{translateX: -11}, 0.125],
-								[{translateX: 0}, 0.125]
-							]
-						},
-						/* Animate.css */
-						"callout.flash": {
-							defaultDuration: 1100,
-							calls: [
-								[{opacity: [0, "easeInOutQuad", 1]}, 0.25],
-								[{opacity: [1, "easeInOutQuad"]}, 0.25],
-								[{opacity: [0, "easeInOutQuad"]}, 0.25],
-								[{opacity: [1, "easeInOutQuad"]}, 0.25]
-							]
-						},
-						/* Animate.css */
-						"callout.pulse": {
-							defaultDuration: 825,
-							calls: [
-								[{scaleX: 1.1, scaleY: 1.1}, 0.50, {easing: "easeInExpo"}],
-								[{scaleX: 1, scaleY: 1}, 0.50]
-							]
-						},
-						/* Animate.css */
-						"callout.swing": {
-							defaultDuration: 950,
-							calls: [
-								[{rotateZ: 15}, 0.20],
-								[{rotateZ: -10}, 0.20],
-								[{rotateZ: 5}, 0.20],
-								[{rotateZ: -5}, 0.20],
-								[{rotateZ: 0}, 0.20]
-							]
-						},
-						/* Animate.css */
-						"callout.tada": {
-							defaultDuration: 1000,
-							calls: [
-								[{scaleX: 0.9, scaleY: 0.9, rotateZ: -3}, 0.10],
-								[{scaleX: 1.1, scaleY: 1.1, rotateZ: 3}, 0.10],
-								[{scaleX: 1.1, scaleY: 1.1, rotateZ: -3}, 0.10],
-								["reverse", 0.125],
-								["reverse", 0.125],
-								["reverse", 0.125],
-								["reverse", 0.125],
-								["reverse", 0.125],
-								[{scaleX: 1, scaleY: 1, rotateZ: 0}, 0.20]
-							]
-						},
-						"transition.fadeIn": {
-							defaultDuration: 500,
-							calls: [
-								[{opacity: [1, 0]}]
-							]
-						},
-						"transition.fadeOut": {
-							defaultDuration: 500,
-							calls: [
-								[{opacity: [0, 1]}]
-							]
-						},
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipXIn": {
-							defaultDuration: 700,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [800, 800], rotateY: [0, -55]}]
-							],
-							reset: {transformPerspective: 0}
-						},
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipXOut": {
-							defaultDuration: 700,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [800, 800], rotateY: 55}]
-							],
-							reset: {transformPerspective: 0, rotateY: 0}
-						},
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipYIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [800, 800], rotateX: [0, -45]}]
-							],
-							reset: {transformPerspective: 0}
-						},
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipYOut": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [800, 800], rotateX: 25}]
-							],
-							reset: {transformPerspective: 0, rotateX: 0}
-						},
-						/* Animate.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipBounceXIn": {
-							defaultDuration: 900,
-							calls: [
-								[{opacity: [0.725, 0], transformPerspective: [400, 400], rotateY: [-10, 90]}, 0.50],
-								[{opacity: 0.80, rotateY: 10}, 0.25],
-								[{opacity: 1, rotateY: 0}, 0.25]
-							],
-							reset: {transformPerspective: 0}
-						},
-						/* Animate.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipBounceXOut": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [0.9, 1], transformPerspective: [400, 400], rotateY: -10}, 0.50],
-								[{opacity: 0, rotateY: 90}, 0.50]
-							],
-							reset: {transformPerspective: 0, rotateY: 0}
-						},
-						/* Animate.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipBounceYIn": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [0.725, 0], transformPerspective: [400, 400], rotateX: [-10, 90]}, 0.50],
-								[{opacity: 0.80, rotateX: 10}, 0.25],
-								[{opacity: 1, rotateX: 0}, 0.25]
-							],
-							reset: {transformPerspective: 0}
-						},
-						/* Animate.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.flipBounceYOut": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [0.9, 1], transformPerspective: [400, 400], rotateX: -15}, 0.50],
-								[{opacity: 0, rotateX: 90}, 0.50]
-							],
-							reset: {transformPerspective: 0, rotateX: 0}
-						},
-						/* Magic.css */
-						"transition.swoopIn": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [1, 0], transformOriginX: ["100%", "50%"], transformOriginY: ["100%", "100%"], scaleX: [1, 0], scaleY: [1, 0], translateX: [0, -700], translateZ: 0}]
-							],
-							reset: {transformOriginX: "50%", transformOriginY: "50%"}
-						},
-						/* Magic.css */
-						"transition.swoopOut": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [0, 1], transformOriginX: ["50%", "100%"], transformOriginY: ["100%", "100%"], scaleX: 0, scaleY: 0, translateX: -700, translateZ: 0}]
-							],
-							reset: {transformOriginX: "50%", transformOriginY: "50%", scaleX: 1, scaleY: 1, translateX: 0}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3. (Fades and scales only.) */
-						"transition.whirlIn": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 0], scaleY: [1, 0], rotateY: [0, 160]}, 1, {easing: "easeInOutSine"}]
-							]
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3. (Fades and scales only.) */
-						"transition.whirlOut": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [0, "easeInOutQuint", 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 0, scaleY: 0, rotateY: 160}, 1, {easing: "swing"}]
-							],
-							reset: {scaleX: 1, scaleY: 1, rotateY: 0}
-						},
-						"transition.shrinkIn": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 1.5], scaleY: [1, 1.5], translateZ: 0}]
-							]
-						},
-						"transition.shrinkOut": {
-							defaultDuration: 600,
-							calls: [
-								[{opacity: [0, 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 1.3, scaleY: 1.3, translateZ: 0}]
-							],
-							reset: {scaleX: 1, scaleY: 1}
-						},
-						"transition.expandIn": {
-							defaultDuration: 700,
-							calls: [
-								[{opacity: [1, 0], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: [1, 0.625], scaleY: [1, 0.625], translateZ: 0}]
-							]
-						},
-						"transition.expandOut": {
-							defaultDuration: 700,
-							calls: [
-								[{opacity: [0, 1], transformOriginX: ["50%", "50%"], transformOriginY: ["50%", "50%"], scaleX: 0.5, scaleY: 0.5, translateZ: 0}]
-							],
-							reset: {scaleX: 1, scaleY: 1}
-						},
-						/* Animate.css */
-						"transition.bounceIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], scaleX: [1.05, 0.3], scaleY: [1.05, 0.3]}, 0.40],
-								[{scaleX: 0.9, scaleY: 0.9, translateZ: 0}, 0.20],
-								[{scaleX: 1, scaleY: 1}, 0.50]
-							]
-						},
-						/* Animate.css */
-						"transition.bounceOut": {
-							defaultDuration: 800,
-							calls: [
-								[{scaleX: 0.95, scaleY: 0.95}, 0.35],
-								[{scaleX: 1.1, scaleY: 1.1, translateZ: 0}, 0.35],
-								[{opacity: [0, 1], scaleX: 0.3, scaleY: 0.3}, 0.30]
-							],
-							reset: {scaleX: 1, scaleY: 1}
-						},
-						/* Animate.css */
-						"transition.bounceUpIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], translateY: [-30, 1000]}, 0.60, {easing: "easeOutCirc"}],
-								[{translateY: 10}, 0.20],
-								[{translateY: 0}, 0.20]
-							]
-						},
-						/* Animate.css */
-						"transition.bounceUpOut": {
-							defaultDuration: 1000,
-							calls: [
-								[{translateY: 20}, 0.20],
-								[{opacity: [0, "easeInCirc", 1], translateY: -1000}, 0.80]
-							],
-							reset: {translateY: 0}
-						},
-						/* Animate.css */
-						"transition.bounceDownIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], translateY: [30, -1000]}, 0.60, {easing: "easeOutCirc"}],
-								[{translateY: -10}, 0.20],
-								[{translateY: 0}, 0.20]
-							]
-						},
-						/* Animate.css */
-						"transition.bounceDownOut": {
-							defaultDuration: 1000,
-							calls: [
-								[{translateY: -20}, 0.20],
-								[{opacity: [0, "easeInCirc", 1], translateY: 1000}, 0.80]
-							],
-							reset: {translateY: 0}
-						},
-						/* Animate.css */
-						"transition.bounceLeftIn": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [1, 0], translateX: [30, -1250]}, 0.60, {easing: "easeOutCirc"}],
-								[{translateX: -10}, 0.20],
-								[{translateX: 0}, 0.20]
-							]
-						},
-						/* Animate.css */
-						"transition.bounceLeftOut": {
-							defaultDuration: 750,
-							calls: [
-								[{translateX: 30}, 0.20],
-								[{opacity: [0, "easeInCirc", 1], translateX: -1250}, 0.80]
-							],
-							reset: {translateX: 0}
-						},
-						/* Animate.css */
-						"transition.bounceRightIn": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [1, 0], translateX: [-30, 1250]}, 0.60, {easing: "easeOutCirc"}],
-								[{translateX: 10}, 0.20],
-								[{translateX: 0}, 0.20]
-							]
-						},
-						/* Animate.css */
-						"transition.bounceRightOut": {
-							defaultDuration: 750,
-							calls: [
-								[{translateX: -30}, 0.20],
-								[{opacity: [0, "easeInCirc", 1], translateX: 1250}, 0.80]
-							],
-							reset: {translateX: 0}
-						},
-						"transition.slideUpIn": {
-							defaultDuration: 900,
-							calls: [
-								[{opacity: [1, 0], translateY: [0, 20], translateZ: 0}]
-							]
-						},
-						"transition.slideUpOut": {
-							defaultDuration: 900,
-							calls: [
-								[{opacity: [0, 1], translateY: -20, translateZ: 0}]
-							],
-							reset: {translateY: 0}
-						},
-						"transition.slideDownIn": {
-							defaultDuration: 900,
-							calls: [
-								[{opacity: [1, 0], translateY: [0, -20], translateZ: 0}]
-							]
-						},
-						"transition.slideDownOut": {
-							defaultDuration: 900,
-							calls: [
-								[{opacity: [0, 1], translateY: 20, translateZ: 0}]
-							],
-							reset: {translateY: 0}
-						},
-						"transition.slideLeftIn": {
-							defaultDuration: 1000,
-							calls: [
-								[{opacity: [1, 0], translateX: [0, -20], translateZ: 0}]
-							]
-						},
-						"transition.slideLeftOut": {
-							defaultDuration: 1050,
-							calls: [
-								[{opacity: [0, 1], translateX: -20, translateZ: 0}]
-							],
-							reset: {translateX: 0}
-						},
-						"transition.slideRightIn": {
-							defaultDuration: 1000,
-							calls: [
-								[{opacity: [1, 0], translateX: [0, 20], translateZ: 0}]
-							]
-						},
-						"transition.slideRightOut": {
-							defaultDuration: 1050,
-							calls: [
-								[{opacity: [0, 1], translateX: 20, translateZ: 0}]
-							],
-							reset: {translateX: 0}
-						},
-						"transition.slideUpBigIn": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [1, 0], translateY: [0, 75], translateZ: 0}]
-							]
-						},
-						"transition.slideUpBigOut": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [0, 1], translateY: -75, translateZ: 0}]
-							],
-							reset: {translateY: 0}
-						},
-						"transition.slideDownBigIn": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [1, 0], translateY: [0, -75], translateZ: 0}]
-							]
-						},
-						"transition.slideDownBigOut": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [0, 1], translateY: 75, translateZ: 0}]
-							],
-							reset: {translateY: 0}
-						},
-						"transition.slideLeftBigIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], translateX: [0, -75], translateZ: 0}]
-							]
-						},
-						"transition.slideLeftBigOut": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [0, 1], translateX: -75, translateZ: 0}]
-							],
-							reset: {translateX: 0}
-						},
-						"transition.slideRightBigIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], translateX: [0, 75], translateZ: 0}]
-							]
-						},
-						"transition.slideRightBigOut": {
-							defaultDuration: 750,
-							calls: [
-								[{opacity: [0, 1], translateX: 75, translateZ: 0}]
-							],
-							reset: {translateX: 0}
-						},
-						/* Magic.css */
-						"transition.perspectiveUpIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: ["100%", "100%"], rotateX: [0, -180]}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveUpOut": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: ["100%", "100%"], rotateX: -180}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateX: 0}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveDownIn": {
-							defaultDuration: 800,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateX: [0, 180]}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveDownOut": {
-							defaultDuration: 850,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [800, 800], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateX: 180}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateX: 0}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveLeftIn": {
-							defaultDuration: 950,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [2000, 2000], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateY: [0, -180]}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveLeftOut": {
-							defaultDuration: 950,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [2000, 2000], transformOriginX: [0, 0], transformOriginY: [0, 0], rotateY: -180}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateY: 0}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveRightIn": {
-							defaultDuration: 950,
-							calls: [
-								[{opacity: [1, 0], transformPerspective: [2000, 2000], transformOriginX: ["100%", "100%"], transformOriginY: [0, 0], rotateY: [0, 180]}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%"}
-						},
-						/* Magic.css */
-						/* Support: Loses rotation in IE9/Android 2.3 (fades only). */
-						"transition.perspectiveRightOut": {
-							defaultDuration: 950,
-							calls: [
-								[{opacity: [0, 1], transformPerspective: [2000, 2000], transformOriginX: ["100%", "100%"], transformOriginY: [0, 0], rotateY: 180}]
-							],
-							reset: {transformPerspective: 0, transformOriginX: "50%", transformOriginY: "50%", rotateY: 0}
-						}
-					};
-	
-			/* Register the packaged effects. */
-			for (var effectName in Velocity.RegisterEffect.packagedEffects) {
-				if (Velocity.RegisterEffect.packagedEffects.hasOwnProperty(effectName)) {
-					Velocity.RegisterEffect(effectName, Velocity.RegisterEffect.packagedEffects[effectName]);
-				}
-			}
-	
-			/*********************
-			 Sequence Running
-			 **********************/
-	
-			/* Note: Sequence calls must use Velocity's single-object arguments syntax. */
-			Velocity.RunSequence = function(originalSequence) {
-				var sequence = $.extend(true, [], originalSequence);
-	
-				if (sequence.length > 1) {
-					$.each(sequence.reverse(), function(i, currentCall) {
-						var nextCall = sequence[i + 1];
-	
-						if (nextCall) {
-							/* Parallel sequence calls (indicated via sequenceQueue:false) are triggered
-							 in the previous call's begin callback. Otherwise, chained calls are normally triggered
-							 in the previous call's complete callback. */
-							var currentCallOptions = currentCall.o || currentCall.options,
-									nextCallOptions = nextCall.o || nextCall.options;
-	
-							var timing = (currentCallOptions && currentCallOptions.sequenceQueue === false) ? "begin" : "complete",
-									callbackOriginal = nextCallOptions && nextCallOptions[timing],
-									options = {};
-	
-							options[timing] = function() {
-								var nextCallElements = nextCall.e || nextCall.elements;
-								var elements = nextCallElements.nodeType ? [nextCallElements] : nextCallElements;
-	
-								if (callbackOriginal) {
-									callbackOriginal.call(elements, elements);
-								}
-								Velocity(currentCall);
-							};
-	
-							if (nextCall.o) {
-								nextCall.o = $.extend({}, nextCallOptions, options);
-							} else {
-								nextCall.options = $.extend({}, nextCallOptions, options);
-							}
-						}
-					});
-	
-					sequence.reverse();
-				}
-	
-				Velocity(sequence[0]);
-			};
-		}((__webpack_provided_window_dot_jQuery || window.Zepto || window), window, document);
-	}));
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(303)))
 
 /***/ },
 

@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.8 (11/02/2016)
+ * availity-angular v2.0.0-beta.10 (11/08/2016)
  * (c) Availity, LLC
  */
 @font-face {
@@ -9842,8 +9842,7 @@ html[dir="rtl"] .select2-search input {
 .select2-dropdown-open .select2-choice .select2-arrow {
   background: transparent;
   border-left: none;
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 html[dir="rtl"] .select2-dropdown-open .select2-choice .select2-arrow {
   border-right: none;
@@ -10450,8 +10449,7 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
   border-bottom-right-radius: 2px !important;
   border-bottom-left-radius: 2px !important;
   background: #e8ebeb;
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 .input-group.select2-bootstrap-prepend .select2-dropdown-open.select2-drop-above [class^="select2-choice"] {
   border-bottom-left-radius: 0 !important;

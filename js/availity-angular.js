@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.8 (11/02/2016)
+ * availity-angular v2.0.0-beta.10 (11/08/2016)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -8670,6 +8670,7 @@ webpackJsonp([0],[
 	var REGEX_API_URL = /^.*?api.availity.com(.*)$/;
 	
 	function getRelativeUrl(url) {
+	
 	  var result = url.match(REGEX_API_URL);
 	  if (result && result[1]) {
 	    return "/api" + result[1];
@@ -8722,7 +8723,7 @@ webpackJsonp([0],[
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.print = print;
+	exports.default = print;
 	// https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
 	
 	function print() {
@@ -8850,7 +8851,7 @@ webpackJsonp([0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.8")
+	          sdkVersion: ("2.0.0-beta.10")
 	        };
 	
 	        return this.log(message);
@@ -10701,7 +10702,8 @@ webpackJsonp([0],[
 	    FAILED: 'av:val:failed',
 	    RESET: 'av:val:reset'
 	  },
-	  DEBOUNCE: 800,
+	  DEBOUNCE: 400,
+	  DEBOUNCE_QUICK: 100,
 	  DATE_FORMAT: {
 	    SIMPLE: 'MM/DD/YYYY'
 	  },
@@ -11357,33 +11359,33 @@ webpackJsonp([0],[
 	
 	__webpack_require__(357);
 	
-	__webpack_require__(363);
+	__webpack_require__(364);
 	
-	__webpack_require__(372);
+	__webpack_require__(373);
 	
-	__webpack_require__(380);
+	__webpack_require__(381);
 	
-	__webpack_require__(385);
-	
-	__webpack_require__(392);
+	__webpack_require__(386);
 	
 	__webpack_require__(393);
 	
-	__webpack_require__(396);
+	__webpack_require__(394);
 	
-	__webpack_require__(400);
+	__webpack_require__(397);
 	
-	__webpack_require__(407);
+	__webpack_require__(401);
 	
 	__webpack_require__(408);
 	
-	__webpack_require__(413);
+	__webpack_require__(409);
 	
-	__webpack_require__(402);
+	__webpack_require__(414);
 	
-	__webpack_require__(419);
+	__webpack_require__(403);
 	
-	__webpack_require__(426);
+	__webpack_require__(420);
+	
+	__webpack_require__(427);
 
 /***/ },
 /* 351 */
@@ -11610,7 +11612,7 @@ webpackJsonp([0],[
 	
 	__webpack_require__(358);
 	
-	__webpack_require__(362);
+	__webpack_require__(363);
 
 /***/ },
 /* 358 */
@@ -11630,7 +11632,9 @@ webpackJsonp([0],[
 	
 	__webpack_require__(360);
 	
-	var _template = __webpack_require__(361);
+	__webpack_require__(361);
+	
+	var _template = __webpack_require__(362);
 	
 	var _template2 = _interopRequireDefault(_template);
 	
@@ -11722,7 +11726,8 @@ webpackJsonp([0],[
 
 /***/ },
 /* 360 */,
-/* 361 */
+/* 361 */,
+/* 362 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/animation/loader/template.html';
@@ -11731,12 +11736,16 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
+	
+	__webpack_require__(360);
+	
+	__webpack_require__(361);
 	
 	var _module = __webpack_require__(351);
 	
@@ -11805,22 +11814,22 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 363 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(364);
-	
 	__webpack_require__(365);
 	
-	__webpack_require__(367);
-	
-	__webpack_require__(369);
+	__webpack_require__(366);
 	
 	__webpack_require__(368);
 	
 	__webpack_require__(370);
+	
+	__webpack_require__(369);
+	
+	__webpack_require__(371);
 	
 	var _module = __webpack_require__(351);
 	
@@ -11846,13 +11855,13 @@ webpackJsonp([0],[
 	// import './integration';
 
 /***/ },
-/* 364 */
+/* 365 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 365 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11865,7 +11874,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(366);
+	var _utils = __webpack_require__(367);
 	
 	var _base = __webpack_require__(354);
 	
@@ -12030,7 +12039,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 366 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12128,7 +12137,7 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 367 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12141,9 +12150,9 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(368);
+	__webpack_require__(369);
 	
-	var _utils = __webpack_require__(366);
+	var _utils = __webpack_require__(367);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12236,7 +12245,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 368 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12249,7 +12258,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(366);
+	var _utils = __webpack_require__(367);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12435,7 +12444,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 369 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12499,7 +12508,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 370 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12512,7 +12521,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _block = __webpack_require__(371);
+	var _block = __webpack_require__(372);
 	
 	var _block2 = _interopRequireDefault(_block);
 	
@@ -12531,7 +12540,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/block/block.html';
@@ -12540,12 +12549,10 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(373);
 	
 	__webpack_require__(374);
 	
@@ -12555,10 +12562,12 @@ webpackJsonp([0],[
 	
 	__webpack_require__(377);
 	
-	__webpack_require__(379);
+	__webpack_require__(378);
+	
+	__webpack_require__(380);
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12597,7 +12606,7 @@ webpackJsonp([0],[
 	_module2.default.config(dateConfig);
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12612,11 +12621,11 @@ webpackJsonp([0],[
 	_module2.default.constant('AV_DATEPICKER', {
 	  CONTROLLER: '$ngModelController',
 	  ADD_ON_SELECTOR: '[data-toggle="datepicker"]',
-	  OPTIONS: ['autoclose', 'assumeNearbyYear', 'beforeShowCentury', 'beforeShowDay', 'beforeShowDecade', 'beforeShowMonth', 'beforeShowYear', 'calendarWeeks', 'clearBtn', 'container', 'datesDisabled', 'daysOfWeekDisabled', 'defaultViewDate', 'disableTouchKeyboard', 'enableOnReadonly', 'endDate', 'forceParse', 'format', 'immediateUpdates', 'inputs', 'keyboardNavigation', 'language', 'maxViewMode', 'minViewMode', 'modelFormat', 'multidate', 'multidateSeparator', 'orientation', 'showOnFocus', 'startDate', 'startView', 'title', 'todayBtn', 'todayHighlight', 'toggleActive', 'weekStart', 'zIndexOffset']
+	  OPTIONS: ['autoclose', 'beforeShowDay', 'beforeShowMonth', 'beforeShowYear', 'beforeShowDecade', 'beforeShowCentury', 'calendarWeeks', 'clearBtn', 'container', 'datesDisabled', 'daysOfWeekDisabled', 'daysOfWeekHighlighted', 'defaultViewDate', 'disableTouchKeyboard', 'enableOnReadonly', 'endDate', 'forceParse', 'assumeNearbyYear', 'format', 'immediateUpdates', 'inputs', 'keyboardNavigation', 'language', 'maxViewMode', 'minViewMode', 'multidate', 'multidateSeparator', 'orientation', 'showOnFocus', 'startDate', 'startView', 'templates', 'title', 'todayBtn', 'todayHighlight', 'toggleActive', 'weekStart', 'zIndexOffset']
 	});
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12661,7 +12670,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12670,9 +12679,9 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(317);
+	var _jquery = __webpack_require__(303);
 	
-	var _moment2 = _interopRequireDefault(_moment);
+	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	var _base = __webpack_require__(354);
 	
@@ -12746,7 +12755,8 @@ webpackJsonp([0],[
 	  };
 	
 	  AvDatepickerController.prototype.modelToView = function modelToView(modelValue) {
-	    return (0, _moment2.default)(modelValue).format(this.options.format);
+	    var viewValue = _jquery2.default.fn.datepicker.DPGlobal.formatDate(modelValue, this.options.format, 'en');
+	    return viewValue;
 	  };
 	
 	  AvDatepickerController.prototype.viewToModel = function viewToModel(viewValue) {
@@ -12757,27 +12767,77 @@ webpackJsonp([0],[
 	      return null;
 	    }
 	
-	    var parsed = (0, _moment2.default)(viewValue, this.options.format, true);
+	    var format = _jquery2.default.fn.datepicker.DPGlobal.parseFormat(this.options.format);
+	    var utcDate = _jquery2.default.fn.datepicker.DPGlobal.parseDate(this.ngModel.$viewValue, format, 'en');
 	
-	    // options.format must be supported by moment.js.  Moment parses format and then
-	    // we convert to bootstrap datepicker UTC format
-	    if (parsed.isValid()) {
-	      return plugin._utc_to_local(parsed.utc().toDate());
-	    }
+	    var localDate = plugin._utc_to_local(utcDate);
+	
+	    return localDate;
 	  };
 	
 	  AvDatepickerController.prototype.init = function init() {
 	    var _this2 = this;
 	
+	    var self = this;
+	
 	    this.options = _angular2.default.copy(this.av.avDatepickerConfig);
 	
 	    Object.keys(this.av.$attrs).forEach(function (key) {
-	      var value = _this2.av.$attrs[key];
+	      var value = self.av.$attrs[key];
 	      var _key = key.replace('data-', '');
 	      if (_this2.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
-	        _this2.options[_key] = _this2.av.$scope.$eval(value);
+	        self.options[_key] = self.av.$scope.$eval(value);
 	      }
 	    });
+	
+	    this.convertFormat();
+	  };
+	
+	  // bootstrap-datepicker date format supports a combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
+	  // Below is the conversion table from moment.js format options to bootstrap-datepicker.
+	  //
+	  // Moment formatting options:
+	  //
+	  //  - DD => 01 02 ... 30 31
+	  //  - D => 1 2 ... 30 31
+	  //  - M => 1 2 ... 11 12
+	  //  - MM => 01 02 ... 11 12
+	  //  - MMM => Jan Feb ... Nov Dec
+	  //  - MMMM => January February ... November December
+	  //  - YY => 70 71 ... 29 30
+	  //  -  YYYY => 1970 1971 ... 2029 2030
+	  //
+	  //
+	  //  Table reads momment.js format => bootstrap-datepicker format
+	  //
+	  //  - D, DD => d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
+	  //  - ddd, dddd => D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
+	  //  - M, MM => m, mm: Numeric month, no leading zero and leading zero, respectively. Eg, 7, 07.
+	  //  - MMM, MMMM => M, MM: Abbreviated and full month names, respectively. Eg, Jan, January
+	  //  - YY, YYYY => yy, yyyy: 2- and 4-digit years, respectively. Eg, 12, 2012.
+	  //
+	
+	
+	  AvDatepickerController.prototype.convertFormat = function convertFormat() {
+	
+	    var format = this.options.format;
+	
+	    if (format) {
+	      (function () {
+	
+	        // lower case everything
+	        format = format.toLowerCase();
+	
+	        // Since we lowercased everything convert the map is slightly different than above
+	        var map = { 'mmm': 'M', 'mmmm': 'MM', 'ddd': 'D', 'dddd': 'DD' };
+	        var re = new RegExp(Object.keys(map).join('|'), 'gi');
+	        format = format.replace(re, function (matched) {
+	          return map[matched];
+	        });
+	      })();
+	    }
+	
+	    this.options.format = format;
 	  };
 	
 	  AvDatepickerController.prototype.plugin = function plugin() {
@@ -12808,7 +12868,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvDatepickerController', AvDatepickerController);
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12821,7 +12881,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	__webpack_require__(378);
+	__webpack_require__(379);
 	
 	var _module = __webpack_require__(351);
 	
@@ -12895,9 +12955,7 @@ webpackJsonp([0],[
 	      });
 	
 	      scope.$evalAsync(function () {
-	        // why are their so many different ways to format the same date... MM/DD/YYYY -> mm/dd/yyyy makes a difference. between moment and the datepicker plugin.
 	        var options = _extends({}, avDatepicker.options);
-	        options.format = _angular2.default.lowercase(options.format);
 	        element.datepicker(options);
 	      });
 	    }
@@ -12907,32 +12965,32 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 378 */,
-/* 379 */
+/* 379 */,
+/* 380 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(381);
-	
 	__webpack_require__(382);
 	
 	__webpack_require__(383);
+	
+	__webpack_require__(384);
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12989,7 +13047,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13000,7 +13058,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _controller = __webpack_require__(384);
+	var _controller = __webpack_require__(385);
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
@@ -13019,7 +13077,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13109,21 +13167,21 @@ webpackJsonp([0],[
 	exports.default = AvDimmerController;
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(386);
-	
 	__webpack_require__(387);
 	
-	__webpack_require__(390);
+	__webpack_require__(388);
 	
 	__webpack_require__(391);
+	
+	__webpack_require__(392);
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13184,7 +13242,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avDropdownConfig', AvConfig);
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13193,9 +13251,9 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	__webpack_require__(388);
+	__webpack_require__(389);
 	
-	__webpack_require__(390);
+	__webpack_require__(391);
 	
 	var _module = __webpack_require__(351);
 	
@@ -13314,9 +13372,9 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 388 */,
 /* 389 */,
-/* 390 */
+/* 390 */,
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13343,7 +13401,7 @@ webpackJsonp([0],[
 	
 	var _utils = __webpack_require__(311);
 	
-	__webpack_require__(386);
+	__webpack_require__(387);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -13680,7 +13738,7 @@ webpackJsonp([0],[
 	exports.default = AvDropdownController;
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13839,7 +13897,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13857,15 +13915,15 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(394);
+	__webpack_require__(395);
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13878,7 +13936,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(395);
+	__webpack_require__(396);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -13941,21 +13999,21 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(397);
+	__webpack_require__(398);
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13966,11 +14024,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _spaces = __webpack_require__(398);
+	var _spaces = __webpack_require__(399);
 	
 	var _spaces2 = _interopRequireDefault(_spaces);
 	
-	__webpack_require__(399);
+	__webpack_require__(400);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -14023,7 +14081,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/breadcrumbs/spaces.html';
@@ -14032,7 +14090,7 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14075,19 +14133,19 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(401);
+	__webpack_require__(402);
+	
+	__webpack_require__(405);
 	
 	__webpack_require__(404);
-	
-	__webpack_require__(403);
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14104,13 +14162,13 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(402);
-	
 	__webpack_require__(403);
 	
 	__webpack_require__(404);
 	
-	__webpack_require__(406);
+	__webpack_require__(405);
+	
+	__webpack_require__(407);
 	
 	var _utils = __webpack_require__(311);
 	
@@ -14340,7 +14398,7 @@ webpackJsonp([0],[
 	_module2.default.factory('AvModal', ModalFactory);
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14370,7 +14428,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 403 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14421,7 +14479,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14430,7 +14488,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _modal = __webpack_require__(405);
+	var _modal = __webpack_require__(406);
 	
 	var _modal2 = _interopRequireDefault(_modal);
 	
@@ -14449,7 +14507,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 405 */
+/* 406 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/modal.html';
@@ -14458,7 +14516,7 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 406 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14525,7 +14583,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 407 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14563,21 +14621,21 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 408 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(409);
 	
 	__webpack_require__(410);
 	
 	__webpack_require__(411);
 	
 	__webpack_require__(412);
+	
+	__webpack_require__(413);
 
 /***/ },
-/* 409 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14593,7 +14651,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 410 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14631,7 +14689,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avPopoverConfig', AvPopoverConfig);
 
 /***/ },
-/* 411 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14710,7 +14768,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvPopoverController', AvPopoverController);
 
 /***/ },
-/* 412 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14748,12 +14806,10 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 413 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(414);
 	
 	__webpack_require__(415);
 	
@@ -14762,9 +14818,11 @@ webpackJsonp([0],[
 	__webpack_require__(417);
 	
 	__webpack_require__(418);
+	
+	__webpack_require__(419);
 
 /***/ },
-/* 414 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14780,7 +14838,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 415 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14818,7 +14876,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avTooltipConfig', AvTooltipConfig);
 
 /***/ },
-/* 416 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14897,7 +14955,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvTooltipController', AvTooltipController);
 
 /***/ },
-/* 417 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14935,7 +14993,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 418 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14955,25 +15013,25 @@ webpackJsonp([0],[
 	_module2.default.component('inlineHelp', inlineHelp);
 
 /***/ },
-/* 419 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(420);
-	
-	__webpack_require__(422);
 	
 	__webpack_require__(421);
 	
 	__webpack_require__(423);
 	
+	__webpack_require__(422);
+	
 	__webpack_require__(424);
 	
 	__webpack_require__(425);
+	
+	__webpack_require__(426);
 
 /***/ },
-/* 420 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14990,7 +15048,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(421);
+	__webpack_require__(422);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15060,7 +15118,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 421 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15097,7 +15155,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 422 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15106,9 +15164,9 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(421);
+	__webpack_require__(422);
 	
-	__webpack_require__(420);
+	__webpack_require__(421);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15155,7 +15213,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 423 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15236,7 +15294,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 424 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15297,6 +15355,14 @@ webpackJsonp([0],[
 	
 	  AvValFieldController.prototype.createId = function createId() {
 	    this.ngModel.avId = (0, _utils.uuid)('avVal');
+	  };
+	
+	  AvValFieldController.prototype.isRadio = function isRadio() {
+	    return this.av.$element.is('input') && this.av.$attrs.type === 'radio';
+	  };
+	
+	  AvValFieldController.prototype.isCheckbox = function isCheckbox() {
+	    return this.av.$element.is('input') && this.av.$attrs.type === 'checkbox';
 	  };
 	
 	  AvValFieldController.prototype.updateElement = function updateElement() {
@@ -15383,7 +15449,7 @@ webpackJsonp([0],[
 	  return AvValFieldController;
 	}(_base2.default);
 	
-	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope'];
+	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope', '$attrs'];
 	
 	
 	_module2.default.controller('AvValFieldController', AvValFieldController);
@@ -15393,6 +15459,12 @@ webpackJsonp([0],[
 	    restrict: 'A',
 	    controller: 'AvValFieldController',
 	    require: ['^avValForm', 'ngModel', 'avValField'],
+	    scope: {
+	      avValDebounce: '<?',
+	      avValOn: '<?',
+	      avValShowOnLoad: '<?',
+	      avValInvalid: '<?'
+	    },
 	    link: function link(scope, element, attrs, controllers) {
 	
 	      var ruleName = attrs.avValField;
@@ -15402,8 +15474,15 @@ webpackJsonp([0],[
 	      var avValField = controllers[2];
 	
 	      var avValOn = scope.avValOn || avValForm.avValOn || 'default';
-	      var avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
-	      var avValInvalid = attrs.avValInvalid || avValForm.avValInvalid || false;
+	
+	      var avValDebounce = void 0;
+	      if (avValField.isCheckbox() || avValField.isRadio()) {
+	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
+	      } else {
+	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+	      }
+	
+	      var avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
 	
 	      ngModel.$$setOptions({
 	        updateOnDefault: true,
@@ -15446,7 +15525,7 @@ webpackJsonp([0],[
 	      });
 	
 	      // - Removes all errors on page,
-	      // - does not reset view or model values.  This should to be handled by the application.
+	      // - Does not reset view or model values.  This should to be handled by the application.
 	      scope.$on(AV_VAL.EVENTS.RESET, function () {
 	        avValField.reset();
 	      });
@@ -15455,7 +15534,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 425 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15468,11 +15547,11 @@ webpackJsonp([0],[
 	
 	__webpack_require__(334);
 	
-	__webpack_require__(421);
-	
 	__webpack_require__(422);
 	
-	__webpack_require__(424);
+	__webpack_require__(423);
+	
+	__webpack_require__(425);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15647,7 +15726,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 426 */
+/* 427 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
