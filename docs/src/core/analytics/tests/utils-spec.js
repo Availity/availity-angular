@@ -36,7 +36,7 @@ describe('avAnalyticsUtils', () => {
 
   });
 
-  it('isExternalLink() should detect links that call `ng-click` vs use `href`', () => {
+  it('isExternalLink() should detect links that call ng-click vs use href', () => {
     expect(avAnalyticsUtils.isExternalLink({href: 'http://www.google.com'})).toBeTruthy();
     expect(avAnalyticsUtils.isExternalLink({ngClick: {}})).not.toBeTruthy();
   });

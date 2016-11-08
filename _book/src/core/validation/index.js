@@ -1,2 +1,0 @@
-import './rules';
-import './validator';

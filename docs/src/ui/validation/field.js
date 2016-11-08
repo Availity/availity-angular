@@ -6,7 +6,7 @@ import Base from '../base';
 
 class AvValFieldController extends Base {
 
-  static $inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope'];
+  static $inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope', '$attrs'];
 
   constructor(...args) {
 
@@ -29,6 +29,14 @@ class AvValFieldController extends Base {
 
   createId() {
     this.ngModel.avId = uuid('avVal');
+  }
+
+  isRadio() {
+    return this.av.$element.is('input') && this.av.$attrs.type === 'radio';
+  }
+
+  isCheckbox() {
+    return this.av.$element.is('input') && this.av.$attrs.type === 'checkbox';
   }
 
   updateElement() {
@@ -127,6 +135,12 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
     restrict: 'A',
     controller: 'AvValFieldController',
     require: ['^avValForm', 'ngModel', 'avValField'],
+    scope: {
+      avValDebounce: '<?',
+      avValOn: '<?',
+      avValShowOnLoad: '<?',
+      avValInvalid: '<?'
+    },
     link(scope, element, attrs, controllers) {
 
       const ruleName = attrs.avValField;
@@ -136,8 +150,15 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       const avValField = controllers[2];
 
       const avValOn = scope.avValOn || avValForm.avValOn || 'default';
-      const avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
-      const avValInvalid = attrs.avValInvalid || avValForm.avValInvalid || false;
+
+      let avValDebounce;
+      if (avValField.isCheckbox() || avValField.isRadio()) {
+        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
+      } else {
+        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+      }
+
+      const avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
 
       ngModel.$$setOptions({
         updateOnDefault: true,
@@ -181,7 +202,7 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       });
 
       // - Removes all errors on page,
-      // - does not reset view or model values.  This should to be handled by the application.
+      // - Does not reset view or model values.  This should to be handled by the application.
       scope.$on(AV_VAL.EVENTS.RESET, () => {
         avValField.reset();
       });

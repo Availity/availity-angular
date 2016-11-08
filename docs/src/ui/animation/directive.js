@@ -1,3 +1,6 @@
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
+
 import ngModule from '../module';
 import angular from 'angular';
 
