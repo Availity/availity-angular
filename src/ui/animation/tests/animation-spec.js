@@ -1,4 +1,6 @@
 /* global  describe, beforeEach, it, expect */
+import 'jquery';
+import 'velocity-animate';
 
 import angular from 'angular';
 import Tester from 'tester';
@@ -56,7 +58,7 @@ describe('Animations', () => {
   describe('avLoader', () => {
     it('should render directive', () => {
       const el = tester.compileDirective('<div av-loader></div>');
-      expect(el.hasClass('loading-indicator')).toBeTruthy();
+      expect(el.find('.loading-bullet').length > 0).toBeTruthy();
     });
   });
 
