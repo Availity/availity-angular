@@ -9,7 +9,9 @@
     "build:umd": "cross-env NODE_ENV=production node cli.js build",
     "build": "npm run build:umd && npm run build:lib",
     "clean": "node cli.js clean",
-    "docs": "cross-env NODE_ENV=development node cli.js docs",
+    "docs": "npm run docs:publish",
+    "docs:publish": "npm run clean && npm run docs:pages && npm run book:build && npm run book:copy && gh-pages -d build",
+    "docs:pages": "cross-env NODE_ENV=development node cli.js docs",
     "test": "cross-env  npm run lint && karma start ./karma.conf.js",
     "test:debug": "karma start ./karma.conf-debug.js",
     "test:ci": "npm run lint && karma start ./karma.conf-sauce-labs.js",
@@ -18,6 +20,8 @@
     "prepublish": "in-publish && npm run build || true",
     "lint": "node cli.js lint",
     "book:prepare": "gitbook install",
+    "book:copy": "copyfiles -u 1 \"./_book/**/*\" build/docs",
+    "book:build": "gitbook build",
     "book": "npm run book:prepare && gitbook serve"
   },
   "repository": {
@@ -69,6 +73,7 @@
     "eslint-config-availity": "2.0.0-beta.10",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
+    "gh-pages": "0.11.0",
     "gitbook-cli": "2.3.0",
     "globby": "6.1.0",
     "gray-matter": "2.1.0",
