@@ -1,4 +1,4 @@
-/* global beforeEach, afterEach, expect, module, describe, it */
+/* global beforeEach, afterEach, expect, module, describe, it*/
 
 /**
  * Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/test/unit/directives/datepickerSpec.js
@@ -47,7 +47,7 @@ describe('avDatepicker', () => {
     const options = $el.data('$avDatepickerController').options;
     expect(options.autoclose).toBe(true);
     expect(options.todayHighlight).toBe(true);
-    expect(options.format).toBe('MM/DD/YYYY');
+    expect(options.format).toBe('mm/dd/yyyy');
     expect(options.forceParse).toBe(false);
   });
 
@@ -60,7 +60,6 @@ describe('avDatepicker', () => {
 
   it('should use attribute values over default values', () => {
     $el = tester.compileDirective(fixtures.disabledDates);
-
     const options = $el.data('$avDatepickerController').options;
     expect(options.datesDisabled).toBe('06');
   });
@@ -76,7 +75,7 @@ describe('avDatepicker', () => {
     expect($el.data('datepicker').picker.is(':visible')).toBe(true);
   });
 
-  it('should correctly initialize date from model', () => {
+  it('should initialize model with Date object', () => {
 
     tester.$scope.selectedDate = new Date(1986, 0, 22);
 
@@ -86,19 +85,6 @@ describe('avDatepicker', () => {
 
     expect($el.val()).toBe('01/22/1986');
 
-  });
-
-  it('should correctly initialize ISO 8601 date from model', () => {
-
-    tester.$scope.selectedDate = '2014-12-31T23:00:00Z';
-
-    /* eslint new-cap: 0*/
-    angular.mock.TzDate(+1, '2014-12-31T23:00:00Z');
-    $el = tester.compileDirective(fixtures.regular);
-    tester.flush(DEBOUNCE);
-    tester.$scope.$digest();
-
-    expect($el.val()).toBe('12/31/2014');
   });
 
   it('should correctly ignore undefined date from MODEL', () => {

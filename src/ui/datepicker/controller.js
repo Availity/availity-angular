@@ -1,5 +1,5 @@
 import angular from 'angular';
-import moment from 'moment';
+import $ from 'jquery';
 
 import Base from '../base';
 import ngModule from '../module';
@@ -53,7 +53,8 @@ class AvDatepickerController extends Base {
   }
 
   modelToView(modelValue) {
-    return moment(modelValue).format(this.options.format);
+    const viewValue = $.fn.datepicker.DPGlobal.formatDate(modelValue, this.options.format, 'en');
+    return viewValue;
   }
 
   viewToModel(viewValue) {
@@ -64,26 +65,74 @@ class AvDatepickerController extends Base {
       return null;
     }
 
-    const parsed = moment(viewValue, this.options.format, true);
+    const format = $.fn.datepicker.DPGlobal.parseFormat(this.options.format);
+    const utcDate = $.fn.datepicker.DPGlobal.parseDate(this.ngModel.$viewValue, format, 'en');
 
-    // options.format must be supported by moment.js.  Moment parses format and then
-    // we convert to bootstrap datepicker UTC format
-    if (parsed.isValid()) {
-      return plugin._utc_to_local(parsed.utc().toDate());
-    }
+    const localDate = plugin._utc_to_local(utcDate);
+
+    return localDate;
   }
 
   init() {
 
+    const self = this;
+
     this.options = angular.copy(this.av.avDatepickerConfig);
 
     Object.keys(this.av.$attrs).forEach((key) => {
-      const value = this.av.$attrs[key];
+      const value = self.av.$attrs[key];
       const _key = key.replace('data-', '');
       if (this.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
-        this.options[_key] = this.av.$scope.$eval(value);
+        self.options[_key] = self.av.$scope.$eval(value);
       }
     });
+
+    this.convertFormat();
+
+  }
+
+  // bootstrap-datepicker date format supports a combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
+  // Below is the conversion table from moment.js format options to bootstrap-datepicker.
+  //
+  // Moment formatting options:
+  //
+  //  - DD => 01 02 ... 30 31
+  //  - D => 1 2 ... 30 31
+  //  - M => 1 2 ... 11 12
+  //  - MM => 01 02 ... 11 12
+  //  - MMM => Jan Feb ... Nov Dec
+  //  - MMMM => January February ... November December
+  //  - YY => 70 71 ... 29 30
+  //  -  YYYY => 1970 1971 ... 2029 2030
+  //
+  //
+  //  Table reads momment.js format => bootstrap-datepicker format
+  //
+  //  - D, DD => d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
+  //  - ddd, dddd => D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
+  //  - M, MM => m, mm: Numeric month, no leading zero and leading zero, respectively. Eg, 7, 07.
+  //  - MMM, MMMM => M, MM: Abbreviated and full month names, respectively. Eg, Jan, January
+  //  - YY, YYYY => yy, yyyy: 2- and 4-digit years, respectively. Eg, 12, 2012.
+  //
+  convertFormat() {
+
+    let format = this.options.format;
+
+    if (format) {
+
+      // lower case everything
+      format = format.toLowerCase();
+
+      // Since we lowercased everything convert the map is slightly different than above
+      const map = {'mmm': 'M', 'mmmm': 'MM', 'ddd': 'D', 'dddd': 'DD'};
+      const re = new RegExp(Object.keys(map).join('|'), 'gi');
+      format = format.replace(re, matched => {
+        return map[matched];
+      });
+
+    }
+
+    this.options.format = format;
 
   }
 

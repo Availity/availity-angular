@@ -68,9 +68,7 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
       });
 
       scope.$evalAsync(() => {
-        // why are their so many different ways to format the same date... MM/DD/YYYY -> mm/dd/yyyy makes a difference. between moment and the datepicker plugin.
         const options = {...avDatepicker.options};
-        options.format = angular.lowercase(options.format);
         element.datepicker(options);
       });
     }
