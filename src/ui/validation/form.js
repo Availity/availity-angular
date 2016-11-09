@@ -114,22 +114,12 @@ ngModule.directive('avValForm', ($log, $timeout, $parse, AV_VAL, avValAdapter, $
         const watcher = () => ngForm.$pending;
         let unwatch;
 
-        scope.$watch(watcher, (pending) => {
-          if (!pending) {
-            // pendingWatch();
-            // performSubmit();
-          }
-        });
-
         el.bind('submit', event => {
 
           scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
           ngForm.$setSubmitted();
 
           if (ngForm.$invalid || ngForm.$pending) {
-
-            // scope.$broadcast(AV_VAL.EVENTS.FAILED);
-            // $log.info('avValForm is invalid.  Preventing default submit action');
 
             event.preventDefault();
             event.stopImmediatePropagation();
