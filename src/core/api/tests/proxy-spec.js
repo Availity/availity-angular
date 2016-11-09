@@ -27,7 +27,7 @@ describe('AvApiResource', () => {
       const proxy = new AvProxyResource({tenant: 'healthplan', name: 'users'});
 
       expect(proxy).toBeObject();
-      expect(proxy.getUrl()).toBe('/v1/proxy/healthplan/users');
+      expect(proxy.getUrl()).toBe('/api//v1/proxy/healthplan/users');
 
     });
 

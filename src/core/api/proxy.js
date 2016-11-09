@@ -12,7 +12,7 @@ const ProxyResourceFactory = function(AvApiResource) {
 
       // /v1/proxy/{tenant}/{name}
       super({
-        path: `v1/proxy/${options.tenant}`,
+        path: `/api/v1/proxy/${options.tenant}`,
         version: '',
         name: options.name
       });
