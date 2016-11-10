@@ -14,3 +14,4 @@
     * [avLoader](/src/ui/animation/loader/README.md)
 * [Authorizations](/src/core/authorizations/README.md)
 * [Dimmer](/src/ui/dimmer/README.md)
+* [Utils](//src/core/utils/README.md)

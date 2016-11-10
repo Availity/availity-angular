@@ -73,8 +73,6 @@ The Angular `$exceptionHandler` has been enhanced using [Tracekit](https://githu
 Below is an example of an an error event when captured through the exception handler.
 
 ```javascript
-// sample payload
-
 {
 "level": "error",
 "entries": {
@@ -93,5 +91,4 @@ Below is an example of an an error event when captured through the exception han
     "sdkVersion": "v0.0.0"
     }
 }
-
 ```
