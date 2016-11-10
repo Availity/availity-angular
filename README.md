@@ -47,11 +47,8 @@ Install the Availity Angular SDK with npm.
 $ npm install availity-angular --save
 ```
 
-## Upgrading from 1.x
-
-Tha `availity-angular` SDK has been upgraded from Angular 1.2.28 to Angular 1.5.x.  Please review the notes below:
-
 ## Acknowledgments
+
 The Availity Angular lib was heavily inspired by multiple open source frameworks.  If for some reason a library could not be used directly (IE8 limitation), we've reused that projects code directly in this project.  Please check out the libs below for some beautifully written code.
 
 + [Angular Strap](https://github.com/mgcrea/angular-strap)
