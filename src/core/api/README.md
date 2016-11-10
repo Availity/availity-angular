@@ -34,24 +34,19 @@ A service can also be created by extending the `AvApiResource` class.  Using cla
 ```javascript
 
 class HealthplanProvidersResource extends AvApiResource {
-
     constructor() {
       super({
         path: '/proxy/healthplan',
         name: '/providers'
       });
     }
-
     getProviders(config) {
       return this.query(config).then(response => {
         return response.data.providers ? response.data.providers : response.data;
       });
     }
-
   }
-
   return new HealthPlanProvidersResource();
-
 };
 
 const module = module.service('app', ['availity'])
@@ -64,7 +59,7 @@ Every resource created has the methods `get`, `create`, `update` and `remove`.
 
 > The configuration object is simply Angular [$http configuration](https://docs.angularjs.org/api/ng/service/$http#usage) 
 
-##### get
+#### get
 
 Retrieves and entity by ID with optional configuration.
 
@@ -72,7 +67,7 @@ Retrieves and entity by ID with optional configuration.
 get(id, configuration);
 ```
 
-##### query
+#### query
 
 The query function is designed to fetch collections and search the API.  
 
@@ -80,7 +75,7 @@ The query function is designed to fetch collections and search the API.
 query(configuration)
 ```
 
-#### create
+### create
 
 Create an entity with optional configuration.
 
@@ -92,7 +87,7 @@ create(data, configuration)
 
 Update and entity with optional configuration.  
 
-This first method signature for the `update` function supports three parameters: `id`, `data` and `configuration`.  The `id` parameter must be the identifier for the entity in the rest API.
+This first method signature supports three parameters: `id`, `data` and `configuration`.  The `id` parameter must be the identifier for the entity in the rest API.
 
 ```js
 update(id, data, configuration)
