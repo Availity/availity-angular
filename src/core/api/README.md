@@ -64,7 +64,7 @@ Every resource created has the methods `get`, `create`, `update` and `remove`.
 Retrieves and entity by ID with optional configuration.
 
 ```
-get(id, configuration);
+get(id, config);
 ```
 
 #### query
@@ -72,7 +72,7 @@ get(id, configuration);
 The query function is designed to fetch collections and search the API.  
 
 ```
-query(configuration)
+query(config)
 ```
 
 ### create
@@ -80,7 +80,7 @@ query(configuration)
 Create an entity with optional configuration.
 
 ```
-create(data, configuration)
+create(data, config)
 ```
 
 #### update
@@ -90,7 +90,7 @@ Update and entity with optional configuration.
 This first method signature supports three parameters: `id`, `data` and `configuration`.  The `id` parameter must be the identifier for the entity in the rest API.
 
 ```js
-update(id, data, configuration)
+update(id, data, config)
 ```
 
 If only two parameters are passed into the `update` function, then the first parameter is assumed to be of type `data` and the second parameter is assumed to be a `configuration` object.  Using this signature, the `data` object must contain an `id` field so that the API can properly update the entity in the back-end.
@@ -104,13 +104,13 @@ update(data, config)
 Remove an entity with optional configuration.  A string or data object can be passed in as the first parameter.  
 
 ```js
-remove(id, configuration)
+remove(id, config)
 ```
 
 or 
 
 ```js
-remove(data, configuration)
+remove(data, config)
 ```
 
 
