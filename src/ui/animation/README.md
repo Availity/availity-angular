@@ -1,14 +1,12 @@
 ## Animation
 
-Animation has some directives to quickly add some animated elements in your project.
-
-* [avAnimate](/animation.md)
-* [avLoader](/loader/README.md)
-
-### Usage
-
-Have the 'availity.ui' module in your application
+### Configuration
 
 ```javascript
 angular.module('app', ['availity.ui']);
 ```
+
+### Directives
+
+* [avAnimate](animate.md)
+* [avLoader](loader/README.md)

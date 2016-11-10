@@ -10,7 +10,7 @@
     * [Users](/src/core/api/docs/uers.md)
 * [Analytics](/src/core/analytics/README.md)
 * [Animation](/src/ui/animation/README.md)
-    * [avAnimate](/src/ui/animation/DIRECTIVE.md)
+    * [avAnimate](/src/ui/animation/animate.md)
     * [avLoader](/src/ui/animation/loader/README.md)
 * [Authorizations](/src/core/authorizations/README.md)
 * [Dimmer](/src/ui/dimmer/README.md)
