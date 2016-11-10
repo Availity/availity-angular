@@ -2,7 +2,7 @@
 
 Animation has some directives to quickly add some animated elements in your project.
 
-* [avAnimate](/DIRECTIVE.md)
+* [avAnimate](/animation.md)
 * [avLoader](/loader/README.md)
 
 ### Usage

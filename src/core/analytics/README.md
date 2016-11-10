@@ -1,6 +1,6 @@
 ## Analytics
 
-Analytics is a way for you to track how users interact with your data. 
+Analytics is a way for you to track how users interact with your web app.
 
 ### Configuration
 
@@ -12,7 +12,9 @@ angular.module('app', ['availity.config']);
 
 ### Virtual Page Tracking
 
-Virtual page tracking is enabled by default.  Virtual page can be disabled using `avAnalyticsConfigProvider`.
+Virtual page tracking is enabled by default. Virtual page tracking logs every  the value of `$location.absUrl()` on every route change to the analytics server.
+
+Virtual page can be disabled using `avAnalyticsConfigProvider`.
 
 ```javascript
 app.config( ($scope, avAnalyticsConfigProvider) => {
@@ -33,18 +35,16 @@ app.config( ($scope, avAnalyticsConfigProvider) => {
 
 To add event tracking to an element on the page you will need to use the `av-analytics-on` directive. When applying analytics  you should include the `av-analytics-on` directive on the element you want to track, this will pull the inner text of the element and set it as a label. Optionally if no inner text exists, include the `av-analytics-label` attribute on the element . There are also two optional attributes `av-analytics-value`, `av-analytics-category` that you can append to an element for more detailed events.
 
-* **av-analytics** - required for tracking analytics, you can set your category on this directive
-* **av-analytics-on** - required for tracking analytics, defaults to `click`
-* **av-analytics-label** - required for Piwik
-* **av-analytics-action** - optional for Piwik
-* **av-analytics-value** - optional for Piwik - numeric only
-
-The example below will demonstrate how to use the directive. 
+* **av-analytics** - _(required)_ Used to set defaults for all child `av-analytics-on` directives.  See example below.
+* **av-analytics-on** _(required)_ - Browser event which triggers when the analytics is logged
+* **av-analytics-label** _(optional)_ 
+* **av-analytics-action** _(optional)_
+* **av-analytics-value** - _(optional_ 
 
 ```html
 <div av-analytics="{'category': 'Category One'}">
     <button
-        av-analytics-on
+        av-analytics-on="click"
         av-analytics-label="Intro Movie"
         av-analytics-action="Play"
         av-analytics-value="0">

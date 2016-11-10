@@ -6,18 +6,30 @@
 * Simple URI builder for API resources
 * Life-cycle hooks into HTTP calls for GET, PUT, POST and DELETE
 
-A service can be created by invoking the constructor:
+### Configuration
+
+`AvApiResource` can be configured by passing options into it's constructor or globally by overriding the defaults using `AvApiResourceProvider`.
+
+```javascript
+angular.module('app', ['availity'])
+    .config( AvApiResourceProvider => { 
+        AvApiResourceProvider.setOptions({version: 'v2'}) 
+    });
+```
+
+### Resources
+
+A service can be created by invoking the constructor.
 
 ```javascript
 
-// /api/v1/providers
 angular.module('app', ['availity'])
     .factory('healthplanProvidersResource', AvApiResource => {        
         return new AvApiResource({name: 'providers'});
     });
 ```
 
-A service can also be created by extending the `AvApiResource` class.  Using classes allows developers to easily add helper methods for resource types
+A service can also be created by extending the `AvApiResource` class.  Using classes allows developers to easily add helper methods for resource types.
 
 ```javascript
 
@@ -46,49 +58,77 @@ const module = module.service('app', ['availity'])
     .service('healthplanProvidersResource', HealthplanProvidersResource);
 ```
 
-### Configuration
+Every resource created has the methods `get`, `create`, `update` and `remove`.
 
-`AvApiResource` can be configured by passing options into it's constructor or globally by overriding the defaults using `AvApiResourceProvider`.
+### Methods
 
-```javascript
-angular.module('app', ['availity'])
-    .config( (AvApiResourceProvider) => {    
-    AvApiResourceProvider.setOptions({
-        version: 'v2' 
-    });
+> The configuration object is simply Angular [$http configuration](https://docs.angularjs.org/api/ng/service/$http#usage) 
 
-// http://local.dev/api/v2/users
-angular.module('app', ['availity'])
-    .factory('usersResource', AvApiResource => {        
-    return new AvApiResource({name: 'users'});
-});
+##### get
+
+Retrieves and entity by ID with optional configuration.
+
+```
+get(id, configuration);
 ```
 
-### Options
+##### query
 
-* **path** - default base segment for REST urls. **default**: `/api`
-* **name** - name of rest api resource. _Ex_: `users`
-* **version** - rest API version. **default**: `v1`
-* **url** - full URI to resource path.  If `url` is passed into constructor the options `path`, `name` and `version` are ignored.
-* **cache** - caches all rest responses.  **default**: `true`
-* **api** - instructs to turn on Availity specific functionality like automatic polling for asynchronous responses.  **default**: `true`
-* **pollingInterval** -  time in `ms` before a request is retried for asynchronous rest services.  **default**: `1000`
-* **pollingDecay** - the polling decay factor that slows down the polling interval on subsequent retries. **default**: `1.2`
-* **pollingMaxInterval** - maximum time in `ms` polling is allowed before rejecting the request. **default**: `30000`
-* **cacheBust** - when `true` every request url will include a `cacheBust` timestamp in order to break browser cache
-* **sessionBust** - when `true` a `cacheBust` parameter is appended to the url but the timestamp is consistent on every call.  The timestamp is created when the application first loads and reused for all API call with `cacheBust` set to true.
+The query function is designed to fetch collections and search the API.  
 
-## Resources
+```
+query(configuration)
+```
+
+#### create
+
+Create an entity with optional configuration.
+
+```
+create(data, configuration)
+```
+
+#### update
+
+Update and entity with optional configuration.  
+
+This first method signature for the `update` function supports three parameters: `id`, `data` and `configuration`.  The `id` parameter must be the identifier for the entity in the rest API.
+
+```js
+update(id, data, configuration)
+```
+
+If only two parameters are passed into the `update` function, then the first parameter is assumed to be of type `data` and the second parameter is assumed to be a `configuration` object.  Using this signature, the `data` object must contain an `id` field so that the API can properly update the entity in the back-end.
+
+```js
+update(data, config)
+```
+
+#### remove
+
+Remove an entity with optional configuration.  A string or data object can be passed in as the first parameter.  
+
+```js
+remove(id, configuration)
+```
+
+or 
+
+```js
+remove(data, configuration)
+```
+
+
+## API
 
 The SDK includes some configured Angular services for the Availity REST API.
 
-- **avOrganizationsResource** - Retrieves the currently logged in user's organizations
-- **avUsersResource** - Gets information about the logged in user
-- **avPermissionsResource** - Retrieves a list of permissions for a user
-- **avUserPermissionsResource** - Retrieves permissions along with a user's organizations and the set of resources a user is allowed to control
-- **avLogMessagesResource** - Used by services to stream events into the analytics
-- **avSpacesResource** - Get information about content in the spaces catalog
-- **avRegionsResource** - List the regions that a user's organization is participating and also get the current selected region.
+* [Organizations](docs/organizations.md)
+* [Permissions](docs/permissions.md)
+* [Permissions (legacy)](docs/permissions.md)
+* [Regions](docs/regions.md)
+* [Users](docs/users.md)
+
 
 
 

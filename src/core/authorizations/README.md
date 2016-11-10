@@ -13,23 +13,16 @@ angular.module('app', ['availity']);
 
 ### Usage
 
-`avUserAuthorizations` is accessed in the standard way.
-
 ```javascript
 angular.module('app', ['availity'])
     .factory('authenticationService', avUserAuthorizations => {
-        
+    
         class AuthenticationService {
 
-            constructor() {
-
-                this.permissionId = '7100';
-                this.isAuthorized = false;
-
-                avUserAuthorized.isAuthorized(res.permissionId).then(isAuthorized => {
+            constructor() {                
+                avUserAuthorized.isAuthorized('7100').then(isAuthorized => {
                     this.isAuthorized = isAuthorized;
                 });
-
             }
         }
 
