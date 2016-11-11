@@ -15,35 +15,35 @@ class LogMessagesProvider {
         });
       }
 
-      request(level, entries) {
+      requestPayload(level, entries) {
 
-        const requestPayload = {};
+        const payload = {};
 
         if (entries.level) {
           delete entries.level;
         }
 
-        requestPayload.level = level;
-        requestPayload.entries = entries;
+        payload.level = level;
+        payload.entries = entries;
 
-        return requestPayload;
+        return payload;
 
       }
 
       debug(entries) {
-        return this.create(this.request('debug', entries));
+        return this.create(this.requestPayload('debug', entries));
       }
 
       info(entries) {
-        return this.create(this.request('info', entries));
+        return this.create(this.requestPayload('info', entries));
       }
 
       warn(entries) {
-        return this.create(this.request('warn', entries));
+        return this.create(this.requestPayload('warn', entries));
       }
 
       error(entries) {
-        return this.create(this.request('error', entries));
+        return this.create(this.requestPayload('error', entries));
       }
 
     }
@@ -57,4 +57,3 @@ class LogMessagesProvider {
 ngModule.provider('avLogMessagesResource', LogMessagesProvider);
 
 export default ngModule;
-
