@@ -12,13 +12,13 @@ angular.module('app', ['availity.config']);
 
 ### Virtual Page Tracking
 
-Virtual page tracking is enabled by default. Virtual page tracking logs every  the value of `$location.absUrl()` on every route change to the analytics server.
+Virtual page tracking is enabled by default. Virtual page tracking logs the value of `$location.absUrl()` on every route change to the analytics server.
 
-Virtual page can be disabled using `avAnalyticsConfigProvider`.
+Virtual page can be disabled using `avAnalyticsConfigProvider` _(not recommened)__
 
 ```javascript
 app.config( ($scope, avAnalyticsConfigProvider) => {
-    avAnalyticsConfigProvider.setVirtualPageTracking(true);
+    avAnalyticsConfigProvider.setVirtualPageTracking(false);
 });
 ```
 
