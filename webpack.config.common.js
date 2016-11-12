@@ -22,7 +22,12 @@ const config = {
 
   resolve: {
     root: path.resolve('./src'),
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    alias: {
+      // without this $.fn.datepicker will be undefined.  Datepicker plugin
+      // tried to load it's own version of jQuery
+      jquery: require.resolve('jquery')
+    }
   },
 
   debug: false,
@@ -115,9 +120,12 @@ const config = {
     }),
 
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery'
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery',
+      'jquery': 'jquery',
+      'window.jquery': 'jquery',
+      '$': 'jquery',
+      'window.$': 'jquery'
     })
 
   ]
