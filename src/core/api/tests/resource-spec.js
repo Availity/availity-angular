@@ -16,6 +16,7 @@ describe('AvApiResourceProvider', () => {
     let callback;
 
     const responseData = [{a: 1, b: 2}, {a: 1, b: 2}];
+    const mockSessionKey = 'avCacheBust';
 
     beforeEach( () => {
 
@@ -35,10 +36,11 @@ describe('AvApiResourceProvider', () => {
 
       });
 
-      inject( (_$httpBackend_, _$q_, _AvApiResource_) => {
+      inject( (_$httpBackend_, _$q_, _$window_, _AvApiResource_) => {
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         AvApiResource = _AvApiResource_;
+        spyOn(_$window_.localStorage, 'getItem').and.returnValue(mockSessionKey);
       });
 
     });
@@ -168,6 +170,35 @@ describe('AvApiResourceProvider', () => {
           expect(callback).toHaveBeenCalled();
         });
 
+        it('should have a cacheBust parameter when cacheBust is value', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/users\?cacheBust=hello/).respond(200, responseData);
+
+          users.query({cacheBust: 'hello'}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
+        it('should have a cacheBust parameter when cacheBust is a function', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/users\?cacheBust=hello/).respond(200, responseData);
+
+          const cacheBustFn = jasmine.createSpy('cacheBustFn').and.returnValue('hello');
+
+          users.query({cacheBust: cacheBustFn}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            expect(cacheBustFn).toHaveBeenCalled();
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
         it('should have a cacheBust parameter with other parameters', () => {
 
           $httpBackend.expectGET(/\/api\/v1\/users\?a=1&b=2&cacheBust=\d+/).respond(200, responseData);
@@ -182,9 +213,22 @@ describe('AvApiResourceProvider', () => {
 
         });
 
+        it('should have a pageBust parameter when pageBust is true', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/users\?pageBust=\d+/).respond(200, responseData);
+
+          users.query({pageBust: true}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
         it('should have a sessionBust parameter when sessionBust is true', () => {
 
-          $httpBackend.expectGET(/\/api\/v1\/users\?sessionBust=\d+/).respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/users?sessionBust=' + mockSessionKey).respond(200, responseData);
 
           users.query({sessionBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
@@ -474,5 +518,3 @@ describe('AvApiResourceProvider', () => {
   });
 
 });
-
-
