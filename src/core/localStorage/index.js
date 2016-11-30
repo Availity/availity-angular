@@ -9,25 +9,28 @@ class AvLocalStorageService extends Base {
 
   constructor(...args) {
     super(...args);
+    this.hasSupport;
   }
   supportsLocalStorage() {
-    let hasSupport;
-    return () => {
-      if (_.isUndefined(hasSupport)) {
-        try {
-          hasSupport = false;
-          if ( !_.isUndefined(this.av.$window.localStorage)) {
-            const uid = moment().unix();
-            this.av.$window.localStorage.setItem(uid, uid);
-            hasSupport = this.av.$window.localStorage.getItem(uid) === uid.toString();
-            this.av.$window.localStorage.removeItem(uid);
-          }
-        } catch (e) {
-          hasSupport = false;
+    if (_.isUndefined(this.hasSupport)) {
+      let hasSupport = false;
+      try {
+        const localStorage = this.av.$window.localStorage;
+        if (!_.isUndefined(localStorage)) {
+          const uid = moment().unix();
+
+          localStorage.setItem(uid, uid);
+          const testVal = localStorage.getItem(uid);
+          hasSupport = testVal === uid.toString();
+
+          localStorage.removeItem(uid);
         }
+      } catch (e) {
+        hasSupport = false;
       }
-      return hasSupport;
-    };
+      this.hasSupport = hasSupport;
+    }
+    return this.hasSupport;
   }
 
   getVal(key) {

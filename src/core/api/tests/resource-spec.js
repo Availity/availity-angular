@@ -16,7 +16,7 @@ describe('AvApiResourceProvider', () => {
     let callback;
 
     const responseData = [{a: 1, b: 2}, {a: 1, b: 2}];
-    const mockSessionKey = 'avCacheBust';
+    const mockStorageVal = 'fakeStorageVal';
 
     beforeEach( () => {
 
@@ -36,11 +36,11 @@ describe('AvApiResourceProvider', () => {
 
       });
 
-      inject( (_$httpBackend_, _$q_, _$window_, _AvApiResource_) => {
+      inject( (_$httpBackend_, _$q_, _AvApiResource_, avLocalStorageService) => {
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         AvApiResource = _AvApiResource_;
-        spyOn(_$window_.localStorage, 'getItem').and.returnValue(mockSessionKey);
+        spyOn(avLocalStorageService, 'getVal').and.returnValue(mockStorageVal);
       });
 
     });
@@ -228,7 +228,7 @@ describe('AvApiResourceProvider', () => {
 
         it('should have a sessionBust parameter when sessionBust is true', () => {
 
-          $httpBackend.expectGET('/api/v1/users?sessionBust=' + mockSessionKey).respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/users?sessionBust=' + mockStorageVal).respond(200, responseData);
 
           users.query({sessionBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
