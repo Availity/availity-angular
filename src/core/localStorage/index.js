@@ -57,9 +57,13 @@ class AvLocalStorageService extends Base {
     if (this.supportsLocalStorage()) {
       const regexString = _.isRegExp(searchKey) ? searchKey : new RegExp(searchKey);
       if (regexString) {
-        const removeKeys = _.filter(_.keys(window.localStorage), (key) => {
-          return regexString.test(key);
-        });
+        const removeKeys = [];
+        for (let i = 0, len = this.av.$window.localStorage.length; i < len; i++) {
+          const thisKey = this.av.$window.localStorage.key(i);
+          if (regexString.test(thisKey)) {
+            removeKeys.push(thisKey);
+          }
+        }
         _.forEach(removeKeys, (key) => {
           this.removeVal(key);
         });

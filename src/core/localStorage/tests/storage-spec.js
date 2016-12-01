@@ -6,16 +6,40 @@ describe('avLocalStorageService', () => {
 
   let avLocalStorageService;
   let $window;
-  // let mockLocalStorage;
+  let mockLocalStorage;
 
   beforeEach(() => {
-
     angular.mock.module('availity');
+
+    mockLocalStorage = {};
+    angular.mock.module( $provide => {
+      $provide.value('$window', {
+        localStorage: {
+          getItem: (key) => {
+            return mockLocalStorage[key] || null;
+          },
+          setItem: (key, value) => {
+            mockLocalStorage[key] = value + '';
+          },
+          removeItem: (key) => {
+            delete mockLocalStorage[key];
+          },
+          get length() {
+            return Object.keys(mockLocalStorage).length;
+          },
+          key: (i) => {
+            const keys = Object.keys(mockLocalStorage);
+            return keys[i] || null;
+          }
+        }
+      });
+    });
 
     inject((_avLocalStorageService_, _$window_ ) => {
       avLocalStorageService = _avLocalStorageService_;
       $window = _$window_;
     });
+
   });
 
   it('should exist', () => {
@@ -28,10 +52,10 @@ describe('avLocalStorageService', () => {
       expect(avLocalStorageService.supportsLocalStorage()).toBeTruthy();
     });
 
-    // it('should return false if localStorage does not exist', () => {
-    //   $window.localStorage = undefined;
-    //   expect(avLocalStorageService.supportsLocalStorage()).not.toBeTruthy();
-    // });
+    it('should return false if localStorage does not exist', () => {
+      $window.localStorage = undefined;
+      expect(avLocalStorageService.supportsLocalStorage()).not.toBeTruthy();
+    });
 
     it('should return false if localStorage functions throw error', () => {
       spyOn($window.localStorage, 'getItem').and.callFake(function() {
