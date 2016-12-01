@@ -33,9 +33,11 @@ describe('avLocalStorageService', () => {
     //   expect(avLocalStorageService.supportsLocalStorage()).not.toBeTruthy();
     // });
 
-    it('should return false if localStorage funcitons throw error', () => {
-      spyOn($window.localStorage, 'getItem').and.throwError('mock error');
-      expect(avLocalStorageService.supportsLocalStorage()).not.toBeTruthy();
+    it('should return false if localStorage functions throw error', () => {
+      spyOn($window.localStorage, 'getItem').and.callFake(function() {
+        throw new Error('mock error');
+      });
+      expect(avLocalStorageService.supportsLocalStorage()).toBeFalsy();
     });
 
   });
