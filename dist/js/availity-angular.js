@@ -1,11 +1,11 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.11 (11/09/2016)
+ * availity-angular v2.0.0-beta.12 (12/02/2016)
  * (c) Availity, LLC
  */
 /*!
  * 
- * availity-angular v2.0.0-beta.10 (11/09/2016)
+ * availity-angular v2.0.0-beta.11 (12/02/2016)
  * (c) Availity, LLC
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1913,34 +1913,34 @@ return webpackJsonpavaility_angular([1,0],[
 	        }));
 	      }
 	
-	      AvLogMessagesResource.prototype.request = function request(level, entries) {
+	      AvLogMessagesResource.prototype.requestPayload = function requestPayload(level, entries) {
 	
-	        var requestPayload = {};
+	        var payload = {};
 	
 	        if (entries.level) {
 	          delete entries.level;
 	        }
 	
-	        requestPayload.level = level;
-	        requestPayload.entries = entries;
+	        payload.level = level;
+	        payload.entries = entries;
 	
-	        return requestPayload;
+	        return payload;
 	      };
 	
 	      AvLogMessagesResource.prototype.debug = function debug(entries) {
-	        return this.create(this.request('debug', entries));
+	        return this.create(this.requestPayload('debug', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.info = function info(entries) {
-	        return this.create(this.request('info', entries));
+	        return this.create(this.requestPayload('info', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.warn = function warn(entries) {
-	        return this.create(this.request('warn', entries));
+	        return this.create(this.requestPayload('warn', entries));
 	      };
 	
 	      AvLogMessagesResource.prototype.error = function error(entries) {
-	        return this.create(this.request('error', entries));
+	        return this.create(this.requestPayload('error', entries));
 	      };
 	
 	      return AvLogMessagesResource;
@@ -10833,7 +10833,7 @@ return webpackJsonpavaility_angular([1,0],[
 	          host: document.domain,
 	          screenWidth: (0, _jquery2.default)(window).width(),
 	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.10")
+	          sdkVersion: ("2.0.0-beta.11")
 	        };
 	
 	        return this.log(message);
@@ -20041,8 +20041,9 @@ return webpackJsonpavaility_angular([1,0],[
 	  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
 	
 	  function wrap(innerFn, outerFn, self, tryLocsList) {
-	    // If outerFn provided, then outerFn.prototype instanceof Generator.
-	    var generator = Object.create((outerFn || Generator).prototype);
+	    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+	    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+	    var generator = Object.create(protoGenerator.prototype);
 	    var context = new Context(tryLocsList || []);
 	
 	    // The ._invoke method unifies the implementations of the .next,
