@@ -7,7 +7,6 @@ import 'bootstrap-datepicker';
 import 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import 'tracekit';
-import 'lodash';
 import 'angular';
 import 'angular-sanitize';
 import 'angular-animate';
