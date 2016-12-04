@@ -5,7 +5,7 @@ node_modules
 _book
 reports
 /.deprc
-
+/dist/
 /build/
 .DS_Store
 /lib/
