@@ -1,7 +1,6 @@
 import angular from 'angular';
 import matches from 'lodash.matches';
 import isEmpty from 'lodash.isempty';
-import isArray from 'lodash.isarray';
 
 import Base from '../base';
 import ngModule from '../module';
@@ -311,7 +310,7 @@ class AvDropdownController extends Base {
 
     let optionValuesKeys;
 
-    if (!this.keyName && isArray(optionValues)) {
+    if (!this.keyName && Array.isArray(optionValues)) {
       optionValuesKeys = optionValues;
     } else {
       // if object, extract keys, in enumeration order, unsorted

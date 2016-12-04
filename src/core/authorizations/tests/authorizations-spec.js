@@ -3,7 +3,6 @@
 import angular from 'angular';
 import Tester from 'tester';
 import size from 'lodash.size';
-import isArray from 'lodash.isArray';
 
 import ngModule from '../';
 
@@ -153,7 +152,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getOrganizations('452').then(organizations => {
-        expect(isArray(organizations)).toBe(true);
+        expect(Array.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(1);
         const org = organizations[0];
         expect(org.id).toBe('1435');
@@ -167,7 +166,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getOrganizations('999').then(organizations => {
-        expect(isArray(organizations)).toBe(true);
+        expect(Array.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(0);
       });
       tester.$httpBackend.flush();
@@ -180,7 +179,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPayers('452', '1435').then(payers => {
-        expect(isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(1);
         const payer = payers[0];
         expect(payer.id).toBe('8001');
@@ -194,7 +193,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('452', '1001').then(payers => {
-        expect(isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);
       });
       tester.$httpBackend.flush();
@@ -204,7 +203,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('999', '1435').then(payers => {
-        expect(isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);
       });
       tester.$httpBackend.flush();
