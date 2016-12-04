@@ -1,11 +1,15 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "2.0.0-beta.12",
+  "version": "2.0.0-dryrun.12",
   "main": "lib/index.js",
-  "keywords": ["angular", "availity", "sdk"],
-  "engines" : {
-    "node" : ">=5.0.0"
+  "keywords": [
+    "angular",
+    "availity",
+    "sdk"
+  ],
+  "engines": {
+    "node": ">=5.0.0"
   },
   "bugs": {
     "url": "https://github.com/Availity/availity-angular/issues"
