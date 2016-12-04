@@ -4288,6 +4288,10 @@ lodash.rest@^4.0.0:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/lodash.rest/-/lodash.rest-4.0.5.tgz#954ef75049262038c96d1fc98b28fdaf9f0772aa"
 
+lodash.size:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.size/-/lodash.size-4.2.0.tgz#71fe75ed3eabdb2bcb73a1b0b4f51c392ee27b86"
+
 lodash.some@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.some/-/lodash.some-4.6.0.tgz#1bb9f314ef6b8baded13b549169b2a945eb68e4d"
@@ -4313,6 +4317,10 @@ lodash.uniq@~4.2.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.2.1.tgz#4210d4b90647ee24211b469aed0ef84902069743"
   dependencies:
     lodash._baseuniq "~4.5.0"
+
+lodash.uniqueid:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.uniqueid/-/lodash.uniqueid-4.0.1.tgz#3268f26a7c88e4f4b1758d679271814e31fa5b26"
 
 lodash.without@~4.1.0:
   version "4.1.2"
