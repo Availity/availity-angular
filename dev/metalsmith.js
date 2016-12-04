@@ -7,6 +7,7 @@ const marked = require('marked');
 const markdown = require('metalsmith-markdown');
 const inPlace = require('metalsmith-in-place');
 const mock = require('metalsmith-mock');
+const merge = require('lodash.merge');
 const permalinks = require('metalsmith-permalinks');
 const nunjucks = require('nunjucks');
 const nunjucksDate = require('nunjucks-date');
@@ -14,7 +15,6 @@ const globby = require('globby');
 const path = require('path');
 const collections = require('metalsmith-collections');
 const relative = require('metalsmith-rootpath');
-const _ = require('lodash');
 
 const dataMarkdown = require('./plugins/metalsmith-data-markdown');
 const slug = require('./plugins/nunjucks-slug');
@@ -67,19 +67,19 @@ function build() {
 
         globby(['src/**/docs/*.html']).then( filePaths => {
 
-          const fileConfigs = _.map(filePaths, filePath => {
+          const fileConfigs = filePaths.map(filePath => {
             return readFile(metal, filePath);
           });
 
           const metalFiles = {};
 
-          _.forEach(fileConfigs, fileConfig => {
+          fileConfigs.forEach(fileConfig => {
             const dir = path.join(process.cwd(), 'src');
             const fileName = path.relative(dir, fileConfig.path);
             metalFiles[fileName] = fileConfig;
           });
 
-          _.merge(files, metalFiles);
+          merge(files, metalFiles);
 
           done();
 

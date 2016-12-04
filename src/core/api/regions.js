@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import merge from 'lodash.merge';
 import ngModule from '../module';
 
 const AvRegionsFactory = function(AvApiResource, avUsersResource) {
@@ -26,7 +26,7 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
         }
       };
 
-      const conf = _.merge({}, params, config);
+      const conf = merge({}, params, config);
 
       return this.query(conf);
 
@@ -35,7 +35,7 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
     getCurrentRegion() {
       return this.getRegions()
         .then(regions => {
-          return _.find(regions, region => region.currentlySelected);
+          return regions.find(region => region.currentlySelected);
         });
     }
 

@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const semver = require('semver');
 const inquirer = require('inquirer');
-const _ = require('lodash');
+const merge = require('lodash.merge');
 const shell = require('shelljs');
 const lint = require('./lint');
 const clean = require('./clean');
@@ -44,7 +44,7 @@ function bump() {
     let contents = raw();
     let json = pkg(contents);
 
-    json = _.merge({}, json, {version: VERSION});
+    json = merge({}, json, {version: VERSION});
 
     contents = JSON.stringify(json, null, 2);
     contents = newLine(contents);

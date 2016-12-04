@@ -5,7 +5,7 @@
 const marked = require('marked');
 const cheerio = require('cheerio');
 const he = require('he');
-const _ = require('lodash');
+const forEach = require('lodash.foreach');
 
 const extname = require('path').extname;
 
@@ -43,7 +43,7 @@ function plugin(options) {
 
     setImmediate(done);
 
-    _.each(files, function(file, name) {
+    forEach(files, function(file, name) {
 
       if (!isHtmlFile(file.path || name)) {
         return;

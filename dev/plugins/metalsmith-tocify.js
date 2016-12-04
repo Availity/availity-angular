@@ -11,7 +11,8 @@
 const cheerio = require('cheerio');
 const extname = require('path').extname;
 const slug = require('slug');
-const _ = require('lodash');
+const uniqueId = require('lodash.uniqueid');
+const forEach = require('lodash.foreach');
 
 const cacheIds = [];
 
@@ -66,7 +67,7 @@ function slugify($el) {
 
     let slugId = slug($el.text(), {'mode': 'rfc3986'});
     if (cacheIds[slugId]) {
-      slugId = slugId + _.uniqueId('-');
+      slugId = slugId + uniqueId('-');
     }
 
     cacheIds[slugId] = slugId;
@@ -151,7 +152,7 @@ function plugin(_options) {
 
     setImmediate(done);
 
-    _.each(files, function(file, key) {
+    forEach(files, function(file, key) {
 
       if (!file.toc) {
         return;
