@@ -1,6 +1,6 @@
 import ngModule from '../module';
 
-ngModule.constant('AV_COOKIE_INFO', {
+ngModule.constant('AV_STORAGE', {
   SESSION_CACHE: 'avCacheBust'
 });
 

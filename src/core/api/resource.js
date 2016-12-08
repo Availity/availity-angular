@@ -21,7 +21,7 @@ class ApiResourceProvider {
     return angular.copy(this.defaultOptions);
   }
 
-  $get($http, $q, avPollingService, avLocalStorageService, AV_COOKIE_INFO) {
+  $get($http, $q, avPollingService, avLocalStorageService, AV_STORAGE) {
 
     const that = this;
 
@@ -52,32 +52,42 @@ class ApiResourceProvider {
         return angular.extend({}, this.options, (config || {}));
       }
 
-      /*
-      cacheBust: True/False, Value, function
-        True: Generate a timestamp each call
-        Value: Use this as a chacheBust variable for each call
-        Function: Call this function to return the cacheBust varaible
-      pageBust: True/False, if True, set a cachebust variable to a timestamp of page load
-      sessionBust: True/False, if True, get the avCacheBust variable from local storage, set at login (if value not set, works like PageBust)
-      */
-      checkCache(_config) {
+      cacheBust(config) {
+
+        if (config.cacheBust === true) {
+          config.params.cacheBust = moment().unix();
+        } else if (angular.isFunction(config.cacheBust)) {
+          config.params.cacheBust = config.cacheBust();
+        } else {
+          config.params.cacheBust = config.cacheBust;
+        }
+
+      }
+
+      // cacheBust: supports the following types
+      //    - true|false: Generate a timestamp each call
+      //    - Value: Use this as a chacheBust variable for each call
+      //    - Function: Call this function to return the cacheBust variable
+      // pageBust: true|false, if true, set a cachebust variable to a timestamp of page load
+      // sessionBust: true|false, if true, get the avCacheBust variable from local storage, set at
+      //    login (if value not set, works like pageBust)
+      cacheParams(_config) {
+
         const config = angular.copy(_config);
         config.params = config.params || {};
+
         if (config.cacheBust) {
-          if (config.cacheBust === true) {
-            config.params.cacheBust = moment().unix();
-          } else if (angular.isFunction(config.cacheBust)) {
-            config.params.cacheBust = config.cacheBust();
-          } else {
-            config.params.cacheBust = config.cacheBust;
-          }
+          this.cacheBust(config);
         }
+
         if (config.pageBust) {
           config.params.pageBust = that.pageBust;
         }
+
         if (config.sessionBust) {
-          config.params.sessionBust = avLocalStorageService.getVal(AV_COOKIE_INFO.SESSION_CACHE) || that.pageBust;
+          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || that.pageBust;
         }
+
         return config;
       }
 
@@ -225,7 +235,7 @@ class ApiResourceProvider {
         }
 
         config = this.config(config);
-        config = this.checkCache(config);
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl(id);
@@ -240,7 +250,7 @@ class ApiResourceProvider {
         let config = _config;
 
         config = this.config(config);
-        config = this.checkCache(config);
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl();
