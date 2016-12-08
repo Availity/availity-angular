@@ -2,7 +2,7 @@
 
 const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
-const _ = require('lodash');
+const debounce = require('lodash.debounce');
 const chalk = require('chalk');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
@@ -56,7 +56,7 @@ function serv() {
       Logger.info('Started compiling');
     });
 
-    const message = _.debounce(stats => {
+    const message = debounce(stats => {
 
       const statistics = stats.toString({
         colors: true,

@@ -8,7 +8,7 @@
 
 ### Configuration
 
-`AvApiResource` can be configured by passing options into it's constructor or globally by overriding the defaults using `AvApiResourceProvider`.
+`AvApiResource` can be configured by passing options into it's constructor or globally by overriding the defaults using `AvApiResourceProvider`.  
 
 ```javascript
 angular.module('app', ['availity'])
@@ -19,7 +19,7 @@ angular.module('app', ['availity'])
 
 ### Resources
 
-A service can be created by invoking the constructor.
+A service can be created by invoking the constructor.  The example below creates a service called `healthplanProvidersResource` that can be injected into other services and factories in Angular.
 
 ```javascript
 
@@ -33,22 +33,27 @@ A service can also be created by extending the `AvApiResource` class.  Using cla
 
 ```javascript
 
-class HealthplanProvidersResource extends AvApiResource {
-    constructor() {
-      super({
-        path: '/proxy/healthplan',
-        name: '/providers'
-      });
-    }
-    getProviders(config) {
-      return this.query(config).then(response => {
-        return response.data.providers ? response.data.providers : response.data;
-      });
-    }
-  }
-  return new HealthPlanProvidersResource();
-};
+function factory = function(AvApiResource) {
 
+    class HealthplanProvidersResource extends AvApiResource {
+        constructor() {
+          super({
+            path: '/proxy/healthplan',
+            name: '/providers'
+          });
+        }
+        getProviders(config) {
+          return this.query(config).then(response => {
+            return response.data.providers ? response.data.providers : response.data;
+          });
+        }
+      }
+      
+    };
+
+    return new HealthPlanProvidersResource();
+
+}
 const module = module.service('app', ['availity'])
     .service('healthplanProvidersResource', HealthplanProvidersResource);
 ```

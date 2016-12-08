@@ -103,7 +103,7 @@ class AvDatepickerController extends Base {
   //  - MMM => Jan Feb ... Nov Dec
   //  - MMMM => January February ... November December
   //  - YY => 70 71 ... 29 30
-  //  -  YYYY => 1970 1971 ... 2029 2030
+  //  - YYYY => 1970 1971 ... 2029 2030
   //
   //
   //  Table reads momment.js format => bootstrap-datepicker format

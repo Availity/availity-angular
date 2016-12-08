@@ -1,6 +1,7 @@
 import angular from 'angular';
 import $ from 'jquery';
-import * as _ from 'lodash';
+import debounce from 'lodash.debounce';
+import isString from 'lodash.isstring';
 
 import ngModule from '../module';
 import './constants';
@@ -50,7 +51,7 @@ class AvMessageProvider {
 
       }
 
-      onResize = _.debounce( () => {
+      onResize = debounce( () => {
 
         const height = $('html').height();
         this.send({
@@ -144,7 +145,7 @@ class AvMessageProvider {
 
         try {
 
-          const message = _.isString(payload) ? payload : JSON.stringify(payload);
+          const message = isString(payload) ? payload : JSON.stringify(payload);
           this.postMessage(message, this.domain());
 
         } catch (err) {

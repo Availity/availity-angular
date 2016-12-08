@@ -71,12 +71,10 @@ describe('AvPopover Controller', function() {
       expect(this.mockElement.on.calls.argsFor(3)).toEqual(['hidden.bs.popover', jasmine.any(Function)]);
     });
 
-    it('should set a listner on scope for $destroy', () => {
-      expect(this.mockScope.$on).toHaveBeenCalledWith('$destroy', jasmine.any(Function));
-    });
   });
 
   describe('plugin method', () => {
+
     beforeEach(() => {
       this.ctrl.plugin();
     });
@@ -107,6 +105,7 @@ describe('AvPopover Controller', function() {
   });
 
   describe('toggle method', () => {
+
     beforeEach(() => {
       this.ctrl.toggle();
     });
@@ -117,16 +116,19 @@ describe('AvPopover Controller', function() {
   });
 
   describe('destroy method', () => {
+
     beforeEach(() => {
-      this.ctrl.destroy();
+      this.ctrl.$destroy();
     });
 
     it('should set a listener on element for show', () => {
       expect(this.mockElement.popover).toHaveBeenCalledWith('destroy');
     });
+
   });
 
   describe('init method', () => {
+
     it('should call listeners', () => {
       const spy = spyOn(this.ctrl, 'listeners');
       this.ctrl.init();
@@ -134,6 +136,7 @@ describe('AvPopover Controller', function() {
     });
 
     describe('when show is true in the scope', () => {
+
       beforeEach(() =>{
         this.mockScope.show = true;
         this.ctrl.init();
@@ -148,6 +151,7 @@ describe('AvPopover Controller', function() {
       });
 
       describe('when delay.hide is not set in the scope', () => {
+
         beforeEach(() =>{
           this.ctrl.init();
         });
@@ -155,9 +159,11 @@ describe('AvPopover Controller', function() {
         it('call $timeout with the default delay', () => {
           expect(this.mockTimeout.calls.argsFor(1)).toEqual([jasmine.any(Function), this.mockAvPopoverConfig.showDelay, false]);
         });
+
       });
 
       describe('when delay.hide is set in the scope', () => {
+
         beforeEach(() =>{
           this.mockScope.delay = {hide: 5231};
           this.mockTimeout.calls.reset();
@@ -167,6 +173,7 @@ describe('AvPopover Controller', function() {
         it('call $timeout with the delay provided', () => {
           expect(this.mockTimeout.calls.argsFor(1)).toEqual([jasmine.any(Function), this.mockScope.delay.hide, false]);
         });
+
       });
     });
   });

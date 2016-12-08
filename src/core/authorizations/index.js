@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import union from 'lodash.union';
 
 import ngModule from '../module';
 import '../api';
@@ -70,7 +70,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       }
 
       // Combine pre-loaded permission ids with the ids from this function invocation
-      this.permissionIds = _.union(this.permissionIds, permissionIds);
+      this.permissionIds = union(this.permissionIds, permissionIds);
 
       return avUserPermissionsResource
         .getPermissions(this.permissionIds, this.region)

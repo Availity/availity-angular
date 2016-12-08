@@ -1,5 +1,6 @@
-import * as _ from 'lodash';
 import angular from 'angular';
+import matches from 'lodash.matches';
+import isEmpty from 'lodash.isempty';
 
 import Base from '../base';
 import ngModule from '../module';
@@ -72,7 +73,7 @@ class AvDropdownController extends Base {
       values.push(e.added);
     } else {
       // Removing from collection
-      const index = values.findIndex(value => _.matches(e.removed)(value));
+      const index = values.findIndex(value => matches(e.removed)(value));
       values.splice(index, 1);
     }
 
@@ -226,7 +227,7 @@ class AvDropdownController extends Base {
       viewValue = [];
     }
 
-    if (!_.isEmpty(viewValue) && angular.isObject(viewValue[0])) {
+    if (!isEmpty(viewValue) && angular.isObject(viewValue[0])) {
       viewValue = this.getMultiSelected(viewValue);
     }
 
@@ -309,7 +310,7 @@ class AvDropdownController extends Base {
 
     let optionValuesKeys;
 
-    if (!this.keyName && _.isArray(optionValues)) {
+    if (!this.keyName && Array.isArray(optionValues)) {
       optionValuesKeys = optionValues;
     } else {
       // if object, extract keys, in enumeration order, unsorted

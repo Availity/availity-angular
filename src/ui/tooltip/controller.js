@@ -1,6 +1,7 @@
 import ngModule from '../module';
 
 class AvTooltipController {
+
   constructor($element, $scope, AV_TOOLTIP, $timeout, avTooltipConfig) {
     this.di = {$element, $scope, AV_TOOLTIP, $timeout};
     this.options = {...avTooltipConfig};
@@ -10,8 +11,6 @@ class AvTooltipController {
     ['show', 'shown', 'hide', 'hidden'].forEach(name => {
       this.di.$element.on(`${name}.bs.tooltip`, ev => this.di.$scope.$emit(`av:tooltip:${name}`, ev));
     });
-
-    this.di.$scope.$on('$destroy', ::this.destroy);
   }
 
   plugin() {
@@ -30,7 +29,7 @@ class AvTooltipController {
     this.di.$element.tooltip('toggle');
   }
 
-  destroy() {
+  $destroy() {
     this.di.$element.tooltip('destroy');
   }
 

@@ -38,7 +38,6 @@ function getConfig(options) {
       'angular': 'angular',
       'moment': 'moment',
       'availity-uikit': 'availity-uikit',
-      'lodash': '_',
       'select2': 'select2',
       'tracekit': 'TraceKit',
       'bootstrap-datepicker': 'bootstrap-datepicker',
