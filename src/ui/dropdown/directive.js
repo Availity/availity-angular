@@ -115,13 +115,15 @@ ngModule.directive('avDropdown', ($timeout) => {
         element.select2('readonly', !!value);
       });
 
+      const disposeTimeout = $timeout(() => {
+        element.select2(avDropdown.options);
+        return;
+      });
+
       scope.$on('$destroy', () => {
         $(window).off('resize.select2');
         element.select2('destroy');
-      });
-
-      $timeout(() => {
-        element.select2(avDropdown.options);
+        $timeout.cancel(disposeTimeout);
       });
 
     }

@@ -1,7 +1,7 @@
 import angular from 'angular';
 import ngModule from '../module';
 
-ngModule.directive('avTooltip', function() {
+ngModule.directive('avTooltip', () => {
   return {
     restrict: 'A',
     controller: 'AvTooltipController',
@@ -13,12 +13,13 @@ ngModule.directive('avTooltip', function() {
 
       const options = {};
 
-      scope.$evalAsync(function() {
+      scope.$evalAsync(() => {
         element.tooltip(angular.extend({}, options, {
           html: true
         }));
         avTooltip.init();
       });
+
     }
   };
 });

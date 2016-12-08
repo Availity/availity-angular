@@ -203,6 +203,8 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       return this.templatePromise.then( () => {
         this.$element.data('AvModal', null);
+        this.$element.off(AV_MODAL.BS_EVENTS.SHOWN);
+        this.$element.off(AV_MODAL.BS_EVENTS.SHOW);
         this.$element.remove();
       });
 

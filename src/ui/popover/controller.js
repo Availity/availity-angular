@@ -10,8 +10,6 @@ class AvPopoverController {
     ['show', 'shown', 'hide', 'hidden'].forEach(name => {
       this.di.$element.on(`${name}.bs.popover`, ev => this.di.$scope.$emit(`av:popover:${name}`, ev));
     });
-
-    this.di.$scope.$on('$destroy', ::this.destroy);
   }
 
   plugin() {
@@ -30,7 +28,7 @@ class AvPopoverController {
     this.di.$element.popover('toggle');
   }
 
-  destroy() {
+  $destroy() {
     this.di.$element.popover('destroy');
   }
 
