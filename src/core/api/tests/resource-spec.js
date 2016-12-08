@@ -16,6 +16,7 @@ describe('AvApiResourceProvider', () => {
     let callback;
 
     const responseData = [{a: 1, b: 2}, {a: 1, b: 2}];
+    const mockStorageVal = 'fakeStorageVal';
 
     beforeEach( () => {
 
@@ -35,10 +36,11 @@ describe('AvApiResourceProvider', () => {
 
       });
 
-      inject( (_$httpBackend_, _$q_, _AvApiResource_) => {
+      inject( (_$httpBackend_, _$q_, _AvApiResource_, avLocalStorageService) => {
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         AvApiResource = _AvApiResource_;
+        spyOn(avLocalStorageService, 'getVal').and.returnValue(mockStorageVal);
       });
 
     });
@@ -56,41 +58,41 @@ describe('AvApiResourceProvider', () => {
 
       it('should build url with resource name', () => {
 
-        const users = new AvApiResource({name: 'users'});
+        const cats = new AvApiResource({name: 'cats'});
 
-        expect(users).toBeObject();
-        expect(users.getUrl()).toBe('/api/v1/users');
+        expect(cats).toBeObject();
+        expect(cats.getUrl()).toBe('/api/v1/cats');
 
       });
 
       it('should build url with resource name and forward slash', () => {
 
-        const users = new AvApiResource({name: '/users'});
-        expect(users.getUrl()).toBe('/api/v1/users');
+        const cats = new AvApiResource({name: '/cats'});
+        expect(cats.getUrl()).toBe('/api/v1/cats');
 
       });
 
       it('should build url with resource name and path', () => {
 
-        const users = new AvApiResource({
+        const cats = new AvApiResource({
           path: '/internal/api',
-          name: '/users'
+          name: '/cats'
         });
 
-        expect(users.getUrl()).toBe('/internal/api/v1/users');
+        expect(cats.getUrl()).toBe('/internal/api/v1/cats');
 
       });
 
 
       it('should build url with with resource name, version and path', () => {
 
-        const users = new AvApiResource({
+        const cats = new AvApiResource({
           version: '/v2',
           name: '/bar',
           path: '/api/foo'
         });
 
-        expect(users.getUrl()).toBe('/api/foo/v2/bar');
+        expect(cats.getUrl()).toBe('/api/foo/v2/bar');
 
       });
 
@@ -108,22 +110,22 @@ describe('AvApiResourceProvider', () => {
 
       it('should build url', () => {
 
-        const users = new AvApiResource({
+        const cats = new AvApiResource({
           url: '/availity/login',
           api: false
         });
 
-        expect(users.getUrl()).toBe('/availity/login');
+        expect(cats.getUrl()).toBe('/availity/login');
 
       });
     });
 
     describe('rest', () => {
 
-      let users;
+      let cats;
 
       beforeEach(function() {
-        users = new AvApiResource({name: 'users'});
+        cats = new AvApiResource({name: 'cats'});
       });
 
       describe('query()', () => {
@@ -131,9 +133,9 @@ describe('AvApiResourceProvider', () => {
         it('should get list of resources', () => {
 
           // expectGET to make sure this is called once.
-          $httpBackend.expectGET('/api/v1/users').respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/cats').respond(200, responseData);
 
-          users.query().success(function(data) {
+          cats.query().success(function(data) {
             expect(data).toBeEqual(responseData);
           });
 
@@ -143,9 +145,9 @@ describe('AvApiResourceProvider', () => {
         it('should get list of resources with params', () => {
 
           // expectGET to make sure this is called once.
-          $httpBackend.expectGET('/api/v1/users?a=1&b=2').respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/cats?a=1&b=2').respond(200, responseData);
 
-          users.query({params: {a: 1, b: 2}}).success(function(data) {
+          cats.query({params: {a: 1, b: 2}}).success(function(data) {
             expect(data).toBeEqual(responseData);
             callback();
           });
@@ -157,10 +159,39 @@ describe('AvApiResourceProvider', () => {
 
         it('should have a cacheBust parameter when cacheBust is true', () => {
 
-          $httpBackend.expectGET(/\/api\/v1\/users\?cacheBust=\d+/).respond(200, responseData);
+          $httpBackend.expectGET(/\/api\/v1\/cats\?cacheBust=\d+/).respond(200, responseData);
 
-          users.query({cacheBust: true}).success(function(data) {
+          cats.query({cacheBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
+        it('should have a cacheBust parameter when cacheBust is value', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/cats\?cacheBust=hello/).respond(200, responseData);
+
+          cats.query({cacheBust: 'hello'}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
+        it('should have a cacheBust parameter when cacheBust is a function', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/cats\?cacheBust=hello/).respond(200, responseData);
+
+          const cacheBustFn = jasmine.createSpy('cacheBustFn').and.returnValue('hello');
+
+          cats.query({cacheBust: cacheBustFn}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            expect(cacheBustFn).toHaveBeenCalled();
             callback();
           });
 
@@ -170,9 +201,9 @@ describe('AvApiResourceProvider', () => {
 
         it('should have a cacheBust parameter with other parameters', () => {
 
-          $httpBackend.expectGET(/\/api\/v1\/users\?a=1&b=2&cacheBust=\d+/).respond(200, responseData);
+          $httpBackend.expectGET(/\/api\/v1\/cats\?a=1&b=2&cacheBust=\d+/).respond(200, responseData);
 
-          users.query({params: {a: 1, b: 2}, cacheBust: true}).success(function(data) {
+          cats.query({params: {a: 1, b: 2}, cacheBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
             callback();
           });
@@ -182,11 +213,24 @@ describe('AvApiResourceProvider', () => {
 
         });
 
+        it('should have a pageBust parameter when pageBust is true', () => {
+
+          $httpBackend.expectGET(/\/api\/v1\/cats\?pageBust=\d+/).respond(200, responseData);
+
+          cats.query({pageBust: true}).success(function(data) {
+            expect(data).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+
         it('should have a sessionBust parameter when sessionBust is true', () => {
 
-          $httpBackend.expectGET(/\/api\/v1\/users\?sessionBust=\d+/).respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/cats?sessionBust=' + mockStorageVal).respond(200, responseData);
 
-          users.query({sessionBust: true}).success(function(data) {
+          cats.query({sessionBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
             callback();
           });
@@ -201,9 +245,9 @@ describe('AvApiResourceProvider', () => {
 
         it('should get a single resource by id', () => {
 
-          $httpBackend.expectGET('/api/v1/users/1').respond(200, responseData);
+          $httpBackend.expectGET('/api/v1/cats/1').respond(200, responseData);
 
-          users.get(1).success(function(data) {
+          cats.get(1).success(function(data) {
             expect(data).toBeEqual(responseData);
             callback();
           });
@@ -215,9 +259,9 @@ describe('AvApiResourceProvider', () => {
 
         it('should have a cacheBust parameter when cacheBust is true', () => {
 
-          $httpBackend.expectGET(/\/api\/v1\/users\/1\?cacheBust=\d+/).respond(200, responseData);
+          $httpBackend.expectGET(/\/api\/v1\/cats\/1\?cacheBust=\d+/).respond(200, responseData);
 
-          users.get(1, {cacheBust: true}).success(function(data) {
+          cats.get(1, {cacheBust: true}).success(function(data) {
             expect(data).toBeEqual(responseData);
             callback();
           });
@@ -234,9 +278,9 @@ describe('AvApiResourceProvider', () => {
 
         it('should update a single resource by id', function() {
 
-          $httpBackend.expectPUT('/api/v1/users/1').respond(200, updateResponseData);
+          $httpBackend.expectPUT('/api/v1/cats/1').respond(200, updateResponseData);
 
-          users.update(1, {}).success( data => {
+          cats.update(1, {}).success( data => {
             expect(data).toBeEqual(updateResponseData);
             callback();
           });
@@ -248,13 +292,13 @@ describe('AvApiResourceProvider', () => {
 
         it('should update a single resource WITHOUT an id', function() {
 
-          $httpBackend.expectPUT('/api/v1/users').respond(200, updateResponseData);
+          $httpBackend.expectPUT('/api/v1/cats').respond(200, updateResponseData);
 
-          const request = spyOn(users, 'request').and.callThrough();
+          const request = spyOn(cats, 'request').and.callThrough();
 
           const data = { id: 1 };
           let config = { headers: { 'MyHeader': 'MyValue' } };
-          users.update(data, config).success( result => {
+          cats.update(data, config).success( result => {
             expect(result).toBeEqual(updateResponseData);
             callback();
           });
@@ -262,9 +306,9 @@ describe('AvApiResourceProvider', () => {
           $httpBackend.flush();
           expect(callback).toHaveBeenCalled();
 
-          config = users.config(config);
+          config = cats.config(config);
           config.method = 'PUT';
-          config.url = users.getUrl();
+          config.url = cats.getUrl();
           config.data = data;
 
           expect(request).toHaveBeenCalled();
@@ -278,19 +322,19 @@ describe('AvApiResourceProvider', () => {
 
         it('should remove resource WITHOUT an id', () => {
 
-          $httpBackend.expectDELETE('/api/v1/users').respond({});
+          $httpBackend.expectDELETE('/api/v1/cats').respond({});
 
-          const request = spyOn(users, 'request').and.callThrough();
+          const request = spyOn(cats, 'request').and.callThrough();
 
           const data = { id: 1 };
           let config = { headers: { 'MyHeader': 'MyValue' } };
-          users.remove(data, config);
+          cats.remove(data, config);
 
           $httpBackend.flush();
 
-          config = users.config(config);
+          config = cats.config(config);
           config.method = 'DELETE';
-          config.url = users.getUrl();
+          config.url = cats.getUrl();
           config.data = data;
 
           expect(request).toHaveBeenCalled();
@@ -309,10 +353,10 @@ describe('AvApiResourceProvider', () => {
 
       it('should call afterGet() on get()', () => {
 
-        class Users extends AvApiResource {
+        class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/users'});
+            super({name: '/cats'});
           }
 
           afterGet(response) {
@@ -322,24 +366,24 @@ describe('AvApiResourceProvider', () => {
 
         }
 
-        const users = new Users();
-        spyOn(users, 'afterGet').and.callThrough();
-        $httpBackend.expectGET('/api/v1/users/1').respond(200, responseData);
+        const cats = new Cats();
+        spyOn(cats, 'afterGet').and.callThrough();
+        $httpBackend.expectGET('/api/v1/cats/1').respond(200, responseData);
 
-        users.get(1).success( data => expect(data).toBeEqual([{a: 2, b: 2 }, {a: 1, b: 2 }]));
+        cats.get(1).success( data => expect(data).toBeEqual([{a: 2, b: 2 }, {a: 1, b: 2 }]));
         $httpBackend.flush();
 
-        expect(users.afterGet).toHaveBeenCalled();
-        expect(users.afterGet.calls.count()).toEqual(1);
+        expect(cats.afterGet).toHaveBeenCalled();
+        expect(cats.afterGet.calls.count()).toEqual(1);
 
       });
 
       it('should call afterQuery() on query()', () => {
 
-        class Users extends AvApiResource {
+        class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/users'});
+            super({name: '/cats'});
           }
 
           afterQuery(response) {
@@ -348,11 +392,11 @@ describe('AvApiResourceProvider', () => {
 
         }
 
-        const users = new Users();
-        const queryCallback = spyOn(users, 'afterQuery').and.callThrough();
-        $httpBackend.expectGET('/api/v1/users').respond(200, responseData);
+        const cats = new Cats();
+        const queryCallback = spyOn(cats, 'afterQuery').and.callThrough();
+        $httpBackend.expectGET('/api/v1/cats').respond(200, responseData);
 
-        users.query();
+        cats.query();
         $httpBackend.flush();
 
         expect(queryCallback).toHaveBeenCalled();
@@ -362,12 +406,12 @@ describe('AvApiResourceProvider', () => {
 
       it('should call beforeCreate() and afterCreate() on create()', () => {
 
-        $httpBackend.expectPOST('/api/v1/users').respond(200, responseData);
+        $httpBackend.expectPOST('/api/v1/cats').respond(200, responseData);
 
-        class Users extends AvApiResource {
+        class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/users'});
+            super({name: '/cats'});
           }
 
           beforeCreate(data) {
@@ -380,16 +424,16 @@ describe('AvApiResourceProvider', () => {
 
         }
 
-        const users = new Users();
-        const beforeCreateCallback = spyOn(users, 'beforeCreate').and.callThrough();
-        const afterCreateCallback = spyOn(users, 'afterCreate').and.callThrough();
+        const cats = new Cats();
+        const beforeCreateCallback = spyOn(cats, 'beforeCreate').and.callThrough();
+        const afterCreateCallback = spyOn(cats, 'afterCreate').and.callThrough();
 
         const data = {
           'firstName': 'Rob',
           'lastName': 'McGuinness'
         };
 
-        users.create(data);
+        cats.create(data);
         $httpBackend.flush();
 
         expect(beforeCreateCallback).toHaveBeenCalled();
@@ -405,12 +449,12 @@ describe('AvApiResourceProvider', () => {
 
       it('should call afterRemove() on remove()', () => {
 
-        $httpBackend.expectDELETE('/api/v1/users/1').respond(200, responseData);
+        $httpBackend.expectDELETE('/api/v1/cats/1').respond(200, responseData);
 
-        class Users extends AvApiResource {
+        class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/users'});
+            super({name: '/cats'});
           }
 
           afterRemove(response) {
@@ -419,10 +463,10 @@ describe('AvApiResourceProvider', () => {
 
         }
 
-        const users = new Users();
-        const afterRemoveCallback = spyOn(users, 'afterRemove').and.callThrough();
+        const cats = new Cats();
+        const afterRemoveCallback = spyOn(cats, 'afterRemove').and.callThrough();
 
-        users.remove(1);
+        cats.remove(1);
         $httpBackend.flush();
 
         expect(afterRemoveCallback).toHaveBeenCalled();
@@ -431,12 +475,12 @@ describe('AvApiResourceProvider', () => {
 
       it('should call beforeUpdate() and afterUpdate() on update()', () => {
 
-        $httpBackend.whenPUT('/api/v1/users/1').respond(200, responseData);
+        $httpBackend.whenPUT('/api/v1/cats/1').respond(200, responseData);
 
-        class Users extends AvApiResource {
+        class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/users'});
+            super({name: '/cats'});
           }
 
           beforeUpdate(data) {
@@ -449,16 +493,16 @@ describe('AvApiResourceProvider', () => {
 
         }
 
-        const users = new Users();
-        const beforeUpdateCallback = spyOn(users, 'beforeUpdate').and.callThrough();
-        const afterUpdateCallback = spyOn(users, 'afterUpdate').and.callThrough();
+        const cats = new Cats();
+        const beforeUpdateCallback = spyOn(cats, 'beforeUpdate').and.callThrough();
+        const afterUpdateCallback = spyOn(cats, 'afterUpdate').and.callThrough();
 
         const data = {
           'firstName': 'Rob',
           'lastName': 'McGuinness'
         };
 
-        users.update(1, data);
+        cats.update(1, data);
 
         $httpBackend.flush();
 
@@ -474,5 +518,3 @@ describe('AvApiResourceProvider', () => {
   });
 
 });
-
-

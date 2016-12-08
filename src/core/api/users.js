@@ -7,7 +7,8 @@ const UserServiceFactory = function(AvApiResource) {
     constructor() {
       super({
         path: '/api/sdk/platform',
-        name: '/users'
+        name: '/users',
+        sessionBust: true
       });
     }
 
@@ -29,5 +30,3 @@ const UserServiceFactory = function(AvApiResource) {
 ngModule.factory('avUsersResource', UserServiceFactory);
 
 export default ngModule;
-
-

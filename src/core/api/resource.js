@@ -4,12 +4,13 @@ import moment from 'moment';
 import ngModule from '../module';
 import './constants';
 import '../polling';
+import '../localStorage';
 
 class ApiResourceProvider {
 
   constructor(AV_API) {
     this.defaultOptions = {...AV_API.OPTIONS};
-    this.sessionBust = moment().unix();
+    this.pageBust = moment().unix();
   }
 
   setOptions(options) {
@@ -20,7 +21,7 @@ class ApiResourceProvider {
     return angular.copy(this.defaultOptions);
   }
 
-  $get($http, $q, avPollingService) {
+  $get($http, $q, avPollingService, avLocalStorageService, AV_STORAGE) {
 
     const that = this;
 
@@ -51,23 +52,41 @@ class ApiResourceProvider {
         return angular.extend({}, this.options, (config || {}));
       }
 
-      cacheBust(_config) {
+      cacheBust(config) {
 
-        const config = angular.copy(_config);
-        config.cacheBust = null;
-        config.params = config.params || {};
-        config.params.cacheBust = moment().unix();
-
-        return config;
+        if (config.cacheBust === true) {
+          config.params.cacheBust = moment().unix();
+        } else if (angular.isFunction(config.cacheBust)) {
+          config.params.cacheBust = config.cacheBust();
+        } else {
+          config.params.cacheBust = config.cacheBust;
+        }
 
       }
 
-      sessionBust(_config) {
+      // cacheBust: supports the following types
+      //    - true|false: Generate a timestamp each call
+      //    - Value: Use this as a chacheBust variable for each call
+      //    - Function: Call this function to return the cacheBust variable
+      // pageBust: true|false, if true, set a cachebust variable to a timestamp of page load
+      // sessionBust: true|false, if true, get the avCacheBust variable from local storage, set at
+      //    login (if value not set, works like pageBust)
+      cacheParams(_config) {
 
         const config = angular.copy(_config);
-        config.sessionBust = null;
         config.params = config.params || {};
-        config.params.sessionBust = that.sessionBust;
+
+        if (config.cacheBust) {
+          this.cacheBust(config);
+        }
+
+        if (config.pageBust) {
+          config.params.pageBust = that.pageBust;
+        }
+
+        if (config.sessionBust) {
+          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || that.pageBust;
+        }
 
         return config;
       }
@@ -216,9 +235,7 @@ class ApiResourceProvider {
         }
 
         config = this.config(config);
-        if (config.cacheBust) {
-          config = this.cacheBust(config);
-        }
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl(id);
@@ -232,16 +249,8 @@ class ApiResourceProvider {
 
         let config = _config;
 
-        // If true cache bust the api on every call
         config = this.config(config);
-        if (config.cacheBust) {
-          config = this.cacheBust(config);
-        }
-
-        // Cache bust api once per application load
-        if (config.sessionBust) {
-          config = this.sessionBust(config);
-        }
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl();

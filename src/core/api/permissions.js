@@ -7,9 +7,8 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
     constructor() {
 
       super({
-        path: '/api/internal',
-        version: '/v1',
-        name: '/axi-user-permissions'
+        path: '/api/sdk/platform',
+        name: 'permissions'
       });
     }
 
