@@ -9,7 +9,8 @@
     "sdk"
   ],
   "engines": {
-    "node": ">=5.0.0"
+    "node": ">=5.0.0",
+    "npm": ">=4.0.0"
   },
   "bugs": {
     "url": "https://github.com/Availity/availity-angular/issues"
