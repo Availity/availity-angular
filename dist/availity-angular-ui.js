@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.14.0 -- December-14
+ * availity-angular v1.14.1 -- December-15
  * Copyright 2016 Availity, LLC 
  */
 
@@ -525,7 +525,7 @@
             // fields inside the form would inherit this behavior.
             avForm.avValOn = iAttrs.avValOn || null;
             avForm.avValDebounce = iAttrs.avValDebounce || null;
-            avForm.avValShow = iAttrs.avValShow || null;
+            avForm.avValShow = scope.$eval(iAttrs.avValShow) || null;
             // Allows fields to update with invalid data for dirty form saving
             avForm.avValInvalid = iAttrs.avValInvalid || false;
 
