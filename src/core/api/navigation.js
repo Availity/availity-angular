@@ -1,17 +1,17 @@
 import angular from 'angular';
-
 import ngModule from '../module';
 
-const Spaces = function(AvApiResource, avRegionsResource) {
+const Navigation = function(AvApiResource, avRegionsResource) {
 
-  class SpacesResource extends AvApiResource {
+  class NavigationResource extends AvApiResource {
 
     constructor() {
       super({
         path: '/api/sdk/platform',
-        name: '/spaces'
+        name: '/navigation/spaces'
       });
     }
+
     /*
       set authorized variables before query
       if authorized is true: add authorized=true and region to params
@@ -30,10 +30,10 @@ const Spaces = function(AvApiResource, avRegionsResource) {
     }
   }
 
-  return new SpacesResource();
+  return new NavigationResource();
 
 };
 
-ngModule.factory('avSpacesResource', Spaces);
+ngModule.factory('avNavigationResource', Navigation);
 
 export default ngModule;

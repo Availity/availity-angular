@@ -50,7 +50,11 @@ ngModule.constant('AV_API', {
     headers: {
       // Turn off content encoding for angular apis
       'X-Response-Encoding-Context': 'NONE'
-    }
+    },
+    // default cache busting values
+    cacheBust: false,
+    pageBust: false,
+    sessionBust: true
   }
 });
 
