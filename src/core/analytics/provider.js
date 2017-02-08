@@ -1,16 +1,12 @@
 import angular from 'angular';
 import ngModule from '../module';
-import Base from '../base';
 import './config-provider';
 
-class AvAnalyticsProvider extends Base {
+class AvAnalyticsProvider {
 
-  static $inject = ['avAnalyticsConfigProvider'];
+  constructor(avAnalyticsConfigProvider) {
 
-  constructor(...args) {
-
-    super(...args);
-
+    this.av = { avAnalyticsConfigProvider };
     this.plugins = [];
     this.virtualPageTracking = this.av.avAnalyticsConfigProvider.get().VIRTUAL_PAGE_TRACKING;
     this.appId;
