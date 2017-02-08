@@ -116,7 +116,7 @@ class ApiResourceProvider {
         const defer = $q.defer();
 
         $http(config)
-          .success( (data, status, headers, _config) => {
+          .then( (data, status, headers, _config) => {
 
             const _response = {
               data,
@@ -145,7 +145,7 @@ class ApiResourceProvider {
               (notifyResponse) => defer.notify(notifyResponse)
             );
 
-          }).error( (data, status, headers, _config) => {
+          }).catch( (data, status, headers, _config) => {
             const response = self.createResponse(data, status, headers, _config);
             defer.reject(response);
           });
