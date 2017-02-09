@@ -4,9 +4,9 @@ import isRegExp from 'lodash.isregexp';
 import ngModule from './constants';
 
 class AvLocalStorageService {
-
+  static $inject = ['$window'];
   constructor($window) {
-    this.av = { $window };
+    this.$window = $window;
     this.hasSupport;
   }
   supportsLocalStorage() {
@@ -16,8 +16,8 @@ class AvLocalStorageService {
       let hasSupport = false;
       try {
 
-        const localStorage = this.av.$window.localStorage;
-        if (!localStorage) {
+        const localStorage = this.$window.localStorage;
+        if (localStorage) {
           const uid = moment().unix();
 
           localStorage.setItem(uid, uid);
@@ -37,7 +37,7 @@ class AvLocalStorageService {
 
   getVal(key) {
     if (this.supportsLocalStorage()) {
-      return this.av.$window.localStorage.getItem(key);
+      return this.$window.localStorage.getItem(key);
     }
   }
 
@@ -48,13 +48,13 @@ class AvLocalStorageService {
 
   setVal(key, value) {
     if (this.supportsLocalStorage()) {
-      this.av.$window.localStorage.setItem(key, value);
+      this.$window.localStorage.setItem(key, value);
     }
   }
 
   removeVal(key) {
     if (this.supportsLocalStorage()) {
-      this.av.$window.localStorage.removeItem(key);
+      this.$window.localStorage.removeItem(key);
     }
   }
 
@@ -66,8 +66,9 @@ class AvLocalStorageService {
       if (regexString) {
 
         const removeKeys = [];
-        for (let i = 0, len = this.av.$window.localStorage.length; i < len; i++) {
-          const thisKey = this.av.$window.localStorage.key(i);
+        const length = this.$window.localStorage.length;
+        for (let i = 0; i < length; i++) {
+          const thisKey = this.$window.localStorage.key(i);
           if (regexString.test(thisKey)) {
             removeKeys.push(thisKey);
           }
