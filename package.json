@@ -161,7 +161,7 @@
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",
     "jquery": "^3.0.0",
-    "lodash.assignin": "^4.2.0",
+    "lodash.assign": "^4.2.0",
     "lodash.debounce": "^4.0.8",
     "lodash.isempty": "^4.4.0",
     "lodash.isregexp": "^4.0.1",
