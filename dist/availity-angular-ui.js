@@ -1,5 +1,5 @@
 /**
- * availity-angular v1.14.3 -- February-09
+ * availity-angular v1.14.4 -- February-09
  * Copyright 2017 Availity, LLC 
  */
 
@@ -3089,15 +3089,19 @@
 
     return {
       restrict: 'A',
-      link: function($scope, $element, $attrs) {
+      scope: {
+        avBlockUi: '=',
+        blockCount: '='
+      },
+      link: function($scope) {
         $timeout(function() {
-          var blockId = $attrs.avBlockUi;
-          var blockCount = $attrs.blockCount;
+          var blockId = $scope.avBlockUi;
+          var blockCount = $scope.blockCount;
           var instance = blockUI.instances.get(blockId);
           if(blockCount > 0) {
             instance.startLoader();
           }
-        });
+        }, false);
       }
     };
 
