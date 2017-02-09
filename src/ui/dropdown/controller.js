@@ -2,18 +2,15 @@ import angular from 'angular';
 import matches from 'lodash.matches';
 import isEmpty from 'lodash.isempty';
 
-import Base from '../base';
 import ngModule from '../module';
 import { uuid } from '../../core/utils';
 import './provider';
 
-class AvDropdownController extends Base {
+class AvDropdownController {
 
-  static $inject = ['$element', '$attrs', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
+  constructor($element, $attrs, avDropdownConfig, $scope, $timeout, $parse) {
 
-  constructor(...args) {
-
-    super(...args);
+    this.av = { $element, $attrs, avDropdownConfig, $scope, $timeout, $parse };
 
     this.options = {};
     this.match = null;

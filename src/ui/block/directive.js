@@ -2,21 +2,17 @@ import angular from 'angular';
 
 import ngModule from '../module';
 import { buildRegExp } from './utils';
-import Base from '../base';
 
 // Inspiration from https://github.com/McNull/angular-block-ui.
 //
 //  - Need npm compatible library
 //  - Re-factor with better life-cycle hooks for starting and stopping animations
 
-class BlockController extends Base {
+class BlockController {
 
-  static $inject = ['$element', 'avBlockManager', 'avBlockConfig', '$attrs', '$scope', '$compile'];
+  constructor($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile) {
 
-  constructor(...args) {
-
-    super(...args);
-
+    this.av = { $element, avBlockManager, avBlockConfig, $attrs, $scope, $compile };
 
     // Expose the blockMessageClass attribute value on the scope
     this.av.$attrs.$observe('blockMessageClass', value => {

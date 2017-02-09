@@ -1,14 +1,10 @@
 import angular from 'angular';
 
-import Base from '../base';
+class AvDimmerController {
 
-class AvDimmerController extends Base {
+  constructor($scope, $element, avDimmerConfig) {
 
-  static $inject = ['$scope', '$element', 'avDimmerConfig'];
-
-  constructor(...args) {
-
-    super(...args);
+    this.av = { $scope, $element, avDimmerConfig };
 
     this.config = angular.extend({}, this.av.avDimmerConfig, (this.av.$scope.avDimmerConfig || {}));
   }
