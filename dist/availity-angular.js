@@ -1,9 +1,9 @@
 /**
- * availity-angular v1.14.2 -- December-21
- * Copyright 2016 Availity, LLC 
+ * availity-angular v1.14.3 -- February-09
+ * Copyright 2017 Availity, LLC 
  */
 
-// Source: -v1/lib/core/index.js
+// Source: /lib/core/index.js
 
 
 (function(root) {
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v1.14.2';
+  availity.VERSION = 'v1.14.3';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -38,7 +38,7 @@
 })(window);
 
 
-// Source: -v1/lib/core/utils/strings.js
+// Source: /lib/core/utils/strings.js
 (function(root) {
 
   'use strict';
@@ -60,7 +60,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/utils/uuid.js
+// Source: /lib/core/utils/uuid.js
 (function(root) {
 
   'use strict';
@@ -93,7 +93,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/utils/urls.js
+// Source: /lib/core/utils/urls.js
 (function(root) {
 
   'use strict';
@@ -113,7 +113,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/utils/print.js
+// Source: /lib/core/utils/print.js
 (function(root) {
 
   'use strict';
@@ -133,7 +133,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/utils/throttle.js
+// Source: /lib/core/utils/throttle.js
 // Original => https://github.com/mgcrea/angular-strap/blob/master/src/helpers/debounce.js
 
 (function(root) {
@@ -188,7 +188,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/logger/logger.js
+// Source: /lib/core/logger/logger.js
 // Orginal => https://github.com/ericzon/angular-ny-logger/blob/0c594e864c93e7f33d36141200096bc6139ddde1/angular-ny-logger.js
 (function(root) {
 
@@ -361,7 +361,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/logger/logger-config.js
+// Source: /lib/core/logger/logger-config.js
 (function(root) {
 
   'use strict';
@@ -378,7 +378,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/polling/polling.js
+// Source: /lib/core/polling/polling.js
 (function(root) {
   'use strict';
 
@@ -636,7 +636,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-factory.js
+// Source: /lib/core/api/api-factory.js
 (function(root) {
 
   'use strict';
@@ -984,7 +984,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-users.js
+// Source: /lib/core/api/api-users.js
 (function(root) {
   'use strict';
 
@@ -1017,7 +1017,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-coverages.js
+// Source: /lib/core/api/api-coverages.js
 (function(root) {
 
   'use strict';
@@ -1030,7 +1030,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-configurations.js
+// Source: /lib/core/api/api-configurations.js
 (function(root) {
 
   'use strict';
@@ -1043,7 +1043,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-log-messages.js
+// Source: /lib/core/api/api-log-messages.js
 (function(root) {
 
   'use strict';
@@ -1102,7 +1102,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-spaces.js
+// Source: /lib/core/api/api-spaces.js
 (function(root) {
 
   'use strict';
@@ -1125,7 +1125,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-documents.js
+// Source: /lib/core/api/api-documents.js
 (function(root) {
 
   'use strict';
@@ -1160,7 +1160,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-organizations.js
+// Source: /lib/core/api/api-organizations.js
 (function(root) {
 
   'use strict';
@@ -1190,7 +1190,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-codes.js
+// Source: /lib/core/api/api-codes.js
 (function(root) {
 
   'use strict';
@@ -1258,7 +1258,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/api/api-user-permissions.js
+// Source: /lib/core/api/api-user-permissions.js
 (function(root) {
 
   'use strict';
@@ -1303,7 +1303,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/authorizations/user-authorizations.js
+// Source: /lib/core/authorizations/user-authorizations.js
 (function(root) {
   'use strict';
 
@@ -1445,7 +1445,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/session/session.js
+// Source: /lib/core/session/session.js
 (function(root) {
   'use strict';
 
@@ -1489,7 +1489,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/idle/idle.js
+// Source: /lib/core/idle/idle.js
 // Inspiration => https://github.com/HackedByChinese/ng-idle
 //
 // Rules:
@@ -1791,7 +1791,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/idle/idle-interceptor.js
+// Source: /lib/core/idle/idle-interceptor.js
 (function(root) {
 
   'use strict';
@@ -1816,7 +1816,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/validation/validator.js
+// Source: /lib/core/validation/validator.js
 (function(root) {
 
   'use strict';
@@ -1977,7 +1977,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-utils.js
+// Source: /lib/core/validation/validators/validator-utils.js
 (function(root) {
 
   'use strict';
@@ -2001,7 +2001,7 @@
 })(window);
 
 
-// Source: -v1/lib/core/validation/validators/validator-size.js
+// Source: /lib/core/validation/validators/validator-size.js
 (function(root) {
 
   'use strict';
@@ -2044,7 +2044,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-pattern.js
+// Source: /lib/core/validation/validators/validator-pattern.js
 (function(root) {
   'use strict';
 
@@ -2090,7 +2090,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-required.js
+// Source: /lib/core/validation/validators/validator-required.js
 (function(root) {
 
   'use strict';
@@ -2130,7 +2130,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-date-range.js
+// Source: /lib/core/validation/validators/validator-date-range.js
 (function(root) {
 
   'use strict';
@@ -2202,7 +2202,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-date-format.js
+// Source: /lib/core/validation/validators/validator-date-format.js
 (function(root) {
 
   'use strict';
@@ -2223,7 +2223,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-npi.js
+// Source: /lib/core/validation/validators/validator-npi.js
 (function(root) {
 
   'use strict';
@@ -2293,7 +2293,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-phone.js
+// Source: /lib/core/validation/validators/validator-phone.js
 (function(root) {
   'use strict';
 
@@ -2315,7 +2315,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/validation/validators/validator-email.js
+// Source: /lib/core/validation/validators/validator-email.js
 (function(root) {
   'use strict';
 
@@ -2337,7 +2337,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/utils/globals.js
+// Source: /lib/core/utils/globals.js
 (function(root) {
 
   'use strict';
@@ -2555,7 +2555,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics.js
+// Source: /lib/core/analytics/analytics.js
 (function(root) {
   'use strict';
 
@@ -2725,7 +2725,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics-util.js
+// Source: /lib/core/analytics/analytics-util.js
 (function(root) {
   'use strict';
 
@@ -2815,7 +2815,7 @@
   });
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics-splunk.js
+// Source: /lib/core/analytics/analytics-splunk.js
 (function(root) {
   'use strict';
 
@@ -2854,7 +2854,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics-piwik.js
+// Source: /lib/core/analytics/analytics-piwik.js
 (function(root) {
   'use strict';
 
@@ -2997,7 +2997,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics-exceptions.js
+// Source: /lib/core/analytics/analytics-exceptions.js
 
 
 (function(root) {
@@ -3164,7 +3164,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/analytics/analytics-config.js
+// Source: /lib/core/analytics/analytics-config.js
 (function(root) {
 
   'use strict';
@@ -3182,7 +3182,7 @@
 })(window);
 
 
-// Source: -v1/lib/core/utils/date-polyfill.js
+// Source: /lib/core/utils/date-polyfill.js
 // Issue: https://github.com/angular/angular.js/issues/11165
 // Polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 //
@@ -3218,7 +3218,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/messages/messages-constants.js
+// Source: /lib/core/messages/messages-constants.js
 (function(root) {
 
   'use strict';
@@ -3254,7 +3254,7 @@
 
 })(window);
 
-// Source: -v1/lib/core/messages/messages.js
+// Source: /lib/core/messages/messages.js
 
 
 // https://github.com/kylewelsby/angular-post-message/blob/master/src/angular-post-message.js
