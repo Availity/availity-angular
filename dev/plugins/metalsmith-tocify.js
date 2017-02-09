@@ -10,7 +10,7 @@
 
 const cheerio = require('cheerio');
 const extname = require('path').extname;
-const slug = require('slug');
+const slug = require('slugify');
 const uniqueId = require('lodash.uniqueid');
 const forEach = require('lodash.foreach');
 
