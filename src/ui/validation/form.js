@@ -72,14 +72,6 @@ ngModule.directive('avValForm', ($log, $timeout, $parse, AV_VAL, avValAdapter, $
 
         });
 
-        // Allow form attributes to define the validation behavior of the form fields
-        // inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
-        // fields inside the form would inherit this behavior.
-        avForm.avValOn = iAttrs.avValOn || null;
-        avForm.avValDebounce = iAttrs.avValDebounce || null;
-        // Allows fields to update with invalid data for dirty form saving
-        avForm.avValInvalid = iAttrs.avValInvalid || false;
-
         avForm.init({
           ngForm,
           rulesSchema

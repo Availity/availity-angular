@@ -131,7 +131,7 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
   return {
     restrict: 'A',
     controller: 'AvValFieldController',
-    require: ['^avValForm', 'ngModel', 'avValField', '?^ngModelOptions'],
+    require: ['^avValForm', 'ngModel', 'avValField', '?ngModelOptions', '?^ngModelOptions'],
     link(scope, element, attrs, controllers) {
 
       const ruleName = attrs.avValField;
@@ -140,48 +140,30 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       const ngModel = controllers[1];
       const avValField = controllers[2];
       const ngModelOptions = controllers[3];
+      const ngModelOptionsParent = controllers[4];
 
-      if (ngModelOptions) {
-        avValField.$options = ngModelOptions.$options;
+      if (!ngModelOptions || !ngModelOptionsParent) {
+
+        ngModel.$options.createChild({
+          '*': '$inherit',
+          debounce: avValField.isCheckbox() || avValField.isRadio() ? AV_VAL.DEBOUNCE_QUICK : AV_VAL.DEBOUNCE
+        });
+
       }
-
-      const avValOn = scope.avValOn || avValForm.avValOn || 'default';
-
-      let avValDebounce;
-      if (avValField.isCheckbox() || avValField.isRadio()) {
-        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
-      } else {
-        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
-      }
-
-      const avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
-
-      // ngModel.$$setOptions({
-      //   updateOnDefault: true,
-      //   updateOn: avValOn,
-      //   allowInvalid: avValInvalid,
-      //   debounce: avValDebounce
-      // });
-
-      // if (modelCtrl.$options.getOption('updateOn')) {
-      //   element.on(modelCtrl.$options.getOption('updateOn'), function(ev) {
-      //     modelCtrl.$$debounceViewValueCommit(ev && ev.type);
-      //   });
-      // }
 
       // Wrap $$runValidators with our own function so we can intercept when the validation
       // pipeline finishes.
-      // const $$runValidators = ngModel.$$runValidators;
-      // const runValidators = (modelValue, viewValue, doneCallback) => {
+      const $$runValidators = ngModel.$$runValidators;
+      const runValidators = (modelValue, viewValue, doneCallback) => {
 
-      //   $$runValidators(modelValue, viewValue, (allValid) => {
-      //     doneCallback(allValid);
-      //     avValField.onRunValidators();
-      //   });
+        $$runValidators.call(ngModel, modelValue, viewValue, (allValid) => {
+          doneCallback(allValid);
+          avValField.onRunValidators();
+        });
 
-      // };
+      };
 
-      // ngModel.$$runValidators = runValidators;
+      ngModel.$$runValidators = runValidators;
 
       if (!ngModel && !ruleName) {
         $log.error('avValField requires ngModel and a validation rule name to run.');
