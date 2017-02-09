@@ -28,18 +28,12 @@
 ## Supported Browsers
 
 * Internet Explorer 9 and newer
-* Google Chrome 
-* Mozilla Firefox 
+* Google Chrome
+* Mozilla Firefox
 
 > Other browsers should be supported as well but you may experience some issues.
 
 ## Quickstart
-
-Install the Availity Angular SDK with Bower.
-
-```bash
-$ bower install availity-angular --save
-```
 
 Install the Availity Angular SDK with npm.
 
@@ -68,4 +62,4 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 
 ## License
 
-Copyright (c) 2016 Availity, LLC
+Copyright (c) 2017 Availity, LLC
