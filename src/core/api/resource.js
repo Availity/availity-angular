@@ -101,35 +101,19 @@ class ApiResourceProvider {
 
       }
 
-      createResponse(data, status, headers, config) {
-        return {
-          data,
-          status,
-          headers,
-          config
-        };
-      }
-
       request(config, afterCallback) {
 
         const self = this;
         const defer = $q.defer();
 
         $http(config)
-          .then( (data, status, headers, _config) => {
-
-            const _response = {
-              data,
-              status,
-              headers,
-              config: _config
-            };
+          .then( response => {
 
             // handle the async response if applicable
-            const _promise = $q.when(avPollingService.response(_response));
+            const _promise = $q.when(avPollingService.response(response));
 
             // notify the promise listener of the original response
-            defer.notify(_response);
+            defer.notify(response);
 
             // handle the polling service promise
             _promise.then( (_successResponse) => {
@@ -145,8 +129,7 @@ class ApiResourceProvider {
               (notifyResponse) => defer.notify(notifyResponse)
             );
 
-          }).catch( (data, status, headers, _config) => {
-            const response = self.createResponse(data, status, headers, _config);
+          }).catch( response => {
             defer.reject(response);
           });
 
