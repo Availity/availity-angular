@@ -125,7 +125,7 @@ describe('AvApiResourceProvider', () => {
       let cats;
 
       beforeEach(function() {
-        cats = new AvApiResource({name: 'cats'});
+        cats = new AvApiResource({name: 'cats', sessionBust: false});
       });
 
       describe('query()', () => {
@@ -356,7 +356,7 @@ describe('AvApiResourceProvider', () => {
         class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/cats'});
+            super({name: '/cats', sessionBust: false});
           }
 
           afterGet(response) {
@@ -383,7 +383,7 @@ describe('AvApiResourceProvider', () => {
         class Cats extends AvApiResource {
 
           constructor() {
-            super({name: '/cats'});
+            super({name: '/cats', sessionBust: false});
           }
 
           afterQuery(response) {

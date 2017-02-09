@@ -33,7 +33,7 @@ describe('avRegionsResource', () => {
   it('should allow add user id to url', () => {
 
     $httpBackend.expectGET(/\/api\/sdk\/platform\/v1\/users\/me\?sessionBust=\d+/).respond(200, userData);
-    $httpBackend.expect('GET', '/api/sdk/platform/v1/regions?limit=100&offset=20&userId=rm3').respond(200, regionData);
+    $httpBackend.expect('GET', /\/api\/sdk\/platform\/v1\/regions\?limit=100&offset=20&pageBust=\d+&userId=rm3/).respond(200, regionData);
 
     avRegionsResource.getRegions({params: {limit: 100, offset: 20}}).then(data => {
       expect(data).toBeTruthy();

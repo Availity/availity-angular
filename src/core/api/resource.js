@@ -103,7 +103,7 @@ class ApiResourceProvider {
         }
 
         if (config.sessionBust) {
-          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || that.pageBust;
+          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || this.getPageBust();
         }
 
         return config;

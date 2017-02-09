@@ -30,14 +30,17 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
         pageBust: false
       });
     }
-    getRegions(userId = false) {
-      return (userId ? Promise.resolve({ id: userId }) : avUsersResource.me())
-      .then(user => {
-        return this.query({
-          params: {
-            userId: user.id
-          }
-        });
+    getRegions(_config) {
+      return (_config.params.userId ?
+        Promise.resolve(_config) :
+        avUsersResource.me()
+        .then(user => {
+          return angular.merge({}, _config, {
+            params: { userId: user.id }
+          });
+        }))
+      .then(config => {
+        return this.query(config);
       });
     }
     getCurrentRegion(user = false) {
