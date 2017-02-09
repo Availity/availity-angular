@@ -10,6 +10,9 @@ const mock = require('metalsmith-mock');
 const permalinks = require('metalsmith-permalinks');
 const nunjucks = require('nunjucks');
 const nunjucksDate = require('nunjucks-date');
+const globby = require('globby');
+const merge = require('lodash.merge');
+const readFile = require('./plugins/metalsmith-read-file');
 const path = require('path');
 const slugifi = require('slugify');
 const collections = require('metalsmith-collections');
@@ -65,6 +68,29 @@ function build() {
       })
       .ignore(['!**/*.html', 'node_modules', '_book', 'dev', 'dist', 'less', 'reports'])
       .source(path.join(process.cwd(), 'docs', 'content'))
+      .use( (files, metal, done) => {
+
+        globby(['src/**/docs/*.html']).then( filePaths => {
+
+          const fileConfigs = filePaths.map(filePath => {
+            return readFile(metal, filePath);
+          });
+
+          const metalFiles = {};
+
+          fileConfigs.forEach(fileConfig => {
+            const dir = path.join(process.cwd(), 'src');
+            const fileName = path.relative(dir, fileConfig.path);
+            metalFiles[fileName] = fileConfig;
+          });
+
+          merge(files, metalFiles);
+
+          done();
+
+        });
+
+      })
       .use(markdown(markedOptions))
       .use(dataMarkdown({
         selector: '[data-markdown]'
