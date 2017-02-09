@@ -1,13 +1,10 @@
 import ngModule from '../module';
-import Base from '../base';
 
-class AvBlockContainerDirective extends Base {
+class AvBlockContainerDirective {
 
-  static $inject = ['avBlockConfig'];
+  constructor(avBlockConfig) {
 
-  constructor(...args) {
-
-    super(...args);
+    this.av = { avBlockConfig };
 
     this.scope = true;
     this.restrict = 'AE';

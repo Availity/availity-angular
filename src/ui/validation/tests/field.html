@@ -1,11 +1,19 @@
 <form name="mockForm" av-val-form="default">
+
   <input ng-model="demo.firstName" name="firstName" type="text" av-val-field="firstName"/>
   <div id="lastNameFormGroup" class="form-group">
     <label for="lastName">Last Name</label>
-    <input id="lastName" ng-model="demo.lastName" class="form-control" name="lastName" type="text" av-val-field="lastName"/>
+    <input
+      id="lastName"
+      ng-model="demo.lastName"
+      class="form-control"
+      name="lastName"
+      type="text"
+      av-val-field="lastName"/>
     <p id="lastNameErrorMessage" av-val-container></p>
   </div>
-  <input ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" av-val-field="lastName" av-val-invalid="true"/>
+
+  <input ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" av-val-field="lastName" ng-model-options="{ allowInvalid: true }"/>
   <div id="showOnLoadFormGroup" class="form-group">
     <input ng-model="demo.showOnLoad"
       name="showOnLoad"

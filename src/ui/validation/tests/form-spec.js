@@ -60,7 +60,7 @@ describe('avForm', () => {
     };
 
     const template = `
-    <form name="mockForm" ng-submit="submit()" av-val-form="demo.rules" av-val-on="input" >
+    <form name="mockForm" ng-submit="submit()" av-val-form="demo.rules" >
       <input ng-model="demo.firstName" name="firstName" type="text" av-val-field="firstName"/>
       <input ng-model="demo.lastName" name="lastName" type="text" av-val-field="lastName"/>
       <input ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" av-val-field="lastName"/>
@@ -101,7 +101,7 @@ describe('avForm', () => {
   it('should NOT be valid and model should be updated', () => {
 
     const template = `
-    <form name="mockForm" ng-submit="submit()" av-val-form="demo.rules" av-val-invalid="true">
+    <form name="mockForm" ng-submit="submit()" av-val-form="demo.rules" ng-model-options="{ allowInvalid: true }">
       <input ng-model="demo.firstName" name="firstName" type="text" av-val-field="firstName"/>
       <input ng-model="demo.lastName" name="lastName" type="text" av-val-field="lastName"/>
       <input ng-model="demo.invalidAllowed" name="invalidAllowed" type="text" av-val-field="lastName"/>

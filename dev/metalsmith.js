@@ -7,18 +7,18 @@ const marked = require('marked');
 const markdown = require('metalsmith-markdown');
 const inPlace = require('metalsmith-in-place');
 const mock = require('metalsmith-mock');
-const merge = require('lodash.merge');
 const permalinks = require('metalsmith-permalinks');
 const nunjucks = require('nunjucks');
 const nunjucksDate = require('nunjucks-date');
 const globby = require('globby');
+const merge = require('lodash.merge');
+const readFile = require('./plugins/metalsmith-read-file');
 const path = require('path');
+const slugifi = require('slugify');
 const collections = require('metalsmith-collections');
 const relative = require('metalsmith-rootpath');
 
 const dataMarkdown = require('./plugins/metalsmith-data-markdown');
-const slug = require('./plugins/nunjucks-slug');
-const readFile = require('./plugins/metalsmith-read-file');
 const tocify = require('./plugins/metalsmith-tocify');
 const Logger = require('./logger');
 
@@ -30,6 +30,11 @@ const markedOptions = {
   gfm: true,
   tables: true
 };
+
+function slugify(tokens) {
+  const slugged = slugifi(tokens).toLowerCase();
+  return slugged;
+}
 
 nunjucksDate
   .setDefaultFormat('YYYY');
@@ -43,7 +48,7 @@ const env = nunjucks.configure('docs/layouts', {
   }
 });
 env.addFilter('year', nunjucksDate);
-env.addFilter('slug', slug.slugify);
+env.addFilter('slug', slugify);
 
 function build() {
 

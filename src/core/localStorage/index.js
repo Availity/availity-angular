@@ -1,22 +1,23 @@
 import moment from 'moment';
-import _ from 'lodash';
+import isRegExp from 'lodash.isregexp';
+
 import ngModule from './constants';
-import Base from '../base';
 
-class AvLocalStorageService extends Base {
+class AvLocalStorageService {
 
-  static $inject = ['$window'];
-
-  constructor(...args) {
-    super(...args);
+  constructor($window) {
+    this.av = { $window };
     this.hasSupport;
   }
   supportsLocalStorage() {
-    if (_.isUndefined(this.hasSupport)) {
+
+    if (!this.hasSupport) {
+
       let hasSupport = false;
       try {
+
         const localStorage = this.av.$window.localStorage;
-        if (!_.isUndefined(localStorage)) {
+        if (!localStorage) {
           const uid = moment().unix();
 
           localStorage.setItem(uid, uid);
@@ -28,6 +29,7 @@ class AvLocalStorageService extends Base {
       } catch (e) {
         hasSupport = false;
       }
+
       this.hasSupport = hasSupport;
     }
     return this.hasSupport;
@@ -38,15 +40,18 @@ class AvLocalStorageService extends Base {
       return this.av.$window.localStorage.getItem(key);
     }
   }
+
   getObjVal(key) {
     const rawVal = this.getVal(key);
-    return _.isUndefined(rawVal) ? rawVal : JSON.parse(rawVal);
+    return rawVal ? rawVal : JSON.parse(rawVal);
   }
+
   setVal(key, value) {
     if (this.supportsLocalStorage()) {
       this.av.$window.localStorage.setItem(key, value);
     }
   }
+
   removeVal(key) {
     if (this.supportsLocalStorage()) {
       this.av.$window.localStorage.removeItem(key);
@@ -54,9 +59,12 @@ class AvLocalStorageService extends Base {
   }
 
   removeKeys(searchKey) {
+
     if (this.supportsLocalStorage()) {
-      const regexString = _.isRegExp(searchKey) ? searchKey : new RegExp(searchKey);
+
+      const regexString = isRegExp(searchKey) ? searchKey : new RegExp(searchKey);
       if (regexString) {
+
         const removeKeys = [];
         for (let i = 0, len = this.av.$window.localStorage.length; i < len; i++) {
           const thisKey = this.av.$window.localStorage.key(i);
@@ -64,12 +72,17 @@ class AvLocalStorageService extends Base {
             removeKeys.push(thisKey);
           }
         }
-        _.forEach(removeKeys, (key) => {
+
+        removeKeys.forEach(key => {
           this.removeVal(key);
         });
+
       }
+
     }
+
   }
+
 }
 
 ngModule.service('avLocalStorageService', AvLocalStorageService);

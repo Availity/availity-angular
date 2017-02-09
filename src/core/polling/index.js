@@ -1,14 +1,11 @@
 import angular from 'angular';
 import ngModule from './constants';
 import { getRelativeUrl, isBlank, uuid } from '../utils';
-import Base from '../base';
 
-class AvPollingService extends Base {
+class AvPollingService {
 
-  static $inject = ['$rootScope', '$q', '$injector', '$timeout', '$log', 'AV_POLLING', 'AV_API'];
-
-  constructor(...args) {
-    super(...args);
+  constructor($rootScope, $q, $injector, $timeout, $log, AV_POLLING, AV_API) {
+    this.av = { $rootScope, $q, $injector, $timeout, $log, AV_POLLING, AV_API };
     this.pendingRequests = []; // stores all request for polling
   }
 
