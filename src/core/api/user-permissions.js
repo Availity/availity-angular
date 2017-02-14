@@ -21,7 +21,6 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
     getPermissions(permissionIds, region) {
 
       return this.query({
-        sessionBust: true,
         params: {
           permissionId: permissionIds,
           region
@@ -38,5 +37,3 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
 ngModule.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
 
 export default ngModule;
-
-
