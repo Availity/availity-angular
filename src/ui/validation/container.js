@@ -35,7 +35,7 @@ class AvValContainerController {
 }
 
 ngModule.directive('avValContainer', () => ({
-  restrict: 'A',
+  restrict: 'AE',
   controller: AvValContainerController,
   template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
   replace: true,
