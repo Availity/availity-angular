@@ -12,10 +12,41 @@
 
 ```javascript
 angular.module('app', ['availity'])
-    .config( AvApiResourceProvider => { 
-        AvApiResourceProvider.setOptions({version: 'v2'}) 
+    .config( AvApiResourceProvider => {
+        AvApiResourceProvider.setOptions({version: 'v2'})
     });
 ```
+
+> The configuration object is simply Angular [$http configuration](https://docs.angularjs.org/api/ng/service/$http#usage)
+
+#### URL Config
+
+A resources URL is built from several parameters in the configuration. `api`, `url`, `path`, `version`, and `name`.
+When `api` is true and `name` is defined, the final url will be `path/version/name`, otherwise the `url` option is used.  - (`/id` is added to urls for get calls)
+
+#### Cache busting
+
+There are 3 levels of cache busting built into each resource. Each adds a parameter to each call, intended to be ignored by the api, but helping maintain or break the browsers cache.
+
+* Cache bust
+  - Option `cacheBust`
+  - To force every call to get fresh results
+  - Accepts a boolean, function, or value, the `cacheBust` param is set to:
+    - if true, a timestamp is generated and used
+    - if a function, parameter is set to its results
+    - if a value is passed in, use this as parameter
+* Page bust
+  - Option `pageBust`
+  - To bust the cache on page load, but keep the cache valid after
+  - Same behavior as `cacheBust`, except if true, the timestamp value is generated once and kept
+  - Setting the pageBust variable is done with the function setPageBust(value), if no value is passed in, a timestamp is generated. This can be used to customize the parameter or to manually break the cache.
+* Session bust
+  - Option `sessionBust`
+  - boolean: defaults to true
+  - Attempts to read a sessionBust value from local storage, generated at login.
+  - Forces the cache to bust when a new user logs in
+  - If the value is not set, uses the pageBust value.
+
 
 ### Resources
 
@@ -48,7 +79,7 @@ function factory = function(AvApiResource) {
           });
         }
       }
-      
+
     };
 
     return new HealthPlanProvidersResource();
@@ -58,11 +89,12 @@ const module = module.service('app', ['availity'])
     .service('healthplanProvidersResource', HealthplanProvidersResource);
 ```
 
-Every resource created has the methods `get`, `create`, `update` and `remove`.
+Every resource created has the methods `get`, `query`, `create`, `update` and `remove`.
 
 ### Methods
 
-> The configuration object is simply Angular [$http configuration](https://docs.angularjs.org/api/ng/service/$http#usage) 
+Each method has an after function, ( ex. get has afterGet). These are used to modify the response before it is resolved in the promise.
+Each method that takes in data has a before function in order to modify the data before making the call. 
 
 #### get
 
@@ -112,7 +144,7 @@ Remove an entity with optional configuration.  A string or data object can be pa
 remove(id, config)
 ```
 
-or 
+or
 
 ```js
 remove(data, config)
@@ -128,12 +160,3 @@ The SDK includes some configured Angular services for the Availity REST API.
 * [Permissions (legacy)](docs/permissions.md)
 * [Regions](docs/regions.md)
 * [Users](docs/users.md)
-
-
-
-
-
-
-
-
-

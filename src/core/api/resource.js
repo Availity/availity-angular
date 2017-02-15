@@ -320,10 +320,6 @@ class ApiResourceProvider {
         return this.request(config, this.afterRemove);
       }
 
-      static create() {
-        return new AvApiResource();
-      }
-
       beforeCreate(data) {
         return data;
       }

@@ -51,7 +51,7 @@ describe('AvApiResourceProvider', () => {
     });
 
     it('should not allow options to be null', () => {
-      expect( () => { AvApiResource.create() }).toThrow(new Error('[options] cannot be null or undefined'));
+      expect( () => { return new AvApiResource() }).toThrow(new Error('[options] cannot be null or undefined'));
     });
 
     describe('urls', () => {
