@@ -48,7 +48,7 @@ class AvDropdownController {
     }
 
     // if element is type input, initSelection is required to use val
-    if (this.av.$element.is('input') && !this.options.initSelection) {
+    if (!this.av.$element.is('select') && !this.options.initSelection) {
       this.options.initSelection = this.initSelection;
     }
 
