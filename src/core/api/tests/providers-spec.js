@@ -31,7 +31,7 @@ describe('avProvidersResource', () => {
 
   it('should add customer id to url', () => {
 
-    $httpBackend.expect('GET', '/api/internal/v1/providers?customerId=9999&limit=100&offset=20').respond(200, providersData);
+    $httpBackend.expect('GET', /\/api\/internal\/v1\/providers\?customerId=9999&limit=100&offset=20&sessionBust=\d+/).respond(200, providersData);
 
     avProvidersResource.getProviders(9999, {params: {limit: 100, offset: 20}}).then(providers => {
       expect(providers[0].id).toBe('999999-9999-999999');

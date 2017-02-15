@@ -7,14 +7,14 @@ const UserServiceFactory = function(AvApiResource) {
     constructor() {
       super({
         path: '/api/sdk/platform',
-        name: '/users',
-        sessionBust: true
+        name: '/users'
       });
     }
 
     afterGet(response) {
-      const user = response.data.user ? response.data.user : response.data;
-      return user;
+      return (response && response.data && response.data.user) ||
+        (response && response.data) ||
+        {};
     }
 
     me(config) {

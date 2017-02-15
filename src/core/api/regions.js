@@ -1,4 +1,4 @@
-import merge from 'lodash.merge';
+import angular from 'angular';
 import ngModule from '../module';
 
 const AvRegionsFactory = function(AvApiResource, avUsersResource) {
@@ -9,40 +9,56 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 
       super({
         path: '/api/sdk/platform',
-        name: '/regions'
+        name: '/regions',
+        sessionBust: false,
+        pageBust: true
       });
 
     }
 
     afterGet(response) {
-      return response.data.regions || [];
+      return (response && response.data && response.data.regions) || [];
     }
 
-    queryRegions(user, config) {
+    afterUpdate(response) {
+      this.setPageBust();
+      return response;
+    }
 
-      const params = {
+    getAllRegions() {
+      return this.query({
+        pageBust: false
+      });
+    }
+    getRegions(_config) {
+      return (_config.params.userId ?
+        Promise.resolve(_config) :
+        avUsersResource.me()
+        .then(user => {
+          return angular.merge({}, _config, {
+            params: { userId: user.id }
+          });
+        }))
+      .then(config => {
+        return this.query(config);
+      });
+    }
+    getCurrentRegion(user = false) {
+      const config = {
         params: {
-          userId: user.id
+          currentlySelected: true
         }
       };
-
-      const conf = merge({}, params, config);
-
-      return this.query(conf);
-
+      if (user) {
+        config.params.userId = user;
+      }
+      return this.query(config);
     }
-
-    getCurrentRegion() {
-      return this.getRegions()
-        .then(regions => {
-          return regions.find(region => region.currentlySelected);
-        });
-    }
-
-    getRegions(config) {
-      return avUsersResource
-        .me()
-        .then(user => ::this.queryRegions(user, config));
+    setCurrentRegion(region) {
+      const id = angular.isString(region) ? region : region.id;
+      if (id) {
+        this.update(id);
+      }
     }
   }
 
@@ -53,5 +69,3 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 ngModule.factory('avRegionsResource', AvRegionsFactory);
 
 export default ngModule;
-
-
