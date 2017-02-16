@@ -89,7 +89,7 @@ const module = module.service('app', ['availity'])
     .service('healthplanProvidersResource', HealthplanProvidersResource);
 ```
 
-Every resource created has the methods `get`, `query`, `create`, `update` and `remove`.
+Every resource created has the methods `get`, `query`, `create`, `postGet`, `update` and `remove`.
 
 ### Methods
 
