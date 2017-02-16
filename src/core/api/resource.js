@@ -227,6 +227,25 @@ class ApiResourceProvider {
 
       }
 
+      postGet(_data, _config) {
+        let data = _data;
+        let config = _config;
+
+        if (!data) {
+          throw new Error('called method without [data]');
+        }
+        if (this.beforeCreate) {
+          data = this.beforePostGet(data);
+        }
+        config = this.config(config);
+        config.method = 'POST';
+        config.headers['X-HTTP-Method-Override'] = 'GET';
+        config.url = this.getUrl();
+        config.data = data;
+
+        return this.request(config, this.afterPostGet);
+      }
+
       get(id, _config) {
 
         let config = _config;
@@ -325,6 +344,13 @@ class ApiResourceProvider {
       }
 
       afterCreate(response) {
+        return response;
+      }
+
+      beforePostGet(data) {
+        return data;
+      }
+      afterPostGet(response) {
         return response;
       }
 

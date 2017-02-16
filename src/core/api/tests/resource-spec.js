@@ -241,6 +241,46 @@ describe('AvApiResourceProvider', () => {
 
       });
 
+      describe('create()', () => {
+        it('should post a single resource', () => {
+          $httpBackend.expectPOST('/api/v1/cats').respond(200, responseData);
+
+          cats.create({}).success(data => {
+            expect(data).toBeEqual(responseData);
+            callback();
+          });
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+        });
+      });
+
+      describe('postGet()', () => {
+        it('should post a single resource with GET override', () => {
+          $httpBackend.expectPOST('/api/v1/cats').respond(200, responseData);
+
+          const request = spyOn(cats, 'request').and.callThrough();
+
+          const data = { id: 1 };
+          let config = { headers: { 'MyHeader': 'MyValue' } };
+          cats.postGet(data, config).success( result => {
+            expect(result).toBeEqual(responseData);
+            callback();
+          });
+
+          $httpBackend.flush();
+          expect(callback).toHaveBeenCalled();
+
+          config = cats.config(config);
+          config.method = 'POST';
+          config.headers['X-HTTP-Method-Override'] = 'GET';
+          config.url = cats.getUrl();
+          config.data = data;
+
+          expect(request).toHaveBeenCalled();
+          expect(request).toHaveBeenCalledWith(config, jasmine.any(Function));
+        });
+      });
+
       describe('get()', () => {
 
         it('should get a single resource by id', () => {
@@ -271,6 +311,7 @@ describe('AvApiResourceProvider', () => {
 
         });
       });
+
 
       describe('update()', function() {
 
