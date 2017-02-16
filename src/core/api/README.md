@@ -94,7 +94,7 @@ Every resource created has the methods `get`, `query`, `create`, `update` and `r
 ### Methods
 
 Each method has an after function, ( ex. get has afterGet). These are used to modify the response before it is resolved in the promise.
-Each method that takes in data has a before function in order to modify the data before making the call. 
+Each method that takes in data has a before function in order to modify the data before making the call.
 
 #### get
 
@@ -118,6 +118,13 @@ Create an entity with optional configuration.
 
 ```
 create(data, config)
+```
+
+### postGet
+
+Post call with `X-HTTP-Method-Override = 'GET'`
+```
+postGet(data, config)
 ```
 
 #### update
