@@ -47,14 +47,19 @@ class AvDropdownController {
 
     }
 
+    // if element is type input, initSelection is required to use val
+    if (!this.av.$element.is('select') && !this.options.initSelection) {
+      this.options.initSelection = this.initSelection;
+    }
+
   }
 
   isRemoteMultiple() {
     return angular.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
   }
 
-  initSelection() {
-
+  initSelection(element, callback) {
+    callback();
   }
 
   setRemoteViewValue(e) {
@@ -228,7 +233,7 @@ class AvDropdownController {
       viewValue = this.getMultiSelected(viewValue);
     }
 
-    this.av.$timeout(() => this.av.$element .select2('val', viewValue) );
+    this.av.$timeout(() => this.av.$element.select2('val', viewValue) );
 
   }
 
@@ -326,4 +331,3 @@ class AvDropdownController {
 ngModule.controller('AvDropdownController', AvDropdownController);
 
 export default AvDropdownController;
-
