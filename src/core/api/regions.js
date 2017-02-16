@@ -9,13 +9,19 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 
       super({
         path: '/api/sdk/platform',
-        name: '/regions'
+        name: '/regions',
+        sessionBust: false,
+        pageBust: true
       });
 
     }
 
     afterGet(response) {
       return response.data.regions || [];
+    }
+    afterUpdate(response) {
+      this.setPageBust();
+      return response;
     }
 
     queryRegions(user, config) {
@@ -53,5 +59,3 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 ngModule.factory('avRegionsResource', AvRegionsFactory);
 
 export default ngModule;
-
-

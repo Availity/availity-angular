@@ -28,7 +28,7 @@ describe('avSpacesBreadcrumbs', () => {
 
   it('should render breadcrumbs when space ID is in scope', () => {
 
-    tester.$httpBackend.expectGET('/api/sdk/platform/v1/spaces/99999').respond(200, {
+    tester.$httpBackend.expectGET(/\/api\/sdk\/platform\/v1\/spaces\/99999\?sessionBust=\d+/).respond(200, {
       'id': '99999',
       'name': 'Acme Texas'
     });
@@ -49,7 +49,7 @@ describe('avSpacesBreadcrumbs', () => {
 
   it('should render breadcrumbs when space ID is in location query params', () => {
 
-    tester.$httpBackend.expectGET('/api/sdk/platform/v1/spaces/99999').respond(200, {
+    tester.$httpBackend.expectGET(/\/api\/sdk\/platform\/v1\/spaces\/99999\?sessionBust=\d+/).respond(200, {
       'id': '99999',
       'name': 'Acme Texas'
     });
@@ -65,4 +65,3 @@ describe('avSpacesBreadcrumbs', () => {
   });
 
 });
-

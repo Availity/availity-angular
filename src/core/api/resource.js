@@ -10,7 +10,6 @@ class ApiResourceProvider {
 
   constructor(AV_API) {
     this.defaultOptions = {...AV_API.OPTIONS};
-    this.pageBust = moment().unix();
   }
 
   setOptions(options) {
@@ -46,6 +45,7 @@ class ApiResourceProvider {
         // get the default options and merge into this instance
         this.options = angular.extend({}, that.defaultOptions, this.options);
 
+        this.pageBustValue;
       }
 
       config(config) {
@@ -62,6 +62,24 @@ class ApiResourceProvider {
           config.params.cacheBust = config.cacheBust;
         }
 
+      }
+      setPageBust(value) {
+        this.pageBustValue = angular.isUndefined(value) ? moment().unix() : value;
+      }
+      getPageBust() {
+        if (angular.isUndefined(this.pageBustValue)) {
+          this.setPageBust();
+        }
+        return this.pageBustValue;
+      }
+      pageBust(config) {
+        if (config.pageBust === true) {
+          config.params.pageBust = this.getPageBust();
+        } else if (angular.isFunction(config.pageBust)) {
+          config.params.pageBust = config.pageBust();
+        } else {
+          config.params.pageBust = config.pageBust;
+        }
       }
 
       // cacheBust: supports the following types
@@ -81,11 +99,11 @@ class ApiResourceProvider {
         }
 
         if (config.pageBust) {
-          config.params.pageBust = that.pageBust;
+          this.pageBust(config);
         }
 
         if (config.sessionBust) {
-          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || that.pageBust;
+          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || this.getPageBust();
         }
 
         return config;
@@ -300,10 +318,6 @@ class ApiResourceProvider {
         config.data = data;
 
         return this.request(config, this.afterRemove);
-      }
-
-      static create() {
-        return new AvApiResource();
       }
 
       beforeCreate(data) {
