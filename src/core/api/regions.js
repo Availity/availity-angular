@@ -1,4 +1,3 @@
-import merge from 'lodash.merge';
 import ngModule from '../module';
 
 const AvRegionsFactory = function(AvApiResource, avUsersResource) {
@@ -19,6 +18,7 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
     afterGet(response) {
       return response.data.regions || [];
     }
+
     afterUpdate(response) {
       this.setPageBust();
       return response;
@@ -30,16 +30,19 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
         return this.query(checkedConfig);
       });
     }
+
     checkUser(config = {}) {
+
       config.params = config.params || {};
       if (config.params.userId) {
         return Promise.resolve(config);
       }
+
       return avUsersResource.me()
-      .then(user => {
-        config.params.userId = user.id;
-        return config;
-      });
+        .then(user => {
+          config.params.userId = user.id;
+          return config;
+        });
     }
 
     getCurrentRegion() {
