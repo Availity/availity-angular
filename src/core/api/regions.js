@@ -24,31 +24,30 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
       return response;
     }
 
-    queryRegions(user, config) {
-
-      const params = {
-        params: {
-          userId: user.id
-        }
-      };
-
-      const conf = merge({}, params, config);
-
-      return this.query(conf);
-
+    getRegions(config) {
+      return this.checkUser(config)
+      .then(checkedConfig => {
+        return this.query(checkedConfig);
+      });
+    }
+    checkUser(config = {}) {
+      config.params = config.params || {};
+      if (config.params.userId) {
+        return Promise.resolve(config);
+      }
+      return avUsersResource.me()
+      .then(user => {
+        config.params.userId = user.id;
+        return config;
+      });
     }
 
     getCurrentRegion() {
-      return this.getRegions()
-        .then(regions => {
-          return regions.find(region => region.currentlySelected);
-        });
-    }
-
-    getRegions(config) {
-      return avUsersResource
-        .me()
-        .then(user => ::this.queryRegions(user, config));
+      return this.query({
+        params: {
+          currentlySelected: true
+        }
+      });
     }
   }
 
