@@ -140,6 +140,7 @@
     "slugify": "^1.1.0",
     "stat-mode": "0.2.2",
     "style-loader": "0.13.1",
+    "syntax-highlighting": "github:atelierbram/syntax-highlighting",
     "url-loader": "0.5.7",
     "webpack": "1.13.3",
     "webpack-bundle-analyzer": "^2.2.2",
