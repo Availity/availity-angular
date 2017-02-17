@@ -1,15 +1,12 @@
 import angular from 'angular';
 import ngModule from '../module';
-import Base from '../base';
 
 import '../../core/analytics/utils';
 
-class AvAnalyticsController extends Base {
+class AvAnalyticsController {
 
-  static $inject = ['avAnalyticsUtils', 'avAnalytics'];
-
-  constructor(...args){
-    super(...args);
+  constructor(avAnalyticsUtils, avAnalytics){
+    this.av = {avAnalyticsUtils, avAnalytics};
   }
 
   onEvent(event, element, options) {

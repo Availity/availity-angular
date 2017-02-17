@@ -29,5 +29,3 @@ const UserServiceFactory = function(AvApiResource) {
 ngModule.factory('avUsersResource', UserServiceFactory);
 
 export default ngModule;
-
-

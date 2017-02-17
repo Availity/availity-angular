@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.10 (11/08/2016)
+ * availity-angular v2.0.0-beta.15 (02/16/2017)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -9,14 +9,16 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.availityConfig = exports.availityUi = exports.availity = undefined;
 	
 	__webpack_require__(1);
 	
 	__webpack_require__(298);
 	
-	__webpack_require__(350);
+	__webpack_require__(358);
 	
 	var availity = exports.availity = 'availity';
 	var availityUi = exports.availityUi = 'availity.ui';
@@ -7272,7 +7274,8 @@ webpackJsonp([0],[
 	!(function(global) {
 	  "use strict";
 	
-	  var hasOwn = Object.prototype.hasOwnProperty;
+	  var Op = Object.prototype;
+	  var hasOwn = Op.hasOwnProperty;
 	  var undefined; // More compressible than void 0.
 	  var $Symbol = typeof Symbol === "function" ? Symbol : {};
 	  var iteratorSymbol = $Symbol.iterator || "@@iterator";
@@ -7296,8 +7299,9 @@ webpackJsonp([0],[
 	  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
 	
 	  function wrap(innerFn, outerFn, self, tryLocsList) {
-	    // If outerFn provided, then outerFn.prototype instanceof Generator.
-	    var generator = Object.create((outerFn || Generator).prototype);
+	    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+	    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+	    var generator = Object.create(protoGenerator.prototype);
 	    var context = new Context(tryLocsList || []);
 	
 	    // The ._invoke method unifies the implementations of the .next,
@@ -7343,10 +7347,29 @@ webpackJsonp([0],[
 	  function GeneratorFunction() {}
 	  function GeneratorFunctionPrototype() {}
 	
-	  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype;
+	  // This is a polyfill for %IteratorPrototype% for environments that
+	  // don't natively support it.
+	  var IteratorPrototype = {};
+	  IteratorPrototype[iteratorSymbol] = function () {
+	    return this;
+	  };
+	
+	  var getProto = Object.getPrototypeOf;
+	  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+	  if (NativeIteratorPrototype &&
+	      NativeIteratorPrototype !== Op &&
+	      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+	    // This environment has a native %IteratorPrototype%; use it instead
+	    // of the polyfill.
+	    IteratorPrototype = NativeIteratorPrototype;
+	  }
+	
+	  var Gp = GeneratorFunctionPrototype.prototype =
+	    Generator.prototype = Object.create(IteratorPrototype);
 	  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
 	  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-	  GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = "GeneratorFunction";
+	  GeneratorFunctionPrototype[toStringTagSymbol] =
+	    GeneratorFunction.displayName = "GeneratorFunction";
 	
 	  // Helper for defining the .next, .throw, and .return methods of the
 	  // Iterator interface in terms of a single ._invoke method.
@@ -7383,16 +7406,11 @@ webpackJsonp([0],[
 	
 	  // Within the body of any async function, `await x` is transformed to
 	  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-	  // `value instanceof AwaitArgument` to determine if the yielded value is
-	  // meant to be awaited. Some may consider the name of this method too
-	  // cutesy, but they are curmudgeons.
+	  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+	  // meant to be awaited.
 	  runtime.awrap = function(arg) {
-	    return new AwaitArgument(arg);
+	    return { __await: arg };
 	  };
-	
-	  function AwaitArgument(arg) {
-	    this.arg = arg;
-	  }
 	
 	  function AsyncIterator(generator) {
 	    function invoke(method, arg, resolve, reject) {
@@ -7402,8 +7420,10 @@ webpackJsonp([0],[
 	      } else {
 	        var result = record.arg;
 	        var value = result.value;
-	        if (value instanceof AwaitArgument) {
-	          return Promise.resolve(value.arg).then(function(value) {
+	        if (value &&
+	            typeof value === "object" &&
+	            hasOwn.call(value, "__await")) {
+	          return Promise.resolve(value.__await).then(function(value) {
 	            invoke("next", value, resolve, reject);
 	          }, function(err) {
 	            invoke("throw", err, resolve, reject);
@@ -7472,6 +7492,7 @@ webpackJsonp([0],[
 	  }
 	
 	  defineIteratorMethods(AsyncIterator.prototype);
+	  runtime.AsyncIterator = AsyncIterator;
 	
 	  // Note that simple async functions are implemented on top of
 	  // AsyncIterator objects; they just return a Promise for the value of
@@ -7631,10 +7652,6 @@ webpackJsonp([0],[
 	  // Define Generator.prototype.{next,throw,return} in terms of the
 	  // unified ._invoke helper method.
 	  defineIteratorMethods(Gp);
-	
-	  Gp[iteratorSymbol] = function() {
-	    return this;
-	  };
 	
 	  Gp[toStringTagSymbol] = "Generator";
 	
@@ -8155,17 +8172,17 @@ webpackJsonp([0],[
 	
 	__webpack_require__(299);
 	
-	__webpack_require__(325);
+	__webpack_require__(327);
 	
-	__webpack_require__(331);
+	__webpack_require__(336);
 	
-	__webpack_require__(332);
+	__webpack_require__(338);
 	
-	__webpack_require__(322);
+	__webpack_require__(321);
 	
-	__webpack_require__(311);
+	__webpack_require__(310);
 	
-	__webpack_require__(334);
+	__webpack_require__(342);
 
 /***/ },
 /* 299 */
@@ -8177,13 +8194,13 @@ webpackJsonp([0],[
 	
 	__webpack_require__(307);
 	
+	__webpack_require__(308);
+	
 	__webpack_require__(309);
 	
-	__webpack_require__(310);
+	__webpack_require__(315);
 	
-	__webpack_require__(316);
-	
-	__webpack_require__(324);
+	__webpack_require__(326);
 
 /***/ },
 /* 300 */
@@ -8191,7 +8208,11 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -8230,17 +8251,22 @@ webpackJsonp([0],[
 	    this.options = CONFIG;
 	  }
 	
-	  AvAnalyticsConfigProvider.prototype.get = function get() {
-	    return _angular2.default.copy(this.options);
-	  };
-	
-	  AvAnalyticsConfigProvider.prototype.set = function set(options) {
-	    _lodash2.default.merge(this.options, options);
-	  };
-	
-	  AvAnalyticsConfigProvider.prototype.$get = function $get() {
-	    return _angular2.default.copy(this.options);
-	  };
+	  _createClass(AvAnalyticsConfigProvider, [{
+	    key: 'get',
+	    value: function get() {
+	      return _angular2.default.copy(this.options);
+	    }
+	  }, {
+	    key: 'set',
+	    value: function set(options) {
+	      (0, _lodash2.default)(this.options, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return _angular2.default.copy(this.options);
+	    }
+	  }]);
 	
 	  return AvAnalyticsConfigProvider;
 	}();
@@ -8258,7 +8284,9 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _angular = __webpack_require__(301);
 	
@@ -8269,14 +8297,2231 @@ webpackJsonp([0],[
 	exports.default = _angular2.default.module('availity', ['ng']);
 
 /***/ },
-/* 305 */,
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as the size to enable large array optimizations. */
+	var LARGE_ARRAY_SIZE = 200;
+	
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+	
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    arrayTag = '[object Array]',
+	    boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    errorTag = '[object Error]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    objectTag = '[object Object]',
+	    promiseTag = '[object Promise]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    symbolTag = '[object Symbol]',
+	    weakMapTag = '[object WeakMap]';
+	
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]',
+	    float32Tag = '[object Float32Array]',
+	    float64Tag = '[object Float64Array]',
+	    int8Tag = '[object Int8Array]',
+	    int16Tag = '[object Int16Array]',
+	    int32Tag = '[object Int32Array]',
+	    uint8Tag = '[object Uint8Array]',
+	    uint8ClampedTag = '[object Uint8ClampedArray]',
+	    uint16Tag = '[object Uint16Array]',
+	    uint32Tag = '[object Uint32Array]';
+	
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+	
+	/** Used to match `RegExp` flags from their coerced string values. */
+	var reFlags = /\w*$/;
+	
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^(?:0|[1-9]\d*)$/;
+	
+	/** Used to identify `toStringTag` values of typed arrays. */
+	var typedArrayTags = {};
+	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+	typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+	typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+	typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+	typedArrayTags[uint32Tag] = true;
+	typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+	typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+	typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+	typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+	typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+	typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+	typedArrayTags[setTag] = typedArrayTags[stringTag] =
+	typedArrayTags[weakMapTag] = false;
+	
+	/** Used to identify `toStringTag` values supported by `_.clone`. */
+	var cloneableTags = {};
+	cloneableTags[argsTag] = cloneableTags[arrayTag] =
+	cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
+	cloneableTags[boolTag] = cloneableTags[dateTag] =
+	cloneableTags[float32Tag] = cloneableTags[float64Tag] =
+	cloneableTags[int8Tag] = cloneableTags[int16Tag] =
+	cloneableTags[int32Tag] = cloneableTags[mapTag] =
+	cloneableTags[numberTag] = cloneableTags[objectTag] =
+	cloneableTags[regexpTag] = cloneableTags[setTag] =
+	cloneableTags[stringTag] = cloneableTags[symbolTag] =
+	cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
+	cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
+	cloneableTags[errorTag] = cloneableTags[funcTag] =
+	cloneableTags[weakMapTag] = false;
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+	
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+	
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+	
+	/** Detect free variable `process` from Node.js. */
+	var freeProcess = moduleExports && freeGlobal.process;
+	
+	/** Used to access faster Node.js helpers. */
+	var nodeUtil = (function() {
+	  try {
+	    return freeProcess && freeProcess.binding('util');
+	  } catch (e) {}
+	}());
+	
+	/* Node.js helper references. */
+	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+	
+	/**
+	 * Adds the key-value `pair` to `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to modify.
+	 * @param {Array} pair The key-value pair to add.
+	 * @returns {Object} Returns `map`.
+	 */
+	function addMapEntry(map, pair) {
+	  // Don't return `map.set` because it's not chainable in IE 11.
+	  map.set(pair[0], pair[1]);
+	  return map;
+	}
+	
+	/**
+	 * Adds `value` to `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to modify.
+	 * @param {*} value The value to add.
+	 * @returns {Object} Returns `set`.
+	 */
+	function addSetEntry(set, value) {
+	  // Don't return `set.add` because it's not chainable in IE 11.
+	  set.add(value);
+	  return set;
+	}
+	
+	/**
+	 * A faster alternative to `Function#apply`, this function invokes `func`
+	 * with the `this` binding of `thisArg` and the arguments of `args`.
+	 *
+	 * @private
+	 * @param {Function} func The function to invoke.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {Array} args The arguments to invoke `func` with.
+	 * @returns {*} Returns the result of `func`.
+	 */
+	function apply(func, thisArg, args) {
+	  switch (args.length) {
+	    case 0: return func.call(thisArg);
+	    case 1: return func.call(thisArg, args[0]);
+	    case 2: return func.call(thisArg, args[0], args[1]);
+	    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+	  }
+	  return func.apply(thisArg, args);
+	}
+	
+	/**
+	 * A specialized version of `_.forEach` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayEach(array, iteratee) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  while (++index < length) {
+	    if (iteratee(array[index], index, array) === false) {
+	      break;
+	    }
+	  }
+	  return array;
+	}
+	
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+	
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+	
+	/**
+	 * A specialized version of `_.reduce` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @param {*} [accumulator] The initial value.
+	 * @param {boolean} [initAccum] Specify using the first element of `array` as
+	 *  the initial value.
+	 * @returns {*} Returns the accumulated value.
+	 */
+	function arrayReduce(array, iteratee, accumulator, initAccum) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  if (initAccum && length) {
+	    accumulator = array[++index];
+	  }
+	  while (++index < length) {
+	    accumulator = iteratee(accumulator, array[index], index, array);
+	  }
+	  return accumulator;
+	}
+	
+	/**
+	 * The base implementation of `_.times` without support for iteratee shorthands
+	 * or max array length checks.
+	 *
+	 * @private
+	 * @param {number} n The number of times to invoke `iteratee`.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the array of results.
+	 */
+	function baseTimes(n, iteratee) {
+	  var index = -1,
+	      result = Array(n);
+	
+	  while (++index < n) {
+	    result[index] = iteratee(index);
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.unary` without support for storing metadata.
+	 *
+	 * @private
+	 * @param {Function} func The function to cap arguments for.
+	 * @returns {Function} Returns the new capped function.
+	 */
+	function baseUnary(func) {
+	  return function(value) {
+	    return func(value);
+	  };
+	}
+	
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+	
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Converts `map` to its key-value pairs.
+	 *
+	 * @private
+	 * @param {Object} map The map to convert.
+	 * @returns {Array} Returns the key-value pairs.
+	 */
+	function mapToArray(map) {
+	  var index = -1,
+	      result = Array(map.size);
+	
+	  map.forEach(function(value, key) {
+	    result[++index] = [key, value];
+	  });
+	  return result;
+	}
+	
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+	
+	/**
+	 * Converts `set` to an array of its values.
+	 *
+	 * @private
+	 * @param {Object} set The set to convert.
+	 * @returns {Array} Returns the values.
+	 */
+	function setToArray(set) {
+	  var index = -1,
+	      result = Array(set.size);
+	
+	  set.forEach(function(value) {
+	    result[++index] = value;
+	  });
+	  return result;
+	}
+	
+	/** Used for built-in method references. */
+	var arrayProto = Array.prototype,
+	    funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+	
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined,
+	    Symbol = root.Symbol,
+	    Uint8Array = root.Uint8Array,
+	    getPrototype = overArg(Object.getPrototypeOf, Object),
+	    objectCreate = Object.create,
+	    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+	    splice = arrayProto.splice;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetSymbols = Object.getOwnPropertySymbols,
+	    nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+	    nativeKeys = overArg(Object.keys, Object),
+	    nativeMax = Math.max;
+	
+	/* Built-in method references that are verified to be native. */
+	var DataView = getNative(root, 'DataView'),
+	    Map = getNative(root, 'Map'),
+	    Promise = getNative(root, 'Promise'),
+	    Set = getNative(root, 'Set'),
+	    WeakMap = getNative(root, 'WeakMap'),
+	    nativeCreate = getNative(Object, 'create');
+	
+	/** Used to detect maps, sets, and weakmaps. */
+	var dataViewCtorString = toSource(DataView),
+	    mapCtorString = toSource(Map),
+	    promiseCtorString = toSource(Promise),
+	    setCtorString = toSource(Set),
+	    weakMapCtorString = toSource(WeakMap);
+	
+	/** Used to convert symbols to primitives and strings. */
+	var symbolProto = Symbol ? Symbol.prototype : undefined,
+	    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+	
+	/**
+	 * Creates a hash object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Hash(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the hash.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Hash
+	 */
+	function hashClear() {
+	  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+	}
+	
+	/**
+	 * Removes `key` and its value from the hash.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Hash
+	 * @param {Object} hash The hash to modify.
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function hashDelete(key) {
+	  return this.has(key) && delete this.__data__[key];
+	}
+	
+	/**
+	 * Gets the hash value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function hashGet(key) {
+	  var data = this.__data__;
+	  if (nativeCreate) {
+	    var result = data[key];
+	    return result === HASH_UNDEFINED ? undefined : result;
+	  }
+	  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+	}
+	
+	/**
+	 * Checks if a hash value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Hash
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function hashHas(key) {
+	  var data = this.__data__;
+	  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+	}
+	
+	/**
+	 * Sets the hash `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the hash instance.
+	 */
+	function hashSet(key, value) {
+	  var data = this.__data__;
+	  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+	  return this;
+	}
+	
+	// Add methods to `Hash`.
+	Hash.prototype.clear = hashClear;
+	Hash.prototype['delete'] = hashDelete;
+	Hash.prototype.get = hashGet;
+	Hash.prototype.has = hashHas;
+	Hash.prototype.set = hashSet;
+	
+	/**
+	 * Creates an list cache object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function ListCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the list cache.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf ListCache
+	 */
+	function listCacheClear() {
+	  this.__data__ = [];
+	}
+	
+	/**
+	 * Removes `key` and its value from the list cache.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function listCacheDelete(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    return false;
+	  }
+	  var lastIndex = data.length - 1;
+	  if (index == lastIndex) {
+	    data.pop();
+	  } else {
+	    splice.call(data, index, 1);
+	  }
+	  return true;
+	}
+	
+	/**
+	 * Gets the list cache value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function listCacheGet(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  return index < 0 ? undefined : data[index][1];
+	}
+	
+	/**
+	 * Checks if a list cache value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf ListCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function listCacheHas(key) {
+	  return assocIndexOf(this.__data__, key) > -1;
+	}
+	
+	/**
+	 * Sets the list cache `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the list cache instance.
+	 */
+	function listCacheSet(key, value) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    data.push([key, value]);
+	  } else {
+	    data[index][1] = value;
+	  }
+	  return this;
+	}
+	
+	// Add methods to `ListCache`.
+	ListCache.prototype.clear = listCacheClear;
+	ListCache.prototype['delete'] = listCacheDelete;
+	ListCache.prototype.get = listCacheGet;
+	ListCache.prototype.has = listCacheHas;
+	ListCache.prototype.set = listCacheSet;
+	
+	/**
+	 * Creates a map cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function MapCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the map.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf MapCache
+	 */
+	function mapCacheClear() {
+	  this.__data__ = {
+	    'hash': new Hash,
+	    'map': new (Map || ListCache),
+	    'string': new Hash
+	  };
+	}
+	
+	/**
+	 * Removes `key` and its value from the map.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function mapCacheDelete(key) {
+	  return getMapData(this, key)['delete'](key);
+	}
+	
+	/**
+	 * Gets the map value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function mapCacheGet(key) {
+	  return getMapData(this, key).get(key);
+	}
+	
+	/**
+	 * Checks if a map value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf MapCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function mapCacheHas(key) {
+	  return getMapData(this, key).has(key);
+	}
+	
+	/**
+	 * Sets the map `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the map cache instance.
+	 */
+	function mapCacheSet(key, value) {
+	  getMapData(this, key).set(key, value);
+	  return this;
+	}
+	
+	// Add methods to `MapCache`.
+	MapCache.prototype.clear = mapCacheClear;
+	MapCache.prototype['delete'] = mapCacheDelete;
+	MapCache.prototype.get = mapCacheGet;
+	MapCache.prototype.has = mapCacheHas;
+	MapCache.prototype.set = mapCacheSet;
+	
+	/**
+	 * Creates a stack cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Stack(entries) {
+	  this.__data__ = new ListCache(entries);
+	}
+	
+	/**
+	 * Removes all key-value entries from the stack.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Stack
+	 */
+	function stackClear() {
+	  this.__data__ = new ListCache;
+	}
+	
+	/**
+	 * Removes `key` and its value from the stack.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function stackDelete(key) {
+	  return this.__data__['delete'](key);
+	}
+	
+	/**
+	 * Gets the stack value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function stackGet(key) {
+	  return this.__data__.get(key);
+	}
+	
+	/**
+	 * Checks if a stack value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Stack
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function stackHas(key) {
+	  return this.__data__.has(key);
+	}
+	
+	/**
+	 * Sets the stack `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the stack cache instance.
+	 */
+	function stackSet(key, value) {
+	  var cache = this.__data__;
+	  if (cache instanceof ListCache) {
+	    var pairs = cache.__data__;
+	    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+	      pairs.push([key, value]);
+	      return this;
+	    }
+	    cache = this.__data__ = new MapCache(pairs);
+	  }
+	  cache.set(key, value);
+	  return this;
+	}
+	
+	// Add methods to `Stack`.
+	Stack.prototype.clear = stackClear;
+	Stack.prototype['delete'] = stackDelete;
+	Stack.prototype.get = stackGet;
+	Stack.prototype.has = stackHas;
+	Stack.prototype.set = stackSet;
+	
+	/**
+	 * Creates an array of the enumerable property names of the array-like `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @param {boolean} inherited Specify returning inherited property names.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function arrayLikeKeys(value, inherited) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  // Safari 9 makes `arguments.length` enumerable in strict mode.
+	  var result = (isArray(value) || isArguments(value))
+	    ? baseTimes(value.length, String)
+	    : [];
+	
+	  var length = result.length,
+	      skipIndexes = !!length;
+	
+	  for (var key in value) {
+	    if ((inherited || hasOwnProperty.call(value, key)) &&
+	        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * This function is like `assignValue` except that it doesn't assign
+	 * `undefined` values.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function assignMergeValue(object, key, value) {
+	  if ((value !== undefined && !eq(object[key], value)) ||
+	      (typeof key == 'number' && value === undefined && !(key in object))) {
+	    object[key] = value;
+	  }
+	}
+	
+	/**
+	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
+	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * for equality comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function assignValue(object, key, value) {
+	  var objValue = object[key];
+	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+	      (value === undefined && !(key in object))) {
+	    object[key] = value;
+	  }
+	}
+	
+	/**
+	 * Gets the index at which the `key` is found in `array` of key-value pairs.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {*} key The key to search for.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function assocIndexOf(array, key) {
+	  var length = array.length;
+	  while (length--) {
+	    if (eq(array[length][0], key)) {
+	      return length;
+	    }
+	  }
+	  return -1;
+	}
+	
+	/**
+	 * The base implementation of `_.assign` without support for multiple sources
+	 * or `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return object && copyObject(source, keys(source), object);
+	}
+	
+	/**
+	 * The base implementation of `_.clone` and `_.cloneDeep` which tracks
+	 * traversed objects.
+	 *
+	 * @private
+	 * @param {*} value The value to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @param {boolean} [isFull] Specify a clone including symbols.
+	 * @param {Function} [customizer] The function to customize cloning.
+	 * @param {string} [key] The key of `value`.
+	 * @param {Object} [object] The parent object of `value`.
+	 * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
+	 * @returns {*} Returns the cloned value.
+	 */
+	function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
+	  var result;
+	  if (customizer) {
+	    result = object ? customizer(value, key, object, stack) : customizer(value);
+	  }
+	  if (result !== undefined) {
+	    return result;
+	  }
+	  if (!isObject(value)) {
+	    return value;
+	  }
+	  var isArr = isArray(value);
+	  if (isArr) {
+	    result = initCloneArray(value);
+	    if (!isDeep) {
+	      return copyArray(value, result);
+	    }
+	  } else {
+	    var tag = getTag(value),
+	        isFunc = tag == funcTag || tag == genTag;
+	
+	    if (isBuffer(value)) {
+	      return cloneBuffer(value, isDeep);
+	    }
+	    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+	      if (isHostObject(value)) {
+	        return object ? value : {};
+	      }
+	      result = initCloneObject(isFunc ? {} : value);
+	      if (!isDeep) {
+	        return copySymbols(value, baseAssign(result, value));
+	      }
+	    } else {
+	      if (!cloneableTags[tag]) {
+	        return object ? value : {};
+	      }
+	      result = initCloneByTag(value, tag, baseClone, isDeep);
+	    }
+	  }
+	  // Check for circular references and return its corresponding clone.
+	  stack || (stack = new Stack);
+	  var stacked = stack.get(value);
+	  if (stacked) {
+	    return stacked;
+	  }
+	  stack.set(value, result);
+	
+	  if (!isArr) {
+	    var props = isFull ? getAllKeys(value) : keys(value);
+	  }
+	  arrayEach(props || value, function(subValue, key) {
+	    if (props) {
+	      key = subValue;
+	      subValue = value[key];
+	    }
+	    // Recursively populate clone (susceptible to call stack limits).
+	    assignValue(result, key, baseClone(subValue, isDeep, isFull, customizer, key, value, stack));
+	  });
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.create` without support for assigning
+	 * properties to the created object.
+	 *
+	 * @private
+	 * @param {Object} prototype The object to inherit from.
+	 * @returns {Object} Returns the new object.
+	 */
+	function baseCreate(proto) {
+	  return isObject(proto) ? objectCreate(proto) : {};
+	}
+	
+	/**
+	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+	 * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+	 * symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @param {Function} symbolsFunc The function to get the symbols of `object`.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+	  var result = keysFunc(object);
+	  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+	}
+	
+	/**
+	 * The base implementation of `getTag`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  return objectToString.call(value);
+	}
+	
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+	
+	/**
+	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 */
+	function baseIsTypedArray(value) {
+	  return isObjectLike(value) &&
+	    isLength(value.length) && !!typedArrayTags[objectToString.call(value)];
+	}
+	
+	/**
+	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeys(object) {
+	  if (!isPrototype(object)) {
+	    return nativeKeys(object);
+	  }
+	  var result = [];
+	  for (var key in Object(object)) {
+	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeysIn(object) {
+	  if (!isObject(object)) {
+	    return nativeKeysIn(object);
+	  }
+	  var isProto = isPrototype(object),
+	      result = [];
+	
+	  for (var key in object) {
+	    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.merge` without support for multiple sources.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {number} srcIndex The index of `source`.
+	 * @param {Function} [customizer] The function to customize merged values.
+	 * @param {Object} [stack] Tracks traversed source values and their merged
+	 *  counterparts.
+	 */
+	function baseMerge(object, source, srcIndex, customizer, stack) {
+	  if (object === source) {
+	    return;
+	  }
+	  if (!(isArray(source) || isTypedArray(source))) {
+	    var props = baseKeysIn(source);
+	  }
+	  arrayEach(props || source, function(srcValue, key) {
+	    if (props) {
+	      key = srcValue;
+	      srcValue = source[key];
+	    }
+	    if (isObject(srcValue)) {
+	      stack || (stack = new Stack);
+	      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+	    }
+	    else {
+	      var newValue = customizer
+	        ? customizer(object[key], srcValue, (key + ''), object, source, stack)
+	        : undefined;
+	
+	      if (newValue === undefined) {
+	        newValue = srcValue;
+	      }
+	      assignMergeValue(object, key, newValue);
+	    }
+	  });
+	}
+	
+	/**
+	 * A specialized version of `baseMerge` for arrays and objects which performs
+	 * deep merges and tracks traversed objects enabling objects with circular
+	 * references to be merged.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {string} key The key of the value to merge.
+	 * @param {number} srcIndex The index of `source`.
+	 * @param {Function} mergeFunc The function to merge values.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @param {Object} [stack] Tracks traversed source values and their merged
+	 *  counterparts.
+	 */
+	function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+	  var objValue = object[key],
+	      srcValue = source[key],
+	      stacked = stack.get(srcValue);
+	
+	  if (stacked) {
+	    assignMergeValue(object, key, stacked);
+	    return;
+	  }
+	  var newValue = customizer
+	    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+	    : undefined;
+	
+	  var isCommon = newValue === undefined;
+	
+	  if (isCommon) {
+	    newValue = srcValue;
+	    if (isArray(srcValue) || isTypedArray(srcValue)) {
+	      if (isArray(objValue)) {
+	        newValue = objValue;
+	      }
+	      else if (isArrayLikeObject(objValue)) {
+	        newValue = copyArray(objValue);
+	      }
+	      else {
+	        isCommon = false;
+	        newValue = baseClone(srcValue, true);
+	      }
+	    }
+	    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+	      if (isArguments(objValue)) {
+	        newValue = toPlainObject(objValue);
+	      }
+	      else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+	        isCommon = false;
+	        newValue = baseClone(srcValue, true);
+	      }
+	      else {
+	        newValue = objValue;
+	      }
+	    }
+	    else {
+	      isCommon = false;
+	    }
+	  }
+	  if (isCommon) {
+	    // Recursively merge objects and arrays (susceptible to call stack limits).
+	    stack.set(srcValue, newValue);
+	    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+	    stack['delete'](srcValue);
+	  }
+	  assignMergeValue(object, key, newValue);
+	}
+	
+	/**
+	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+	 *
+	 * @private
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseRest(func, start) {
+	  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        array = Array(length);
+	
+	    while (++index < length) {
+	      array[index] = args[start + index];
+	    }
+	    index = -1;
+	    var otherArgs = Array(start + 1);
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = array;
+	    return apply(func, this, otherArgs);
+	  };
+	}
+	
+	/**
+	 * Creates a clone of  `buffer`.
+	 *
+	 * @private
+	 * @param {Buffer} buffer The buffer to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Buffer} Returns the cloned buffer.
+	 */
+	function cloneBuffer(buffer, isDeep) {
+	  if (isDeep) {
+	    return buffer.slice();
+	  }
+	  var result = new buffer.constructor(buffer.length);
+	  buffer.copy(result);
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `arrayBuffer`.
+	 *
+	 * @private
+	 * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+	 * @returns {ArrayBuffer} Returns the cloned array buffer.
+	 */
+	function cloneArrayBuffer(arrayBuffer) {
+	  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+	  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `dataView`.
+	 *
+	 * @private
+	 * @param {Object} dataView The data view to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned data view.
+	 */
+	function cloneDataView(dataView, isDeep) {
+	  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+	  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+	}
+	
+	/**
+	 * Creates a clone of `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned map.
+	 */
+	function cloneMap(map, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
+	  return arrayReduce(array, addMapEntry, new map.constructor);
+	}
+	
+	/**
+	 * Creates a clone of `regexp`.
+	 *
+	 * @private
+	 * @param {Object} regexp The regexp to clone.
+	 * @returns {Object} Returns the cloned regexp.
+	 */
+	function cloneRegExp(regexp) {
+	  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+	  result.lastIndex = regexp.lastIndex;
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned set.
+	 */
+	function cloneSet(set, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
+	  return arrayReduce(array, addSetEntry, new set.constructor);
+	}
+	
+	/**
+	 * Creates a clone of the `symbol` object.
+	 *
+	 * @private
+	 * @param {Object} symbol The symbol object to clone.
+	 * @returns {Object} Returns the cloned symbol object.
+	 */
+	function cloneSymbol(symbol) {
+	  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+	}
+	
+	/**
+	 * Creates a clone of `typedArray`.
+	 *
+	 * @private
+	 * @param {Object} typedArray The typed array to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned typed array.
+	 */
+	function cloneTypedArray(typedArray, isDeep) {
+	  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+	  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+	}
+	
+	/**
+	 * Copies the values of `source` to `array`.
+	 *
+	 * @private
+	 * @param {Array} source The array to copy values from.
+	 * @param {Array} [array=[]] The array to copy values to.
+	 * @returns {Array} Returns `array`.
+	 */
+	function copyArray(source, array) {
+	  var index = -1,
+	      length = source.length;
+	
+	  array || (array = Array(length));
+	  while (++index < length) {
+	    array[index] = source[index];
+	  }
+	  return array;
+	}
+	
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property identifiers to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @param {Function} [customizer] The function to customize copied values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copyObject(source, props, object, customizer) {
+	  object || (object = {});
+	
+	  var index = -1,
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index];
+	
+	    var newValue = customizer
+	      ? customizer(object[key], source[key], key, object, source)
+	      : undefined;
+	
+	    assignValue(object, key, newValue === undefined ? source[key] : newValue);
+	  }
+	  return object;
+	}
+	
+	/**
+	 * Copies own symbol properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy symbols from.
+	 * @param {Object} [object={}] The object to copy symbols to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copySymbols(source, object) {
+	  return copyObject(source, getSymbols(source), object);
+	}
+	
+	/**
+	 * Creates a function like `_.assign`.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return baseRest(function(object, sources) {
+	    var index = -1,
+	        length = sources.length,
+	        customizer = length > 1 ? sources[length - 1] : undefined,
+	        guard = length > 2 ? sources[2] : undefined;
+	
+	    customizer = (assigner.length > 3 && typeof customizer == 'function')
+	      ? (length--, customizer)
+	      : undefined;
+	
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    object = Object(object);
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, index, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+	
+	/**
+	 * Creates an array of own enumerable property names and symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function getAllKeys(object) {
+	  return baseGetAllKeys(object, keys, getSymbols);
+	}
+	
+	/**
+	 * Gets the data for `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to query.
+	 * @param {string} key The reference key.
+	 * @returns {*} Returns the map data.
+	 */
+	function getMapData(map, key) {
+	  var data = map.__data__;
+	  return isKeyable(key)
+	    ? data[typeof key == 'string' ? 'string' : 'hash']
+	    : data.map;
+	}
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Creates an array of the own enumerable symbol properties of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of symbols.
+	 */
+	var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
+	
+	/**
+	 * Gets the `toStringTag` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	var getTag = baseGetTag;
+	
+	// Fallback for data views, maps, sets, and weak maps in IE 11,
+	// for data views in Edge < 14, and promises in Node.js.
+	if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+	    (Map && getTag(new Map) != mapTag) ||
+	    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+	    (Set && getTag(new Set) != setTag) ||
+	    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+	  getTag = function(value) {
+	    var result = objectToString.call(value),
+	        Ctor = result == objectTag ? value.constructor : undefined,
+	        ctorString = Ctor ? toSource(Ctor) : undefined;
+	
+	    if (ctorString) {
+	      switch (ctorString) {
+	        case dataViewCtorString: return dataViewTag;
+	        case mapCtorString: return mapTag;
+	        case promiseCtorString: return promiseTag;
+	        case setCtorString: return setTag;
+	        case weakMapCtorString: return weakMapTag;
+	      }
+	    }
+	    return result;
+	  };
+	}
+	
+	/**
+	 * Initializes an array clone.
+	 *
+	 * @private
+	 * @param {Array} array The array to clone.
+	 * @returns {Array} Returns the initialized clone.
+	 */
+	function initCloneArray(array) {
+	  var length = array.length,
+	      result = array.constructor(length);
+	
+	  // Add properties assigned by `RegExp#exec`.
+	  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+	    result.index = array.index;
+	    result.input = array.input;
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Initializes an object clone.
+	 *
+	 * @private
+	 * @param {Object} object The object to clone.
+	 * @returns {Object} Returns the initialized clone.
+	 */
+	function initCloneObject(object) {
+	  return (typeof object.constructor == 'function' && !isPrototype(object))
+	    ? baseCreate(getPrototype(object))
+	    : {};
+	}
+	
+	/**
+	 * Initializes an object clone based on its `toStringTag`.
+	 *
+	 * **Note:** This function only supports cloning values with tags of
+	 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+	 *
+	 * @private
+	 * @param {Object} object The object to clone.
+	 * @param {string} tag The `toStringTag` of the object to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the initialized clone.
+	 */
+	function initCloneByTag(object, tag, cloneFunc, isDeep) {
+	  var Ctor = object.constructor;
+	  switch (tag) {
+	    case arrayBufferTag:
+	      return cloneArrayBuffer(object);
+	
+	    case boolTag:
+	    case dateTag:
+	      return new Ctor(+object);
+	
+	    case dataViewTag:
+	      return cloneDataView(object, isDeep);
+	
+	    case float32Tag: case float64Tag:
+	    case int8Tag: case int16Tag: case int32Tag:
+	    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
+	      return cloneTypedArray(object, isDeep);
+	
+	    case mapTag:
+	      return cloneMap(object, isDeep, cloneFunc);
+	
+	    case numberTag:
+	    case stringTag:
+	      return new Ctor(object);
+	
+	    case regexpTag:
+	      return cloneRegExp(object);
+	
+	    case setTag:
+	      return cloneSet(object, isDeep, cloneFunc);
+	
+	    case symbolTag:
+	      return cloneSymbol(object);
+	  }
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return !!length &&
+	    (typeof value == 'number' || reIsUint.test(value)) &&
+	    (value > -1 && value % 1 == 0 && value < length);
+	}
+	
+	/**
+	 * Checks if the given arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+	 *  else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	        ? (isArrayLike(object) && isIndex(index, object.length))
+	        : (type == 'string' && index in object)
+	      ) {
+	    return eq(object[index], value);
+	  }
+	  return false;
+	}
+	
+	/**
+	 * Checks if `value` is suitable for use as unique object key.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+	 */
+	function isKeyable(value) {
+	  var type = typeof value;
+	  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+	    ? (value !== '__proto__')
+	    : (value === null);
+	}
+	
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+	
+	/**
+	 * Checks if `value` is likely a prototype object.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+	 */
+	function isPrototype(value) {
+	  var Ctor = value && value.constructor,
+	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+	
+	  return value === proto;
+	}
+	
+	/**
+	 * This function is like
+	 * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * except that it includes inherited enumerable properties.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function nativeKeysIn(object) {
+	  var result = [];
+	  if (object != null) {
+	    for (var key in Object(object)) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to process.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+	
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is a buffer.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.3.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+	 * @example
+	 *
+	 * _.isBuffer(new Buffer(2));
+	 * // => true
+	 *
+	 * _.isBuffer(new Uint8Array(2));
+	 * // => false
+	 */
+	var isBuffer = nativeIsBuffer || stubFalse;
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return (typeof Ctor == 'function' &&
+	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+	}
+	
+	/**
+	 * Checks if `value` is classified as a typed array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 * @example
+	 *
+	 * _.isTypedArray(new Uint8Array);
+	 * // => true
+	 *
+	 * _.isTypedArray([]);
+	 * // => false
+	 */
+	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+	
+	/**
+	 * Converts `value` to a plain object flattening inherited enumerable string
+	 * keyed properties of `value` to own properties of the plain object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {Object} Returns the converted plain object.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.assign({ 'a': 1 }, new Foo);
+	 * // => { 'a': 1, 'b': 2 }
+	 *
+	 * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+	 * // => { 'a': 1, 'b': 2, 'c': 3 }
+	 */
+	function toPlainObject(value) {
+	  return copyObject(value, keysIn(value));
+	}
+	
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	function keys(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+	}
+	
+	/**
+	 * Creates an array of the own and inherited enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keysIn(new Foo);
+	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+	 */
+	function keysIn(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+	}
+	
+	/**
+	 * This method is like `_.assign` except that it recursively merges own and
+	 * inherited enumerable string keyed properties of source objects into the
+	 * destination object. Source properties that resolve to `undefined` are
+	 * skipped if a destination value exists. Array and plain object properties
+	 * are merged recursively. Other objects and value types are overridden by
+	 * assignment. Source objects are applied from left to right. Subsequent
+	 * sources overwrite property assignments of previous sources.
+	 *
+	 * **Note:** This method mutates `object`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.5.0
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * var object = {
+	 *   'a': [{ 'b': 2 }, { 'd': 4 }]
+	 * };
+	 *
+	 * var other = {
+	 *   'a': [{ 'c': 3 }, { 'e': 5 }]
+	 * };
+	 *
+	 * _.merge(object, other);
+	 * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+	 */
+	var merge = createAssigner(function(object, source, srcIndex) {
+	  baseMerge(object, source, srcIndex);
+	});
+	
+	/**
+	 * This method returns a new empty array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {Array} Returns the new empty array.
+	 * @example
+	 *
+	 * var arrays = _.times(2, _.stubArray);
+	 *
+	 * console.log(arrays);
+	 * // => [[], []]
+	 *
+	 * console.log(arrays[0] === arrays[1]);
+	 * // => false
+	 */
+	function stubArray() {
+	  return [];
+	}
+	
+	/**
+	 * This method returns `false`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {boolean} Returns `false`.
+	 * @example
+	 *
+	 * _.times(2, _.stubFalse);
+	 * // => [false, false]
+	 */
+	function stubFalse() {
+	  return false;
+	}
+	
+	module.exports = merge;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(306)(module)))
+
+/***/ },
 /* 306 */,
 /* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -8286,155 +10531,149 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _base = __webpack_require__(308);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
 	__webpack_require__(300);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvAnalyticsProvider = function (_Base) {
-	  _inherits(AvAnalyticsProvider, _Base);
-	
-	  function AvAnalyticsProvider() {
+	var AvAnalyticsProvider = function () {
+	  function AvAnalyticsProvider(avAnalyticsConfigProvider) {
 	    _classCallCheck(this, AvAnalyticsProvider);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.plugins = [];
-	    _this.virtualPageTracking = _this.av.avAnalyticsConfigProvider.get().VIRTUAL_PAGE_TRACKING;
-	    _this.appId;
-	    _this.plugins;
-	
-	    return _this;
+	    this.av = { avAnalyticsConfigProvider: avAnalyticsConfigProvider };
+	    this.plugins = [];
+	    this.virtualPageTracking = this.av.avAnalyticsConfigProvider.get().VIRTUAL_PAGE_TRACKING;
+	    this.appId;
+	    this.plugins;
 	  }
 	
-	  AvAnalyticsProvider.prototype.registerPlugins = function registerPlugins(_plugins) {
+	  _createClass(AvAnalyticsProvider, [{
+	    key: 'registerPlugins',
+	    value: function registerPlugins(_plugins) {
 	
-	    if (_angular2.default.isString(_plugins)) {
-	      this.plugins = [_plugins];
-	    } else if (Array.isArray(_plugins)) {
-	      this.plugins = _plugins;
-	    } else {
-	      throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
-	    }
-	
-	    return this.plugins;
-	  };
-	
-	  AvAnalyticsProvider.prototype.setVirtualPageTracking = function setVirtualPageTracking(value) {
-	    if (arguments.length) {
-	      this.virtualPageTracking = !!value;
-	    }
-	  };
-	
-	  AvAnalyticsProvider.prototype.isVirtualPageTracking = function isVirtualPageTracking() {
-	    return this.virtualPageTracking;
-	  };
-	
-	  AvAnalyticsProvider.prototype.setAppID = function setAppID(id) {
-	    this.appId = id;
-	    return this.appId;
-	  };
-	
-	  AvAnalyticsProvider.prototype.$get = function $get($injector, $q, $log, $rootScope, $location, avAnalyticsConfig) {
-	
-	    var self = this;
-	
-	    var AvAnalytics = function () {
-	      function AvAnalytics() {
-	        var _this2 = this;
-	
-	        _classCallCheck(this, AvAnalytics);
-	
-	        this.services = {};
-	
-	        if (!self.plugins || self.plugins.length === 0) {
-	          self.plugins = [avAnalyticsConfig.SERVICES.SPLUNK];
-	        }
-	
-	        _angular2.default.forEach(self.plugins, function (plugin) {
-	
-	          try {
-	            _this2.services[plugin] = $injector.get(plugin);
-	          } catch (err) {
-	            $log.error('Could not load ' + plugin + ' plugin');
-	          }
-	        });
+	      if (_angular2.default.isString(_plugins)) {
+	        this.plugins = [_plugins];
+	      } else if (Array.isArray(_plugins)) {
+	        this.plugins = _plugins;
+	      } else {
+	        throw new Error('AvAnalytics.registerPlugins() expects a string or an array.');
 	      }
 	
-	      AvAnalytics.prototype.init = function init() {
-	        var _this3 = this;
+	      return this.plugins;
+	    }
+	  }, {
+	    key: 'setVirtualPageTracking',
+	    value: function setVirtualPageTracking(value) {
+	      if (arguments.length) {
+	        this.virtualPageTracking = !!value;
+	      }
+	    }
+	  }, {
+	    key: 'isVirtualPageTracking',
+	    value: function isVirtualPageTracking() {
+	      return this.virtualPageTracking;
+	    }
+	  }, {
+	    key: 'setAppID',
+	    value: function setAppID(id) {
+	      this.appId = id;
+	      return this.appId;
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get($injector, $q, $log, $rootScope, $location, avAnalyticsConfig) {
 	
-	        if (this.isVirtualPageTracking()) {
+	      var self = this;
 	
-	          $rootScope.$on(avAnalyticsConfig.EVENTS.PAGE, function () {
-	            _this3.trackPageView($location.absUrl());
+	      var AvAnalytics = function () {
+	        function AvAnalytics() {
+	          var _this = this;
+	
+	          _classCallCheck(this, AvAnalytics);
+	
+	          this.services = {};
+	
+	          if (!self.plugins || self.plugins.length === 0) {
+	            self.plugins = [avAnalyticsConfig.SERVICES.SPLUNK];
+	          }
+	
+	          _angular2.default.forEach(self.plugins, function (plugin) {
+	
+	            try {
+	              _this.services[plugin] = $injector.get(plugin);
+	            } catch (err) {
+	              $log.error('Could not load ' + plugin + ' plugin');
+	            }
 	          });
 	        }
 	
-	        _angular2.default.forEach(this.services, function (handler) {
+	        _createClass(AvAnalytics, [{
+	          key: 'init',
+	          value: function init() {
+	            var _this2 = this;
 	
-	          if (handler.isEnabled() && handler.init) {
-	            handler.init();
+	            if (this.isVirtualPageTracking()) {
+	
+	              $rootScope.$on(avAnalyticsConfig.EVENTS.PAGE, function () {
+	                _this2.trackPageView($location.absUrl());
+	              });
+	            }
+	
+	            _angular2.default.forEach(this.services, function (handler) {
+	
+	              if (handler.isEnabled() && handler.init) {
+	                handler.init();
+	              }
+	            });
 	          }
-	        });
-	      };
+	        }, {
+	          key: 'trackEvent',
+	          value: function trackEvent(properties) {
 	
-	      AvAnalytics.prototype.trackEvent = function trackEvent(properties) {
+	            var promises = [];
 	
-	        var promises = [];
+	            _angular2.default.forEach(this.services, function (handler) {
+	              var promise = handler.trackEvent(properties);
+	              promises.push(promise);
+	            });
 	
-	        _angular2.default.forEach(this.services, function (handler) {
-	          var promise = handler.trackEvent(properties);
-	          promises.push(promise);
-	        });
+	            return $q.all(promises);
+	          }
+	        }, {
+	          key: 'getAppId',
+	          value: function getAppId() {
+	            return self.appId;
+	          }
+	        }, {
+	          key: 'isVirtualPageTracking',
+	          value: function isVirtualPageTracking() {
+	            return self.virtualPageTracking;
+	          }
+	        }, {
+	          key: 'trackPageView',
+	          value: function trackPageView(url) {
 	
-	        return $q.all(promises);
-	      };
+	            var promises = [];
 	
-	      AvAnalytics.prototype.getAppId = function getAppId() {
-	        return self.appId;
-	      };
+	            _angular2.default.forEach(this.services, function (handler) {
+	              var promise = handler.trackPageView(url);
+	              promises.push(promise);
+	            });
 	
-	      AvAnalytics.prototype.isVirtualPageTracking = function isVirtualPageTracking() {
-	        return self.virtualPageTracking;
-	      };
+	            return $q.all(promises);
+	          }
+	        }]);
 	
-	      AvAnalytics.prototype.trackPageView = function trackPageView(url) {
+	        return AvAnalytics;
+	      }();
 	
-	        var promises = [];
-	
-	        _angular2.default.forEach(this.services, function (handler) {
-	          var promise = handler.trackPageView(url);
-	          promises.push(promise);
-	        });
-	
-	        return $q.all(promises);
-	      };
-	
-	      return AvAnalytics;
-	    }();
-	
-	    return new AvAnalytics();
-	  };
+	      return new AvAnalytics();
+	    }
+	  }]);
 	
 	  return AvAnalyticsProvider;
-	}(_base2.default);
-	
-	AvAnalyticsProvider.$inject = ['avAnalyticsConfigProvider'];
-	
+	}();
 	
 	_module2.default.provider('avAnalytics', AvAnalyticsProvider);
 	
@@ -8442,45 +10681,6 @@ webpackJsonp([0],[
 
 /***/ },
 /* 308 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// Inspiration: https://github.com/seeden/angular-es6
-	
-	function storeInjections() {
-	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	  var instance = arguments[1];
-	  var args = arguments[2];
-	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
-	
-	
-	  var instanceInject = instance[name] = instance[name] || {};
-	
-	  injected.forEach(function (injectName, index) {
-	    instanceInject[injectName] = args[index];
-	  });
-	}
-	
-	var Base = function Base() {
-	  _classCallCheck(this, Base);
-	
-	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	    args[_key] = arguments[_key];
-	  }
-	
-	  storeInjections(this.constructor.$inject, this, args);
-	};
-	
-	Base.$inject = [];
-	exports.default = Base;
-
-/***/ },
-/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8498,10 +10698,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 310 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -8511,7 +10713,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(311);
+	var _utils = __webpack_require__(310);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8523,83 +10725,93 @@ webpackJsonp([0],[
 	      _classCallCheck(this, AnalyticsUtils);
 	    }
 	
-	    AnalyticsUtils.prototype.getProperties = function getProperties(attributes) {
+	    _createClass(AnalyticsUtils, [{
+	      key: 'getProperties',
+	      value: function getProperties(attributes) {
 	
-	      var self = this;
-	      var props = {};
+	        var self = this;
+	        var props = {};
 	
-	      Object.keys(attributes).forEach(function (key) {
-	        if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
-	          var result = self.getAttribute(key, attributes[key]);
-	          props[result.key] = result.value;
-	        }
-	      });
+	        Object.keys(attributes).forEach(function (key) {
+	          if (self.isValidAttribute(key) && self.isNotIgnored(key)) {
+	            var result = self.getAttribute(key, attributes[key]);
+	            props[result.key] = result.value;
+	          }
+	        });
 	
-	      return props;
-	    };
-	
-	    // Function detects external links in order to allow the analytics framework to run
-	    // before the browser follows a link.
-	    //
-	    //    - target="_self" - This opens an anchor in the same frame
-	    //    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
-	    //    - target="_top" - Opens the link as top document in the browser window
-	    //    - target="_blank" - Opens link in new tab new tab
-	    //
-	
-	
-	    AnalyticsUtils.prototype.isExternalLink = function isExternalLink(attrs) {
-	      return attrs.href && !attrs.ngClick;
-	    };
-	
-	    AnalyticsUtils.prototype.isNotIgnored = function isNotIgnored(key) {
-	      var ignored = avAnalyticsConfig.IGNORE.indexOf(key) > -1;
-	      return !ignored;
-	    };
-	
-	    AnalyticsUtils.prototype.isValidAttribute = function isValidAttribute(key) {
-	      return avAnalyticsConfig.PRE_FIX.test(key);
-	    };
-	
-	    AnalyticsUtils.prototype.lowercase = function lowercase(str) {
-	      return str.substr(0, 1).toLowerCase() + str.substr(1);
-	    };
-	
-	    AnalyticsUtils.prototype.getAttribute = function getAttribute(key, value) {
-	
-	      var simpleKey = key.match(avAnalyticsConfig.PRE_FIX);
-	
-	      if (simpleKey && simpleKey[1]) {
-	        return {
-	          key: this.lowercase(simpleKey[1]),
-	          value: value
-	        };
-	      }
-	    };
-	
-	    AnalyticsUtils.prototype.toNum = function toNum(value) {
-	      var parsed = parseInt(value, 10);
-	      return isNaN(parsed) ? 0 : parsed;
-	    };
-	
-	    AnalyticsUtils.prototype.isValid = function isValid(trackingValues) {
-	
-	      var valid = true;
-	
-	      if (trackingValues.value || trackingValues.value === 0) {
-	        delete trackingValues.value;
+	        return props;
 	      }
 	
-	      Object.keys(trackingValues).forEach(function (key) {
-	        var value = trackingValues[key];
-	        if ((0, _utils.isBlank)(value) || _angular2.default.isUndefined(value)) {
-	          $log.warn('The analytic tracking value for ' + key.toUpperCase() + ' is not defined.');
-	          valid = false;
-	        }
-	      });
+	      // Function detects external links in order to allow the analytics framework to run
+	      // before the browser follows a link.
+	      //
+	      //    - target="_self" - This opens an anchor in the same frame
+	      //    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
+	      //    - target="_top" - Opens the link as top document in the browser window
+	      //    - target="_blank" - Opens link in new tab new tab
+	      //
 	
-	      return valid;
-	    };
+	    }, {
+	      key: 'isExternalLink',
+	      value: function isExternalLink(attrs) {
+	        return attrs.href && !attrs.ngClick;
+	      }
+	    }, {
+	      key: 'isNotIgnored',
+	      value: function isNotIgnored(key) {
+	        var ignored = avAnalyticsConfig.IGNORE.indexOf(key) > -1;
+	        return !ignored;
+	      }
+	    }, {
+	      key: 'isValidAttribute',
+	      value: function isValidAttribute(key) {
+	        return avAnalyticsConfig.PRE_FIX.test(key);
+	      }
+	    }, {
+	      key: 'lowercase',
+	      value: function lowercase(str) {
+	        return str.substr(0, 1).toLowerCase() + str.substr(1);
+	      }
+	    }, {
+	      key: 'getAttribute',
+	      value: function getAttribute(key, value) {
+	
+	        var simpleKey = key.match(avAnalyticsConfig.PRE_FIX);
+	
+	        if (simpleKey && simpleKey[1]) {
+	          return {
+	            key: this.lowercase(simpleKey[1]),
+	            value: value
+	          };
+	        }
+	      }
+	    }, {
+	      key: 'toNum',
+	      value: function toNum(value) {
+	        var parsed = parseInt(value, 10);
+	        return isNaN(parsed) ? 0 : parsed;
+	      }
+	    }, {
+	      key: 'isValid',
+	      value: function isValid(trackingValues) {
+	
+	        var valid = true;
+	
+	        if (trackingValues.value || trackingValues.value === 0) {
+	          delete trackingValues.value;
+	        }
+	
+	        Object.keys(trackingValues).forEach(function (key) {
+	          var value = trackingValues[key];
+	          if ((0, _utils.isBlank)(value) || _angular2.default.isUndefined(value)) {
+	            $log.warn('The analytic tracking value for ' + key.toUpperCase() + ' is not defined.');
+	            valid = false;
+	          }
+	        });
+	
+	        return valid;
+	      }
+	    }]);
 	
 	    return AnalyticsUtils;
 	  }();
@@ -8608,23 +10820,25 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 311 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.print = exports.uuid = exports.REGEX_API_URL = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
 	
-	var _strings = __webpack_require__(312);
+	var _strings = __webpack_require__(311);
 	
-	var _urls = __webpack_require__(313);
+	var _urls = __webpack_require__(312);
 	
-	var _uuid = __webpack_require__(314);
+	var _uuid = __webpack_require__(313);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
-	var _print = __webpack_require__(315);
+	var _print = __webpack_require__(314);
 	
 	var _print2 = _interopRequireDefault(_print);
 	
@@ -8638,12 +10852,14 @@ webpackJsonp([0],[
 	exports.print = _print2.default;
 
 /***/ },
-/* 312 */
+/* 311 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.stringify = stringify;
 	exports.isBlank = isBlank;
 	// https://github.com/epeli/underscore.string/blob/cebddf40cf2e10f0e9b596d9654edd0a1cfefc15/helper/makeString.js
@@ -8661,12 +10877,14 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 313 */
+/* 312 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var REGEX_API_URL = /^.*?api.availity.com(.*)$/;
 	
 	function getRelativeUrl(url) {
@@ -8683,12 +10901,14 @@ webpackJsonp([0],[
 	exports.getRelativeUrl = getRelativeUrl;
 
 /***/ },
-/* 314 */
+/* 313 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = uuid;
 	var uid = ['0', '0', '0'];
 	
@@ -8717,12 +10937,14 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 315 */
+/* 314 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = print;
 	// https://github.com/jasonday/printThis/commit/66f9cbd0e3760767342eed4ef32cf8294417b227
 	
@@ -8737,18 +10959,22 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 316 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _moment = __webpack_require__(317);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _moment = __webpack_require__(316);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _tracekit = __webpack_require__(318);
+	var _tracekit = __webpack_require__(317);
 	
 	var _tracekit2 = _interopRequireDefault(_tracekit);
 	
@@ -8760,7 +10986,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(319);
+	__webpack_require__(318);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8784,122 +11010,135 @@ webpackJsonp([0],[
 	    this.appId;
 	  }
 	
-	  AvExceptionAnalyticsProvider.prototype.enabled = function enabled(_enabled) {
-	    this._enabled = !!_enabled;
-	  };
+	  _createClass(AvExceptionAnalyticsProvider, [{
+	    key: 'enabled',
+	    value: function enabled(_enabled) {
+	      this._enabled = !!_enabled;
+	    }
+	  }, {
+	    key: 'setAppId',
+	    value: function setAppId(_id) {
+	      this.appId = _id;
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get($location, AV_EXCEPTIONS, $injector) {
 	
-	  AvExceptionAnalyticsProvider.prototype.setAppId = function setAppId(_id) {
-	    this.appId = _id;
-	  };
+	      var that = this;
 	
-	  AvExceptionAnalyticsProvider.prototype.$get = function $get($location, AV_EXCEPTIONS, $injector) {
-	
-	    var that = this;
-	
-	    var AvExceptionAnalytics = function () {
-	      function AvExceptionAnalytics() {
-	        _classCallCheck(this, AvExceptionAnalytics);
-	      }
-	
-	      AvExceptionAnalytics.prototype.init = function init() {
-	
-	        var self = this;
-	
-	        if (!that._enabled) {
-	          return;
+	      var AvExceptionAnalytics = function () {
+	        function AvExceptionAnalytics() {
+	          _classCallCheck(this, AvExceptionAnalytics);
 	        }
 	
-	        _tracekit2.default.remoteFetching = false;
-	        _tracekit2.default.surroundingLinesToCollect = 11;
+	        _createClass(AvExceptionAnalytics, [{
+	          key: 'init',
+	          value: function init() {
 	
-	        // subscribe() hooks into window.error
-	        _tracekit2.default.report.subscribe(function (stacktrace) {
-	          self.onError(stacktrace);
-	        });
+	            var self = this;
 	
-	        this.messageTimestampMap = {};
-	      };
+	            if (!that._enabled) {
+	              return;
+	            }
 	
-	      AvExceptionAnalytics.prototype.prettyPrint = function prettyPrint(stacktrace) {
+	            _tracekit2.default.remoteFetching = false;
+	            _tracekit2.default.surroundingLinesToCollect = 11;
 	
-	        var message = '';
+	            // subscribe() hooks into window.error
+	            _tracekit2.default.report.subscribe(function (stacktrace) {
+	              self.onError(stacktrace);
+	            });
 	
-	        var length = stacktrace.stack.length;
+	            this.messageTimestampMap = {};
+	          }
+	        }, {
+	          key: 'prettyPrint',
+	          value: function prettyPrint(stacktrace) {
 	
-	        for (var i = 0; i < length; i++) {
-	          message += ['[' + i.toString().padStart(2, '0') + '] ', stacktrace.stack[i].func, ' ', stacktrace.stack[i].url, ':', stacktrace.stack[i].line, ':', stacktrace.stack[i].column, i + 1 < length ? '\n' : ''].join('');
-	        }
+	            var message = '';
 	
-	        return message;
-	      };
+	            var length = stacktrace.stack.length;
 	
-	      AvExceptionAnalytics.prototype.onError = function onError(stacktrace) {
+	            for (var i = 0; i < length; i++) {
+	              message += ['[' + i.toString().padStart(2, '0') + '] ', stacktrace.stack[i].func, ' ', stacktrace.stack[i].url, ':', stacktrace.stack[i].line, ':', stacktrace.stack[i].column, i + 1 < length ? '\n' : ''].join('');
+	            }
 	
-	        var userAgent = window.navigator && window.navigator.userAgent ? window.navigator.userAgent : AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE;
+	            return message;
+	          }
+	        }, {
+	          key: 'onError',
+	          value: function onError(stacktrace) {
 	
-	        var message = {
-	          errorDate: (0, _moment2.default)(new Date()).format('YYYY-MM-DDTHH:mm:ssZZ'),
-	          errorName: stacktrace.name,
-	          errorMessage: stacktrace.message,
-	          errorStack: this.prettyPrint(stacktrace),
-	          url: $location.$$absUrl,
-	          appId: that.appId || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
-	          appVersion: ("Unknown") || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
-	          userAgent: userAgent,
-	          userLanguage: navigator.userLanguage,
-	          referrer: document.referrer,
-	          host: document.domain,
-	          screenWidth: (0, _jquery2.default)(window).width(),
-	          screenHeight: (0, _jquery2.default)(window).height(),
-	          sdkVersion: ("2.0.0-beta.10")
-	        };
+	            var userAgent = window.navigator && window.navigator.userAgent ? window.navigator.userAgent : AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE;
 	
-	        return this.log(message);
-	      };
+	            var message = {
+	              errorDate: (0, _moment2.default)(new Date()).format('YYYY-MM-DDTHH:mm:ssZZ'),
+	              errorName: stacktrace.name,
+	              errorMessage: stacktrace.message,
+	              errorStack: this.prettyPrint(stacktrace),
+	              url: $location.$$absUrl,
+	              appId: that.appId || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+	              appVersion: ("Unknown") || AV_EXCEPTIONS.MESSAGES.NOT_APPLICABLE,
+	              userAgent: userAgent,
+	              userLanguage: navigator.userLanguage,
+	              referrer: document.referrer,
+	              host: document.domain,
+	              screenWidth: (0, _jquery2.default)(window).width(),
+	              screenHeight: (0, _jquery2.default)(window).height(),
+	              sdkVersion: ("2.0.0-beta.15")
+	            };
 	
-	      AvExceptionAnalytics.prototype.log = function log(message) {
-	        var avLogMessagesResource = $injector.get('avLogMessagesResource');
-	        return avLogMessagesResource.error(message);
-	      };
+	            return this.log(message);
+	          }
+	        }, {
+	          key: 'log',
+	          value: function log(message) {
+	            var avLogMessagesResource = $injector.get('avLogMessagesResource');
+	            return avLogMessagesResource.error(message);
+	          }
+	        }, {
+	          key: 'trackEvent',
+	          value: function trackEvent(exception) {
 	
-	      AvExceptionAnalytics.prototype.trackEvent = function trackEvent(exception) {
+	            if (!that._enabled) {
+	              return null;
+	            }
 	
-	        if (!that._enabled) {
-	          return null;
-	        }
+	            // If we've already logged this error recently, don't log it again (no need to spam the API)
+	            if (this._isRepeatError(exception)) {
+	              return;
+	            }
 	
-	        // If we've already logged this error recently, don't log it again (no need to spam the API)
-	        if (this._isRepeatError(exception)) {
-	          return;
-	        }
+	            var stacktrace = _tracekit2.default.computeStackTrace(exception);
 	
-	        var stacktrace = _tracekit2.default.computeStackTrace(exception);
+	            return this.onError(stacktrace);
+	          }
 	
-	        return this.onError(stacktrace);
-	      };
+	          // Check to see if this error was reported within the last 5 seconds
 	
-	      // Check to see if this error was reported within the last 5 seconds
+	        }, {
+	          key: '_isRepeatError',
+	          value: function _isRepeatError(exception) {
+	            var timestamp = (0, _moment2.default)();
+	            var message = exception.message;
+	            var lastTimestamp = this.messageTimestampMap[message];
+	            var isRepeat = false;
 	
+	            if (lastTimestamp && timestamp.diff(lastTimestamp) < AV_EXCEPTIONS.REPEAT_LIMIT_TIME) {
+	              isRepeat = true;
+	            }
 	
-	      AvExceptionAnalytics.prototype._isRepeatError = function _isRepeatError(exception) {
-	        var timestamp = (0, _moment2.default)();
-	        var message = exception.message;
-	        var lastTimestamp = this.messageTimestampMap[message];
-	        var isRepeat = false;
+	            this.messageTimestampMap[message] = timestamp;
+	            return isRepeat;
+	          }
+	        }]);
 	
-	        if (lastTimestamp && timestamp.diff(lastTimestamp) < AV_EXCEPTIONS.REPEAT_LIMIT_TIME) {
-	          isRepeat = true;
-	        }
+	        return AvExceptionAnalytics;
+	      }();
 	
-	        this.messageTimestampMap[message] = timestamp;
-	        return isRepeat;
-	      };
-	
-	      return AvExceptionAnalytics;
-	    }();
-	
-	    return new AvExceptionAnalytics();
-	  };
+	      return new AvExceptionAnalytics();
+	    }
+	  }]);
 	
 	  return AvExceptionAnalyticsProvider;
 	}();
@@ -8925,20 +11164,24 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
+/* 316 */,
 /* 317 */,
-/* 318 */,
-/* 319 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(320);
+	__webpack_require__(319);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8953,54 +11196,64 @@ webpackJsonp([0],[
 	    _classCallCheck(this, LogMessagesProvider);
 	  }
 	
-	  LogMessagesProvider.prototype.$get = function $get(AvApiResource) {
-	    var AvLogMessagesResource = function (_AvApiResource) {
-	      _inherits(AvLogMessagesResource, _AvApiResource);
+	  _createClass(LogMessagesProvider, [{
+	    key: '$get',
+	    value: function $get(AvApiResource) {
+	      var AvLogMessagesResource = function (_AvApiResource) {
+	        _inherits(AvLogMessagesResource, _AvApiResource);
 	
-	      function AvLogMessagesResource() {
-	        _classCallCheck(this, AvLogMessagesResource);
+	        function AvLogMessagesResource() {
+	          _classCallCheck(this, AvLogMessagesResource);
 	
-	        return _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	          version: '/v1',
-	          name: '/log-messages'
-	        }));
-	      }
-	
-	      AvLogMessagesResource.prototype.request = function request(level, entries) {
-	
-	        var requestPayload = {};
-	
-	        if (entries.level) {
-	          delete entries.level;
+	          return _possibleConstructorReturn(this, (AvLogMessagesResource.__proto__ || Object.getPrototypeOf(AvLogMessagesResource)).call(this, {
+	            version: '/v1',
+	            name: '/log-messages'
+	          }));
 	        }
 	
-	        requestPayload.level = level;
-	        requestPayload.entries = entries;
+	        _createClass(AvLogMessagesResource, [{
+	          key: 'requestPayload',
+	          value: function requestPayload(level, entries) {
 	
-	        return requestPayload;
-	      };
+	            var payload = {};
 	
-	      AvLogMessagesResource.prototype.debug = function debug(entries) {
-	        return this.create(this.request('debug', entries));
-	      };
+	            if (entries.level) {
+	              delete entries.level;
+	            }
 	
-	      AvLogMessagesResource.prototype.info = function info(entries) {
-	        return this.create(this.request('info', entries));
-	      };
+	            payload.level = level;
+	            payload.entries = entries;
 	
-	      AvLogMessagesResource.prototype.warn = function warn(entries) {
-	        return this.create(this.request('warn', entries));
-	      };
+	            return payload;
+	          }
+	        }, {
+	          key: 'debug',
+	          value: function debug(entries) {
+	            return this.create(this.requestPayload('debug', entries));
+	          }
+	        }, {
+	          key: 'info',
+	          value: function info(entries) {
+	            return this.create(this.requestPayload('info', entries));
+	          }
+	        }, {
+	          key: 'warn',
+	          value: function warn(entries) {
+	            return this.create(this.requestPayload('warn', entries));
+	          }
+	        }, {
+	          key: 'error',
+	          value: function error(entries) {
+	            return this.create(this.requestPayload('error', entries));
+	          }
+	        }]);
 	
-	      AvLogMessagesResource.prototype.error = function error(entries) {
-	        return this.create(this.request('error', entries));
-	      };
+	        return AvLogMessagesResource;
+	      }(AvApiResource);
 	
-	      return AvLogMessagesResource;
-	    }(AvApiResource);
-	
-	    return new AvLogMessagesResource();
-	  };
+	      return new AvLogMessagesResource();
+	    }
+	  }]);
 	
 	  return LogMessagesProvider;
 	}();
@@ -9010,20 +11263,24 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 320 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(317);
+	var _moment = __webpack_require__(316);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -9031,9 +11288,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
+	__webpack_require__(320);
+	
 	__webpack_require__(321);
 	
-	__webpack_require__(322);
+	__webpack_require__(323);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9044,337 +11303,408 @@ webpackJsonp([0],[
 	    _classCallCheck(this, ApiResourceProvider);
 	
 	    this.defaultOptions = _extends({}, AV_API.OPTIONS);
-	    this.sessionBust = (0, _moment2.default)().unix();
 	  }
 	
-	  ApiResourceProvider.prototype.setOptions = function setOptions(options) {
-	    _extends(this.defaultOptions, options);
-	  };
+	  _createClass(ApiResourceProvider, [{
+	    key: 'setOptions',
+	    value: function setOptions(options) {
+	      _extends(this.defaultOptions, options);
+	    }
+	  }, {
+	    key: 'getOptions',
+	    value: function getOptions() {
+	      return _angular2.default.copy(this.defaultOptions);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get($http, $q, avPollingService, avLocalStorageService, AV_STORAGE) {
 	
-	  ApiResourceProvider.prototype.getOptions = function getOptions() {
-	    return _angular2.default.copy(this.defaultOptions);
-	  };
+	      var that = this;
 	
-	  ApiResourceProvider.prototype.$get = function $get($http, $q, avPollingService) {
+	      var AvApiResource = function () {
+	        function AvApiResource(_options) {
+	          _classCallCheck(this, AvApiResource);
 	
-	    var that = this;
+	          this.options = _options;
 	
-	    var AvApiResource = function () {
-	      function AvApiResource(_options) {
-	        _classCallCheck(this, AvApiResource);
+	          if (!this.options) {
+	            throw new Error('[options] cannot be null or undefined');
+	          }
 	
-	        this.options = _options;
+	          if (this.options.name) {
+	            this.options.name = this.options.name.charAt(0) === '/' ? this.options.name : '/' + this.options.name;
+	          }
 	
-	        if (!this.options) {
-	          throw new Error('[options] cannot be null or undefined');
+	          if (!this.options.url && !this.options.name) {
+	            throw new Error('AvApiResource options [url] or [name] cannot be null');
+	          }
+	
+	          // get the default options and merge into this instance
+	          this.options = _angular2.default.extend({}, that.defaultOptions, this.options);
+	
+	          this.pageBustValue;
 	        }
 	
-	        if (this.options.name) {
-	          this.options.name = this.options.name.charAt(0) === '/' ? this.options.name : '/' + this.options.name;
-	        }
+	        _createClass(AvApiResource, [{
+	          key: 'config',
+	          value: function config(_config2) {
+	            return _angular2.default.extend({}, this.options, _config2 || {});
+	          }
+	        }, {
+	          key: 'cacheBust',
+	          value: function cacheBust(config) {
 	
-	        if (!this.options.url && !this.options.name) {
-	          throw new Error('AvApiResource options [url] or [name] cannot be null');
-	        }
-	
-	        // get the default options and merge into this instance
-	        this.options = _angular2.default.extend({}, that.defaultOptions, this.options);
-	      }
-	
-	      AvApiResource.prototype.config = function config(_config2) {
-	        return _angular2.default.extend({}, this.options, _config2 || {});
-	      };
-	
-	      AvApiResource.prototype.cacheBust = function cacheBust(_config) {
-	
-	        var config = _angular2.default.copy(_config);
-	        config.cacheBust = null;
-	        config.params = config.params || {};
-	        config.params.cacheBust = (0, _moment2.default)().unix();
-	
-	        return config;
-	      };
-	
-	      AvApiResource.prototype.sessionBust = function sessionBust(_config) {
-	
-	        var config = _angular2.default.copy(_config);
-	        config.sessionBust = null;
-	        config.params = config.params || {};
-	        config.params.sessionBust = that.sessionBust;
-	
-	        return config;
-	      };
-	
-	      AvApiResource.prototype.getUrl = function getUrl(id) {
-	
-	        if (this.options.api) {
-	          return this.getApiUrl(id);
-	        }
-	
-	        return this.options.url;
-	      };
-	
-	      AvApiResource.prototype.createResponse = function createResponse(data, status, headers, config) {
-	        return {
-	          data: data,
-	          status: status,
-	          headers: headers,
-	          config: config
-	        };
-	      };
-	
-	      AvApiResource.prototype.request = function request(config, afterCallback) {
-	
-	        var self = this;
-	        var defer = $q.defer();
-	
-	        $http(config).success(function (data, status, headers, _config) {
-	
-	          var _response = {
-	            data: data,
-	            status: status,
-	            headers: headers,
-	            config: _config
-	          };
-	
-	          // handle the async response if applicable
-	          var _promise = $q.when(avPollingService.response(_response));
-	
-	          // notify the promise listener of the original response
-	          defer.notify(_response);
-	
-	          // handle the polling service promise
-	          _promise.then(function (_successResponse) {
-	
-	            var successResponse = _successResponse;
-	
-	            if (afterCallback) {
-	              successResponse = afterCallback.call(self, successResponse, config.data);
+	            if (config.cacheBust === true) {
+	              config.params.cacheBust = (0, _moment2.default)().unix();
+	            } else if (_angular2.default.isFunction(config.cacheBust)) {
+	              config.params.cacheBust = config.cacheBust();
+	            } else {
+	              config.params.cacheBust = config.cacheBust;
 	            }
-	            defer.resolve(successResponse);
-	          }, function (errorResponse) {
-	            return defer.reject(errorResponse);
-	          }, function (notifyResponse) {
-	            return defer.notify(notifyResponse);
-	          });
-	        }).error(function (data, status, headers, _config) {
-	          var response = self.createResponse(data, status, headers, _config);
-	          defer.reject(response);
-	        });
+	          }
+	        }, {
+	          key: 'setPageBust',
+	          value: function setPageBust(value) {
+	            this.pageBustValue = _angular2.default.isUndefined(value) ? (0, _moment2.default)().unix() : value;
+	          }
+	        }, {
+	          key: 'getPageBust',
+	          value: function getPageBust() {
+	            if (_angular2.default.isUndefined(this.pageBustValue)) {
+	              this.setPageBust();
+	            }
+	            return this.pageBustValue;
+	          }
+	        }, {
+	          key: 'pageBust',
+	          value: function pageBust(config) {
+	            if (config.pageBust === true) {
+	              config.params.pageBust = this.getPageBust();
+	            } else if (_angular2.default.isFunction(config.pageBust)) {
+	              config.params.pageBust = config.pageBust();
+	            } else {
+	              config.params.pageBust = config.pageBust;
+	            }
+	          }
 	
-	        var promise = defer.promise;
+	          // cacheBust: supports the following types
+	          //    - true|false: Generate a timestamp each call
+	          //    - Value: Use this as a chacheBust variable for each call
+	          //    - Function: Call this function to return the cacheBust variable
+	          // pageBust: true|false, if true, set a cachebust variable to a timestamp of page load
+	          // sessionBust: true|false, if true, get the avCacheBust variable from local storage, set at
+	          //    login (if value not set, works like pageBust)
 	
-	        // recreate the success callback ala $http
-	        promise.success = function (fn) {
-	          promise.then(function (response) {
-	            fn(response.data, response.status, response.headers, response.config);
-	          });
-	          return promise;
-	        };
+	        }, {
+	          key: 'cacheParams',
+	          value: function cacheParams(_config) {
 	
-	        // recreate the error callback ala $http
-	        promise.error = function (fn) {
+	            var config = _angular2.default.copy(_config);
+	            config.params = config.params || {};
 	
-	          promise.then(null, function (response) {
-	            fn(response.data, response.status, response.headers, config);
-	          });
+	            if (config.cacheBust) {
+	              this.cacheBust(config);
+	            }
 	
-	          return promise;
-	        };
+	            if (config.pageBust) {
+	              this.pageBust(config);
+	            }
 	
-	        promise.always = promise.finally;
+	            if (config.sessionBust) {
+	              config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || this.getPageBust();
+	            }
 	
-	        return promise;
-	      };
+	            return config;
+	          }
+	        }, {
+	          key: 'getUrl',
+	          value: function getUrl(id) {
 	
-	      AvApiResource.prototype.normalize = function normalize(url) {
-	        return url.replace(/[\/]+/g, '/').replace(/\/$/, '');
-	      };
+	            if (this.options.api) {
+	              return this.getApiUrl(id);
+	            }
 	
-	      AvApiResource.prototype.join = function join() {
-	        var joined = [].slice.call(arguments, 0).join('/');
-	        return this.normalize(joined);
-	      };
+	            return this.options.url;
+	          }
+	        }, {
+	          key: 'request',
+	          value: function request(config, afterCallback) {
 	
-	      AvApiResource.prototype.getApiUrl = function getApiUrl(_id) {
+	            var self = this;
+	            var defer = $q.defer();
 	
-	        var id = _id ? '/' + _id : '';
+	            $http(config).then(function (response) {
 	
-	        var uri = void 0;
+	              // handle the async response if applicable
+	              var _promise = $q.when(avPollingService.response(response));
 	
-	        var _options2 = this.options,
-	            path = _options2.path,
-	            version = _options2.version,
-	            name = _options2.name,
-	            url = _options2.url;
+	              // notify the promise listener of the original response
+	              defer.notify(response);
+	
+	              // handle the polling service promise
+	              _promise.then(function (_successResponse) {
+	
+	                var successResponse = _successResponse;
+	
+	                if (afterCallback) {
+	                  successResponse = afterCallback.call(self, successResponse, config.data);
+	                }
+	                defer.resolve(successResponse);
+	              }, function (errorResponse) {
+	                return defer.reject(errorResponse);
+	              }, function (notifyResponse) {
+	                return defer.notify(notifyResponse);
+	              });
+	            }).catch(function (response) {
+	              defer.reject(response);
+	            });
+	
+	            var promise = defer.promise;
+	
+	            // recreate the success callback ala $http
+	            promise.success = function (fn) {
+	              promise.then(function (response) {
+	                fn(response.data, response.status, response.headers, response.config);
+	              });
+	              return promise;
+	            };
+	
+	            // recreate the error callback ala $http
+	            promise.error = function (fn) {
+	
+	              promise.then(null, function (response) {
+	                fn(response.data, response.status, response.headers, config);
+	              });
+	
+	              return promise;
+	            };
+	
+	            promise.always = promise.finally;
+	
+	            return promise;
+	          }
+	        }, {
+	          key: 'normalize',
+	          value: function normalize(url) {
+	            return url.replace(/[\/]+/g, '/').replace(/\/$/, '');
+	          }
+	        }, {
+	          key: 'join',
+	          value: function join() {
+	            var joined = [].slice.call(arguments, 0).join('/');
+	            return this.normalize(joined);
+	          }
+	        }, {
+	          key: 'getApiUrl',
+	          value: function getApiUrl(_id) {
+	
+	            var id = _id ? '/' + _id : '';
+	
+	            var uri = void 0;
+	
+	            var _options2 = this.options,
+	                path = _options2.path,
+	                version = _options2.version,
+	                name = _options2.name,
+	                url = _options2.url;
 	
 	
-	        if (name) {
-	          uri = this.join('/', path, version, name, id);
-	        } else {
-	          uri = this.join(url, id);
-	        }
+	            if (name) {
+	              uri = this.join('/', path, version, name, id);
+	            } else {
+	              uri = this.join(url, id);
+	            }
 	
-	        return uri;
-	      };
+	            return uri;
+	          }
+	        }, {
+	          key: 'create',
+	          value: function create(_data, _config) {
 	
-	      AvApiResource.prototype.create = function create(_data, _config) {
+	            var data = _data;
+	            var config = _config;
 	
-	        var data = _data;
-	        var config = _config;
+	            if (!data) {
+	              throw new Error('called method without [data]');
+	            }
 	
-	        if (!data) {
-	          throw new Error('called method without [data]');
-	        }
+	            if (this.beforeCreate) {
+	              data = this.beforeCreate(data);
+	            }
 	
-	        if (this.beforeCreate) {
-	          data = this.beforeCreate(data);
-	        }
+	            config = this.config(config);
+	            config.method = 'POST';
+	            config.url = this.getUrl();
+	            config.data = data;
 	
-	        config = this.config(config);
-	        config.method = 'POST';
-	        config.url = this.getUrl();
-	        config.data = data;
+	            return this.request(config, this.afterCreate);
+	          }
+	        }, {
+	          key: 'postGet',
+	          value: function postGet(_data, _config) {
+	            var data = _data;
+	            var config = _config;
 	
-	        return this.request(config, this.afterCreate);
-	      };
+	            if (!data) {
+	              throw new Error('called method without [data]');
+	            }
+	            if (this.beforeCreate) {
+	              data = this.beforePostGet(data);
+	            }
+	            config = this.config(config);
+	            config.method = 'POST';
+	            config.headers['X-HTTP-Method-Override'] = 'GET';
+	            config.url = this.getUrl();
+	            config.data = data;
 	
-	      AvApiResource.prototype.get = function get(id, _config) {
+	            return this.request(config, this.afterPostGet);
+	          }
+	        }, {
+	          key: 'get',
+	          value: function get(id, _config) {
 	
-	        var config = _config;
+	            var config = _config;
 	
-	        if (!id) {
-	          throw new Error('called method without [id]');
-	        }
+	            if (!id) {
+	              throw new Error('called method without [id]');
+	            }
 	
-	        config = this.config(config);
-	        if (config.cacheBust) {
-	          config = this.cacheBust(config);
-	        }
+	            config = this.config(config);
+	            config = this.cacheParams(config);
 	
-	        config.method = 'GET';
-	        config.url = this.getUrl(id);
+	            config.method = 'GET';
+	            config.url = this.getUrl(id);
 	
-	        return this.request(config, this.afterGet);
-	      };
+	            return this.request(config, this.afterGet);
+	          }
+	        }, {
+	          key: 'query',
+	          value: function query(_config) {
 	
-	      AvApiResource.prototype.query = function query(_config) {
+	            var config = _config;
 	
-	        var config = _config;
+	            config = this.config(config);
+	            config = this.cacheParams(config);
 	
-	        // If true cache bust the api on every call
-	        config = this.config(config);
-	        if (config.cacheBust) {
-	          config = this.cacheBust(config);
-	        }
+	            config.method = 'GET';
+	            config.url = this.getUrl();
 	
-	        // Cache bust api once per application load
-	        if (config.sessionBust) {
-	          config = this.sessionBust(config);
-	        }
+	            return this.request(config, this.afterQuery);
+	          }
+	        }, {
+	          key: 'update',
+	          value: function update(id, _data, _config) {
 	
-	        config.method = 'GET';
-	        config.url = this.getUrl();
+	            var config = _config;
+	            var data = _data;
 	
-	        return this.request(config, this.afterQuery);
-	      };
+	            var url = void 0;
 	
-	      AvApiResource.prototype.update = function update(id, _data, _config) {
+	            if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
+	              url = this.getUrl(id);
+	            } else {
+	              url = this.getUrl();
 	
-	        var config = _config;
-	        var data = _data;
+	              // At this point the function signature becomes:
+	              //
+	              // update(data, config) {} a.k.a function(id, data)
+	              //
+	              config = data; // config is really the 2nd param
+	              data = id; // data is really the first param
+	            }
 	
-	        var url = void 0;
+	            if (this.beforeUpdate) {
+	              data = this.beforeUpdate(data);
+	            }
 	
-	        if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
-	          url = this.getUrl(id);
-	        } else {
-	          url = this.getUrl();
+	            config = this.config(config);
+	            config.method = 'PUT';
+	            config.url = url;
+	            config.data = data;
 	
-	          // At this point the function signature becomes:
-	          //
-	          // update(data, config) {} a.k.a function(id, data)
-	          //
-	          config = data; // config is really the 2nd param
-	          data = id; // data is really the first param
-	        }
+	            return this.request(config, this.afterUpdate);
+	          }
+	        }, {
+	          key: 'remove',
+	          value: function remove(id, _config) {
 	
-	        if (this.beforeUpdate) {
-	          data = this.beforeUpdate(data);
-	        }
+	            var config = _config;
 	
-	        config = this.config(config);
-	        config.method = 'PUT';
-	        config.url = url;
-	        config.data = data;
+	            var url = void 0;
+	            var data = void 0;
 	
-	        return this.request(config, this.afterUpdate);
-	      };
+	            if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
+	              url = this.getUrl(id);
+	            } else {
 	
-	      AvApiResource.prototype.remove = function remove(id, _config) {
+	              // At this point the function signature becomes:
+	              //
+	              // remove(data, config)
+	              //
+	              url = this.getUrl();
+	              data = id;
+	            }
 	
-	        var config = _config;
+	            config = this.config(config);
+	            config.method = 'DELETE';
+	            config.url = url;
+	            config.data = data;
 	
-	        var url = void 0;
-	        var data = void 0;
+	            return this.request(config, this.afterRemove);
+	          }
+	        }, {
+	          key: 'beforeCreate',
+	          value: function beforeCreate(data) {
+	            return data;
+	          }
+	        }, {
+	          key: 'afterCreate',
+	          value: function afterCreate(response) {
+	            return response;
+	          }
+	        }, {
+	          key: 'beforePostGet',
+	          value: function beforePostGet(data) {
+	            return data;
+	          }
+	        }, {
+	          key: 'afterPostGet',
+	          value: function afterPostGet(response) {
+	            return response;
+	          }
+	        }, {
+	          key: 'afterQuery',
+	          value: function afterQuery(response) {
+	            return response;
+	          }
+	        }, {
+	          key: 'afterGet',
+	          value: function afterGet(response) {
+	            return response;
+	          }
+	        }, {
+	          key: 'beforeUpdate',
+	          value: function beforeUpdate(data) {
+	            return data;
+	          }
+	        }, {
+	          key: 'afterUpdate',
+	          value: function afterUpdate(response) {
+	            return response;
+	          }
+	        }, {
+	          key: 'afterRemove',
+	          value: function afterRemove(response) {
+	            return response;
+	          }
+	        }]);
 	
-	        if (_angular2.default.isString(id) || _angular2.default.isNumber(id)) {
-	          url = this.getUrl(id);
-	        } else {
-	
-	          // At this point the function signature becomes:
-	          //
-	          // remove(data, config)
-	          //
-	          url = this.getUrl();
-	          data = id;
-	        }
-	
-	        config = this.config(config);
-	        config.method = 'DELETE';
-	        config.url = url;
-	        config.data = data;
-	
-	        return this.request(config, this.afterRemove);
-	      };
-	
-	      AvApiResource.create = function create() {
-	        return new AvApiResource();
-	      };
-	
-	      AvApiResource.prototype.beforeCreate = function beforeCreate(data) {
-	        return data;
-	      };
-	
-	      AvApiResource.prototype.afterCreate = function afterCreate(response) {
-	        return response;
-	      };
-	
-	      AvApiResource.prototype.afterQuery = function afterQuery(response) {
-	        return response;
-	      };
-	
-	      AvApiResource.prototype.afterGet = function afterGet(response) {
-	        return response;
-	      };
-	
-	      AvApiResource.prototype.beforeUpdate = function beforeUpdate(data) {
-	        return data;
-	      };
-	
-	      AvApiResource.prototype.afterUpdate = function afterUpdate(response) {
-	        return response;
-	      };
-	
-	      AvApiResource.prototype.afterRemove = function afterRemove(response) {
-	        return response;
-	      };
+	        return AvApiResource;
+	      }();
 	
 	      return AvApiResource;
-	    }();
-	
-	    return AvApiResource;
-	  };
+	    }
+	  }]);
 	
 	  return ApiResourceProvider;
 	}();
@@ -9384,12 +11714,14 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 321 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _module = __webpack_require__(304);
 	
@@ -9447,11 +11779,293 @@ webpackJsonp([0],[
 	    headers: {
 	      // Turn off content encoding for angular apis
 	      'X-Response-Encoding-Context': 'NONE'
-	    }
+	    },
+	    sessionBust: true
 	  }
 	});
 	
 	exports.default = _module2.default;
+
+/***/ },
+/* 321 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _angular = __webpack_require__(301);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _constants = __webpack_require__(322);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	var _utils = __webpack_require__(310);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvPollingService = function () {
+	  function AvPollingService($rootScope, $q, $injector, $timeout, $log, AV_POLLING, AV_API) {
+	    _classCallCheck(this, AvPollingService);
+	
+	    this.av = { $rootScope: $rootScope, $q: $q, $injector: $injector, $timeout: $timeout, $log: $log, AV_POLLING: AV_POLLING, AV_API: AV_API };
+	    this.pendingRequests = []; // stores all request for polling
+	  }
+	
+	  _createClass(AvPollingService, [{
+	    key: 'response',
+	    value: function response(_response) {
+	
+	      if (this.isAsyncResponse(_response)) {
+	        return this.onAsyncReponse(_response);
+	      }
+	
+	      return _response || this.av.$q.when(_response);
+	    }
+	  }, {
+	    key: 'setDefaults',
+	    value: function setDefaults(config) {
+	
+	      var defaultOptions = {
+	        pollingInterval: this.av.AV_POLLING.INTERVAL,
+	        pollingDecay: this.av.AV_POLLING.DECAY,
+	        pollingMaxInterval: this.av.AV_POLLING.MAX_ELAPSED_TIME,
+	        pollingRetryCount: 0,
+	        pollingStartTime: new Date().getTime()
+	      };
+	
+	      return _extends(defaultOptions, config);
+	    }
+	  }, {
+	    key: 'responseError',
+	    value: function responseError(response) {
+	      // Return the promise rejection
+	      return this.av.$q.reject(response);
+	    }
+	
+	    /**
+	     * API layer return a link with a polling url for
+	     * async responses.
+	     *
+	     * @param  {Object}  response ajax response
+	     * @return {Boolean} true if response has status of 202 (accepted) and location param in header with uri+session link
+	     */
+	
+	  }, {
+	    key: 'isAsyncResponse',
+	    value: function isAsyncResponse(response) {
+	
+	      return response && response.config && response.config.api && response.status && response.status === 202 && _angular2.default.isFunction(response.headers) && !(0, _utils.isBlank)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
+	    }
+	  }, {
+	    key: 'onAsyncReponse',
+	    value: function onAsyncReponse(response) {
+	
+	      response.config = this.setDefaults(response.config);
+	
+	      var deferred = this.av.$q.defer();
+	
+	      this.queueRequest(deferred, response);
+	
+	      // [rm3]: Can't call notify before you return promise object?
+	      this.av.$timeout(function () {
+	        // Notify deferred listeners with the original server response
+	        deferred.notify(response);
+	      }, 0, false);
+	
+	      return deferred.promise;
+	    }
+	  }, {
+	    key: 'getUrl',
+	    value: function getUrl(url) {
+	
+	      var result = url.match(this.av.AV_POLLING.REGEX_URL);
+	      if (result && result[1]) {
+	        return '/api' + result[1];
+	      }
+	
+	      return url;
+	    }
+	  }, {
+	    key: 'queueRequest',
+	    value: function queueRequest(deferred, response) {
+	
+	      var self = this;
+	      // server replies with location header so set the url into config
+	      var _url = (0, _utils.getRelativeUrl)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
+	      var _config = response.config;
+	
+	      // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
+	      //  to send to the server. If the return value of a function is null, the header
+	      //  will not be sent. Functions accept a config object as an argument.
+	      var config = {
+	        method: 'GET',
+	        api: true,
+	        headers: _config.headers,
+	        pollingInterval: _config.pollingInterval,
+	        pollingMaxRetry: _config.pollingMaxRetry,
+	        pollingMaxInterval: _config.pollingMaxInterval,
+	        pollingStartTime: _config.pollingStartTime,
+	        _pollingDecay: _config._pollingDecay,
+	        pollingRetryCount: _config.pollingRetryCount,
+	        pollingDecay: _config.pollingDecay,
+	        url: _url, /* set the url from the server response */
+	        cache: false
+	      };
+	
+	      var request = {
+	        id: (0, _utils.uuid)('request-'),
+	        config: config,
+	        deferred: deferred
+	      };
+	
+	      var timeout = this.getPollingTimeout(config);
+	
+	      // each async request should run on its own timer
+	      var timer = this.av.$timeout(function () {
+	        self.retryRequest(request.id);
+	      }, timeout, false);
+	
+	      request.timer = timer;
+	
+	      // add the async request to the queue
+	      this.pushRequest(request);
+	    }
+	  }, {
+	    key: 'popRequest',
+	    value: function popRequest(id) {
+	
+	      var index = null;
+	      var request = null;
+	
+	      for (var i = 0; i < this.pendingRequests.length; i++) {
+	        if (this.pendingRequests[i].id === id) {
+	          index = i;
+	          break;
+	        }
+	      }
+	
+	      request = this.pendingRequests[index];
+	      this.pendingRequests.splice(index, 1);
+	
+	      return request;
+	    }
+	  }, {
+	    key: 'pushRequest',
+	    value: function pushRequest(request) {
+	      this.pendingRequests.push(request);
+	    }
+	  }, {
+	    key: 'getPollingTimeout',
+	    value: function getPollingTimeout(config) {
+	      return config.pollingDecay * config.pollingInterval;
+	    }
+	  }, {
+	    key: 'isPollingMaxTimeout',
+	    value: function isPollingMaxTimeout(config) {
+	      var now = new Date().getTime();
+	      var elaspedTime = now - config.pollingStartTime;
+	      var isElapsed = elaspedTime > config.pollingMaxInterval;
+	      return isElapsed;
+	    }
+	  }, {
+	    key: 'isMaxRetried',
+	    value: function isMaxRetried(config) {
+	      return config.pollingRetryCount >= this.av.AV_POLLING.MAX_RETRY;
+	    }
+	  }, {
+	    key: 'isPollable',
+	    value: function isPollable(config) {
+	      var _isTimeout = this.isPollingMaxTimeout(config);
+	      var _isMax = this.isMaxRetried(config);
+	
+	      return _isTimeout || _isMax ? false : true;
+	    }
+	  }, {
+	    key: 'retryRequest',
+	    value: function retryRequest(id) {
+	
+	      var self = this;
+	      var request = this.popRequest(id);
+	      this.av.$timeout.cancel(request.timer);
+	
+	      var config = request.config;
+	
+	      var deferred = request.deferred;
+	
+	      if (!this.isPollable(config)) {
+	        this.av.$log.info('Rejecting pollable response due to timeout');
+	        return deferred.reject(request);
+	      }
+	
+	      // increment counters and polling timeouts
+	      this.increment(config);
+	
+	      function successCallback(response) {
+	        if (self.isAsyncResponse(response)) {
+	          deferred.notify(response);
+	          self.queueRequest(request.deferred, response);
+	        } else {
+	          deferred.resolve(response);
+	        }
+	      }
+	
+	      function errorCallback(response) {
+	        deferred.reject(response);
+	      }
+	
+	      // Silly circular dependency trick
+	      var $http = this.av.$injector.get('$http');
+	
+	      $http(config).then(successCallback, errorCallback);
+	    }
+	  }, {
+	    key: 'increment',
+	    value: function increment(config) {
+	      this.incrementCounter(config);
+	      this.incrementDecay(config);
+	    }
+	  }, {
+	    key: 'incrementDecay',
+	    value: function incrementDecay(config) {
+	      if (!config._pollingDecay) {
+	        // store the original decay param
+	        config._pollingDecay = config.pollingDecay;
+	      }
+	      config.pollingDecay *= config._pollingDecay;
+	    }
+	  }, {
+	    key: 'incrementCounter',
+	    value: function incrementCounter(config) {
+	      config.pollingRetryCount++;
+	    }
+	  }, {
+	    key: 'clearRequests',
+	    value: function clearRequests() {
+	      var self = this;
+	      _angular2.default.forEach(this.pendingRequests, function (request) {
+	        self.av.$timeout.cancel(request.timer);
+	      });
+	      this.pendingRequests = [];
+	    }
+	  }]);
+	
+	  return AvPollingService;
+	}();
+	
+	_constants2.default.service('avPollingService', AvPollingService);
+	
+	exports.default = _constants2.default;
 
 /***/ },
 /* 322 */
@@ -9459,283 +12073,9 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	exports.__esModule = true;
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _angular = __webpack_require__(301);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _constants = __webpack_require__(323);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _utils = __webpack_require__(311);
-	
-	var _base = __webpack_require__(308);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvPollingService = function (_Base) {
-	  _inherits(AvPollingService, _Base);
-	
-	  function AvPollingService() {
-	    _classCallCheck(this, AvPollingService);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.pendingRequests = []; // stores all request for polling
-	    return _this;
-	  }
-	
-	  AvPollingService.prototype.response = function response(_response) {
-	
-	    if (this.isAsyncResponse(_response)) {
-	      return this.onAsyncReponse(_response);
-	    }
-	
-	    return _response || this.av.$q.when(_response);
-	  };
-	
-	  AvPollingService.prototype.setDefaults = function setDefaults(config) {
-	
-	    var defaultOptions = {
-	      pollingInterval: this.av.AV_POLLING.INTERVAL,
-	      pollingDecay: this.av.AV_POLLING.DECAY,
-	      pollingMaxInterval: this.av.AV_POLLING.MAX_ELAPSED_TIME,
-	      pollingRetryCount: 0,
-	      pollingStartTime: new Date().getTime()
-	    };
-	
-	    return _extends(defaultOptions, config);
-	  };
-	
-	  AvPollingService.prototype.responseError = function responseError(response) {
-	    // Return the promise rejection
-	    return this.av.$q.reject(response);
-	  };
-	
-	  /**
-	   * API layer return a link with a polling url for
-	   * async responses.
-	   *
-	   * @param  {Object}  response ajax response
-	   * @return {Boolean} true if response has status of 202 (accepted) and location param in header with uri+session link
-	   */
-	
-	
-	  AvPollingService.prototype.isAsyncResponse = function isAsyncResponse(response) {
-	
-	    return response && response.config && response.config.api && response.status && response.status === 202 && _angular2.default.isFunction(response.headers) && !(0, _utils.isBlank)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
-	  };
-	
-	  AvPollingService.prototype.onAsyncReponse = function onAsyncReponse(response) {
-	
-	    response.config = this.setDefaults(response.config);
-	
-	    var deferred = this.av.$q.defer();
-	
-	    this.queueRequest(deferred, response);
-	
-	    // [rm3]: Can't call notify before you return promise object?
-	    this.av.$timeout(function () {
-	      // Notify deferred listeners with the original server response
-	      deferred.notify(response);
-	    }, 0, false);
-	
-	    return deferred.promise;
-	  };
-	
-	  AvPollingService.prototype.getUrl = function getUrl(url) {
-	
-	    var result = url.match(this.av.AV_POLLING.REGEX_URL);
-	    if (result && result[1]) {
-	      return '/api' + result[1];
-	    }
-	
-	    return url;
-	  };
-	
-	  AvPollingService.prototype.queueRequest = function queueRequest(deferred, response) {
-	
-	    var self = this;
-	    // server replies with location header so set the url into config
-	    var _url = (0, _utils.getRelativeUrl)(response.headers(this.av.AV_API.HEADERS.SERVER.LOCATION));
-	    var _config = response.config;
-	
-	    // headers – {Object} – Map of strings or functions which return strings representing HTTP headers
-	    //  to send to the server. If the return value of a function is null, the header
-	    //  will not be sent. Functions accept a config object as an argument.
-	    var config = {
-	      method: 'GET',
-	      api: true,
-	      headers: _config.headers,
-	      pollingInterval: _config.pollingInterval,
-	      pollingMaxRetry: _config.pollingMaxRetry,
-	      pollingMaxInterval: _config.pollingMaxInterval,
-	      pollingStartTime: _config.pollingStartTime,
-	      _pollingDecay: _config._pollingDecay,
-	      pollingRetryCount: _config.pollingRetryCount,
-	      pollingDecay: _config.pollingDecay,
-	      url: _url, /* set the url from the server response */
-	      cache: false
-	    };
-	
-	    var request = {
-	      id: (0, _utils.uuid)('request-'),
-	      config: config,
-	      deferred: deferred
-	    };
-	
-	    var timeout = this.getPollingTimeout(config);
-	
-	    // each async request should run on its own timer
-	    var timer = this.av.$timeout(function () {
-	      self.retryRequest(request.id);
-	    }, timeout, false);
-	
-	    request.timer = timer;
-	
-	    // add the async request to the queue
-	    this.pushRequest(request);
-	  };
-	
-	  AvPollingService.prototype.popRequest = function popRequest(id) {
-	
-	    var index = null;
-	    var request = null;
-	
-	    for (var i = 0; i < this.pendingRequests.length; i++) {
-	      if (this.pendingRequests[i].id === id) {
-	        index = i;
-	        break;
-	      }
-	    }
-	
-	    request = this.pendingRequests[index];
-	    this.pendingRequests.splice(index, 1);
-	
-	    return request;
-	  };
-	
-	  AvPollingService.prototype.pushRequest = function pushRequest(request) {
-	    this.pendingRequests.push(request);
-	  };
-	
-	  AvPollingService.prototype.getPollingTimeout = function getPollingTimeout(config) {
-	    return config.pollingDecay * config.pollingInterval;
-	  };
-	
-	  AvPollingService.prototype.isPollingMaxTimeout = function isPollingMaxTimeout(config) {
-	    var now = new Date().getTime();
-	    var elaspedTime = now - config.pollingStartTime;
-	    var isElapsed = elaspedTime > config.pollingMaxInterval;
-	    return isElapsed;
-	  };
-	
-	  AvPollingService.prototype.isMaxRetried = function isMaxRetried(config) {
-	    return config.pollingRetryCount >= this.av.AV_POLLING.MAX_RETRY;
-	  };
-	
-	  AvPollingService.prototype.isPollable = function isPollable(config) {
-	    var _isTimeout = this.isPollingMaxTimeout(config);
-	    var _isMax = this.isMaxRetried(config);
-	
-	    return _isTimeout || _isMax ? false : true;
-	  };
-	
-	  AvPollingService.prototype.retryRequest = function retryRequest(id) {
-	
-	    var self = this;
-	    var request = this.popRequest(id);
-	    this.av.$timeout.cancel(request.timer);
-	
-	    var config = request.config;
-	
-	    var deferred = request.deferred;
-	
-	    if (!this.isPollable(config)) {
-	      this.av.$log.info('Rejecting pollable response due to timeout');
-	      return deferred.reject(request);
-	    }
-	
-	    // increment counters and polling timeouts
-	    this.increment(config);
-	
-	    function successCallback(response) {
-	      if (self.isAsyncResponse(response)) {
-	        deferred.notify(response);
-	        self.queueRequest(request.deferred, response);
-	      } else {
-	        deferred.resolve(response);
-	      }
-	    }
-	
-	    function errorCallback(response) {
-	      deferred.reject(response);
-	    }
-	
-	    // Silly circular dependency trick
-	    var $http = this.av.$injector.get('$http');
-	
-	    $http(config).then(successCallback, errorCallback);
-	  };
-	
-	  AvPollingService.prototype.increment = function increment(config) {
-	    this.incrementCounter(config);
-	    this.incrementDecay(config);
-	  };
-	
-	  AvPollingService.prototype.incrementDecay = function incrementDecay(config) {
-	    if (!config._pollingDecay) {
-	      // store the original decay param
-	      config._pollingDecay = config.pollingDecay;
-	    }
-	    config.pollingDecay *= config._pollingDecay;
-	  };
-	
-	  AvPollingService.prototype.incrementCounter = function incrementCounter(config) {
-	    config.pollingRetryCount++;
-	  };
-	
-	  AvPollingService.prototype.clearRequests = function clearRequests() {
-	    var self = this;
-	    _angular2.default.forEach(this.pendingRequests, function (request) {
-	      self.av.$timeout.cancel(request.timer);
-	    });
-	    this.pendingRequests = [];
-	  };
-	
-	  return AvPollingService;
-	}(_base2.default);
-	
-	AvPollingService.$inject = ['$rootScope', '$q', '$injector', '$timeout', '$log', 'AV_POLLING', 'AV_API'];
-	
-	
-	_constants2.default.service('avPollingService', AvPollingService);
-	
-	exports.default = _constants2.default;
-
-/***/ },
-/* 323 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _module = __webpack_require__(304);
 	
@@ -9758,18 +12098,299 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 324 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _moment = __webpack_require__(316);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _lodash = __webpack_require__(324);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _constants = __webpack_require__(325);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AvLocalStorageService = function () {
+	  function AvLocalStorageService($window) {
+	    _classCallCheck(this, AvLocalStorageService);
+	
+	    this.$window = $window;
+	    this.hasSupport;
+	  }
+	
+	  _createClass(AvLocalStorageService, [{
+	    key: 'supportsLocalStorage',
+	    value: function supportsLocalStorage() {
+	
+	      if (!this.hasSupport) {
+	
+	        var hasSupport = false;
+	        try {
+	
+	          var localStorage = this.$window.localStorage;
+	          if (localStorage) {
+	            var uid = (0, _moment2.default)().unix();
+	
+	            localStorage.setItem(uid, uid);
+	            var testVal = localStorage.getItem(uid);
+	            hasSupport = testVal === uid.toString();
+	
+	            localStorage.removeItem(uid);
+	          }
+	        } catch (e) {
+	          hasSupport = false;
+	        }
+	
+	        this.hasSupport = hasSupport;
+	      }
+	      return this.hasSupport;
+	    }
+	  }, {
+	    key: 'getVal',
+	    value: function getVal(key) {
+	      if (this.supportsLocalStorage()) {
+	        return this.$window.localStorage.getItem(key);
+	      }
+	    }
+	  }, {
+	    key: 'getObjVal',
+	    value: function getObjVal(key) {
+	      var rawVal = this.getVal(key);
+	      return rawVal ? rawVal : JSON.parse(rawVal);
+	    }
+	  }, {
+	    key: 'setVal',
+	    value: function setVal(key, value) {
+	      if (this.supportsLocalStorage()) {
+	        this.$window.localStorage.setItem(key, value);
+	      }
+	    }
+	  }, {
+	    key: 'removeVal',
+	    value: function removeVal(key) {
+	      if (this.supportsLocalStorage()) {
+	        this.$window.localStorage.removeItem(key);
+	      }
+	    }
+	  }, {
+	    key: 'removeKeys',
+	    value: function removeKeys(searchKey) {
+	      var _this = this;
+	
+	      if (this.supportsLocalStorage()) {
+	
+	        var regexString = (0, _lodash2.default)(searchKey) ? searchKey : new RegExp(searchKey);
+	        if (regexString) {
+	
+	          var removeKeys = [];
+	          var length = this.$window.localStorage.length;
+	          for (var i = 0; i < length; i++) {
+	            var thisKey = this.$window.localStorage.key(i);
+	            if (regexString.test(thisKey)) {
+	              removeKeys.push(thisKey);
+	            }
+	          }
+	
+	          removeKeys.forEach(function (key) {
+	            _this.removeVal(key);
+	          });
+	        }
+	      }
+	    }
+	  }]);
+	
+	  return AvLocalStorageService;
+	}();
+	
+	AvLocalStorageService.$inject = ['$window'];
+	
+	
+	_constants2.default.service('avLocalStorageService', AvLocalStorageService);
+	
+	exports.default = _constants2.default;
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** `Object#toString` result references. */
+	var regexpTag = '[object RegExp]';
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+	
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+	
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+	
+	/** Detect free variable `process` from Node.js. */
+	var freeProcess = moduleExports && freeGlobal.process;
+	
+	/** Used to access faster Node.js helpers. */
+	var nodeUtil = (function() {
+	  try {
+	    return freeProcess && freeProcess.binding('util');
+	  } catch (e) {}
+	}());
+	
+	/* Node.js helper references. */
+	var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
+	
+	/**
+	 * The base implementation of `_.unary` without support for storing metadata.
+	 *
+	 * @private
+	 * @param {Function} func The function to cap arguments for.
+	 * @returns {Function} Returns the new capped function.
+	 */
+	function baseUnary(func) {
+	  return function(value) {
+	    return func(value);
+	  };
+	}
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/**
+	 * The base implementation of `_.isRegExp` without Node.js optimizations.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a regexp, else `false`.
+	 */
+	function baseIsRegExp(value) {
+	  return isObject(value) && objectToString.call(value) == regexpTag;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `RegExp` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a regexp, else `false`.
+	 * @example
+	 *
+	 * _.isRegExp(/abc/);
+	 * // => true
+	 *
+	 * _.isRegExp('/abc/');
+	 * // => false
+	 */
+	var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
+	
+	module.exports = isRegExp;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(306)(module)))
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(319);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_module2.default.constant('AV_STORAGE', {
+	  SESSION_CACHE: 'avCacheBust'
+	});
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	__webpack_require__(318);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9781,28 +12402,33 @@ webpackJsonp([0],[
 	      _classCallCheck(this, SplunkAnalyticsService);
 	    }
 	
-	    SplunkAnalyticsService.prototype.trackEvent = function trackEvent(properties) {
+	    _createClass(SplunkAnalyticsService, [{
+	      key: 'trackEvent',
+	      value: function trackEvent(properties) {
 	
-	      properties.url = $location.$$absUrl || 'N/A';
-	      properties.level = properties.level || 'info';
+	        properties.url = $location.$$absUrl || 'N/A';
+	        properties.level = properties.level || 'info';
 	
-	      return avLogMessagesResource[properties.level](properties);
-	    };
+	        return avLogMessagesResource[properties.level](properties);
+	      }
+	    }, {
+	      key: 'trackPageView',
+	      value: function trackPageView(url) {
 	
-	    SplunkAnalyticsService.prototype.trackPageView = function trackPageView(url) {
+	        var properties = {
+	          event: 'page',
+	          level: 'info',
+	          url: url || $location.$$absUrl()
+	        };
 	
-	      var properties = {
-	        event: 'page',
-	        level: 'info',
-	        url: url || $location.$$absUrl()
-	      };
-	
-	      return avLogMessagesResource[properties.level](properties);
-	    };
-	
-	    SplunkAnalyticsService.prototype.isEnabled = function isEnabled() {
-	      return true;
-	    };
+	        return avLogMessagesResource[properties.level](properties);
+	      }
+	    }, {
+	      key: 'isEnabled',
+	      value: function isEnabled() {
+	        return true;
+	      }
+	    }]);
 	
 	    return SplunkAnalyticsService;
 	  }();
@@ -9813,34 +12439,44 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 325 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(321);
+	__webpack_require__(320);
 	
-	__webpack_require__(319);
-	
-	__webpack_require__(326);
-	
-	__webpack_require__(327);
+	__webpack_require__(318);
 	
 	__webpack_require__(328);
-	
-	__webpack_require__(320);
 	
 	__webpack_require__(329);
 	
 	__webpack_require__(330);
+	
+	__webpack_require__(331);
+	
+	__webpack_require__(332);
+	
+	__webpack_require__(319);
+	
+	__webpack_require__(333);
+	
+	__webpack_require__(334);
+	
+	__webpack_require__(335);
 
 /***/ },
-/* 326 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _lodash = __webpack_require__(305);
 	
@@ -9865,37 +12501,42 @@ webpackJsonp([0],[
 	    function OrganizationResource() {
 	      _classCallCheck(this, OrganizationResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	      return _possibleConstructorReturn(this, (OrganizationResource.__proto__ || Object.getPrototypeOf(OrganizationResource)).call(this, {
 	        path: '/api/sdk/platform',
 	        name: 'organizations'
 	      }));
 	    }
 	
-	    OrganizationResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.organizations || [];
-	    };
+	    _createClass(OrganizationResource, [{
+	      key: 'afterQuery',
+	      value: function afterQuery(response) {
+	        return response.data.organizations || [];
+	      }
+	    }, {
+	      key: 'queryOrganizations',
+	      value: function queryOrganizations(user, config) {
 	
-	    OrganizationResource.prototype.queryOrganizations = function queryOrganizations(user, config) {
+	        var params = {
+	          params: {
+	            userId: user.id
+	          }
+	        };
 	
-	      var params = {
-	        params: {
-	          userId: user.id
-	        }
-	      };
+	        // merge in params with user ID
+	        var queryConfig = (0, _lodash2.default)({}, params, config);
 	
-	      // merge in params with user ID
-	      var queryConfig = _lodash2.default.merge({}, params, config);
+	        return this.query(queryConfig);
+	      }
+	    }, {
+	      key: 'getOrganizations',
+	      value: function getOrganizations(config) {
+	        var _this2 = this;
 	
-	      return this.query(queryConfig);
-	    };
-	
-	    OrganizationResource.prototype.getOrganizations = function getOrganizations(config) {
-	      var _this2 = this;
-	
-	      return avUsersResource.me().then(function (user) {
-	        return _this2.queryOrganizations.call(_this2, user, config);
-	      });
-	    };
+	        return avUsersResource.me().then(function (user) {
+	          return _this2.queryOrganizations.call(_this2, user, config);
+	        });
+	      }
+	    }]);
 	
 	    return OrganizationResource;
 	  }(AvApiResource);
@@ -9908,12 +12549,16 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 327 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
@@ -9934,26 +12579,29 @@ webpackJsonp([0],[
 	    function AvUserPermissionsResource() {
 	      _classCallCheck(this, AvUserPermissionsResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/api/internal',
-	        version: '/v1',
-	        name: '/axi-user-permissions'
+	      return _possibleConstructorReturn(this, (AvUserPermissionsResource.__proto__ || Object.getPrototypeOf(AvUserPermissionsResource)).call(this, {
+	        path: '/api/sdk/platform',
+	        name: 'permissions'
 	      }));
 	    }
 	
-	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.permissions ? response.data.permissions : [];
-	    };
+	    _createClass(AvUserPermissionsResource, [{
+	      key: 'afterQuery',
+	      value: function afterQuery(response) {
+	        return response.data.permissions ? response.data.permissions : [];
+	      }
+	    }, {
+	      key: 'getPermissions',
+	      value: function getPermissions(permissionIds, region) {
 	
-	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
-	
-	      return this.query({
-	        params: {
-	          permissionId: permissionIds,
-	          region: region
-	        }
-	      });
-	    };
+	        return this.query({
+	          params: {
+	            permissionId: permissionIds,
+	            region: region
+	          }
+	        });
+	      }
+	    }]);
 	
 	    return AvUserPermissionsResource;
 	  }(AvApiResource);
@@ -9966,71 +12614,16 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 328 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _module = __webpack_require__(304);
-	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
-	  var AvUserPermissionsResource = function (_AvApiResource) {
-	    _inherits(AvUserPermissionsResource, _AvApiResource);
-	
-	    function AvUserPermissionsResource() {
-	      _classCallCheck(this, AvUserPermissionsResource);
-	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/api/internal',
-	        version: '/v1',
-	        name: '/axi-user-permissions'
-	      }));
-	    }
-	
-	    AvUserPermissionsResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
-	    };
-	
-	    AvUserPermissionsResource.prototype.getPermissions = function getPermissions(permissionIds, region) {
-	
-	      return this.query({
-	        sessionBust: true,
-	        params: {
-	          permissionId: permissionIds,
-	          region: region
-	        }
-	      });
-	    };
-	
-	    return AvUserPermissionsResource;
-	  }(AvApiResource);
-	
-	  return new AvUserPermissionsResource();
-	};
-	
-	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
-	
-	exports.default = _module2.default;
-
-/***/ },
-/* 329 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _lodash = __webpack_require__(305);
 	
@@ -10055,29 +12648,33 @@ webpackJsonp([0],[
 	    function ProvidersResource() {
 	      _classCallCheck(this, ProvidersResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	      return _possibleConstructorReturn(this, (ProvidersResource.__proto__ || Object.getPrototypeOf(ProvidersResource)).call(this, {
 	        path: '/api/internal',
 	        name: 'providers'
 	      }));
 	    }
 	
-	    ProvidersResource.prototype.afterQuery = function afterQuery(response) {
-	      return response.data.providers || [];
-	    };
+	    _createClass(ProvidersResource, [{
+	      key: 'afterQuery',
+	      value: function afterQuery(response) {
+	        return response.data.providers || [];
+	      }
+	    }, {
+	      key: 'getProviders',
+	      value: function getProviders(customerId, config) {
 	
-	    ProvidersResource.prototype.getProviders = function getProviders(customerId, config) {
+	        var params = {
+	          params: {
+	            customerId: customerId
+	          }
+	        };
 	
-	      var params = {
-	        params: {
-	          customerId: customerId
-	        }
-	      };
+	        // merge in params with user ID
+	        var queryConfig = (0, _lodash2.default)({}, params, config);
 	
-	      // merge in params with user ID
-	      var queryConfig = _lodash2.default.merge({}, params, config);
-	
-	      return this.query(queryConfig);
-	    };
+	        return this.query(queryConfig);
+	      }
+	    }]);
 	
 	    return ProvidersResource;
 	  }(AvApiResource);
@@ -10090,12 +12687,274 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 330 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ProxyResourceFactory = function ProxyResourceFactory(AvApiResource) {
+	  var ProxyResource = function (_AvApiResource) {
+	    _inherits(ProxyResource, _AvApiResource);
+	
+	    function ProxyResource(options) {
+	      _classCallCheck(this, ProxyResource);
+	
+	      if (!options && !options.tenant) {
+	        throw Error('Must specify tenant name for ProxyResource');
+	      }
+	
+	      // /v1/proxy/{tenant}/{name}
+	      return _possibleConstructorReturn(this, (ProxyResource.__proto__ || Object.getPrototypeOf(ProxyResource)).call(this, {
+	        path: '/api/v1/proxy/' + options.tenant,
+	        version: '',
+	        name: options.name
+	      }));
+	    }
+	
+	    return ProxyResource;
+	  }(AvApiResource);
+	
+	  return ProxyResource;
+	};
+	
+	_module2.default.service('AvProxyResource', ProxyResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvRegionsFactory = function AvRegionsFactory(AvApiResource, avUsersResource) {
+	  var AvRegionsResource = function (_AvApiResource) {
+	    _inherits(AvRegionsResource, _AvApiResource);
+	
+	    function AvRegionsResource() {
+	      _classCallCheck(this, AvRegionsResource);
+	
+	      return _possibleConstructorReturn(this, (AvRegionsResource.__proto__ || Object.getPrototypeOf(AvRegionsResource)).call(this, {
+	        path: '/api/sdk/platform',
+	        name: '/regions',
+	        sessionBust: false,
+	        pageBust: true
+	      }));
+	    }
+	
+	    _createClass(AvRegionsResource, [{
+	      key: 'afterGet',
+	      value: function afterGet(response) {
+	        return response.data.regions || [];
+	      }
+	    }, {
+	      key: 'afterUpdate',
+	      value: function afterUpdate(response) {
+	        this.setPageBust();
+	        return response;
+	      }
+	    }, {
+	      key: 'getRegions',
+	      value: function getRegions(config) {
+	        var _this2 = this;
+	
+	        return this.checkUser(config).then(function (checkedConfig) {
+	          return _this2.query(checkedConfig);
+	        });
+	      }
+	    }, {
+	      key: 'checkUser',
+	      value: function checkUser() {
+	        var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	
+	
+	        config.params = config.params || {};
+	        if (config.params.userId) {
+	          return Promise.resolve(config);
+	        }
+	
+	        return avUsersResource.me().then(function (user) {
+	          config.params.userId = user.id;
+	          return config;
+	        });
+	      }
+	    }, {
+	      key: 'getCurrentRegion',
+	      value: function getCurrentRegion() {
+	        return this.query({
+	          params: {
+	            currentlySelected: true
+	          }
+	        });
+	      }
+	    }]);
+	
+	    return AvRegionsResource;
+	  }(AvApiResource);
+	
+	  return new AvRegionsResource();
+	};
+	
+	_module2.default.factory('avRegionsResource', AvRegionsFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Spaces = function Spaces(AvApiResource) {
+	  var SpacesResource = function (_AvApiResource) {
+	    _inherits(SpacesResource, _AvApiResource);
+	
+	    function SpacesResource() {
+	      _classCallCheck(this, SpacesResource);
+	
+	      return _possibleConstructorReturn(this, (SpacesResource.__proto__ || Object.getPrototypeOf(SpacesResource)).call(this, {
+	        path: '/api/sdk/platform',
+	        name: '/spaces'
+	      }));
+	    }
+	
+	    return SpacesResource;
+	  }(AvApiResource);
+	
+	  return new SpacesResource();
+	};
+	
+	_module2.default.factory('avSpacesResource', Spaces);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(304);
+	
+	var _module2 = _interopRequireDefault(_module);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory(AvApiResource) {
+	  var AvUserPermissionsResource = function (_AvApiResource) {
+	    _inherits(AvUserPermissionsResource, _AvApiResource);
+	
+	    function AvUserPermissionsResource() {
+	      _classCallCheck(this, AvUserPermissionsResource);
+	
+	      return _possibleConstructorReturn(this, (AvUserPermissionsResource.__proto__ || Object.getPrototypeOf(AvUserPermissionsResource)).call(this, {
+	        path: '/api/internal',
+	        version: '/v1',
+	        name: '/axi-user-permissions'
+	      }));
+	    }
+	
+	    _createClass(AvUserPermissionsResource, [{
+	      key: 'afterQuery',
+	      value: function afterQuery(response) {
+	        return response.data.axiUserPermissions ? response.data.axiUserPermissions : [];
+	      }
+	    }, {
+	      key: 'getPermissions',
+	      value: function getPermissions(permissionIds, region) {
+	
+	        return this.query({
+	          params: {
+	            permissionId: permissionIds,
+	            region: region
+	          }
+	        });
+	      }
+	    }]);
+	
+	    return AvUserPermissionsResource;
+	  }(AvApiResource);
+	
+	  return new AvUserPermissionsResource();
+	};
+	
+	_module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+	
+	exports.default = _module2.default;
+
+/***/ },
+/* 335 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
@@ -10116,20 +12975,24 @@ webpackJsonp([0],[
 	    function AvUsersResource() {
 	      _classCallCheck(this, AvUsersResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
+	      return _possibleConstructorReturn(this, (AvUsersResource.__proto__ || Object.getPrototypeOf(AvUsersResource)).call(this, {
 	        path: '/api/sdk/platform',
 	        name: '/users'
 	      }));
 	    }
 	
-	    AvUsersResource.prototype.afterGet = function afterGet(response) {
-	      var user = response.data.user ? response.data.user : response.data;
-	      return user;
-	    };
-	
-	    AvUsersResource.prototype.me = function me(config) {
-	      return this.get('me', config);
-	    };
+	    _createClass(AvUsersResource, [{
+	      key: 'afterGet',
+	      value: function afterGet(response) {
+	        var user = response.data.user ? response.data.user : response.data;
+	        return user;
+	      }
+	    }, {
+	      key: 'me',
+	      value: function me(config) {
+	        return this.get('me', config);
+	      }
+	    }]);
 	
 	    return AvUsersResource;
 	  }(AvApiResource);
@@ -10142,18 +13005,22 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 331 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _lodash = __webpack_require__(305);
+	var _lodash = __webpack_require__(337);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -10161,7 +13028,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(325);
+	__webpack_require__(327);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10187,111 +13054,123 @@ webpackJsonp([0],[
 	      this.permissionIds = [];
 	    }
 	
-	    AvUserAuthorizations.prototype.setRegion = function setRegion(region) {
-	      this.region = region;
-	      return this;
-	    };
-	
-	    AvUserAuthorizations.prototype.setPermissionIds = function setPermissionIds(permissionIds) {
-	
-	      if (!_angular2.default.isArray(permissionIds)) {
-	        throw new Error('permissionsIds must be an array of strings in setPermissionIds()');
+	    _createClass(AvUserAuthorizations, [{
+	      key: 'setRegion',
+	      value: function setRegion(region) {
+	        this.region = region;
+	        return this;
 	      }
+	    }, {
+	      key: 'setPermissionIds',
+	      value: function setPermissionIds(permissionIds) {
 	
-	      this.permissionIds = permissionIds;
-	
-	      return this;
-	    };
-	
-	    AvUserAuthorizations.prototype.isAuthorized = function isAuthorized(permissionId) {
-	      return this.getPermission(permissionId).then(function (permission) {
-	        return permission.isAuthorized;
-	      });
-	    };
-	
-	    AvUserAuthorizations.prototype.isAnyAuthorized = function isAnyAuthorized(permissionIds) {
-	      return this.getPermissions(permissionIds).then(function (permissions) {
-	        return permissions.some(function (permission) {
-	          return permission.isAuthorized;
-	        });
-	      });
-	    };
-	
-	    AvUserAuthorizations.prototype.getPermission = function getPermission(permissionId) {
-	
-	      if (!_angular2.default.isString(permissionId)) {
-	        throw new Error('permissionsId must be a string ID for getPermission()');
-	      }
-	
-	      return this.getPermissions([permissionId]).then(function (permissions) {
-	        return permissions.find(function (permission) {
-	          return permission.id === permissionId;
-	        });
-	      });
-	    };
-	
-	    AvUserAuthorizations.prototype.getPermissions = function getPermissions(permissionIds) {
-	      var _this = this;
-	
-	      if (!_angular2.default.isArray(permissionIds)) {
-	        throw new Error('permissionsIds must be an array of string IDs for getPermissions()');
-	      }
-	
-	      // Combine pre-loaded permission ids with the ids from this function invocation
-	      this.permissionIds = _lodash2.default.union(this.permissionIds, permissionIds);
-	
-	      return avUserPermissionsResource.getPermissions(this.permissionIds, this.region).then(function (permissions) {
-	        return _this.map(permissionIds, permissions);
-	      });
-	    };
-	
-	    AvUserAuthorizations.prototype.getOrganizations = function getOrganizations(permissionId) {
-	      return this.getPermission(permissionId).then(function (permission) {
-	        return permission.organizations;
-	      });
-	    };
-	
-	    AvUserAuthorizations.prototype.getPayers = function getPayers(permissionId, organizationId) {
-	
-	      return this.getPermission(permissionId).then(function (permission) {
-	
-	        var organization = permission.organizations.find(function (thisPermission) {
-	          return thisPermission.id === organizationId;
-	        });
-	
-	        if (organization && organization.resources) {
-	          return organization.resources;
+	        if (!_angular2.default.isArray(permissionIds)) {
+	          throw new Error('permissionsIds must be an array of strings in setPermissionIds()');
 	        }
 	
-	        return [];
-	      });
-	    };
+	        this.permissionIds = permissionIds;
 	
-	    AvUserAuthorizations.prototype.map = function map(permissionIds, permissions) {
-	
-	      var self = this;
-	
-	      var result = permissionIds.map(function (permissionId) {
-	
-	        var key = { id: permissionId };
-	        var permission = permissions.find(function (thisPermission) {
-	          return thisPermission.id === permissionId;
+	        return this;
+	      }
+	    }, {
+	      key: 'isAuthorized',
+	      value: function isAuthorized(permissionId) {
+	        return this.getPermission(permissionId).then(function (permission) {
+	          return permission.isAuthorized;
 	        });
-	        permission = permission ? self.convert(permission) : self.convert(key);
+	      }
+	    }, {
+	      key: 'isAnyAuthorized',
+	      value: function isAnyAuthorized(permissionIds) {
+	        return this.getPermissions(permissionIds).then(function (permissions) {
+	          return permissions.some(function (permission) {
+	            return permission.isAuthorized;
+	          });
+	        });
+	      }
+	    }, {
+	      key: 'getPermission',
+	      value: function getPermission(permissionId) {
+	
+	        if (!_angular2.default.isString(permissionId)) {
+	          throw new Error('permissionsId must be a string ID for getPermission()');
+	        }
+	
+	        return this.getPermissions([permissionId]).then(function (permissions) {
+	          return permissions.find(function (permission) {
+	            return permission.id === permissionId;
+	          });
+	        });
+	      }
+	    }, {
+	      key: 'getPermissions',
+	      value: function getPermissions(permissionIds) {
+	        var _this = this;
+	
+	        if (!_angular2.default.isArray(permissionIds)) {
+	          throw new Error('permissionsIds must be an array of string IDs for getPermissions()');
+	        }
+	
+	        // Combine pre-loaded permission ids with the ids from this function invocation
+	        this.permissionIds = (0, _lodash2.default)(this.permissionIds, permissionIds);
+	
+	        return avUserPermissionsResource.getPermissions(this.permissionIds, this.region).then(function (permissions) {
+	          return _this.map(permissionIds, permissions);
+	        });
+	      }
+	    }, {
+	      key: 'getOrganizations',
+	      value: function getOrganizations(permissionId) {
+	        return this.getPermission(permissionId).then(function (permission) {
+	          return permission.organizations;
+	        });
+	      }
+	    }, {
+	      key: 'getPayers',
+	      value: function getPayers(permissionId, organizationId) {
+	
+	        return this.getPermission(permissionId).then(function (permission) {
+	
+	          var organization = permission.organizations.find(function (thisPermission) {
+	            return thisPermission.id === organizationId;
+	          });
+	
+	          if (organization && organization.resources) {
+	            return organization.resources;
+	          }
+	
+	          return [];
+	        });
+	      }
+	    }, {
+	      key: 'map',
+	      value: function map(permissionIds, permissions) {
+	
+	        var self = this;
+	
+	        var result = permissionIds.map(function (permissionId) {
+	
+	          var key = { id: permissionId };
+	          var permission = permissions.find(function (thisPermission) {
+	            return thisPermission.id === permissionId;
+	          });
+	          permission = permission ? self.convert(permission) : self.convert(key);
+	          return permission;
+	        });
+	
+	        return result;
+	      }
+	    }, {
+	      key: 'convert',
+	      value: function convert(permission) {
+	
+	        permission.isAuthorized = permission.organizations ? permission.organizations.length > 0 : false;
+	        permission.geographies = permission.geographies || [];
+	        permission.organizations = permission.organizations || [];
+	
 	        return permission;
-	      });
-	
-	      return result;
-	    };
-	
-	    AvUserAuthorizations.prototype.convert = function convert(permission) {
-	
-	      permission.isAuthorized = permission.organizations ? permission.organizations.length > 0 : false;
-	      permission.geographies = permission.geographies || [];
-	      permission.organizations = permission.organizations || [];
-	
-	      return permission;
-	    };
+	      }
+	    }]);
 	
 	    return AvUserAuthorizations;
 	  }();
@@ -10304,10 +13183,1200 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 332 */
+/* 337 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as the size to enable large array optimizations. */
+	var LARGE_ARRAY_SIZE = 200;
+	
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+	
+	/** Used as references for various `Number` constants. */
+	var INFINITY = 1 / 0,
+	    MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]';
+	
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+	
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	/**
+	 * A faster alternative to `Function#apply`, this function invokes `func`
+	 * with the `this` binding of `thisArg` and the arguments of `args`.
+	 *
+	 * @private
+	 * @param {Function} func The function to invoke.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {Array} args The arguments to invoke `func` with.
+	 * @returns {*} Returns the result of `func`.
+	 */
+	function apply(func, thisArg, args) {
+	  switch (args.length) {
+	    case 0: return func.call(thisArg);
+	    case 1: return func.call(thisArg, args[0]);
+	    case 2: return func.call(thisArg, args[0], args[1]);
+	    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+	  }
+	  return func.apply(thisArg, args);
+	}
+	
+	/**
+	 * A specialized version of `_.includes` for arrays without support for
+	 * specifying an index to search from.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to inspect.
+	 * @param {*} target The value to search for.
+	 * @returns {boolean} Returns `true` if `target` is found, else `false`.
+	 */
+	function arrayIncludes(array, value) {
+	  var length = array ? array.length : 0;
+	  return !!length && baseIndexOf(array, value, 0) > -1;
+	}
+	
+	/**
+	 * This function is like `arrayIncludes` except that it accepts a comparator.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to inspect.
+	 * @param {*} target The value to search for.
+	 * @param {Function} comparator The comparator invoked per element.
+	 * @returns {boolean} Returns `true` if `target` is found, else `false`.
+	 */
+	function arrayIncludesWith(array, value, comparator) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  while (++index < length) {
+	    if (comparator(value, array[index])) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+	
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+	
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+	
+	/**
+	 * The base implementation of `_.findIndex` and `_.findLastIndex` without
+	 * support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @param {number} fromIndex The index to search from.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function baseFindIndex(array, predicate, fromIndex, fromRight) {
+	  var length = array.length,
+	      index = fromIndex + (fromRight ? 1 : -1);
+	
+	  while ((fromRight ? index-- : ++index < length)) {
+	    if (predicate(array[index], index, array)) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+	
+	/**
+	 * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {*} value The value to search for.
+	 * @param {number} fromIndex The index to search from.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function baseIndexOf(array, value, fromIndex) {
+	  if (value !== value) {
+	    return baseFindIndex(array, baseIsNaN, fromIndex);
+	  }
+	  var index = fromIndex - 1,
+	      length = array.length;
+	
+	  while (++index < length) {
+	    if (array[index] === value) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+	
+	/**
+	 * The base implementation of `_.isNaN` without support for number objects.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+	 */
+	function baseIsNaN(value) {
+	  return value !== value;
+	}
+	
+	/**
+	 * Checks if a cache value for `key` exists.
+	 *
+	 * @private
+	 * @param {Object} cache The cache to query.
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function cacheHas(cache, key) {
+	  return cache.has(key);
+	}
+	
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+	
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Converts `set` to an array of its values.
+	 *
+	 * @private
+	 * @param {Object} set The set to convert.
+	 * @returns {Array} Returns the values.
+	 */
+	function setToArray(set) {
+	  var index = -1,
+	      result = Array(set.size);
+	
+	  set.forEach(function(value) {
+	    result[++index] = value;
+	  });
+	  return result;
+	}
+	
+	/** Used for built-in method references. */
+	var arrayProto = Array.prototype,
+	    funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+	
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/** Built-in value references. */
+	var Symbol = root.Symbol,
+	    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+	    splice = arrayProto.splice,
+	    spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+	
+	/* Built-in method references that are verified to be native. */
+	var Map = getNative(root, 'Map'),
+	    Set = getNative(root, 'Set'),
+	    nativeCreate = getNative(Object, 'create');
+	
+	/**
+	 * Creates a hash object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Hash(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the hash.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Hash
+	 */
+	function hashClear() {
+	  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+	}
+	
+	/**
+	 * Removes `key` and its value from the hash.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Hash
+	 * @param {Object} hash The hash to modify.
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function hashDelete(key) {
+	  return this.has(key) && delete this.__data__[key];
+	}
+	
+	/**
+	 * Gets the hash value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function hashGet(key) {
+	  var data = this.__data__;
+	  if (nativeCreate) {
+	    var result = data[key];
+	    return result === HASH_UNDEFINED ? undefined : result;
+	  }
+	  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+	}
+	
+	/**
+	 * Checks if a hash value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Hash
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function hashHas(key) {
+	  var data = this.__data__;
+	  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+	}
+	
+	/**
+	 * Sets the hash `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the hash instance.
+	 */
+	function hashSet(key, value) {
+	  var data = this.__data__;
+	  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+	  return this;
+	}
+	
+	// Add methods to `Hash`.
+	Hash.prototype.clear = hashClear;
+	Hash.prototype['delete'] = hashDelete;
+	Hash.prototype.get = hashGet;
+	Hash.prototype.has = hashHas;
+	Hash.prototype.set = hashSet;
+	
+	/**
+	 * Creates an list cache object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function ListCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the list cache.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf ListCache
+	 */
+	function listCacheClear() {
+	  this.__data__ = [];
+	}
+	
+	/**
+	 * Removes `key` and its value from the list cache.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function listCacheDelete(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    return false;
+	  }
+	  var lastIndex = data.length - 1;
+	  if (index == lastIndex) {
+	    data.pop();
+	  } else {
+	    splice.call(data, index, 1);
+	  }
+	  return true;
+	}
+	
+	/**
+	 * Gets the list cache value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function listCacheGet(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  return index < 0 ? undefined : data[index][1];
+	}
+	
+	/**
+	 * Checks if a list cache value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf ListCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function listCacheHas(key) {
+	  return assocIndexOf(this.__data__, key) > -1;
+	}
+	
+	/**
+	 * Sets the list cache `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the list cache instance.
+	 */
+	function listCacheSet(key, value) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    data.push([key, value]);
+	  } else {
+	    data[index][1] = value;
+	  }
+	  return this;
+	}
+	
+	// Add methods to `ListCache`.
+	ListCache.prototype.clear = listCacheClear;
+	ListCache.prototype['delete'] = listCacheDelete;
+	ListCache.prototype.get = listCacheGet;
+	ListCache.prototype.has = listCacheHas;
+	ListCache.prototype.set = listCacheSet;
+	
+	/**
+	 * Creates a map cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function MapCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the map.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf MapCache
+	 */
+	function mapCacheClear() {
+	  this.__data__ = {
+	    'hash': new Hash,
+	    'map': new (Map || ListCache),
+	    'string': new Hash
+	  };
+	}
+	
+	/**
+	 * Removes `key` and its value from the map.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function mapCacheDelete(key) {
+	  return getMapData(this, key)['delete'](key);
+	}
+	
+	/**
+	 * Gets the map value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function mapCacheGet(key) {
+	  return getMapData(this, key).get(key);
+	}
+	
+	/**
+	 * Checks if a map value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf MapCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function mapCacheHas(key) {
+	  return getMapData(this, key).has(key);
+	}
+	
+	/**
+	 * Sets the map `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the map cache instance.
+	 */
+	function mapCacheSet(key, value) {
+	  getMapData(this, key).set(key, value);
+	  return this;
+	}
+	
+	// Add methods to `MapCache`.
+	MapCache.prototype.clear = mapCacheClear;
+	MapCache.prototype['delete'] = mapCacheDelete;
+	MapCache.prototype.get = mapCacheGet;
+	MapCache.prototype.has = mapCacheHas;
+	MapCache.prototype.set = mapCacheSet;
+	
+	/**
+	 *
+	 * Creates an array cache object to store unique values.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [values] The values to cache.
+	 */
+	function SetCache(values) {
+	  var index = -1,
+	      length = values ? values.length : 0;
+	
+	  this.__data__ = new MapCache;
+	  while (++index < length) {
+	    this.add(values[index]);
+	  }
+	}
+	
+	/**
+	 * Adds `value` to the array cache.
+	 *
+	 * @private
+	 * @name add
+	 * @memberOf SetCache
+	 * @alias push
+	 * @param {*} value The value to cache.
+	 * @returns {Object} Returns the cache instance.
+	 */
+	function setCacheAdd(value) {
+	  this.__data__.set(value, HASH_UNDEFINED);
+	  return this;
+	}
+	
+	/**
+	 * Checks if `value` is in the array cache.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf SetCache
+	 * @param {*} value The value to search for.
+	 * @returns {number} Returns `true` if `value` is found, else `false`.
+	 */
+	function setCacheHas(value) {
+	  return this.__data__.has(value);
+	}
+	
+	// Add methods to `SetCache`.
+	SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+	SetCache.prototype.has = setCacheHas;
+	
+	/**
+	 * Gets the index at which the `key` is found in `array` of key-value pairs.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {*} key The key to search for.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function assocIndexOf(array, key) {
+	  var length = array.length;
+	  while (length--) {
+	    if (eq(array[length][0], key)) {
+	      return length;
+	    }
+	  }
+	  return -1;
+	}
+	
+	/**
+	 * The base implementation of `_.flatten` with support for restricting flattening.
+	 *
+	 * @private
+	 * @param {Array} array The array to flatten.
+	 * @param {number} depth The maximum recursion depth.
+	 * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+	 * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+	 * @param {Array} [result=[]] The initial result value.
+	 * @returns {Array} Returns the new flattened array.
+	 */
+	function baseFlatten(array, depth, predicate, isStrict, result) {
+	  var index = -1,
+	      length = array.length;
+	
+	  predicate || (predicate = isFlattenable);
+	  result || (result = []);
+	
+	  while (++index < length) {
+	    var value = array[index];
+	    if (depth > 0 && predicate(value)) {
+	      if (depth > 1) {
+	        // Recursively flatten arrays (susceptible to call stack limits).
+	        baseFlatten(value, depth - 1, predicate, isStrict, result);
+	      } else {
+	        arrayPush(result, value);
+	      }
+	    } else if (!isStrict) {
+	      result[result.length] = value;
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+	
+	/**
+	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+	 *
+	 * @private
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseRest(func, start) {
+	  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        array = Array(length);
+	
+	    while (++index < length) {
+	      array[index] = args[start + index];
+	    }
+	    index = -1;
+	    var otherArgs = Array(start + 1);
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = array;
+	    return apply(func, this, otherArgs);
+	  };
+	}
+	
+	/**
+	 * The base implementation of `_.uniqBy` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {Function} [iteratee] The iteratee invoked per element.
+	 * @param {Function} [comparator] The comparator invoked per element.
+	 * @returns {Array} Returns the new duplicate free array.
+	 */
+	function baseUniq(array, iteratee, comparator) {
+	  var index = -1,
+	      includes = arrayIncludes,
+	      length = array.length,
+	      isCommon = true,
+	      result = [],
+	      seen = result;
+	
+	  if (comparator) {
+	    isCommon = false;
+	    includes = arrayIncludesWith;
+	  }
+	  else if (length >= LARGE_ARRAY_SIZE) {
+	    var set = iteratee ? null : createSet(array);
+	    if (set) {
+	      return setToArray(set);
+	    }
+	    isCommon = false;
+	    includes = cacheHas;
+	    seen = new SetCache;
+	  }
+	  else {
+	    seen = iteratee ? [] : result;
+	  }
+	  outer:
+	  while (++index < length) {
+	    var value = array[index],
+	        computed = iteratee ? iteratee(value) : value;
+	
+	    value = (comparator || value !== 0) ? value : 0;
+	    if (isCommon && computed === computed) {
+	      var seenIndex = seen.length;
+	      while (seenIndex--) {
+	        if (seen[seenIndex] === computed) {
+	          continue outer;
+	        }
+	      }
+	      if (iteratee) {
+	        seen.push(computed);
+	      }
+	      result.push(value);
+	    }
+	    else if (!includes(seen, computed, comparator)) {
+	      if (seen !== result) {
+	        seen.push(computed);
+	      }
+	      result.push(value);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Creates a set object of `values`.
+	 *
+	 * @private
+	 * @param {Array} values The values to add to the set.
+	 * @returns {Object} Returns the new set.
+	 */
+	var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop : function(values) {
+	  return new Set(values);
+	};
+	
+	/**
+	 * Gets the data for `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to query.
+	 * @param {string} key The reference key.
+	 * @returns {*} Returns the map data.
+	 */
+	function getMapData(map, key) {
+	  var data = map.__data__;
+	  return isKeyable(key)
+	    ? data[typeof key == 'string' ? 'string' : 'hash']
+	    : data.map;
+	}
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Checks if `value` is a flattenable `arguments` object or array.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+	 */
+	function isFlattenable(value) {
+	  return isArray(value) || isArguments(value) ||
+	    !!(spreadableSymbol && value && value[spreadableSymbol]);
+	}
+	
+	/**
+	 * Checks if `value` is suitable for use as unique object key.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+	 */
+	function isKeyable(value) {
+	  var type = typeof value;
+	  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+	    ? (value !== '__proto__')
+	    : (value === null);
+	}
+	
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+	
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to process.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+	
+	/**
+	 * Creates an array of unique values, in order, from all given arrays using
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * for equality comparisons.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Array
+	 * @param {...Array} [arrays] The arrays to inspect.
+	 * @returns {Array} Returns the new array of combined values.
+	 * @example
+	 *
+	 * _.union([2], [1, 2]);
+	 * // => [2, 1]
+	 */
+	var union = baseRest(function(arrays) {
+	  return baseUniq(baseFlatten(arrays, 1, isArrayLikeObject, true));
+	});
+	
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * This method returns `undefined`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 2.3.0
+	 * @category Util
+	 * @example
+	 *
+	 * _.times(2, _.noop);
+	 * // => [undefined, undefined]
+	 */
+	function noop() {
+	  // No operation performed.
+	}
+	
+	module.exports = union;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -10317,17 +14386,19 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _lodash = __webpack_require__(305);
+	var _lodash = __webpack_require__(339);
 	
-	var _ = _interopRequireWildcard(_lodash);
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _lodash3 = __webpack_require__(340);
+	
+	var _lodash4 = _interopRequireDefault(_lodash3);
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(333);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	__webpack_require__(341);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10341,151 +14412,167 @@ webpackJsonp([0],[
 	    this.enabled = true;
 	  }
 	
-	  AvMessageProvider.prototype.enable = function enable(value) {
+	  _createClass(AvMessageProvider, [{
+	    key: 'enable',
+	    value: function enable(value) {
 	
-	    if (arguments.length) {
-	      this.enabled = !!value;
-	    }
-	
-	    return this.enabled;
-	  };
-	
-	  AvMessageProvider.prototype.$get = function $get($rootScope, $log, AV_MESSAGES) {
-	
-	    var that = this;
-	
-	    var AvMessages = function () {
-	      function AvMessages() {
-	        var _this = this;
-	
-	        _classCallCheck(this, AvMessages);
-	
-	        this.onResize = _.debounce(function () {
-	
-	          var height = (0, _jquery2.default)('html').height();
-	          _this.send({
-	            event: AV_MESSAGES.EVENTS.AV_RESIZE,
-	            height: height
-	          });
-	        }, AV_MESSAGES.RESIZE_DEBOUNCE);
+	      if (arguments.length) {
+	        this.enabled = !!value;
 	      }
 	
-	      AvMessages.prototype.init = function init() {
+	      return this.enabled;
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get($rootScope, $log, AV_MESSAGES) {
 	
-	        var $window = (0, _jquery2.default)(window);
+	      var that = this;
 	
-	        $window.on(AV_MESSAGES.EVENTS.MESSAGE, this.onMessage.bind(this));
+	      var AvMessages = function () {
+	        function AvMessages() {
+	          var _this = this;
 	
-	        $window.on(AV_MESSAGES.EVENTS.RESIZE, this.onResize.bind(this));
+	          _classCallCheck(this, AvMessages);
 	
-	        $window.on(AV_MESSAGES.EVENTS.UNLOAD, this.onUnload.bind(this));
+	          this.onResize = (0, _lodash2.default)(function () {
 	
-	        $rootScope.$on('$destroy', this.destroy.bind(this));
-	      };
-	
-	      AvMessages.prototype.destroy = function destroy() {
-	
-	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.MESSAGE);
-	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.RESIZE);
-	        (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.UNLOAD);
-	      };
-	
-	      AvMessages.prototype.onUnload = function onUnload() {
-	
-	        this.send({
-	          event: AV_MESSAGES.EVENTS.UNLOAD
-	        });
-	      };
-	
-	      AvMessages.prototype.isDomain = function isDomain(url) {
-	
-	        if (AV_MESSAGES.DOMAIN.test(this.domain())) {
-	          return AV_MESSAGES.DOMAIN.test(url);
+	            var height = (0, _jquery2.default)('html').height();
+	            _this.send({
+	              event: AV_MESSAGES.EVENTS.AV_RESIZE,
+	              height: height
+	            });
+	          }, AV_MESSAGES.RESIZE_DEBOUNCE);
 	        }
 	
-	        return AV_MESSAGES.LOCAL.test(url);
-	      };
+	        _createClass(AvMessages, [{
+	          key: 'init',
+	          value: function init() {
 	
-	      AvMessages.prototype.isEnabled = function isEnabled() {
-	        return that.enabled;
-	      };
+	            var $window = (0, _jquery2.default)(window);
 	
-	      AvMessages.prototype.onMessage = function onMessage(_event) {
+	            $window.on(AV_MESSAGES.EVENTS.MESSAGE, this.onMessage.bind(this));
 	
-	        var event = _event;
+	            $window.on(AV_MESSAGES.EVENTS.RESIZE, this.onResize.bind(this));
 	
-	        event = event.originalEvent || event; // jQuery wraps in `originalEvent`
+	            $window.on(AV_MESSAGES.EVENTS.UNLOAD, this.onUnload.bind(this));
 	
-	        if (!event && !event.data) {
-	          // no op
-	          return;
-	        }
+	            $rootScope.$on('$destroy', this.destroy.bind(this));
+	          }
+	        }, {
+	          key: 'destroy',
+	          value: function destroy() {
 	
-	        // don't process messages emitted from same window
-	        if (event.source === window) {
-	          return;
-	        }
+	            (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.MESSAGE);
+	            (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.RESIZE);
+	            (0, _jquery2.default)(window).off(AV_MESSAGES.EVENTS.UNLOAD);
+	          }
+	        }, {
+	          key: 'onUnload',
+	          value: function onUnload() {
 	
-	        if (!this.isDomain(event.origin)) {
-	          $log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');
-	          return;
-	        }
+	            this.send({
+	              event: AV_MESSAGES.EVENTS.UNLOAD
+	            });
+	          }
+	        }, {
+	          key: 'isDomain',
+	          value: function isDomain(url) {
 	
-	        var data = event.data;
+	            if (AV_MESSAGES.DOMAIN.test(this.domain())) {
+	              return AV_MESSAGES.DOMAIN.test(url);
+	            }
 	
-	        try {
-	          data = _angular2.default.fromJson(data);
-	        } catch (err) {
-	          $log.warn('avMessages.onMessage() failed to convert event to json payload');
-	        }
+	            return AV_MESSAGES.LOCAL.test(url);
+	          }
+	        }, {
+	          key: 'isEnabled',
+	          value: function isEnabled() {
+	            return that.enabled;
+	          }
+	        }, {
+	          key: 'onMessage',
+	          value: function onMessage(_event) {
 	
-	        if (_angular2.default.isString(data)) {
-	          event = data;
-	          data = null;
-	        } else {
-	          event = data.event ? data.event : AV_MESSAGES.AV_RECEIVED;
-	        }
+	            var event = _event;
 	
-	        $rootScope.$root.$broadcast(event, data);
-	      };
+	            event = event.originalEvent || event; // jQuery wraps in `originalEvent`
 	
-	      AvMessages.prototype.isIframe = function isIframe() {
-	        return window.self !== window.parent;
-	      };
+	            if (!event && !event.data) {
+	              // no op
+	              return;
+	            }
 	
-	      AvMessages.prototype.domain = function domain() {
+	            // don't process messages emitted from same window
+	            if (event.source === window) {
+	              return;
+	            }
 	
-	        if (window.location.origin) {
-	          return window.location.origin;
-	        }
+	            if (!this.isDomain(event.origin)) {
+	              $log.warn('avMessages rejected a cross domain message since it does not match an *.availity.com  or localhost');
+	              return;
+	            }
 	
-	        if (window.location.hostname) {
-	          return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-	        }
+	            var data = event.data;
 	
-	        return '*';
-	      };
+	            try {
+	              data = _angular2.default.fromJson(data);
+	            } catch (err) {
+	              $log.warn('avMessages.onMessage() failed to convert event to json payload');
+	            }
 	
-	      AvMessages.prototype.send = function send(payload) {
+	            if (_angular2.default.isString(data)) {
+	              event = data;
+	              data = null;
+	            } else {
+	              event = data.event ? data.event : AV_MESSAGES.AV_RECEIVED;
+	            }
 	
-	        try {
+	            $rootScope.$root.$broadcast(event, data);
+	          }
+	        }, {
+	          key: 'isIframe',
+	          value: function isIframe() {
+	            return window.self !== window.parent;
+	          }
+	        }, {
+	          key: 'domain',
+	          value: function domain() {
 	
-	          var message = _.isString(payload) ? payload : JSON.stringify(payload);
-	          this.postMessage(message, this.domain());
-	        } catch (err) {
-	          $log.error('avMessages.send() ', err);
-	        }
-	      };
+	            if (window.location.origin) {
+	              return window.location.origin;
+	            }
 	
-	      AvMessages.prototype.postMessage = function postMessage(message, domain) {
-	        window.parent.postMessage(message, domain);
-	      };
+	            if (window.location.hostname) {
+	              return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+	            }
 	
-	      return AvMessages;
-	    }();
+	            return '*';
+	          }
+	        }, {
+	          key: 'send',
+	          value: function send(payload) {
 	
-	    return new AvMessages();
-	  };
+	            try {
+	
+	              var message = (0, _lodash4.default)(payload) ? payload : JSON.stringify(payload);
+	              this.postMessage(message, this.domain());
+	            } catch (err) {
+	              $log.error('avMessages.send() ', err);
+	            }
+	          }
+	        }, {
+	          key: 'postMessage',
+	          value: function postMessage(message, domain) {
+	            window.parent.postMessage(message, domain);
+	          }
+	        }]);
+	
+	        return AvMessages;
+	      }();
+	
+	      return new AvMessages();
+	    }
+	  }]);
 	
 	  return AvMessageProvider;
 	}();
@@ -10500,7 +14587,492 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 333 */
+/* 339 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as the `TypeError` message for "Functions" methods. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+	
+	/** Used as references for various `Number` constants. */
+	var NAN = 0 / 0;
+	
+	/** `Object#toString` result references. */
+	var symbolTag = '[object Symbol]';
+	
+	/** Used to match leading and trailing whitespace. */
+	var reTrim = /^\s+|\s+$/g;
+	
+	/** Used to detect bad signed hexadecimal string values. */
+	var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+	
+	/** Used to detect binary string values. */
+	var reIsBinary = /^0b[01]+$/i;
+	
+	/** Used to detect octal string values. */
+	var reIsOctal = /^0o[0-7]+$/i;
+	
+	/** Built-in method references without a dependency on `root`. */
+	var freeParseInt = parseInt;
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max,
+	    nativeMin = Math.min;
+	
+	/**
+	 * Gets the timestamp of the number of milliseconds that have elapsed since
+	 * the Unix epoch (1 January 1970 00:00:00 UTC).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 2.4.0
+	 * @category Date
+	 * @returns {number} Returns the timestamp.
+	 * @example
+	 *
+	 * _.defer(function(stamp) {
+	 *   console.log(_.now() - stamp);
+	 * }, _.now());
+	 * // => Logs the number of milliseconds it took for the deferred invocation.
+	 */
+	var now = function() {
+	  return root.Date.now();
+	};
+	
+	/**
+	 * Creates a debounced function that delays invoking `func` until after `wait`
+	 * milliseconds have elapsed since the last time the debounced function was
+	 * invoked. The debounced function comes with a `cancel` method to cancel
+	 * delayed `func` invocations and a `flush` method to immediately invoke them.
+	 * Provide `options` to indicate whether `func` should be invoked on the
+	 * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+	 * with the last arguments provided to the debounced function. Subsequent
+	 * calls to the debounced function return the result of the last `func`
+	 * invocation.
+	 *
+	 * **Note:** If `leading` and `trailing` options are `true`, `func` is
+	 * invoked on the trailing edge of the timeout only if the debounced function
+	 * is invoked more than once during the `wait` timeout.
+	 *
+	 * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+	 * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+	 *
+	 * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+	 * for details over the differences between `_.debounce` and `_.throttle`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Function
+	 * @param {Function} func The function to debounce.
+	 * @param {number} [wait=0] The number of milliseconds to delay.
+	 * @param {Object} [options={}] The options object.
+	 * @param {boolean} [options.leading=false]
+	 *  Specify invoking on the leading edge of the timeout.
+	 * @param {number} [options.maxWait]
+	 *  The maximum time `func` is allowed to be delayed before it's invoked.
+	 * @param {boolean} [options.trailing=true]
+	 *  Specify invoking on the trailing edge of the timeout.
+	 * @returns {Function} Returns the new debounced function.
+	 * @example
+	 *
+	 * // Avoid costly calculations while the window size is in flux.
+	 * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+	 *
+	 * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+	 * jQuery(element).on('click', _.debounce(sendMail, 300, {
+	 *   'leading': true,
+	 *   'trailing': false
+	 * }));
+	 *
+	 * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+	 * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+	 * var source = new EventSource('/stream');
+	 * jQuery(source).on('message', debounced);
+	 *
+	 * // Cancel the trailing debounced invocation.
+	 * jQuery(window).on('popstate', debounced.cancel);
+	 */
+	function debounce(func, wait, options) {
+	  var lastArgs,
+	      lastThis,
+	      maxWait,
+	      result,
+	      timerId,
+	      lastCallTime,
+	      lastInvokeTime = 0,
+	      leading = false,
+	      maxing = false,
+	      trailing = true;
+	
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  wait = toNumber(wait) || 0;
+	  if (isObject(options)) {
+	    leading = !!options.leading;
+	    maxing = 'maxWait' in options;
+	    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+	    trailing = 'trailing' in options ? !!options.trailing : trailing;
+	  }
+	
+	  function invokeFunc(time) {
+	    var args = lastArgs,
+	        thisArg = lastThis;
+	
+	    lastArgs = lastThis = undefined;
+	    lastInvokeTime = time;
+	    result = func.apply(thisArg, args);
+	    return result;
+	  }
+	
+	  function leadingEdge(time) {
+	    // Reset any `maxWait` timer.
+	    lastInvokeTime = time;
+	    // Start the timer for the trailing edge.
+	    timerId = setTimeout(timerExpired, wait);
+	    // Invoke the leading edge.
+	    return leading ? invokeFunc(time) : result;
+	  }
+	
+	  function remainingWait(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime,
+	        result = wait - timeSinceLastCall;
+	
+	    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+	  }
+	
+	  function shouldInvoke(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime;
+	
+	    // Either this is the first call, activity has stopped and we're at the
+	    // trailing edge, the system time has gone backwards and we're treating
+	    // it as the trailing edge, or we've hit the `maxWait` limit.
+	    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+	      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+	  }
+	
+	  function timerExpired() {
+	    var time = now();
+	    if (shouldInvoke(time)) {
+	      return trailingEdge(time);
+	    }
+	    // Restart the timer.
+	    timerId = setTimeout(timerExpired, remainingWait(time));
+	  }
+	
+	  function trailingEdge(time) {
+	    timerId = undefined;
+	
+	    // Only invoke if we have `lastArgs` which means `func` has been
+	    // debounced at least once.
+	    if (trailing && lastArgs) {
+	      return invokeFunc(time);
+	    }
+	    lastArgs = lastThis = undefined;
+	    return result;
+	  }
+	
+	  function cancel() {
+	    if (timerId !== undefined) {
+	      clearTimeout(timerId);
+	    }
+	    lastInvokeTime = 0;
+	    lastArgs = lastCallTime = lastThis = timerId = undefined;
+	  }
+	
+	  function flush() {
+	    return timerId === undefined ? result : trailingEdge(now());
+	  }
+	
+	  function debounced() {
+	    var time = now(),
+	        isInvoking = shouldInvoke(time);
+	
+	    lastArgs = arguments;
+	    lastThis = this;
+	    lastCallTime = time;
+	
+	    if (isInvoking) {
+	      if (timerId === undefined) {
+	        return leadingEdge(lastCallTime);
+	      }
+	      if (maxing) {
+	        // Handle invocations in a tight loop.
+	        timerId = setTimeout(timerExpired, wait);
+	        return invokeFunc(lastCallTime);
+	      }
+	    }
+	    if (timerId === undefined) {
+	      timerId = setTimeout(timerExpired, wait);
+	    }
+	    return result;
+	  }
+	  debounced.cancel = cancel;
+	  debounced.flush = flush;
+	  return debounced;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Symbol` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+	 * @example
+	 *
+	 * _.isSymbol(Symbol.iterator);
+	 * // => true
+	 *
+	 * _.isSymbol('abc');
+	 * // => false
+	 */
+	function isSymbol(value) {
+	  return typeof value == 'symbol' ||
+	    (isObjectLike(value) && objectToString.call(value) == symbolTag);
+	}
+	
+	/**
+	 * Converts `value` to a number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to process.
+	 * @returns {number} Returns the number.
+	 * @example
+	 *
+	 * _.toNumber(3.2);
+	 * // => 3.2
+	 *
+	 * _.toNumber(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toNumber(Infinity);
+	 * // => Infinity
+	 *
+	 * _.toNumber('3.2');
+	 * // => 3.2
+	 */
+	function toNumber(value) {
+	  if (typeof value == 'number') {
+	    return value;
+	  }
+	  if (isSymbol(value)) {
+	    return NAN;
+	  }
+	  if (isObject(value)) {
+	    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+	    value = isObject(other) ? (other + '') : other;
+	  }
+	  if (typeof value != 'string') {
+	    return value === 0 ? value : +value;
+	  }
+	  value = value.replace(reTrim, '');
+	  var isBinary = reIsBinary.test(value);
+	  return (isBinary || reIsOctal.test(value))
+	    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+	    : (reIsBadHex.test(value) ? NAN : +value);
+	}
+	
+	module.exports = debounce;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 340 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 4.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** `Object#toString` result references. */
+	var stringTag = '[object String]';
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @type Function
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `String` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isString('abc');
+	 * // => true
+	 *
+	 * _.isString(1);
+	 * // => false
+	 */
+	function isString(value) {
+	  return typeof value == 'string' ||
+	    (!isArray(value) && isObjectLike(value) && objectToString.call(value) == stringTag);
+	}
+	
+	module.exports = isString;
+
+
+/***/ },
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10529,17 +15101,17 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 334 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(335);
+	__webpack_require__(343);
 	
-	__webpack_require__(336);
+	__webpack_require__(344);
 
 /***/ },
-/* 335 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10548,7 +15120,7 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _rules = __webpack_require__(335);
+	var _rules = __webpack_require__(343);
 	
 	var _rules2 = _interopRequireDefault(_rules);
 	
@@ -10559,10 +15131,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 336 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -10572,11 +15146,11 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(337);
+	__webpack_require__(345);
 	
-	__webpack_require__(338);
+	__webpack_require__(346);
 	
-	__webpack_require__(339);
+	__webpack_require__(347);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10591,61 +15165,73 @@ webpackJsonp([0],[
 	    this.services = {};
 	  }
 	
-	  AvValProvider.prototype.addRules = function addRules(_rules) {
-	    this.rules = _angular2.default.extend({}, this.rules, _rules);
-	    return this.rules;
-	  };
+	  _createClass(AvValProvider, [{
+	    key: 'addRules',
+	    value: function addRules(_rules) {
+	      this.rules = _angular2.default.extend({}, this.rules, _rules);
+	      return this.rules;
+	    }
+	  }, {
+	    key: 'addValidators',
+	    value: function addValidators(_validators) {
+	      this.validators = this.validators.concat(_validators);
+	      return this.validators;
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get($injector, $rootScope, avValConfig, AV_VAL) {
 	
-	  AvValProvider.prototype.addValidators = function addValidators(_validators) {
-	    this.validators = this.validators.concat(_validators);
-	    return this.validators;
-	  };
+	      var that = this;
 	
-	  AvValProvider.prototype.$get = function $get($injector, $rootScope, avValConfig, AV_VAL) {
+	      var AvValidation = function () {
+	        function AvValidation() {
+	          _classCallCheck(this, AvValidation);
 	
-	    var that = this;
+	          this.initValidators();
+	        }
 	
-	    var AvValidation = function () {
-	      function AvValidation() {
-	        _classCallCheck(this, AvValidation);
+	        _createClass(AvValidation, [{
+	          key: 'initValidators',
+	          value: function initValidators() {
 	
-	        this.initValidators();
-	      }
+	            var self = this;
 	
-	      AvValidation.prototype.initValidators = function initValidators() {
+	            that.validators = avValConfig.validators.concat(that.validators);
 	
-	        var self = this;
+	            _angular2.default.forEach(that.validators, function (name) {
+	              self.addValidator(name);
+	            });
+	          }
+	        }, {
+	          key: 'addValidator',
+	          value: function addValidator(name) {
+	            var validator = $injector.get(name);
+	            that.services[validator.name] = validator;
+	          }
+	        }, {
+	          key: 'addRules',
+	          value: function addRules(rules) {
+	            that.rules = _angular2.default.extend({}, that.rules, rules);
+	            $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
+	          }
+	        }, {
+	          key: 'getRule',
+	          value: function getRule(key) {
+	            return that.rules[key];
+	          }
+	        }, {
+	          key: 'getService',
+	          value: function getService(name) {
+	            return that.services[name];
+	          }
+	        }]);
 	
-	        that.validators = avValConfig.validators.concat(that.validators);
+	        return AvValidation;
+	      }();
 	
-	        _angular2.default.forEach(that.validators, function (name) {
-	          self.addValidator(name);
-	        });
-	      };
-	
-	      AvValidation.prototype.addValidator = function addValidator(name) {
-	        var validator = $injector.get(name);
-	        that.services[validator.name] = validator;
-	      };
-	
-	      AvValidation.prototype.addRules = function addRules(rules) {
-	        that.rules = _angular2.default.extend({}, that.rules, rules);
-	        $rootScope.$broadcast(AV_VAL.EVENTS.REVALIDATE);
-	      };
-	
-	      AvValidation.prototype.getRule = function getRule(key) {
-	        return that.rules[key];
-	      };
-	
-	      AvValidation.prototype.getService = function getService(name) {
-	        return that.services[name];
-	      };
-	
-	      return AvValidation;
-	    }();
-	
-	    return new AvValidation();
-	  };
+	      return new AvValidation();
+	    }
+	  }]);
 	
 	  return AvValProvider;
 	}();
@@ -10653,12 +15239,14 @@ webpackJsonp([0],[
 	_module2.default.provider('avVal', AvValProvider);
 
 /***/ },
-/* 337 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _module = __webpack_require__(304);
 	
@@ -10682,12 +15270,14 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 338 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _module = __webpack_require__(304);
 	
@@ -10716,40 +15306,42 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 339 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	__webpack_require__(340);
-	
-	__webpack_require__(343);
-	
-	__webpack_require__(344);
-	
-	__webpack_require__(346);
-	
-	__webpack_require__(345);
-	
-	__webpack_require__(347);
 	
 	__webpack_require__(348);
 	
-	__webpack_require__(349);
+	__webpack_require__(351);
 	
-	__webpack_require__(342);
+	__webpack_require__(352);
+	
+	__webpack_require__(354);
+	
+	__webpack_require__(353);
+	
+	__webpack_require__(355);
+	
+	__webpack_require__(356);
+	
+	__webpack_require__(357);
+	
+	__webpack_require__(350);
 
 /***/ },
-/* 340 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(317);
+	var _moment = __webpack_require__(316);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -10757,13 +15349,13 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(338);
+	__webpack_require__(346);
 	
-	__webpack_require__(342);
+	__webpack_require__(350);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10780,18 +15372,21 @@ webpackJsonp([0],[
 	    function DateValidator() {
 	      _classCallCheck(this, DateValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'dateFormat'));
+	      return _possibleConstructorReturn(this, (DateValidator.__proto__ || Object.getPrototypeOf(DateValidator)).call(this, 'dateFormat'));
 	    }
 	
-	    DateValidator.prototype.validate = function validate(_ref) {
-	      var value = _ref.value,
-	          constraint = _ref.constraint,
-	          format = _ref.format;
+	    _createClass(DateValidator, [{
+	      key: 'validate',
+	      value: function validate(_ref) {
+	        var value = _ref.value,
+	            constraint = _ref.constraint,
+	            format = _ref.format;
 	
 	
-	      var _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
-	      return avValUtils.isEmpty(value) || _angular2.default.isDate(value) || (0, _moment2.default)(value, _format, true).isValid();
-	    };
+	        var _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
+	        return avValUtils.isEmpty(value) || _angular2.default.isDate(value) || (0, _moment2.default)(value, _format, true).isValid();
+	      }
+	    }]);
 	
 	    return DateValidator;
 	  }(_validator2.default);
@@ -10800,12 +15395,14 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 341 */
+/* 349 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -10818,7 +15415,7 @@ webpackJsonp([0],[
 	exports.default = Validator;
 
 /***/ },
-/* 342 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10846,16 +15443,18 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 343 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _moment = __webpack_require__(317);
+	var _moment = __webpack_require__(316);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -10863,13 +15462,13 @@ webpackJsonp([0],[
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(338);
+	__webpack_require__(346);
 	
-	__webpack_require__(342);
+	__webpack_require__(350);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10886,61 +15485,69 @@ webpackJsonp([0],[
 	    function DateRangeValidator() {
 	      _classCallCheck(this, DateRangeValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'dateRange'));
+	      return _possibleConstructorReturn(this, (DateRangeValidator.__proto__ || Object.getPrototypeOf(DateRangeValidator)).call(this, 'dateRange'));
 	    }
 	
-	    DateRangeValidator.prototype.getStartDate = function getStartDate(start) {
-	      return this.setMin((0, _moment2.default)().add(start.value, start.units));
-	    };
-	
-	    DateRangeValidator.prototype.getEndDate = function getEndDate(end) {
-	      return this.setMax((0, _moment2.default)().add(end.value, end.units));
-	    };
-	
-	    DateRangeValidator.prototype.setMin = function setMin(value) {
-	
-	      value.set('hours', 0);
-	      value.set('minutes', 0);
-	      value.set('seconds', 0);
-	
-	      return value;
-	    };
-	
-	    DateRangeValidator.prototype.setMax = function setMax(value) {
-	
-	      value.set('hours', 23);
-	      value.set('minutes', 59);
-	      value.set('seconds', 59);
-	
-	      return value;
-	    };
-	
-	    DateRangeValidator.prototype.validation = function validation(_ref) {
-	      var value = _ref.value,
-	          constraint = _ref.constraint;
-	
-	
-	      var startDate = void 0;
-	      var endDate = void 0;
-	
-	      var date = _angular2.default.isDate(value) ? (0, _moment2.default)(value) : (0, _moment2.default)(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
-	      date.set('hours', 0);
-	      date.set('minutes', 0);
-	      date.set('seconds', 0);
-	
-	      if (!avValUtils.isEmpty(constraint.start.units) && !avValUtils.isEmpty(constraint.end.units)) {
-	        startDate = this.getStartDate(constraint.start);
-	        endDate = this.getEndDate(constraint.end);
-	      } else {
-	        startDate = (0, _moment2.default)(constraint.start.value, constraint.start.format || constraint.format);
-	        endDate = this.setMax((0, _moment2.default)(constraint.end.value, constraint.end.format || constraint.format));
+	    _createClass(DateRangeValidator, [{
+	      key: 'getStartDate',
+	      value: function getStartDate(start) {
+	        return this.setMin((0, _moment2.default)().add(start.value, start.units));
 	      }
-	      return (_angular2.default.isDate(value) || date.isValid()) && (date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day'));
-	    };
+	    }, {
+	      key: 'getEndDate',
+	      value: function getEndDate(end) {
+	        return this.setMax((0, _moment2.default)().add(end.value, end.units));
+	      }
+	    }, {
+	      key: 'setMin',
+	      value: function setMin(value) {
 	
-	    DateRangeValidator.prototype.validate = function validate(context) {
-	      return avValUtils.isEmpty(context.value) || this.validation(context);
-	    };
+	        value.set('hours', 0);
+	        value.set('minutes', 0);
+	        value.set('seconds', 0);
+	
+	        return value;
+	      }
+	    }, {
+	      key: 'setMax',
+	      value: function setMax(value) {
+	
+	        value.set('hours', 23);
+	        value.set('minutes', 59);
+	        value.set('seconds', 59);
+	
+	        return value;
+	      }
+	    }, {
+	      key: 'validation',
+	      value: function validation(_ref) {
+	        var value = _ref.value,
+	            constraint = _ref.constraint;
+	
+	
+	        var startDate = void 0;
+	        var endDate = void 0;
+	
+	        var date = _angular2.default.isDate(value) ? (0, _moment2.default)(value) : (0, _moment2.default)(value, constraint.format || AV_VAL.DATE_FORMAT.SIMPLE);
+	        date.set('hours', 0);
+	        date.set('minutes', 0);
+	        date.set('seconds', 0);
+	
+	        if (!avValUtils.isEmpty(constraint.start.units) && !avValUtils.isEmpty(constraint.end.units)) {
+	          startDate = this.getStartDate(constraint.start);
+	          endDate = this.getEndDate(constraint.end);
+	        } else {
+	          startDate = (0, _moment2.default)(constraint.start.value, constraint.start.format || constraint.format);
+	          endDate = this.setMax((0, _moment2.default)(constraint.end.value, constraint.end.format || constraint.format));
+	        }
+	        return (_angular2.default.isDate(value) || date.isValid()) && (date.isBetween(startDate, endDate, 'day') || date.isSame(startDate, 'day') || date.isSame(endDate, 'day'));
+	      }
+	    }, {
+	      key: 'validate',
+	      value: function validate(context) {
+	        return avValUtils.isEmpty(context.value) || this.validation(context);
+	      }
+	    }]);
 	
 	    return DateRangeValidator;
 	  }(_validator2.default);
@@ -10949,20 +15556,22 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 344 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(345);
+	__webpack_require__(353);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10982,16 +15591,19 @@ webpackJsonp([0],[
 	    function EmailValidator() {
 	      _classCallCheck(this, EmailValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'email'));
+	      return _possibleConstructorReturn(this, (EmailValidator.__proto__ || Object.getPrototypeOf(EmailValidator)).call(this, 'email'));
 	    }
 	
-	    EmailValidator.prototype.validate = function validate(context) {
+	    _createClass(EmailValidator, [{
+	      key: 'validate',
+	      value: function validate(context) {
 	
-	      context.constraint = context.constraint || {};
-	      context.constraint.value = EMAIL_PATTERN;
+	        context.constraint = context.constraint || {};
+	        context.constraint.value = EMAIL_PATTERN;
 	
-	      return avValPattern.validate(context);
-	    };
+	        return avValPattern.validate(context);
+	      }
+	    }]);
 	
 	    return EmailValidator;
 	  }(_validator2.default);
@@ -11000,20 +15612,22 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 345 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(342);
+	__webpack_require__(350);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11030,48 +15644,52 @@ webpackJsonp([0],[
 	    function PatternValidator() {
 	      _classCallCheck(this, PatternValidator);
 	
-	      var _this = _possibleConstructorReturn(this, _Validator.call(this, 'pattern'));
+	      var _this = _possibleConstructorReturn(this, (PatternValidator.__proto__ || Object.getPrototypeOf(PatternValidator)).call(this, 'pattern'));
 	
 	      _this.REGEX = /^\/(.*)\/([gim]*)$/; // regular expression to test a regular expression
 	      return _this;
 	    }
 	
-	    PatternValidator.prototype.asRegExp = function asRegExp(pattern) {
+	    _createClass(PatternValidator, [{
+	      key: 'asRegExp',
+	      value: function asRegExp(pattern) {
 	
-	      // if regex then return it
-	      if (pattern.test) {
-	        return pattern;
-	      }
-	
-	      // if string then test for valid regex then convert to regex and return
-	      var match = pattern.match(this.REGEX);
-	      if (match) {
-	        return new RegExp(match[1], match[2]);
-	      }
-	
-	      throw new Error('Expected ' + pattern + ' to be a RegExp');
-	    };
-	
-	    PatternValidator.prototype.validate = function validate(context) {
-	      var value = context.value,
-	          constraint = context.constraint;
-	
-	
-	      var self = this;
-	
-	      var values = Array.isArray(constraint.value) ? constraint.value : [constraint.value];
-	
-	      var valid = false;
-	
-	      values.forEach(function (expression) {
-	        var pattern = self.asRegExp(expression);
-	        if (avValUtils.isEmpty(value) || pattern.test(value)) {
-	          valid = true;
+	        // if regex then return it
+	        if (pattern.test) {
+	          return pattern;
 	        }
-	      });
 	
-	      return valid;
-	    };
+	        // if string then test for valid regex then convert to regex and return
+	        var match = pattern.match(this.REGEX);
+	        if (match) {
+	          return new RegExp(match[1], match[2]);
+	        }
+	
+	        throw new Error('Expected ' + pattern + ' to be a RegExp');
+	      }
+	    }, {
+	      key: 'validate',
+	      value: function validate(context) {
+	        var value = context.value,
+	            constraint = context.constraint;
+	
+	
+	        var self = this;
+	
+	        var values = Array.isArray(constraint.value) ? constraint.value : [constraint.value];
+	
+	        var valid = false;
+	
+	        values.forEach(function (expression) {
+	          var pattern = self.asRegExp(expression);
+	          if (avValUtils.isEmpty(value) || pattern.test(value)) {
+	            valid = true;
+	          }
+	        });
+	
+	        return valid;
+	      }
+	    }]);
 	
 	    return PatternValidator;
 	  }(_validator2.default);
@@ -11080,16 +15698,18 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 346 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -11108,55 +15728,58 @@ webpackJsonp([0],[
 	    function NpiValidator() {
 	      _classCallCheck(this, NpiValidator);
 	
-	      var _this = _possibleConstructorReturn(this, _Validator.call(this, 'npi'));
+	      var _this = _possibleConstructorReturn(this, (NpiValidator.__proto__ || Object.getPrototypeOf(NpiValidator)).call(this, 'npi'));
 	
 	      _this.INTEGER_REGEX = /^\d*$/;
 	      return _this;
 	    }
 	
-	    NpiValidator.prototype.validate = function validate(context) {
-	      var value = context.value;
+	    _createClass(NpiValidator, [{
+	      key: 'validate',
+	      value: function validate(context) {
+	        var value = context.value;
 	
 	
-	      var npi = value || '';
+	        var npi = value || '';
 	
-	      if (avValUtils.isEmpty(npi)) {
-	        return true;
-	      }
-	
-	      if (!this.INTEGER_REGEX.test(npi) || npi.length !== 10) {
-	        return false;
-	      }
-	
-	      var firstDigit = npi.charAt(0);
-	      if (!['1', '2', '3', '4'].includes(firstDigit)) {
-	        return false;
-	      }
-	
-	      var digit = parseInt(npi.charAt(9), 10);
-	      npi = npi.substring(0, 9);
-	      npi = '80840' + npi;
-	
-	      var alternate = true;
-	      var total = 0;
-	
-	      for (var i = npi.length; i > 0; i--) {
-	        var next = parseInt(npi.charAt(i - 1), 10);
-	        if (alternate) {
-	          next = next * 2;
-	          if (next > 9) {
-	            next = next % 10 + 1;
-	          }
+	        if (avValUtils.isEmpty(npi)) {
+	          return true;
 	        }
-	        total += next;
-	        alternate = !alternate;
+	
+	        if (!this.INTEGER_REGEX.test(npi) || npi.length !== 10) {
+	          return false;
+	        }
+	
+	        var firstDigit = npi.charAt(0);
+	        if (!['1', '2', '3', '4'].includes(firstDigit)) {
+	          return false;
+	        }
+	
+	        var digit = parseInt(npi.charAt(9), 10);
+	        npi = npi.substring(0, 9);
+	        npi = '80840' + npi;
+	
+	        var alternate = true;
+	        var total = 0;
+	
+	        for (var i = npi.length; i > 0; i--) {
+	          var next = parseInt(npi.charAt(i - 1), 10);
+	          if (alternate) {
+	            next = next * 2;
+	            if (next > 9) {
+	              next = next % 10 + 1;
+	            }
+	          }
+	          total += next;
+	          alternate = !alternate;
+	        }
+	
+	        var roundUp = Math.ceil(total / 10) * 10;
+	        var calculatedCheck = roundUp - total;
+	
+	        return calculatedCheck === digit;
 	      }
-	
-	      var roundUp = Math.ceil(total / 10) * 10;
-	      var calculatedCheck = roundUp - total;
-	
-	      return calculatedCheck === digit;
-	    };
+	    }]);
 	
 	    return NpiValidator;
 	  }(_validator2.default);
@@ -11165,20 +15788,22 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 347 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(345);
+	__webpack_require__(353);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11198,14 +15823,17 @@ webpackJsonp([0],[
 	    function PhoneValidator() {
 	      _classCallCheck(this, PhoneValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'phone'));
+	      return _possibleConstructorReturn(this, (PhoneValidator.__proto__ || Object.getPrototypeOf(PhoneValidator)).call(this, 'phone'));
 	    }
 	
-	    PhoneValidator.prototype.validate = function validate(context) {
-	      context.constraint = context.contraint || {};
-	      context.constraint.value = PHONE_PATTERN;
-	      return avValPattern.validate(context);
-	    };
+	    _createClass(PhoneValidator, [{
+	      key: 'validate',
+	      value: function validate(context) {
+	        context.constraint = context.contraint || {};
+	        context.constraint.value = PHONE_PATTERN;
+	        return avValPattern.validate(context);
+	      }
+	    }]);
 	
 	    return PhoneValidator;
 	  }(_validator2.default);
@@ -11214,20 +15842,22 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 348 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _module = __webpack_require__(304);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	__webpack_require__(342);
+	__webpack_require__(350);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11244,33 +15874,36 @@ webpackJsonp([0],[
 	    function RequiredValidator() {
 	      _classCallCheck(this, RequiredValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'required'));
+	      return _possibleConstructorReturn(this, (RequiredValidator.__proto__ || Object.getPrototypeOf(RequiredValidator)).call(this, 'required'));
 	    }
 	
-	    RequiredValidator.prototype.validate = function validate(context) {
-	      var value = context.value,
-	          element = context.element;
+	    _createClass(RequiredValidator, [{
+	      key: 'validate',
+	      value: function validate(context) {
+	        var value = context.value,
+	            element = context.element;
 	
-	      // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
-	      // type of field:
-	      //
-	      //    - radio
-	      //    - checkbox
-	      //    - text
-	      //    - lists
-	      //
-	      // You can override $isEmpty for input directives whose concept of being empty is different to the
-	      // default. Radio and checkboxes directive do this because in its case a value of `false`
-	      // implies empty.
-	      //
+	        // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
+	        // type of field:
+	        //
+	        //    - radio
+	        //    - checkbox
+	        //    - text
+	        //    - lists
+	        //
+	        // You can override $isEmpty for input directives whose concept of being empty is different to the
+	        // default. Radio and checkboxes directive do this because in its case a value of `false`
+	        // implies empty.
+	        //
 	
-	      var ctrl = element && element.data('$ngModelController');
-	      if (ctrl) {
-	        return !ctrl.$isEmpty(value);
+	        var ctrl = element && element.data('$ngModelController');
+	        if (ctrl) {
+	          return !ctrl.$isEmpty(value);
+	        }
+	
+	        return !avValUtils.isEmpty(value);
 	      }
-	
-	      return !avValUtils.isEmpty(value);
-	    };
+	    }]);
 	
 	    return RequiredValidator;
 	  }(_validator2.default);
@@ -11279,16 +15912,18 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 349 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _validator = __webpack_require__(341);
+	var _validator = __webpack_require__(349);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -11311,35 +15946,38 @@ webpackJsonp([0],[
 	    function SizeValidator() {
 	      _classCallCheck(this, SizeValidator);
 	
-	      return _possibleConstructorReturn(this, _Validator.call(this, 'size'));
+	      return _possibleConstructorReturn(this, (SizeValidator.__proto__ || Object.getPrototypeOf(SizeValidator)).call(this, 'size'));
 	    }
 	
-	    SizeValidator.prototype.validate = function validate(context) {
-	      var value = context.value,
-	          constraint = context.constraint;
+	    _createClass(SizeValidator, [{
+	      key: 'validate',
+	      value: function validate(context) {
+	        var value = context.value,
+	            constraint = context.constraint;
 	
-	      var _value = value;
+	        var _value = value;
 	
-	      var min = constraint.min || 0;
-	      var max = constraint.max;
-	      var type = constraint.type ? constraint.type.toLowerCase() : 'text';
+	        var min = constraint.min || 0;
+	        var max = constraint.max;
+	        var type = constraint.type ? constraint.type.toLowerCase() : 'text';
 	
-	      if (_value === null || _angular2.default.isUndefined(_value)) {
-	        _value = '';
+	        if (_value === null || _angular2.default.isUndefined(_value)) {
+	          _value = '';
+	        }
+	
+	        if (type === 'text') {
+	          _value = '' + _value;
+	          return avValUtils.isEmpty(_value) || _value.length >= min && (max === undefined || _value.length <= max);
+	        }
+	
+	        // ... must be a Number
+	        if (!_angular2.default.isNumber(_value) && /^\d+$/.test(_value)) {
+	          _value = parseInt(_value, 10);
+	        }
+	
+	        return avValUtils.isEmpty(_value) || _value >= min && (max === undefined || _value <= max);
 	      }
-	
-	      if (type === 'text') {
-	        _value = '' + _value;
-	        return avValUtils.isEmpty(_value) || _value.length >= min && (max === undefined || _value.length <= max);
-	      }
-	
-	      // ... must be a Number
-	      if (!_angular2.default.isNumber(_value) && /^\d+$/.test(_value)) {
-	        _value = parseInt(_value, 10);
-	      }
-	
-	      return avValUtils.isEmpty(_value) || _value >= min && (max === undefined || _value <= max);
-	    };
+	    }]);
 	
 	    return SizeValidator;
 	  }(_validator2.default);
@@ -11348,52 +15986,54 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 350 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(351);
+	__webpack_require__(359);
 	
-	__webpack_require__(352);
-	
-	__webpack_require__(357);
+	__webpack_require__(360);
 	
 	__webpack_require__(364);
 	
-	__webpack_require__(373);
+	__webpack_require__(371);
 	
-	__webpack_require__(381);
+	__webpack_require__(380);
 	
-	__webpack_require__(386);
+	__webpack_require__(388);
 	
 	__webpack_require__(393);
 	
-	__webpack_require__(394);
-	
-	__webpack_require__(397);
-	
-	__webpack_require__(401);
-	
-	__webpack_require__(408);
-	
-	__webpack_require__(409);
-	
-	__webpack_require__(414);
+	__webpack_require__(402);
 	
 	__webpack_require__(403);
 	
-	__webpack_require__(420);
+	__webpack_require__(406);
 	
-	__webpack_require__(427);
+	__webpack_require__(409);
+	
+	__webpack_require__(417);
+	
+	__webpack_require__(418);
+	
+	__webpack_require__(423);
+	
+	__webpack_require__(412);
+	
+	__webpack_require__(429);
+	
+	__webpack_require__(436);
 
 /***/ },
-/* 351 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _angular = __webpack_require__(301);
 	
@@ -11406,135 +16046,84 @@ webpackJsonp([0],[
 	exports.default = ngModule;
 
 /***/ },
-/* 352 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(353);
+	__webpack_require__(361);
 	
-	__webpack_require__(355);
+	__webpack_require__(362);
 	
-	__webpack_require__(356);
+	__webpack_require__(363);
 
 /***/ },
-/* 353 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	__webpack_require__(310);
+	__webpack_require__(309);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvAnalyticsController = function (_Base) {
-	  _inherits(AvAnalyticsController, _Base);
-	
-	  function AvAnalyticsController() {
+	var AvAnalyticsController = function () {
+	  function AvAnalyticsController(avAnalyticsUtils, avAnalytics) {
 	    _classCallCheck(this, AvAnalyticsController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	    this.av = { avAnalyticsUtils: avAnalyticsUtils, avAnalytics: avAnalytics };
 	  }
 	
-	  AvAnalyticsController.prototype.onEvent = function onEvent(event, element, options) {
-	    var _this2 = this;
+	  _createClass(AvAnalyticsController, [{
+	    key: 'onEvent',
+	    value: function onEvent(event, element, options) {
+	      var _this = this;
 	
-	    var properties = _angular2.default.extend({
-	      level: 'info',
-	      label: element.text()
-	    }, {
-	      event: event.type
-	    }, options);
+	      var properties = _angular2.default.extend({
+	        level: 'info',
+	        label: element.text()
+	      }, {
+	        event: event.type
+	      }, options);
 	
-	    if (this.av.avAnalyticsUtils.isExternalLink(properties)) {
-	      event.preventDefault();
-	      event.stopPropagation();
-	    }
-	
-	    var promise = this.av.avAnalytics.trackEvent(properties);
-	    promise.finally(function () {
-	      if (_this2.av.avAnalyticsUtils.isExternalLink(properties)) {
-	        document.location = element.attr('href');
+	      if (this.av.avAnalyticsUtils.isExternalLink(properties)) {
+	        event.preventDefault();
+	        event.stopPropagation();
 	      }
-	    });
-	  };
+	
+	      var promise = this.av.avAnalytics.trackEvent(properties);
+	      promise.finally(function () {
+	        if (_this.av.avAnalyticsUtils.isExternalLink(properties)) {
+	          document.location = element.attr('href');
+	        }
+	      });
+	    }
+	  }]);
 	
 	  return AvAnalyticsController;
-	}(_base2.default);
-	
-	AvAnalyticsController.$inject = ['avAnalyticsUtils', 'avAnalytics'];
-	
+	}();
 	
 	_module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 
 /***/ },
-/* 354 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// Inspiration: https://github.com/seeden/angular-es6
-	
-	function storeInjections() {
-	  var injected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	  var instance = arguments[1];
-	  var args = arguments[2];
-	  var name = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'av';
-	
-	
-	  var instanceInject = instance[name] = instance[name] || {};
-	
-	  injected.forEach(function (injectName, index) {
-	    instanceInject[injectName] = args[index];
-	  });
-	}
-	
-	var Base = function Base() {
-	  _classCallCheck(this, Base);
-	
-	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	    args[_key] = arguments[_key];
-	  }
-	
-	  storeInjections(this.constructor.$inject, this, args);
-	};
-	
-	Base.$inject = [];
-	exports.default = Base;
-
-/***/ },
-/* 355 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11555,7 +16144,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 356 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11564,7 +16153,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11605,44 +16194,44 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 357 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(358);
+	__webpack_require__(365);
 	
-	__webpack_require__(363);
+	__webpack_require__(370);
 
 /***/ },
-/* 358 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(359);
+	__webpack_require__(366);
 
 /***/ },
-/* 359 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	__webpack_require__(360);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	__webpack_require__(361);
+	__webpack_require__(367);
 	
-	var _template = __webpack_require__(362);
+	__webpack_require__(368);
+	
+	var _template = __webpack_require__(369);
 	
 	var _template2 = _interopRequireDefault(_template);
 	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11650,68 +16239,60 @@ webpackJsonp([0],[
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvLoaderController = function (_Base) {
-	  _inherits(AvLoaderController, _Base);
-	
-	  function AvLoaderController() {
+	var AvLoaderController = function () {
+	  function AvLoaderController($element) {
 	    _classCallCheck(this, AvLoaderController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.endAnimation = function () {
+	    this.endAnimation = function () {
 	      this.av.$element.find('.loading-bullet').velocity('stop', true);
 	      this.av.$element.removeData();
 	    };
 	
-	    _this.active = false;
-	    return _this;
+	    this.av = { $element: $element };
+	
+	    this.active = false;
 	  }
 	
-	  AvLoaderController.prototype.start = function start() {
-	    this.active = true;
-	    this.animate();
-	  };
+	  _createClass(AvLoaderController, [{
+	    key: 'start',
+	    value: function start() {
+	      this.active = true;
+	      this.animate();
+	    }
+	  }, {
+	    key: 'animate',
+	    value: function animate() {
 	
-	  AvLoaderController.prototype.animate = function animate() {
+	      var self = this;
 	
-	    var self = this;
-	
-	    this.av.$element.find('.loading-bullet').velocity('transition.slideRightIn', { stagger: 250 }).velocity({ opacity: 0 }, {
-	      delay: 750,
-	      duration: 500,
-	      complete: function complete() {
-	        if (self.active) {
-	          setTimeout(function () {
-	            self.animate();
-	          }, 500);
-	        } else {
-	          self.endAnimation();
+	      this.av.$element.find('.loading-bullet').velocity('transition.slideRightIn', { stagger: 250 }).velocity({ opacity: 0 }, {
+	        delay: 750,
+	        duration: 500,
+	        complete: function complete() {
+	          if (self.active) {
+	            setTimeout(function () {
+	              self.animate();
+	            }, 500);
+	          } else {
+	            self.endAnimation();
+	          }
 	        }
-	      }
-	    });
-	  };
-	
-	  AvLoaderController.prototype.$destroy = function $destroy() {
-	    this.active = false;
-	  };
-	
-	  AvLoaderController.prototype.$postLink = function $postLink() {
-	    this.start();
-	  };
+	      });
+	    }
+	  }, {
+	    key: '$destroy',
+	    value: function $destroy() {
+	      this.active = false;
+	    }
+	  }, {
+	    key: '$postLink',
+	    value: function $postLink() {
+	      this.start();
+	    }
+	  }]);
 	
 	  return AvLoaderController;
-	}(_base2.default);
-	
-	AvLoaderController.$inject = ['$element'];
-	
+	}();
 	
 	_module2.default.directive('avLoader', function () {
 	  return {
@@ -11725,9 +16306,9 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 360 */,
-/* 361 */,
-/* 362 */
+/* 367 */,
+/* 368 */,
+/* 369 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/animation/loader/template.html';
@@ -11736,18 +16317,20 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 363 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	__webpack_require__(360);
+	__webpack_require__(367);
 	
-	__webpack_require__(361);
+	__webpack_require__(368);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11814,24 +16397,24 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 364 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(365);
+	__webpack_require__(372);
 	
-	__webpack_require__(366);
+	__webpack_require__(373);
 	
-	__webpack_require__(368);
+	__webpack_require__(375);
 	
-	__webpack_require__(370);
+	__webpack_require__(377);
 	
-	__webpack_require__(369);
+	__webpack_require__(376);
 	
-	__webpack_require__(371);
+	__webpack_require__(378);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -11855,58 +16438,48 @@ webpackJsonp([0],[
 	// import './integration';
 
 /***/ },
-/* 365 */
+/* 372 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 366 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(367);
-	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
+	var _utils = __webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	// Inspiration from https://github.com/McNull/angular-block-ui.
 	//
 	//  - Need npm compatible library
 	//  - Re-factor with better life-cycle hooks for starting and stopping animations
 	
-	var BlockController = function (_Base) {
-	  _inherits(BlockController, _Base);
+	var BlockController = function () {
+	  function BlockController($element, avBlockManager, avBlockConfig, $attrs, $scope, $compile) {
+	    var _this = this;
 	
-	  function BlockController() {
 	    _classCallCheck(this, BlockController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    this.av = { $element: $element, avBlockManager: avBlockManager, avBlockConfig: avBlockConfig, $attrs: $attrs, $scope: $scope, $compile: $compile };
 	
 	    // Expose the blockMessageClass attribute value on the scope
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.av.$attrs.$observe('blockMessageClass', function (value) {
+	    this.av.$attrs.$observe('blockMessageClass', function (value) {
 	      _this.av.$scope.$_blockMessageClass = value;
 	    });
 	
@@ -11914,81 +16487,82 @@ webpackJsonp([0],[
 	    // Prefix underscore to prevent integers:
 	    // https://github.com/McNull/angular-block-ui/pull/8
 	
-	    _this.instanceId = _this.av.$attrs.avBlock || '_' + _this.av.$scope.$id;
-	    _this.serviceInstance = _this.av.avBlockManager.get(_this.instanceId);
+	    this.instanceId = this.av.$attrs.avBlock || '_' + this.av.$scope.$id;
+	    this.serviceInstance = this.av.avBlockManager.get(this.instanceId);
 	
 	    // Locate the parent block instance
-	    var parentInstance = _this.av.$element.inheritedData('av-block');
+	    var parentInstance = this.av.$element.inheritedData('av-block');
 	
 	    if (parentInstance) {
-	      _this.serviceInstance._parent = parentInstance;
+	      this.serviceInstance._parent = parentInstance;
 	    }
 	
 	    // Expose the state on the scope
-	    _this.av.$scope.$_blockState = _this.serviceInstance.state();
+	    this.av.$scope.$_blockState = this.serviceInstance.state();
 	
-	    _this.av.$scope.$watch('$_blockState.blocking', function (value) {
+	    this.av.$scope.$watch('$_blockState.blocking', function (value) {
 	      // Set the aria-busy attribute if needed
 	      _this.av.$element.attr('aria-busy', !!value);
 	      _this.av.$element.toggleClass('av-block-visible', !!value);
 	    });
 	
-	    _this.av.$scope.$watch('$_blockState.blockCount > 0', function (value) {
+	    this.av.$scope.$watch('$_blockState.blockCount > 0', function (value) {
 	      _this.av.$element.toggleClass('av-block-active', !!value);
 	    });
 	
 	    // If a pattern is provided assign it to the state
-	    var pattern = _this.av.$attrs.blockPattern;
+	    var pattern = this.av.$attrs.blockPattern;
 	
 	    if (pattern) {
 	      var regExp = (0, _utils.buildRegExp)(pattern);
-	      _this.serviceInstance.pattern(regExp);
+	      this.serviceInstance.pattern(regExp);
 	    }
 	
 	    // Store a reference to the service instance on the element
 	
-	    _this.av.$element.data('av-block', _this.serviceInstance);
-	
-	    return _this;
+	    this.av.$element.data('av-block', this.serviceInstance);
 	  }
 	
-	  BlockController.prototype.moduleLoaded = function moduleLoaded(name) {
+	  _createClass(BlockController, [{
+	    key: 'moduleLoaded',
+	    value: function moduleLoaded(name) {
 	
-	    try {
-	      _angular2.default.module(name);
-	    } catch (ex) {
-	      return false;
-	    }
-	
-	    return true;
-	  };
-	
-	  BlockController.prototype.registerLocationChange = function registerLocationChange() {
-	
-	    this.av.$scope.$on('$locationChangeStart', function (event) {
-	
-	      if (this.serviceInstance.$_blockLocationChange && this.serviceInstance.state().blockCount > 0) {
-	        event.preventDefault();
+	      try {
+	        _angular2.default.module(name);
+	      } catch (ex) {
+	        return false;
 	      }
-	    });
 	
-	    this.av.$scope.$on('$locationChangeSuccess', function () {
-	      this.serviceInstance.$_blockLocationChange = this.serviceInstance.blockBrowserNavigation;
-	    });
-	  };
+	      return true;
+	    }
+	  }, {
+	    key: 'registerLocationChange',
+	    value: function registerLocationChange() {
 	
-	  BlockController.prototype.blockNavigation = function blockNavigation() {
-	    var _this2 = this;
+	      this.av.$scope.$on('$locationChangeStart', function (event) {
 	
-	    if (this.av.avBlockConfig.blockBrowserNavigation) {
+	        if (this.serviceInstance.$_blockLocationChange && this.serviceInstance.state().blockCount > 0) {
+	          event.preventDefault();
+	        }
+	      });
 	
-	      if (this.moduleLoaded('ngRoute')) {
-	        (function () {
+	      this.av.$scope.$on('$locationChangeSuccess', function () {
+	        this.serviceInstance.$_blockLocationChange = this.serviceInstance.blockBrowserNavigation;
+	      });
+	    }
+	  }, {
+	    key: 'blockNavigation',
+	    value: function blockNavigation() {
+	      var _this2 = this;
+	
+	      if (this.av.avBlockConfig.blockBrowserNavigation) {
+	
+	        if (this.moduleLoaded('ngRoute')) {
 	
 	          // After the initial content has been loaded we'll spy on any location
 	          // changes and discard them when needed.
 	          //
-	          var fn = _this2.av.$scope.$on('$viewContentLoaded', function () {
+	          var fn = this.av.$scope.$on('$viewContentLoaded', function () {
 	
 	            // Unhook the view loaded and hook a function that will prevent
 	            // location changes while the block is active.
@@ -11996,39 +16570,38 @@ webpackJsonp([0],[
 	            fn();
 	            _this2.registerLocationChange();
 	          });
-	        })();
-	      } else {
-	        this.registerLocationChange();
+	        } else {
+	          this.registerLocationChange();
+	        }
 	      }
 	    }
-	  };
 	
-	  // Ensure the instance is released when the scope is destroyed
+	    // Ensure the instance is released when the scope is destroyed
 	
-	
-	  BlockController.prototype.$destroy = function $destroy() {
-	    this.serviceInstance.release();
-	    this.av.$element.data('av-block', null);
-	  };
-	
-	  BlockController.prototype.$postLink = function $postLink() {
-	
-	    this.container = this.av.$compile('<av-block-container class="av-block-container"></av-block-container >')(this.av.$scope);
-	    this.av.$element.append(this.container);
-	
-	    // If the element does not have the class 'av-block' set, we set the
-	    // default css classes from the config.
-	
-	    if (!this.av.$element.hasClass('av-block')) {
-	      this.av.$element.addClass(this.av.avBlockConfig.cssClass);
+	  }, {
+	    key: '$destroy',
+	    value: function $destroy() {
+	      this.serviceInstance.release();
+	      this.av.$element.data('av-block', null);
 	    }
-	  };
+	  }, {
+	    key: '$postLink',
+	    value: function $postLink() {
+	
+	      this.container = this.av.$compile('<av-block-container class="av-block-container"></av-block-container >')(this.av.$scope);
+	      this.av.$element.append(this.container);
+	
+	      // If the element does not have the class 'av-block' set, we set the
+	      // default css classes from the config.
+	
+	      if (!this.av.$element.hasClass('av-block')) {
+	        this.av.$element.addClass(this.av.avBlockConfig.cssClass);
+	      }
+	    }
+	  }]);
 	
 	  return BlockController;
-	}(_base2.default);
-	
-	BlockController.$inject = ['$element', 'avBlockManager', 'avBlockConfig', '$attrs', '$scope', '$compile'];
-	
+	}();
 	
 	_module2.default.directive('avBlock', function () {
 	  return {
@@ -12039,12 +16612,14 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 367 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.buildRegExp = buildRegExp;
 	exports.forEachFn = forEachFn;
 	exports.forEachFnHook = forEachFnHook;
@@ -12137,22 +16712,24 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 368 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(369);
+	__webpack_require__(376);
 	
-	var _utils = __webpack_require__(367);
+	var _utils = __webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12166,77 +16743,83 @@ webpackJsonp([0],[
 	      this.instances = [];
 	    }
 	
-	    AvBlockManager.prototype.get = function get(id) {
+	    _createClass(AvBlockManager, [{
+	      key: 'get',
+	      value: function get(id) {
 	
-	      // if (!this.main) {
-	      //   mainBlock.addRef();
-	      //   this.main = null;
-	      // }
+	        // if (!this.main) {
+	        //   mainBlock.addRef();
+	        //   this.main = null;
+	        // }
 	
-	      if (!isNaN(id)) {
-	        throw new Error('AvBlock id cannot be a number');
+	        if (!isNaN(id)) {
+	          throw new Error('AvBlock id cannot be a number');
+	        }
+	
+	        var instance = this.instances[id];
+	
+	        if (!instance) {
+	          var AvBlock = $injector.get('AvBlock');
+	          instance = this.instances[id] = new AvBlock(id);
+	          this.instances.push(instance);
+	        }
+	
+	        return instance;
 	      }
+	    }, {
+	      key: 'destroy',
+	      value: function destroy(idOrInstance) {
 	
-	      var instance = this.instances[id];
+	        if (_angular2.default.isString(idOrInstance)) {
+	          idOrInstance = this.instances[idOrInstance];
+	        }
 	
-	      if (!instance) {
-	        var AvBlock = $injector.get('AvBlock');
-	        instance = this.instances[id] = new AvBlock(id);
-	        this.instances.push(instance);
-	      }
+	        if (idOrInstance) {
+	          idOrInstance.reset();
 	
-	      return instance;
-	    };
+	          var i = (0, _utils.indexOf)(this.instances, idOrInstance);
+	          this.instances.splice(i, 1);
 	
-	    AvBlockManager.prototype.destroy = function destroy(idOrInstance) {
-	
-	      if (_angular2.default.isString(idOrInstance)) {
-	        idOrInstance = this.instances[idOrInstance];
-	      }
-	
-	      if (idOrInstance) {
-	        idOrInstance.reset();
-	
-	        var i = (0, _utils.indexOf)(this.instances, idOrInstance);
-	        this.instances.splice(i, 1);
-	
-	        delete this.instances[idOrInstance.state().id];
-	      }
-	    };
-	
-	    AvBlockManager.prototype.reset = function reset() {
-	      this.instances.forEach(function (instance) {
-	        return instance.reset();
-	      });
-	    };
-	
-	    AvBlockManager.prototype.locate = function locate(request) {
-	
-	      var result = [];
-	
-	      // Add function wrappers that will be executed on every item
-	      // in the array.
-	
-	      (0, _utils.forEachFnHook)(result, 'start');
-	      (0, _utils.forEachFnHook)(result, 'stop');
-	
-	      var i = this.instances.length;
-	
-	      while (i--) {
-	        var instance = this.instances[i];
-	        var pattern = instance._pattern;
-	
-	        if (pattern && pattern.test(request.url)) {
-	          result.push(instance);
+	          delete this.instances[idOrInstance.state().id];
 	        }
 	      }
-	
-	      if (result.length === 0) {
-	        result.push(this.mainBlock);
+	    }, {
+	      key: 'reset',
+	      value: function reset() {
+	        this.instances.forEach(function (instance) {
+	          return instance.reset();
+	        });
 	      }
+	    }, {
+	      key: 'locate',
+	      value: function locate(request) {
 	
-	      return result;
-	    };
+	        var result = [];
+	
+	        // Add function wrappers that will be executed on every item
+	        // in the array.
+	
+	        (0, _utils.forEachFnHook)(result, 'start');
+	        (0, _utils.forEachFnHook)(result, 'stop');
+	
+	        var i = this.instances.length;
+	
+	        while (i--) {
+	          var instance = this.instances[i];
+	          var pattern = instance._pattern;
+	
+	          if (pattern && pattern.test(request.url)) {
+	            result.push(instance);
+	          }
+	        }
+	
+	        if (result.length === 0) {
+	          result.push(this.mainBlock);
+	        }
+	
+	        return result;
+	      }
+	    }]);
 	
 	    return AvBlockManager;
 	  }();
@@ -12245,20 +16828,22 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 369 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(367);
+	var _utils = __webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12287,123 +16872,130 @@ webpackJsonp([0],[
 	      };
 	    }
 	
-	    AvBlock.prototype.block = function block() {
-	      this.startPromise = null;
-	      this._state.blocking = true;
-	    };
-	
-	    AvBlock.prototype.start = function start(messageOrOptions) {
-	      var _this = this;
-	
-	      messageOrOptions = messageOrOptions || {};
-	
-	      if (_angular2.default.isString(messageOrOptions)) {
-	
-	        messageOrOptions = {
-	          message: messageOrOptions
-	        };
-	      } else {
-	
-	        _angular2.default.forEach(reservedStateProperties, function (x) {
-	          if (messageOrOptions[x]) {
-	            throw new Error('The property ' + x + ' is reserved for the block state.');
-	          }
-	        });
-	      }
-	
-	      _angular2.default.extend(this._state, messageOrOptions);
-	
-	      if (this._state.blockCount > 0) {
-	        this._state.message = messageOrOptions.message || this._state.message || avBlockConfig.message;
-	      } else {
-	        this._state.message = messageOrOptions.message || avBlockConfig.message;
-	      }
-	
-	      this._state.blockCount++;
-	
-	      // Check if the focused element is part of the block scope
-	      var $ae = _angular2.default.element($document[0].activeElement);
-	
-	      if ($ae.length && (0, _utils.isElementInBlockScope)($ae, self)) {
-	
-	        // Let the active element lose focus and store a reference
-	        // to restore focus when we're done (reset)
-	        self._restoreFocus = $ae[0];
-	
-	        // https://github.com/McNull/angular-block-ui/issues/13
-	        // http://stackoverflow.com/questions/22698058/apply-already-in-progress-error-when-using-typeahead-plugin-found-to-be-relate
-	        // Queue the blur after any ng-blur expression.
-	        $timeout(function () {
-	          // Ensure we still need to blur
-	          // Don't restore if active element is body, since this causes IE to switch windows (see http://tjvantoll.com/2013/08/30/bugs-with-document-activeelement-in-internet-explorer/)
-	          if (self._restoreFocus && self._restoreFocus !== $body[0]) {
-	            self._restoreFocus.blur();
-	          }
-	        });
-	      }
-	
-	      if (!this.startPromise && avBlockConfig.delay !== 0) {
-	        this.startPromise = $timeout(function () {
-	          return _this.block();
-	        }, avBlockConfig.delay);
-	      } else if (avBlockConfig.delay === 0) {
-	        this.block();
-	      }
-	    };
-	
-	    AvBlock.prototype.stop = function stop() {
-	
-	      this._state.blockCount = Math.max(0, --this._state.blockCount);
-	
-	      if (this._state.blockCount === 0) {
-	        this.reset(true);
-	      }
-	    };
-	
-	    AvBlock.prototype._cancelStartTimeout = function _cancelStartTimeout() {
-	
-	      if (this.startPromise) {
-	        $timeout.cancel(this.startPromise);
+	    _createClass(AvBlock, [{
+	      key: 'block',
+	      value: function block() {
 	        this.startPromise = null;
+	        this._state.blocking = true;
 	      }
-	    };
+	    }, {
+	      key: 'start',
+	      value: function start(messageOrOptions) {
+	        var _this = this;
 	
-	    AvBlock.prototype.isBlocking = function isBlocking() {
-	      return this._state.blocking;
-	    };
+	        messageOrOptions = messageOrOptions || {};
 	
-	    AvBlock.prototype.message = function message(value) {
-	      this._state.message = value;
-	    };
+	        if (_angular2.default.isString(messageOrOptions)) {
 	
-	    AvBlock.prototype.pattern = function pattern(regexp) {
-	      if (regexp !== undefined) {
-	        this._pattern = regexp;
+	          messageOrOptions = {
+	            message: messageOrOptions
+	          };
+	        } else {
+	
+	          _angular2.default.forEach(reservedStateProperties, function (x) {
+	            if (messageOrOptions[x]) {
+	              throw new Error('The property ' + x + ' is reserved for the block state.');
+	            }
+	          });
+	        }
+	
+	        _angular2.default.extend(this._state, messageOrOptions);
+	
+	        if (this._state.blockCount > 0) {
+	          this._state.message = messageOrOptions.message || this._state.message || avBlockConfig.message;
+	        } else {
+	          this._state.message = messageOrOptions.message || avBlockConfig.message;
+	        }
+	
+	        this._state.blockCount++;
+	
+	        // Check if the focused element is part of the block scope
+	        var $ae = _angular2.default.element($document[0].activeElement);
+	
+	        if ($ae.length && (0, _utils.isElementInBlockScope)($ae, self)) {
+	
+	          // Let the active element lose focus and store a reference
+	          // to restore focus when we're done (reset)
+	          self._restoreFocus = $ae[0];
+	
+	          // https://github.com/McNull/angular-block-ui/issues/13
+	          // http://stackoverflow.com/questions/22698058/apply-already-in-progress-error-when-using-typeahead-plugin-found-to-be-relate
+	          // Queue the blur after any ng-blur expression.
+	          $timeout(function () {
+	            // Ensure we still need to blur
+	            // Don't restore if active element is body, since this causes IE to switch windows (see http://tjvantoll.com/2013/08/30/bugs-with-document-activeelement-in-internet-explorer/)
+	            if (self._restoreFocus && self._restoreFocus !== $body[0]) {
+	              self._restoreFocus.blur();
+	            }
+	          });
+	        }
+	
+	        if (!this.startPromise && avBlockConfig.delay !== 0) {
+	          this.startPromise = $timeout(function () {
+	            return _this.block();
+	          }, avBlockConfig.delay);
+	        } else if (avBlockConfig.delay === 0) {
+	          this.block();
+	        }
 	      }
+	    }, {
+	      key: 'stop',
+	      value: function stop() {
 	
-	      return this._pattern;
-	    };
+	        this._state.blockCount = Math.max(0, --this._state.blockCount);
 	
-	    AvBlock.prototype.reset = function reset(executeCallbacks) {
-	      var _this2 = this;
+	        if (this._state.blockCount === 0) {
+	          this.reset(true);
+	        }
+	      }
+	    }, {
+	      key: '_cancelStartTimeout',
+	      value: function _cancelStartTimeout() {
 	
-	      this._cancelStartTimeout();
-	      this._state.blockCount = 0;
-	      this._state.blocking = false;
+	        if (this.startPromise) {
+	          $timeout.cancel(this.startPromise);
+	          this.startPromise = null;
+	        }
+	      }
+	    }, {
+	      key: 'isBlocking',
+	      value: function isBlocking() {
+	        return this._state.blocking;
+	      }
+	    }, {
+	      key: 'message',
+	      value: function message(value) {
+	        this._state.message = value;
+	      }
+	    }, {
+	      key: 'pattern',
+	      value: function pattern(regexp) {
+	        if (regexp !== undefined) {
+	          this._pattern = regexp;
+	        }
 	
-	      // Restore the focus to the element that was active
-	      // before the block start, but not if the user has
-	      // focused something else while the block was active.
+	        return this._pattern;
+	      }
+	    }, {
+	      key: 'reset',
+	      value: function reset(executeCallbacks) {
 	
-	      if (this._restoreFocus && (!$document[0].activeElement || $document[0].activeElement === $body[0])) {
+	        this._cancelStartTimeout();
+	        this._state.blockCount = 0;
+	        this._state.blocking = false;
 	
-	        // IE8 will throw if element for setting focus is invisible
-	        try {
-	          this._restoreFocus.focus();
-	        } catch (e1) {
-	          (function () {
+	        // Restore the focus to the element that was active
+	        // before the block start, but not if the user has
+	        // focused something else while the block was active.
 	
-	            var elementToFocus = _this2._restoreFocus;
+	        if (this._restoreFocus && (!$document[0].activeElement || $document[0].activeElement === $body[0])) {
+	
+	          // IE8 will throw if element for setting focus is invisible
+	          try {
+	            this._restoreFocus.focus();
+	          } catch (e1) {
+	
+	            var elementToFocus = this._restoreFocus;
 	            $timeout(function () {
 	              if (elementToFocus) {
 	                try {
@@ -12411,31 +17003,33 @@ webpackJsonp([0],[
 	                } catch (e2) {/* no op */}
 	              }
 	            }, 100);
-	          })();
+	          }
+	
+	          this._restoreFocus = null;
 	        }
 	
-	        this._restoreFocus = null;
-	      }
+	        try {
 	
-	      try {
-	
-	        if (executeCallbacks) {
-	          _angular2.default.forEach(this.doneCallbacks, function (cb) {
-	            cb();
-	          });
+	          if (executeCallbacks) {
+	            _angular2.default.forEach(this.doneCallbacks, function (cb) {
+	              cb();
+	            });
+	          }
+	        } finally {
+	          this.doneCallbacks.length = 0;
 	        }
-	      } finally {
-	        this.doneCallbacks.length = 0;
 	      }
-	    };
-	
-	    AvBlock.prototype.done = function done(fn) {
-	      this.doneCallbacks.push(fn);
-	    };
-	
-	    AvBlock.prototype.state = function state() {
-	      return this._state;
-	    };
+	    }, {
+	      key: 'done',
+	      value: function done(fn) {
+	        this.doneCallbacks.push(fn);
+	      }
+	    }, {
+	      key: 'state',
+	      value: function state() {
+	        return this._state;
+	      }
+	    }]);
 	
 	    return AvBlock;
 	  }();
@@ -12444,71 +17038,57 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 370 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
-	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvBlockContainerDirective = function (_Base) {
-	  _inherits(AvBlockContainerDirective, _Base);
-	
-	  function AvBlockContainerDirective() {
+	var AvBlockContainerDirective = function () {
+	  function AvBlockContainerDirective(avBlockConfig) {
 	    _classCallCheck(this, AvBlockContainerDirective);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    this.av = { avBlockConfig: avBlockConfig };
 	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	    this.scope = true;
+	    this.restrict = 'AE';
 	
-	    _this.scope = true;
-	    _this.restrict = 'AE';
-	
-	    _this.templateUrl = _this.av.avBlockConfig.templateUrl;
-	
-	    return _this;
+	    this.templateUrl = this.av.avBlockConfig.templateUrl;
 	  }
 	
-	  AvBlockContainerDirective.prototype.controller = function controller($scope, $element) {
+	  _createClass(AvBlockContainerDirective, [{
+	    key: 'controller',
+	    value: function controller($scope, $element) {
 	
-	    var service = $element.inheritedData('av-block');
+	      var service = $element.inheritedData('av-block');
 	
-	    if (!service) {
-	      throw new Error('No parent av-block service instance located.');
+	      if (!service) {
+	        throw new Error('No parent av-block service instance located.');
+	      }
+	
+	      // add state to scope of this directive
+	      $scope.state = service.state();
 	    }
-	
-	    // add state to scope of this directive
-	    $scope.state = service.state();
-	  };
+	  }]);
 	
 	  return AvBlockContainerDirective;
-	}(_base2.default);
-	
-	AvBlockContainerDirective.$inject = ['avBlockConfig'];
-	
+	}();
 	
 	_module2.default.directive('avBlockContainer', function (avBlockConfig) {
 	  return new AvBlockContainerDirective(avBlockConfig);
 	});
 
 /***/ },
-/* 371 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12517,11 +17097,11 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _block = __webpack_require__(372);
+	var _block = __webpack_require__(379);
 	
 	var _block2 = _interopRequireDefault(_block);
 	
@@ -12540,7 +17120,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 372 */
+/* 379 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/block/block.html';
@@ -12549,25 +17129,25 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 373 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(374);
+	__webpack_require__(381);
 	
-	__webpack_require__(375);
+	__webpack_require__(382);
 	
-	__webpack_require__(376);
+	__webpack_require__(383);
 	
-	__webpack_require__(377);
+	__webpack_require__(384);
 	
-	__webpack_require__(378);
+	__webpack_require__(385);
 	
-	__webpack_require__(380);
+	__webpack_require__(387);
 
 /***/ },
-/* 374 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12576,7 +17156,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12606,12 +17186,12 @@ webpackJsonp([0],[
 	_module2.default.config(dateConfig);
 
 /***/ },
-/* 375 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12625,18 +17205,20 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 376 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12656,13 +17238,17 @@ webpackJsonp([0],[
 	    _classCallCheck(this, AvDatepickerConfig);
 	  }
 	
-	  AvDatepickerConfig.prototype.set = function set(options) {
-	    _extends(config, options);
-	  };
-	
-	  AvDatepickerConfig.prototype.$get = function $get() {
-	    return _angular2.default.copy(config);
-	  };
+	  _createClass(AvDatepickerConfig, [{
+	    key: 'set',
+	    value: function set(options) {
+	      _extends(config, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return _angular2.default.copy(config);
+	    }
+	  }]);
 	
 	  return AvDatepickerConfig;
 	}();
@@ -12670,10 +17256,12 @@ webpackJsonp([0],[
 	_module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 /***/ },
-/* 377 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
@@ -12683,21 +17271,13 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	function hasDateInput() {
 	  var i = document.createElement('input');
@@ -12709,121 +17289,121 @@ webpackJsonp([0],[
 	
 	// Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
 	
-	var AvDatepickerController = function (_Base) {
-	  _inherits(AvDatepickerController, _Base);
-	
-	  function AvDatepickerController() {
+	var AvDatepickerController = function () {
+	  function AvDatepickerController($element, $attrs, AV_DATEPICKER, $scope, avDatepickerConfig) {
 	    _classCallCheck(this, AvDatepickerController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key2 = 0; _key2 < _len; _key2++) {
-	      args[_key2] = arguments[_key2];
-	    }
+	    this.hasDateInputSupport = hasDateInputSupport;
 	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.hasDateInputSupport = hasDateInputSupport;
-	    return _this;
+	    this.av = { $element: $element, $attrs: $attrs, AV_DATEPICKER: AV_DATEPICKER, $scope: $scope, avDatepickerConfig: avDatepickerConfig };
 	  }
 	
-	  AvDatepickerController.prototype.setValue = function setValue() {
+	  _createClass(AvDatepickerController, [{
+	    key: 'setValue',
+	    value: function setValue() {
 	
-	    var viewValue = this.ngModel.$viewValue;
-	    var plugin = this.plugin();
+	      var viewValue = this.ngModel.$viewValue;
+	      var plugin = this.plugin();
 	
-	    if (!viewValue || !plugin) {
-	      return;
-	    }
-	
-	    plugin.setDate(viewValue);
-	  };
-	
-	  AvDatepickerController.prototype.setNgModel = function setNgModel(ngModel) {
-	    this.ngModel = ngModel;
-	  };
-	
-	  AvDatepickerController.prototype.findModel = function findModel() {
-	
-	    var ngModel = null;
-	
-	    var $input = this.av.$element.find('input:first').andSelf();
-	    if ($input.length) {
-	      ngModel = $input.data(this.av.AV_DATEPICKER.CONTROLLER);
-	      this.setNgModel(ngModel);
-	    }
-	
-	    return ngModel;
-	  };
-	
-	  AvDatepickerController.prototype.modelToView = function modelToView(modelValue) {
-	    var viewValue = _jquery2.default.fn.datepicker.DPGlobal.formatDate(modelValue, this.options.format, 'en');
-	    return viewValue;
-	  };
-	
-	  AvDatepickerController.prototype.viewToModel = function viewToModel(viewValue) {
-	
-	    var plugin = this.plugin();
-	
-	    if (!plugin || !viewValue || viewValue === '') {
-	      return null;
-	    }
-	
-	    var format = _jquery2.default.fn.datepicker.DPGlobal.parseFormat(this.options.format);
-	    var utcDate = _jquery2.default.fn.datepicker.DPGlobal.parseDate(this.ngModel.$viewValue, format, 'en');
-	
-	    var localDate = plugin._utc_to_local(utcDate);
-	
-	    return localDate;
-	  };
-	
-	  AvDatepickerController.prototype.init = function init() {
-	    var _this2 = this;
-	
-	    var self = this;
-	
-	    this.options = _angular2.default.copy(this.av.avDatepickerConfig);
-	
-	    Object.keys(this.av.$attrs).forEach(function (key) {
-	      var value = self.av.$attrs[key];
-	      var _key = key.replace('data-', '');
-	      if (_this2.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
-	        self.options[_key] = self.av.$scope.$eval(value);
+	      if (!viewValue || !plugin) {
+	        return;
 	      }
-	    });
 	
-	    this.convertFormat();
-	  };
+	      plugin.setDate(viewValue);
+	    }
+	  }, {
+	    key: 'setNgModel',
+	    value: function setNgModel(ngModel) {
+	      this.ngModel = ngModel;
+	    }
+	  }, {
+	    key: 'findModel',
+	    value: function findModel() {
 	
-	  // bootstrap-datepicker date format supports a combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
-	  // Below is the conversion table from moment.js format options to bootstrap-datepicker.
-	  //
-	  // Moment formatting options:
-	  //
-	  //  - DD => 01 02 ... 30 31
-	  //  - D => 1 2 ... 30 31
-	  //  - M => 1 2 ... 11 12
-	  //  - MM => 01 02 ... 11 12
-	  //  - MMM => Jan Feb ... Nov Dec
-	  //  - MMMM => January February ... November December
-	  //  - YY => 70 71 ... 29 30
-	  //  -  YYYY => 1970 1971 ... 2029 2030
-	  //
-	  //
-	  //  Table reads momment.js format => bootstrap-datepicker format
-	  //
-	  //  - D, DD => d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
-	  //  - ddd, dddd => D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
-	  //  - M, MM => m, mm: Numeric month, no leading zero and leading zero, respectively. Eg, 7, 07.
-	  //  - MMM, MMMM => M, MM: Abbreviated and full month names, respectively. Eg, Jan, January
-	  //  - YY, YYYY => yy, yyyy: 2- and 4-digit years, respectively. Eg, 12, 2012.
-	  //
+	      var ngModel = null;
 	
+	      var $input = this.av.$element.find('input:first').andSelf();
+	      if ($input.length) {
+	        ngModel = $input.data(this.av.AV_DATEPICKER.CONTROLLER);
+	        this.setNgModel(ngModel);
+	      }
 	
-	  AvDatepickerController.prototype.convertFormat = function convertFormat() {
+	      return ngModel;
+	    }
+	  }, {
+	    key: 'modelToView',
+	    value: function modelToView(modelValue) {
+	      var viewValue = _jquery2.default.fn.datepicker.DPGlobal.formatDate(modelValue, this.options.format, 'en');
+	      return viewValue;
+	    }
+	  }, {
+	    key: 'viewToModel',
+	    value: function viewToModel(viewValue) {
 	
-	    var format = this.options.format;
+	      var plugin = this.plugin();
 	
-	    if (format) {
-	      (function () {
+	      if (!plugin || !viewValue || viewValue === '') {
+	        return null;
+	      }
+	
+	      var format = _jquery2.default.fn.datepicker.DPGlobal.parseFormat(this.options.format);
+	      var utcDate = _jquery2.default.fn.datepicker.DPGlobal.parseDate(this.ngModel.$viewValue, format, 'en');
+	
+	      var localDate = plugin._utc_to_local(utcDate);
+	
+	      return localDate;
+	    }
+	  }, {
+	    key: 'init',
+	    value: function init() {
+	      var _this = this;
+	
+	      var self = this;
+	
+	      this.options = _angular2.default.copy(this.av.avDatepickerConfig);
+	
+	      Object.keys(this.av.$attrs).forEach(function (key) {
+	        var value = self.av.$attrs[key];
+	        var _key = key.replace('data-', '');
+	        if (_this.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
+	          self.options[_key] = self.av.$scope.$eval(value);
+	        }
+	      });
+	
+	      this.convertFormat();
+	    }
+	
+	    // bootstrap-datepicker date format supports a combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
+	    // Below is the conversion table from moment.js format options to bootstrap-datepicker.
+	    //
+	    // Moment formatting options:
+	    //
+	    //  - DD => 01 02 ... 30 31
+	    //  - D => 1 2 ... 30 31
+	    //  - M => 1 2 ... 11 12
+	    //  - MM => 01 02 ... 11 12
+	    //  - MMM => Jan Feb ... Nov Dec
+	    //  - MMMM => January February ... November December
+	    //  - YY => 70 71 ... 29 30
+	    //  - YYYY => 1970 1971 ... 2029 2030
+	    //
+	    //
+	    //  Table reads momment.js format => bootstrap-datepicker format
+	    //
+	    //  - D, DD => d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
+	    //  - ddd, dddd => D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
+	    //  - M, MM => m, mm: Numeric month, no leading zero and leading zero, respectively. Eg, 7, 07.
+	    //  - MMM, MMMM => M, MM: Abbreviated and full month names, respectively. Eg, Jan, January
+	    //  - YY, YYYY => yy, yyyy: 2- and 4-digit years, respectively. Eg, 12, 2012.
+	    //
+	
+	  }, {
+	    key: 'convertFormat',
+	    value: function convertFormat() {
+	
+	      var format = this.options.format;
+	
+	      if (format) {
 	
 	        // lower case everything
 	        format = format.toLowerCase();
@@ -12834,46 +17414,48 @@ webpackJsonp([0],[
 	        format = format.replace(re, function (matched) {
 	          return map[matched];
 	        });
-	      })();
+	      }
+	
+	      this.options.format = format;
 	    }
-	
-	    this.options.format = format;
-	  };
-	
-	  AvDatepickerController.prototype.plugin = function plugin() {
-	    return this.av.$element.data('datepicker');
-	  };
-	
-	  AvDatepickerController.prototype.destroy = function destroy() {
-	    var plugin = this.plugin();
-	    if (plugin) {
-	      plugin.remove();
-	      this.av.$element.data('datepicker', null);
+	  }, {
+	    key: 'plugin',
+	    value: function plugin() {
+	      return this.av.$element.data('datepicker');
 	    }
-	  };
-	
-	  AvDatepickerController.prototype.hide = function hide() {
-	    var plugin = this.plugin();
-	    if (plugin) {
-	      plugin.hide();
+	  }, {
+	    key: 'destroy',
+	    value: function destroy() {
+	      var plugin = this.plugin();
+	      if (plugin) {
+	        plugin.remove();
+	        this.av.$element.data('datepicker', null);
+	      }
 	    }
-	  };
+	  }, {
+	    key: 'hide',
+	    value: function hide() {
+	      var plugin = this.plugin();
+	      if (plugin) {
+	        plugin.hide();
+	      }
+	    }
+	  }]);
 	
 	  return AvDatepickerController;
-	}(_base2.default);
-	
-	AvDatepickerController.$inject = ['$element', '$attrs', 'AV_DATEPICKER', '$scope', 'avDatepickerConfig'];
-	
+	}();
 	
 	_module2.default.controller('AvDatepickerController', AvDatepickerController);
 
 /***/ },
-/* 378 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -12881,9 +17463,9 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	__webpack_require__(379);
+	__webpack_require__(386);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -12932,7 +17514,7 @@ webpackJsonp([0],[
 	
 	      var win = _angular2.default.element($window);
 	
-	      win.bind('scroll', function () {
+	      win.on('scroll.datepicker', function () {
 	        avDatepicker.hide();
 	      });
 	
@@ -12947,8 +17529,10 @@ webpackJsonp([0],[
 	        });
 	      }
 	
-	      scope.$on('destroy', function () {
+	      scope.$on('$destroy', function () {
+	        avDatepicker.hide();
 	        avDatepicker.destroy();
+	        win.off('scroll.datepicker');
 	        if (target.length) {
 	          target.off('click.datepicker');
 	        }
@@ -12965,39 +17549,43 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 379 */,
-/* 380 */
+/* 386 */,
+/* 387 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 381 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(382);
+	__webpack_require__(389);
 	
-	__webpack_require__(383);
+	__webpack_require__(390);
 	
-	__webpack_require__(384);
+	__webpack_require__(391);
 
 /***/ },
-/* 382 */
+/* 389 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 383 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13027,17 +17615,22 @@ webpackJsonp([0],[
 	    this.options = CONFIG;
 	  }
 	
-	  AvDimmerConfig.prototype.get = function get() {
-	    return _angular2.default.copy(this.options);
-	  };
-	
-	  AvDimmerConfig.prototype.set = function set(options) {
-	    _angular2.default.extend(this.options, options);
-	  };
-	
-	  AvDimmerConfig.prototype.$get = function $get() {
-	    return _angular2.default.copy(this.options);
-	  };
+	  _createClass(AvDimmerConfig, [{
+	    key: 'get',
+	    value: function get() {
+	      return _angular2.default.copy(this.options);
+	    }
+	  }, {
+	    key: 'set',
+	    value: function set(options) {
+	      _angular2.default.extend(this.options, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return _angular2.default.copy(this.options);
+	    }
+	  }]);
 	
 	  return AvDimmerConfig;
 	}();
@@ -13047,18 +17640,20 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 384 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _controller = __webpack_require__(385);
+	var _controller = __webpack_require__(392);
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
@@ -13077,120 +17672,119 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 385 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvDimmerController = function (_Base) {
-	  _inherits(AvDimmerController, _Base);
-	
-	  function AvDimmerController() {
+	var AvDimmerController = function () {
+	  function AvDimmerController($scope, $element, avDimmerConfig) {
 	    _classCallCheck(this, AvDimmerController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    this.av = { $scope: $scope, $element: $element, avDimmerConfig: avDimmerConfig };
 	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.config = _angular2.default.extend({}, _this.av.avDimmerConfig, _this.av.$scope.avDimmerConfig || {});
-	    return _this;
+	    this.config = _angular2.default.extend({}, this.av.avDimmerConfig, this.av.$scope.avDimmerConfig || {});
 	  }
 	
-	  AvDimmerController.prototype.show = function show() {
-	    this.av.$element.find(this.config.overlaySelector).velocity('stop', true).velocity(this.config.showAnimation, this.config.animationConfig);
-	  };
+	  _createClass(AvDimmerController, [{
+	    key: 'show',
+	    value: function show() {
+	      this.av.$element.find(this.config.overlaySelector).velocity('stop', true).velocity(this.config.showAnimation, this.config.animationConfig);
+	    }
+	  }, {
+	    key: 'hide',
+	    value: function hide() {
+	      this.av.$element.find(this.config.overlaySelector).velocity(this.config.hideAnimation, this.config.animationConfig);
+	    }
+	  }, {
+	    key: 'createListeners',
+	    value: function createListeners() {
+	      this.av.$element.on(this.config.showEvent, this.show.bind(this));
+	      this.av.$element.on(this.config.hideEvent, this.hide.bind(this));
+	    }
+	  }, {
+	    key: 'destroyListeners',
+	    value: function destroyListeners() {
+	      this.av.$element.off(this.config.showEvent, this.show.bind(this));
+	      this.av.$element.off(this.config.hideEvent, this.hide.bind(this));
+	    }
+	  }, {
+	    key: '$onChanges',
+	    value: function $onChanges(changesObj) {
+	      if (changesObj && changesObj.avDimmerConfig) {
+	        var newConfig = _angular2.default.extend({}, this.av.avDimmerConfig, changesObj.avDimmerConfig.currentValue);
 	
-	  AvDimmerController.prototype.hide = function hide() {
-	    this.av.$element.find(this.config.overlaySelector).velocity(this.config.hideAnimation, this.config.animationConfig);
-	  };
+	        var resetListeners = !_angular2.default.equals(this.config.showEvent, newConfig.showEvent) || !_angular2.default.equals(this.config.hideEvent, newConfig.hideEvent);
 	
-	  AvDimmerController.prototype.createListeners = function createListeners() {
-	    this.av.$element.on(this.config.showEvent, this.show.bind(this));
-	    this.av.$element.on(this.config.hideEvent, this.hide.bind(this));
-	  };
+	        if (resetListeners) {
+	          this.destroyListeners();
+	        }
 	
-	  AvDimmerController.prototype.destroyListeners = function destroyListeners() {
-	    this.av.$element.off(this.config.showEvent, this.show.bind(this));
-	    this.av.$element.off(this.config.hideEvent, this.hide.bind(this));
-	  };
+	        this.config = newConfig;
 	
-	  AvDimmerController.prototype.$onChanges = function $onChanges(changesObj) {
-	    if (changesObj && changesObj.avDimmerConfig) {
-	      var newConfig = _angular2.default.extend({}, this.av.avDimmerConfig, changesObj.avDimmerConfig.currentValue);
-	
-	      var resetListeners = !_angular2.default.equals(this.config.showEvent, newConfig.showEvent) || !_angular2.default.equals(this.config.hideEvent, newConfig.hideEvent);
-	
-	      if (resetListeners) {
-	        this.destroyListeners();
-	      }
-	
-	      this.config = newConfig;
-	
-	      if (resetListeners) {
-	        this.createListeners();
+	        if (resetListeners) {
+	          this.createListeners();
+	        }
 	      }
 	    }
-	  };
-	
-	  AvDimmerController.prototype.$onInit = function $onInit() {
-	    this.createListeners();
-	  };
-	
-	  AvDimmerController.prototype.$destroy = function $destroy() {
-	    this.destroyListeners();
-	  };
+	  }, {
+	    key: '$onInit',
+	    value: function $onInit() {
+	      this.createListeners();
+	    }
+	  }, {
+	    key: '$destroy',
+	    value: function $destroy() {
+	      this.destroyListeners();
+	    }
+	  }]);
 	
 	  return AvDimmerController;
-	}(_base2.default);
+	}();
 	
-	AvDimmerController.$inject = ['$scope', '$element', 'avDimmerConfig'];
 	exports.default = AvDimmerController;
 
 /***/ },
-/* 386 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(387);
+	__webpack_require__(394);
 	
-	__webpack_require__(388);
+	__webpack_require__(395);
 	
-	__webpack_require__(391);
+	__webpack_require__(398);
 	
-	__webpack_require__(392);
+	__webpack_require__(401);
 
 /***/ },
-/* 387 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13223,18 +17817,22 @@ webpackJsonp([0],[
 	    };
 	  }
 	
-	  AvConfig.prototype.set = function set(options) {
-	    _angular2.default.extend(this.DEFAULTS, options);
-	  };
+	  _createClass(AvConfig, [{
+	    key: 'set',
+	    value: function set(options) {
+	      _angular2.default.extend(this.DEFAULTS, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
 	
-	  AvConfig.prototype.$get = function $get() {
-	
-	    return _angular2.default.copy({
-	      SELECT2_OPTIONS: this.SELECT2_OPTIONS,
-	      DEFAULTS: this.DEFAULTS,
-	      NG_OPTIONS_REGEXP: this.NG_OPTIONS_REGEXP
-	    });
-	  };
+	      return _angular2.default.copy({
+	        SELECT2_OPTIONS: this.SELECT2_OPTIONS,
+	        DEFAULTS: this.DEFAULTS,
+	        NG_OPTIONS_REGEXP: this.NG_OPTIONS_REGEXP
+	      });
+	    }
+	  }]);
 	
 	  return AvConfig;
 	}();
@@ -13242,7 +17840,7 @@ webpackJsonp([0],[
 	_module2.default.provider('avDropdownConfig', AvConfig);
 
 /***/ },
-/* 388 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13251,11 +17849,11 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	__webpack_require__(389);
+	__webpack_require__(396);
 	
-	__webpack_require__(391);
+	__webpack_require__(398);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13359,393 +17957,3354 @@ webpackJsonp([0],[
 	        element.select2('readonly', !!value);
 	      });
 	
+	      var disposeTimeout = $timeout(function () {
+	        element.select2(avDropdown.options);
+	        return;
+	      });
+	
 	      scope.$on('$destroy', function () {
 	        (0, _jquery2.default)(window).off('resize.select2');
 	        element.select2('destroy');
-	      });
-	
-	      $timeout(function () {
-	        element.select2(avDropdown.options);
+	        $timeout.cancel(disposeTimeout);
 	      });
 	    }
 	  };
 	});
 
 /***/ },
-/* 389 */,
-/* 390 */,
-/* 391 */
+/* 396 */,
+/* 397 */,
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _lodash = __webpack_require__(305);
-	
-	var _ = _interopRequireWildcard(_lodash);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _base = __webpack_require__(354);
+	var _lodash = __webpack_require__(399);
 	
-	var _base2 = _interopRequireDefault(_base);
+	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _module = __webpack_require__(351);
+	var _lodash3 = __webpack_require__(400);
+	
+	var _lodash4 = _interopRequireDefault(_lodash3);
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(311);
+	var _utils = __webpack_require__(310);
 	
-	__webpack_require__(387);
+	__webpack_require__(394);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvDropdownController = function (_Base) {
-	  _inherits(AvDropdownController, _Base);
-	
-	  function AvDropdownController() {
+	var AvDropdownController = function () {
+	  function AvDropdownController($element, $attrs, avDropdownConfig, $scope, $timeout, $parse) {
 	    _classCallCheck(this, AvDropdownController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    this.av = { $element: $element, $attrs: $attrs, avDropdownConfig: avDropdownConfig, $scope: $scope, $timeout: $timeout, $parse: $parse };
 	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.options = {};
-	    _this.match = null;
-	    _this.ngModel = null;
-	    _this.locals = {};
-	
-	    return _this;
+	    this.options = {};
+	    this.match = null;
+	    this.ngModel = null;
+	    this.locals = {};
 	  }
 	
-	  AvDropdownController.prototype.init = function init(context) {
-	    var _this2 = this;
+	  _createClass(AvDropdownController, [{
+	    key: 'init',
+	    value: function init(context) {
+	      var _this = this;
 	
-	    this.ngModel = context.ngModel;
+	      this.ngModel = context.ngModel;
 	
-	    this.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
+	      this.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
 	
-	    this.options = _angular2.default.extend({}, this.av.avDropdownConfig.DEFAULTS, this.av.$scope.$eval(this.av.$attrs.options));
+	      this.options = _angular2.default.extend({}, this.av.avDropdownConfig.DEFAULTS, this.av.$scope.$eval(this.av.$attrs.options));
 	
-	    if (this.isRemoteMultiple()) {
-	      this.options.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
-	    }
-	
-	    if (this.options.query) {
-	
-	      // Map AvSelectResource into Select2 options
-	      this.resource = this.options.query;
-	
-	      // Function used to query results for the search term.
-	      this.options.query = function (options) {
-	        _this2.query(options);
-	      };
-	      // Function used to get the id from the choice object or a string representing the key under which the id is stored.
-	      this.options.id = this.resource.getId;
-	      this.options.initSelection = this.resource.initSelection;
-	    }
-	  };
-	
-	  AvDropdownController.prototype.isRemoteMultiple = function isRemoteMultiple() {
-	    return _angular2.default.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
-	  };
-	
-	  AvDropdownController.prototype.initSelection = function initSelection() {};
-	
-	  AvDropdownController.prototype.setRemoteViewValue = function setRemoteViewValue(e) {
-	
-	    var values = this.ngModel.$viewValue;
-	
-	    if (!_angular2.default.isArray(values) || !_angular2.default.isObject(values)) {
-	      values = [];
-	    }
-	
-	    if (e.added) {
-	      // Adding to collection
-	      values.push(e.added);
-	    } else {
-	      // Removing from collection
-	      var index = values.findIndex(function (value) {
-	        return _.matches(e.removed)(value);
-	      });
-	      values.splice(index, 1);
-	    }
-	
-	    this.ngModel.$setViewValue(values);
-	  };
-	
-	  AvDropdownController.prototype.setViewValue = function setViewValue(e) {
-	    this.ngModel.$setViewValue(e.added);
-	  };
-	
-	  AvDropdownController.prototype.hashKey = function hashKey(obj, nextUidFn) {
-	    var key = obj && obj.$$hashKey;
-	
-	    if (key) {
-	      if (typeof key === 'function') {
-	        key = obj.$$hashKey();
+	      if (this.isRemoteMultiple()) {
+	        this.options.multiple = _angular2.default.isDefined(this.av.$attrs.multiple);
 	      }
+	
+	      if (this.options.query) {
+	
+	        // Map AvSelectResource into Select2 options
+	        this.resource = this.options.query;
+	
+	        // Function used to query results for the search term.
+	        this.options.query = function (options) {
+	          _this.query(options);
+	        };
+	        // Function used to get the id from the choice object or a string representing the key under which the id is stored.
+	        this.options.id = this.resource.getId;
+	        this.options.initSelection = this.resource.initSelection;
+	      }
+	
+	      // if element is type input, initSelection is required to use val
+	      if (!this.av.$element.is('select') && !this.options.initSelection) {
+	        this.options.initSelection = this.initSelection;
+	      }
+	    }
+	  }, {
+	    key: 'isRemoteMultiple',
+	    value: function isRemoteMultiple() {
+	      return _angular2.default.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
+	    }
+	  }, {
+	    key: 'initSelection',
+	    value: function initSelection(element, callback) {
+	      callback();
+	    }
+	  }, {
+	    key: 'setRemoteViewValue',
+	    value: function setRemoteViewValue(e) {
+	
+	      var values = this.ngModel.$viewValue;
+	
+	      if (!_angular2.default.isArray(values) || !_angular2.default.isObject(values)) {
+	        values = [];
+	      }
+	
+	      if (e.added) {
+	        // Adding to collection
+	        values.push(e.added);
+	      } else {
+	        // Removing from collection
+	        var index = values.findIndex(function (value) {
+	          return (0, _lodash2.default)(e.removed)(value);
+	        });
+	        values.splice(index, 1);
+	      }
+	
+	      this.ngModel.$setViewValue(values);
+	    }
+	  }, {
+	    key: 'setViewValue',
+	    value: function setViewValue(e) {
+	      this.ngModel.$setViewValue(e.added);
+	    }
+	  }, {
+	    key: 'hashKey',
+	    value: function hashKey(obj, nextUidFn) {
+	      var key = obj && obj.$$hashKey;
+	
+	      if (key) {
+	        if (typeof key === 'function') {
+	          key = obj.$$hashKey();
+	        }
+	        return key;
+	      }
+	
+	      var objType = typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+	      if (objType === 'function' || objType === 'object' && obj !== null) {
+	        key = obj.$$hashKey = objType + ':' + (nextUidFn || (0, _utils.uuid)())();
+	      } else {
+	        key = objType + ':' + obj;
+	      }
+	
 	      return key;
 	    }
+	  }, {
+	    key: 'getTrackByValueFn',
+	    value: function getTrackByValueFn(value, locals) {
 	
-	    var objType = typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
-	    if (objType === 'function' || objType === 'object' && obj !== null) {
-	      key = obj.$$hashKey = objType + ':' + (nextUidFn || (0, _utils.uuid)())();
-	    } else {
-	      key = objType + ':' + obj;
+	      if (this.trackBy) {
+	        return this.trackByFn(this.av.$scope, locals);
+	      }
+	
+	      return this.hashKey(value);
 	    }
+	  }, {
+	    key: 'getSelected',
+	    value: function getSelected(model) {
 	
-	    return key;
-	  };
+	      var self = this;
 	
-	  AvDropdownController.prototype.getTrackByValueFn = function getTrackByValueFn(value, locals) {
+	      if (this.options.query) {
+	        return 0;
+	      }
 	
-	    if (this.trackBy) {
-	      return this.trackByFn(this.av.$scope, locals);
+	      if (!this.collection) {
+	        // If we're not using ng-options, the model value is just the raw value of the option,
+	        // rather than an index, so return it as is.
+	        return model;
+	      }
+	
+	      var optionValues = this.valuesFn(self.av.$scope) || [];
+	      var optionValuesKeys = this.getOptionValuesKeys(optionValues);
+	
+	      var index = this.collection.findIndex(function (item) {
+	        return _angular2.default.equals(model, item);
+	      });
+	
+	      var key = optionValues === optionValuesKeys ? index : optionValuesKeys[index];
+	      var value = optionValues[key];
+	      var locals = self.getLocals(value, key);
+	      var viewValue = self.viewValueFn(self.av.$scope, locals);
+	      var selectValue = self.getTrackByValueFn(viewValue, locals);
+	
+	      return selectValue;
 	    }
+	  }, {
+	    key: 'getMultiSelected',
+	    value: function getMultiSelected(viewValues) {
 	
-	    return this.hashKey(value);
-	  };
+	      var self = this;
 	
-	  AvDropdownController.prototype.getSelected = function getSelected(model) {
+	      var values = [];
 	
-	    var self = this;
+	      if (!viewValues) {
+	        return values;
+	      }
 	
-	    if (this.options.query) {
-	      return 0;
-	    }
+	      if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
 	
-	    if (!this.collection) {
-	      // If we're not using ng-options, the model value is just the raw value of the option,
-	      // rather than an index, so return it as is.
-	      return model;
-	    }
+	        viewValues.forEach(function (viewValue) {
 	
-	    var optionValues = this.valuesFn(self.av.$scope) || [];
-	    var optionValuesKeys = this.getOptionValuesKeys(optionValues);
+	          var selected = self.getSelected(viewValue);
 	
-	    var index = this.collection.findIndex(function (item) {
-	      return _angular2.default.equals(model, item);
-	    });
+	          values.push(selected);
+	        });
+	      }
 	
-	    var key = optionValues === optionValuesKeys ? index : optionValuesKeys[index];
-	    var value = optionValues[key];
-	    var locals = self.getLocals(value, key);
-	    var viewValue = self.viewValueFn(self.av.$scope, locals);
-	    var selectValue = self.getTrackByValueFn(viewValue, locals);
-	
-	    return selectValue;
-	  };
-	
-	  AvDropdownController.prototype.getMultiSelected = function getMultiSelected(viewValues) {
-	
-	    var self = this;
-	
-	    var values = [];
-	
-	    if (!viewValues) {
 	      return values;
 	    }
 	
-	    if (this.av.$element.get(0).tagName.toLowerCase() !== 'input') {
+	    // Wrapper around the query function for Select2.  When the promise resolves
+	    // the callback
 	
-	      viewValues.forEach(function (viewValue) {
+	  }, {
+	    key: 'query',
+	    value: function query(options) {
 	
-	        var selected = self.getSelected(viewValue);
+	      this.resource.onQuery(options).then(function (response) {
 	
-	        values.push(selected);
+	        // Callback function that should be called with the result object. The result object:
+	        //
+	        // result.results (object) - Array of result objects. The default renderers
+	        //    expect objects with id and text keys. The id property is required,
+	        //    even if custom renderers are used. The object may also contain a children
+	        //    key if hierarchical data is displayed. The object may also contain a disabled
+	        //    boolean property indicating whether this result can be selected.
+	        //
+	        // result.more (boolean) - true if more results are available for the current
+	        //    search term.
+	        //
+	        // results.context (object) - A user-defined object that should be made available
+	        //    as the context parameter to the query function on subsequent queries to load
+	        //    more result pages for the same search term. See the description of
+	        //    options.context parameter.
+	        options.callback({ more: response.more, results: response.results });
 	      });
 	    }
+	  }, {
+	    key: 'setValue',
+	    value: function setValue() {
 	
-	    return values;
-	  };
+	      var self = this;
 	
-	  // Wrapper around the query function for Select2.  When the promise resolves
-	  // the callback
+	      var viewValue = this.ngModel.$viewValue;
 	
-	
-	  AvDropdownController.prototype.query = function query(options) {
-	
-	    this.resource.onQuery(options).then(function (response) {
-	
-	      // Callback function that should be called with the result object. The result object:
-	      //
-	      // result.results (object) - Array of result objects. The default renderers
-	      //    expect objects with id and text keys. The id property is required,
-	      //    even if custom renderers are used. The object may also contain a children
-	      //    key if hierarchical data is displayed. The object may also contain a disabled
-	      //    boolean property indicating whether this result can be selected.
-	      //
-	      // result.more (boolean) - true if more results are available for the current
-	      //    search term.
-	      //
-	      // results.context (object) - A user-defined object that should be made available
-	      //    as the context parameter to the query function on subsequent queries to load
-	      //    more result pages for the same search term. See the description of
-	      //    options.context parameter.
-	      options.callback({ more: response.more, results: response.results });
-	    });
-	  };
-	
-	  AvDropdownController.prototype.setValue = function setValue() {
-	
-	    var self = this;
-	
-	    var viewValue = this.ngModel.$viewValue;
-	
-	    var selected = null;
-	    if (this.multiple) {
-	      selected = this.getMultiSelected(viewValue);
-	    } else {
-	      selected = this.getSelected(viewValue);
-	    }
-	
-	    // null === '' for Select2
-	    selected = selected === null || selected === 'undefined' ? '' : selected;
-	
-	    this.av.$timeout(function () {
-	      self.av.$element.select2('val', selected);
-	    });
-	  };
-	
-	  AvDropdownController.prototype.setValues = function setValues() {
-	    var _this3 = this;
-	
-	    var viewValue = this.ngModel.$viewValue;
-	
-	    if (!_angular2.default.isArray(viewValue)) {
-	      viewValue = [];
-	    }
-	
-	    if (!_.isEmpty(viewValue) && _angular2.default.isObject(viewValue[0])) {
-	      viewValue = this.getMultiSelected(viewValue);
-	    }
-	
-	    this.av.$timeout(function () {
-	      return _this3.av.$element.select2('val', viewValue);
-	    });
-	  };
-	
-	  AvDropdownController.prototype.ngOptions = function ngOptions() {
-	
-	    this.match = this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);
-	    if (!this.match) {
-	      throw new Error('Invalid ngOptions for avDropdown.  @See https://docs.angularjs.org/api/ng/directive/ngOptions');
-	    }
-	
-	    // NG_OPTIONS_REGEXP regex will parse into arrays like below:
-	
-	    // 1: value expression (valueFn)
-	    // 2: label expression (displayFn)
-	    // 3: group by expression (groupByFn)
-	    // 4: disable when expression (disableWhenFn)
-	    // 5: array item variable name
-	    // 6: object item key variable name
-	    // 7: object item value variable name
-	    // 8: collection expression
-	    // 9: track by expression
-	
-	    // The variable name for the value of the item in the collection
-	    this.valueName = this.match[5] || this.match[7];
-	
-	    // An expression that generates the viewValue for an option if there is no label expression
-	    this.valueFn = this.av.$parse(this.match[2] ? this.match[1] : this.valueName);
-	
-	    // The variable name for the key of the item in the collection
-	    this.keyName = this.match[6];
-	
-	    // An expression that generates the viewValue for an option if there is a label expression
-	    this.selectAs = / as /.test(this.match[0]) && this.match[1];
-	
-	    // An expression that generates the viewValue for an option if there is a label expression
-	    // An expression that is used to track the id of each object in the options collection
-	    this.trackBy = this.match[9];
-	    this.selectAsFn = this.selectAs && this.av.$parse(this.selectAs);
-	    this.viewValueFn = this.selectAsFn || this.valueFn;
-	    this.trackByFn = this.trackBy && this.av.$parse(this.trackBy);
-	
-	    this.displayFn = this.av.$parse(this.match[2] || this.match[1]);
-	    this.groupByFn = this.av.$parse(this.match[3] || '');
-	    this.disableWhenFn = this.av.$parse(this.match[4] || '');
-	    this.valuesFn = this.av.$parse(this.match[8]);
-	    this.collection = this.valuesFn(this.av.$scope);
-	
-	    this.av.$scope.$watchCollection(this.collection, function (newVal, oldVal) {
-	
-	      if (_angular2.default.equals(newVal, oldVal)) {
-	        return;
+	      var selected = null;
+	      if (this.multiple) {
+	        selected = this.getMultiSelected(viewValue);
+	      } else {
+	        selected = this.getSelected(viewValue);
 	      }
 	
-	      self.setValue();
-	    }, true);
-	  };
+	      // null === '' for Select2
+	      selected = selected === null || selected === 'undefined' ? '' : selected;
 	
-	  AvDropdownController.prototype.getLocals = function getLocals(value, key) {
-	
-	    var locals = {};
-	
-	    if (this.keyName) {
-	      locals[this.keyName] = key;
-	      locals[this.valueName] = value;
-	    } else {
-	      locals[this.valueName] = value;
+	      this.av.$timeout(function () {
+	        self.av.$element.select2('val', selected);
+	      });
 	    }
+	  }, {
+	    key: 'setValues',
+	    value: function setValues() {
+	      var _this2 = this;
 	
-	    return locals;
-	  };
+	      var viewValue = this.ngModel.$viewValue;
 	
-	  AvDropdownController.prototype.getOptionValuesKeys = function getOptionValuesKeys(optionValues) {
+	      if (!_angular2.default.isArray(viewValue)) {
+	        viewValue = [];
+	      }
 	
-	    var optionValuesKeys = void 0;
+	      if (!(0, _lodash4.default)(viewValue) && _angular2.default.isObject(viewValue[0])) {
+	        viewValue = this.getMultiSelected(viewValue);
+	      }
 	
-	    if (!this.keyName && _.isArray(optionValues)) {
-	      optionValuesKeys = optionValues;
-	    } else {
-	      // if object, extract keys, in enumeration order, unsorted
-	      optionValuesKeys = [];
-	      for (var itemKey in optionValues) {
-	        if (optionValues.hasOwnProperty(itemKey) && itemKey.charAt(0) !== '$') {
-	          optionValuesKeys.push(itemKey);
+	      this.av.$timeout(function () {
+	        return _this2.av.$element.select2('val', viewValue);
+	      });
+	    }
+	  }, {
+	    key: 'ngOptions',
+	    value: function ngOptions() {
+	
+	      this.match = this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);
+	      if (!this.match) {
+	        throw new Error('Invalid ngOptions for avDropdown.  @See https://docs.angularjs.org/api/ng/directive/ngOptions');
+	      }
+	
+	      // NG_OPTIONS_REGEXP regex will parse into arrays like below:
+	
+	      // 1: value expression (valueFn)
+	      // 2: label expression (displayFn)
+	      // 3: group by expression (groupByFn)
+	      // 4: disable when expression (disableWhenFn)
+	      // 5: array item variable name
+	      // 6: object item key variable name
+	      // 7: object item value variable name
+	      // 8: collection expression
+	      // 9: track by expression
+	
+	      // The variable name for the value of the item in the collection
+	      this.valueName = this.match[5] || this.match[7];
+	
+	      // An expression that generates the viewValue for an option if there is no label expression
+	      this.valueFn = this.av.$parse(this.match[2] ? this.match[1] : this.valueName);
+	
+	      // The variable name for the key of the item in the collection
+	      this.keyName = this.match[6];
+	
+	      // An expression that generates the viewValue for an option if there is a label expression
+	      this.selectAs = / as /.test(this.match[0]) && this.match[1];
+	
+	      // An expression that generates the viewValue for an option if there is a label expression
+	      // An expression that is used to track the id of each object in the options collection
+	      this.trackBy = this.match[9];
+	      this.selectAsFn = this.selectAs && this.av.$parse(this.selectAs);
+	      this.viewValueFn = this.selectAsFn || this.valueFn;
+	      this.trackByFn = this.trackBy && this.av.$parse(this.trackBy);
+	
+	      this.displayFn = this.av.$parse(this.match[2] || this.match[1]);
+	      this.groupByFn = this.av.$parse(this.match[3] || '');
+	      this.disableWhenFn = this.av.$parse(this.match[4] || '');
+	      this.valuesFn = this.av.$parse(this.match[8]);
+	      this.collection = this.valuesFn(this.av.$scope);
+	
+	      this.av.$scope.$watchCollection(this.collection, function (newVal, oldVal) {
+	
+	        if (_angular2.default.equals(newVal, oldVal)) {
+	          return;
+	        }
+	
+	        self.setValue();
+	      }, true);
+	    }
+	  }, {
+	    key: 'getLocals',
+	    value: function getLocals(value, key) {
+	
+	      var locals = {};
+	
+	      if (this.keyName) {
+	        locals[this.keyName] = key;
+	        locals[this.valueName] = value;
+	      } else {
+	        locals[this.valueName] = value;
+	      }
+	
+	      return locals;
+	    }
+	  }, {
+	    key: 'getOptionValuesKeys',
+	    value: function getOptionValuesKeys(optionValues) {
+	
+	      var optionValuesKeys = void 0;
+	
+	      if (!this.keyName && Array.isArray(optionValues)) {
+	        optionValuesKeys = optionValues;
+	      } else {
+	        // if object, extract keys, in enumeration order, unsorted
+	        optionValuesKeys = [];
+	        for (var itemKey in optionValues) {
+	          if (optionValues.hasOwnProperty(itemKey) && itemKey.charAt(0) !== '$') {
+	            optionValuesKeys.push(itemKey);
+	          }
 	        }
 	      }
+	      return optionValuesKeys;
 	    }
-	    return optionValuesKeys;
-	  };
+	  }]);
 	
 	  return AvDropdownController;
-	}(_base2.default);
-	
-	AvDropdownController.$inject = ['$element', '$attrs', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
-	
+	}();
 	
 	_module2.default.controller('AvDropdownController', AvDropdownController);
 	
 	exports.default = AvDropdownController;
 
 /***/ },
-/* 392 */
+/* 399 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as the size to enable large array optimizations. */
+	var LARGE_ARRAY_SIZE = 200;
+	
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+	
+	/** Used to compose bitmasks for comparison styles. */
+	var UNORDERED_COMPARE_FLAG = 1,
+	    PARTIAL_COMPARE_FLAG = 2;
+	
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    arrayTag = '[object Array]',
+	    boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    errorTag = '[object Error]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    objectTag = '[object Object]',
+	    promiseTag = '[object Promise]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    symbolTag = '[object Symbol]',
+	    weakMapTag = '[object WeakMap]';
+	
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]',
+	    float32Tag = '[object Float32Array]',
+	    float64Tag = '[object Float64Array]',
+	    int8Tag = '[object Int8Array]',
+	    int16Tag = '[object Int16Array]',
+	    int32Tag = '[object Int32Array]',
+	    uint8Tag = '[object Uint8Array]',
+	    uint8ClampedTag = '[object Uint8ClampedArray]',
+	    uint16Tag = '[object Uint16Array]',
+	    uint32Tag = '[object Uint32Array]';
+	
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+	
+	/** Used to match `RegExp` flags from their coerced string values. */
+	var reFlags = /\w*$/;
+	
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^(?:0|[1-9]\d*)$/;
+	
+	/** Used to identify `toStringTag` values of typed arrays. */
+	var typedArrayTags = {};
+	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+	typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+	typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+	typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+	typedArrayTags[uint32Tag] = true;
+	typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+	typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+	typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+	typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+	typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+	typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+	typedArrayTags[setTag] = typedArrayTags[stringTag] =
+	typedArrayTags[weakMapTag] = false;
+	
+	/** Used to identify `toStringTag` values supported by `_.clone`. */
+	var cloneableTags = {};
+	cloneableTags[argsTag] = cloneableTags[arrayTag] =
+	cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
+	cloneableTags[boolTag] = cloneableTags[dateTag] =
+	cloneableTags[float32Tag] = cloneableTags[float64Tag] =
+	cloneableTags[int8Tag] = cloneableTags[int16Tag] =
+	cloneableTags[int32Tag] = cloneableTags[mapTag] =
+	cloneableTags[numberTag] = cloneableTags[objectTag] =
+	cloneableTags[regexpTag] = cloneableTags[setTag] =
+	cloneableTags[stringTag] = cloneableTags[symbolTag] =
+	cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
+	cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
+	cloneableTags[errorTag] = cloneableTags[funcTag] =
+	cloneableTags[weakMapTag] = false;
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+	
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+	
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+	
+	/** Detect free variable `process` from Node.js. */
+	var freeProcess = moduleExports && freeGlobal.process;
+	
+	/** Used to access faster Node.js helpers. */
+	var nodeUtil = (function() {
+	  try {
+	    return freeProcess && freeProcess.binding('util');
+	  } catch (e) {}
+	}());
+	
+	/* Node.js helper references. */
+	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+	
+	/**
+	 * Adds the key-value `pair` to `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to modify.
+	 * @param {Array} pair The key-value pair to add.
+	 * @returns {Object} Returns `map`.
+	 */
+	function addMapEntry(map, pair) {
+	  // Don't return `map.set` because it's not chainable in IE 11.
+	  map.set(pair[0], pair[1]);
+	  return map;
+	}
+	
+	/**
+	 * Adds `value` to `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to modify.
+	 * @param {*} value The value to add.
+	 * @returns {Object} Returns `set`.
+	 */
+	function addSetEntry(set, value) {
+	  // Don't return `set.add` because it's not chainable in IE 11.
+	  set.add(value);
+	  return set;
+	}
+	
+	/**
+	 * A specialized version of `_.forEach` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayEach(array, iteratee) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  while (++index < length) {
+	    if (iteratee(array[index], index, array) === false) {
+	      break;
+	    }
+	  }
+	  return array;
+	}
+	
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+	
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+	
+	/**
+	 * A specialized version of `_.reduce` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @param {*} [accumulator] The initial value.
+	 * @param {boolean} [initAccum] Specify using the first element of `array` as
+	 *  the initial value.
+	 * @returns {*} Returns the accumulated value.
+	 */
+	function arrayReduce(array, iteratee, accumulator, initAccum) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  if (initAccum && length) {
+	    accumulator = array[++index];
+	  }
+	  while (++index < length) {
+	    accumulator = iteratee(accumulator, array[index], index, array);
+	  }
+	  return accumulator;
+	}
+	
+	/**
+	 * A specialized version of `_.some` for arrays without support for iteratee
+	 * shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @returns {boolean} Returns `true` if any element passes the predicate check,
+	 *  else `false`.
+	 */
+	function arraySome(array, predicate) {
+	  var index = -1,
+	      length = array ? array.length : 0;
+	
+	  while (++index < length) {
+	    if (predicate(array[index], index, array)) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+	
+	/**
+	 * The base implementation of `_.times` without support for iteratee shorthands
+	 * or max array length checks.
+	 *
+	 * @private
+	 * @param {number} n The number of times to invoke `iteratee`.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the array of results.
+	 */
+	function baseTimes(n, iteratee) {
+	  var index = -1,
+	      result = Array(n);
+	
+	  while (++index < n) {
+	    result[index] = iteratee(index);
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.unary` without support for storing metadata.
+	 *
+	 * @private
+	 * @param {Function} func The function to cap arguments for.
+	 * @returns {Function} Returns the new capped function.
+	 */
+	function baseUnary(func) {
+	  return function(value) {
+	    return func(value);
+	  };
+	}
+	
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+	
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Converts `map` to its key-value pairs.
+	 *
+	 * @private
+	 * @param {Object} map The map to convert.
+	 * @returns {Array} Returns the key-value pairs.
+	 */
+	function mapToArray(map) {
+	  var index = -1,
+	      result = Array(map.size);
+	
+	  map.forEach(function(value, key) {
+	    result[++index] = [key, value];
+	  });
+	  return result;
+	}
+	
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+	
+	/**
+	 * Converts `set` to an array of its values.
+	 *
+	 * @private
+	 * @param {Object} set The set to convert.
+	 * @returns {Array} Returns the values.
+	 */
+	function setToArray(set) {
+	  var index = -1,
+	      result = Array(set.size);
+	
+	  set.forEach(function(value) {
+	    result[++index] = value;
+	  });
+	  return result;
+	}
+	
+	/** Used for built-in method references. */
+	var arrayProto = Array.prototype,
+	    funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+	
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined,
+	    Symbol = root.Symbol,
+	    Uint8Array = root.Uint8Array,
+	    getPrototype = overArg(Object.getPrototypeOf, Object),
+	    objectCreate = Object.create,
+	    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+	    splice = arrayProto.splice;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetSymbols = Object.getOwnPropertySymbols,
+	    nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+	    nativeKeys = overArg(Object.keys, Object);
+	
+	/* Built-in method references that are verified to be native. */
+	var DataView = getNative(root, 'DataView'),
+	    Map = getNative(root, 'Map'),
+	    Promise = getNative(root, 'Promise'),
+	    Set = getNative(root, 'Set'),
+	    WeakMap = getNative(root, 'WeakMap'),
+	    nativeCreate = getNative(Object, 'create');
+	
+	/** Used to detect maps, sets, and weakmaps. */
+	var dataViewCtorString = toSource(DataView),
+	    mapCtorString = toSource(Map),
+	    promiseCtorString = toSource(Promise),
+	    setCtorString = toSource(Set),
+	    weakMapCtorString = toSource(WeakMap);
+	
+	/** Used to convert symbols to primitives and strings. */
+	var symbolProto = Symbol ? Symbol.prototype : undefined,
+	    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+	
+	/**
+	 * Creates a hash object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Hash(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the hash.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Hash
+	 */
+	function hashClear() {
+	  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+	}
+	
+	/**
+	 * Removes `key` and its value from the hash.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Hash
+	 * @param {Object} hash The hash to modify.
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function hashDelete(key) {
+	  return this.has(key) && delete this.__data__[key];
+	}
+	
+	/**
+	 * Gets the hash value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function hashGet(key) {
+	  var data = this.__data__;
+	  if (nativeCreate) {
+	    var result = data[key];
+	    return result === HASH_UNDEFINED ? undefined : result;
+	  }
+	  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+	}
+	
+	/**
+	 * Checks if a hash value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Hash
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function hashHas(key) {
+	  var data = this.__data__;
+	  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+	}
+	
+	/**
+	 * Sets the hash `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the hash instance.
+	 */
+	function hashSet(key, value) {
+	  var data = this.__data__;
+	  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+	  return this;
+	}
+	
+	// Add methods to `Hash`.
+	Hash.prototype.clear = hashClear;
+	Hash.prototype['delete'] = hashDelete;
+	Hash.prototype.get = hashGet;
+	Hash.prototype.has = hashHas;
+	Hash.prototype.set = hashSet;
+	
+	/**
+	 * Creates an list cache object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function ListCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the list cache.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf ListCache
+	 */
+	function listCacheClear() {
+	  this.__data__ = [];
+	}
+	
+	/**
+	 * Removes `key` and its value from the list cache.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function listCacheDelete(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    return false;
+	  }
+	  var lastIndex = data.length - 1;
+	  if (index == lastIndex) {
+	    data.pop();
+	  } else {
+	    splice.call(data, index, 1);
+	  }
+	  return true;
+	}
+	
+	/**
+	 * Gets the list cache value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function listCacheGet(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  return index < 0 ? undefined : data[index][1];
+	}
+	
+	/**
+	 * Checks if a list cache value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf ListCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function listCacheHas(key) {
+	  return assocIndexOf(this.__data__, key) > -1;
+	}
+	
+	/**
+	 * Sets the list cache `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the list cache instance.
+	 */
+	function listCacheSet(key, value) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+	
+	  if (index < 0) {
+	    data.push([key, value]);
+	  } else {
+	    data[index][1] = value;
+	  }
+	  return this;
+	}
+	
+	// Add methods to `ListCache`.
+	ListCache.prototype.clear = listCacheClear;
+	ListCache.prototype['delete'] = listCacheDelete;
+	ListCache.prototype.get = listCacheGet;
+	ListCache.prototype.has = listCacheHas;
+	ListCache.prototype.set = listCacheSet;
+	
+	/**
+	 * Creates a map cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function MapCache(entries) {
+	  var index = -1,
+	      length = entries ? entries.length : 0;
+	
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+	
+	/**
+	 * Removes all key-value entries from the map.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf MapCache
+	 */
+	function mapCacheClear() {
+	  this.__data__ = {
+	    'hash': new Hash,
+	    'map': new (Map || ListCache),
+	    'string': new Hash
+	  };
+	}
+	
+	/**
+	 * Removes `key` and its value from the map.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function mapCacheDelete(key) {
+	  return getMapData(this, key)['delete'](key);
+	}
+	
+	/**
+	 * Gets the map value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function mapCacheGet(key) {
+	  return getMapData(this, key).get(key);
+	}
+	
+	/**
+	 * Checks if a map value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf MapCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function mapCacheHas(key) {
+	  return getMapData(this, key).has(key);
+	}
+	
+	/**
+	 * Sets the map `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the map cache instance.
+	 */
+	function mapCacheSet(key, value) {
+	  getMapData(this, key).set(key, value);
+	  return this;
+	}
+	
+	// Add methods to `MapCache`.
+	MapCache.prototype.clear = mapCacheClear;
+	MapCache.prototype['delete'] = mapCacheDelete;
+	MapCache.prototype.get = mapCacheGet;
+	MapCache.prototype.has = mapCacheHas;
+	MapCache.prototype.set = mapCacheSet;
+	
+	/**
+	 *
+	 * Creates an array cache object to store unique values.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [values] The values to cache.
+	 */
+	function SetCache(values) {
+	  var index = -1,
+	      length = values ? values.length : 0;
+	
+	  this.__data__ = new MapCache;
+	  while (++index < length) {
+	    this.add(values[index]);
+	  }
+	}
+	
+	/**
+	 * Adds `value` to the array cache.
+	 *
+	 * @private
+	 * @name add
+	 * @memberOf SetCache
+	 * @alias push
+	 * @param {*} value The value to cache.
+	 * @returns {Object} Returns the cache instance.
+	 */
+	function setCacheAdd(value) {
+	  this.__data__.set(value, HASH_UNDEFINED);
+	  return this;
+	}
+	
+	/**
+	 * Checks if `value` is in the array cache.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf SetCache
+	 * @param {*} value The value to search for.
+	 * @returns {number} Returns `true` if `value` is found, else `false`.
+	 */
+	function setCacheHas(value) {
+	  return this.__data__.has(value);
+	}
+	
+	// Add methods to `SetCache`.
+	SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+	SetCache.prototype.has = setCacheHas;
+	
+	/**
+	 * Creates a stack cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Stack(entries) {
+	  this.__data__ = new ListCache(entries);
+	}
+	
+	/**
+	 * Removes all key-value entries from the stack.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Stack
+	 */
+	function stackClear() {
+	  this.__data__ = new ListCache;
+	}
+	
+	/**
+	 * Removes `key` and its value from the stack.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function stackDelete(key) {
+	  return this.__data__['delete'](key);
+	}
+	
+	/**
+	 * Gets the stack value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function stackGet(key) {
+	  return this.__data__.get(key);
+	}
+	
+	/**
+	 * Checks if a stack value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Stack
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function stackHas(key) {
+	  return this.__data__.has(key);
+	}
+	
+	/**
+	 * Sets the stack `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the stack cache instance.
+	 */
+	function stackSet(key, value) {
+	  var cache = this.__data__;
+	  if (cache instanceof ListCache) {
+	    var pairs = cache.__data__;
+	    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+	      pairs.push([key, value]);
+	      return this;
+	    }
+	    cache = this.__data__ = new MapCache(pairs);
+	  }
+	  cache.set(key, value);
+	  return this;
+	}
+	
+	// Add methods to `Stack`.
+	Stack.prototype.clear = stackClear;
+	Stack.prototype['delete'] = stackDelete;
+	Stack.prototype.get = stackGet;
+	Stack.prototype.has = stackHas;
+	Stack.prototype.set = stackSet;
+	
+	/**
+	 * Creates an array of the enumerable property names of the array-like `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @param {boolean} inherited Specify returning inherited property names.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function arrayLikeKeys(value, inherited) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  // Safari 9 makes `arguments.length` enumerable in strict mode.
+	  var result = (isArray(value) || isArguments(value))
+	    ? baseTimes(value.length, String)
+	    : [];
+	
+	  var length = result.length,
+	      skipIndexes = !!length;
+	
+	  for (var key in value) {
+	    if ((inherited || hasOwnProperty.call(value, key)) &&
+	        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
+	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * for equality comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function assignValue(object, key, value) {
+	  var objValue = object[key];
+	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+	      (value === undefined && !(key in object))) {
+	    object[key] = value;
+	  }
+	}
+	
+	/**
+	 * Gets the index at which the `key` is found in `array` of key-value pairs.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {*} key The key to search for.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function assocIndexOf(array, key) {
+	  var length = array.length;
+	  while (length--) {
+	    if (eq(array[length][0], key)) {
+	      return length;
+	    }
+	  }
+	  return -1;
+	}
+	
+	/**
+	 * The base implementation of `_.assign` without support for multiple sources
+	 * or `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return object && copyObject(source, keys(source), object);
+	}
+	
+	/**
+	 * The base implementation of `_.clone` and `_.cloneDeep` which tracks
+	 * traversed objects.
+	 *
+	 * @private
+	 * @param {*} value The value to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @param {boolean} [isFull] Specify a clone including symbols.
+	 * @param {Function} [customizer] The function to customize cloning.
+	 * @param {string} [key] The key of `value`.
+	 * @param {Object} [object] The parent object of `value`.
+	 * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
+	 * @returns {*} Returns the cloned value.
+	 */
+	function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
+	  var result;
+	  if (customizer) {
+	    result = object ? customizer(value, key, object, stack) : customizer(value);
+	  }
+	  if (result !== undefined) {
+	    return result;
+	  }
+	  if (!isObject(value)) {
+	    return value;
+	  }
+	  var isArr = isArray(value);
+	  if (isArr) {
+	    result = initCloneArray(value);
+	    if (!isDeep) {
+	      return copyArray(value, result);
+	    }
+	  } else {
+	    var tag = getTag(value),
+	        isFunc = tag == funcTag || tag == genTag;
+	
+	    if (isBuffer(value)) {
+	      return cloneBuffer(value, isDeep);
+	    }
+	    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+	      if (isHostObject(value)) {
+	        return object ? value : {};
+	      }
+	      result = initCloneObject(isFunc ? {} : value);
+	      if (!isDeep) {
+	        return copySymbols(value, baseAssign(result, value));
+	      }
+	    } else {
+	      if (!cloneableTags[tag]) {
+	        return object ? value : {};
+	      }
+	      result = initCloneByTag(value, tag, baseClone, isDeep);
+	    }
+	  }
+	  // Check for circular references and return its corresponding clone.
+	  stack || (stack = new Stack);
+	  var stacked = stack.get(value);
+	  if (stacked) {
+	    return stacked;
+	  }
+	  stack.set(value, result);
+	
+	  if (!isArr) {
+	    var props = isFull ? getAllKeys(value) : keys(value);
+	  }
+	  arrayEach(props || value, function(subValue, key) {
+	    if (props) {
+	      key = subValue;
+	      subValue = value[key];
+	    }
+	    // Recursively populate clone (susceptible to call stack limits).
+	    assignValue(result, key, baseClone(subValue, isDeep, isFull, customizer, key, value, stack));
+	  });
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.create` without support for assigning
+	 * properties to the created object.
+	 *
+	 * @private
+	 * @param {Object} prototype The object to inherit from.
+	 * @returns {Object} Returns the new object.
+	 */
+	function baseCreate(proto) {
+	  return isObject(proto) ? objectCreate(proto) : {};
+	}
+	
+	/**
+	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+	 * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+	 * symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @param {Function} symbolsFunc The function to get the symbols of `object`.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+	  var result = keysFunc(object);
+	  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+	}
+	
+	/**
+	 * The base implementation of `getTag`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  return objectToString.call(value);
+	}
+	
+	/**
+	 * The base implementation of `_.isEqual` which supports partial comparisons
+	 * and tracks traversed objects.
+	 *
+	 * @private
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @param {Function} [customizer] The function to customize comparisons.
+	 * @param {boolean} [bitmask] The bitmask of comparison flags.
+	 *  The bitmask may be composed of the following flags:
+	 *     1 - Unordered comparison
+	 *     2 - Partial comparison
+	 * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 */
+	function baseIsEqual(value, other, customizer, bitmask, stack) {
+	  if (value === other) {
+	    return true;
+	  }
+	  if (value == null || other == null || (!isObject(value) && !isObjectLike(other))) {
+	    return value !== value && other !== other;
+	  }
+	  return baseIsEqualDeep(value, other, baseIsEqual, customizer, bitmask, stack);
+	}
+	
+	/**
+	 * A specialized version of `baseIsEqual` for arrays and objects which performs
+	 * deep comparisons and tracks traversed objects enabling objects with circular
+	 * references to be compared.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Function} [customizer] The function to customize comparisons.
+	 * @param {number} [bitmask] The bitmask of comparison flags. See `baseIsEqual`
+	 *  for more details.
+	 * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
+	  var objIsArr = isArray(object),
+	      othIsArr = isArray(other),
+	      objTag = arrayTag,
+	      othTag = arrayTag;
+	
+	  if (!objIsArr) {
+	    objTag = getTag(object);
+	    objTag = objTag == argsTag ? objectTag : objTag;
+	  }
+	  if (!othIsArr) {
+	    othTag = getTag(other);
+	    othTag = othTag == argsTag ? objectTag : othTag;
+	  }
+	  var objIsObj = objTag == objectTag && !isHostObject(object),
+	      othIsObj = othTag == objectTag && !isHostObject(other),
+	      isSameTag = objTag == othTag;
+	
+	  if (isSameTag && !objIsObj) {
+	    stack || (stack = new Stack);
+	    return (objIsArr || isTypedArray(object))
+	      ? equalArrays(object, other, equalFunc, customizer, bitmask, stack)
+	      : equalByTag(object, other, objTag, equalFunc, customizer, bitmask, stack);
+	  }
+	  if (!(bitmask & PARTIAL_COMPARE_FLAG)) {
+	    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+	        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+	
+	    if (objIsWrapped || othIsWrapped) {
+	      var objUnwrapped = objIsWrapped ? object.value() : object,
+	          othUnwrapped = othIsWrapped ? other.value() : other;
+	
+	      stack || (stack = new Stack);
+	      return equalFunc(objUnwrapped, othUnwrapped, customizer, bitmask, stack);
+	    }
+	  }
+	  if (!isSameTag) {
+	    return false;
+	  }
+	  stack || (stack = new Stack);
+	  return equalObjects(object, other, equalFunc, customizer, bitmask, stack);
+	}
+	
+	/**
+	 * The base implementation of `_.isMatch` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Object} object The object to inspect.
+	 * @param {Object} source The object of property values to match.
+	 * @param {Array} matchData The property names, values, and compare flags to match.
+	 * @param {Function} [customizer] The function to customize comparisons.
+	 * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+	 */
+	function baseIsMatch(object, source, matchData, customizer) {
+	  var index = matchData.length,
+	      length = index,
+	      noCustomizer = !customizer;
+	
+	  if (object == null) {
+	    return !length;
+	  }
+	  object = Object(object);
+	  while (index--) {
+	    var data = matchData[index];
+	    if ((noCustomizer && data[2])
+	          ? data[1] !== object[data[0]]
+	          : !(data[0] in object)
+	        ) {
+	      return false;
+	    }
+	  }
+	  while (++index < length) {
+	    data = matchData[index];
+	    var key = data[0],
+	        objValue = object[key],
+	        srcValue = data[1];
+	
+	    if (noCustomizer && data[2]) {
+	      if (objValue === undefined && !(key in object)) {
+	        return false;
+	      }
+	    } else {
+	      var stack = new Stack;
+	      if (customizer) {
+	        var result = customizer(objValue, srcValue, key, object, source, stack);
+	      }
+	      if (!(result === undefined
+	            ? baseIsEqual(srcValue, objValue, customizer, UNORDERED_COMPARE_FLAG | PARTIAL_COMPARE_FLAG, stack)
+	            : result
+	          )) {
+	        return false;
+	      }
+	    }
+	  }
+	  return true;
+	}
+	
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+	
+	/**
+	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 */
+	function baseIsTypedArray(value) {
+	  return isObjectLike(value) &&
+	    isLength(value.length) && !!typedArrayTags[objectToString.call(value)];
+	}
+	
+	/**
+	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeys(object) {
+	  if (!isPrototype(object)) {
+	    return nativeKeys(object);
+	  }
+	  var result = [];
+	  for (var key in Object(object)) {
+	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.matches` which doesn't clone `source`.
+	 *
+	 * @private
+	 * @param {Object} source The object of property values to match.
+	 * @returns {Function} Returns the new spec function.
+	 */
+	function baseMatches(source) {
+	  var matchData = getMatchData(source);
+	  if (matchData.length == 1 && matchData[0][2]) {
+	    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
+	  }
+	  return function(object) {
+	    return object === source || baseIsMatch(object, source, matchData);
+	  };
+	}
+	
+	/**
+	 * Creates a clone of  `buffer`.
+	 *
+	 * @private
+	 * @param {Buffer} buffer The buffer to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Buffer} Returns the cloned buffer.
+	 */
+	function cloneBuffer(buffer, isDeep) {
+	  if (isDeep) {
+	    return buffer.slice();
+	  }
+	  var result = new buffer.constructor(buffer.length);
+	  buffer.copy(result);
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `arrayBuffer`.
+	 *
+	 * @private
+	 * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+	 * @returns {ArrayBuffer} Returns the cloned array buffer.
+	 */
+	function cloneArrayBuffer(arrayBuffer) {
+	  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+	  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `dataView`.
+	 *
+	 * @private
+	 * @param {Object} dataView The data view to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned data view.
+	 */
+	function cloneDataView(dataView, isDeep) {
+	  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+	  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+	}
+	
+	/**
+	 * Creates a clone of `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned map.
+	 */
+	function cloneMap(map, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
+	  return arrayReduce(array, addMapEntry, new map.constructor);
+	}
+	
+	/**
+	 * Creates a clone of `regexp`.
+	 *
+	 * @private
+	 * @param {Object} regexp The regexp to clone.
+	 * @returns {Object} Returns the cloned regexp.
+	 */
+	function cloneRegExp(regexp) {
+	  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+	  result.lastIndex = regexp.lastIndex;
+	  return result;
+	}
+	
+	/**
+	 * Creates a clone of `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned set.
+	 */
+	function cloneSet(set, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
+	  return arrayReduce(array, addSetEntry, new set.constructor);
+	}
+	
+	/**
+	 * Creates a clone of the `symbol` object.
+	 *
+	 * @private
+	 * @param {Object} symbol The symbol object to clone.
+	 * @returns {Object} Returns the cloned symbol object.
+	 */
+	function cloneSymbol(symbol) {
+	  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+	}
+	
+	/**
+	 * Creates a clone of `typedArray`.
+	 *
+	 * @private
+	 * @param {Object} typedArray The typed array to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned typed array.
+	 */
+	function cloneTypedArray(typedArray, isDeep) {
+	  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+	  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+	}
+	
+	/**
+	 * Copies the values of `source` to `array`.
+	 *
+	 * @private
+	 * @param {Array} source The array to copy values from.
+	 * @param {Array} [array=[]] The array to copy values to.
+	 * @returns {Array} Returns `array`.
+	 */
+	function copyArray(source, array) {
+	  var index = -1,
+	      length = source.length;
+	
+	  array || (array = Array(length));
+	  while (++index < length) {
+	    array[index] = source[index];
+	  }
+	  return array;
+	}
+	
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property identifiers to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @param {Function} [customizer] The function to customize copied values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copyObject(source, props, object, customizer) {
+	  object || (object = {});
+	
+	  var index = -1,
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index];
+	
+	    var newValue = customizer
+	      ? customizer(object[key], source[key], key, object, source)
+	      : undefined;
+	
+	    assignValue(object, key, newValue === undefined ? source[key] : newValue);
+	  }
+	  return object;
+	}
+	
+	/**
+	 * Copies own symbol properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy symbols from.
+	 * @param {Object} [object={}] The object to copy symbols to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copySymbols(source, object) {
+	  return copyObject(source, getSymbols(source), object);
+	}
+	
+	/**
+	 * A specialized version of `baseIsEqualDeep` for arrays with support for
+	 * partial deep comparisons.
+	 *
+	 * @private
+	 * @param {Array} array The array to compare.
+	 * @param {Array} other The other array to compare.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+	 *  for more details.
+	 * @param {Object} stack Tracks traversed `array` and `other` objects.
+	 * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+	 */
+	function equalArrays(array, other, equalFunc, customizer, bitmask, stack) {
+	  var isPartial = bitmask & PARTIAL_COMPARE_FLAG,
+	      arrLength = array.length,
+	      othLength = other.length;
+	
+	  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+	    return false;
+	  }
+	  // Assume cyclic values are equal.
+	  var stacked = stack.get(array);
+	  if (stacked && stack.get(other)) {
+	    return stacked == other;
+	  }
+	  var index = -1,
+	      result = true,
+	      seen = (bitmask & UNORDERED_COMPARE_FLAG) ? new SetCache : undefined;
+	
+	  stack.set(array, other);
+	  stack.set(other, array);
+	
+	  // Ignore non-index properties.
+	  while (++index < arrLength) {
+	    var arrValue = array[index],
+	        othValue = other[index];
+	
+	    if (customizer) {
+	      var compared = isPartial
+	        ? customizer(othValue, arrValue, index, other, array, stack)
+	        : customizer(arrValue, othValue, index, array, other, stack);
+	    }
+	    if (compared !== undefined) {
+	      if (compared) {
+	        continue;
+	      }
+	      result = false;
+	      break;
+	    }
+	    // Recursively compare arrays (susceptible to call stack limits).
+	    if (seen) {
+	      if (!arraySome(other, function(othValue, othIndex) {
+	            if (!seen.has(othIndex) &&
+	                (arrValue === othValue || equalFunc(arrValue, othValue, customizer, bitmask, stack))) {
+	              return seen.add(othIndex);
+	            }
+	          })) {
+	        result = false;
+	        break;
+	      }
+	    } else if (!(
+	          arrValue === othValue ||
+	            equalFunc(arrValue, othValue, customizer, bitmask, stack)
+	        )) {
+	      result = false;
+	      break;
+	    }
+	  }
+	  stack['delete'](array);
+	  stack['delete'](other);
+	  return result;
+	}
+	
+	/**
+	 * A specialized version of `baseIsEqualDeep` for comparing objects of
+	 * the same `toStringTag`.
+	 *
+	 * **Note:** This function only supports comparing values with tags of
+	 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {string} tag The `toStringTag` of the objects to compare.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+	 *  for more details.
+	 * @param {Object} stack Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
+	  switch (tag) {
+	    case dataViewTag:
+	      if ((object.byteLength != other.byteLength) ||
+	          (object.byteOffset != other.byteOffset)) {
+	        return false;
+	      }
+	      object = object.buffer;
+	      other = other.buffer;
+	
+	    case arrayBufferTag:
+	      if ((object.byteLength != other.byteLength) ||
+	          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+	        return false;
+	      }
+	      return true;
+	
+	    case boolTag:
+	    case dateTag:
+	    case numberTag:
+	      // Coerce booleans to `1` or `0` and dates to milliseconds.
+	      // Invalid dates are coerced to `NaN`.
+	      return eq(+object, +other);
+	
+	    case errorTag:
+	      return object.name == other.name && object.message == other.message;
+	
+	    case regexpTag:
+	    case stringTag:
+	      // Coerce regexes to strings and treat strings, primitives and objects,
+	      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+	      // for more details.
+	      return object == (other + '');
+	
+	    case mapTag:
+	      var convert = mapToArray;
+	
+	    case setTag:
+	      var isPartial = bitmask & PARTIAL_COMPARE_FLAG;
+	      convert || (convert = setToArray);
+	
+	      if (object.size != other.size && !isPartial) {
+	        return false;
+	      }
+	      // Assume cyclic values are equal.
+	      var stacked = stack.get(object);
+	      if (stacked) {
+	        return stacked == other;
+	      }
+	      bitmask |= UNORDERED_COMPARE_FLAG;
+	
+	      // Recursively compare objects (susceptible to call stack limits).
+	      stack.set(object, other);
+	      var result = equalArrays(convert(object), convert(other), equalFunc, customizer, bitmask, stack);
+	      stack['delete'](object);
+	      return result;
+	
+	    case symbolTag:
+	      if (symbolValueOf) {
+	        return symbolValueOf.call(object) == symbolValueOf.call(other);
+	      }
+	  }
+	  return false;
+	}
+	
+	/**
+	 * A specialized version of `baseIsEqualDeep` for objects with support for
+	 * partial deep comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+	 *  for more details.
+	 * @param {Object} stack Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
+	  var isPartial = bitmask & PARTIAL_COMPARE_FLAG,
+	      objProps = keys(object),
+	      objLength = objProps.length,
+	      othProps = keys(other),
+	      othLength = othProps.length;
+	
+	  if (objLength != othLength && !isPartial) {
+	    return false;
+	  }
+	  var index = objLength;
+	  while (index--) {
+	    var key = objProps[index];
+	    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+	      return false;
+	    }
+	  }
+	  // Assume cyclic values are equal.
+	  var stacked = stack.get(object);
+	  if (stacked && stack.get(other)) {
+	    return stacked == other;
+	  }
+	  var result = true;
+	  stack.set(object, other);
+	  stack.set(other, object);
+	
+	  var skipCtor = isPartial;
+	  while (++index < objLength) {
+	    key = objProps[index];
+	    var objValue = object[key],
+	        othValue = other[key];
+	
+	    if (customizer) {
+	      var compared = isPartial
+	        ? customizer(othValue, objValue, key, other, object, stack)
+	        : customizer(objValue, othValue, key, object, other, stack);
+	    }
+	    // Recursively compare objects (susceptible to call stack limits).
+	    if (!(compared === undefined
+	          ? (objValue === othValue || equalFunc(objValue, othValue, customizer, bitmask, stack))
+	          : compared
+	        )) {
+	      result = false;
+	      break;
+	    }
+	    skipCtor || (skipCtor = key == 'constructor');
+	  }
+	  if (result && !skipCtor) {
+	    var objCtor = object.constructor,
+	        othCtor = other.constructor;
+	
+	    // Non `Object` object instances with different constructors are not equal.
+	    if (objCtor != othCtor &&
+	        ('constructor' in object && 'constructor' in other) &&
+	        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+	          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+	      result = false;
+	    }
+	  }
+	  stack['delete'](object);
+	  stack['delete'](other);
+	  return result;
+	}
+	
+	/**
+	 * Creates an array of own enumerable property names and symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function getAllKeys(object) {
+	  return baseGetAllKeys(object, keys, getSymbols);
+	}
+	
+	/**
+	 * Gets the data for `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to query.
+	 * @param {string} key The reference key.
+	 * @returns {*} Returns the map data.
+	 */
+	function getMapData(map, key) {
+	  var data = map.__data__;
+	  return isKeyable(key)
+	    ? data[typeof key == 'string' ? 'string' : 'hash']
+	    : data.map;
+	}
+	
+	/**
+	 * Gets the property names, values, and compare flags of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the match data of `object`.
+	 */
+	function getMatchData(object) {
+	  var result = keys(object),
+	      length = result.length;
+	
+	  while (length--) {
+	    var key = result[length],
+	        value = object[key];
+	
+	    result[length] = [key, value, isStrictComparable(value)];
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Creates an array of the own enumerable symbol properties of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of symbols.
+	 */
+	var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
+	
+	/**
+	 * Gets the `toStringTag` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	var getTag = baseGetTag;
+	
+	// Fallback for data views, maps, sets, and weak maps in IE 11,
+	// for data views in Edge < 14, and promises in Node.js.
+	if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+	    (Map && getTag(new Map) != mapTag) ||
+	    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+	    (Set && getTag(new Set) != setTag) ||
+	    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+	  getTag = function(value) {
+	    var result = objectToString.call(value),
+	        Ctor = result == objectTag ? value.constructor : undefined,
+	        ctorString = Ctor ? toSource(Ctor) : undefined;
+	
+	    if (ctorString) {
+	      switch (ctorString) {
+	        case dataViewCtorString: return dataViewTag;
+	        case mapCtorString: return mapTag;
+	        case promiseCtorString: return promiseTag;
+	        case setCtorString: return setTag;
+	        case weakMapCtorString: return weakMapTag;
+	      }
+	    }
+	    return result;
+	  };
+	}
+	
+	/**
+	 * Initializes an array clone.
+	 *
+	 * @private
+	 * @param {Array} array The array to clone.
+	 * @returns {Array} Returns the initialized clone.
+	 */
+	function initCloneArray(array) {
+	  var length = array.length,
+	      result = array.constructor(length);
+	
+	  // Add properties assigned by `RegExp#exec`.
+	  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+	    result.index = array.index;
+	    result.input = array.input;
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Initializes an object clone.
+	 *
+	 * @private
+	 * @param {Object} object The object to clone.
+	 * @returns {Object} Returns the initialized clone.
+	 */
+	function initCloneObject(object) {
+	  return (typeof object.constructor == 'function' && !isPrototype(object))
+	    ? baseCreate(getPrototype(object))
+	    : {};
+	}
+	
+	/**
+	 * Initializes an object clone based on its `toStringTag`.
+	 *
+	 * **Note:** This function only supports cloning values with tags of
+	 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+	 *
+	 * @private
+	 * @param {Object} object The object to clone.
+	 * @param {string} tag The `toStringTag` of the object to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the initialized clone.
+	 */
+	function initCloneByTag(object, tag, cloneFunc, isDeep) {
+	  var Ctor = object.constructor;
+	  switch (tag) {
+	    case arrayBufferTag:
+	      return cloneArrayBuffer(object);
+	
+	    case boolTag:
+	    case dateTag:
+	      return new Ctor(+object);
+	
+	    case dataViewTag:
+	      return cloneDataView(object, isDeep);
+	
+	    case float32Tag: case float64Tag:
+	    case int8Tag: case int16Tag: case int32Tag:
+	    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
+	      return cloneTypedArray(object, isDeep);
+	
+	    case mapTag:
+	      return cloneMap(object, isDeep, cloneFunc);
+	
+	    case numberTag:
+	    case stringTag:
+	      return new Ctor(object);
+	
+	    case regexpTag:
+	      return cloneRegExp(object);
+	
+	    case setTag:
+	      return cloneSet(object, isDeep, cloneFunc);
+	
+	    case symbolTag:
+	      return cloneSymbol(object);
+	  }
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return !!length &&
+	    (typeof value == 'number' || reIsUint.test(value)) &&
+	    (value > -1 && value % 1 == 0 && value < length);
+	}
+	
+	/**
+	 * Checks if `value` is suitable for use as unique object key.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+	 */
+	function isKeyable(value) {
+	  var type = typeof value;
+	  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+	    ? (value !== '__proto__')
+	    : (value === null);
+	}
+	
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+	
+	/**
+	 * Checks if `value` is likely a prototype object.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+	 */
+	function isPrototype(value) {
+	  var Ctor = value && value.constructor,
+	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+	
+	  return value === proto;
+	}
+	
+	/**
+	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` if suitable for strict
+	 *  equality comparisons, else `false`.
+	 */
+	function isStrictComparable(value) {
+	  return value === value && !isObject(value);
+	}
+	
+	/**
+	 * A specialized version of `matchesProperty` for source values suitable
+	 * for strict equality comparisons, i.e. `===`.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @param {*} srcValue The value to match.
+	 * @returns {Function} Returns the new spec function.
+	 */
+	function matchesStrictComparable(key, srcValue) {
+	  return function(object) {
+	    if (object == null) {
+	      return false;
+	    }
+	    return object[key] === srcValue &&
+	      (srcValue !== undefined || (key in Object(object)));
+	  };
+	}
+	
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to process.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+	
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is a buffer.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.3.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+	 * @example
+	 *
+	 * _.isBuffer(new Buffer(2));
+	 * // => true
+	 *
+	 * _.isBuffer(new Uint8Array(2));
+	 * // => false
+	 */
+	var isBuffer = nativeIsBuffer || stubFalse;
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * Checks if `value` is classified as a typed array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 * @example
+	 *
+	 * _.isTypedArray(new Uint8Array);
+	 * // => true
+	 *
+	 * _.isTypedArray([]);
+	 * // => false
+	 */
+	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+	
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	function keys(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+	}
+	
+	/**
+	 * Creates a function that performs a partial deep comparison between a given
+	 * object and `source`, returning `true` if the given object has equivalent
+	 * property values, else `false`.
+	 *
+	 * **Note:** The created function is equivalent to `_.isMatch` with `source`
+	 * partially applied.
+	 *
+	 * Partial comparisons will match empty array and empty object `source`
+	 * values against any array or object value, respectively. See `_.isEqual`
+	 * for a list of supported value comparisons.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Util
+	 * @param {Object} source The object of property values to match.
+	 * @returns {Function} Returns the new spec function.
+	 * @example
+	 *
+	 * var objects = [
+	 *   { 'a': 1, 'b': 2, 'c': 3 },
+	 *   { 'a': 4, 'b': 5, 'c': 6 }
+	 * ];
+	 *
+	 * _.filter(objects, _.matches({ 'a': 4, 'c': 6 }));
+	 * // => [{ 'a': 4, 'b': 5, 'c': 6 }]
+	 */
+	function matches(source) {
+	  return baseMatches(baseClone(source, true));
+	}
+	
+	/**
+	 * This method returns a new empty array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {Array} Returns the new empty array.
+	 * @example
+	 *
+	 * var arrays = _.times(2, _.stubArray);
+	 *
+	 * console.log(arrays);
+	 * // => [[], []]
+	 *
+	 * console.log(arrays[0] === arrays[1]);
+	 * // => false
+	 */
+	function stubArray() {
+	  return [];
+	}
+	
+	/**
+	 * This method returns `false`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {boolean} Returns `false`.
+	 * @example
+	 *
+	 * _.times(2, _.stubFalse);
+	 * // => [false, false]
+	 */
+	function stubFalse() {
+	  return false;
+	}
+	
+	module.exports = matches;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(306)(module)))
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    mapTag = '[object Map]',
+	    objectTag = '[object Object]',
+	    promiseTag = '[object Promise]',
+	    setTag = '[object Set]',
+	    weakMapTag = '[object WeakMap]';
+	
+	var dataViewTag = '[object DataView]';
+	
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+	
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+	
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+	
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+	
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+	
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+	
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+	
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined,
+	    propertyIsEnumerable = objectProto.propertyIsEnumerable;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+	    nativeKeys = overArg(Object.keys, Object);
+	
+	/* Built-in method references that are verified to be native. */
+	var DataView = getNative(root, 'DataView'),
+	    Map = getNative(root, 'Map'),
+	    Promise = getNative(root, 'Promise'),
+	    Set = getNative(root, 'Set'),
+	    WeakMap = getNative(root, 'WeakMap');
+	
+	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
+	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
+	
+	/** Used to detect maps, sets, and weakmaps. */
+	var dataViewCtorString = toSource(DataView),
+	    mapCtorString = toSource(Map),
+	    promiseCtorString = toSource(Promise),
+	    setCtorString = toSource(Set),
+	    weakMapCtorString = toSource(WeakMap);
+	
+	/**
+	 * The base implementation of `getTag`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  return objectToString.call(value);
+	}
+	
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Gets the `toStringTag` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	var getTag = baseGetTag;
+	
+	// Fallback for data views, maps, sets, and weak maps in IE 11,
+	// for data views in Edge < 14, and promises in Node.js.
+	if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+	    (Map && getTag(new Map) != mapTag) ||
+	    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+	    (Set && getTag(new Set) != setTag) ||
+	    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+	  getTag = function(value) {
+	    var result = objectToString.call(value),
+	        Ctor = result == objectTag ? value.constructor : undefined,
+	        ctorString = Ctor ? toSource(Ctor) : undefined;
+	
+	    if (ctorString) {
+	      switch (ctorString) {
+	        case dataViewCtorString: return dataViewTag;
+	        case mapCtorString: return mapTag;
+	        case promiseCtorString: return promiseTag;
+	        case setCtorString: return setTag;
+	        case weakMapCtorString: return weakMapTag;
+	      }
+	    }
+	    return result;
+	  };
+	}
+	
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+	
+	/**
+	 * Checks if `value` is likely a prototype object.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+	 */
+	function isPrototype(value) {
+	  var Ctor = value && value.constructor,
+	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+	
+	  return value === proto;
+	}
+	
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to process.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is a buffer.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.3.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+	 * @example
+	 *
+	 * _.isBuffer(new Buffer(2));
+	 * // => true
+	 *
+	 * _.isBuffer(new Uint8Array(2));
+	 * // => false
+	 */
+	var isBuffer = nativeIsBuffer || stubFalse;
+	
+	/**
+	 * Checks if `value` is an empty object, collection, map, or set.
+	 *
+	 * Objects are considered empty if they have no own enumerable string keyed
+	 * properties.
+	 *
+	 * Array-like values such as `arguments` objects, arrays, buffers, strings, or
+	 * jQuery-like collections are considered empty if they have a `length` of `0`.
+	 * Similarly, maps and sets are considered empty if they have a `size` of `0`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is empty, else `false`.
+	 * @example
+	 *
+	 * _.isEmpty(null);
+	 * // => true
+	 *
+	 * _.isEmpty(true);
+	 * // => true
+	 *
+	 * _.isEmpty(1);
+	 * // => true
+	 *
+	 * _.isEmpty([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isEmpty({ 'a': 1 });
+	 * // => false
+	 */
+	function isEmpty(value) {
+	  if (isArrayLike(value) &&
+	      (isArray(value) || typeof value == 'string' ||
+	        typeof value.splice == 'function' || isBuffer(value) || isArguments(value))) {
+	    return !value.length;
+	  }
+	  var tag = getTag(value);
+	  if (tag == mapTag || tag == setTag) {
+	    return !value.size;
+	  }
+	  if (nonEnumShadows || isPrototype(value)) {
+	    return !nativeKeys(value).length;
+	  }
+	  for (var key in value) {
+	    if (hasOwnProperty.call(value, key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * This method returns `false`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {boolean} Returns `false`.
+	 * @example
+	 *
+	 * _.times(2, _.stubFalse);
+	 * // => [false, false]
+	 */
+	function stubFalse() {
+	  return false;
+	}
+	
+	module.exports = isEmpty;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(306)(module)))
+
+/***/ },
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13764,127 +21323,140 @@ webpackJsonp([0],[
 	    function AvSelectResource(options) {
 	      _classCallCheck(this, AvSelectResource);
 	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, options));
+	      return _possibleConstructorReturn(this, (AvSelectResource.__proto__ || Object.getPrototypeOf(AvSelectResource)).call(this, options));
 	    }
 	
-	    AvSelectResource.prototype.onQuery = function onQuery(data) {
-	      var _this2 = this;
+	    _createClass(AvSelectResource, [{
+	      key: 'onQuery',
+	      value: function onQuery(data) {
+	        var _this2 = this;
 	
-	      var config = this.getConfig(data);
+	        var config = this.getConfig(data);
 	
-	      return this.query(config).then(function (response) {
+	        return this.query(config).then(function (response) {
 	
-	        var results = _this2.getResults(response.data);
-	        results = _this2.mapResults(results);
+	          var results = _this2.getResults(response.data);
+	          results = _this2.mapResults(results);
 	
-	        return _this2.getResponse(response, results);
-	      });
-	    };
-	
-	    AvSelectResource.prototype.getConfig = function getConfig(data) {
-	
-	      // config for the api resource query
-	      var config = {
-	        params: {}
-	      };
-	
-	      config.params.offset = this.getOffset(data);
-	
-	      if (data.term) {
-	        config.params[this.getQueryParam()] = data.term;
-	      }
-	
-	      return config;
-	    };
-	
-	    AvSelectResource.prototype.getOffset = function getOffset(data) {
-	      var offset = void 0;
-	      if (data.page) {
-	        offset = this.getPageSize() * (data.page - 1);
-	      }
-	      if (data.offset) {
-	        offset = data.offset;
-	      }
-	      return offset;
-	    };
-	
-	    AvSelectResource.prototype.getQueryParam = function getQueryParam() {
-	      return 'q';
-	    };
-	
-	    AvSelectResource.prototype.getResponse = function getResponse(response, results) {
-	
-	      // Calculate if we want to continue searching.
-	      // True if more results are available for the current search term
-	      var more = response.data.offset < response.data.totalCount - response.data.limit;
-	
-	      return {
-	        more: more,
-	        results: results
-	      };
-	    };
-	
-	    AvSelectResource.prototype.getResult = function getResult() /* item */{
-	      // return  item.code;
-	      throw new Error('getResult() must be implemented when extending from AvSelectResource');
-	    };
-	
-	    // Format the collection items for Select2:
-	    //
-	    //    http://select2.github.io/select2/#documentation
-	    //
-	    //    The default renderers expect objects with `id` and `text` keys.
-	    //    The id property is required, even if custom renderers are used.
-	    //    The object may also contain a children key if hierarchical data is displayed.
-	    //    The object may also contain a disabled boolean property indicating whether this result can be selected.
-	    //
-	
-	
-	    AvSelectResource.prototype.mapResults = function mapResults(results) {
-	      var _this3 = this;
-	
-	      if (results && (!results[0].id || !results[0].text)) {
-	
-	        results = results.map(function (item) {
-	          var _mapResult = _this3.mapResult(item),
-	              id = _mapResult.id,
-	              text = _mapResult.text;
-	
-	          item.id = id;
-	          item.text = text;
-	          return item;
+	          return _this2.getResponse(response, results);
 	        });
 	      }
+	    }, {
+	      key: 'getConfig',
+	      value: function getConfig(data) {
 	
-	      return results;
-	    };
+	        // config for the api resource query
+	        var config = {
+	          params: {}
+	        };
 	
-	    // Result:
-	    //
-	    // {
-	    //   "code": "252Y00000X",
-	    //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
-	    //   "id": "252Y00000X"
-	    // }
+	        config.params.offset = this.getOffset(data);
 	
+	        if (data.term) {
+	          config.params[this.getQueryParam()] = data.term;
+	        }
 	
-	    AvSelectResource.prototype.getId = function getId(result) {
-	      return result.id;
-	    };
+	        return config;
+	      }
+	    }, {
+	      key: 'getOffset',
+	      value: function getOffset(data) {
+	        var offset = void 0;
+	        if (data.page) {
+	          offset = this.getPageSize() * (data.page - 1);
+	        }
+	        if (data.offset) {
+	          offset = data.offset;
+	        }
+	        return offset;
+	      }
+	    }, {
+	      key: 'getQueryParam',
+	      value: function getQueryParam() {
+	        return 'q';
+	      }
+	    }, {
+	      key: 'getResponse',
+	      value: function getResponse(response, results) {
 	
-	    AvSelectResource.prototype.initSelection = function initSelection(element, callback) {
-	      callback(null);
-	    };
+	        // Calculate if we want to continue searching.
+	        // True if more results are available for the current search term
+	        var more = response.data.offset < response.data.totalCount - response.data.limit;
 	
-	    AvSelectResource.prototype.getResults = function getResults() /* response */{
-	      // EX:
-	      //  return response.data.codes
-	      throw new Error('getResults() must be implemented when extending from AvSelectResource');
-	    };
+	        return {
+	          more: more,
+	          results: results
+	        };
+	      }
+	    }, {
+	      key: 'getResult',
+	      value: function getResult() /* item */{
+	        // return  item.code;
+	        throw new Error('getResult() must be implemented when extending from AvSelectResource');
+	      }
 	
-	    AvSelectResource.prototype.getPageSize = function getPageSize() {
-	      return 50;
-	    };
+	      // Format the collection items for Select2:
+	      //
+	      //    http://select2.github.io/select2/#documentation
+	      //
+	      //    The default renderers expect objects with `id` and `text` keys.
+	      //    The id property is required, even if custom renderers are used.
+	      //    The object may also contain a children key if hierarchical data is displayed.
+	      //    The object may also contain a disabled boolean property indicating whether this result can be selected.
+	      //
+	
+	    }, {
+	      key: 'mapResults',
+	      value: function mapResults(results) {
+	        var _this3 = this;
+	
+	        if (results && (!results[0].id || !results[0].text)) {
+	
+	          results = results.map(function (item) {
+	            var _mapResult = _this3.mapResult(item),
+	                id = _mapResult.id,
+	                text = _mapResult.text;
+	
+	            item.id = id;
+	            item.text = text;
+	            return item;
+	          });
+	        }
+	
+	        return results;
+	      }
+	
+	      // Result:
+	      //
+	      // {
+	      //   "code": "252Y00000X",
+	      //   "value": "AGENCIES,EARLY INTERVENTION PROVIDER AGENCY,NOT APPLICABLE|Agency",
+	      //   "id": "252Y00000X"
+	      // }
+	
+	    }, {
+	      key: 'getId',
+	      value: function getId(result) {
+	        return result.id;
+	      }
+	    }, {
+	      key: 'initSelection',
+	      value: function initSelection(element, callback) {
+	        callback(null);
+	      }
+	    }, {
+	      key: 'getResults',
+	      value: function getResults() /* response */{
+	        // EX:
+	        //  return response.data.codes
+	        throw new Error('getResults() must be implemented when extending from AvSelectResource');
+	      }
+	    }, {
+	      key: 'getPageSize',
+	      value: function getPageSize() {
+	        return 50;
+	      }
+	    }]);
 	
 	    return AvSelectResource;
 	  }(AvApiResource);
@@ -13897,12 +21469,12 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 393 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -13915,28 +21487,30 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 394 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(395);
+	__webpack_require__(404);
 
 /***/ },
-/* 395 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(396);
+	__webpack_require__(405);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -13950,38 +21524,44 @@ webpackJsonp([0],[
 	    this.avUserAuthorizations = avUserAuthorizations;
 	  }
 	
-	  AvHidePermissionController.prototype.$onInit = function $onInit() {
-	    this.$element.hide();
-	  };
-	
-	  AvHidePermissionController.prototype.$onChanges = function $onChanges(changed) {
-	    var _this = this;
-	
-	    var permissions = changed.avHidePermission.currentValue;
-	
-	    if (!_angular2.default.isArray(permissions)) {
-	      permissions = ('' + permissions).split(/\s+/);
+	  _createClass(AvHidePermissionController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      this.$element.hide();
 	    }
+	  }, {
+	    key: '$onChanges',
+	    value: function $onChanges(changed) {
+	      var _this = this;
 	
-	    this.avUserAuthorizations.isAnyAuthorized(permissions).then(function (isAuthorized) {
-	      return _this.onSuccess(isAuthorized);
-	    }, function () {
-	      return _this.onError();
-	    });
-	  };
+	      var permissions = changed.avHidePermission.currentValue;
 	
-	  AvHidePermissionController.prototype.onSuccess = function onSuccess(isAuthorized) {
-	    if (isAuthorized) {
-	      this.$element.removeClass('ng-hide');
-	      this.$element.show();
-	    } else {
+	      if (!_angular2.default.isArray(permissions)) {
+	        permissions = ('' + permissions).split(/\s+/);
+	      }
+	
+	      this.avUserAuthorizations.isAnyAuthorized(permissions).then(function (isAuthorized) {
+	        return _this.onSuccess(isAuthorized);
+	      }, function () {
+	        return _this.onError();
+	      });
+	    }
+	  }, {
+	    key: 'onSuccess',
+	    value: function onSuccess(isAuthorized) {
+	      if (isAuthorized) {
+	        this.$element.removeClass('ng-hide');
+	        this.$element.show();
+	      } else {
+	        this.$element.remove();
+	      }
+	    }
+	  }, {
+	    key: 'onError',
+	    value: function onError() {
 	      this.$element.remove();
 	    }
-	  };
-	
-	  AvHidePermissionController.prototype.onError = function onError() {
-	    this.$element.remove();
-	  };
+	  }]);
 	
 	  return AvHidePermissionController;
 	}();
@@ -13999,36 +21579,38 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 396 */
+/* 405 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 397 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(398);
+	__webpack_require__(407);
 
 /***/ },
-/* 398 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _spaces = __webpack_require__(399);
+	var _spaces = __webpack_require__(408);
 	
 	var _spaces2 = _interopRequireDefault(_spaces);
 	
-	__webpack_require__(400);
+	__webpack_require__(333);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -14081,7 +21663,7 @@ webpackJsonp([0],[
 	exports.default = _module2.default;
 
 /***/ },
-/* 399 */
+/* 408 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/breadcrumbs/spaces.html';
@@ -14090,87 +21672,46 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 400 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
+	__webpack_require__(410);
 	
-	var _module = __webpack_require__(304);
+	__webpack_require__(414);
 	
-	var _module2 = _interopRequireDefault(_module);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Spaces = function Spaces(AvApiResource) {
-	  var SpacesResource = function (_AvApiResource) {
-	    _inherits(SpacesResource, _AvApiResource);
-	
-	    function SpacesResource() {
-	      _classCallCheck(this, SpacesResource);
-	
-	      return _possibleConstructorReturn(this, _AvApiResource.call(this, {
-	        path: '/api/sdk/platform',
-	        name: '/spaces'
-	      }));
-	    }
-	
-	    return SpacesResource;
-	  }(AvApiResource);
-	
-	  return new SpacesResource();
-	};
-	
-	_module2.default.factory('avSpacesResource', Spaces);
-	
-	exports.default = _module2.default;
+	__webpack_require__(413);
 
 /***/ },
-/* 401 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(402);
-	
-	__webpack_require__(405);
-	
-	__webpack_require__(404);
-
-/***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _lodash = __webpack_require__(305);
+	var _lodash = __webpack_require__(411);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(403);
+	__webpack_require__(412);
 	
-	__webpack_require__(404);
+	__webpack_require__(413);
 	
-	__webpack_require__(405);
+	__webpack_require__(414);
 	
-	__webpack_require__(407);
+	__webpack_require__(416);
 	
-	var _utils = __webpack_require__(311);
+	var _utils = __webpack_require__(310);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -14194,200 +21735,216 @@ webpackJsonp([0],[
 	      });
 	    }
 	
-	    Modal.create = function create(options) {
-	      return new Modal(options);
-	    };
+	    _createClass(Modal, [{
+	      key: 'buildOptions',
+	      value: function buildOptions(userOptions) {
 	
-	    Modal.prototype.buildOptions = function buildOptions(userOptions) {
+	        var options = _angular2.default.extend({}, AV_MODAL.OPTIONS, userOptions);
 	
-	      var options = _angular2.default.extend({}, AV_MODAL.OPTIONS, userOptions);
+	        options.scope = options.scope || $rootScope.$new();
 	
-	      options.scope = options.scope || $rootScope.$new();
+	        if (options.controller) {
 	
-	      if (options.controller) {
+	          var locals = _angular2.default.extend({ $scope: options.scope }, options.locals);
+	          var controller = $controller(options.controller, locals);
 	
-	        var locals = _angular2.default.extend({ $scope: options.scope }, options.locals);
-	        var controller = $controller(options.controller, locals);
-	
-	        if (options.controllerAs) {
-	          if (options.scope[options.controllerAs]) {
-	            $log.warn('Overwriting ' + options.controllerAs + 'on scope with AvModal controllerAs, consider passing in no scope, or specifying a different controllerAs than the existing controller');
+	          if (options.controllerAs) {
+	            if (options.scope[options.controllerAs]) {
+	              $log.warn('Overwriting ' + options.controllerAs + 'on scope with AvModal controllerAs, consider passing in no scope, or specifying a different controllerAs than the existing controller');
+	            }
+	            options.scope[options.controllerAs] = controller;
 	          }
-	          options.scope[options.controllerAs] = controller;
+	        }
+	        return options;
+	      }
+	    }, {
+	      key: 'build',
+	      value: function build() {
+	        var _this = this;
+	
+	        var scope = this.options.scope;
+	        this.$element = _angular2.default.element(this.options.template);
+	
+	        this.createId();
+	
+	        this.scope();
+	
+	        $compile(this.$element)(scope);
+	
+	        $timeout(function () {
+	          _this.init();
+	        }, 0, true);
+	
+	        // Append to container or <body>
+	        this.options.container ? this.$element.appendTo(this.options.container) : this.$element.appendTo('body');
+	      }
+	    }, {
+	      key: 'init',
+	      value: function init() {
+	
+	        this.$element.data('AvModal', this);
+	
+	        this.templateDefer.resolve(true);
+	
+	        this.listeners();
+	
+	        // Initialize Bootstrap jQuery plugin
+	        this.$element.modal({
+	          'backdrop': this.options.backdrop,
+	          'keyboard': this.options.keyboard,
+	          'show': false,
+	          'remote': this.options.remote
+	        });
+	
+	        if ((0, _lodash2.default)(this.options.show) || this.options.show) {
+	          this.$element.modal('show');
 	        }
 	      }
-	      return options;
-	    };
 	
-	    Modal.prototype.build = function build() {
-	      var _this = this;
+	      // Add helpers to scope so clients can call internal methods
 	
-	      var scope = this.options.scope;
-	      this.$element = _angular2.default.element(this.options.template);
+	    }, {
+	      key: 'scope',
+	      value: function scope() {
 	
-	      this.createId();
+	        var self = this;
+	        var scope = this.options.scope;
 	
-	      this.scope();
+	        scope.modalShow = function () {
+	          return self.show();
+	        };
 	
-	      $compile(this.$element)(scope);
+	        scope.modalToggle = function () {
+	          return self.toggle();
+	        };
 	
-	      $timeout(function () {
-	        _this.init();
-	      }, 0, true);
-	
-	      // Append to container or <body>
-	      this.options.container ? this.$element.appendTo(this.options.container) : this.$element.appendTo('body');
-	    };
-	
-	    Modal.prototype.init = function init() {
-	
-	      this.$element.data('AvModal', this);
-	
-	      this.templateDefer.resolve(true);
-	
-	      this.listeners();
-	
-	      // Initialize Bootstrap jQuery plugin
-	      this.$element.modal({
-	        'backdrop': this.options.backdrop,
-	        'keyboard': this.options.keyboard,
-	        'show': false,
-	        'remote': this.options.remote
-	      });
-	
-	      if (_lodash2.default.isUndefined(this.options.show) || this.options.show) {
-	        this.$element.modal('show');
+	        scope.modalHide = function () {
+	          return self.hide();
+	        };
 	      }
-	    };
+	    }, {
+	      key: 'listeners',
+	      value: function listeners() {
 	
-	    // Add helpers to scope so clients can call internal methods
+	        var self = this;
+	        var scope = this.options.scope;
+	        var $element = this.$element;
 	
+	        this.animationShowDefer = $q.defer();
+	        this.animationHideDefer = $q.defer();
 	
-	    Modal.prototype.scope = function scope() {
+	        $element.on(AV_MODAL.BS_EVENTS.SHOW, function (event) {
+	          scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
+	        });
 	
-	      var self = this;
-	      var scope = this.options.scope;
+	        $element.on(AV_MODAL.BS_EVENTS.SHOWN, function (event) {
 	
-	      scope.modalShow = function () {
-	        return self.show();
-	      };
+	          if (_angular2.default.isFunction(self.options.onShown)) {
+	            self.options.onShown();
+	          }
 	
-	      scope.modalToggle = function () {
-	        return self.toggle();
-	      };
+	          self.animationShowDefer.resolve(true);
 	
-	      scope.modalHide = function () {
-	        return self.hide();
-	      };
-	    };
+	          scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
+	        });
 	
-	    Modal.prototype.listeners = function listeners() {
+	        $element.on(AV_MODAL.BS_EVENTS.HIDE, function (event) {
+	          scope.$emit(AV_MODAL.EVENTS.HIDE, event, self);
+	        });
 	
-	      var self = this;
-	      var scope = this.options.scope;
-	      var $element = this.$element;
+	        $element.on(AV_MODAL.BS_EVENTS.HIDDEN, function (event) {
 	
-	      this.animationShowDefer = $q.defer();
-	      this.animationHideDefer = $q.defer();
+	          if (_angular2.default.isFunction(self.options.onHidden)) {
+	            self.options.onHidden.call(this);
+	          }
 	
-	      $element.on(AV_MODAL.BS_EVENTS.SHOW, function (event) {
-	        scope.$emit(AV_MODAL.EVENTS.SHOW, event, self);
-	      });
+	          self.animationHideDefer.resolve(true);
+	          scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
 	
-	      $element.on(AV_MODAL.BS_EVENTS.SHOWN, function (event) {
+	          scope.$evalAsync(function () {
+	            self.destroy();
+	          });
+	        });
 	
-	        if (_angular2.default.isFunction(self.options.onShown)) {
-	          self.options.onShown();
-	        }
-	
-	        self.animationShowDefer.resolve(true);
-	
-	        scope.$emit(AV_MODAL.EVENTS.SHOWN, event, self);
-	      });
-	
-	      $element.on(AV_MODAL.BS_EVENTS.HIDE, function (event) {
-	        scope.$emit(AV_MODAL.EVENTS.HIDE, event, self);
-	      });
-	
-	      $element.on(AV_MODAL.BS_EVENTS.HIDDEN, function (event) {
-	
-	        if (_angular2.default.isFunction(self.options.onHidden)) {
-	          self.options.onHidden.call(this);
-	        }
-	
-	        self.animationHideDefer.resolve(true);
-	        scope.$emit(AV_MODAL.EVENTS.HIDDEN, event, self);
-	
-	        scope.$evalAsync(function () {
+	        // Garbage collection
+	        scope.$on('$destroy', function () {
+	          avModalManager.remove(self.id);
 	          self.destroy();
 	        });
-	      });
-	
-	      // Garbage collection
-	      scope.$on('$destroy', function () {
-	        avModalManager.remove(self.id);
-	        self.destroy();
-	      });
-	    };
-	
-	    Modal.prototype.show = function show() {
-	      var _this2 = this;
-	
-	      this.animationShowDefer = $q.defer();
-	
-	      this.templatePromise.then(function () {
-	        _this2.isShown() ? _this2.animationShowDefer.resolve(true) : _this2.$element.modal('show');
-	      });
-	
-	      return this.animationShowDefer.promise;
-	    };
-	
-	    Modal.prototype.hide = function hide() {
-	      var _this3 = this;
-	
-	      this.animationHideDefer = $q.defer();
-	
-	      this.templatePromise.then(function () {
-	        !_this3.isShown() ? _this3.animationHideDefer.resolve(true) : _this3.$element.modal('hide');
-	      });
-	
-	      return this.animationHideDefer.promise;
-	    };
-	
-	    Modal.prototype.isShown = function isShown() {
-	      return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
-	    };
-	
-	    Modal.prototype.toggle = function toggle() {
-	      var _this4 = this;
-	
-	      return this.templatePromise.then(function () {
-	        return _this4.isShown() ? _this4.hide() : _this4.show();
-	      });
-	    };
-	
-	    Modal.prototype.destroy = function destroy() {
-	      var _this5 = this;
-	
-	      return this.templatePromise.then(function () {
-	        _this5.$element.data('AvModal', null);
-	        _this5.$element.remove();
-	      });
-	    };
-	
-	    Modal.prototype.createId = function createId() {
-	      // Create a unique id for the modal if not present or passed in via options
-	      var id = this.$element.attr('id');
-	      if (!id) {
-	        // Get id from options or create a unique id
-	        id = this.options.id ? this.options.id : (0, _utils.uuid)('av-modal-id');
-	        this.$element.attr('id', id);
 	      }
+	    }, {
+	      key: 'show',
+	      value: function show() {
+	        var _this2 = this;
 	
-	      this.id = id;
+	        this.animationShowDefer = $q.defer();
 	
-	      avModalManager.add(id);
-	    };
+	        this.templatePromise.then(function () {
+	          _this2.isShown() ? _this2.animationShowDefer.resolve(true) : _this2.$element.modal('show');
+	        });
+	
+	        return this.animationShowDefer.promise;
+	      }
+	    }, {
+	      key: 'hide',
+	      value: function hide() {
+	        var _this3 = this;
+	
+	        this.animationHideDefer = $q.defer();
+	
+	        this.templatePromise.then(function () {
+	          !_this3.isShown() ? _this3.animationHideDefer.resolve(true) : _this3.$element.modal('hide');
+	        });
+	
+	        return this.animationHideDefer.promise;
+	      }
+	    }, {
+	      key: 'isShown',
+	      value: function isShown() {
+	        return this.$element.data(AV_MODAL.NAMESPACE.MODAL).isShown;
+	      }
+	    }, {
+	      key: 'toggle',
+	      value: function toggle() {
+	        var _this4 = this;
+	
+	        return this.templatePromise.then(function () {
+	          return _this4.isShown() ? _this4.hide() : _this4.show();
+	        });
+	      }
+	    }, {
+	      key: 'destroy',
+	      value: function destroy() {
+	        var _this5 = this;
+	
+	        return this.templatePromise.then(function () {
+	          _this5.$element.data('AvModal', null);
+	          _this5.$element.off(AV_MODAL.BS_EVENTS.SHOWN);
+	          _this5.$element.off(AV_MODAL.BS_EVENTS.SHOW);
+	          _this5.$element.remove();
+	        });
+	      }
+	    }, {
+	      key: 'createId',
+	      value: function createId() {
+	        // Create a unique id for the modal if not present or passed in via options
+	        var id = this.$element.attr('id');
+	        if (!id) {
+	          // Get id from options or create a unique id
+	          id = this.options.id ? this.options.id : (0, _utils.uuid)('av-modal-id');
+	          this.$element.attr('id', id);
+	        }
+	
+	        this.id = id;
+	
+	        avModalManager.add(id);
+	      }
+	    }], [{
+	      key: 'create',
+	      value: function create(options) {
+	        return new Modal(options);
+	      }
+	    }]);
 	
 	    return Modal;
 	  }();
@@ -14398,12 +21955,48 @@ webpackJsonp([0],[
 	_module2.default.factory('AvModal', ModalFactory);
 
 /***/ },
-/* 403 */
+/* 411 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/**
+	 * Checks if `value` is `undefined`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
+	 * @example
+	 *
+	 * _.isUndefined(void 0);
+	 * // => true
+	 *
+	 * _.isUndefined(null);
+	 * // => false
+	 */
+	function isUndefined(value) {
+	  return value === undefined;
+	}
+	
+	module.exports = isUndefined;
+
+
+/***/ },
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14428,12 +22021,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 404 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14479,16 +22072,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 405 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _modal = __webpack_require__(406);
+	var _modal = __webpack_require__(415);
 	
 	var _modal2 = _interopRequireDefault(_modal);
 	
@@ -14496,7 +22089,7 @@ webpackJsonp([0],[
 	
 	_module2.default.directive('avModal', function () {
 	  return {
-	    restrict: 'A',
+	    restrict: 'AE',
 	    replace: true,
 	    transclude: true,
 	    scope: {
@@ -14507,7 +22100,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 406 */
+/* 415 */
 /***/ function(module, exports) {
 
 	var path = 'src/ui/modal/modal.html';
@@ -14516,16 +22109,18 @@ webpackJsonp([0],[
 	module.exports = path;
 
 /***/ },
-/* 407 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14541,40 +22136,45 @@ webpackJsonp([0],[
 	      this.instances = [];
 	    }
 	
-	    AvModalManager.prototype.add = function add(id) {
-	      this.instances.push(id);
-	    };
+	    _createClass(AvModalManager, [{
+	      key: 'add',
+	      value: function add(id) {
+	        this.instances.push(id);
+	      }
+	    }, {
+	      key: 'remove',
+	      value: function remove(id) {
+	        this.instances = this.instances.filter(function (instance) {
+	          return instance !== id;
+	        });
+	      }
+	    }, {
+	      key: 'closeAll',
+	      value: function closeAll() {
 	
-	    AvModalManager.prototype.remove = function remove(id) {
-	      this.instances = this.instances.filter(function (instance) {
-	        return instance !== id;
-	      });
-	    };
+	        this.instances.forEach(function (id) {
 	
-	    AvModalManager.prototype.closeAll = function closeAll() {
+	          var $el = _angular2.default.element(document.getElementById(id));
 	
-	      this.instances.forEach(function (id) {
+	          if (!$el) {
+	            return;
+	          }
 	
-	        var $el = _angular2.default.element(document.getElementById(id));
+	          var bsModal = $el.data('bs.modal');
+	          if (bsModal) {
+	            bsModal.removeBackdrop();
+	            bsModal.$body.removeClass('modal-open');
+	            bsModal.resetAdjustments();
+	            bsModal.resetScrollbar();
+	          }
 	
-	        if (!$el) {
-	          return;
-	        }
-	
-	        var bsModal = $el.data('bs.modal');
-	        if (bsModal) {
-	          bsModal.removeBackdrop();
-	          bsModal.$body.removeClass('modal-open');
-	          bsModal.resetAdjustments();
-	          bsModal.resetScrollbar();
-	        }
-	
-	        var avModal = $el.data('AvModal');
-	        if (avModal) {
-	          avModal.destroy();
-	        }
-	      });
-	    };
+	          var avModal = $el.data('AvModal');
+	          if (avModal) {
+	            avModal.destroy();
+	          }
+	        });
+	      }
+	    }]);
 	
 	    return AvModalManager;
 	  }();
@@ -14583,12 +22183,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 408 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14621,26 +22221,26 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 409 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(410);
+	__webpack_require__(419);
 	
-	__webpack_require__(411);
+	__webpack_require__(420);
 	
-	__webpack_require__(412);
+	__webpack_require__(421);
 	
-	__webpack_require__(413);
+	__webpack_require__(422);
 
 /***/ },
-/* 410 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14651,14 +22251,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 411 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14675,13 +22277,17 @@ webpackJsonp([0],[
 	    _classCallCheck(this, AvPopoverConfig);
 	  }
 	
-	  AvPopoverConfig.prototype.set = function set(options) {
-	    _extends(config, options);
-	  };
-	
-	  AvPopoverConfig.prototype.$get = function $get() {
-	    return _extends({}, config);
-	  };
+	  _createClass(AvPopoverConfig, [{
+	    key: 'set',
+	    value: function set(options) {
+	      _extends(config, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return _extends({}, config);
+	    }
+	  }]);
 	
 	  return AvPopoverConfig;
 	}();
@@ -14689,14 +22295,16 @@ webpackJsonp([0],[
 	_module2.default.provider('avPopoverConfig', AvPopoverConfig);
 
 /***/ },
-/* 412 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14712,55 +22320,62 @@ webpackJsonp([0],[
 	    this.options = _extends({}, avPopoverConfig);
 	  }
 	
-	  AvPopoverController.prototype.listeners = function listeners() {
-	    var _this = this;
+	  _createClass(AvPopoverController, [{
+	    key: 'listeners',
+	    value: function listeners() {
+	      var _this = this;
 	
-	    ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
-	      _this.di.$element.on(name + '.bs.popover', function (ev) {
-	        return _this.di.$scope.$emit('av:popover:' + name, ev);
+	      ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
+	        _this.di.$element.on(name + '.bs.popover', function (ev) {
+	          return _this.di.$scope.$emit('av:popover:' + name, ev);
+	        });
 	      });
-	    });
-	
-	    this.di.$scope.$on('$destroy', this.destroy.bind(this));
-	  };
-	
-	  AvPopoverController.prototype.plugin = function plugin() {
-	    return this.di.$element.data(this.di.AV_POPOVER.NAME);
-	  };
-	
-	  AvPopoverController.prototype.show = function show() {
-	    this.di.$element.popover('show');
-	  };
-	
-	  AvPopoverController.prototype.hide = function hide() {
-	    this.di.$element.popover('hide');
-	  };
-	
-	  AvPopoverController.prototype.toggle = function toggle() {
-	    this.di.$element.popover('toggle');
-	  };
-	
-	  AvPopoverController.prototype.destroy = function destroy() {
-	    this.di.$element.popover('destroy');
-	  };
-	
-	  AvPopoverController.prototype.init = function init() {
-	    this.listeners();
-	
-	    if (this.di.$scope.show) {
-	
-	      // give the UI a chance to settle first.
-	      this.di.$timeout(this.show.bind(this), 0, false);
-	
-	      if (this.di.$scope.delay && this.di.$scope.delay.hide) {
-	        this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
-	        return;
-	      }
-	
-	      // If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
-	      this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
 	    }
-	  };
+	  }, {
+	    key: 'plugin',
+	    value: function plugin() {
+	      return this.di.$element.data(this.di.AV_POPOVER.NAME);
+	    }
+	  }, {
+	    key: 'show',
+	    value: function show() {
+	      this.di.$element.popover('show');
+	    }
+	  }, {
+	    key: 'hide',
+	    value: function hide() {
+	      this.di.$element.popover('hide');
+	    }
+	  }, {
+	    key: 'toggle',
+	    value: function toggle() {
+	      this.di.$element.popover('toggle');
+	    }
+	  }, {
+	    key: '$destroy',
+	    value: function $destroy() {
+	      this.di.$element.popover('destroy');
+	    }
+	  }, {
+	    key: 'init',
+	    value: function init() {
+	      this.listeners();
+	
+	      if (this.di.$scope.show) {
+	
+	        // give the UI a chance to settle first.
+	        this.di.$timeout(this.show.bind(this), 0, false);
+	
+	        if (this.di.$scope.delay && this.di.$scope.delay.hide) {
+	          this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
+	          return;
+	        }
+	
+	        // If no delay is found or cannot be parsed, set a default timeout so that the popover doesn't stick around forever
+	        this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
+	      }
+	    }
+	  }]);
 	
 	  return AvPopoverController;
 	}();
@@ -14768,7 +22383,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvPopoverController', AvPopoverController);
 
 /***/ },
-/* 413 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14777,7 +22392,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14806,28 +22421,28 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 414 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(415);
+	__webpack_require__(424);
 	
-	__webpack_require__(416);
+	__webpack_require__(425);
 	
-	__webpack_require__(417);
+	__webpack_require__(426);
 	
-	__webpack_require__(418);
+	__webpack_require__(427);
 	
-	__webpack_require__(419);
+	__webpack_require__(428);
 
 /***/ },
-/* 415 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14838,14 +22453,16 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 416 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14862,13 +22479,17 @@ webpackJsonp([0],[
 	    _classCallCheck(this, AvTooltipConfig);
 	  }
 	
-	  AvTooltipConfig.prototype.set = function set(options) {
-	    _extends(config, options);
-	  };
-	
-	  AvTooltipConfig.prototype.$get = function $get() {
-	    return _extends({}, config);
-	  };
+	  _createClass(AvTooltipConfig, [{
+	    key: 'set',
+	    value: function set(options) {
+	      _extends(config, options);
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return _extends({}, config);
+	    }
+	  }]);
 	
 	  return AvTooltipConfig;
 	}();
@@ -14876,14 +22497,16 @@ webpackJsonp([0],[
 	_module2.default.provider('avTooltipConfig', AvTooltipConfig);
 
 /***/ },
-/* 417 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14899,55 +22522,62 @@ webpackJsonp([0],[
 	    this.options = _extends({}, avTooltipConfig);
 	  }
 	
-	  AvTooltipController.prototype.listeners = function listeners() {
-	    var _this = this;
+	  _createClass(AvTooltipController, [{
+	    key: 'listeners',
+	    value: function listeners() {
+	      var _this = this;
 	
-	    ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
-	      _this.di.$element.on(name + '.bs.tooltip', function (ev) {
-	        return _this.di.$scope.$emit('av:tooltip:' + name, ev);
+	      ['show', 'shown', 'hide', 'hidden'].forEach(function (name) {
+	        _this.di.$element.on(name + '.bs.tooltip', function (ev) {
+	          return _this.di.$scope.$emit('av:tooltip:' + name, ev);
+	        });
 	      });
-	    });
-	
-	    this.di.$scope.$on('$destroy', this.destroy.bind(this));
-	  };
-	
-	  AvTooltipController.prototype.plugin = function plugin() {
-	    return this.di.$element.data(this.di.AV_TOOLTIP.NAME);
-	  };
-	
-	  AvTooltipController.prototype.show = function show() {
-	    this.di.$element.tooltip('show');
-	  };
-	
-	  AvTooltipController.prototype.hide = function hide() {
-	    this.di.$element.tooltip('hide');
-	  };
-	
-	  AvTooltipController.prototype.toggle = function toggle() {
-	    this.di.$element.tooltip('toggle');
-	  };
-	
-	  AvTooltipController.prototype.destroy = function destroy() {
-	    this.di.$element.tooltip('destroy');
-	  };
-	
-	  AvTooltipController.prototype.init = function init() {
-	    this.listeners();
-	
-	    if (this.di.$scope.show) {
-	
-	      // give the UI a chance to settle first.
-	      this.di.$timeout(this.show.bind(this), 0, false);
-	
-	      if (this.di.$scope.delay && this.di.$scope.delay.hide) {
-	        this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
-	        return;
-	      }
-	
-	      // If no delay is found or cannot be parsed, set a default timeout so that the tooltip doesn't stick around forever
-	      this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
 	    }
-	  };
+	  }, {
+	    key: 'plugin',
+	    value: function plugin() {
+	      return this.di.$element.data(this.di.AV_TOOLTIP.NAME);
+	    }
+	  }, {
+	    key: 'show',
+	    value: function show() {
+	      this.di.$element.tooltip('show');
+	    }
+	  }, {
+	    key: 'hide',
+	    value: function hide() {
+	      this.di.$element.tooltip('hide');
+	    }
+	  }, {
+	    key: 'toggle',
+	    value: function toggle() {
+	      this.di.$element.tooltip('toggle');
+	    }
+	  }, {
+	    key: '$destroy',
+	    value: function $destroy() {
+	      this.di.$element.tooltip('destroy');
+	    }
+	  }, {
+	    key: 'init',
+	    value: function init() {
+	      this.listeners();
+	
+	      if (this.di.$scope.show) {
+	
+	        // give the UI a chance to settle first.
+	        this.di.$timeout(this.show.bind(this), 0, false);
+	
+	        if (this.di.$scope.delay && this.di.$scope.delay.hide) {
+	          this.di.$timeout(this.hide.bind(this), this.di.$scope.delay.hide, false);
+	          return;
+	        }
+	
+	        // If no delay is found or cannot be parsed, set a default timeout so that the tooltip doesn't stick around forever
+	        this.di.$timeout(this.hide.bind(this), this.options.showDelay, false);
+	      }
+	    }
+	  }]);
 	
 	  return AvTooltipController;
 	}();
@@ -14955,7 +22585,7 @@ webpackJsonp([0],[
 	_module2.default.controller('AvTooltipController', AvTooltipController);
 
 /***/ },
-/* 418 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14964,7 +22594,7 @@ webpackJsonp([0],[
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -14993,12 +22623,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 419 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -15013,25 +22643,25 @@ webpackJsonp([0],[
 	_module2.default.component('inlineHelp', inlineHelp);
 
 /***/ },
-/* 420 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(421);
+	__webpack_require__(430);
 	
-	__webpack_require__(423);
+	__webpack_require__(432);
 	
-	__webpack_require__(422);
+	__webpack_require__(431);
 	
-	__webpack_require__(424);
+	__webpack_require__(433);
 	
-	__webpack_require__(425);
+	__webpack_require__(434);
 	
-	__webpack_require__(426);
+	__webpack_require__(435);
 
 /***/ },
-/* 421 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15044,11 +22674,11 @@ webpackJsonp([0],[
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(422);
+	__webpack_require__(431);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15118,12 +22748,12 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 422 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
@@ -15155,18 +22785,20 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 423 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(422);
+	__webpack_require__(431);
 	
-	__webpack_require__(421);
+	__webpack_require__(430);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15189,21 +22821,27 @@ webpackJsonp([0],[
 	        this.adapter = $injector.get(adapterName);
 	      }
 	
-	      Adapter.prototype.element = function element(context) {
-	        this.adapter.element(context);
-	      };
-	
-	      Adapter.prototype.reset = function reset(element) {
-	        this.adapter.reset(element);
-	      };
-	
-	      Adapter.prototype.message = function message(context) {
-	        this.adapter.message(context);
-	      };
-	
-	      Adapter.prototype.scroll = function scroll(form) {
-	        this.adapter.scroll(form);
-	      };
+	      _createClass(Adapter, [{
+	        key: 'element',
+	        value: function element(context) {
+	          this.adapter.element(context);
+	        }
+	      }, {
+	        key: 'reset',
+	        value: function reset(element) {
+	          this.adapter.reset(element);
+	        }
+	      }, {
+	        key: 'message',
+	        value: function message(context) {
+	          this.adapter.message(context);
+	        }
+	      }, {
+	        key: 'scroll',
+	        value: function scroll(form) {
+	          this.adapter.scroll(form);
+	        }
+	      }]);
 	
 	      return Adapter;
 	    }();
@@ -15213,75 +22851,63 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 424 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
-	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvValContainerController = function (_Base) {
-	  _inherits(AvValContainerController, _Base);
-	
-	  function AvValContainerController() {
+	var AvValContainerController = function () {
+	  function AvValContainerController($sce, $scope, $timeout, AV_UI) {
 	    _classCallCheck(this, AvValContainerController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
+	    this.av = { $sce: $sce, $scope: $scope, $timeout: $timeout, AV_UI: AV_UI };
 	  }
 	
-	  AvValContainerController.prototype.message = function message(context) {
-	    var _this2 = this;
+	  _createClass(AvValContainerController, [{
+	    key: 'message',
+	    value: function message(context) {
+	      var _this = this;
 	
-	    var ngModel = context.ngModel;
+	      var ngModel = context.ngModel;
 	
 	
-	    var message = null;
-	    var violations = Object.keys(ngModel.$error);
-	    if (violations.length) {
-	      var validator = violations[0];
-	      var constraint = ngModel.$validators[validator] && ngModel.$validators[validator].constraint;
-	      if (constraint) {
-	        message = constraint.message;
+	      var message = null;
+	      var violations = Object.keys(ngModel.$error);
+	      if (violations.length) {
+	        var validator = violations[0];
+	        var constraint = ngModel.$validators[validator] && ngModel.$validators[validator].constraint;
+	        if (constraint) {
+	          message = constraint.message;
+	        } else {
+	          message = this.av.AV_UI.FALLBACK_VALIDATION_MESSAGE;
+	        }
 	      } else {
-	        message = this.av.AV_UI.FALLBACK_VALIDATION_MESSAGE;
+	        message = null;
 	      }
-	    } else {
-	      message = null;
-	    }
 	
-	    // $timeout is needed to update the UI from $broadcast events
-	    this.av.$timeout(function () {
-	      _this2.av.$scope.vm.message = _this2.av.$sce.trustAsHtml(message);
-	    });
-	  };
+	      // $timeout is needed to update the UI from $broadcast events
+	      this.av.$timeout(function () {
+	        _this.av.$scope.vm.message = _this.av.$sce.trustAsHtml(message);
+	      });
+	    }
+	  }]);
 	
 	  return AvValContainerController;
-	}(_base2.default);
-	
-	AvValContainerController.$inject = ['$sce', '$scope', '$timeout', 'AV_UI'];
-	
+	}();
 	
 	_module2.default.directive('avValContainer', function () {
 	  return {
-	    restrict: 'A',
+	    restrict: 'AE',
 	    controller: AvValContainerController,
 	    template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
 	    replace: true,
@@ -15294,163 +22920,156 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 425 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _angular = __webpack_require__(301);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _module = __webpack_require__(351);
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	var _utils = __webpack_require__(311);
+	var _utils = __webpack_require__(310);
 	
-	__webpack_require__(334);
-	
-	var _base = __webpack_require__(354);
-	
-	var _base2 = _interopRequireDefault(_base);
+	__webpack_require__(342);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AvValFieldController = function (_Base) {
-	  _inherits(AvValFieldController, _Base);
-	
-	  function AvValFieldController() {
+	var AvValFieldController = function () {
+	  function AvValFieldController($element, avValAdapter, avVal, $log, $timeout, $scope, $attrs) {
 	    _classCallCheck(this, AvValFieldController);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    this.av = { $element: $element, avValAdapter: avValAdapter, avVal: avVal, $log: $log, $timeout: $timeout, $scope: $scope, $attrs: $attrs };
 	
-	    var _this = _possibleConstructorReturn(this, _Base.call.apply(_Base, [this].concat(args)));
-	
-	    _this.ngModel = null;
-	    _this.rule = null;
-	    _this.avValForm = null;
-	    _this.avValInvalid = false;
-	    _this.noEvent = {};
-	    _this.placeholder = _this.av.$element[0].placeholder;
-	
-	    return _this;
+	    this.ngModel = null;
+	    this.rule = null;
+	    this.avValForm = null;
+	    this.avValInvalid = false;
+	    this.noEvent = {};
+	    this.placeholder = this.av.$element[0].placeholder;
 	  }
 	
-	  AvValFieldController.prototype.init = function init(options) {
-	    _extends(this, options);
-	    this.createId();
-	    this.setupValidators();
-	  };
-	
-	  AvValFieldController.prototype.createId = function createId() {
-	    this.ngModel.avId = (0, _utils.uuid)('avVal');
-	  };
-	
-	  AvValFieldController.prototype.isRadio = function isRadio() {
-	    return this.av.$element.is('input') && this.av.$attrs.type === 'radio';
-	  };
-	
-	  AvValFieldController.prototype.isCheckbox = function isCheckbox() {
-	    return this.av.$element.is('input') && this.av.$attrs.type === 'checkbox';
-	  };
-	
-	  AvValFieldController.prototype.updateElement = function updateElement() {
-	
-	    this.av.avValAdapter.element({
-	      element: this.av.$element,
-	      ngModel: this.ngModel
-	    });
-	
-	    this.av.avValAdapter.message({
-	      element: this.av.$element,
-	      ngModel: this.ngModel
-	    });
-	  };
-	
-	  AvValFieldController.prototype.setupValidators = function setupValidators() {
-	
-	    var self = this;
-	
-	    var schemaName = this.avValForm.rulesSchema;
-	    var ruleConfig = this.av.avVal.getRule(schemaName);
-	
-	    if (!ruleConfig) {
-	      this.av.$log.error('Failed to get rules schema named [' + schemaName + '].  Forms must be tagged with a rules schema name for validation to work.');
-	      return;
+	  _createClass(AvValFieldController, [{
+	    key: 'init',
+	    value: function init(options) {
+	      _extends(this, options);
+	      this.createId();
+	      this.setupValidators();
 	    }
-	
-	    var constraints = ruleConfig[this.ruleName];
-	    if (!constraints) {
-	      this.av.$log.info('Rule named [' + this.ruleName + '] could not be found in the current schema.');
-	      constraints = {};
+	  }, {
+	    key: 'createId',
+	    value: function createId() {
+	      this.ngModel.avId = (0, _utils.uuid)('avVal');
 	    }
+	  }, {
+	    key: 'isRadio',
+	    value: function isRadio() {
+	      return this.av.$element.is('input') && this.av.$attrs.type === 'radio';
+	    }
+	  }, {
+	    key: 'isCheckbox',
+	    value: function isCheckbox() {
+	      return this.av.$element.is('input') && this.av.$attrs.type === 'checkbox';
+	    }
+	  }, {
+	    key: 'updateElement',
+	    value: function updateElement() {
 	
-	    Object.keys(constraints).forEach(function (constraintName) {
-	      var constraint = constraints[constraintName];
-	      if (!constraint) {
+	      this.av.avValAdapter.element({
+	        element: this.av.$element,
+	        ngModel: this.ngModel
+	      });
 	
-	        // When extending rule sets, previous rules can be overridden with null so
-	        // delete the previous $validator
-	        delete self.ngModel.$validators[constraintName];
+	      this.av.avValAdapter.message({
+	        element: this.av.$element,
+	        ngModel: this.ngModel
+	      });
+	    }
+	  }, {
+	    key: 'setupValidators',
+	    value: function setupValidators() {
+	
+	      var self = this;
+	
+	      var schemaName = this.avValForm.rulesSchema;
+	      var ruleConfig = this.av.avVal.getRule(schemaName);
+	
+	      if (!ruleConfig) {
+	        this.av.$log.error('Failed to get rules schema named [' + schemaName + '].  Forms must be tagged with a rules schema name for validation to work.');
 	        return;
 	      }
 	
-	      var validator = self.av.avVal.getService(constraintName);
-	
-	      if (_angular2.default.isUndefined(validator)) {
-	        self.av.$log.warn('No validator defined for ' + constraintName);
-	        return;
+	      var constraints = ruleConfig[this.ruleName];
+	      if (!constraints) {
+	        this.av.$log.info('Rule named [' + this.ruleName + '] could not be found in the current schema.');
+	        constraints = {};
 	      }
 	
-	      self.ngModel.$validators[constraintName] = function contraintValidator(modelValue, viewValue) {
+	      Object.keys(constraints).forEach(function (constraintName) {
 	
-	        var value = modelValue || viewValue;
+	        var constraint = constraints[constraintName];
+	        if (!constraint) {
 	
-	        var valid = validator.validate({
-	          value: value,
-	          constraint: constraint,
-	          element: self.av.$element
-	        });
+	          // When extending rule sets, previous rules can be overridden with null so
+	          // delete the previous $validator
+	          delete self.ngModel.$validators[constraintName];
+	          return;
+	        }
 	
-	        return valid;
-	      };
+	        var validator = self.av.avVal.getService(constraintName);
 	
-	      // Attach the constrain to the validator so that the message is available
-	      // to the validation container that is going to paint the message on screen.
-	      self.ngModel.$validators[constraintName].constraint = constraint;
-	    });
-	  };
+	        if (_angular2.default.isUndefined(validator)) {
+	          self.av.$log.warn('No validator defined for ' + constraintName);
+	          return;
+	        }
 	
-	  AvValFieldController.prototype.reset = function reset() {
-	    this.ngModel.$setPristine();
-	    this.ngModel.$setUntouched();
-	    this.ngModel.$error = {};
-	    this.av.avValAdapter.reset(this.av.$element);
-	  };
+	        self.ngModel.$validators[constraintName] = function contraintValidator(modelValue, viewValue) {
 	
-	  AvValFieldController.prototype.onRunValidators = function onRunValidators() {
+	          var value = modelValue || viewValue;
 	
-	    if (this.ngModel.$dirty) {
-	      this.updateElement();
+	          var valid = validator.validate({
+	            value: value,
+	            constraint: constraint,
+	            element: self.av.$element
+	          });
+	
+	          return valid;
+	        };
+	
+	        // Attach the constraint to the validator so that the message is available
+	        // to the validation container that is going to paint the message on screen.
+	        self.ngModel.$validators[constraintName].constraint = constraint;
+	      });
 	    }
-	  };
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      this.ngModel.$setPristine();
+	      this.ngModel.$setUntouched();
+	      this.ngModel.$error = {};
+	      this.av.avValAdapter.reset(this.av.$element);
+	    }
+	  }, {
+	    key: 'onRunValidators',
+	    value: function onRunValidators() {
+	      if (this.ngModel.$dirty) {
+	        this.updateElement();
+	      }
+	    }
+	  }]);
 	
 	  return AvValFieldController;
-	}(_base2.default);
-	
-	AvValFieldController.$inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope', '$attrs'];
-	
+	}();
 	
 	_module2.default.controller('AvValFieldController', AvValFieldController);
 	
@@ -15458,13 +23077,7 @@ webpackJsonp([0],[
 	  return {
 	    restrict: 'A',
 	    controller: 'AvValFieldController',
-	    require: ['^avValForm', 'ngModel', 'avValField'],
-	    scope: {
-	      avValDebounce: '<?',
-	      avValOn: '<?',
-	      avValShowOnLoad: '<?',
-	      avValInvalid: '<?'
-	    },
+	    require: ['^avValForm', 'ngModel', 'avValField', '?ngModelOptions', '?^ngModelOptions'],
 	    link: function link(scope, element, attrs, controllers) {
 	
 	      var ruleName = attrs.avValField;
@@ -15472,31 +23085,23 @@ webpackJsonp([0],[
 	      var avValForm = controllers[0];
 	      var ngModel = controllers[1];
 	      var avValField = controllers[2];
+	      var ngModelOptions = controllers[3];
+	      var ngModelOptionsParent = controllers[4];
 	
-	      var avValOn = scope.avValOn || avValForm.avValOn || 'default';
+	      if (!ngModelOptions || !ngModelOptionsParent) {
 	
-	      var avValDebounce = void 0;
-	      if (avValField.isCheckbox() || avValField.isRadio()) {
-	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
-	      } else {
-	        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+	        ngModel.$options.createChild({
+	          '*': '$inherit',
+	          debounce: avValField.isCheckbox() || avValField.isRadio() ? AV_VAL.DEBOUNCE_QUICK : AV_VAL.DEBOUNCE
+	        });
 	      }
-	
-	      var avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
-	
-	      ngModel.$$setOptions({
-	        updateOnDefault: true,
-	        updateOn: avValOn,
-	        allowInvalid: avValInvalid,
-	        debounce: avValDebounce
-	      });
 	
 	      // Wrap $$runValidators with our own function so we can intercept when the validation
 	      // pipeline finishes.
 	      var $$runValidators = ngModel.$$runValidators;
 	      var runValidators = function runValidators(modelValue, viewValue, doneCallback) {
 	
-	        $$runValidators(modelValue, viewValue, function (allValid) {
+	        $$runValidators.call(ngModel, modelValue, viewValue, function (allValid) {
 	          doneCallback(allValid);
 	          avValField.onRunValidators();
 	        });
@@ -15515,43 +23120,51 @@ webpackJsonp([0],[
 	        avValForm: avValForm
 	      });
 	
-	      scope.$on(AV_VAL.EVENTS.REVALIDATE, function () {
+	      var reValidateOff = scope.$on(AV_VAL.EVENTS.REVALIDATE, function () {
 	        ngModel.$validate();
 	      });
 	
-	      scope.$on(AV_VAL.EVENTS.SUBMITTED, function () {
+	      var submittedOff = scope.$on(AV_VAL.EVENTS.SUBMITTED, function () {
 	        ngModel.$dirty = true;
 	        ngModel.$validate();
 	      });
 	
 	      // - Removes all errors on page,
 	      // - Does not reset view or model values.  This should to be handled by the application.
-	      scope.$on(AV_VAL.EVENTS.RESET, function () {
+	      var resetOff = scope.$on(AV_VAL.EVENTS.RESET, function () {
 	        avValField.reset();
+	      });
+	
+	      scope.$on('$destroy', function () {
+	        reValidateOff();
+	        submittedOff();
+	        resetOff();
 	      });
 	    }
 	  };
 	});
 
 /***/ },
-/* 426 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _module = __webpack_require__(351);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _module = __webpack_require__(359);
 	
 	var _module2 = _interopRequireDefault(_module);
 	
-	__webpack_require__(334);
+	__webpack_require__(342);
 	
-	__webpack_require__(422);
+	__webpack_require__(431);
 	
-	__webpack_require__(423);
+	__webpack_require__(432);
 	
-	__webpack_require__(425);
+	__webpack_require__(434);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15569,15 +23182,19 @@ webpackJsonp([0],[
 	    this.di = { $scope: $scope };
 	  }
 	
-	  AvValController.prototype.init = function init(options) {
-	    _extends(this, options);
-	  };
-	
-	  AvValController.prototype.reset = function reset() {
-	    this.ngForm.$setPristine();
-	    this.ngForm.$setUntouched();
-	    this.ngForm.$submitted = false;
-	  };
+	  _createClass(AvValController, [{
+	    key: 'init',
+	    value: function init(options) {
+	      _extends(this, options);
+	    }
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      this.ngForm.$setPristine();
+	      this.ngForm.$setUntouched();
+	      this.ngForm.$submitted = false;
+	    }
+	  }]);
 	
 	  return AvValController;
 	}();
@@ -15624,14 +23241,6 @@ webpackJsonp([0],[
 	            }
 	          });
 	
-	          // Allow form attributes to define the validation behavior of the form fields
-	          // inside it.  If `av-val-on` or `av-val-debounce` are on the form then all form
-	          // fields inside the form would inherit this behavior.
-	          avForm.avValOn = iAttrs.avValOn || null;
-	          avForm.avValDebounce = iAttrs.avValDebounce || null;
-	          // Allows fields to update with invalid data for dirty form saving
-	          avForm.avValInvalid = iAttrs.avValInvalid || false;
-	
 	          avForm.init({
 	            ngForm: ngForm,
 	            rulesSchema: rulesSchema
@@ -15666,22 +23275,12 @@ webpackJsonp([0],[
 	          };
 	          var unwatch = void 0;
 	
-	          scope.$watch(watcher, function (pending) {
-	            if (!pending) {
-	              // pendingWatch();
-	              // performSubmit();
-	            }
-	          });
-	
 	          el.bind('submit', function (event) {
 	
 	            scope.$broadcast(AV_VAL.EVENTS.SUBMITTED);
 	            ngForm.$setSubmitted();
 	
 	            if (ngForm.$invalid || ngForm.$pending) {
-	
-	              // scope.$broadcast(AV_VAL.EVENTS.FAILED);
-	              // $log.info('avValForm is invalid.  Preventing default submit action');
 	
 	              event.preventDefault();
 	              event.stopImmediatePropagation();
@@ -15726,7 +23325,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 427 */
+/* 436 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

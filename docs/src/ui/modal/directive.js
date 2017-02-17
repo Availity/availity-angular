@@ -3,7 +3,7 @@ import templateUrl from './modal.html';
 
 ngModule.directive('avModal', () => {
   return {
-    restrict: 'A',
+    restrict: 'AE',
     replace: true,
     transclude: true,
     scope: {

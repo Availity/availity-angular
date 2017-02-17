@@ -2,16 +2,13 @@ import 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 
 import templateUrl from './template.html';
-import Base from '../../base';
 import ngModule from '../../module';
 
-class AvLoaderController extends Base {
+class AvLoaderController {
 
-  static $inject = ['$element'];
+  constructor($element) {
 
-  constructor(...args) {
-
-    super(...args);
+    this.av = { $element };
 
     this.active = false;
   }

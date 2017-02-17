@@ -81,7 +81,7 @@ describe('avValField', () => {
     expect(tester.$scope.demo.lastName).toBeUndefined();
   });
 
-  it('ngModel should be update with invalid value when invalidAllowed attribute is set to true', () => {
+  it('ngModel should be updated with invalid value when allowInvalid attribute is set to true', () => {
 
     $el = tester.compileDirective(template);
 

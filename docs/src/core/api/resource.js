@@ -4,12 +4,12 @@ import moment from 'moment';
 import ngModule from '../module';
 import './constants';
 import '../polling';
+import '../localStorage';
 
 class ApiResourceProvider {
 
   constructor(AV_API) {
     this.defaultOptions = {...AV_API.OPTIONS};
-    this.sessionBust = moment().unix();
   }
 
   setOptions(options) {
@@ -20,7 +20,7 @@ class ApiResourceProvider {
     return angular.copy(this.defaultOptions);
   }
 
-  $get($http, $q, avPollingService) {
+  $get($http, $q, avPollingService, avLocalStorageService, AV_STORAGE) {
 
     const that = this;
 
@@ -45,29 +45,66 @@ class ApiResourceProvider {
         // get the default options and merge into this instance
         this.options = angular.extend({}, that.defaultOptions, this.options);
 
+        this.pageBustValue;
       }
 
       config(config) {
         return angular.extend({}, this.options, (config || {}));
       }
 
-      cacheBust(_config) {
+      cacheBust(config) {
 
-        const config = angular.copy(_config);
-        config.cacheBust = null;
-        config.params = config.params || {};
-        config.params.cacheBust = moment().unix();
-
-        return config;
+        if (config.cacheBust === true) {
+          config.params.cacheBust = moment().unix();
+        } else if (angular.isFunction(config.cacheBust)) {
+          config.params.cacheBust = config.cacheBust();
+        } else {
+          config.params.cacheBust = config.cacheBust;
+        }
 
       }
+      setPageBust(value) {
+        this.pageBustValue = angular.isUndefined(value) ? moment().unix() : value;
+      }
+      getPageBust() {
+        if (angular.isUndefined(this.pageBustValue)) {
+          this.setPageBust();
+        }
+        return this.pageBustValue;
+      }
+      pageBust(config) {
+        if (config.pageBust === true) {
+          config.params.pageBust = this.getPageBust();
+        } else if (angular.isFunction(config.pageBust)) {
+          config.params.pageBust = config.pageBust();
+        } else {
+          config.params.pageBust = config.pageBust;
+        }
+      }
 
-      sessionBust(_config) {
+      // cacheBust: supports the following types
+      //    - true|false: Generate a timestamp each call
+      //    - Value: Use this as a chacheBust variable for each call
+      //    - Function: Call this function to return the cacheBust variable
+      // pageBust: true|false, if true, set a cachebust variable to a timestamp of page load
+      // sessionBust: true|false, if true, get the avCacheBust variable from local storage, set at
+      //    login (if value not set, works like pageBust)
+      cacheParams(_config) {
 
         const config = angular.copy(_config);
-        config.sessionBust = null;
         config.params = config.params || {};
-        config.params.sessionBust = that.sessionBust;
+
+        if (config.cacheBust) {
+          this.cacheBust(config);
+        }
+
+        if (config.pageBust) {
+          this.pageBust(config);
+        }
+
+        if (config.sessionBust) {
+          config.params.sessionBust = avLocalStorageService.getVal(AV_STORAGE.SESSION_CACHE) || this.getPageBust();
+        }
 
         return config;
       }
@@ -82,35 +119,19 @@ class ApiResourceProvider {
 
       }
 
-      createResponse(data, status, headers, config) {
-        return {
-          data,
-          status,
-          headers,
-          config
-        };
-      }
-
       request(config, afterCallback) {
 
         const self = this;
         const defer = $q.defer();
 
         $http(config)
-          .success( (data, status, headers, _config) => {
-
-            const _response = {
-              data,
-              status,
-              headers,
-              config: _config
-            };
+          .then( response => {
 
             // handle the async response if applicable
-            const _promise = $q.when(avPollingService.response(_response));
+            const _promise = $q.when(avPollingService.response(response));
 
             // notify the promise listener of the original response
-            defer.notify(_response);
+            defer.notify(response);
 
             // handle the polling service promise
             _promise.then( (_successResponse) => {
@@ -126,8 +147,7 @@ class ApiResourceProvider {
               (notifyResponse) => defer.notify(notifyResponse)
             );
 
-          }).error( (data, status, headers, _config) => {
-            const response = self.createResponse(data, status, headers, _config);
+          }).catch( response => {
             defer.reject(response);
           });
 
@@ -207,6 +227,25 @@ class ApiResourceProvider {
 
       }
 
+      postGet(_data, _config) {
+        let data = _data;
+        let config = _config;
+
+        if (!data) {
+          throw new Error('called method without [data]');
+        }
+        if (this.beforeCreate) {
+          data = this.beforePostGet(data);
+        }
+        config = this.config(config);
+        config.method = 'POST';
+        config.headers['X-HTTP-Method-Override'] = 'GET';
+        config.url = this.getUrl();
+        config.data = data;
+
+        return this.request(config, this.afterPostGet);
+      }
+
       get(id, _config) {
 
         let config = _config;
@@ -216,9 +255,7 @@ class ApiResourceProvider {
         }
 
         config = this.config(config);
-        if (config.cacheBust) {
-          config = this.cacheBust(config);
-        }
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl(id);
@@ -232,16 +269,8 @@ class ApiResourceProvider {
 
         let config = _config;
 
-        // If true cache bust the api on every call
         config = this.config(config);
-        if (config.cacheBust) {
-          config = this.cacheBust(config);
-        }
-
-        // Cache bust api once per application load
-        if (config.sessionBust) {
-          config = this.sessionBust(config);
-        }
+        config = this.cacheParams(config);
 
         config.method = 'GET';
         config.url = this.getUrl();
@@ -310,15 +339,18 @@ class ApiResourceProvider {
         return this.request(config, this.afterRemove);
       }
 
-      static create() {
-        return new AvApiResource();
-      }
-
       beforeCreate(data) {
         return data;
       }
 
       afterCreate(response) {
+        return response;
+      }
+
+      beforePostGet(data) {
+        return data;
+      }
+      afterPostGet(response) {
         return response;
       }
 

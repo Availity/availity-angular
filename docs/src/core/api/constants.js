@@ -50,7 +50,8 @@ ngModule.constant('AV_API', {
     headers: {
       // Turn off content encoding for angular apis
       'X-Response-Encoding-Context': 'NONE'
-    }
+    },
+    sessionBust: true
   }
 });
 

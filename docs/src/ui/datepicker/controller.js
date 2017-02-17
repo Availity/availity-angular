@@ -1,7 +1,6 @@
 import angular from 'angular';
 import $ from 'jquery';
 
-import Base from '../base';
 import ngModule from '../module';
 
 function hasDateInput() {
@@ -13,14 +12,12 @@ function hasDateInput() {
 const hasDateInputSupport = hasDateInput();
 
 // Inspiration https://github.com/mgcrea/angular-strap/blob/v0.7.8/src/directives/datepicker.js
-class AvDatepickerController extends Base {
-
-  static $inject = ['$element', '$attrs', 'AV_DATEPICKER', '$scope', 'avDatepickerConfig'];
+class AvDatepickerController {
 
   hasDateInputSupport = hasDateInputSupport;
 
-  constructor(...args) {
-    super(...args);
+  constructor($element, $attrs, AV_DATEPICKER, $scope, avDatepickerConfig) {
+    this.av = { $element, $attrs, AV_DATEPICKER, $scope, avDatepickerConfig };
   }
 
   setValue() {
@@ -103,7 +100,7 @@ class AvDatepickerController extends Base {
   //  - MMM => Jan Feb ... Nov Dec
   //  - MMMM => January February ... November December
   //  - YY => 70 71 ... 29 30
-  //  -  YYYY => 1970 1971 ... 2029 2030
+  //  - YYYY => 1970 1971 ... 2029 2030
   //
   //
   //  Table reads momment.js format => bootstrap-datepicker format

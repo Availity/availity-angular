@@ -46,7 +46,7 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
 
       const win = angular.element($window);
 
-      win.bind('scroll', () => {
+      win.on('scroll.datepicker', () => {
         avDatepicker.hide();
       });
 
@@ -60,8 +60,10 @@ ngModule.directive('avDatepicker', function($window, $log, AV_DATEPICKER) {
         });
       }
 
-      scope.$on('destroy', () => {
+      scope.$on('$destroy', () => {
+        avDatepicker.hide();
         avDatepicker.destroy();
+        win.off('scroll.datepicker');
         if (target.length) {
           target.off('click.datepicker');
         }

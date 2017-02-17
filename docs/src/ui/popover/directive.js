@@ -1,7 +1,7 @@
 import angular from 'angular';
 import ngModule from '../module';
 
-ngModule.directive('avPopover', function() {
+ngModule.directive('avPopover', () => {
   return {
     restrict: 'A',
     controller: 'AvPopoverController',
@@ -13,7 +13,7 @@ ngModule.directive('avPopover', function() {
 
       const options = {};
 
-      scope.$evalAsync(function() {
+      scope.$evalAsync(() => {
         element.popover(angular.extend({}, options, {
           html: true
         }));

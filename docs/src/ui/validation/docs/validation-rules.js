@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import assignIn from 'lodash.assignin';
 
 const defaultRules = {
   ssn: {
@@ -93,7 +93,7 @@ const defaultRules = {
   }
 };
 
-const stateRules = _.extend({}, defaultRules, {
+const stateRules = assignIn({}, defaultRules, {
   'lastName': null,
   'firstName': {
     'required': null,

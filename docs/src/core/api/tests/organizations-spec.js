@@ -31,8 +31,8 @@ describe('avOrganizationsResource', () => {
 
   it('should allow add user id to query params', () => {
 
-    $httpBackend.expect('GET', '/api/sdk/platform/v1/users/me').respond(200, userData);
-    $httpBackend.expect('GET', '/api/sdk/platform/v1/organizations?limit=100&offset=20&userId=rm3').respond(200, orgData);
+    $httpBackend.expectGET(/\/api\/sdk\/platform\/v1\/users\/me\?sessionBust=\d+/).respond(200, userData);
+    $httpBackend.expect('GET', /\/api\/sdk\/platform\/v1\/organizations\?limit=100&offset=20&sessionBust=\d+&userId=rm3/).respond(200, orgData);
 
     avOrganizationsResource.getOrganizations({params: {limit: 100, offset: 20}}).then(data => {
       expect(data[0].a).toBeTruthy();

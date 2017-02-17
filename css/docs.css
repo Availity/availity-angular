@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.10 (11/08/2016)
+ * availity-angular v2.0.0-beta.15 (02/16/2017)
  * (c) Availity, LLC
  */
 [av-datepicker]::-webkit-calendar-picker-indicator,
@@ -29,9 +29,17 @@
 [x-ng-click][disabled],
 [ng-click].disabled,
 [data-ng-click].disabled,
-[x-ng-click].disabled {
+[x-ng-click].disabled,
+[ng-click][disabled]:hover,
+[data-ng-click][disabled]:hover,
+[x-ng-click][disabled]:hover,
+[ng-click].disabled:focus,
+[data-ng-click].disabled:focus,
+[x-ng-click].disabled:focus {
+  color: inherit;
   cursor: auto;
   pointer-events: none;
+  text-decoration: none;
 }
 /**
  * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML

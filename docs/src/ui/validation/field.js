@@ -1,16 +1,14 @@
 import angular from 'angular';
+
 import ngModule from '../module';
 import { uuid } from '../../core/utils';
 import '../../core/validation';
-import Base from '../base';
 
-class AvValFieldController extends Base {
+class AvValFieldController {
 
-  static $inject = ['$element', 'avValAdapter', 'avVal', '$log', '$timeout', '$scope', '$attrs'];
+  constructor($element, avValAdapter, avVal, $log, $timeout, $scope, $attrs) {
 
-  constructor(...args) {
-
-    super(...args);
+    this.av = { $element, avValAdapter, avVal, $log, $timeout, $scope, $attrs };
 
     this.ngModel = null;
     this.rule = null;
@@ -73,6 +71,7 @@ class AvValFieldController extends Base {
 
 
     Object.keys(constraints).forEach(constraintName => {
+
       const constraint = constraints[constraintName];
       if (!constraint) {
 
@@ -103,7 +102,7 @@ class AvValFieldController extends Base {
 
       };
 
-      // Attach the constrain to the validator so that the message is available
+      // Attach the constraint to the validator so that the message is available
       // to the validation container that is going to paint the message on screen.
       self.ngModel.$validators[constraintName].constraint = constraint;
 
@@ -119,11 +118,9 @@ class AvValFieldController extends Base {
   }
 
   onRunValidators() {
-
     if (this.ngModel.$dirty) {
       this.updateElement();
     }
-
   }
 
 }
@@ -134,13 +131,7 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
   return {
     restrict: 'A',
     controller: 'AvValFieldController',
-    require: ['^avValForm', 'ngModel', 'avValField'],
-    scope: {
-      avValDebounce: '<?',
-      avValOn: '<?',
-      avValShowOnLoad: '<?',
-      avValInvalid: '<?'
-    },
+    require: ['^avValForm', 'ngModel', 'avValField', '?ngModelOptions', '?^ngModelOptions'],
     link(scope, element, attrs, controllers) {
 
       const ruleName = attrs.avValField;
@@ -148,31 +139,24 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
       const avValForm = controllers[0];
       const ngModel = controllers[1];
       const avValField = controllers[2];
+      const ngModelOptions = controllers[3];
+      const ngModelOptionsParent = controllers[4];
 
-      const avValOn = scope.avValOn || avValForm.avValOn || 'default';
+      if (!ngModelOptions || !ngModelOptionsParent) {
 
-      let avValDebounce;
-      if (avValField.isCheckbox() || avValField.isRadio()) {
-        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE_QUICK;
-      } else {
-        avValDebounce = scope.avValDebounce || avValForm.avValDebounce || AV_VAL.DEBOUNCE;
+        ngModel.$options.createChild({
+          '*': '$inherit',
+          debounce: avValField.isCheckbox() || avValField.isRadio() ? AV_VAL.DEBOUNCE_QUICK : AV_VAL.DEBOUNCE
+        });
+
       }
-
-      const avValInvalid = scope.avValInvalid || avValForm.avValInvalid || false;
-
-      ngModel.$$setOptions({
-        updateOnDefault: true,
-        updateOn: avValOn,
-        allowInvalid: avValInvalid,
-        debounce: avValDebounce
-      });
 
       // Wrap $$runValidators with our own function so we can intercept when the validation
       // pipeline finishes.
       const $$runValidators = ngModel.$$runValidators;
       const runValidators = (modelValue, viewValue, doneCallback) => {
 
-        $$runValidators(modelValue, viewValue, (allValid) => {
+        $$runValidators.call(ngModel, modelValue, viewValue, (allValid) => {
           doneCallback(allValid);
           avValField.onRunValidators();
         });
@@ -192,19 +176,25 @@ ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) =
         avValForm
       });
 
-      scope.$on(AV_VAL.EVENTS.REVALIDATE, () => {
+      const reValidateOff = scope.$on(AV_VAL.EVENTS.REVALIDATE, () => {
         ngModel.$validate();
       });
 
-      scope.$on(AV_VAL.EVENTS.SUBMITTED, () => {
+      const submittedOff = scope.$on(AV_VAL.EVENTS.SUBMITTED, () => {
         ngModel.$dirty = true;
         ngModel.$validate();
       });
 
       // - Removes all errors on page,
       // - Does not reset view or model values.  This should to be handled by the application.
-      scope.$on(AV_VAL.EVENTS.RESET, () => {
+      const resetOff = scope.$on(AV_VAL.EVENTS.RESET, () => {
         avValField.reset();
+      });
+
+      scope.$on('$destroy', () => {
+        reValidateOff();
+        submittedOff();
+        resetOff();
       });
 
     }

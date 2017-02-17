@@ -1,8 +1,8 @@
 /* global inject, describe, it, module, beforeEach, expect */
 
 import angular from 'angular';
-import * as _ from 'lodash';
 import Tester from 'tester';
+import size from 'lodash.size';
 
 import ngModule from '../';
 
@@ -52,7 +52,7 @@ describe('avUserAuthorizations', () => {
       avUserAuthorizations.setRegion('ALL');
       tester.$httpBackend.expect('GET', FIXTURES.URI_452_999_ALL).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPermissions(['452', '999']).then(permissions => {
-        expect(_.size(permissions)).toBe(2);
+        expect(size(permissions)).toBe(2);
         validatePermission(permissions[0]);
       });
       tester.$httpBackend.flush();
@@ -152,7 +152,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getOrganizations('452').then(organizations => {
-        expect(_.isArray(organizations)).toBe(true);
+        expect(Array.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(1);
         const org = organizations[0];
         expect(org.id).toBe('1435');
@@ -166,7 +166,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getOrganizations('999').then(organizations => {
-        expect(_.isArray(organizations)).toBe(true);
+        expect(Array.isArray(organizations)).toBe(true);
         expect(organizations.length).toBe(0);
       });
       tester.$httpBackend.flush();
@@ -179,7 +179,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.VALID);
       avUserAuthorizations.getPayers('452', '1435').then(payers => {
-        expect(_.isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(1);
         const payer = payers[0];
         expect(payer.id).toBe('8001');
@@ -193,7 +193,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_452).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('452', '1001').then(payers => {
-        expect(_.isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);
       });
       tester.$httpBackend.flush();
@@ -203,7 +203,7 @@ describe('avUserAuthorizations', () => {
 
       tester.$httpBackend.expect('GET', FIXTURES.URI_999).respond(200, FIXTURES.EMPTY);
       avUserAuthorizations.getPayers('999', '1435').then(payers => {
-        expect(_.isArray(payers)).toBe(true);
+        expect(Array.isArray(payers)).toBe(true);
         expect(payers.length).toBe(0);
       });
       tester.$httpBackend.flush();

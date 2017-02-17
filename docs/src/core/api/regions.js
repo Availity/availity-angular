@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import ngModule from '../module';
 
 const AvRegionsFactory = function(AvApiResource, avUsersResource) {
@@ -9,7 +8,9 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 
       super({
         path: '/api/sdk/platform',
-        name: '/regions'
+        name: '/regions',
+        sessionBust: false,
+        pageBust: true
       });
 
     }
@@ -18,31 +19,38 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
       return response.data.regions || [];
     }
 
-    queryRegions(user, config) {
-
-      const params = {
-        params: {
-          userId: user.id
-        }
-      };
-
-      const conf = _.merge({}, params, config);
-
-      return this.query(conf);
-
-    }
-
-    getCurrentRegion() {
-      return this.getRegions()
-        .then(regions => {
-          return _.find(regions, region => region.currentlySelected);
-        });
+    afterUpdate(response) {
+      this.setPageBust();
+      return response;
     }
 
     getRegions(config) {
-      return avUsersResource
-        .me()
-        .then(user => ::this.queryRegions(user, config));
+      return this.checkUser(config)
+      .then(checkedConfig => {
+        return this.query(checkedConfig);
+      });
+    }
+
+    checkUser(config = {}) {
+
+      config.params = config.params || {};
+      if (config.params.userId) {
+        return Promise.resolve(config);
+      }
+
+      return avUsersResource.me()
+        .then(user => {
+          config.params.userId = user.id;
+          return config;
+        });
+    }
+
+    getCurrentRegion() {
+      return this.query({
+        params: {
+          currentlySelected: true
+        }
+      });
     }
   }
 
@@ -53,5 +61,3 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 ngModule.factory('avRegionsResource', AvRegionsFactory);
 
 export default ngModule;
-
-

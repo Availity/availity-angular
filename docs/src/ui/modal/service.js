@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import isUndefined from 'lodash.isundefined';
 
 import ngModule from '../module';
 import '../templates';
@@ -89,7 +89,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
         'remote': this.options.remote
       });
 
-      if (_.isUndefined(this.options.show) || this.options.show) {
+      if (isUndefined(this.options.show) || this.options.show) {
         this.$element.modal('show');
       }
 
@@ -203,6 +203,8 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       return this.templatePromise.then( () => {
         this.$element.data('AvModal', null);
+        this.$element.off(AV_MODAL.BS_EVENTS.SHOWN);
+        this.$element.off(AV_MODAL.BS_EVENTS.SHOW);
         this.$element.remove();
       });
 

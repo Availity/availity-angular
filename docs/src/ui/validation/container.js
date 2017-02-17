@@ -1,12 +1,9 @@
 import ngModule from '../module';
-import Base from '../base';
 
-class AvValContainerController extends Base {
+class AvValContainerController {
 
-  static $inject = ['$sce', '$scope', '$timeout', 'AV_UI'];
-
-  constructor(...args) {
-    super(...args);
+  constructor($sce, $scope, $timeout, AV_UI) {
+    this.av = { $sce, $scope, $timeout, AV_UI };
   }
 
   message(context) {
@@ -38,7 +35,7 @@ class AvValContainerController extends Base {
 }
 
 ngModule.directive('avValContainer', () => ({
-  restrict: 'A',
+  restrict: 'AE',
   controller: AvValContainerController,
   template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
   replace: true,

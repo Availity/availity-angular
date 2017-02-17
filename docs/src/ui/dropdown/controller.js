@@ -1,18 +1,16 @@
-import * as _ from 'lodash';
 import angular from 'angular';
+import matches from 'lodash.matches';
+import isEmpty from 'lodash.isempty';
 
-import Base from '../base';
 import ngModule from '../module';
 import { uuid } from '../../core/utils';
 import './provider';
 
-class AvDropdownController extends Base {
+class AvDropdownController {
 
-  static $inject = ['$element', '$attrs', 'avDropdownConfig', '$scope', '$timeout', '$parse'];
+  constructor($element, $attrs, avDropdownConfig, $scope, $timeout, $parse) {
 
-  constructor(...args) {
-
-    super(...args);
+    this.av = { $element, $attrs, avDropdownConfig, $scope, $timeout, $parse };
 
     this.options = {};
     this.match = null;
@@ -49,14 +47,19 @@ class AvDropdownController extends Base {
 
     }
 
+    // if element is type input, initSelection is required to use val
+    if (!this.av.$element.is('select') && !this.options.initSelection) {
+      this.options.initSelection = this.initSelection;
+    }
+
   }
 
   isRemoteMultiple() {
     return angular.isDefined(this.av.$attrs.multiple) && this.av.$element.get(0).tagName.toLowerCase() === 'input';
   }
 
-  initSelection() {
-
+  initSelection(element, callback) {
+    callback();
   }
 
   setRemoteViewValue(e) {
@@ -72,7 +75,7 @@ class AvDropdownController extends Base {
       values.push(e.added);
     } else {
       // Removing from collection
-      const index = values.findIndex(value => _.matches(e.removed)(value));
+      const index = values.findIndex(value => matches(e.removed)(value));
       values.splice(index, 1);
     }
 
@@ -226,11 +229,11 @@ class AvDropdownController extends Base {
       viewValue = [];
     }
 
-    if (!_.isEmpty(viewValue) && angular.isObject(viewValue[0])) {
+    if (!isEmpty(viewValue) && angular.isObject(viewValue[0])) {
       viewValue = this.getMultiSelected(viewValue);
     }
 
-    this.av.$timeout(() => this.av.$element .select2('val', viewValue) );
+    this.av.$timeout(() => this.av.$element.select2('val', viewValue) );
 
   }
 
@@ -309,7 +312,7 @@ class AvDropdownController extends Base {
 
     let optionValuesKeys;
 
-    if (!this.keyName && _.isArray(optionValues)) {
+    if (!this.keyName && Array.isArray(optionValues)) {
       optionValuesKeys = optionValues;
     } else {
       // if object, extract keys, in enumeration order, unsorted
@@ -328,4 +331,3 @@ class AvDropdownController extends Base {
 ngModule.controller('AvDropdownController', AvDropdownController);
 
 export default AvDropdownController;
-
