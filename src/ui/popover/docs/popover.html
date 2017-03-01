@@ -1,0 +1,73 @@
+---
+title: Popovers
+---
+<div ng-controller="DemoPopoverController">
+
+  <div class="docs-example">
+    <button type="button"
+      class="btn btn-default"
+      av-popover
+      data-trigger="focus"
+      title="What is HIPAA"
+      data-placement="top"
+      data-content="HIPAA is short for the Health Insurance Portability and Accountability Act."
+    >
+        Click to toggle popover
+    </button>
+    <button type="button"
+      class="btn btn-default"
+      av-popover
+      data-trigger="hover"
+      title="Protected Health Information (PHI)"
+      data-placement="top"
+      data-content="PHI is any information in a medical record that can be used to identify an individual, and that was created, used, or disclosed in the course of providing a health care service, such as a diagnosis or treatment."
+    >
+        Hover to show popover
+    </button>
+    <button type="button"
+      class="btn btn-default"
+      av-popover
+      data-trigger="manual"
+      title="Need an immediate alert?"
+      data-placement="top"
+      data-show="showOnLoad"
+      data-content="You can toggle popovers to show immediately!"
+    >
+        Show popover on load
+    </button>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+<button type="button"
+  class="btn btn-default"
+  av-popover
+  data-trigger="focus"
+  title="What is HIPAA"
+  data-placement="top"
+  data-content="HIPAA is short for the Health Insurance Portability and Accountability Act."
+>
+    Click to toggle popover
+</button>
+<button type="button"
+  class="btn btn-default"
+  av-popover
+  data-trigger="hover"
+  title="Protected Health Information (PHI)"
+  data-placement="top"
+  data-content="PHI is any information in a medical record that can be used to identify an individual, and that was created, used, or disclosed in the course of providing a health care service, such as a diagnosis or treatment."
+>
+    Hover to show popover
+</button>
+<button type="button"
+  class="btn btn-default"
+  av-popover
+  data-trigger="manual"
+  title="Need an immediate alert?"
+  data-placement="top"
+  data-show="showOnLoad"
+  data-content="You can toggle popovers to show immediately!"
+>
+    Show popover on load
+</button>
+  </code>
+
+</div>

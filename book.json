@@ -1,0 +1,24 @@
+{
+  "gitbook": "3.x.x",
+  "title": "Availity Angular SDK",
+  "plugins": ["prism", "-highlight"],
+  "pluginsConfig": {
+    "prism": {
+      "css": [
+        "syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"
+      ]
+    }
+  },
+  "structure": {
+    "summary": "SUMMARY.md"
+  },
+  "links": {
+    "sidebar" : {
+      "Home" : "https://github.com/Availity/availity-angular"
+    },
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
+  }
+}

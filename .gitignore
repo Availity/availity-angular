@@ -1,9 +1,13 @@
 .idea
+npm-debug*.log
 bower_components
 node_modules
+_book
 reports
 /.deprc
-
+/dist/
 /build/
 .DS_Store
-/npm-debug.log
+/lib/
+/coverage
+/.vscode

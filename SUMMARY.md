@@ -1,0 +1,17 @@
+## Table of Contents
+
+* [Read Me](/README.md)
+* [API](/src/core/api/README.md)
+    * [Organizations](/src/core/api/docs/organizations.md)
+    * [Permissions](/src/core/api/docs/permisions.md)
+    * [Regions](/src/core/api/docs/regions.md)
+    * [Spaces](/src/core/api/docs/spaces.md)
+    * [Permissions (legacy)](/src/core/api/docs/user-permissions.md)
+    * [Users](/src/core/api/docs/uers.md)
+* [Analytics](/src/core/analytics/README.md)
+* [Animation](/src/ui/animation/README.md)
+    * [avAnimate](/src/ui/animation/animate.md)
+    * [avLoader](/src/ui/animation/loader/README.md)
+* [Authorizations](/src/core/authorizations/README.md)
+* [Dimmer](/src/ui/dimmer/README.md)
+* [Utils](//src/core/utils/README.md)

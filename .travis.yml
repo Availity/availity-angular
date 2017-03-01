@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '5'
+  - '6'
 git:
   depth: 10
 env:
@@ -11,14 +11,10 @@ addons:
   sauce_connect: true
 notifications:
   email: false
-before_install:
-  - npm install --quiet -g bower
-  - npm install --quiet -g gulp
 install:
-  - npm install --no-optional
+  - npm install
 cache:
   directories:
     - node_modules
-    - bower_components
 script:
-  - gulp test:sauce
+  - npm run test:ci
