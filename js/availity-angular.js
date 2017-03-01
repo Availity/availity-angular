@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.0.0-beta.15 (02/16/2017)
+ * availity-angular v2.0.0 (02/28/2017)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -11085,7 +11085,7 @@ webpackJsonp([0],[
 	              host: document.domain,
 	              screenWidth: (0, _jquery2.default)(window).width(),
 	              screenHeight: (0, _jquery2.default)(window).height(),
-	              sdkVersion: ("2.0.0-beta.15")
+	              sdkVersion: ("2.0.0")
 	            };
 	
 	            return this.log(message);
