@@ -59,12 +59,14 @@ function serv() {
     const message = debounce(stats => {
 
       const statistics = stats.toString({
+        assets: false,
         colors: true,
-        cached: true,
-        reasons: false,
-        source: false,
+        version: false,
+        hash: false,
+        timings: false,
         chunks: false,
-        children: false
+        chunkModules: false,
+        errorDetails: true
       });
 
       const uri = `http://localhost:${PORT}/`;

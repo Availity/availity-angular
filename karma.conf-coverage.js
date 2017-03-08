@@ -23,16 +23,11 @@ const wpConfig = merge(webpackConfig, {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-istanbul-loader',
+        use: 'babel-istanbul-loader',
         exclude: /(bower_components|node_modules)/
       }
     ]
-  },
-
-  debug: false,
-  cache: false,
-  watch: false
-
+  }
 });
 
 module.exports = function(config) {
@@ -124,4 +119,3 @@ module.exports = function(config) {
 
   });
 };
-

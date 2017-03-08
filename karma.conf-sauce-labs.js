@@ -21,17 +21,13 @@ const wpConfig = merge(webpackConfig, {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-istanbul-loader',
+        use: 'babel-istanbul-loader',
         exclude: /(bower_components|node_modules)/
       }
     ]
   },
 
-  devtool: 'inline-source-map',
-
-  debug: false,
-  cache: false,
-  watch: false
+  devtool: 'inline-source-map'
 
 });
 

@@ -8,7 +8,7 @@ import '../';
 describe('placeholder', () => {
 
   let $el;
-  const placeholderSniffer = null;
+  let placeholderSniffer = null;
   let $compile;
   let scope;
   const tester = new Tester();

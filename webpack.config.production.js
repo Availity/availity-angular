@@ -46,10 +46,6 @@ function getConfig(options) {
 
     devtool: 'source-map',
 
-    debug: false,
-    cache: false,
-    watch: false,
-
     stats: {
       colors: true,
       reasons: true,
@@ -105,5 +101,3 @@ function getConfig(options) {
 }
 
 module.exports = getConfig;
-
-

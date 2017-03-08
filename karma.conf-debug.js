@@ -16,11 +16,7 @@ const wpConfig = merge(webpackConfig, {
     }
   },
 
-  devtool: 'inline-source-map',
-
-  debug: true,
-  cache: false,
-  watch: true
+  devtool: 'inline-source-map'
 
 });
 
@@ -115,4 +111,3 @@ module.exports = function(config) {
 
   });
 };
-
