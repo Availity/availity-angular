@@ -4,10 +4,9 @@ bower_components
 node_modules
 _book
 reports
-/.deprc
-/dist/
-/build/
+dist
+build
 .DS_Store
-/lib/
-/coverage
-/.vscode
+lib
+coverage
+.vscode
