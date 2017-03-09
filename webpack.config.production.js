@@ -59,15 +59,12 @@ function getConfig(options) {
     },
 
     plugins: [
-
-      new webpack.BannerPlugin(banner()),
-
-      new webpack.optimize.OccurenceOrderPlugin(true),
-
-      new ExtractTextPlugin(optimize ? 'css/[name].min.css' : 'css/[name].css', {
-        disable: false,
-        allChunks: true
+      new webpack.BannerPlugin({
+        banner: banner(),
+        exclude: ['vendor']
       }),
+
+      new ExtractTextPlugin(optimize ? 'css/[name].min.css' : 'css/[name].css'),
 
       new webpack.NoErrorsPlugin(),
 
@@ -91,7 +88,8 @@ function getConfig(options) {
         },
         compressor: {
           screw_ie8: true,
-          warnings: false
+          warnings: false,
+          drop_console: true
         }
       })
     );

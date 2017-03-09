@@ -49,7 +49,7 @@ describe('placeholder', () => {
     module('availity.ui');
   });
 
-  tester.directiveSpecHelper();
+  tester.directive();
 
   beforeEach(inject(function($injector, _placeholderSniffer_) {
     $compile = $injector.get('$compile');

@@ -24,4 +24,3 @@ ngModule.config(function($provide) {
   });
 
 });
-

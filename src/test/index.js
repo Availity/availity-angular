@@ -38,32 +38,30 @@ class Tester {
 
   directive() {
 
-    const self = this;
-
     beforeEach(inject( (_$rootScope_, _$compile_, _$anchorScroll_, _$window_, _$controller_, _$location_, _$q_, _$timeout_, _$httpBackend_, _$http_) => {
 
-      self.$scope = _$rootScope_.$new();
-      self.sandboxEl = $('<div>').attr('id', 'sandbox').appendTo($('body'));
-      self.$compile = _$compile_;
-      self.$controller = _$controller_;
-      self.$location = _$location_;
-      self.$window = _$window_;
-      self.$anchorScroll = _$anchorScroll_;
-      self.$q = _$q_;
-      self.$timeout = _$timeout_;
-      self.$http = _$http_;
-      self.$httpBackend = _$httpBackend_;
-      self.spyBroadast = spyOn(_$rootScope_, '$broadcast').and.callThrough();
-      self.spy = jasmine.createSpy('event');
+      this.$scope = _$rootScope_.$new();
+      this.sandboxEl = $('<div>').attr('id', 'sandbox').appendTo($('body'));
+      this.$compile = _$compile_;
+      this.$controller = _$controller_;
+      this.$location = _$location_;
+      this.$window = _$window_;
+      this.$anchorScroll = _$anchorScroll_;
+      this.$q = _$q_;
+      this.$timeout = _$timeout_;
+      this.$http = _$http_;
+      this.$httpBackend = _$httpBackend_;
+      this.spyBroadast = spyOn(_$rootScope_, '$broadcast').and.callThrough();
+      this.spy = jasmine.createSpy('event');
 
     }));
 
     afterEach( () => {
 
-      self.$scope.$destroy();
-      self.sandboxEl.remove();
-      self.$httpBackend.verifyNoOutstandingExpectation();
-      self.$httpBackend.verifyNoOutstandingRequest();
+      this.$scope.$destroy();
+      this.sandboxEl.remove();
+      this.$httpBackend.verifyNoOutstandingExpectation();
+      this.$httpBackend.verifyNoOutstandingRequest();
 
     });
   }
