@@ -29,7 +29,6 @@
     "test:ci": "npm run lint && karma start ./karma.conf-sauce-labs.js",
     "test:coverage": "karma start ./karma.conf-coverage.js",
     "preversion": "npm run lint",
-    "prepublishOnly": "npm run build",
     "lint": "node cli.js lint",
     "book:prepare": "gitbook install",
     "book:copy": "copyfiles -u 1 \"./_book/**/*\" build/docs",
