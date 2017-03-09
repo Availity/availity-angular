@@ -62,8 +62,12 @@ class AvExceptionAnalyticsProvider {
         const length = stacktrace.stack.length;
 
         for (let i = 0; i < length; i++) {
+          let iMessage = i.toString();
+          while (iMessage.length < 2) {
+            iMessage = '0' + iMessage;
+          }
           message += [
-            `[${i.toString().padStart(2, '0')}] `,
+            `[${iMessage}] `,
             stacktrace.stack[i].func,
             ' ',
             stacktrace.stack[i].url,
@@ -167,5 +171,3 @@ ngModule.config( $provide => {
 ngModule.run( avExceptionAnalytics => avExceptionAnalytics.init());
 
 export default ngModule;
-
-
