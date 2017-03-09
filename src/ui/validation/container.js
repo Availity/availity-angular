@@ -2,8 +2,8 @@ import ngModule from '../module';
 
 class AvValContainerController {
 
-  constructor($sce, $scope, $timeout, AV_UI) {
-    this.av = { $sce, $scope, $timeout, AV_UI };
+  constructor($scope, $timeout, AV_UI) {
+    this.av = { $scope, $timeout, AV_UI };
   }
 
   message(context) {
@@ -26,7 +26,7 @@ class AvValContainerController {
 
     // $timeout is needed to update the UI from $broadcast events
     this.av.$timeout(() => {
-      this.av.$scope.vm.message = this.av.$sce.trustAsHtml(message);
+      this.av.$scope.vm.message = message;
     });
 
   }
