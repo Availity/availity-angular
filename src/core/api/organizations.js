@@ -1,3 +1,4 @@
+import angular from 'angular';
 import ngModule from '../module';
 
 const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
