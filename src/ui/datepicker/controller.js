@@ -79,7 +79,7 @@ class AvDatepickerController {
     Object.keys(this.av.$attrs).forEach((key) => {
       const value = self.av.$attrs[key];
       const _key = key.replace('data-', '');
-      if (this.av.AV_DATEPICKER.OPTIONS.includes(_key)) {
+      if (this.av.AV_DATEPICKER.OPTIONS.indexOf(_key) >= 0) {
         self.options[_key] = self.av.$scope.$eval(value);
       }
     });

@@ -1,5 +1,6 @@
 import angular from 'angular';
 import union from 'lodash.union';
+import find from 'lodash.find';
 
 import ngModule from '../module';
 import '../api';
@@ -60,7 +61,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       }
 
       return this.getPermissions([permissionId])
-        .then(permissions => permissions.find(permission => permission.id === permissionId));
+        .then(permissions => find(permissions, ['id', permissionId]));
     }
 
     getPermissions(permissionIds) {
@@ -86,8 +87,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
     getPayers(permissionId, organizationId) {
 
       return this.getPermission(permissionId).then(permission => {
-
-        const organization = permission.organizations.find(thisPermission => thisPermission.id === organizationId);
+        const organization = find(permission.organizations, ['id', organizationId]);
 
         if (organization && organization.resources) {
           return organization.resources;
@@ -106,7 +106,7 @@ const AvUserAuthorizationsFactory = ($q, $log, avUserPermissionsResource) => {
       const result = permissionIds.map(permissionId => {
 
         const key = {id: permissionId};
-        let permission = permissions.find(thisPermission => thisPermission.id === permissionId);
+        let permission = find(permissions, ['id', permissionId]);
         permission = permission ? self.convert(permission) : self.convert(key);
         return permission;
 
