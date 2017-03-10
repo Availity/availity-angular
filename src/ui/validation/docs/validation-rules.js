@@ -1,4 +1,4 @@
-import assignIn from 'lodash.assignin';
+import angular from 'angular';
 
 const defaultRules = {
   ssn: {
@@ -93,7 +93,7 @@ const defaultRules = {
   }
 };
 
-const stateRules = assignIn({}, defaultRules, {
+const stateRules = angular.merge({}, defaultRules, {
   'lastName': null,
   'firstName': {
     'required': null,
