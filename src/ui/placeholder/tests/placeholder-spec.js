@@ -1,14 +1,15 @@
-/* global describe, it, jasmine, expect, beforeEach, module, inject */
+/* global describe, it, jasmine, expect, beforeEach, inject */
 
 import $ from 'jquery';
 import angular from 'angular';
 import Tester from 'tester';
 import '../';
+import '../../validation';
 
 describe('placeholder', () => {
 
   let $el;
-  const placeholderSniffer = null;
+  let placeholderSniffer = null;
   let $compile;
   let scope;
   const tester = new Tester();
@@ -16,19 +17,14 @@ describe('placeholder', () => {
   const fixtures = {
     'default': '<input type="text" id="test" placeholder="testing">',
     'model': '<input type="text" name="model" data-ng-model="demo.data" placeholder="testing">',
-    'testValue': '<input type="text" placeholder="testing" value="test">',
-    'phone': '<input data-ng-model="demo.data" name="phone" type="text" data-av-mask="phone" placeholder="testing">',
-    'datepicker': '<input data-ng-model="demo.data" name="date" type="text" data-av-mask="date" data-av-datepicker placeholder="testing">',
-    'custom': '<input data-ng-model="demo.data" name="custom" type="text" data-av-mask="9a99a" placeholder="testing">'
+    'testValue': '<input type="text" placeholder="testing" value="test">'
   };
 
   beforeEach(() => {
-
-    module('ng.shims.placeholder');
-    module('availity', avValProvider => {
-
+    angular.mock.module('ng.shims.placeholder');
+    angular.mock.module('availity', (avValProvider) => {
       avValProvider.addRules({
-        regular: {
+        default: {
           lastName: {
             size: {
               min: 2,
@@ -46,10 +42,10 @@ describe('placeholder', () => {
         }
       });
     });
-    module('availity.ui');
+    angular.mock.module('availity.ui');
   });
 
-  tester.directiveSpecHelper();
+  tester.directive();
 
   beforeEach(inject(function($injector, _placeholderSniffer_) {
     $compile = $injector.get('$compile');
@@ -186,46 +182,6 @@ describe('placeholder', () => {
       $('#myForm').submit();
     });
 
-  });
-
-  describe('with plugins', function() {
-
-    it('should work with phone mask', function() {
-
-      tester.$scope.demo.data = null;
-      $el = tester.compileDirective(fixtures.phone);
-      $el.val('9041234567').trigger('change');
-      tester.$scope.$digest();
-
-      expect(tester.$scope.demo.data).toBe('(904) 123-4567');
-    });
-
-    it('should work with avDatepicker', function() {
-
-      tester.$scope.demo.data = null;
-      $el = tester.compileDirective(fixtures.datepicker);
-
-      $el.val('12122015').trigger('change');
-      tester.$scope.$digest();
-
-      const date = tester.$scope.demo.data;
-
-      expect(date instanceof Date).toBe(true);
-      expect(date.getFullYear()).toBe(2015);
-      expect(date.getMonth()).toBe(11);
-      expect(date.getDate()).toBe(12);
-    });
-
-    it('should work with custom mask format', function() {
-
-      tester.$scope.demo.data = null;
-      $el = tester.compileDirective(fixtures.custom);
-
-      $el.val('1a234').trigger('change');
-      tester.$scope.$digest();
-
-      expect(tester.$scope.demo.data).toBe('1a23_');
-    });
   });
 
 });

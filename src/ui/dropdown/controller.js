@@ -1,4 +1,5 @@
 import angular from 'angular';
+import findIndex from 'lodash.findindex';
 import matches from 'lodash.matches';
 import isEmpty from 'lodash.isempty';
 
@@ -75,7 +76,7 @@ class AvDropdownController {
       values.push(e.added);
     } else {
       // Removing from collection
-      const index = values.findIndex(value => matches(e.removed)(value));
+      const index = findIndex(values, value => matches(e.removed)(value));
       values.splice(index, 1);
     }
 
@@ -134,7 +135,7 @@ class AvDropdownController {
     const optionValues = this.valuesFn(self.av.$scope) || [];
     const optionValuesKeys = this.getOptionValuesKeys(optionValues);
 
-    const index = this.collection.findIndex( item => {
+    const index = findIndex(this.collection, item => {
       return angular.equals(model, item);
     });
 

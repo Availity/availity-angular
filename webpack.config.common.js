@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const NpmImportPlugin = require('less-plugin-npm-import');
+const requireRelative = require('require-relative');
 
 const banner = require('./dev/banner');
 
@@ -21,44 +21,70 @@ const config = {
   },
 
   resolve: {
-    root: path.resolve('./src'),
-    extensions: ['', '.js'],
+    modules: [
+      path.resolve('./src'),
+      path.join(__dirname, 'node_modules')
+    ],
+    extensions: ['.js'],
     alias: {
       // without this $.fn.datepicker will be undefined.  Datepicker plugin
       // tried to load it's own version of jQuery
       jquery: require.resolve('jquery')
     }
   },
-
-  debug: false,
-  cache: false,
-  watch: false,
+  resolveLoader: {
+    modules: [
+      path.join(__dirname, 'node_modules')
+    ],
+    symlinks: true
+  },
 
   module: {
 
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        use: 'babel-loader',
         exclude: /(bower_components|node_modules)/
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        use: 'json-loader'
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?limit=32768?name=images/[name].[ext]',
+            'postcss-loader'
+          ],
+          publicPath: '../'
+        })
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?limit=32768?name=images/[name].[ext]!postcss!less',
-          {
-            publicPath: '../'
-          }
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?limit=32768?name=images/[name].[ext]',
+            'postcss-loader',
+            'less-loader'
+          ],
+          publicPath: '../'
+        })
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?limit=32768?name=images/[name].[ext]',
+            'postcss-loader',
+            'sass-loader'
+          ],
+          publicPath: '../'
+        })
       },
       {
         // test should match the following:
@@ -67,69 +93,90 @@ const config = {
         //  '../fonts/availity-font.eot'
         //
         test: /\.(ttf|woff|eot|svg).*/,
-        loader: 'file?name=fonts/[name].[ext]'
+        use: 'file-loader?name=fonts/[name].[ext]'
       },
       {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
-      },
-      {
-        test: /\.(jpe?g|png|gif)$/,
-        loader: 'url?limit=32768?name=images/[name].[ext]'
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'url-loader?name=images/[name].[ext]&limit=10000'
+        ]
       },
       {
         test: /tests.*\.html$/,
-        loader: 'html'
+        use: 'html-loader'
       },
       {
         // Files ending in *.html will be loaded into Angular $templaceCache relative to 'lib' folder.
         test: /\.html$/,
         exclude: /tests/,
-        loader: `ngtemplate?relativeTo=${process.cwd()}/!html`
+        use: [
+          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
+          'html-loader'
+        ]
+      },
+      {
+        test: requireRelative.resolve('angular', process.cwd()),
+        use: [
+          'expose-loader?angular',
+          'exports-loader?angular'
+        ]
+      },
+      {
+        test: requireRelative.resolve('jquery', process.cwd()),
+        use: [
+          'expose-loader?$',
+          'expose-loader?jQuery'
+        ]
+      },
+      {
+        test: requireRelative.resolve('moment', process.cwd()),
+        use: [
+          'expose-loader?moment'
+        ]
       }
     ]
   },
 
-  postcss() {
-    return [autoprefixer({browsers: ['last 2 versions', 'ie 9-11']})];
-  },
-
-  lessLoader: {
-    lessPlugins: [
-      new NpmImportPlugin({
-        prefix: '~'
-      })
-    ]
-  },
-
   plugins: [
-
-    new webpack.BannerPlugin(banner(), {
+    new webpack.BannerPlugin({
+      banner: banner(),
       exclude: ['vendor']
     }),
-
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new webpack.DefinePlugin({
       APP_VERSION: JSON.stringify('Unknown')
     }),
 
-    new ExtractTextPlugin('css/[name].css', {
-      disable: false,
-      allChunks: true
-    }),
+    new ExtractTextPlugin('css/[name].css'),
 
     new webpack.ProvidePlugin({
-      'jQuery': 'jquery',
       'window.jQuery': 'jquery',
-      'jquery': 'jquery',
-      'window.jquery': 'jquery',
       '$': 'jquery',
-      'window.$': 'jquery'
-    })
-
+      'jQuery': 'jquery'
+    }),
+    new webpack.LoaderOptionsPlugin(
+      {
+        test: /\.(s?c|le)ss$/,
+        debug: false,
+        options: {
+          postcss: [
+            autoprefixer(
+              {
+                browsers: [
+                  'last 5 versions',
+                  'Firefox ESR',
+                  'not ie < 9'
+                ]
+              }
+            )
+          ],
+          context: __dirname,
+          output: { path: '/build' }
+        }
+      }
+    )
   ]
 };
 
 module.exports = config;
-

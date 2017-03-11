@@ -1,5 +1,4 @@
-import merge from 'lodash.merge';
-
+import angular from 'angular';
 import ngModule from '../module';
 
 const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
@@ -26,7 +25,7 @@ const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
       };
 
       // merge in params with user ID
-      const queryConfig = merge({}, params, config);
+      const queryConfig = angular.merge({}, params, config);
 
       return this.query(queryConfig);
     }
@@ -48,4 +47,3 @@ const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
 ngModule.factory('avOrganizationsResource', OrganizationResourceFactory);
 
 export default ngModule;
-

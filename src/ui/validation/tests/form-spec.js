@@ -8,8 +8,8 @@ import Tester from 'tester';
 describe('avForm', () => {
 
   const tester = new Tester();
-  let DEBOUNCE;
 
+  let DEBOUNCE;
   beforeEach(() => {
 
     angular.mock.module('availity', avValProvider => {
@@ -47,9 +47,9 @@ describe('avForm', () => {
     });
   });
 
-  let $el;
-
   tester.directive();
+
+  let $el;
 
   beforeEach(() => {
 

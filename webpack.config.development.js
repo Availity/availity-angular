@@ -30,13 +30,9 @@ const config = merge(webpackCommon, {
     }
   },
 
-  debug: true,
-  cache: true,
-  watch: true,
-
   stats: {
+    assets: false,
     colors: true,
-    reasons: false,
     hash: false,
     version: true,
     timings: true,
@@ -57,4 +53,3 @@ const config = merge(webpackCommon, {
 });
 
 module.exports = config;
-

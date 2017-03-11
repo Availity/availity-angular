@@ -1,5 +1,4 @@
 import angular from 'angular';
-import isUndefined from 'lodash.isundefined';
 
 import ngModule from '../module';
 import '../templates';
@@ -89,7 +88,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
         'remote': this.options.remote
       });
 
-      if (isUndefined(this.options.show) || this.options.show) {
+      if (angular.isUndefined(this.options.show) || this.options.show) {
         this.$element.modal('show');
       }
 

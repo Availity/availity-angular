@@ -1,5 +1,3 @@
-import assign from 'lodash.assign';
-
 import demo from 'demo';
 
 demo.factory('demoValidationService', AV_VAL => {
@@ -27,7 +25,7 @@ demo.factory('demoValidationService', AV_VAL => {
       ];
 
       // keep a copy of the original state
-      this.originalState = assign({}, this);
+      this.originalState = Object.assign({}, this);
 
     }
 
@@ -36,7 +34,7 @@ demo.factory('demoValidationService', AV_VAL => {
     }
 
     reset($scope) {
-      assign(this, this.originalState);
+      Object.assign(this, this.originalState);
       $scope.$broadcast(AV_VAL.EVENTS.RESET);
     }
 
@@ -45,4 +43,3 @@ demo.factory('demoValidationService', AV_VAL => {
   return new DemoValidationService();
 
 });
-
