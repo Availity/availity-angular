@@ -6,9 +6,9 @@ import '../../core/validation';
 
 class AvValFieldController {
 
-  constructor($element, avValAdapter, avVal, $log, $timeout, $scope, $attrs) {
+  constructor($element, avValAdapter, avVal, $log, $scope, $attrs) {
 
-    this.av = { $element, avValAdapter, avVal, $log, $timeout, $scope, $attrs };
+    this.av = { $element, avValAdapter, avVal, $log, $scope, $attrs };
 
     this.ngModel = null;
     this.rule = null;
@@ -127,7 +127,7 @@ class AvValFieldController {
 
 ngModule.controller('AvValFieldController', AvValFieldController);
 
-ngModule.directive('avValField', ($log, $timeout, avVal, avValAdapter, AV_VAL) => {
+ngModule.directive('avValField', ($log, avVal, avValAdapter, AV_VAL) => {
   return {
     restrict: 'A',
     controller: 'AvValFieldController',

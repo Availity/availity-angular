@@ -41,7 +41,8 @@ function getConfig(options) {
       'select2': 'select2',
       'tracekit': 'TraceKit',
       'bootstrap-datepicker': 'bootstrap-datepicker',
-      'angular-ui-mask': 'angular-ui-mask'
+      'angular-ui-mask': 'angular-ui-mask',
+      'angular-sanitize': 'angular-sanitize'
     },
 
     devtool: 'source-map',
