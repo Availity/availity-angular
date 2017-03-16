@@ -1,5 +1,8 @@
 import ngModule from '../module';
 
+import 'angular-sanitize';
+ngModule.requires.push('ngSanitize');
+
 class AvValContainerController {
 
   constructor($scope, AV_UI) {
@@ -37,10 +40,9 @@ class AvValContainerController {
 ngModule.directive('avValContainer', () => ({
   restrict: 'AE',
   controller: AvValContainerController,
-  template: '<p class="help-block" ng-bind="vm.message"></p>',
+  template: '<p class="help-block" ng-bind-html="vm.message"></p>',
   replace: true,
   scope: {},
-
   link(scope) {
     scope.vm = { message: null, id: null };
   }
