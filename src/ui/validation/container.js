@@ -27,7 +27,7 @@ class AvValContainerController {
       message = null;
     }
 
-    // $timeout is needed to update the UI from $broadcast events
+    // $applyAsync is needed to update the UI from $broadcast events
     this.av.$scope.$applyAsync(() => {
       this.av.$scope.vm.message = message;
     });
