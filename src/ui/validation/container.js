@@ -2,8 +2,8 @@ import ngModule from '../module';
 
 class AvValContainerController {
 
-  constructor($scope, $timeout, AV_UI) {
-    this.av = { $scope, $timeout, AV_UI };
+  constructor($scope, AV_UI) {
+    this.av = { $scope, AV_UI };
   }
 
   message(context) {
@@ -25,7 +25,7 @@ class AvValContainerController {
     }
 
     // $timeout is needed to update the UI from $broadcast events
-    this.av.$timeout(() => {
+    this.av.$scope.$applyAsync(() => {
       this.av.$scope.vm.message = message;
     });
 
@@ -37,7 +37,7 @@ class AvValContainerController {
 ngModule.directive('avValContainer', () => ({
   restrict: 'AE',
   controller: AvValContainerController,
-  template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
+  template: '<p class="help-block" ng-bind="vm.message"></p>',
   replace: true,
   scope: {},
 
