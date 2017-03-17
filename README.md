@@ -3,7 +3,7 @@
 > Availity Angular SDK
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
-[![Bower](https://img.shields.io/bower/v/availity-angular.svg)]()
+[![NPM](http://img.shields.io/npm/v/availity-angular.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-angular)
 [![Dependency Status](https://img.shields.io/david/dev/Availity/availity-angular.svg?style=flat-square)](https://david-dm.org/Availity/availity-angular)
 [![Build](https://img.shields.io/travis/Availity/availity-angular.svg?style=flat-square&label=build)](https://travis-ci.org/Availity/availity-angular)
 
