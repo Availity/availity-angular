@@ -36,13 +36,14 @@ function getConfig(options) {
     externals: {
       'jquery': 'jQuery',
       'angular': 'angular',
+      'angular-sanitize': 'angular-sanitize',
       'moment': 'moment',
       'availity-uikit': 'availity-uikit',
       'select2': 'select2',
       'tracekit': 'TraceKit',
       'bootstrap-datepicker': 'bootstrap-datepicker',
       'angular-ui-mask': 'angular-ui-mask',
-      'angular-sanitize': 'angular-sanitize'
+      'velocity-animate': 'velocity-animate'
     },
 
     devtool: 'source-map',
