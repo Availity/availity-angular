@@ -5,7 +5,6 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const requireRelative = require('require-relative');
-const path = require('path');
 
 const banner = require('./dev/banner');
 
@@ -143,7 +142,8 @@ const config = {
       banner: banner(),
       exclude: ['vendor']
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
     new webpack.DefinePlugin({
       APP_VERSION: JSON.stringify('Unknown')
