@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const path = require('path');
 
 const webpackCommon = require('./webpack.config.common');
 const banner = require('./dev/banner');
@@ -27,7 +28,7 @@ function getConfig(options) {
     },
 
     output: {
-      path: 'dist',
+      path: path.join(__dirname, 'dist'),
       filename: optimize ? 'js/[name].min.js' : 'js/[name].js',
       library: 'availity-angular',
       libraryTarget: 'umd'

@@ -5,6 +5,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const requireRelative = require('require-relative');
+const path = require('path');
 
 const banner = require('./dev/banner');
 
@@ -16,7 +17,7 @@ const config = {
 
   output: {
     // if path is not set to '/build' => Error invalid argument in MemoryFileSystem.js
-    path: '/build',
+    path: path.join(__dirname, 'build'),
     filename: 'js/[name].js'
   },
 
