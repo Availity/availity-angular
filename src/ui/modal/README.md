@@ -26,33 +26,30 @@ AvModal.create({
 });
 ```
 
-##
-```js
-AvModal.create({
-  show: true,
-  templateUrl: controllerTpl,
-  controller: 'DemoModalDedicatedController',
-  controllerAs: 'vm',
-  locals: {
-    someValue: 'This is a value passed in using locals, they become injectable values into the controller based on their key name.'
-  }
-});
-```
-
 ## Options
 
 ### `show`
-Boolean that triggers modal to immediately show upon creation.  Default is `false`;
+Boolean that triggers modal to immediately show upon creation.  Default is `false`.
 
 ### `templateUrl`
+Url or function that loads the template
 
 ### `controller`
+Same as Angular controller.
 
 ### `controllerAs`
+Same as Angular's controller as syntax.
 
 ### `locals`
 Values become injectable in the controller based on their key names.
 
+```js
+AvModal.create({  
+  locals: {
+    someKey: 'This is a value passed in using locals, they become injectable values into the controller based on their key name.'
+  }
+});
+```
 
 ## Methods
 
