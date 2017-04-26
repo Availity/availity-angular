@@ -18,7 +18,6 @@ const slugifi = require('slugify');
 const collections = require('metalsmith-collections');
 const relative = require('metalsmith-rootpath');
 
-const dataMarkdown = require('./plugins/metalsmith-data-markdown');
 const tocify = require('./plugins/metalsmith-tocify');
 const Logger = require('./logger');
 
@@ -92,9 +91,6 @@ function build() {
 
       })
       .use(markdown(markedOptions))
-      .use(dataMarkdown({
-        selector: '[data-markdown]'
-      }))
       .use(prism({
         decode: true
       }))

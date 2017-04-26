@@ -16,6 +16,12 @@ const forEach = require('lodash.foreach');
 
 const cacheIds = [];
 
+function slugify(tokens) {
+  const slugged = slug(tokens).toLowerCase();
+  return slugged;
+}
+
+
 class TocItem {
 
   constructor(args) {
@@ -59,13 +65,13 @@ function getRootLevel(headers) {
     .sort()[0] - 1 || 1;
 }
 
-function slugify($el) {
+function slugifi($el) {
 
   let id = $el.attr('id');
 
   if (!id) {
 
-    let slugId = slug($el.text(), {'mode': 'rfc3986'});
+    let slugId = slugify($el.text());
     if (cacheIds[slugId]) {
       slugId = slugId + uniqueId('-');
     }
@@ -77,7 +83,7 @@ function slugify($el) {
 
   }
 
-  $el.wrap(`<a class="docs-headings-anchor" href="#${id}"></a>`);
+  $el.wrap(`<a class="docs-headings-anchor" target="_self" href="#${id}"></a>`);
 
   return id;
 
@@ -98,7 +104,7 @@ function buildToc($, _headers) {
 
     const $el = $(this);
 
-    const id = slugify($el);
+    const id = slugifi($el);
 
     return {
       id,
