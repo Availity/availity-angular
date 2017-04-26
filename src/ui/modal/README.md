@@ -31,8 +31,11 @@ AvModal.create({
 ### `show`
 Boolean that triggers modal to immediately show upon creation.  Default is `false`.
 
+### `scope`
+Pass `$scope` to the modal's controller.
+
 ### `templateUrl`
-Url or function that loads the template
+Url or function that loads the template.
 
 ### `controller`
 Same as Angular controller.
