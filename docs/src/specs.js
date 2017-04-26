@@ -1,5 +1,4 @@
 /* eslint no-var: 0 */
-require('babel-polyfill');
 require('bootstrap');
 require('availity-uikit');
 require('angular');

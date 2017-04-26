@@ -22,7 +22,7 @@
       <a class="navbar-brand-availity" href="index.html">
         <div class="navbar-logo-availity"></div>
       </a>
-      <p class="navbar-text">Angular SDK <small>v2.0.0</small></p>
+      <p class="navbar-text">Angular SDK <small>v2.0.3</small></p>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#guide-collapse-header">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -59,11 +59,11 @@
           </li>
         
           <li>
-            <a href="../../pages/ui" title="UI">UI</a>
+            <a href="../../pages/core" title="Core">Core</a>
           </li>
         
           <li>
-            <a href="../../pages/core" title="Core">Core</a>
+            <a href="../../pages/ui" title="UI">UI</a>
           </li>
         
       </ul>
@@ -80,7 +80,7 @@
       <div class="col-md-8 col-sm-9">
         
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#analytics"><h2 class="docs-section-header" id="analytics">Analytics</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#analytics"><h2 class="docs-section-header" id="analytics">Analytics</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoAnalyticsController">
 
@@ -100,11 +100,11 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#animation"><h2 class="docs-section-header" id="animation">Animation</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#animation"><h2 class="docs-section-header" id="animation">Animation</h2></a>
     <p class="docs-section-description"></p>
     
 <div ng-controller="demoAnimationController">
-  <a class="docs-headings-anchor" href="#On[object Object]value[object Object]change"><h3 class="docs-subsection-title" id="On[object Object]value[object Object]change">On value change</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#on-value-change"><h3 class="docs-subsection-title" id="on-value-change">On value change</h3></a>
   <div class="docs-example">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
@@ -135,7 +135,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-animate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>counter<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>badge badge-primary<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>anim.counter<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#On[object Object]load"><h3 class="docs-subsection-title" id="On[object Object]load">On load</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#on-load"><h3 class="docs-subsection-title" id="on-load">On load</h3></a>
   <div class="docs-example">
     <av-animate class="card card-block">
       I will animate on load!
@@ -147,7 +147,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#On[object Object]event"><h3 class="docs-subsection-title" id="On[object Object]event">On event</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#on-event"><h3 class="docs-subsection-title" id="on-event">On event</h3></a>
   <div class="docs-example">
     <button type="button" class="btn btn-default" av-animate="" av-animate-on="click">
       Click Me!
@@ -159,7 +159,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#With[object Object]children"><h3 class="docs-subsection-title" id="With[object Object]children">With children</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#with-children"><h3 class="docs-subsection-title" id="with-children">With children</h3></a>
   <div class="docs-example">
     <div av-animate="" av-animate-type="&apos;transition.slideRightBigIn&apos;" av-animate-options="{ stagger: 500 }">
       <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</p>
@@ -176,7 +176,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Options"><h3 class="docs-subsection-title" id="Options">Options</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#options"><h3 class="docs-subsection-title" id="options">Options</h3></a>
   <div class="docs-example">
     <p>
       <select id="animDropdown" av-dropdown="" ng-model="anim.selectedAnimation" ng-options="animation.name for animation in anim.velocityEffects" placeholder="{{anim.placeholder}}" options="{ allowClear: false }" ng-change="anim.onChange(anim.selectedAnimation)">
@@ -194,7 +194,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Loader"><h3 class="docs-subsection-title" id="Loader">Loader</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#loader"><h3 class="docs-subsection-title" id="loader">Loader</h3></a>
   <div class="docs-example">
     <div av-loader=""></div>
   </div>
@@ -207,7 +207,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#block-ui"><h2 class="docs-section-header" id="block-ui">Block UI</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#block-ui"><h2 class="docs-section-header" id="block-ui">Block UI</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoBlockController">
   <div class="docs-example">
@@ -227,7 +227,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#breadcrumbs"><h2 class="docs-section-header" id="breadcrumbs">Breadcrumbs</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#breadcrumbs"><h2 class="docs-section-header" id="breadcrumbs">Breadcrumbs</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoBreadcrumbsController">
 
@@ -245,7 +245,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#datepicker"><h2 class="docs-section-header" id="datepicker">Datepicker</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#datepicker"><h2 class="docs-section-header" id="datepicker">Datepicker</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoDatepickerController">
 
@@ -306,9 +306,9 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#dimmer"><h2 class="docs-section-header" id="dimmer">Dimmer</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#dimmer"><h2 class="docs-section-header" id="dimmer">Dimmer</h2></a>
     <p class="docs-section-description"></p>
-    <a class="docs-headings-anchor" href="#Default"><h3 class="docs-subsection-title" id="Default">Default</h3></a>
+    <a class="docs-headings-anchor" target="_self" href="#default"><h3 class="docs-subsection-title" id="default">Default</h3></a>
 <div class="docs-example">
   <div av-dimmer="" class="card card-block">
     <div class="dimmer-content dimmer-content-dark text-center">
@@ -328,7 +328,7 @@
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 </code>
 
-<a class="docs-headings-anchor" href="#Using[object Object]Configuration"><h3 class="docs-subsection-title" id="Using[object Object]Configuration">Using Configuration</h3></a>
+<a class="docs-headings-anchor" target="_self" href="#using-configuration"><h3 class="docs-subsection-title" id="using-configuration">Using Configuration</h3></a>
 <div class="docs-example">
   <div av-dimmer="" av-dimmer-config="{ showAnimation: &apos;transition.slideLeftBigIn&apos;, hideAnimation: &apos;transition.slideRightBigOut&apos;, animationConfig: { duration: 1000 }}" class="card card-block">
     <div class="dimmer-content dimmer-content-dark text-center">
@@ -351,11 +351,11 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#dropdowns"><h2 class="docs-section-header" id="dropdowns">Dropdowns</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#dropdowns"><h2 class="docs-section-header" id="dropdowns">Dropdowns</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoDropdownController">
 
-  <a class="docs-headings-anchor" href="#Simple"><h3 class="docs-subsection-title" id="Simple">Simple</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#simple"><h3 class="docs-subsection-title" id="simple">Simple</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -388,7 +388,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Array"><h3 class="docs-subsection-title" id="Array">Array</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#array"><h3 class="docs-subsection-title" id="array">Array</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -409,7 +409,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Label[object Object]for[object Object]Value[object Object]in[object Object]Array"><h3 class="docs-subsection-title" id="Label[object Object]for[object Object]Value[object Object]in[object Object]Array">Label for Value in Array</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#label-for-value-in-array"><h3 class="docs-subsection-title" id="label-for-value-in-array">Label for Value in Array</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -432,7 +432,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Select[object Object]as[object Object]Label[object Object]for[object Object]Value[object Object]in[object Object]Array"><h3 class="docs-subsection-title" id="Select[object Object]as[object Object]Label[object Object]for[object Object]Value[object Object]in[object Object]Array">Select as Label for Value in Array</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#select-as-label-for-value-in-array"><h3 class="docs-subsection-title" id="select-as-label-for-value-in-array">Select as Label for Value in Array</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -455,7 +455,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Label[object Object]for[object Object]Value[object Object]in[object Object]Array[object Object]Track[object Object]By"><h3 class="docs-subsection-title" id="Label[object Object]for[object Object]Value[object Object]in[object Object]Array[object Object]Track[object Object]By">Label for Value in Array Track By</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#label-for-value-in-array-track-by"><h3 class="docs-subsection-title" id="label-for-value-in-array-track-by">Label for Value in Array Track By</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -478,7 +478,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Multiple"><h3 class="docs-subsection-title" id="Multiple">Multiple</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#multiple"><h3 class="docs-subsection-title" id="multiple">Multiple</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -501,7 +501,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Query[object Object]Large[object Object]Data[object Object]sets"><h3 class="docs-subsection-title" id="Query[object Object]Large[object Object]Data[object Object]sets">Query Large Data-sets</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#query-large-data-sets"><h3 class="docs-subsection-title" id="query-large-data-sets">Query Large Data-sets</h3></a>
   <div class="docs-example">
     <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
     <form>
@@ -518,7 +518,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#HTML[object Object]in[object Object]selection"><h3 class="docs-subsection-title" id="HTML[object Object]in[object Object]selection">HTML in selection</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#html-in-selection"><h3 class="docs-subsection-title" id="html-in-selection">HTML in selection</h3></a>
   <div class="docs-example">
     <p>Type <code>aaa</code> to see a result set or three letters of any kind to view another</p>
     <form>
@@ -573,7 +573,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#mask"><h2 class="docs-section-header" id="mask">Mask</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#mask"><h2 class="docs-section-header" id="mask">Mask</h2></a>
     <p class="docs-section-description"></p>
     
 <div ng-controller="DemoMaskController">
@@ -624,7 +624,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#modals"><h2 class="docs-section-header" id="modals">Modals</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#modals"><h2 class="docs-section-header" id="modals">Modals</h2></a>
     <p class="docs-section-description"></p>
     
 <div ng-controller="DemoModalController">
@@ -635,7 +635,7 @@
     </button>
   </div>
 
-  <a class="docs-headings-anchor" href="#Sizes"><h3 class="docs-subsection-title" id="Sizes">Sizes</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#sizes"><h3 class="docs-subsection-title" id="sizes">Sizes</h3></a>
   <div class="docs-example">
     <button class="btn btn-default" ng-click="vm.modalOpenLarge()">
       Large Modal
@@ -646,14 +646,14 @@
     </button>
   </div>
 
-  <a class="docs-headings-anchor" href="#Manager"><h3 class="docs-subsection-title" id="Manager">Manager</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#manager"><h3 class="docs-subsection-title" id="manager">Manager</h3></a>
   <div class="docs-example">
     <button class="btn btn-default" ng-click="vm.routeChange()">
       Route Change
     </button>
   </div>
 
-  <a class="docs-headings-anchor" href="#With[object Object]Controller"><h3 class="docs-subsection-title" id="With[object Object]Controller">With Controller</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#with-controller"><h3 class="docs-subsection-title" id="with-controller">With Controller</h3></a>
   <div class="docs-example">
     <button class="btn btn-default btn-sm" ng-click="vm.openWithController()">
       Modal With Dedicated Controller
@@ -675,7 +675,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#permissions"><h2 class="docs-section-header" id="permissions">Permissions</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#permissions"><h2 class="docs-section-header" id="permissions">Permissions</h2></a>
     <p class="docs-section-description"></p>
     
 <div ng-controller="DemoHidePermissionController">
@@ -715,7 +715,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#popovers"><h2 class="docs-section-header" id="popovers">Popovers</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#popovers"><h2 class="docs-section-header" id="popovers">Popovers</h2></a>
     <p class="docs-section-description"></p>
     <div ng-controller="DemoPopoverController">
 
@@ -747,7 +747,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#tooltips"><h2 class="docs-section-header" id="tooltips">Tooltips</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#tooltips"><h2 class="docs-section-header" id="tooltips">Tooltips</h2></a>
     <p class="docs-section-description"></p>
     <div data-ng-controller="DemoTooltipController">
 
@@ -774,7 +774,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
   </code>
 
-  <a class="docs-headings-anchor" href="#Inline[object Object]Help"><h3 class="docs-subsection-title" id="Inline[object Object]Help">Inline Help</h3></a>
+  <a class="docs-headings-anchor" target="_self" href="#inline-help"><h3 class="docs-subsection-title" id="inline-help">Inline Help</h3></a>
   <div class="docs-example">
     <form>
       <div class="form-group">
@@ -795,7 +795,7 @@
   </section>
 
   <section class="docs-section">
-    <a class="docs-headings-anchor" href="#validation"><h2 class="docs-section-header" id="validation">Validation</h2></a>
+    <a class="docs-headings-anchor" target="_self" href="#validation"><h2 class="docs-section-header" id="validation">Validation</h2></a>
     <p class="docs-section-description"></p>
     
 <div class="docs-example" ng-controller="DemoValidationController">
@@ -929,6 +929,8 @@ app<span class="token punctuation">.</span><span class="token function">config</
     
   
     
+  
+    
       <ol class="nav docs-nav">
         
           <li>
@@ -944,42 +946,42 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#On[object Object]value[object Object]change" title="On value change" target="_self">On value change</a></li>
+                <li><a href="#on-value-change" title="On value change" target="_self">On value change</a></li>
 
               
           
 
               
 
-                <li><a href="#On[object Object]load" title="On load" target="_self">On load</a></li>
+                <li><a href="#on-load" title="On load" target="_self">On load</a></li>
 
               
           
 
               
 
-                <li><a href="#On[object Object]event" title="On event" target="_self">On event</a></li>
+                <li><a href="#on-event" title="On event" target="_self">On event</a></li>
 
               
           
 
               
 
-                <li><a href="#With[object Object]children" title="With children" target="_self">With children</a></li>
+                <li><a href="#with-children" title="With children" target="_self">With children</a></li>
 
               
           
 
               
 
-                <li><a href="#Options" title="Options" target="_self">Options</a></li>
+                <li><a href="#options" title="Options" target="_self">Options</a></li>
 
               
           
 
               
 
-                <li><a href="#Loader" title="Loader" target="_self">Loader</a></li>
+                <li><a href="#loader" title="Loader" target="_self">Loader</a></li>
 
               
               </ol>
@@ -1010,14 +1012,14 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#Default" title="Default" target="_self">Default</a></li>
+                <li><a href="#default" title="Default" target="_self">Default</a></li>
 
               
           
 
               
 
-                <li><a href="#Using[object Object]Configuration" title="Using Configuration" target="_self">Using Configuration</a></li>
+                <li><a href="#using-configuration" title="Using Configuration" target="_self">Using Configuration</a></li>
 
               
               </ol>
@@ -1033,56 +1035,56 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#Simple" title="Simple" target="_self">Simple</a></li>
+                <li><a href="#simple" title="Simple" target="_self">Simple</a></li>
 
               
           
 
               
 
-                <li><a href="#Array" title="Array" target="_self">Array</a></li>
+                <li><a href="#array" title="Array" target="_self">Array</a></li>
 
               
           
 
               
 
-                <li><a href="#Label[object Object]for[object Object]Value[object Object]in[object Object]Array" title="Label for Value in Array" target="_self">Label for Value in Array</a></li>
+                <li><a href="#label-for-value-in-array" title="Label for Value in Array" target="_self">Label for Value in Array</a></li>
 
               
           
 
               
 
-                <li><a href="#Select[object Object]as[object Object]Label[object Object]for[object Object]Value[object Object]in[object Object]Array" title="Select as Label for Value in Array" target="_self">Select as Label for Value in Array</a></li>
+                <li><a href="#select-as-label-for-value-in-array" title="Select as Label for Value in Array" target="_self">Select as Label for Value in Array</a></li>
 
               
           
 
               
 
-                <li><a href="#Label[object Object]for[object Object]Value[object Object]in[object Object]Array[object Object]Track[object Object]By" title="Label for Value in Array Track By" target="_self">Label for Value in Array Track By</a></li>
+                <li><a href="#label-for-value-in-array-track-by" title="Label for Value in Array Track By" target="_self">Label for Value in Array Track By</a></li>
 
               
           
 
               
 
-                <li><a href="#Multiple" title="Multiple" target="_self">Multiple</a></li>
+                <li><a href="#multiple" title="Multiple" target="_self">Multiple</a></li>
 
               
           
 
               
 
-                <li><a href="#Query[object Object]Large[object Object]Data[object Object]sets" title="Query Large Data-sets" target="_self">Query Large Data-sets</a></li>
+                <li><a href="#query-large-data-sets" title="Query Large Data-sets" target="_self">Query Large Data-sets</a></li>
 
               
           
 
               
 
-                <li><a href="#HTML[object Object]in[object Object]selection" title="HTML in selection" target="_self">HTML in selection</a></li>
+                <li><a href="#html-in-selection" title="HTML in selection" target="_self">HTML in selection</a></li>
 
               
               </ol>
@@ -1103,21 +1105,21 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#Sizes" title="Sizes" target="_self">Sizes</a></li>
+                <li><a href="#sizes" title="Sizes" target="_self">Sizes</a></li>
 
               
           
 
               
 
-                <li><a href="#Manager" title="Manager" target="_self">Manager</a></li>
+                <li><a href="#manager" title="Manager" target="_self">Manager</a></li>
 
               
           
 
               
 
-                <li><a href="#With[object Object]Controller" title="With Controller" target="_self">With Controller</a></li>
+                <li><a href="#with-controller" title="With Controller" target="_self">With Controller</a></li>
 
               
               </ol>
@@ -1143,7 +1145,7 @@ app<span class="token punctuation">.</span><span class="token function">config</
               <ol class="nav docs-nav">
               
 
-                <li><a href="#Inline[object Object]Help" title="Inline Help" target="_self">Inline Help</a></li>
+                <li><a href="#inline-help" title="Inline Help" target="_self">Inline Help</a></li>
 
               
               </ol>
@@ -1157,8 +1159,6 @@ app<span class="token punctuation">.</span><span class="token function">config</
           </li>
         
       </ol>
-    
-  
     
   
 </nav>

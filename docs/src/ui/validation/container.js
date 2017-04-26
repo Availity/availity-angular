@@ -1,9 +1,12 @@
 import ngModule from '../module';
 
+import 'angular-sanitize';
+ngModule.requires.push('ngSanitize');
+
 class AvValContainerController {
 
-  constructor($sce, $scope, $timeout, AV_UI) {
-    this.av = { $sce, $scope, $timeout, AV_UI };
+  constructor($scope, AV_UI) {
+    this.av = { $scope, AV_UI };
   }
 
   message(context) {
@@ -24,9 +27,9 @@ class AvValContainerController {
       message = null;
     }
 
-    // $timeout is needed to update the UI from $broadcast events
-    this.av.$timeout(() => {
-      this.av.$scope.vm.message = this.av.$sce.trustAsHtml(message);
+    // $applyAsync is needed to update the UI from $broadcast events
+    this.av.$scope.$applyAsync(() => {
+      this.av.$scope.vm.message = message;
     });
 
   }
@@ -37,10 +40,9 @@ class AvValContainerController {
 ngModule.directive('avValContainer', () => ({
   restrict: 'AE',
   controller: AvValContainerController,
-  template: '<p class="help-block" data-ng-bind-html="vm.message"></p>',
+  template: '<p class="help-block" ng-bind-html="vm.message"></p>',
   replace: true,
   scope: {},
-
   link(scope) {
     scope.vm = { message: null, id: null };
   }

@@ -1,7 +1,6 @@
 import angular from 'angular';
 import $ from 'jquery';
 import debounce from 'lodash.debounce';
-import isString from 'lodash.isstring';
 
 import ngModule from '../module';
 import './constants';
@@ -145,7 +144,7 @@ class AvMessageProvider {
 
         try {
 
-          const message = isString(payload) ? payload : JSON.stringify(payload);
+          const message = angular.isString(payload) ? payload : JSON.stringify(payload);
           this.postMessage(message, this.domain());
 
         } catch (err) {

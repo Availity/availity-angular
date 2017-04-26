@@ -1,6 +1,5 @@
 import angular from 'angular';
 import ngModule from '../module';
-import merge from 'lodash.merge';
 
 const CONFIG = {
   VIRTUAL_PAGE_TRACKING: true,
@@ -27,7 +26,7 @@ class AvAnalyticsConfigProvider {
   }
 
   set(options) {
-    merge(this.options, options);
+    angular.merge(this.options, options);
   }
 
   $get() {

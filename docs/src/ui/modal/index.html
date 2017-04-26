@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Dimmer · Availity Angular SDK</title>
+        <title>Modal · Availity Angular SDK</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../modal/" />
+    <link rel="next" href="../../core/utils/" />
     
     
-    <link rel="prev" href="../../core/authorizations/" />
+    <link rel="prev" href="../dimmer/" />
     
 
     </head>
@@ -281,9 +281,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../dimmer/">
             
-                <a href="./">
+                <a href="../dimmer/">
             
                     
                     Dimmer
@@ -294,9 +294,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../modal/">
+        <li class="chapter active" data-level="1.7" data-path="./">
             
-                <a href="../modal/">
+                <a href="./">
             
                     
                     Modal
@@ -350,7 +350,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >Dimmer</a>
+        <a href="../../.." >Modal</a>
     </h1>
 </div>
 
@@ -365,21 +365,27 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="dimmer">Dimmer</h2><p><code>avDimmer</code> is a directive that displays a message or effect over an element. <code>avDimmer</code> checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.</p><h3 id="usage">Usage</h3><pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity.ui&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="configuration">Configuration</h3><p><code>avDimmerConfigProvider</code> can be used to globally set values for all <code>avDimmer</code> instances.  Directive overrides are allow passing the configuration to attribute <code>av-dimmer-config</code>.</p><pre class="language-"><code class="lang-javascript">
-  <span class="token punctuation">{</span>
-    animationConfig<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      duration<span class="token punctuation">:</span> <span class="token number">250</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    showAnimation<span class="token punctuation">:</span> <span class="token string">&apos;fadeIn&apos;</span><span class="token punctuation">,</span>
-    showEvent<span class="token punctuation">:</span> <span class="token string">&apos;mouseenter&apos;</span><span class="token punctuation">,</span>
-    hideAnimation<span class="token punctuation">:</span> <span class="token string">&apos;fadeOut&apos;</span><span class="token punctuation">,</span>
-    hideEvent<span class="token punctuation">:</span> <span class="token string">&apos;mouseleave&apos;</span><span class="token punctuation">,</span>
-    overlaySelector<span class="token punctuation">:</span> <span class="token string">&apos;.dimmer-content&apos;</span>
-  <span class="token punctuation">}</span></code></pre>
-<h3 id="directive">Directive</h3><p>The directive <code>av-dimmer</code> can be used as an element or an attribute</p><pre class="language-"><code class="lang-html">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>av-dimmer</span><span class="token punctuation">&gt;</span></span></code></pre>
-<p>This will add the event listeners to this element, and search its children with the <code>overlaySelector</code> to apply the animations to.</p>
+                                <h2 id="avmodal">AvModal</h2><p><img alt="Modal" src="docs/modal.png"></p><p><code>avModal</code> is a service that allows the creation of modal windows.</p><h3 id="examples">Examples</h3><p><strong>Constructor</strong></p><pre class="language-"><code class="lang-js">
+<span class="token keyword">import</span> tpl <span class="token keyword">from</span> <span class="token string">&apos;./template&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> modal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AvModal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  scope<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
+  templateUrl<span class="token punctuation">:</span> tpl
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><strong>Static</strong></p><pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  show<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  scope<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
+  templateUrl<span class="token punctuation">:</span> tpl
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h1 id="">\</h1><pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  show<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  templateUrl<span class="token punctuation">:</span> controllerTpl<span class="token punctuation">,</span>
+  controller<span class="token punctuation">:</span> <span class="token string">&apos;DemoModalDedicatedController&apos;</span><span class="token punctuation">,</span>
+  controllerAs<span class="token punctuation">:</span> <span class="token string">&apos;vm&apos;</span><span class="token punctuation">,</span>
+  locals<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    someValue<span class="token punctuation">:</span> <span class="token string">&apos;This is a value passed in using locals, they become injectable values into the controller based on their key name.&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="options">Options</h2><h3 id="show"><code>show</code></h3><p>Boolean that triggers modal to immediately show upon creation.  Default is <code>false</code>;</p><h3 id="templateurl"><code>templateUrl</code></h3><h3 id="controller"><code>controller</code></h3><h3 id="controlleras"><code>controllerAs</code></h3><h3 id="locals"><code>locals</code></h3><p>Values become injectable in the controller based on their key names.</p><h2 id="methods">Methods</h2><h3 id="avmodalcreate"><code>AvModal.create</code></h3><p>Create a modal window on demand without having to call the contructor.</p>
                                 
                                 </section>
                             
@@ -406,12 +412,12 @@
 
             
                 
-                <a href="../../core/authorizations/" class="navigation navigation-prev " aria-label="Previous page: Authorizations">
+                <a href="../dimmer/" class="navigation navigation-prev " aria-label="Previous page: Dimmer">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../modal/" class="navigation navigation-next " aria-label="Next page: Modal">
+                <a href="../../core/utils/" class="navigation navigation-next " aria-label="Next page: Utils">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -422,7 +428,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dimmer","level":"1.6","depth":1,"next":{"title":"Modal","level":"1.7","depth":1,"path":"src/ui/modal/README.md","ref":"src/ui/modal/README.md","articles":[]},"previous":{"title":"Authorizations","level":"1.5","depth":1,"path":"src/core/authorizations/README.md","ref":"src/core/authorizations/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/dimmer/README.md","mtime":"2017-04-26T01:14:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-26T01:15:18.145Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Modal","level":"1.7","depth":1,"next":{"title":"Utils","level":"1.8","depth":1,"path":"src/core/utils/README.md","ref":"src/core/utils/README.md","articles":[]},"previous":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/modal/README.md","mtime":"2017-04-26T01:14:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-26T01:15:18.145Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
