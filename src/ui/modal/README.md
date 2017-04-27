@@ -1,11 +1,10 @@
-## AvModal
+## Modals
 
 ![Modal](./docs/modal.png)
 
+### `avModal`
 
 `avModal` is a service that allows the creation of modal windows.  
-
-### Examples
 
 **Constructor**
 ```js
@@ -26,24 +25,24 @@ AvModal.create({
 });
 ```
 
-## Options
+#### Options
 
-### `show`
+##### `show`
 Boolean that triggers modal to immediately show upon creation.  Default is `false`.
 
-### `scope`
+##### `scope`
 Pass `$scope` to the modal's controller.
 
-### `templateUrl`
+##### `templateUrl`
 Url or function that loads the template.
 
-### `controller`
+##### `controller`
 Same as Angular controller.
 
-### `controllerAs`
+##### `controllerAs`
 Same as Angular's controller as syntax.
 
-### `locals`
+##### `locals`
 Values become injectable in the controller based on their key names.
 
 ```js
@@ -54,7 +53,7 @@ AvModal.create({
 });
 ```
 
-## Methods
+#### Methods
 
 ### `AvModal.create`
 Create a modal window on demand without having to call the contructor.
