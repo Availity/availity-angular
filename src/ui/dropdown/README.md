@@ -108,7 +108,7 @@ vm.states = [
 
 ### [Query Large Data-sets](https://availity.github.io/availity-angular/pages/ui/#/query-large-data-sets)
 
-[Select2 v3.5.2](https://select2.github.io/select2/) requires an input field for lazy loading large data sets through queries.  Do not use `ng-options` because Angular does not allow that attribute on `<input>` since `v1.4`.  Instead, extends `AvSelectResource` to easily page large data-sets using `Select2`.
+[Select2 v3.5.2](https://select2.github.io/select2/) requires an input field for lazy loading large data sets through queries.  Create a resouce by extending `AvSelectResource` and passing it as options to the input field like below.  Do not use `ng-options` on inputs fields because Angular throws an error. 
 
 ```js
 class DemoPhotosResource extends AvSelectResource {
@@ -135,13 +135,14 @@ class DemoPhotosResource extends AvSelectResource {
 ```
 
 ```js
+
 // vm is the controller in $scope
 vm.getOptions() {
   return {
     allowClear: true,
     placeholder: 'Find a photo',
     minimumInputLength: 3,
-    query: demoDropdownResource
+    query: demoDropdownResource // Injected Angular service
   };
 }
 ```
