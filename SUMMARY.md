@@ -15,4 +15,5 @@
 * [Authorizations](/src/core/authorizations/README.md)
 * [Dimmer](/src/ui/dimmer/README.md)
 * [Modal](/src/ui/modal/README.md)
+* [Dropdowns](/src/ui/dropdown/README.md)
 * [Utils](//src/core/utils/README.md)

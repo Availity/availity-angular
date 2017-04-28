@@ -2,6 +2,8 @@
 
 ### [av-dropdown](https://availity.github.io/availity-angular/pages/ui/#/dropdowns)
 
+![Dropdown](./docs/dropdown.png)
+
 Wrapper around [Select2 v3.5.2](https://select2.github.io/select2/). Use `ng-options` to pass **Select2** options to the `avDropdown` directive.
 
 ```js
