@@ -4,7 +4,7 @@
 
 ![Dropdown](./docs/dropdown.png)
 
-Wrapper around [Select2 v3.5.2](https://select2.github.io/select2/). Use `ng-options` to pass **Select2** options to the `avDropdown` directive.
+Wrapper around [Select2 v3.5.2](https://select2.github.io/select2/). Configure **Select2** through `ng-options`.
 
 ```js
 ng-options="{ allowClear: false, placeholder: 'Select your favorite number'}"
@@ -31,7 +31,13 @@ vm.pokemon = ['Aerodactyl', 'Alakazam'];
 ```
 
 ```html
-<select id="dropdownPoke" class="form-control" av-dropdown="" ng-model="vm.selectedPoke" ng-options="poke for poke in vm.pokemon" options="{ allowClear: false, placeholder: 'Select a Pokemon'}">
+<select 
+    id="dropdownPoke" 
+    class="form-control" 
+    av-dropdown
+    ng-model="vm.selectedPoke" 
+    ng-options="poke for poke in vm.pokemon" 
+    options="{ allowClear: false, placeholder: 'Select a Pokemon'}">
 </select>
 ```
 
