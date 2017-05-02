@@ -1,7 +1,7 @@
 'use strict';
 
 const bundle = require('./bundle');
-const Logger = require('./logger');
+const Logger = require('availity-workflow-logger');
 
 function build() {
 

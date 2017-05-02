@@ -7,7 +7,8 @@ const chalk = require('chalk');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 const metalsmith = require('./metalsmith');
-const Logger = require('./logger');
+const Logger = require('availity-workflow-logger');
+
 const watch = require('./watch');
 const webpackConfig = require('../webpack.config.development');
 
@@ -72,7 +73,7 @@ function serv() {
       const uri = `http://localhost:${PORT}/`;
 
       Logger.info(statistics);
-      Logger.ok('Finished webpack compiling');
+      Logger.success('Finished webpack compiling');
       Logger.log(`The app is running at ${chalk.magenta(uri)}`);
 
 
@@ -142,9 +143,9 @@ function serv() {
         reject(err);
       }
 
-
-      Logger.ok('Finished development server');
+      Logger.success('Finished development server');
       resolve();
+
     });
   });
 

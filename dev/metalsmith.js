@@ -17,9 +17,9 @@ const path = require('path');
 const slugifi = require('slugify');
 const collections = require('metalsmith-collections');
 const relative = require('metalsmith-rootpath');
+const Logger = require('availity-workflow-logger');
 
 const tocify = require('./plugins/metalsmith-tocify');
-const Logger = require('./logger');
 
 const pkg = require('../package.json');
 
@@ -133,7 +133,7 @@ function build() {
       if (err) {
         reject(err);
       } else {
-        Logger.ok('Finished docs');
+        Logger.success('Finished docs');
         resolve();
       }
 

@@ -3,8 +3,8 @@
 const webpack = require('webpack');
 const ora = require('ora');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const Logger = require('availity-workflow-logger');
 
-const Logger = require('./logger');
 const webpackConfig = require('../webpack.config.production');
 const webpackConfigDocs = require('../webpack.config.docs');
 
@@ -52,7 +52,7 @@ function bundle(options) {
       });
 
       Logger.info(statistics);
-      Logger.ok(`Finished compiling ${optimized}`);
+      Logger.success(`Finished compiling ${optimized}`);
       resolve();
 
     });
