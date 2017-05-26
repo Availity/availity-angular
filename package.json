@@ -61,6 +61,7 @@
   "devDependencies": {
     "animate.css": "^3.5.2",
     "autoprefixer": "^6.7.3",
+    "availity-workflow-logger": "^2.1.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
@@ -134,6 +135,7 @@
     "ora": "^1.2.0",
     "phantomjs-prebuilt": "^2.1.14",
     "postcss-loader": "^1.2.2",
+    "react-dev-utils": "^2.0.1",
     "require-relative": "^0.8.7",
     "sass-loader": "^6.0.0",
     "sinon": "^2.2.0",

@@ -5,45 +5,30 @@ const webpack = require('webpack');
 const debounce = require('lodash.debounce');
 const chalk = require('chalk');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const Logger = require('availity-workflow-logger');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 const metalsmith = require('./metalsmith');
-const Logger = require('availity-workflow-logger');
+
 
 const watch = require('./watch');
 const webpackConfig = require('../webpack.config.development');
 
 const PORT = 9200;
 
-const friendlySyntaxErrorLabel = 'Syntax error:';
-
-function isLikelyASyntaxError(message) {
-  return message.indexOf(friendlySyntaxErrorLabel) !== -1;
-}
-
-function formatMessage(message) {
-  return message
-    .replace(
-      'Module build failed: SyntaxError:',
-      friendlySyntaxErrorLabel
-    )
-    .replace(
-      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
-      'Module not found:'
-    )
-    .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
-    .replace('./~/css-loader!./~/postcss-loader!', '');
-}
-
 function serv() {
 
   Logger.info('Starting development server');
 
+  let previousPercent;
+
   webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
-    const percent = percentage * 100;
+    const percent = Math.round(percentage * 100);
 
-    if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
-      Logger.info(`${chalk.dim('Webpack')} ${msg}`);
+    if (previousPercent !== percent && percent % 10 === 0) {
+      Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
+      previousPercent = percent;
     }
 
   }));
@@ -52,7 +37,6 @@ function serv() {
 
     const compiler = webpack(webpackConfig);
 
-
     compiler.plugin('compile', () => {
       Logger.info('Started compiling');
     });
@@ -60,13 +44,12 @@ function serv() {
     const message = debounce(stats => {
 
       const statistics = stats.toString({
-        assets: false,
         colors: true,
-        version: false,
-        hash: false,
-        timings: false,
+        cached: true,
+        reasons: false,
+        source: false,
         chunks: false,
-        chunkModules: false,
+        children: false,
         errorDetails: true
       });
 
@@ -88,34 +71,45 @@ function serv() {
         message(stats);
       }
 
+      const json = stats.toJson({
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        errorDetails: false
+      });
+
+      const messages = formatWebpackMessages(json);
+
+      if (hasWarnings) {
+
+        messages.warnings.forEach(warning => {
+          Logger.empty();
+          Logger.simple(`${chalk.yellow(warning)}`);
+          Logger.empty();
+        });
+
+        Logger.failed('Compiled with warnings');
+        Logger.empty();
+
+      }
+
+
+
       if (hasErrors) {
 
-        const json = stats.toJson({
-          assets: false,
-          colors: true,
-          version: false,
-          hash: false,
-          timings: false,
-          chunks: false,
-          chunkModules: false,
-          errorDetails: false
-        });
-
-        let formattedErrors = json.errors.map(msg => {
-          return 'Error in ' + formatMessage(msg);
-        });
-
-        if (formattedErrors.some(isLikelyASyntaxError)) {
-          formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
-        }
-
-        Logger.failed('Failed compiling');
-
-        formattedErrors.forEach(error => {
+        messages.errors.forEach(error => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
         });
+
+        Logger.failed('Failed compiling');
+        Logger.empty();
+        reject(json.errors);
 
         reject('Failed compiling');
       }
