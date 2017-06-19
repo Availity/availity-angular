@@ -8,6 +8,19 @@ const requireRelative = require('require-relative');
 
 const banner = require('./dev/banner');
 
+const postCssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    sourceMap: true,
+    plugins() {
+      return [
+        autoprefixer({ browsers: ['last 5 versions'] })
+      ];
+    }
+  }
+};
+
+
 const config = {
 
   context: __dirname,
@@ -57,7 +70,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader?limit=32768?name=images/[name].[ext]',
-            'postcss-loader'
+            postCssLoader
           ],
           publicPath: '../'
         })
@@ -68,8 +81,11 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader?limit=32768?name=images/[name].[ext]',
-            'postcss-loader',
-            'less-loader'
+            postCssLoader,
+            {
+              loader: 'less-loader',
+              options: { sourceMap: true }
+            }
           ],
           publicPath: '../'
         })
@@ -80,8 +96,8 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader?limit=32768?name=images/[name].[ext]',
-            'postcss-loader',
-            'sass-loader'
+            postCssLoader,
+            'sass-loader?sourceMap'
           ],
           publicPath: '../'
         })
@@ -155,28 +171,7 @@ const config = {
       'window.jQuery': 'jquery',
       '$': 'jquery',
       'jQuery': 'jquery'
-    }),
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.(s?c|le)ss$/,
-        debug: false,
-        options: {
-          postcss: [
-            autoprefixer(
-              {
-                browsers: [
-                  'last 5 versions',
-                  'Firefox ESR',
-                  'not ie < 9'
-                ]
-              }
-            )
-          ],
-          context: __dirname,
-          output: { path: '/build' }
-        }
-      }
-    )
+    })
   ]
 };
 
