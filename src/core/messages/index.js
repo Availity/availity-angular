@@ -85,7 +85,7 @@ class AvMessageProvider {
 
         let event = _event;
 
-        event = event.originalEvent || event;  // jQuery wraps in `originalEvent`
+        event = event.originalEvent || event; // jQuery wraps in `originalEvent`
 
         if (!event && !event.data) {
           // no op

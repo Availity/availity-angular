@@ -97,8 +97,6 @@ function serv() {
 
       }
 
-
-
       if (hasErrors) {
 
         messages.errors.forEach(error => {

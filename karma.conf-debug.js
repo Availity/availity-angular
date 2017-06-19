@@ -71,8 +71,8 @@ module.exports = function(config) {
     reporters: ['notify', 'webpack-error', 'spec'],
 
     specReporter: {
-      maxLogLines: 5,         // limit number of lines logged per test
-      suppressErrorSummary: false,  // do not print error summary
+      maxLogLines: 5, // limit number of lines logged per test
+      suppressErrorSummary: false, // do not print error summary
       suppressFailed: false,
       suppressPassed: true,
       suppressSkipped: false,
