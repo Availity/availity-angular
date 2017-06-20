@@ -158,4 +158,40 @@ describe('avDatepicker', () => {
     expect(date).toBe('apple');
   });
 
+  it('should not rollover invalid month values', () => {
+
+    tester.$scope.selectedDate = null;
+    $el = tester.compileDirective(fixtures.regular);
+
+    const ngModel = $el.data('$ngModelController');
+    ngModel.$setViewValue('15/04/1945');
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
+
+    const date = tester.$scope.selectedDate;
+
+    expect(date instanceof Date).toBe(true);
+    expect(date.getFullYear()).toBe(1945);
+    expect(date.getMonth()).not.toBe(2);
+    expect(date.getDate()).toBe(4);
+  });
+
+  it('should not rollover invalid day values', () => {
+
+    tester.$scope.selectedDate = null;
+    $el = tester.compileDirective(fixtures.regular);
+
+    const ngModel = $el.data('$ngModelController');
+    ngModel.$setViewValue('03/35/1945');
+    tester.flush(DEBOUNCE);
+    tester.$scope.$digest();
+
+    const date = tester.$scope.selectedDate;
+
+    expect(date instanceof Date).toBe(true);
+    expect(date.getFullYear()).toBe(1945);
+    expect(date.getMonth()).toBe(2);
+    expect(date.getDate()).not.toBe(4);
+  });
+
 });
