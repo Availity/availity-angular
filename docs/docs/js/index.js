@@ -69,7 +69,11 @@ $(document).ready( () => {
 });
 
 demo.config($locationProvider => {
-  $locationProvider.hashPrefix('');
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false,
+    rewriteLinks: false
+  });
 });
 
 demo.run($httpBackend => {

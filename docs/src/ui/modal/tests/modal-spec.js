@@ -222,10 +222,9 @@ describe('AvModal', () => {
       }
     });
 
-      // Ensure the expect statement inside MyController was hit
+    // Ensure the expect statement inside MyController was hit
     expect(controllerCalled).toBe(true);
 
   });
-
 
 });

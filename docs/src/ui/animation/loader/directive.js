@@ -23,19 +23,19 @@ class AvLoaderController {
     const self = this;
 
     this.av.$element
-    .find('.loading-bullet')
-    .velocity('transition.slideRightIn', { stagger: 250 })
-    .velocity({ opacity: 0 }, {
-      delay: 750,
-      duration: 500,
-      complete() {
-        if (self.active) {
-          setTimeout( () => { self.animate() }, 500);
-        } else {
-          self.endAnimation();
+      .find('.loading-bullet')
+      .velocity('transition.slideRightIn', { stagger: 250 })
+      .velocity({ opacity: 0 }, {
+        delay: 750,
+        duration: 500,
+        complete() {
+          if (self.active) {
+            setTimeout( () => { self.animate() }, 500);
+          } else {
+            self.endAnimation();
+          }
         }
-      }
-    });
+      });
 
   }
 

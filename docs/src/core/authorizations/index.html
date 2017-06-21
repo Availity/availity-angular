@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Authorizations · Availity Angular SDK</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Authorizations · Availity Angular SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -378,9 +378,15 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="authorizations">Authorizations</h2><p><code>avUserAuthorizations</code> is a service that allows you to get user and 
-permission information.</p><h3 id="configuration">Configuration</h3><p>Initialize the <code>availity</code> module in your application.</p><pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="usage">Usage</h3><pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                                <h2 id="authorizations">Authorizations</h2>
+<p><code>avUserAuthorizations</code> is a service that allows you to get user and 
+permission information.</p>
+<h3 id="configuration">Configuration</h3>
+<p>Initialize the <code>availity</code> module in your application.</p>
+<pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="usage">Usage</h3>
+<pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">factory</span><span class="token punctuation">(</span><span class="token string">&apos;authenticationService&apos;</span><span class="token punctuation">,</span> avUserAuthorizations <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
 
         <span class="token keyword">class</span> <span class="token class-name">AuthenticationService</span> <span class="token punctuation">{</span>
@@ -394,13 +400,34 @@ permission information.</p><h3 id="configuration">Configuration</h3><p>Initializ
 
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AuthenticationService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="methods">Methods</h3><p><code>avUserAuthorizations</code> contains the following methods.</p><h4 id="isauthorized">isAuthorized</h4><p>Returns <code>true</code> if the current user is authorized for the specified permission.</p><pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">isAuthorized</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="isanyauthorized">isAnyAuthorized</h4><p>Returns <code>true</code> if the current user is authorized for at least one of the specified permissions.</p><pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">isAnyAuthorized</span><span class="token punctuation">(</span><span class="token punctuation">[</span>permissionId1<span class="token punctuation">,</span> permissionId2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="getpermission">getPermission</h4><p>Returns the permission having the specified permissionId.</p><pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getPermission</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="getpermissions">getPermissions</h4><p>Returns the permissions having the specified permissionIds.</p><pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getPermissions</span><span class="token punctuation">(</span><span class="token punctuation">[</span>permissionId1<span class="token punctuation">,</span> permissionId2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="getorganizations">getOrganizations</h4><p>Returns the user&apos;s organizations that have access to the specified permissionId.</p><pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getOrganizations</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="getpayers">getPayers</h4><p>Returns the payers the user has access to for the specified permissionId and organizationId.</p><pre class="language-"><code class="lang-javascript">avUserAuthorization<span class="token punctuation">.</span><span class="token function">getPayers</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">,</span> organizationId<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="methods">Methods</h3>
+<p><code>avUserAuthorizations</code> contains the following methods.</p>
+<h4 id="isauthorized">isAuthorized</h4>
+<p>Returns <code>true</code> if the current user is authorized for the specified permission.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">isAuthorized</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="isanyauthorized">isAnyAuthorized</h4>
+<p>Returns <code>true</code> if the current user is authorized for at least one of the specified permissions.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">isAnyAuthorized</span><span class="token punctuation">(</span><span class="token punctuation">[</span>permissionId1<span class="token punctuation">,</span> permissionId2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="getpermission">getPermission</h4>
+<p>Returns the permission having the specified permissionId.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getPermission</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="getpermissions">getPermissions</h4>
+<p>Returns the permissions having the specified permissionIds.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getPermissions</span><span class="token punctuation">(</span><span class="token punctuation">[</span>permissionId1<span class="token punctuation">,</span> permissionId2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="getorganizations">getOrganizations</h4>
+<p>Returns the user&apos;s organizations that have access to the specified permissionId.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorizations<span class="token punctuation">.</span><span class="token function">getOrganizations</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="getpayers">getPayers</h4>
+<p>Returns the payers the user has access to for the specified permissionId and organizationId.</p>
+<pre class="language-"><code class="lang-javascript">avUserAuthorization<span class="token punctuation">.</span><span class="token function">getPayers</span><span class="token punctuation">(</span>permissionId<span class="token punctuation">,</span> organizationId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 
                                 
                                 </section>
@@ -444,7 +471,7 @@ permission information.</p><h3 id="configuration">Configuration</h3><p>Initializ
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Authorizations","level":"1.5","depth":1,"next":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"previous":{"title":"avLoader","level":"1.4.2","depth":2,"path":"src/ui/animation/loader/README.md","ref":"src/ui/animation/loader/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/core/authorizations/README.md","mtime":"2017-04-26T01:14:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-28T03:48:07.405Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Authorizations","level":"1.5","depth":1,"next":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"previous":{"title":"avLoader","level":"1.4.2","depth":2,"path":"src/ui/animation/loader/README.md","ref":"src/ui/animation/loader/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/core/authorizations/README.md","mtime":"2017-03-17T07:17:16.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-21T02:55:53.184Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

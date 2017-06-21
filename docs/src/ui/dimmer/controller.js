@@ -11,13 +11,13 @@ class AvDimmerController {
 
   show() {
     this.av.$element.find(this.config.overlaySelector)
-    .velocity('stop', true)
-    .velocity(this.config.showAnimation, this.config.animationConfig);
+      .velocity('stop', true)
+      .velocity(this.config.showAnimation, this.config.animationConfig);
   }
 
   hide() {
     this.av.$element.find(this.config.overlaySelector)
-    .velocity(this.config.hideAnimation, this.config.animationConfig);
+      .velocity(this.config.hideAnimation, this.config.animationConfig);
   }
 
   createListeners() {
@@ -31,6 +31,7 @@ class AvDimmerController {
   }
 
   $onChanges(changesObj) {
+
     if (changesObj && changesObj.avDimmerConfig) {
       const newConfig = angular.extend({}, this.av.avDimmerConfig, changesObj.avDimmerConfig.currentValue);
 

@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Dropdowns · Availity Angular SDK</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Dropdowns · Availity Angular SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -378,16 +378,26 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="dropdowns">Dropdowns</h2><h3 id="av-dropdown"><a href="https://availity.github.io/availity-angular/pages/ui/#/dropdowns" target="_blank">av-dropdown</a></h3><p><img alt="Dropdown" src="docs/dropdown.png"></p><p>Wrapper around <a href="https://select2.github.io/select2/" target="_blank">Select2 v3.5.2</a>. Configure <strong>Select2</strong> through <code>ng-options</code>.</p><pre class="language-"><code class="lang-js">ng<span class="token operator">-</span>options<span class="token operator">=</span><span class="token string">&quot;{ allowClear: false, placeholder: &apos;Select your favorite number&apos;}&quot;</span></code></pre>
-<h3 id="simple"><a href="https://availity.github.io/availity-angular/pages/ui/#/simple" target="_blank">Simple</a></h3><p>Usage without <code>ng-options</code>.</p><pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownSimple<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedNumber<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: false, placeholder: <span class="token punctuation">&apos;</span>Select your favorite number<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+                                <h2 id="dropdowns">Dropdowns</h2>
+<h3 id="av-dropdown"><a href="https://availity.github.io/availity-angular/pages/ui/#/dropdowns" target="_blank">av-dropdown</a></h3>
+<p><img src="docs/dropdown.png" alt="Dropdown"></p>
+<p>Wrapper around <a href="https://select2.github.io/select2/" target="_blank">Select2 v3.5.2</a>. Configure <strong>Select2</strong> through <code>ng-options</code>.</p>
+<pre class="language-"><code class="lang-js">ng<span class="token operator">-</span>options<span class="token operator">=</span><span class="token string">&quot;{ allowClear: false, placeholder: &apos;Select your favorite number&apos;}&quot;</span>
+</code></pre>
+<h3 id="simple"><a href="https://availity.github.io/availity-angular/pages/ui/#/simple" target="_blank">Simple</a></h3>
+<p>Usage without <code>ng-options</code>.</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownSimple<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedNumber<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: false, placeholder: <span class="token punctuation">&apos;</span>Select your favorite number<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Select One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>2<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>3<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Three<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>4<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Four<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>5<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Five<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="array"><a href="https://availity.github.io/availity-angular/pages/ui/#/array" target="_blank">Array</a></h3><pre class="language-"><code class="lang-javascript">vm<span class="token punctuation">.</span>pokemon <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&apos;Aerodactyl&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;Alakazam&apos;</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="array"><a href="https://availity.github.io/availity-angular/pages/ui/#/array" target="_blank">Array</a></h3>
+<pre class="language-"><code class="lang-javascript">vm<span class="token punctuation">.</span>pokemon <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&apos;Aerodactyl&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;Alakazam&apos;</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
 <pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
     <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownPoke<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> 
@@ -395,8 +405,10 @@
     <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedPoke<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>poke for poke in vm.pokemon<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: false, placeholder: <span class="token punctuation">&apos;</span>Select a Pokemon<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="label-for-value-in-array"><a href="https://availity.github.io/availity-angular/pages/ui/#/label-for-value-in-array" target="_blank">Label for Value in Array</a></h3><pre class="language-"><code class="lang-javascript">vm<span class="token punctuation">.</span>states <span class="token operator">=</span> <span class="token punctuation">[</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="label-for-value-in-array"><a href="https://availity.github.io/availity-angular/pages/ui/#/label-for-value-in-array" target="_blank">Label for Value in Array</a></h3>
+<pre class="language-"><code class="lang-javascript">vm<span class="token punctuation">.</span>states <span class="token operator">=</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
     <span class="token string">&apos;name&apos;</span><span class="token punctuation">:</span> <span class="token string">&apos;Alabama&apos;</span><span class="token punctuation">,</span>
     <span class="token string">&apos;id&apos;</span><span class="token punctuation">:</span> <span class="token string">&apos;AL&apos;</span>
@@ -405,7 +417,8 @@
     <span class="token string">&apos;name&apos;</span><span class="token punctuation">:</span> <span class="token string">&apos;Alaska&apos;</span><span class="token punctuation">,</span>
     <span class="token string">&apos;id&apos;</span><span class="token punctuation">:</span> <span class="token string">&apos;AK&apos;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
 <pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
     <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> 
@@ -415,8 +428,10 @@
     <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span>
 <span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="select-as-label-for-value-in-array"><a href="https://availity.github.io/availity-angular/pages/ui/#/select-as-label-for-value-in-array" target="_blank">Select as Label for Value in Array</a></h3><pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="select-as-label-for-value-in-array"><a href="https://availity.github.io/availity-angular/pages/ui/#/select-as-label-for-value-in-array" target="_blank">Select as Label for Value in Array</a></h3>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
     <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> 
@@ -424,8 +439,10 @@
     <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.id as state.name for state in vm.states<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="label-for-value-in-array-track-by"><a href="https://availity.github.io/availity-angular/pages/ui/#/label-for-value-in-array-track-by" target="_blank">Label for Value in Array Track By</a></h3><pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="label-for-value-in-array-track-by"><a href="https://availity.github.io/availity-angular/pages/ui/#/label-for-value-in-array-track-by" target="_blank">Label for Value in Array Track By</a></h3>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
     <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">av-dropdown</span>
@@ -433,8 +450,10 @@
     <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.name for state in vm.states track by state.id<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">ptions</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="multiple"><a href="https://availity.github.io/availity-angular/pages/ui/#/multiple" target="_blank">Multiple</a></h3><pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="multiple"><a href="https://availity.github.io/availity-angular/pages/ui/#/multiple" target="_blank">Multiple</a></h3>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> 
     <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownMultiple<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">multiple</span>
@@ -443,8 +462,11 @@
     <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.name for state in vm.states track by state.id<span class="token punctuation">&quot;</span></span>
     <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedStates)<span class="token punctuation">&quot;</span></span>
     <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span></code></pre>
-<h3 id="query-large-data-sets"><a href="https://availity.github.io/availity-angular/pages/ui/#/query-large-data-sets" target="_blank">Query Large Data-sets</a></h3><p><a href="https://select2.github.io/select2/" target="_blank">Select2 v3.5.2</a> requires an input field for lazy loading large data sets through queries.  Create a resouce by extending <code>AvSelectResource</code> and passing it as options to the input field like below.  Do not use <code>ng-options</code> on inputs fields because Angular throws an error.</p><pre class="language-"><code class="lang-js"><span class="token keyword">class</span> <span class="token class-name">DemoPhotosResource</span> <span class="token keyword">extends</span> <span class="token class-name">AvSelectResource</span> <span class="token punctuation">{</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="query-large-data-sets"><a href="https://availity.github.io/availity-angular/pages/ui/#/query-large-data-sets" target="_blank">Query Large Data-sets</a></h3>
+<p><a href="https://select2.github.io/select2/" target="_blank">Select2 v3.5.2</a> requires an input field for lazy loading large data sets through queries.  Create a resouce by extending <code>AvSelectResource</code> and passing it as options to the input field like below.  Do not use <code>ng-options</code> on inputs fields because Angular throws an error. </p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">class</span> <span class="token class-name">DemoPhotosResource</span> <span class="token keyword">extends</span> <span class="token class-name">AvSelectResource</span> <span class="token punctuation">{</span>
 
   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;photos&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -464,7 +486,8 @@
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
-<span class="token punctuation">}</span></code></pre>
+<span class="token punctuation">}</span>
+</code></pre>
 <pre class="language-"><code class="lang-js">
 <span class="token comment" spellcheck="true">// vm is the controller in $scope</span>
 vm<span class="token punctuation">.</span><span class="token function">getOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -474,7 +497,8 @@ vm<span class="token punctuation">.</span><span class="token function">getOption
     minimumInputLength<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
     query<span class="token punctuation">:</span> demoDropdownResource <span class="token comment" spellcheck="true">// Injected Angular service</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<span class="token punctuation">}</span>
+</code></pre>
 <pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Photos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> 
@@ -484,7 +508,8 @@ vm<span class="token punctuation">.</span><span class="token function">getOption
     <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedPhoto<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedPhoto)<span class="token punctuation">&quot;</span></span> 
     <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.getOptions()<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
 
                                 
                                 </section>
@@ -528,7 +553,7 @@ vm<span class="token punctuation">.</span><span class="token function">getOption
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dropdowns","level":"1.8","depth":1,"next":{"title":"Utils","level":"1.9","depth":1,"path":"src/core/utils/README.md","ref":"src/core/utils/README.md","articles":[]},"previous":{"title":"Modal","level":"1.7","depth":1,"path":"src/ui/modal/README.md","ref":"src/ui/modal/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/dropdown/README.md","mtime":"2017-04-28T03:47:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-28T03:48:07.405Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Dropdowns","level":"1.8","depth":1,"next":{"title":"Utils","level":"1.9","depth":1,"path":"src/core/utils/README.md","ref":"src/core/utils/README.md","articles":[]},"previous":{"title":"Modal","level":"1.7","depth":1,"path":"src/ui/modal/README.md","ref":"src/ui/modal/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/dropdown/README.md","mtime":"2017-06-21T00:04:44.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-21T02:55:53.184Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

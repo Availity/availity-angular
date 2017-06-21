@@ -26,9 +26,9 @@ const AvRegionsFactory = function(AvApiResource, avUsersResource) {
 
     getRegions(config) {
       return this.checkUser(config)
-      .then(checkedConfig => {
-        return this.query(checkedConfig);
-      });
+        .then(checkedConfig => {
+          return this.query(checkedConfig);
+        });
     }
 
     checkUser(config = {}) {

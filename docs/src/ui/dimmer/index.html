@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Dimmer · Availity Angular SDK</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Dimmer · Availity Angular SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -378,8 +378,14 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="dimmer">Dimmer</h2><p><code>avDimmer</code> is a directive that displays a message or effect over an element. <code>avDimmer</code> checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.</p><h3 id="usage">Usage</h3><pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity.ui&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="configuration">Configuration</h3><p><code>avDimmerConfigProvider</code> can be used to globally set values for all <code>avDimmer</code> instances.  Directive overrides are allow passing the configuration to attribute <code>av-dimmer-config</code>.</p><pre class="language-"><code class="lang-javascript">
+                                <h2 id="dimmer">Dimmer</h2>
+<p><code>avDimmer</code> is a directive that displays a message or effect over an element. <code>avDimmer</code> checks for a specific child element and if its found, will call a velocity animation on it based on a show and hide event.</p>
+<h3 id="usage">Usage</h3>
+<pre class="language-"><code class="lang-javascript">angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">&apos;app&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;availity.ui&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p><code>avDimmerConfigProvider</code> can be used to globally set values for all <code>avDimmer</code> instances.  Directive overrides are allow passing the configuration to attribute <code>av-dimmer-config</code>.</p>
+<pre class="language-"><code class="lang-javascript">
   <span class="token punctuation">{</span>
     animationConfig<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       duration<span class="token punctuation">:</span> <span class="token number">250</span>
@@ -389,10 +395,15 @@
     hideAnimation<span class="token punctuation">:</span> <span class="token string">&apos;fadeOut&apos;</span><span class="token punctuation">,</span>
     hideEvent<span class="token punctuation">:</span> <span class="token string">&apos;mouseleave&apos;</span><span class="token punctuation">,</span>
     overlaySelector<span class="token punctuation">:</span> <span class="token string">&apos;.dimmer-content&apos;</span>
-  <span class="token punctuation">}</span></code></pre>
-<h3 id="directive">Directive</h3><p>The directive <code>av-dimmer</code> can be used as an element or an attribute</p><pre class="language-"><code class="lang-html">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>av-dimmer</span><span class="token punctuation">&gt;</span></span></code></pre>
+  <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="directive">Directive</h3>
+<p>The directive <code>av-dimmer</code> can be used as an element or an attribute</p>
+<pre class="language-"><code class="lang-html">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>av-dimmer</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>av-dimmer</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
 <p>This will add the event listeners to this element, and search its children with the <code>overlaySelector</code> to apply the animations to.</p>
+
                                 
                                 </section>
                             
@@ -435,7 +446,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dimmer","level":"1.6","depth":1,"next":{"title":"Modal","level":"1.7","depth":1,"path":"src/ui/modal/README.md","ref":"src/ui/modal/README.md","articles":[]},"previous":{"title":"Authorizations","level":"1.5","depth":1,"path":"src/core/authorizations/README.md","ref":"src/core/authorizations/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/dimmer/README.md","mtime":"2017-04-26T01:14:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-28T03:48:07.405Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Dimmer","level":"1.6","depth":1,"next":{"title":"Modal","level":"1.7","depth":1,"path":"src/ui/modal/README.md","ref":"src/ui/modal/README.md","articles":[]},"previous":{"title":"Authorizations","level":"1.5","depth":1,"path":"src/core/authorizations/README.md","ref":"src/core/authorizations/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/dimmer/README.md","mtime":"2017-03-17T07:17:16.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-21T02:55:53.184Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

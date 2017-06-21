@@ -10,7 +10,7 @@ import 'tracekit';
 import 'angular';
 import 'angular-sanitize';
 import 'angular-animate';
-import 'angular-ui-router';
+import '@uirouter/angularjs';
 import 'angular-shims-placeholder';
 import 'angular-mocks';
 import 'angular-ui-mask';

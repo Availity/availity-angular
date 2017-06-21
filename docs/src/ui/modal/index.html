@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Modal · Availity Angular SDK</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Modal · Availity Angular SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -378,23 +378,48 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modals">Modals</h2><p><img alt="Modal" src="docs/modal.png"></p><h3 id="avmodal"><code>avModal</code></h3><p><code>avModal</code> is a service that allows the creation of modal windows.</p><p><strong>Constructor</strong></p><pre class="language-"><code class="lang-js">
+                                <h2 id="modals">Modals</h2>
+<p><img src="docs/modal.png" alt="Modal"></p>
+<h3 id="avmodal"><code>avModal</code></h3>
+<p><code>avModal</code> is a service that allows the creation of modal windows.  </p>
+<p><strong>Constructor</strong></p>
+<pre class="language-"><code class="lang-js">
 <span class="token keyword">import</span> tpl <span class="token keyword">from</span> <span class="token string">&apos;./template&apos;</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> modal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AvModal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   scope<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
   templateUrl<span class="token punctuation">:</span> tpl
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p><strong>Static</strong></p><pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>Static</strong></p>
+<pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   show<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
   scope<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
   templateUrl<span class="token punctuation">:</span> tpl
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="options">Options</h4><h5 id="show"><code>show</code></h5><p>Boolean that triggers modal to immediately show upon creation.  Default is <code>false</code>.</p><h5 id="scope"><code>scope</code></h5><p>Pass <code>$scope</code> to the modal&apos;s controller.</p><h5 id="templateurl"><code>templateUrl</code></h5><p>Url or function that loads the template.</p><h5 id="controller"><code>controller</code></h5><p>Same as Angular controller.</p><h5 id="controlleras"><code>controllerAs</code></h5><p>Same as Angular&apos;s controller as syntax.</p><h5 id="locals"><code>locals</code></h5><p>Values become injectable in the controller based on their key names.</p><pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>  
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="options">Options</h4>
+<h5 id="show"><code>show</code></h5>
+<p>Boolean that triggers modal to immediately show upon creation.  Default is <code>false</code>.</p>
+<h5 id="scope"><code>scope</code></h5>
+<p>Pass <code>$scope</code> to the modal&apos;s controller.</p>
+<h5 id="templateurl"><code>templateUrl</code></h5>
+<p>Url or function that loads the template.</p>
+<h5 id="controller"><code>controller</code></h5>
+<p>Same as Angular controller.</p>
+<h5 id="controlleras"><code>controllerAs</code></h5>
+<p>Same as Angular&apos;s controller as syntax.</p>
+<h5 id="locals"><code>locals</code></h5>
+<p>Values become injectable in the controller based on their key names.</p>
+<pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>  
   locals<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     someKey<span class="token punctuation">:</span> <span class="token string">&apos;This is a value passed in using locals, they become injectable values into the controller based on their key name.&apos;</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h4 id="methods">Methods</h4><h3 id="avmodalcreate"><code>AvModal.create</code></h3><p>Create a modal window on demand without having to call the contructor.</p>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="methods">Methods</h4>
+<h3 id="avmodalcreate"><code>AvModal.create</code></h3>
+<p>Create a modal window on demand without having to call the contructor.</p>
+
                                 
                                 </section>
                             
@@ -437,7 +462,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modal","level":"1.7","depth":1,"next":{"title":"Dropdowns","level":"1.8","depth":1,"path":"src/ui/dropdown/README.md","ref":"src/ui/dropdown/README.md","articles":[]},"previous":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/modal/README.md","mtime":"2017-04-26T13:38:01.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-04-28T03:48:07.405Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Modal","level":"1.7","depth":1,"next":{"title":"Dropdowns","level":"1.8","depth":1,"path":"src/ui/dropdown/README.md","ref":"src/ui/dropdown/README.md","articles":[]},"previous":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/modal/README.md","mtime":"2017-06-21T00:04:44.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-21T02:55:53.184Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

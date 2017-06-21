@@ -12,7 +12,7 @@ export default function uuid(prefix) {
       uid[index] = 'A';
       return prefix ? prefix + uid.join('') : uid.join('');
     }
-    if (digit === 90  /* 'Z' */) {
+    if (digit === 90 /* 'Z' */) {
       uid[index] = '0';
     } else {
       uid[index] = String.fromCharCode(digit + 1);

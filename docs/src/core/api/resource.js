@@ -143,8 +143,8 @@ class ApiResourceProvider {
               }
               defer.resolve(successResponse);
             },
-              (errorResponse) => defer.reject(errorResponse),
-              (notifyResponse) => defer.notify(notifyResponse)
+            (errorResponse) => defer.reject(errorResponse),
+            (notifyResponse) => defer.notify(notifyResponse)
             );
 
           }).catch( response => {
@@ -179,8 +179,8 @@ class ApiResourceProvider {
 
       normalize(url) {
         return url
-        .replace(/[\/]+/g, '/')
-        .replace(/\/$/, '');
+          .replace(/[\/]+/g, '/')
+          .replace(/\/$/, '');
       }
 
       join() {
@@ -295,7 +295,7 @@ class ApiResourceProvider {
           //
           // update(data, config) {} a.k.a function(id, data)
           //
-          config = data;  // config is really the 2nd param
+          config = data; // config is really the 2nd param
           data = id; // data is really the first param
         }
 

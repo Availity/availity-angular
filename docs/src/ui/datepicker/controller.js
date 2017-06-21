@@ -1,5 +1,6 @@
 import angular from 'angular';
 import $ from 'jquery';
+import moment from 'moment';
 
 import ngModule from '../module';
 
@@ -62,6 +63,11 @@ class AvDatepickerController {
       return null;
     }
 
+    const isValid = moment(viewValue, this.options._format, true).isValid();
+    if (!isValid) {
+      return undefined;
+    }
+
     const format = $.fn.datepicker.DPGlobal.parseFormat(this.options.format);
     const utcDate = $.fn.datepicker.DPGlobal.parseDate(this.ngModel.$viewValue, format, 'en');
 
@@ -88,6 +94,10 @@ class AvDatepickerController {
 
   }
 
+  // Developers are used to working with moment.js and availity-angular
+  // validators also use moment.js so this function converts from moment.js
+  // to bootstrap-datepicker.js format.
+  //
   // bootstrap-datepicker date format supports a combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
   // Below is the conversion table from moment.js format options to bootstrap-datepicker.
   //
@@ -102,8 +112,7 @@ class AvDatepickerController {
   //  - YY => 70 71 ... 29 30
   //  - YYYY => 1970 1971 ... 2029 2030
   //
-  //
-  //  Table reads momment.js format => bootstrap-datepicker format
+  //  Table reads moment.js format => bootstrap-datepicker format
   //
   //  - D, DD => d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
   //  - ddd, dddd => D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
@@ -114,6 +123,7 @@ class AvDatepickerController {
   convertFormat() {
 
     let format = this.options.format;
+    this.options._format = this.options.format; // store orginal Moment format
 
     if (format) {
 
@@ -129,6 +139,7 @@ class AvDatepickerController {
 
     }
 
+    // this is moment format converted to bootstrap-datepicker.js format.
     this.options.format = format;
 
   }
@@ -140,7 +151,7 @@ class AvDatepickerController {
   destroy() {
     const plugin = this.plugin();
     if (plugin) {
-      plugin.remove();
+      plugin.destroy();
       this.av.$element.data('datepicker', null);
     }
   }

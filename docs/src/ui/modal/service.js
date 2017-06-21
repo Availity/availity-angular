@@ -94,7 +94,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
     }
 
-      // Add helpers to scope so clients can call internal methods
+    // Add helpers to scope so clients can call internal methods
     scope() {
 
       const self = this;
