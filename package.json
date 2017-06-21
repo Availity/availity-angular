@@ -62,7 +62,6 @@
     "animate.css": "^3.5.2",
     "autoprefixer": "^7.1.1",
     "availity-workflow-logger": "^2.1.2",
-    "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
