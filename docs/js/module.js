@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-animate';
-import 'angular-ui-router';
+import '@uirouter/angularjs';
 
 export default angular.module('availity.demo', [
   'availity',

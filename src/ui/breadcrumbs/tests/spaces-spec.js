@@ -3,7 +3,7 @@
 import angular from 'angular';
 import $ from 'jquery';
 import Tester from 'tester';
-import 'angular-ui-router';
+import '@uirouter/angularjs';
 
 import '../';
 
