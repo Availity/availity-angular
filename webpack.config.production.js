@@ -69,7 +69,7 @@ function getConfig(options) {
 
       new ExtractTextPlugin(optimize ? 'css/[name].min.css' : 'css/[name].css'),
 
-      new webpack.NoErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
 
       new webpack.optimize.ModuleConcatenationPlugin(),
 
