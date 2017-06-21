@@ -71,6 +71,8 @@ function getConfig(options) {
 
       new webpack.NoErrorsPlugin(),
 
+      new webpack.optimize.ModuleConcatenationPlugin(),
+
       new webpack.DefinePlugin(ENV_VAR),
 
       new CommonsChunkPlugin({
