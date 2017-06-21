@@ -169,6 +169,22 @@ describe('avValField', () => {
       expect(tester.$scope.mockForm.date.$viewValue).toBe('01/22/1986');
     });
 
+    it('should not rollover invalid month values', () => {
+
+      tester.$scope.demo.date = null;
+      $el = tester.compileDirective(template);
+      const $date = $el.find('#datez');
+
+      const ngModel = $date.data('$ngModelController');
+      ngModel.$setViewValue('15/04/1945');
+
+      tester.flush(DEBOUNCE);
+      tester.$scope.$digest();
+
+      expect(tester.$scope.mockForm.date.$invalid).toBe(true);
+
+    });
+
   });
 
 });
