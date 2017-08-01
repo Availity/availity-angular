@@ -100,7 +100,7 @@ class AvDropdownController {
 
     const objType = typeof obj;
     if (objType === 'function' || (objType === 'object' && obj !== null)) {
-      key = obj.$$hashKey = objType + ':' + (nextUidFn || uuid())();
+      key = obj.$$hashKey = objType + ':' + (nextUidFn || uuid)();
     } else {
       key = objType + ':' + obj;
     }
