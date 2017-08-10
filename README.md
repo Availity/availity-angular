@@ -49,16 +49,13 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 + [Angular Bootstrap](https://github.com/angular-ui/bootstrap)
 + [Valdr](https://github.com/netceteragroup/valdr)
 
-## Authors
+## Contributing
 
-**Robert McGuinness**
-+ [rob.mcguinness@availity.com](rob.mcguinness@availity.com)
-
-**Bobby Bennett**
-+ [bobby.bennett@availity.com](bobby.bennett@availity.com)
-
-**Danny Noler**
-+ [danny.noler@availity.com](danny.noler@availity.com)
+1. Ensure release is occurring on `master` branch: `git checkout master`
+2. Run `npm test` and ensure all test are passing
+3. Run `npm run build`
+4. Run `npm version ${version}` where version is the appropriate semantic release number. 
+5. Run `npm publish`. You must be listed as a collaborator https://www.npmjs.com/package/availity-angular for this step to work.
 
 ## License
 
