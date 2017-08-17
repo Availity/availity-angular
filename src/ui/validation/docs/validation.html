@@ -10,29 +10,32 @@ title: Validation
         type="text"
         class="form-control"
         name="demoFirstName1"
+        id="demoFirstName1"
         placeholder="..."
         ng-model="vm.firstName"
         av-val-field="firstName"
       >
-        <p av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoLastName1">Last Name</label>
       <input type="text"
         class="form-control"
         name="demoLastName1"
+        id="demoLastName1"
         placeholder="..."
         ng-model="vm.lastName"
         av-val-field="lastName"
         av-val-on="blur"
       >
-        <p av-val-container></p>
+      <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="demoPhone">Phone</label>
       <input
         type="text"
         name="demoPhone"
+        id="demoPhone"
         placeholder="..."
         class="form-control"
         ng-model="vm.phone"
@@ -45,6 +48,7 @@ title: Validation
       <input
         type="text"
         name="demoEmail"
+        id="demoEmail"
         placeholder="your@email.com"
         class="form-control"
         ng-model="vm.email"
@@ -57,6 +61,7 @@ title: Validation
       <input
         type="text"
         name="demoSSN"
+        id="demoSSN"
         placeholder="###-##-####"
         class="form-control"
         ng-model="vm.ssn"
@@ -70,6 +75,7 @@ title: Validation
       <input type="text"
         class="form-control"
         name="demoIcd9"
+        id="demoIcd9"
         placeholder="..."
         ng-model="vm.icd9"
         av-val-field="icd9"
@@ -81,6 +87,7 @@ title: Validation
       <input type="text"
         class="form-control"
         name="demoNPI"
+        id="demoNPI"
         placeholder="..."
         ng-model="vm.npi"
         av-val-field="npi"
@@ -88,10 +95,13 @@ title: Validation
       <p av-val-container></p>
     </div>
     <div class="form-group">
-      <label for="demoTaxID">Tax ID <small class="inline-help" data-av-tooltip title="Can be SSN, EIN, ITIN, ATIN, or PTIN">What's this?</small></label>
+      <label for="demoTaxID">Tax ID
+        <small class="inline-help" data-av-tooltip title="Can be SSN, EIN, ITIN, ATIN, or PTIN">What's this?</small>
+      </label>
       <input type="text"
         class="form-control"
         name="demoTaxID"
+        id="demoTaxID"
         placeholder="..."
         ng-model="vm.taxId"
         av-val-field="taxId"
@@ -109,21 +119,22 @@ title: Validation
         placeholder="Select State"
         av-val-field="states"
         allow-clear="true"
-        >
+      >
       </select>
       <p av-val-container></p>
     </div>
     <div class="form-group">
       <label for="birthdate20">Birthdate</label>
-      <div class='input-group'>
+      <div class="input-group">
         <input type="text"
-         class="form-control"
-         id="birthdate20"
-         ng-model="vm.date"
-         av-datepicker
-         av-val-field="date"
-         container-id="container-1"
-         av-mask="date"
+          class="form-control"
+          id="birthdate20"
+          ng-model="vm.date"
+          av-datepicker
+          av-val-field="date"
+          container-id="container-1"
+          ui-mask="99/99/9999"
+          model-view-value="true"
         />
         <span class="input-group-btn" toggle="datepicker">
           <button class="btn btn-default" type="button">
@@ -136,11 +147,11 @@ title: Validation
     <div class="form-group">
       <label for="someRequiredField50">Field that show an error immediately</label>
       <input type="text"
-       class="form-control"
-       id="someRequiredField50"
-       ng-model="vm.someRequiredField"
-       av-val-field="someRequiredField"
-       av-val-show="true"
+        class="form-control"
+        id="someRequiredField50"
+        ng-model="vm.someRequiredField"
+        av-val-field="someRequiredField"
+        av-val-show="true"
       />
       <p av-val-container></p>
     </div>
@@ -159,55 +170,62 @@ title: Validation
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="submit" class="btn btn-primary" ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
-    <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules</button>
+    <button type="button"
+      class="btn btn-default"
+      ng-click="vm.onChangeRules()"
+      av-analytics-on="click"
+      av-analytics-event="Play"
+      av-analytics-category="yumm"
+      av-analytics-label="Test"
+      av-analytics-value="7">Change Rules
+    </button>
     <button type="button" class="btn btn-default" ng-click="vm.reset(this)">Reset</button>
   </form>
 </div>
 
-
 <code class="language-markup" ng-non-bindable>
 
-<form name="demoForm" av-val-form="vm.rule">
-  <div class="form-group">
-    <label for="demoFirstName1">First Name</label>
-    <input
-      type="text"
-      class="form-control"
-      name="demoFirstName1"
-      placeholder="..."
-      ng-model="vm.firstName"
-      av-val-field="firstName"
-    >
+  <form name="demoForm" av-val-form="vm.rule">
+    <div class="form-group">
+      <label for="demoFirstName1">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="demoFirstName1"
+        placeholder="..."
+        ng-model="vm.firstName"
+        av-val-field="firstName"
+      >
       <p av-val-container></p>
-  </div>
-</form>
+    </div>
+  </form>
 
-<!-- Javascript -->
-<script>
+  <!-- Javascript -->
+  <script>
 
-const app = require('./app');
+    const app = require('./app');
 
-app.config( (avAnalyticsProvider, avValProvider) => {
+    app.config((avAnalyticsProvider, avValProvider) => {
 
-  const defaultRules = {
-    firstName: {
-      required: {
-        message: 'First name is required.'
-      },
-      size: {
-        min: 2,
-        max: 20,
-        message: 'First name must be between 2 and 20 characters.'
-      }
-    }
-  };
+      const defaultRules = {
+        firstName: {
+          required: {
+            message: 'First name is required.'
+          },
+          size: {
+            min: 2,
+            max: 20,
+            message: 'First name must be between 2 and 20 characters.'
+          }
+        }
+      };
 
-  avValProvider.addRules({
-    defaultRules
-  });
+      avValProvider.addRules({
+        defaultRules
+      });
 
-});
+    });
 
-</script>
+  </script>
 
 </code>
