@@ -136,7 +136,7 @@ class AvDropdownController {
     const optionValuesKeys = this.getOptionValuesKeys(optionValues);
 
     const index = findIndex(this.collection, item => {
-      return angular.equals(model, item);
+      return angular.equals(model, item) || angular.isObject(item) && this.valueName && angular.equals(model, item[this.valueName]);
     });
 
     const key = (optionValues === optionValuesKeys) ? index : optionValuesKeys[index];
