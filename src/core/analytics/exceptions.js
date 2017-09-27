@@ -58,7 +58,7 @@ class AvExceptionAnalyticsProvider {
       prettyPrint(stacktrace = {}) {
 
         let message = '';
-        
+
         try {
           if (!stacktrace.stack) {
             stacktrace.stack = (new Error('force-added stack')).stack;
@@ -66,7 +66,7 @@ class AvExceptionAnalyticsProvider {
               stacktrace.stack = stacktrace.stack.toString();
             }
           }
-        } catch (e) {}
+        } catch (e) {/* throw away */}
 
         const length = stacktrace.stack ? stacktrace.stack.length : 0;
 
