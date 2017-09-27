@@ -59,6 +59,10 @@ class AvExceptionAnalyticsProvider {
 
         let message = '';
 
+        if (!stacktrace || !stacktrace.stack) {
+          return message;
+        }
+
         const length = stacktrace.stack.length;
 
         for (let i = 0; i < length; i++) {
