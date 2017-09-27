@@ -55,11 +55,20 @@ class AvExceptionAnalyticsProvider {
         this.messageTimestampMap = {};
       }
 
-      prettyPrint(stacktrace) {
+      prettyPrint(stacktrace = {}) {
 
         let message = '';
+        
+        try {
+          if (!stacktrace.stack) {
+            stacktrace.stack = (new Error('force-added stack')).stack;
+            if (stacktrace.stack) {
+              stacktrace.stack = stacktrace.stack.toString();
+            }
+          }
+        } catch (e) {}
 
-        const length = stacktrace.stack.length;
+        const length = stacktrace.stack ? stacktrace.stack.length : 0;
 
         for (let i = 0; i < length; i++) {
           let iMessage = i.toString();
