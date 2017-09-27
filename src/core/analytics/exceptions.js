@@ -56,9 +56,9 @@ class AvExceptionAnalyticsProvider {
       }
 
       prettyPrint(stacktrace) {
-        
+
         let message = '';
-        
+
         if (!stacktrace || !stacktrace.stack) {
           return message;
         }
