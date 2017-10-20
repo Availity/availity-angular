@@ -1,3 +1,4 @@
+import moment from 'moment';
 import ngModule from '../module';
 
 const AvUserPermissionsResourceFactory = function(AvApiResource) {
@@ -11,7 +12,11 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
         version: '/v1',
         name: '/axi-user-permissions'
       });
-
+      /**
+       * sessionDate used by api to determine if server side cache is out of date.
+       * i.e if user cache on server is older then sessionDate it will repull user information.
+       */
+      this.sessionDate = moment().toISOString();
     }
 
     afterQuery(response) {
@@ -22,8 +27,9 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
 
       return this.query({
         params: {
+          region,
           permissionId: permissionIds,
-          region
+          sessionDate: this.sessionDate
         }
       });
 
