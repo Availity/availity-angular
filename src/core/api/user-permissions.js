@@ -1,4 +1,3 @@
-import moment from 'moment';
 import ngModule from '../module';
 
 const AvUserPermissionsResourceFactory = function(AvApiResource) {
@@ -16,7 +15,7 @@ const AvUserPermissionsResourceFactory = function(AvApiResource) {
        * sessionDate used by api to determine if server side cache is out of date.
        * i.e if user cache on server is older then sessionDate it will repull user information.
        */
-      this.sessionDate = moment().toISOString();
+      this.sessionDate = new Date().toJSON();
     }
 
     afterQuery(response) {
