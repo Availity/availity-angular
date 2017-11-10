@@ -4,14 +4,14 @@ import matches from 'lodash.matches';
 import isEmpty from 'lodash.isempty';
 
 import ngModule from '../module';
-import { uuid } from '../../core/utils';
+import {uuid} from '../../core/utils';
 import './provider';
 
 class AvDropdownController {
 
   constructor($element, $attrs, avDropdownConfig, $scope, $timeout, $parse) {
 
-    this.av = { $element, $attrs, avDropdownConfig, $scope, $timeout, $parse };
+    this.av = {$element, $attrs, avDropdownConfig, $scope, $timeout, $parse};
 
     this.options = {};
     this.match = null;
@@ -20,8 +20,7 @@ class AvDropdownController {
 
   }
 
-  init(context) {``
-
+  init(context) {
     this.ngModel = context.ngModel;
 
     this.multiple = angular.isDefined(this.av.$attrs.multiple);
@@ -217,9 +216,11 @@ class AvDropdownController {
     // null === '' for Select2
     selected = (selected === null || selected === 'undefined') ? '' : selected;
 
-    this.av.$timeout(() => {
-      self.av.$element.select2('val', selected);
-    });
+    if (this.options.query) {
+      this.av.$timeout(() => self.av.$element.select2('data', viewValue));
+    } else {
+      this.av.$timeout(() => self.av.$element.select2('val', selected));
+    }
   }
 
   setValues() {
@@ -234,7 +235,7 @@ class AvDropdownController {
       viewValue = this.getMultiSelected(viewValue);
     }
 
-    this.av.$timeout(() => this.av.$element.select2('val', viewValue) );
+    this.av.$timeout(() => this.av.$element.select2('val', viewValue));
 
   }
 

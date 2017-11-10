@@ -85,11 +85,18 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
       this.selectedStates = null;
     }
 
-    setPictures() {
-      this.selectedPhoto = 'my_selected_photo';
+    setPhoto() {
+      this.selectedPhoto = {
+        'albumId': 2,
+        'id': 52,
+        'text': 'eveniet pariatur quia nobis reiciendis laboriosam ea',
+        'title': 'eveniet pariatur quia nobis reiciendis laboriosam ea',
+        'url': 'http://placehold.it/600/121fa4',
+        'thumbnailUrl': 'http://placehold.it/24/9ed3d5'
+      };
     }
 
-    resetPictures() {
+    resetPhoto() {
       this.selectedPhoto = null;
     }
 
