@@ -15,7 +15,7 @@ title: Dropdowns
           ng-model="vm.selectedNumber"
           options="{ allowClear: false, placeholder: 'Select your favorite number'}"
           ng-change="vm.onChange(vm.selectedNumber)"
-          >
+        >
           <option value="">Select One</option>
           <option value="1">One</option>
           <option value="2">Two</option>
@@ -44,7 +44,7 @@ title: Dropdowns
       av-dropdown
       ng-model="vm.selectedNumber"
       options="{ allowClear: false, placeholder: 'Select your favorite number'}"
-      >
+    >
       <option value="">Select One</option>
       <option value="1">One</option>
       <option value="2">Two</option>
@@ -67,7 +67,7 @@ title: Dropdowns
           ng-options="poke for poke in vm.pokemon"
           options="{ allowClear: false, placeholder: 'Select a Pokemon'}"
           ng-change="vm.onChange(vm.selectedPoke)"
-          >
+        >
         </select>
       </div>
       <div class="form-controls">
@@ -91,7 +91,7 @@ title: Dropdowns
       ng-model="vm.selectedPoke"
       ng-options="poke for poke in vm.pokemon"
       options="{ allowClear: false, placeholder: 'Select a Pokemon'}"
-      >
+    >
     </select>
   </code>
 
@@ -108,7 +108,7 @@ title: Dropdowns
           ng-options="state.name for state in vm.states"
           ng-change="vm.onChange(vm.selectedState1)"
           options="{ allowClear: true, placeholder: 'Select State'}"
-          >
+        >
         </select>
       </div>
       <div class="form-controls">
@@ -138,7 +138,7 @@ title: Dropdowns
       ng-options="state.name for state in vm.states"
       ng-change="vm.onChange(vm.selectedState1)"
       options="{ allowClear: true, placeholder: 'Select State'}"
-      >
+    >
     </select>
   </code>
 
@@ -155,7 +155,7 @@ title: Dropdowns
           ng-options="state.id as state.name for state in vm.states"
           ng-change="vm.onChange(vm.selectedState2)"
           options="{ allowClear: true, placeholder: 'Select State'}"
-          >
+        >
         </select>
       </div>
       <div class="form-controls">
@@ -185,7 +185,7 @@ title: Dropdowns
       ng-options="state.id as state.name for state in vm.states"
       ng-change="vm.onChange(vm.selectedState1)"
       options="{ allowClear: true, placeholder: 'Select State'}"
-      >
+    >
     </select>
   </code>
 
@@ -202,7 +202,7 @@ title: Dropdowns
           ng-options="state.name for state in vm.states track by state.id"
           ng-change="vm.onChange(vm.selectedState3)"
           options="{ allowClear: true, placeholder: 'Select State'}"
-          >
+        >
         </select>
       </div>
       <div class="form-controls">
@@ -232,7 +232,7 @@ title: Dropdowns
       ng-options="state.name for state in vm.states track by state.id"
       ng-change="vm.onChange(vm.selectedState1)"
       options="{ allowClear: true, placeholder: 'Select State'}"
-      >
+    >
     </select>
   </code>
 
@@ -250,7 +250,7 @@ title: Dropdowns
           ng-options="state.name for state in vm.states track by state.id"
           ng-change="vm.onChange(vm.selectedStates)"
           options="{ allowClear: true, placeholder: 'Select State'}"
-          >
+        >
         </select>
       </div>
       <div class="form-controls">
@@ -281,7 +281,7 @@ title: Dropdowns
       ng-options="state.name for state in vm.states track by state.id"
       ng-change="vm.onChange(vm.selectedStates)"
       options="{ allowClear: true, placeholder: 'Select State'}"
-      >
+    >
     </select>
   </code>
 
@@ -301,6 +301,22 @@ title: Dropdowns
           options="vm.getOptions()"
         >
       </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setPhoto()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetPhoto()"
+        >
+          Reset
+        </button>
+      </div>
     </form>
   </div>
   <code class="language-markup" ng-non-bindable>
@@ -315,6 +331,7 @@ title: Dropdowns
         ng-change="vm.onChange(vm.selectedPhoto)"
         options="vm.getOptions()">
     </div>
+
   </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
@@ -333,45 +350,63 @@ title: Dropdowns
           options="vm.getOptions2()"
         >
       </div>
+      <div class="form-controls">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.setPhoto()"
+        >
+          Set
+        </button>
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.resetPhoto()"
+        >
+          Reset
+        </button>
+      </div>
     </form>
   </div>
   <code class="language-javascript">
 
-  import picturesFormatResult from './picturesResultFormat';
+    import picturesFormatResult from './picturesResultFormat';
 
-  demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
+    demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
 
     class DemoDropdownService {
-      ...
-      getOptions() {
-        return {
-          allowClear: true,
-          placeholder: 'Find a photo',
-          minimumInputLength: 3,
-          query: demoDropdownResource,
-          formatResult: picturesFormatResult,
-          formatSelection: picturesFormatResult
-        };
-      }
-      ...
+    ...
+    getOptions() {
+    return {
+    allowClear: true,
+    placeholder: 'Find a photo',
+    minimumInputLength: 3,
+    query: demoDropdownResource,
+    formatResult: picturesFormatResult,
+    formatSelection: picturesFormatResult
+    };
+    }
+    ...
 
     }
 
     return new DemoDropdownService();
-  });
+    });
 
-  // picturesResultFormat.js
+    // picturesResultFormat.js
 
-  export default (item) => {
-    return `<div>
+    export default (item) => {
+    return `
+    <div>
       <div style='display:inline-block'>
         <img src='${item.thumbnailUrl}'>
       </div>
       <div style='display:inline-block; padding-left: 5px'>
         ${item.text}
       </div>
-    </div>`;
-  };
+    </div>
+    `;
+    };
   </code>
 
 
