@@ -16,7 +16,7 @@
     "url": "https://github.com/Availity/availity-angular/issues"
   },
   "scripts": {
-    "start": "NODE_ENV=development node cli.js start",
+    "start": "cross-env NODE_ENV=development node cli.js start",
     "build:lib": "copyup 'src/**/*.html' 'src/**/*.less' lib && babel src --out-dir lib --quiet --ignore specs.js,'**/tests/**','**/test/**','**/bower_components/**','**/docs/**','**/coverage/**'",
     "build:umd": "cross-env NODE_ENV=production node cli.js build",
     "build": "npm run build:umd && npm run build:lib",
