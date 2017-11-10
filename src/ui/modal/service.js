@@ -5,7 +5,7 @@ import '../templates';
 import './constants';
 import './directive';
 import './manager';
-import { uuid } from '../../core/utils/';
+import {uuid} from '../../core/utils/';
 
 const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODAL, avTemplateCache, $q, avModalManager) => {
 
@@ -20,7 +20,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       this.options = this.buildOptions(options);
 
-      avTemplateCache.get(options).then( _template => {
+      avTemplateCache.get(options).then(_template => {
         self.options.template = _template;
         self.build();
       });
@@ -39,7 +39,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       if (options.controller) {
 
-        const locals = angular.extend({ $scope: options.scope }, options.locals);
+        const locals = angular.extend({$scope: options.scope}, options.locals);
         const controller = $controller(options.controller, locals);
 
         if (options.controllerAs) {
@@ -63,7 +63,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       $compile(this.$element)(scope);
 
-      $timeout( () => {
+      $timeout(() => {
         this.init();
       }, 0, true);
 
@@ -169,7 +169,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       this.animationShowDefer = $q.defer();
 
-      this.templatePromise.then( () => {
+      this.templatePromise.then(() => {
         this.isShown() ? this.animationShowDefer.resolve(true) : this.$element.modal('show');
       });
 
@@ -181,7 +181,7 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
 
       this.animationHideDefer = $q.defer();
 
-      this.templatePromise.then( () => {
+      this.templatePromise.then(() => {
         !this.isShown() ? this.animationHideDefer.resolve(true) : this.$element.modal('hide');
       });
 
@@ -193,14 +193,14 @@ const ModalFactory = ($rootScope, $timeout, $compile, $controller, $log, AV_MODA
     }
 
     toggle() {
-      return this.templatePromise.then( () => {
+      return this.templatePromise.then(() => {
         return this.isShown() ? this.hide() : this.show();
       });
     }
 
     destroy() {
 
-      return this.templatePromise.then( () => {
+      return this.templatePromise.then(() => {
         this.$element.data('AvModal', null);
         this.$element.off(AV_MODAL.BS_EVENTS.SHOWN);
         this.$element.off(AV_MODAL.BS_EVENTS.SHOW);

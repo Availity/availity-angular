@@ -20,7 +20,7 @@ class AvDropdownController {
 
   }
 
-  init(context) {
+  init(context) {``
 
     this.ngModel = context.ngModel;
 

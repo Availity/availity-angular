@@ -85,6 +85,14 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
       this.selectedStates = null;
     }
 
+    setPictures() {
+      this.selectedPhoto = 'my_selected_photo';
+    }
+
+    resetPictures() {
+      this.selectedPhoto = null;
+    }
+
     onChange(selected) {
 
       if (selected) {
