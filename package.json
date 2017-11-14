@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development node cli.js start",
-    "build:lib": "copyup 'src/**/*.html' 'src/**/*.less' lib && babel src --out-dir lib --quiet --ignore specs.js,'**/tests/**','**/test/**','**/bower_components/**','**/docs/**','**/coverage/**'",
+    "build:lib": "copyup \"src/**/*.html\" \"src/**/*.less\" lib && babel src --out-dir lib --quiet --ignore specs.js,'**/tests/**','**/test/**','**/bower_components/**','**/docs/**','**/coverage/**'",
     "build:umd": "cross-env NODE_ENV=production node cli.js build",
     "build": "npm run build:umd && npm run build:lib",
     "clean": "node cli.js clean",
