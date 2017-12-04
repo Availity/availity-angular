@@ -201,42 +201,44 @@ class AvDropdownController {
   }
 
   setValue() {
-
     const self = this;
-
-    const viewValue = this.ngModel.$viewValue;
-
-    let selected = null;
-    if (this.multiple) {
-      selected = this.getMultiSelected(viewValue);
-    } else {
-      selected = this.getSelected(viewValue);
-    }
-
-    // null === '' for Select2
-    selected = (selected === null || selected === 'undefined') ? '' : selected;
-
     if (this.options.query) {
-      this.av.$timeout(() => self.av.$element.select2('data', viewValue));
+      const modelValue = this.ngModel.$modelValue;
+      this.av.$timeout(() => self.av.$element.select2('data', modelValue));
     } else {
+      const viewValue = this.ngModel.$viewValue;
+
+      let selected = null;
+      if (this.multiple) {
+        selected = this.getMultiSelected(viewValue);
+      } else {
+        selected = this.getSelected(viewValue);
+      }
+
+      // null === '' for Select2
+      selected = (selected === null || selected === 'undefined') ? '' : selected;
+
       this.av.$timeout(() => self.av.$element.select2('val', selected));
     }
   }
 
   setValues() {
+    if (this.options.query) {
+      const modelValue = this.ngModel.$modelValue;
+      this.av.$timeout(() => self.av.$element.select2('data', modelValue));
+    } else {
+      let viewValue = this.ngModel.$viewValue;
 
-    let viewValue = this.ngModel.$viewValue;
+      if (!angular.isArray(viewValue)) {
+        viewValue = [];
+      }
 
-    if (!angular.isArray(viewValue)) {
-      viewValue = [];
+      if (!isEmpty(viewValue) && angular.isObject(viewValue[0])) {
+        viewValue = this.getMultiSelected(viewValue);
+      }
+
+      this.av.$timeout(() => this.av.$element.select2('val', viewValue));
     }
-
-    if (!isEmpty(viewValue) && angular.isObject(viewValue[0])) {
-      viewValue = this.getMultiSelected(viewValue);
-    }
-
-    this.av.$timeout(() => this.av.$element.select2('val', viewValue));
-
   }
 
   ngOptions() {
