@@ -83,7 +83,7 @@ const SelectResourceFactory = AvApiResource => {
     //
     mapResults(results) {
 
-      if (results && (!results[0].id || !results[0].text)) {
+      if (results && results.length > 0 && (!results[0].id || !results[0].text)) {
 
         results = results.map(item => {
           const {id, text} = this.mapResult(item);
