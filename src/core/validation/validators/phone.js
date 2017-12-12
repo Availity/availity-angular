@@ -13,7 +13,7 @@ ngModule.factory('avValPhone', avValPattern => {
     }
 
     validate(context) {
-      context.constraint = context.contraint || {};
+      context.constraint = context.constraint || {};
       context.constraint.value = PHONE_PATTERN;
       return avValPattern.validate(context);
     }
