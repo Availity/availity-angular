@@ -88,7 +88,7 @@ class AvValFieldController {
         return;
       }
 
-      self.ngModel.$validators[constraintName] = function contraintValidator(modelValue, viewValue) {
+      self.ngModel.$validators[constraintName] = function constraintValidator(modelValue, viewValue) {
 
         const value = modelValue || viewValue;
 
