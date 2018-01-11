@@ -17,12 +17,7 @@ describe('avOnFileChanged', () => {
   xit('should handle change callback', () => {
     tester.$scope.cb = tester.spy;
     const $el = tester.compileDirective(template, null, null);
-    $el.triggerHandler({
-      type: 'change',
-      target: {
-        files: []
-      }
-    });
+    $el.trigger('change');
     tester.$scope.$apply();
     expect(tester.spy).toHaveBeenCalled();
   });
