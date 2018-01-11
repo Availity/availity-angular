@@ -10,3 +10,4 @@ build
 lib
 coverage
 .vscode
+package-lock.json
