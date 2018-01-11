@@ -6,7 +6,7 @@ import template from './on-file-change-spec.html';
 
 import '../on-file-changed';
 
-describe('onFileChanged', () => {
+describe('avOnFileChanged', () => {
 
   const tester = new Tester();
 
@@ -17,7 +17,12 @@ describe('onFileChanged', () => {
   it('should handle change callback', () => {
     tester.$scope.cb = tester.spy;
     const $el = tester.compileDirective(template, null, null);
-    $el.trigger('change');
+    $el.triggerHandler({
+      type: 'change',
+      target: {
+        files: []
+      }
+    });
     tester.$scope.$apply();
     expect(tester.spy).toHaveBeenCalled();
   });

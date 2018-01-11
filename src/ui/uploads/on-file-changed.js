@@ -5,7 +5,7 @@ ngModule.directive('avOnFileChange', () => ({
   link(scope, element, attrs) {
     element.on('change', () => {
       scope.$applyAsync(() => {
-        const onFileChangeHandler = scope.$eval(attrs.onFileChange);
+        const onFileChangeHandler = scope.$eval(attrs.avOnFileChange);
         const el = element[0];
 
         if (el.files) {
