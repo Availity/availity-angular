@@ -52,7 +52,6 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 ## Contributing
 
 1. Ensure release is occurring on `master` branch: `git checkout master`
-1. If pointing to private registry, Run `npm config set registry` to use npm default repository.
 1. Run `npm install` to ensure dependencies are up to date.
 1. Run `npm test` and ensure all test are passing
 1. Run `npm run build`
@@ -62,4 +61,4 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
   
 ## License
 
-Copyright (c) 2017 Availity, LLC
+Copyright (c) 2017 Availity, LLC. Code released under the [the MIT license](LICENSE)
