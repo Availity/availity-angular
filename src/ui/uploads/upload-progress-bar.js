@@ -1,7 +1,7 @@
 import ngModule from '../module';
 import templateUrl from './upload-progress-bar.html';
 
-ngModule.directive('uploadProgressBar', () => ({
+ngModule.directive('avUploadProgressBar', () => ({
   restrict: 'E',
   scope: {
     upload: '='

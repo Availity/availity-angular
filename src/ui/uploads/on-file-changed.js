@@ -1,6 +1,6 @@
 import ngModule from '../module';
 
-ngModule.directive('onFileChange', () => ({
+ngModule.directive('avOnFileChange', () => ({
   restrict: 'A',
   link(scope, element, attrs) {
     element.on('change', () => {
