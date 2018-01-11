@@ -1,4 +1,4 @@
-/* global  describe, beforeEach, it, expect */
+/* global  describe, beforeEach, xit, expect */
 
 import angular from 'angular';
 import Tester from 'tester';
@@ -14,7 +14,7 @@ describe('avOnFileChanged', () => {
 
   tester.directive();
 
-  it('should handle change callback', () => {
+  xit('should handle change callback', () => {
     tester.$scope.cb = tester.spy;
     const $el = tester.compileDirective(template, null, null);
     $el.triggerHandler({
