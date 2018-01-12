@@ -15,5 +15,6 @@ import './popover';
 import './tooltip';
 import './templates';
 import './validation';
+import './uploads';
 
 import './ui.less';
