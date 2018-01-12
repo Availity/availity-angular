@@ -1,41 +1,8 @@
 /*!
  * 
- * availity-angular v2.0.4 (06/20/2017)
+ * availity-angular v2.1.1 (01/12/2018)
  * (c) Availity, LLC
  */
-[av-hide-permission] {
-  display: none;
-}
-.dimmer-content {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  padding: 1.25rem;
-  display: none;
-  z-index: 2;
-}
-.dimmer-content.dimmer-content-dark {
-  background: rgba(77, 79, 83, 0.9);
-  color: #FFFFFF !important;
-}
-[av-datepicker]::-webkit-calendar-picker-indicator,
-[data-av-datepicker]::-webkit-calendar-picker-indicator,
-.av-datepicker::-webkit-calendar-picker-indicator,
-[av-datepicker]::-webkit-clear-button,
-[data-av-datepicker]::-webkit-clear-button,
-.av-datepicker::-webkit-clear-button,
-[av-datepicker]::-webkit-inner-spin-button,
-[data-av-datepicker]::-webkit-inner-spin-button,
-.av-datepicker::-webkit-inner-spin-button,
-[av-datepicker]::-webkit-outer-spin-button,
-[data-av-datepicker]::-webkit-outer-spin-button,
-.av-datepicker::-webkit-outer-spin-button {
-  display: none;
-  -webkit-appearance: none;
-  margin: 0;
-}
 .av-block {
   position: relative;
 }
@@ -99,6 +66,39 @@ body.av-block > .av-block-container,
   font-weight: bold;
   /* needed for IE */
   filter: alpha(opacity=100);
+}
+[av-datepicker]::-webkit-calendar-picker-indicator,
+[data-av-datepicker]::-webkit-calendar-picker-indicator,
+.av-datepicker::-webkit-calendar-picker-indicator,
+[av-datepicker]::-webkit-clear-button,
+[data-av-datepicker]::-webkit-clear-button,
+.av-datepicker::-webkit-clear-button,
+[av-datepicker]::-webkit-inner-spin-button,
+[data-av-datepicker]::-webkit-inner-spin-button,
+.av-datepicker::-webkit-inner-spin-button,
+[av-datepicker]::-webkit-outer-spin-button,
+[data-av-datepicker]::-webkit-outer-spin-button,
+.av-datepicker::-webkit-outer-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+.dimmer-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 1.25rem;
+  display: none;
+  z-index: 2;
+}
+.dimmer-content.dimmer-content-dark {
+  background: rgba(77, 79, 83, 0.9);
+  color: #FFFFFF !important;
+}
+[av-hide-permission] {
+  display: none;
 }
 [av-datepicker]::-webkit-calendar-picker-indicator,
 [data-av-datepicker]::-webkit-calendar-picker-indicator,

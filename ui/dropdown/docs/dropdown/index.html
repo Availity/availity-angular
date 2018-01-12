@@ -39,6 +39,7 @@
       <div class="form-group">
         <label for="dropdownPokemon">Pokemon</label>
         <select id="dropdownPokemon" class="form-control" av-dropdown="" ng-model="vm.selectedPoke" ng-options="poke for poke in vm.pokemon" options="{ allowClear: false, placeholder: &apos;Select a Pokemon&apos;}" ng-change="vm.onChange(vm.selectedPoke)">
+        <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -51,6 +52,7 @@
   </div>
   <code class="language-markup" ng-non-bindable="">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownPoke<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedPoke<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>poke for poke in vm.pokemon<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: false, placeholder: <span class="token punctuation">&apos;</span>Select a Pokemon<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
@@ -60,6 +62,7 @@
       <div class="form-group">
         <label for="dropdownStates">States</label>
         <select id="dropdownStates" class="form-control" av-dropdown="" ng-model="vm.selectedState1" ng-options="state.name for state in vm.states" ng-change="vm.onChange(vm.selectedState1)" options="{ allowClear: true, placeholder: &apos;Select State&apos;}">
+        <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -74,6 +77,7 @@
   </div>
   <code class="language-markup" ng-non-bindable="">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedState1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.name for state in vm.states<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
@@ -83,6 +87,7 @@
       <div class="form-group">
         <label for="dropdownStates2">States</label>
         <select id="dropdownStates2" class="form-control" av-dropdown="" ng-model="vm.selectedState2" ng-options="state.id as state.name for state in vm.states" ng-change="vm.onChange(vm.selectedState2)" options="{ allowClear: true, placeholder: &apos;Select State&apos;}">
+        <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -97,6 +102,7 @@
   </div>
   <code class="language-markup" ng-non-bindable="">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedState1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.id as state.name for state in vm.states<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
@@ -106,6 +112,7 @@
       <div class="form-group">
         <label for="dropdownStates3">States</label>
         <select id="dropdownStates3" class="form-control" av-dropdown="" ng-model="vm.selectedState3" ng-options="state.name for state in vm.states track by state.id" ng-change="vm.onChange(vm.selectedState3)" options="{ allowClear: true, placeholder: &apos;Select State&apos;}">
+        <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -120,6 +127,7 @@
   </div>
   <code class="language-markup" ng-non-bindable="">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownStates1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedState1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.name for state in vm.states track by state.id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedState1)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
@@ -129,6 +137,7 @@
       <div class="form-group">
         <label for="dropdownMultiple">States</label>
         <select id="dropdownMultiple" class="form-control" multiple av-dropdown="" ng-model="vm.selectedStates" ng-options="state.name for state in vm.states track by state.id" ng-change="vm.onChange(vm.selectedStates)" options="{ allowClear: true, placeholder: &apos;Select State&apos;}">
+        <option></option>
         </select>
       </div>
       <div class="form-controls">
@@ -143,6 +152,7 @@
   </div>
   <code class="language-markup" ng-non-bindable="">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownMultiple<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">multiple</span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedStates<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>state.name for state in vm.states track by state.id<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedStates)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>{ allowClear: true, placeholder: <span class="token punctuation">&apos;</span>Select State<span class="token punctuation">&apos;</span>}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
   </code>
 
@@ -154,6 +164,14 @@
         <label for="dropdownQuery">Photos</label>
         <input type="hidden" id="dropdownQuery" class="form-control" av-dropdown="" ng-model="vm.selectedPhoto" ng-change="vm.onChange(vm.selectedPhoto)" options="vm.getOptions()">
       </div>
+      <div class="form-controls">
+        <button type="submit" class="btn btn-default" ng-click="vm.setPhoto()">
+          Set
+        </button>
+        <button type="submit" class="btn btn-default" ng-click="vm.resetPhoto()">
+          Reset
+        </button>
+      </div>
     </form>
   </div>
   <code class="language-markup" ng-non-bindable="">
@@ -161,6 +179,7 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Photos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hidden<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedPhoto<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedPhoto)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.getOptions()<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
   </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
@@ -171,45 +190,55 @@
         <label for="dropdownQuery">Photos</label>
         <input type="hidden" id="dropdownQuery" class="form-control" av-dropdown="" ng-model="vm.selectedPhoto" ng-change="vm.onChange(vm.selectedPhoto)" options="vm.getOptions2()">
       </div>
+      <div class="form-controls">
+        <button type="submit" class="btn btn-default" ng-click="vm.setPhoto()">
+          Set
+        </button>
+        <button type="submit" class="btn btn-default" ng-click="vm.resetPhoto()">
+          Reset
+        </button>
+      </div>
     </form>
   </div>
   <code class="language-javascript">
 
-  <span class="token keyword">import</span> picturesFormatResult <span class="token keyword">from</span> <span class="token string">&apos;./picturesResultFormat&apos;</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> picturesFormatResult <span class="token keyword">from</span> <span class="token string">&apos;./picturesResultFormat&apos;</span><span class="token punctuation">;</span>
 
-  demo<span class="token punctuation">.</span><span class="token function">factory</span><span class="token punctuation">(</span><span class="token string">&apos;demoDropdownService&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>$log<span class="token punctuation">,</span> demoDropdownResource<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    demo<span class="token punctuation">.</span><span class="token function">factory</span><span class="token punctuation">(</span><span class="token string">&apos;demoDropdownService&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>$log<span class="token punctuation">,</span> demoDropdownResource<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">class</span> <span class="token class-name">DemoDropdownService</span> <span class="token punctuation">{</span>
-      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-      <span class="token function">getOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token punctuation">{</span>
-          allowClear<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          placeholder<span class="token punctuation">:</span> <span class="token string">&apos;Find a photo&apos;</span><span class="token punctuation">,</span>
-          minimumInputLength<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
-          query<span class="token punctuation">:</span> demoDropdownResource<span class="token punctuation">,</span>
-          formatResult<span class="token punctuation">:</span> picturesFormatResult<span class="token punctuation">,</span>
-          formatSelection<span class="token punctuation">:</span> picturesFormatResult
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token operator">...</span>
+    <span class="token function">getOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    allowClear<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    placeholder<span class="token punctuation">:</span> <span class="token string">&apos;Find a photo&apos;</span><span class="token punctuation">,</span>
+    minimumInputLength<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    query<span class="token punctuation">:</span> demoDropdownResource<span class="token punctuation">,</span>
+    formatResult<span class="token punctuation">:</span> picturesFormatResult<span class="token punctuation">,</span>
+    formatSelection<span class="token punctuation">:</span> picturesFormatResult
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
 
     <span class="token punctuation">}</span>
 
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">DemoDropdownService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token comment" spellcheck="true">// picturesResultFormat.js</span>
+    <span class="token comment">// picturesResultFormat.js</span>
 
-  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span>item<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`&lt;div&gt;
+    <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span>item<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`
+    &lt;div&gt;
       &lt;div style=&quot;display:inline-block&quot;&gt;
         &lt;img src=&quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>item<span class="token punctuation">.</span>thumbnailUrl<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot;&gt;
       &lt;/div&gt;
       &lt;div style=&quot;display:inline-block; padding-left: 5px&quot;&gt;
         </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>item<span class="token punctuation">.</span>text<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
       &lt;/div&gt;
-    &lt;/div&gt;`</span></span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    &lt;/div&gt;
+    `</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
   </code>
 
 

@@ -1,11 +1,10 @@
 /*!
  * 
- * availity-angular v2.0.4 (06/20/2017)
+ * availity-angular v2.1.1 (01/12/2018)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15,7 +14,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -26,6 +25,7 @@ var ngModule = _angular2.default.module('availity.ui', ['ng']);
 exports.default = ngModule;
 
 /***/ }),
+/* 1 */,
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36,7 +36,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -227,7 +227,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -745,7 +745,7 @@ exports.default = _module2.default;
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -778,11 +778,11 @@ _module2.default.factory('avValUtils', function () {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -852,7 +852,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -868,7 +868,7 @@ var _lodash5 = __webpack_require__(76);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -978,7 +978,7 @@ var AvDropdownController = function () {
 
       var objType = typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
       if (objType === 'function' || objType === 'object' && obj !== null) {
-        key = obj.$$hashKey = objType + ':' + (nextUidFn || (0, _utils.uuid)())();
+        key = obj.$$hashKey = objType + ':' + (nextUidFn || _utils.uuid)();
       } else {
         key = objType + ':' + obj;
       }
@@ -998,6 +998,7 @@ var AvDropdownController = function () {
   }, {
     key: 'getSelected',
     value: function getSelected(model) {
+      var _this2 = this;
 
       var self = this;
 
@@ -1015,7 +1016,7 @@ var AvDropdownController = function () {
       var optionValuesKeys = this.getOptionValuesKeys(optionValues);
 
       var index = (0, _lodash2.default)(this.collection, function (item) {
-        return _angular2.default.equals(model, item);
+        return _angular2.default.equals(model, item) || _angular2.default.isObject(item) && _this2.valueName && _angular2.default.equals(model, item[_this2.valueName]);
       });
 
       var key = optionValues === optionValuesKeys ? index : optionValuesKeys[index];
@@ -1081,43 +1082,55 @@ var AvDropdownController = function () {
   }, {
     key: 'setValue',
     value: function setValue() {
-
       var self = this;
-
-      var viewValue = this.ngModel.$viewValue;
-
-      var selected = null;
-      if (this.multiple) {
-        selected = this.getMultiSelected(viewValue);
+      if (this.options.query) {
+        var modelValue = this.ngModel.$modelValue;
+        this.av.$timeout(function () {
+          return self.av.$element.select2('data', modelValue);
+        });
       } else {
-        selected = this.getSelected(viewValue);
+        var viewValue = this.ngModel.$viewValue;
+
+        var selected = null;
+        if (this.multiple) {
+          selected = this.getMultiSelected(viewValue);
+        } else {
+          selected = this.getSelected(viewValue);
+        }
+
+        // null === '' for Select2
+        selected = selected === null || selected === 'undefined' ? '' : selected;
+
+        this.av.$timeout(function () {
+          return self.av.$element.select2('val', selected);
+        });
       }
-
-      // null === '' for Select2
-      selected = selected === null || selected === 'undefined' ? '' : selected;
-
-      this.av.$timeout(function () {
-        self.av.$element.select2('val', selected);
-      });
     }
   }, {
     key: 'setValues',
     value: function setValues() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var viewValue = this.ngModel.$viewValue;
+      if (this.options.query) {
+        var modelValue = this.ngModel.$modelValue;
+        this.av.$timeout(function () {
+          return self.av.$element.select2('data', modelValue);
+        });
+      } else {
+        var viewValue = this.ngModel.$viewValue;
 
-      if (!_angular2.default.isArray(viewValue)) {
-        viewValue = [];
+        if (!_angular2.default.isArray(viewValue)) {
+          viewValue = [];
+        }
+
+        if (!(0, _lodash6.default)(viewValue) && _angular2.default.isObject(viewValue[0])) {
+          viewValue = this.getMultiSelected(viewValue);
+        }
+
+        this.av.$timeout(function () {
+          return _this3.av.$element.select2('val', viewValue);
+        });
       }
-
-      if (!(0, _lodash6.default)(viewValue) && _angular2.default.isObject(viewValue[0])) {
-        viewValue = this.getMultiSelected(viewValue);
-      }
-
-      this.av.$timeout(function () {
-        return _this2.av.$element.select2('val', viewValue);
-      });
     }
   }, {
     key: 'ngOptions',
@@ -1236,7 +1249,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -1585,7 +1598,7 @@ exports.default = _module2.default;
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -2019,7 +2032,7 @@ var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
 
 module.exports = isRegExp;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 51 */
@@ -2057,7 +2070,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -2206,7 +2219,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -2448,11 +2461,18 @@ var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory
     function AvUserPermissionsResource() {
       _classCallCheck(this, AvUserPermissionsResource);
 
-      return _possibleConstructorReturn(this, (AvUserPermissionsResource.__proto__ || Object.getPrototypeOf(AvUserPermissionsResource)).call(this, {
+      /**
+       * sessionDate used by api to determine if server side cache is out of date.
+       * i.e if user cache on server is older then sessionDate it will repull user information.
+       */
+      var _this = _possibleConstructorReturn(this, (AvUserPermissionsResource.__proto__ || Object.getPrototypeOf(AvUserPermissionsResource)).call(this, {
         path: '/api/internal',
         version: '/v1',
         name: '/axi-user-permissions'
       }));
+
+      _this.sessionDate = new Date().toJSON();
+      return _this;
     }
 
     _createClass(AvUserPermissionsResource, [{
@@ -2466,8 +2486,9 @@ var AvUserPermissionsResourceFactory = function AvUserPermissionsResourceFactory
 
         return this.query({
           params: {
+            region: region,
             permissionId: permissionIds,
-            region: region
+            sessionDate: this.sessionDate
           }
         });
       }
@@ -2557,7 +2578,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -6366,7 +6387,7 @@ function property(path) {
 
 module.exports = find;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 62 */
@@ -6544,7 +6565,7 @@ var _template = __webpack_require__(68);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -6642,11 +6663,11 @@ __webpack_require__(25);
 
 __webpack_require__(26);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -6725,7 +6746,7 @@ exports.isElementInBlockScope = isElementInBlockScope;
 exports.findElement = findElement;
 exports.indexOf = indexOf;
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -6839,7 +6860,7 @@ __webpack_require__(73);
 
 __webpack_require__(28);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -9357,7 +9378,7 @@ function property(path) {
 
 module.exports = findIndex;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 75 */
@@ -11712,7 +11733,7 @@ function stubFalse() {
 
 module.exports = matches;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 76 */
@@ -12301,7 +12322,7 @@ function stubFalse() {
 
 module.exports = isEmpty;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 77 */
@@ -12316,7 +12337,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -12422,7 +12443,7 @@ var SelectResourceFactory = function SelectResourceFactory(AvApiResource) {
       value: function mapResults(results) {
         var _this3 = this;
 
-        if (results && (!results[0].id || !results[0].text)) {
+        if (results && results.length > 0 && (!results[0].id || !results[0].text)) {
 
           results = results.map(function (item) {
             var _mapResult = _this3.mapResult(item),
@@ -12487,7 +12508,7 @@ exports.default = _module2.default;
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -12545,7 +12566,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -12611,7 +12632,7 @@ exports.default = _module2.default;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -12756,11 +12777,11 @@ _module2.default.factory('avRules', function () {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -12966,7 +12987,7 @@ _module2.default.factory('AvBlock', function (avBlockConfig, $timeout, $document
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -12997,7 +13018,7 @@ _module2.default.factory('avTemplateCache', function ($q, $templateCache, $http)
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -13049,7 +13070,7 @@ _module2.default.constant('AV_MODAL', {
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -13079,7 +13100,7 @@ _module2.default.directive('avModal', function () {
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -13087,7 +13108,7 @@ var _jquery = __webpack_require__(4);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -13169,7 +13190,7 @@ _module2.default.factory('avValBootstrapAdapter', function (AV_BOOTSTRAP_ADAPTER
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -13239,11 +13260,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -13343,7 +13364,7 @@ var AvValFieldController = function () {
           return;
         }
 
-        self.ngModel.$validators[constraintName] = function contraintValidator(modelValue, viewValue) {
+        self.ngModel.$validators[constraintName] = function constraintValidator(modelValue, viewValue) {
 
           var value = modelValue || viewValue;
 
@@ -13542,7 +13563,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -13705,7 +13726,7 @@ exports.default = _module2.default;
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -13813,11 +13834,22 @@ var AvExceptionAnalyticsProvider = function () {
           }
         }, {
           key: 'prettyPrint',
-          value: function prettyPrint(stacktrace) {
+          value: function prettyPrint() {
+            var stacktrace = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 
             var message = '';
 
-            var length = stacktrace.stack.length;
+            try {
+              if (!stacktrace.stack) {
+                stacktrace.stack = new Error('force-added stack').stack;
+                if (stacktrace.stack) {
+                  stacktrace.stack = stacktrace.stack.toString();
+                }
+              }
+            } catch (e) {/* throw away */}
+
+            var length = stacktrace.stack ? stacktrace.stack.length : 0;
 
             for (var i = 0; i < length; i++) {
               var iMessage = i.toString();
@@ -13849,7 +13881,7 @@ var AvExceptionAnalyticsProvider = function () {
               host: document.domain,
               screenWidth: (0, _jquery2.default)(window).width(),
               screenHeight: (0, _jquery2.default)(window).height(),
-              sdkVersion: "2.0.4"
+              sdkVersion: "2.1.1"
             };
 
             return this.log(message);
@@ -14002,7 +14034,7 @@ exports.default = _module2.default;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -14629,7 +14661,7 @@ _module2.default.constant('AV_MESSAGES', {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -14795,7 +14827,7 @@ __webpack_require__(24);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -14837,11 +14869,10 @@ _module2.default.factory('avValDate', function (AV_VAL, avValUtils) {
       key: 'validate',
       value: function validate(_ref) {
         var value = _ref.value,
-            constraint = _ref.constraint,
-            format = _ref.format;
+            constraint = _ref.constraint;
 
 
-        var _format = constraint && format ? format : AV_VAL.DATE_FORMAT.SIMPLE;
+        var _format = constraint && constraint.format ? constraint.format : AV_VAL.DATE_FORMAT.SIMPLE;
         return avValUtils.isEmpty(value) || _angular2.default.isDate(value) || (0, _moment2.default)(value, _format, true).isValid();
       }
     }]);
@@ -14861,7 +14892,7 @@ _module2.default.factory('avValDate', function (AV_VAL, avValUtils) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -15157,7 +15188,7 @@ _module2.default.factory('avValPhone', function (avValPattern) {
     _createClass(PhoneValidator, [{
       key: 'validate',
       value: function validate(context) {
-        context.constraint = context.contraint || {};
+        context.constraint = context.constraint || {};
         context.constraint.value = PHONE_PATTERN;
         return avValPattern.validate(context);
       }
@@ -15249,7 +15280,7 @@ _module2.default.factory('avValRequired', function (avValUtils) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -15322,7 +15353,7 @@ _module2.default.factory('avValSize', function (avValUtils) {
 "use strict";
 
 
-__webpack_require__(1);
+__webpack_require__(0);
 
 __webpack_require__(158);
 
@@ -15354,6 +15385,8 @@ __webpack_require__(95);
 
 __webpack_require__(206);
 
+__webpack_require__(210);
+
 __webpack_require__(79);
 
 /***/ }),
@@ -15378,11 +15411,11 @@ __webpack_require__(161);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15437,7 +15470,7 @@ _module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15464,11 +15497,11 @@ _module2.default.directive('avAnalytics', function () {
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15527,7 +15560,7 @@ __webpack_require__(93);
 
 __webpack_require__(168);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15566,11 +15599,11 @@ _module2.default.run(function ($document, avBlockConfig, $templateCache) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15735,11 +15768,11 @@ _module2.default.directive('avBlock', function () {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15852,7 +15885,7 @@ _module2.default.factory('avBlockManager', function ($injector) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15901,11 +15934,11 @@ _module2.default.directive('avBlockContainer', function (avBlockConfig) {
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -15962,11 +15995,11 @@ __webpack_require__(176);
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16002,7 +16035,7 @@ _module2.default.config(dateConfig);
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16026,11 +16059,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16076,7 +16109,7 @@ _module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -16088,7 +16121,7 @@ var _moment = __webpack_require__(13);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16287,13 +16320,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
 __webpack_require__(94);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16414,11 +16447,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -16479,7 +16512,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16514,7 +16547,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -16609,11 +16642,11 @@ __webpack_require__(184);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16711,7 +16744,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -16802,11 +16835,11 @@ __webpack_require__(96);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17079,11 +17112,11 @@ module.exports = path;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17154,7 +17187,7 @@ _module2.default.factory('avModalManager', function () {
 
 __webpack_require__(98);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17185,7 +17218,7 @@ __webpack_require__(199);
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17206,7 +17239,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17251,7 +17284,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17336,11 +17369,11 @@ _module2.default.controller('AvPopoverController', AvPopoverController);
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17392,7 +17425,7 @@ __webpack_require__(205);
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17413,7 +17446,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17458,7 +17491,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17543,11 +17576,11 @@ _module2.default.controller('AvTooltipController', AvTooltipController);
 "use strict";
 
 
-var _angular = __webpack_require__(0);
+var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17582,7 +17615,7 @@ _module2.default.directive('avTooltip', function () {
 "use strict";
 
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17624,7 +17657,7 @@ __webpack_require__(209);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17700,7 +17733,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _module = __webpack_require__(1);
+var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -17869,6 +17902,99 @@ _module2.default.directive('avValForm', function ($log, $timeout, $parse, AV_VAL
     }
   };
 });
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(211);
+
+__webpack_require__(212);
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _module = __webpack_require__(0);
+
+var _module2 = _interopRequireDefault(_module);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_module2.default.directive('avOnFileChange', function () {
+  return {
+    restrict: 'A',
+    link: function link(scope, element, attrs) {
+      element.on('change', function () {
+        scope.$applyAsync(function () {
+          var onFileChangeHandler = scope.$eval(attrs.avOnFileChange);
+          var el = element[0];
+
+          if (el.files) {
+            onFileChangeHandler(scope, el);
+          }
+        });
+      });
+
+      scope.$on('$destroy', function () {
+        element.off('change');
+      });
+    }
+  };
+});
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _module = __webpack_require__(0);
+
+var _module2 = _interopRequireDefault(_module);
+
+var _uploadProgressBar = __webpack_require__(213);
+
+var _uploadProgressBar2 = _interopRequireDefault(_uploadProgressBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_module2.default.directive('avUploadProgressBar', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      upload: '='
+    },
+    templateUrl: _uploadProgressBar2.default,
+    link: function link(scope) {
+      scope.percentage = 0;
+      var update = function update() {
+        scope.percentage = scope.upload.percentage;
+        scope.completed = scope.percentage === 100;
+      };
+
+      scope.upload.onProgress.push(function () {
+        return scope.$applyAsync(update);
+      });
+    }
+  };
+});
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports) {
+
+var path = 'src/ui/uploads/upload-progress-bar.html';
+var html = "<div ng-class=\"completed ? 'progress progress-complete' : 'progress'\">\n  <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"{{percentage}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{'width': percentage + '%'}\">\n    <span class=\"sr-only\">{{percentage}}% Complete</span>\n  </div>\n</div>\n";
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+module.exports = path;
 
 /***/ })
 ],[133]);

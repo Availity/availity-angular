@@ -3,42 +3,44 @@
   <form name="demoForm" av-val-form="vm.rule">
     <div class="form-group">
       <label for="demoFirstName1">First Name</label>
-      <input type="text" class="form-control" name="demoFirstName1" placeholder="..." ng-model="vm.firstName" av-val-field="firstName">
-        <p av-val-container=""></p>
+      <input type="text" class="form-control" name="demoFirstName1" id="demoFirstName1" placeholder="..." ng-model="vm.firstName" av-val-field="firstName">
+      <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoLastName1">Last Name</label>
-      <input type="text" class="form-control" name="demoLastName1" placeholder="..." ng-model="vm.lastName" av-val-field="lastName" av-val-on="blur">
-        <p av-val-container=""></p>
+      <input type="text" class="form-control" name="demoLastName1" id="demoLastName1" placeholder="..." ng-model="vm.lastName" av-val-field="lastName" av-val-on="blur">
+      <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoPhone">Phone</label>
-      <input type="text" name="demoPhone" placeholder="..." class="form-control" ng-model="vm.phone" av-val-field="phone">
+      <input type="text" name="demoPhone" id="demoPhone" placeholder="..." class="form-control" ng-model="vm.phone" av-val-field="phone">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoEmail">Email</label>
-      <input type="text" name="demoEmail" placeholder="your@email.com" class="form-control" ng-model="vm.email" av-val-field="email">
+      <input type="text" name="demoEmail" id="demoEmail" placeholder="your@email.com" class="form-control" ng-model="vm.email" av-val-field="email">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoSSN">SSN</label>
-      <input type="text" name="demoSSN" placeholder="###-##-####" class="form-control" ng-model="vm.ssn" av-val-field="ssn" av-val-debounce="1000">
+      <input type="text" name="demoSSN" id="demoSSN" placeholder="###-##-####" class="form-control" ng-model="vm.ssn" av-val-field="ssn" av-val-debounce="1000">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoIcd9">ICD-9</label>
-      <input type="text" class="form-control" name="demoIcd9" placeholder="..." ng-model="vm.icd9" av-val-field="icd9">
+      <input type="text" class="form-control" name="demoIcd9" id="demoIcd9" placeholder="..." ng-model="vm.icd9" av-val-field="icd9">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
       <label for="demoNPI">NPI</label>
-      <input type="text" class="form-control" name="demoNPI" placeholder="..." ng-model="vm.npi" av-val-field="npi">
+      <input type="text" class="form-control" name="demoNPI" id="demoNPI" placeholder="..." ng-model="vm.npi" av-val-field="npi">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
-      <label for="demoTaxID">Tax ID <small class="inline-help" data-av-tooltip="" title="Can be SSN, EIN, ITIN, ATIN, or PTIN">What&apos;s this?</small></label>
-      <input type="text" class="form-control" name="demoTaxID" placeholder="..." ng-model="vm.taxId" av-val-field="taxId">
+      <label for="demoTaxID">Tax ID
+        <small class="inline-help" data-av-tooltip="" title="Can be SSN, EIN, ITIN, ATIN, or PTIN">What&apos;s this?</small>
+      </label>
+      <input type="text" class="form-control" name="demoTaxID" id="demoTaxID" placeholder="..." ng-model="vm.taxId" av-val-field="taxId">
       <p av-val-container=""></p>
     </div>
     <div class="form-group">
@@ -50,7 +52,7 @@
     <div class="form-group">
       <label for="birthdate20">Birthdate</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="birthdate20" ng-model="vm.date" av-datepicker="" av-val-field="date" container-id="container-1" av-mask="date">
+        <input type="text" class="form-control" id="birthdate20" ng-model="vm.date" av-datepicker="" av-val-field="date" container-id="container-1" ui-mask="99/99/9999" model-view-value="true">
         <span class="input-group-btn" toggle="datepicker">
           <button class="btn btn-default" type="button">
             <span class="icon icon-calendar"></span>
@@ -73,48 +75,48 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="submit" class="btn btn-primary" ng-disabled="demoForm.$invalid">demoForm.$invalid</button>
-    <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules</button>
+    <button type="button" class="btn btn-default" ng-click="vm.onChangeRules()" av-analytics-on="click" av-analytics-event="Play" av-analytics-category="yumm" av-analytics-label="Test" av-analytics-value="7">Change Rules
+    </button>
     <button type="button" class="btn btn-default" ng-click="vm.reset(this)">Reset</button>
   </form>
 </div>
 
-
 <code class="language-markup" ng-non-bindable="">
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoForm<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-val-form</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.rule<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoFirstName1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>First Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoFirstName1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>...<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.firstName<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-val-field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>firstName<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoForm<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-val-form</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.rule<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoFirstName1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>First Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>demoFirstName1<span class="token punctuation">&quot;</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>...<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.firstName<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-val-field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>firstName<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">av-val-container</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
 
-<span class="token comment" spellcheck="true">&lt;!-- Javascript --&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  <span class="token comment">&lt;!-- Javascript --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
 
-<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./app&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./app&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-app<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>avAnalyticsProvider<span class="token punctuation">,</span> avValProvider<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    app<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token punctuation">(</span>avAnalyticsProvider<span class="token punctuation">,</span> avValProvider<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-  <span class="token keyword">const</span> defaultRules <span class="token operator">=</span> <span class="token punctuation">{</span>
-    firstName<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      required<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        message<span class="token punctuation">:</span> <span class="token string">&apos;First name is required.&apos;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      size<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        min<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-        max<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-        message<span class="token punctuation">:</span> <span class="token string">&apos;First name must be between 2 and 20 characters.&apos;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> defaultRules <span class="token operator">=</span> <span class="token punctuation">{</span>
+        firstName<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          required<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            message<span class="token punctuation">:</span> <span class="token string">&apos;First name is required.&apos;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          size<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            min<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+            max<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+            message<span class="token punctuation">:</span> <span class="token string">&apos;First name must be between 2 and 20 characters.&apos;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  avValProvider<span class="token punctuation">.</span><span class="token function">addRules</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    defaultRules
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      avValProvider<span class="token punctuation">.</span><span class="token function">addRules</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        defaultRules
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
 
 </code>
