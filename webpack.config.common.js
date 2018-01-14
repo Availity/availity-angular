@@ -108,7 +108,7 @@ const config = {
         //  '../fonts/availity-font.eot?18704236'
         //  '../fonts/availity-font.eot'
         //
-        test: /\.(ttf|woff|eot|svg).*/,
+        test: /-font\.(otf|ttf|woff2?|eot|svg)(\?.+)?$/,
         use: 'file-loader?name=fonts/[name].[ext]'
       },
       {
