@@ -1,9 +1,44 @@
-// import angular from 'angular';
+/* eslint-disable no-undef */
 import $ from 'jquery';
 import 'select2';
 
 import './controller';
 import ngModule from '../module';
+
+if (!jQuery.avPatchedTouchEvents) {
+  jQuery.avPatchedTouchEvents = true;
+
+  jQuery.event.special.touchstart = {
+    setup(_, ns, handle) {
+      if (ns.includes('noPreventDefault') ) {
+        this.addEventListener('touchstart', handle, { passive: false });
+      } else {
+        this.addEventListener('touchstart', handle, { passive: true });
+      }
+    }
+  };
+
+  jQuery.event.special.touchend = {
+    setup(_, ns, handle) {
+      if (ns.includes('noPreventDefault') ) {
+        this.addEventListener('touchend', handle, { passive: false });
+      } else {
+        this.addEventListener('touchend', handle, { passive: true });
+      }
+    }
+  };
+
+  jQuery.event.special.touchmove = {
+    setup(_, ns, handle) {
+      if (ns.includes('noPreventDefault') ) {
+        this.addEventListener('touchmove', handle, { passive: false });
+      } else {
+        this.addEventListener('touchmove', handle, { passive: true });
+      }
+    }
+  };
+}
+
 
 ngModule.directive('avDropdown', ($timeout) => {
 
@@ -97,7 +132,6 @@ ngModule.directive('avDropdown', ($timeout) => {
           }
         }
       });
-
 
       if (avDropdown.options.closeOnResize) {
 
