@@ -9,11 +9,23 @@ ngModule.directive('avUploadProgressBar', () => ({
   templateUrl,
   link(scope) {
     scope.percentage = 0;
+    scope.completed = false;
+
     const update = () => {
       scope.percentage = scope.upload.percentage;
-      scope.completed = scope.percentage === 100;
+    };
+
+    const error = () => {
+      scope.error = true;
+    };
+
+    const success = () => {
+      scope.percentage = 100;
+      scope.completed = true;
     };
 
     scope.upload.onProgress.push(() => scope.$applyAsync(update));
+    scope.upload.onSuccess.push(() => scope.$applyAsync(success));
+    scope.upload.onError.push(() => scope.$applyAsync(error));
   }
 }));

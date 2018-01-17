@@ -1,5 +1,5 @@
-<div ng-class="completed ? 'progress progress-complete' : 'progress'">
-  <div class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': percentage + '%'}">
+<div ng-class="{progress: true, 'progress-complete': completed}">
+  <div ng-class="{'progress-bar progress-bar-success': true, 'progress-bar-danger': error}" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': percentage + '%'}">
     <span class="sr-only">{{percentage}}% Complete</span>
   </div>
 </div>
