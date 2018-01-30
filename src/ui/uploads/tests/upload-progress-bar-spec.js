@@ -47,7 +47,7 @@ describe('uploadProgessBar', () => {
       onProgress: [],
       onSuccess: [],
       onError: [],
-      completed: true
+      completed: false
     };
     const el = tester.compileDirective(template, null, null);
     tester.$scope.upload.onProgress.forEach(cb => cb(50, 100));
