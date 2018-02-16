@@ -10,7 +10,7 @@ if (!jQuery.avPatchedTouchEvents) {
 
   jQuery.event.special.touchstart = {
     setup(_, ns, handle) {
-      if (ns.includes('noPreventDefault') ) {
+      if (ns.indexOf('noPreventDefault') >= 0 ) {
         this.addEventListener('touchstart', handle, { passive: false });
       } else {
         this.addEventListener('touchstart', handle, { passive: true });
@@ -20,7 +20,7 @@ if (!jQuery.avPatchedTouchEvents) {
 
   jQuery.event.special.touchend = {
     setup(_, ns, handle) {
-      if (ns.includes('noPreventDefault') ) {
+      if (ns.indexOf('noPreventDefault') >= 0 ) {
         this.addEventListener('touchend', handle, { passive: false });
       } else {
         this.addEventListener('touchend', handle, { passive: true });
@@ -30,7 +30,7 @@ if (!jQuery.avPatchedTouchEvents) {
 
   jQuery.event.special.touchmove = {
     setup(_, ns, handle) {
-      if (ns.includes('noPreventDefault') ) {
+      if (ns.indexOf('noPreventDefault') >= 0 ) {
         this.addEventListener('touchmove', handle, { passive: false });
       } else {
         this.addEventListener('touchmove', handle, { passive: true });
