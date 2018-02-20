@@ -1,6 +1,6 @@
-<div ng-if="!error" ng-class="{progress: true, 'progress-complete': completed}">
+<div ng-if="upload.status !== 'rejected'" ng-class="{'progress': true, 'progress-complete': percentage === 100}">
   <div ng-class="{'progress-bar progress-bar-success': true, 'progress-bar-danger': error}" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': percentage + '%'}">
     <span class="sr-only">{{percentage}}% Complete</span>
   </div>
 </div>
-<span ng-if="error" class="text-danger">{{upload.errorMessage}}</span>
+<span ng-if="upload.status === 'rejected'" class="text-danger">{{upload.errorMessage}}</span>
