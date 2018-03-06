@@ -234,7 +234,7 @@ class ApiResourceProvider {
         if (!data) {
           throw new Error('called method without [data]');
         }
-        if (this.beforeCreate) {
+        if (this.beforePostGet) {
           data = this.beforePostGet(data);
         }
         config = this.config(config);
