@@ -94,7 +94,7 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_WARN,
 
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'IE'],
 
     plugins: [
       require('karma-jasmine'),
@@ -103,6 +103,7 @@ module.exports = function(config) {
       require('karma-notify-reporter'),
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
+      require('karma-ie-launcher'),
       require('karma-webpack-error-reporter'),
       require('karma-sourcemap-loader'),
       require('karma-webpack')

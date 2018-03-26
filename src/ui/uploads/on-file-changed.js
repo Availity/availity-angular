@@ -10,6 +10,7 @@ ngModule.directive('avOnFileChange', () => ({
 
         if (el.files) {
           onFileChangeHandler(scope, el);
+          el.value = '';
         }
       });
     });
