@@ -4,7 +4,8 @@ import templateUrl from './upload-progress-bar.html';
 ngModule.directive('avUploadProgressBar', () => ({
   restrict: 'E',
   scope: {
-    upload: '='
+    upload: '=',
+    errorCallback: '='
   },
   templateUrl,
   link(scope) {
@@ -16,6 +17,7 @@ ngModule.directive('avUploadProgressBar', () => ({
 
     const error = () => {
       scope.error = true;
+      return scope.errorCallback(scope.upload);
     };
 
     const success = () => {
