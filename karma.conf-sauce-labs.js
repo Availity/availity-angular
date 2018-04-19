@@ -48,20 +48,6 @@ module.exports = function(config) {
       browserName: 'Internet Explorer',
       platform: 'Windows 8.1',
       version: '11'
-    },
-
-    sl_ie_10: {
-      base: 'SauceLabs',
-      browserName: 'Internet Explorer',
-      platform: 'Windows 8',
-      version: '10'
-    },
-
-    sl_ie_9: {
-      base: 'SauceLabs',
-      browserName: 'internet explorer',
-      platform: 'Windows 7',
-      version: '9'
     }
   };
 
