@@ -1,3 +1,13 @@
+<a name="2.4.2"></a>
+## [2.4.2](https://github.com/Availity/availity-angular/compare/v2.4.1...v2.4.2) (2018-04-03)
+
+
+### Bug Fixes
+
+* **upload-core:** uploads callback fix ([836549b](https://github.com/Availity/availity-angular/commit/836549b))
+
+
+
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/Availity/availity-angular/compare/v2.4.0...v2.4.1) (2018-03-28)
 
