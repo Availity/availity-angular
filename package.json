@@ -3,7 +3,11 @@
   "description": "Availity Angular SDK",
   "version": "2.4.2",
   "main": "lib/index.js",
-  "keywords": ["angular", "availity", "sdk"],
+  "keywords": [
+    "angular",
+    "availity",
+    "sdk"
+  ],
   "engines": {
     "node": ">=5.0.0",
     "npm": ">=4.0.0"
@@ -13,33 +17,36 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development node cli.js start",
-    "build:lib":
-      "copyup \"src/**/*.html\" \"src/**/*.less\" lib && babel src --out-dir lib --quiet --ignore specs.js,'**/tests/**','**/test/**','**/bower_components/**','**/docs/**','**/coverage/**'",
+    "build:lib": "copyup \"src/**/*.html\" \"src/**/*.less\" lib && babel src --out-dir lib --quiet --ignore specs.js,'**/tests/**','**/test/**','**/bower_components/**','**/docs/**','**/coverage/**'",
     "build:umd": "cross-env NODE_ENV=production node cli.js build",
     "build": "npm run build:umd && npm run build:lib",
     "clean": "node cli.js clean",
     "docs": "npm run docs:publish",
-    "docs:publish":
-      "npm run clean && npm run docs:pages && npm run book:build && npm run book:copy && gh-pages -d build",
+    "docs:publish": "npm run clean && npm run docs:pages && npm run book:build && npm run book:copy && gh-pages -d build",
     "docs:pages": "cross-env NODE_ENV=development node cli.js docs",
     "test": "cross-env npm run lint && karma start ./karma.conf.js",
     "test:debug": "karma start ./karma.conf-debug.js",
     "test:ci": "npm run lint && karma start ./karma.conf-sauce-labs.js",
     "test:coverage": "karma start ./karma.conf-coverage.js",
-    "preversion": "npm run lint",
     "prepublishOnly": "cross-env npm run lint && npm run test && npm run build",
     "lint": "node cli.js lint",
     "book:prepare": "gitbook install",
     "book:copy": "copyfiles -u 1 \"./_book/**/*\" build/docs",
     "book:build": "gitbook build",
-    "book": "npm run book:prepare && gitbook serve"
+    "book": "npm run book:prepare && gitbook serve",
+    "release": "npm run lint && sh ./scripts/release.sh"
   },
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com:Availity/availity-angular.git"
   },
   "homepage": "http://availity.github.io/availity-angular/",
-  "files": ["README.md", "lib", "dist", "less"],
+  "files": [
+    "README.md",
+    "lib",
+    "dist",
+    "less"
+  ],
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "contributors": [
     {
