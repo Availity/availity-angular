@@ -360,6 +360,17 @@ title: Dropdowns
     </form>
   </div>
   <code class="language-markup" ng-non-bindable>
+      <div class="form-group">
+          <label for="dropdownQuery">Organizations</label>
+          <input
+            type="hidden"
+            id="dropdownOrgQuery"
+            class="form-control"
+            av-dropdown
+            ng-model="vm.selectedOrganization"
+            ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
+            options="vm.getOrganizationOptions()"
+          >
   </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
