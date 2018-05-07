@@ -348,29 +348,21 @@ title: Dropdowns
     <form>
       <div class="form-group">
         <label for="dropdownOrgQuery">Organizations</label>
-        <input
-          type="hidden"
-          id="dropdownOrgQuery"
-          class="form-control"
-          av-dropdown
+        <av-select-organizations
           ng-model="vm.selectedOrganization"
           ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
-          options="vm.getOrganizationOptions()"
         >
+        </av-select-organizations>
     </form>
   </div>
   <code class="language-markup" ng-non-bindable>
       <div class="form-group">
           <label for="dropdownQuery">Organizations</label>
-          <input
-            type="hidden"
-            id="dropdownOrgQuery"
-            class="form-control"
-            av-dropdown
+          <av-select-organizations
             ng-model="vm.selectedOrganization"
             ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
-            options="vm.getOrganizationOptions()"
           >
+          </av-select-organizations>
   </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>

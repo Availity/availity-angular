@@ -2,7 +2,7 @@
 import angular from 'angular';
 import Tester from 'tester';
 
-import ngModule from '../organizations-select';
+import ngModule from '../organizations-select-resource';
 import userData from './fixtures/user.json';
 import orgData from './fixtures/organizations.json';
 
