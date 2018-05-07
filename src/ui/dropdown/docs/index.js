@@ -6,6 +6,7 @@ import photos1 from './fixtures/photos-1.json';
 import photos2 from './fixtures/photos-2.json';
 import organizations1 from './fixtures/organizations-1.json';
 import organizations2 from './fixtures/organizations-2.json';
+import organizations3 from './fixtures/organizations-3.json';
 import user from './fixtures/user.json';
 
 demo.controller('DemoDropdownController', ($scope, demoDropdownService) => {
@@ -26,6 +27,10 @@ demo.run($httpBackend => {
   $httpBackend
     .whenRoute('GET', /\/api\/sdk\/platform\/v1\/users\/me.*/)
     .respond(user);
+
+  $httpBackend
+    .whenRoute('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=.*&q=.*/)
+    .respond(organizations3);
 
   $httpBackend
     .whenRoute('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=0.*/)
