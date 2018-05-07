@@ -1,0 +1,266 @@
+{
+  "totalCount": 100,
+  "count": 50,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "self": {
+      "href": "https://local.dev/api/sdk/platform/v1/organizations"
+    },
+    "user": {
+      "href": "https://local.dev/api/sdk/platform/v1/users/jsmith"
+    }
+  },
+  "organizations": [
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "1",
+      "customerId": "a",
+      "name": "a1a"
+    },
+    {
+      "id": "2",
+      "customerId": "b",
+      "name": "b2b"
+    }
+  ]
+}

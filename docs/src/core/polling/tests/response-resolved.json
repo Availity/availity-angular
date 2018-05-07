@@ -1,0 +1,22 @@
+{
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "self": {
+      "href": ""
+    }
+  },
+  "credentials": [
+    {
+      "id": "HUMANA.1851377980",
+      "providerName": "Murphy, Douglas R MD",
+      "npi": "1851377980",
+      "payerName": "HUMANA",
+      "payerId": "HUMANA",
+      "statusCode": "CM",
+      "statusDescription": "CREDENTIALED PROVIDER"
+    }
+  ]
+}
