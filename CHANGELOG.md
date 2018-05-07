@@ -1,3 +1,19 @@
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/Availity/availity-angular/compare/v2.5.0...v2.6.0) (2018-05-07)
+
+
+### Bug Fixes
+
+* **dropdown:** typo fixes and search example for infinite orgs ([237c2bc](https://github.com/Availity/availity-angular/commit/237c2bc))
+
+
+### Features
+
+* **dropdown:** add organization resource for infinite lists ([cb223b1](https://github.com/Availity/availity-angular/commit/cb223b1))
+* **dropdown:** add select organization dropdown directive ([feb2242](https://github.com/Availity/availity-angular/commit/feb2242))
+
+
+
 <a name="2.4.2"></a>
 ## [2.4.2](https://github.com/Availity/availity-angular/compare/v2.4.1...v2.4.2) (2018-04-03)
 
