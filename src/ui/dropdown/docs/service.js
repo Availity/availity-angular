@@ -6,7 +6,7 @@ import pokemon from './fixtures/pokemon';
 import './resource';
 import picturesFormatResult from './picturesResultFormat';
 
-demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
+demo.factory('demoDropdownService', ($log, demoDropdownResource, avSelectOrganizationsResource) => {
 
   class DemoDropdownService {
 
@@ -25,6 +25,7 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
       this.selectedState2 = null;
       this.selectedState3 = null;
       this.selectedStates = [{ id: 'WY', name: 'Wyoming' }, { id: 'NM', name: 'New Mexico' }];
+      this.selectedOrganization = null;
 
     }
 
@@ -108,12 +109,27 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
 
     }
 
+    onOrganizationChange(selected) {
+      if (selected) {
+        $log.info(`Selected value is ${JSON.stringify(selected)}`);
+      }
+    }
+
     getOptions() {
       return {
         allowClear: true,
         placeholder: 'Find a photo',
         minimumInputLength: 3,
         query: demoDropdownResource
+      };
+    }
+
+    getOrganizationOptions() {
+      return {
+        allowClear: true,
+        placeholder: 'Select an Organization',
+        minimumInputLength: 0,
+        query: avSelectOrganizationsResource
       };
     }
 

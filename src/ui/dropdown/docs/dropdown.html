@@ -341,7 +341,28 @@ title: Dropdowns
         ng-change="vm.onChange(vm.selectedPhoto)"
         options="vm.getOptions()">
     </div>
+  </code>
 
+  <h3 class="docs-subsection-title">Query Organizations (Infinite List)</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownOrgQuery">Organizations</label>
+        <av-select-organizations
+          ng-model="vm.selectedOrganization"
+          ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
+        >
+        </av-select-organizations>
+    </form>
+  </div>
+  <code class="language-markup" ng-non-bindable>
+      <div class="form-group">
+          <label for="dropdownQuery">Organizations</label>
+          <av-select-organizations
+            ng-model="vm.selectedOrganization"
+            ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
+          >
+          </av-select-organizations>
   </code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>

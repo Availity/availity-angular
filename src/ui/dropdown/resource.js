@@ -12,7 +12,7 @@ const SelectResourceFactory = AvApiResource => {
 
       const config = this.getConfig(data);
 
-      return this.query(config).then( response => {
+      return this.defaultQuery(config).then( response => {
 
         let results = this.getResults(response.data);
         results = this.mapResults(results);
@@ -21,6 +21,10 @@ const SelectResourceFactory = AvApiResource => {
 
       });
 
+    }
+
+    defaultQuery(config) {
+      return this.query(config);
     }
 
     getConfig(data) {

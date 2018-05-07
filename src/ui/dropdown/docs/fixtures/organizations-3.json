@@ -1,0 +1,21 @@
+{
+  "totalCount": 25,
+  "count": 25,
+  "offset": 50,
+  "limit": 50,
+  "links": {
+    "self": {
+      "href": "https://local.dev/api/sdk/platform/v1/organizations"
+    },
+    "user": {
+      "href": "https://local.dev/api/sdk/platform/v1/users/jsmith"
+    }
+  },
+  "organizations": [
+    {
+      "id": "5",
+      "customerId": "e",
+      "name": "e5e"
+    }
+  ]
+}
