@@ -32,10 +32,12 @@ const OrganizationResourceFactory = function(AvApiResource, avUsersResource) {
 
     getOrganizations(config) {
 
+      const self = this;
+
       return avUsersResource
         .me()
         .then(user => {
-          return ::this.queryOrganizations(user, config);
+          return self.queryOrganizations.call(self, user, config);
         });
     }
 
