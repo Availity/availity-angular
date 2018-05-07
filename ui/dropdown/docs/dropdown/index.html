@@ -179,8 +179,23 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Photos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hidden<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-control<span class="token punctuation">&quot;</span></span> <span class="token attr-name">av-dropdown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span><span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedPhoto<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onChange(vm.selectedPhoto)<span class="token punctuation">&quot;</span></span> <span class="token attr-name">options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.getOptions()<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-
   </code>
+
+  <h3 class="docs-subsection-title">Query Organizations (Infinite List)</h3>
+  <div class="docs-example">
+    <form>
+      <div class="form-group">
+        <label for="dropdownOrgQuery">Organizations</label>
+        <av-select-organizations ng-model="vm.selectedOrganization" ng-change="vm.onOrganizationChange(vm.selectedOrganization)">
+        </av-select-organizations>
+    </div></form>
+  </div>
+  <code class="language-markup" ng-non-bindable="">
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>form-group<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>dropdownQuery<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>Organizations<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>av-select-organizations</span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.selectedOrganization<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>vm.onOrganizationChange(vm.selectedOrganization)<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>av-select-organizations</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code>
 
   <h3 class="docs-subsection-title">HTML in selection</h3>
   <div class="docs-example">
