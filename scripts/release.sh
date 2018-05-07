@@ -31,7 +31,7 @@ echo "==> Updating Changelog"
 node_modules/.bin/conventional-changelog -i CHANGELOG.md -o CHANGELOG.md -p angular
 git add .
 git commit -m "docs: changelog ${VERSION}"
-git tag ${VERSION}
+git tag -a ${VERSION} -m "${VERSION}"
 git push
 git push --tags
 npm publish
