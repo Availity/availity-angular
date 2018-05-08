@@ -54,11 +54,8 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 1. Ensure release is occurring on `master` branch: `git checkout master`
 1. Run `npm install` to ensure dependencies are up to date.
 1. Run `npm test` and ensure all test are passing
-1. Run `npm run build`
-1. Run `npm version ${version}` where version is the appropriate semantic release number. 
-1. Run `npm login` to login into registry.
-1. Run `npm publish`. You must be listed as a collaborator https://www.npmjs.com/package/availity-angular for this step to work.
-  
+1. Run `npm version release`
+
 ## License
 
-Copyright (c) 2017 Availity, LLC. Code released under the [the MIT license](LICENSE)
+Copyright (c) 2017-present Availity, LLC. Code released under the [the MIT license](LICENSE)
