@@ -35,3 +35,4 @@ git tag -a ${VERSION} -m "${VERSION}"
 git push
 git push --tags
 npm publish
+npm run docs
