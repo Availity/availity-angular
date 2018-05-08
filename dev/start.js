@@ -146,8 +146,9 @@ function serv() {
 function start() {
 
   return metalsmith()
-    .then(serv)
-    .then(watch);
+    .then(watch)
+    .then(serv);
+
 }
 
 module.exports = start;
