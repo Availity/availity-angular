@@ -39,6 +39,7 @@ class AvDropdownController {
 
       // Function used to query results for the search term.
       this.options.query = options => {
+        options.params = this.options.params;
         this.query(options);
       };
       // Function used to get the id from the choice object or a string representing the key under which the id is stored.
@@ -178,6 +179,7 @@ class AvDropdownController {
   // Wrapper around the query function for Select2.  When the promise resolves
   // the callback
   query(options) {
+
 
     this.resource.onQuery(options).then(response => {
 
