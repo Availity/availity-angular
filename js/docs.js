@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.6.0 (05/07/2018)
+ * availity-angular v2.6.1 (05/08/2018)
  * (c) Availity, LLC
  */
 webpackJsonp([1],[
@@ -887,6 +887,7 @@ var AvDropdownController = function () {
 
         // Function used to query results for the search term.
         this.options.query = function (options) {
+          options.params = _this.options.params;
           _this.query(options);
         };
         // Function used to get the id from the choice object or a string representing the key under which the id is stored.
@@ -12224,10 +12225,9 @@ var SelectResourceFactory = function SelectResourceFactory(AvApiResource) {
       value: function getConfig(data) {
 
         // config for the api resource query
-        var config = {
-          params: {}
-        };
 
+        var config = {};
+        config.params = data.params ? data.params : {};
         config.params.offset = this.getOffset(data);
 
         if (data.term) {
@@ -12357,6 +12357,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _angular = __webpack_require__(1);
+
+var _angular2 = _interopRequireDefault(_angular);
+
 var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
@@ -12375,8 +12379,28 @@ _module2.default.directive('avSelectOrganizations', function () {
     replace: true,
     require: ['ngModel'],
     templateUrl: _organizationsSelect2.default,
-    controller: function controller($scope, avSelectOrganizationsResource) {
-      $scope.avSelectOrganizationsResource = avSelectOrganizationsResource;
+    controller: function controller($scope, $parse, $attrs, avSelectOrganizationsResource) {
+      var optionsFn = $parse($attrs.selectOptions);
+      var options = optionsFn($scope);
+
+      options = options || {};
+
+      if (!options.params && !options.params.permissionIds && !options.dangerouslyIgnorePermissions) {
+        throw new Error('Permissions IDs are required for av-select-organizations directive. To bypass the permissions constraint, set options.dangerouslyIgnorePermissions to true');
+      }
+
+      function defaults() {
+        var defaultOptions = {
+
+          allowClear: true,
+          placeholder: 'Select an Organization',
+          minimumInputLength: 0
+        };
+        return defaultOptions;
+      }
+
+      $scope.dropdownOptions = _angular2.default.merge(defaults(), options);
+      $scope.dropdownOptions.query = avSelectOrganizationsResource;
     }
   };
 });
@@ -12388,7 +12412,7 @@ exports.default = _module2.default;
 /***/ (function(module, exports) {
 
 var path = 'src/ui/dropdown/organizations-select.html';
-var html = "<input\n  type=\"hidden\"\n  class=\"form-control\"\n  av-dropdown\n  options=\"{ allowClear: true, placeholder: 'Select an Organization', minimumInputLength: 0, query: avSelectOrganizationsResource }\"\n>\n";
+var html = "<input\n  type=\"hidden\"\n  class=\"form-control\"\n  av-dropdown\n  options=\"dropdownOptions\"\n>\n";
 window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
@@ -13715,7 +13739,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-_demo2.default.factory('demoDropdownService', function ($log, demoDropdownResource, avSelectOrganizationsResource) {
+_demo2.default.factory('demoDropdownService', function ($log, demoDropdownResource) {
   var DemoDropdownService = function () {
     function DemoDropdownService() {
       _classCallCheck(this, DemoDropdownService);
@@ -13854,7 +13878,9 @@ _demo2.default.factory('demoDropdownService', function ($log, demoDropdownResour
           allowClear: true,
           placeholder: 'Select an Organization',
           minimumInputLength: 0,
-          query: avSelectOrganizationsResource
+          params: {
+            permissionIds: ['7000']
+          }
         };
       }
     }, {

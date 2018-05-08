@@ -30,10 +30,9 @@ const SelectResourceFactory = AvApiResource => {
     getConfig(data) {
 
       // config for the api resource query
-      const config = {
-        params: {}
-      };
 
+      const config = {};
+      config.params = data.params ? data.params : {};
       config.params.offset = this.getOffset(data);
 
       if (data.term) {

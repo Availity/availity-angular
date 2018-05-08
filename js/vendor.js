@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.6.0 (05/07/2018)
+ * availity-angular v2.6.1 (05/08/2018)
  * (c) Availity, LLC
  */
 /******/ (function(modules) { // webpackBootstrap

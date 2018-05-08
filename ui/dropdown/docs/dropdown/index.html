@@ -186,7 +186,7 @@
     <form>
       <div class="form-group">
         <label for="dropdownOrgQuery">Organizations</label>
-        <av-select-organizations ng-model="vm.selectedOrganization" ng-change="vm.onOrganizationChange(vm.selectedOrganization)">
+        <av-select-organizations ng-model="vm.selectedOrganization" ng-change="vm.onOrganizationChange(vm.selectedOrganization)" select-options="vm.getOrganizationOptions()">
         </av-select-organizations>
     </div></form>
   </div>

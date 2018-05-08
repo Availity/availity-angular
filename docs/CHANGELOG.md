@@ -1,3 +1,13 @@
+<a name="2.6.1"></a>
+## [2.6.1](https://github.com/Availity/availity-angular/compare/v2.6.0...v2.6.1) (2018-05-08)
+
+
+### Bug Fixes
+
+* **dropdown:** org dropdown should take into account permissions ([2f9dbc3](https://github.com/Availity/availity-angular/commit/2f9dbc3))
+
+
+
 <a name="2.6.0"></a>
 # [2.6.0](https://github.com/Availity/availity-angular/compare/v2.5.0...v2.6.0) (2018-05-07)
 

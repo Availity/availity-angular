@@ -351,6 +351,7 @@ title: Dropdowns
         <av-select-organizations
           ng-model="vm.selectedOrganization"
           ng-change="vm.onOrganizationChange(vm.selectedOrganization)"
+          select-options="vm.getOrganizationOptions()"
         >
         </av-select-organizations>
     </form>

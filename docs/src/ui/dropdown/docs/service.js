@@ -6,7 +6,7 @@ import pokemon from './fixtures/pokemon';
 import './resource';
 import picturesFormatResult from './picturesResultFormat';
 
-demo.factory('demoDropdownService', ($log, demoDropdownResource, avSelectOrganizationsResource) => {
+demo.factory('demoDropdownService', ($log, demoDropdownResource) => {
 
   class DemoDropdownService {
 
@@ -129,7 +129,9 @@ demo.factory('demoDropdownService', ($log, demoDropdownResource, avSelectOrganiz
         allowClear: true,
         placeholder: 'Select an Organization',
         minimumInputLength: 0,
-        query: avSelectOrganizationsResource
+        params: {
+          permissionIds: ['7000']
+        }
       };
     }
 
