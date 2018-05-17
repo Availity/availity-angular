@@ -1,3 +1,13 @@
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/Availity/availity-angular/compare/v2.6.1...v2.6.2) (2018-05-17)
+
+
+### Bug Fixes
+
+* **uploads:** unset error when file is decrypting ([e0f67ce](https://github.com/Availity/availity-angular/commit/e0f67ce))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/Availity/availity-angular/compare/v2.6.0...v2.6.1) (2018-05-08)
 
