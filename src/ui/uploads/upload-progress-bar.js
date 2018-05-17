@@ -15,6 +15,7 @@ ngModule.directive('avUploadProgressBar', () => ({
     scope.percentage = 0;
 
     const update = () => {
+      scope.error = false;
       scope.percentage = scope.upload.percentage;
     };
 
