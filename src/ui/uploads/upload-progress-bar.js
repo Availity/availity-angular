@@ -10,6 +10,8 @@ ngModule.directive('avUploadProgressBar', () => ({
   templateUrl,
   link(scope) {
     scope.verifyPassword = function() {
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
       scope.upload.sendPassword(scope.upload.password);
     };
     scope.percentage = 0;
