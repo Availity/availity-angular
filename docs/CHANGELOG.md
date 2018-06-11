@@ -1,3 +1,33 @@
+<a name="2.6.4"></a>
+## [2.6.4](https://github.com/Availity/availity-angular/compare/v2.6.3...v2.6.4) (2018-06-11)
+
+
+### Bug Fixes
+
+* **uploads:** password prompt enter and focus ([0a484ba](https://github.com/Availity/availity-angular/commit/0a484ba))
+
+
+
+<a name="2.6.3"></a>
+## [2.6.3](https://github.com/Availity/availity-angular/compare/v2.6.2...v2.6.3) (2018-05-24)
+
+
+### Bug Fixes
+
+* **uploads:** manually close backdrop before component is removed ([1cfeb8c](https://github.com/Availity/availity-angular/commit/1cfeb8c))
+
+
+
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/Availity/availity-angular/compare/v2.6.1...v2.6.2) (2018-05-17)
+
+
+### Bug Fixes
+
+* **uploads:** unset error when file is decrypting ([e0f67ce](https://github.com/Availity/availity-angular/commit/e0f67ce))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/Availity/availity-angular/compare/v2.6.0...v2.6.1) (2018-05-08)
 

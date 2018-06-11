@@ -1,5 +1,6 @@
 import ngModule from '../module';
 import templateUrl from './upload-progress-bar.html';
+import $ from 'jquery';
 
 ngModule.directive('avUploadProgressBar', () => ({
   restrict: 'E',
@@ -9,12 +10,24 @@ ngModule.directive('avUploadProgressBar', () => ({
   },
   templateUrl,
   link(scope) {
+    scope.focusInput = function() {
+      setTimeout( function() {
+        const input = document.querySelector('.pwRequired .modal-body input');
+        if (input) {
+          input.focus();
+        }
+      }, 500);
+    };
+
     scope.verifyPassword = function() {
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
       scope.upload.sendPassword(scope.upload.password);
     };
     scope.percentage = 0;
 
     const update = () => {
+      scope.error = false;
       scope.percentage = scope.upload.percentage;
     };
 

@@ -6,7 +6,7 @@
 <span ng-if="upload.errorMessage" class="text-danger">{{upload.errorMessage}}</span>
 <!-- file password -->
 <div ng-if="upload.status === 'encrypted'" class="pwRequired">
-  <button type="button" class="btn btn-primary btn-sm pwPromptButton" data-toggle="modal" data-target="#{{upload.id}}">
+  <button type="button" class="btn btn-primary btn-sm pwPromptButton" data-toggle="modal" data-target="#{{upload.id}}" ng-click="focusInput()">
     Enter password
   </button>
   <div class="modal fade" id="{{upload.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -16,13 +16,13 @@
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
           <h4 class="modal-title" id="myModalLabel">Enter Password</h4>
         </div>
-        <form>
+        <form ng-submit="verifyPassword()">
           <div class="modal-body">
-            Password: <input ng-model="upload.password" type="password" placeholder="password"/>
+            Password: <input ng-model="upload.password" type="password"/>
           </div>
         </form>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="verifyPassword()">Ok</button>
+          <input type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="verifyPassword()" value="Ok"></input>
         </div>
       </div>
     </div>
