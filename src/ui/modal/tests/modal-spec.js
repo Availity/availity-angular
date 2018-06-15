@@ -78,7 +78,7 @@ describe('AvModal', () => {
     modal.show();
     tester.flush();
 
-    modal.hide().then(tester.spy);
+    modal.show().then(tester.spy);
     tester.flush();
 
     expect(tester.spy).toHaveBeenCalled();
