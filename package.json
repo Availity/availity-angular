@@ -45,7 +45,7 @@
     "gulp-flatten": "0.3.0",
     "gulp-footer": "^1.0.5",
     "gulp-front-matter": "^1.1.1",
-    "gulp-git": "1.10.0",
+    "gulp-git": "^2.8.0",
     "gulp-header": "1.8.7",
     "gulp-htmlmin": "2.0.0",
     "gulp-if": "2.0.1",
