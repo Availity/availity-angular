@@ -9,7 +9,7 @@ function dateConfig($provide) {
     directive.compile = () => {
       return {
         pre(scope, element, attr, ctrls) {
-          if (ctrls[0] && angular.lowercase(attr.type) === 'date' && angular.isDefined(attr.avDatepicker)) {
+          if (ctrls[0] && attr.type && attr.type.toLowerCase() === 'date' && angular.isDefined(attr.avDatepicker)) {
             // do not use the default date validation;
           } else {
             link.pre.apply(this, arguments);
