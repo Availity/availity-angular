@@ -1,3 +1,18 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/Availity/availity-angular/compare/v2.6.4...v2.7.0) (2018-10-18)
+
+
+### Bug Fixes
+
+* **datepicker:** use natvie toLowerCase ([484eca8](https://github.com/Availity/availity-angular/commit/484eca8))
+
+
+### Features
+
+* **breadcrumbs:** add option to use url from space ([3860dc7](https://github.com/Availity/availity-angular/commit/3860dc7))
+
+
+
 <a name="2.6.4"></a>
 ## [2.6.4](https://github.com/Availity/availity-angular/compare/v2.6.3...v2.6.4) (2018-06-11)
 
