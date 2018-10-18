@@ -64,4 +64,20 @@ describe('avSpacesBreadcrumbs', () => {
 
   });
 
+  it('should render url from space when useSpaceUrl option set to true', () => {
+    tester.$httpBackend.expectGET(/\/api\/sdk\/platform\/v1\/spaces\/99999\?sessionBust=\d+/).respond(200, {
+      'id': '99999',
+      'name': 'Acme Texas',
+      'link': {
+        'url': '/public/apps/my-application'
+      }
+    });
+
+    $location.search('spaceId', '99999');
+
+    $el = tester.compileDirective('<div av-spaces-breadcrumbs use-space-url="true"></div>');
+    tester.$httpBackend.flush();
+
+    expect($.trim($el.find('a:eq(1)').attr('href'))).toBe('/public/apps/my-application');
+  });
 });
