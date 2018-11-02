@@ -1,27 +1,33 @@
 import ngModule from '../module';
 import templateUrl from './upload-progress-bar.html';
-import $ from 'jquery';
+import templateModal from './template-password-prompt.html';
 
-ngModule.directive('avUploadProgressBar', () => ({
+ngModule.directive('avUploadProgressBar', (AvModal) => ({
   restrict: 'E',
   scope: {
+    modal: '=',
     upload: '=',
     errorcallback: '='
   },
   templateUrl,
-  link(scope) {
-    scope.focusInput = function() {
-      setTimeout( function() {
-        const input = document.querySelector('.pwRequired .modal-body input');
+  link(scope, modal) {
+    scope.showModal = function() {
+      const focus = function() {
+        const input = document.querySelector('.password-modal .modal-body input');
         if (input) {
           input.focus();
         }
-      }, 500);
+      };
+
+      modal = new AvModal({
+        scope,
+        templateUrl: templateModal,
+        onShown: focus
+      });
     };
 
     scope.verifyPassword = function() {
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
+      modal.hide();
       scope.upload.sendPassword(scope.upload.password);
     };
     scope.percentage = 0;

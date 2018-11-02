@@ -8,6 +8,7 @@ ngModule.directive('avSpacesBreadcrumbs', ($location, avSpacesResource, $log) =>
     replace: true,
     scope: {
       'pageName': '@',
+      'useSpaceUrl': '@?',
       'spaceId': '@?'
     },
     templateUrl,
@@ -25,7 +26,7 @@ ngModule.directive('avSpacesBreadcrumbs', ($location, avSpacesResource, $log) =>
         return query;
       }
 
-      // Find paramter in query string after hash (#)
+      // Find parameter in query string after hash (#)
       if (!spaceId) {
         spaceId = $location.search().spaceId;
       }
@@ -37,9 +38,18 @@ ngModule.directive('avSpacesBreadcrumbs', ($location, avSpacesResource, $log) =>
       }
 
       if (spaceId) {
-        avSpacesResource.get(spaceId).then( response => {
+        avSpacesResource.get(spaceId).then(response => {
           scope.spaceName = response.data.name;
           scope.spaceId = spaceId;
+          scope.spaceUrl = `/public/apps/spaces/#/${spaceId}`;
+          if (scope.useSpaceUrl === 'true') {
+            const urlFromSpace = response.data.link && response.data.link.url;
+            if (!urlFromSpace) {
+              $log.warn(`avSpacesBreadcrumbs has useSpaceUrl option set to true but space has no URL. Using "${scope.spaceUrl}" instead`);
+            } else {
+              scope.spaceUrl = urlFromSpace;
+            }
+          }
         });
       } else {
         $log.warn('avSpacesBreadcrumbs could NOT detect a spaceId through scope or by parsing the URL.');
