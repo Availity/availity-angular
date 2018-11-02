@@ -1,3 +1,13 @@
+<a name="2.7.1"></a>
+## [2.7.1](https://github.com/Availity/availity-angular/compare/v2.7.0...v2.7.1) (2018-11-02)
+
+
+### Bug Fixes
+
+* **uploads:** change button to type of button ([d342332](https://github.com/Availity/availity-angular/commit/d342332))
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/Availity/availity-angular/compare/v2.6.4...v2.7.0) (2018-10-18)
 
