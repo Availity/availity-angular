@@ -17,8 +17,7 @@
     "url": "https://github.com/Availity/availity-angular/issues"
   },
   "scripts": {
-    "start": "npm start --prefix packages/docs",
-    "lint": "eslint ."
+    "start": "npm start --prefix packages/docs"
   },
   "repository": {
     "type": "git",
@@ -34,6 +33,8 @@
   },
   "lint-staged": {
     "*.js": [
+      "eslint --fix",
+      "prettier --write",
       "git add"
     ]
   },

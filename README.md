@@ -1,6 +1,6 @@
 # availity-angular
 
-> Availity Angular SDK
+> Availity Angular Components 
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-angular.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-angular)
@@ -11,6 +11,22 @@
 
 * [Intro](#intro)
 * [Demo](#demo)
+* [API](/src/core/api/README.md)
+    * [Organizations](/src/core/api/docs/organizations.md)
+    * [Permissions](/src/core/api/docs/permisions.md)
+    * [Regions](/src/core/api/docs/regions.md)
+    * [Spaces](/src/core/api/docs/spaces.md)
+    * [Permissions (legacy)](/src/core/api/docs/user-permissions.md)
+    * [Users](/src/core/api/docs/uers.md)
+* [Analytics](/src/core/analytics/README.md)
+* [Animation](/src/ui/animation/README.md)
+    * [avAnimate](/src/ui/animation/animate.md)
+    * [avLoader](/src/ui/animation/loader/README.md)
+* [Authorizations](/src/core/authorizations/README.md)
+* [Dimmer](/src/ui/dimmer/README.md)
+* [Modal](/src/ui/modal/README.md)
+* [Dropdowns](/src/ui/dropdown/README.md)
+* [Utils](//src/core/utils/README.md)
 * [Supported Browsers](#supported-browsers)
 * [Quickstart](#quickstart)
 * [Upgrading](#upgrading)
@@ -18,8 +34,6 @@
 * [Acknowledgments](#acknowledgments)
 * [Authors](#authors)
 * [License](#license)
-
-## Intro
 
 ## Demo
 
@@ -52,12 +66,12 @@ The Availity Angular lib was heavily inspired by multiple open source frameworks
 ## Contributing
 
 1. Ensure release is occurring on `master` branch: `git checkout master`
-1. Run `npm install` to ensure dependencies are up to date.
-1. Run `npm test` and ensure all test are passing
-1. Run `npm run build`
-1. Run `npm version ${version}` where version is the appropriate semantic release number. 
-1. Run `npm login` to login into registry.
-1. Run `npm publish`. You must be listed as a collaborator https://www.npmjs.com/package/availity-angular for this step to work.
+2. Run `npm install` to ensure dependencies are up to date.
+3. Run `npm test` and ensure all test are passing
+4. Run `npm run build`
+5. Run `npm version ${version}` where version is the appropriate semantic release number. 
+6. Run `npm login` to login into registry.
+7. Run `npm publish`. You must be listed as a collaborator https://www.npmjs.com/package/availity-angular for this step to work.
   
 ## License
 

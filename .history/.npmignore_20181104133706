@@ -2,4 +2,7 @@ npm-debug*.log
 node_modules
 _book
 reports
+/build/
 .DS_Store
+/coverage
+packages/docs/.storybook
