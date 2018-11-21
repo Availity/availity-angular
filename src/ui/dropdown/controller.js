@@ -287,13 +287,12 @@ class AvDropdownController {
     this.valuesFn = this.av.$parse(this.match[8]);
     this.collection = this.valuesFn(this.av.$scope);
 
-    this.av.$scope.$watchCollection(this.collection, (newVal, oldVal) => {
-
+    this.av.$scope.$watchCollection(this.match[8], (newVal, oldVal) => {
       if (angular.equals(newVal, oldVal)) {
         return;
       }
-
-      self.setValue();
+      this.collection = this.valuesFn(this.av.$scope);
+      this.setValue();
 
     }, true);
 
