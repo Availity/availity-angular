@@ -1,3 +1,13 @@
+<a name="2.7.2"></a>
+## [2.7.2](https://github.com/Availity/availity-angular/compare/v2.7.1...v2.7.2) (2018-11-21)
+
+
+### Bug Fixes
+
+* **dropdowns:** Fix dropdown collection watcher ([5b92435](https://github.com/Availity/availity-angular/commit/5b92435))
+
+
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/Availity/availity-angular/compare/v2.7.0...v2.7.1) (2018-11-02)
 
