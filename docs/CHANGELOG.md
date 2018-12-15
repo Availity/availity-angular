@@ -1,3 +1,26 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/Availity/availity-angular/compare/v2.7.2...v3.0.0) (2018-12-15)
+
+
+* chore; upgrade to Angular 1.7 ([1f9e9a5](https://github.com/Availity/availity-angular/commit/1f9e9a5))
+
+
+### BREAKING CHANGES
+
+* https://docs.angularjs.org/guide/migration#migrating-from-1-6-to-1-7
+
+
+
+<a name="2.7.2"></a>
+## [2.7.2](https://github.com/Availity/availity-angular/compare/v2.7.1...v2.7.2) (2018-11-21)
+
+
+### Bug Fixes
+
+* **dropdowns:** Fix dropdown collection watcher ([5b92435](https://github.com/Availity/availity-angular/commit/5b92435))
+
+
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/Availity/availity-angular/compare/v2.7.0...v2.7.1) (2018-11-02)
 

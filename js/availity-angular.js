@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v2.7.1 (11/02/2018)
+ * availity-angular v3.0.0 (12/15/2018)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -54,7 +54,8 @@ exports.default = _angular2.default.module('availity', ['ng']);
 /* 9 */,
 /* 10 */,
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,15 +66,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.print = exports.uuid = exports.REGEX_API_URL = exports.getRelativeUrl = exports.isBlank = exports.stringify = undefined;
 
-var _strings = __webpack_require__(41);
+var _strings = __webpack_require__(42);
 
-var _urls = __webpack_require__(42);
+var _urls = __webpack_require__(43);
 
-var _uuid = __webpack_require__(43);
+var _uuid = __webpack_require__(44);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _print = __webpack_require__(44);
+var _print = __webpack_require__(45);
 
 var _print2 = _interopRequireDefault(_print);
 
@@ -87,9 +88,9 @@ exports.uuid = _uuid2.default;
 exports.print = _print2.default;
 
 /***/ }),
-/* 13 */,
 /* 14 */,
-/* 15 */
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110,11 +111,11 @@ var Validator = function Validator(name) {
 exports.default = Validator;
 
 /***/ }),
-/* 16 */,
 /* 17 */,
 /* 18 */,
 /* 19 */,
-/* 20 */
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -130,7 +131,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(21);
+__webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -212,7 +213,7 @@ _module2.default.provider('avLogMessagesResource', LogMessagesProvider);
 exports.default = _module2.default;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -230,7 +231,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -238,11 +239,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(22);
+__webpack_require__(23);
 
-__webpack_require__(32);
+__webpack_require__(33);
 
-__webpack_require__(46);
+__webpack_require__(47);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -664,7 +665,7 @@ _module2.default.provider('AvApiResource', ApiResourceProvider);
 exports.default = _module2.default;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -738,7 +739,7 @@ _module2.default.constant('AV_API', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -767,9 +768,9 @@ _module2.default.factory('avValUtils', function () {
 });
 
 /***/ }),
-/* 24 */,
 /* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -837,7 +838,7 @@ var AvConfig = function () {
 _module2.default.provider('avDropdownConfig', AvConfig);
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -855,15 +856,15 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _lodash = __webpack_require__(71);
+var _lodash = __webpack_require__(72);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _lodash3 = __webpack_require__(72);
+var _lodash3 = __webpack_require__(73);
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _lodash5 = __webpack_require__(73);
+var _lodash5 = __webpack_require__(74);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
@@ -871,9 +872,9 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _utils = __webpack_require__(12);
+var _utils = __webpack_require__(13);
 
-__webpack_require__(26);
+__webpack_require__(27);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1135,6 +1136,7 @@ var AvDropdownController = function () {
   }, {
     key: 'ngOptions',
     value: function ngOptions() {
+      var _this4 = this;
 
       this.match = this.av.$attrs.ngOptions.match(this.av.avDropdownConfig.NG_OPTIONS_REGEXP);
       if (!this.match) {
@@ -1178,13 +1180,12 @@ var AvDropdownController = function () {
       this.valuesFn = this.av.$parse(this.match[8]);
       this.collection = this.valuesFn(this.av.$scope);
 
-      this.av.$scope.$watchCollection(this.collection, function (newVal, oldVal) {
-
+      this.av.$scope.$watchCollection(this.match[8], function (newVal, oldVal) {
         if (_angular2.default.equals(newVal, oldVal)) {
           return;
         }
-
-        self.setValue();
+        _this4.collection = _this4.valuesFn(_this4.av.$scope);
+        _this4.setValue();
       }, true);
     }
   }, {
@@ -1231,7 +1232,7 @@ _module2.default.controller('AvDropdownController', AvDropdownController);
 exports.default = AvDropdownController;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1330,10 +1331,10 @@ _module2.default.factory('avSelectOrganizationsResource', OrganizationsSelectRes
 exports.default = _module2.default;
 
 /***/ }),
-/* 29 */,
 /* 30 */,
 /* 31 */,
-/* 32 */
+/* 32 */,
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1351,11 +1352,11 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _constants = __webpack_require__(45);
+var _constants = __webpack_require__(46);
 
 var _constants2 = _interopRequireDefault(_constants);
 
-var _utils = __webpack_require__(12);
+var _utils = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1615,17 +1616,15 @@ _constants2.default.service('avPollingService', AvPollingService);
 exports.default = _constants2.default;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(22);
+__webpack_require__(23);
 
-__webpack_require__(20);
-
-__webpack_require__(49);
+__webpack_require__(21);
 
 __webpack_require__(50);
 
@@ -1635,16 +1634,18 @@ __webpack_require__(52);
 
 __webpack_require__(53);
 
-__webpack_require__(21);
-
-__webpack_require__(34);
-
 __webpack_require__(54);
+
+__webpack_require__(22);
+
+__webpack_require__(35);
 
 __webpack_require__(55);
 
+__webpack_require__(56);
+
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1690,7 +1691,7 @@ _module2.default.factory('avSpacesResource', Spaces);
 exports.default = _module2.default;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1728,12 +1729,12 @@ _module2.default.constant('AV_VAL_ADAPTER', {
 });
 
 /***/ }),
-/* 36 */,
 /* 37 */,
 /* 38 */,
 /* 39 */,
 /* 40 */,
-/* 41 */
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1759,7 +1760,7 @@ function isBlank(str) {
 }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1784,7 +1785,7 @@ exports.REGEX_API_URL = REGEX_API_URL;
 exports.getRelativeUrl = getRelativeUrl;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1821,7 +1822,7 @@ function uuid(prefix) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1844,7 +1845,7 @@ function print() {
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1875,7 +1876,7 @@ _module2.default.constant('AV_POLLING', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1887,15 +1888,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _lodash = __webpack_require__(47);
+var _lodash = __webpack_require__(48);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _constants = __webpack_require__(48);
+var _constants = __webpack_require__(49);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -2003,7 +2004,7 @@ _constants2.default.service('avLocalStorageService', AvLocalStorageService);
 exports.default = _constants2.default;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -2128,10 +2129,10 @@ var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
 
 module.exports = isRegExp;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)(module)))
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2154,7 +2155,7 @@ _module2.default.constant('AV_STORAGE', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2238,7 +2239,7 @@ _module2.default.factory('avOrganizationsResource', OrganizationResourceFactory)
 exports.default = _module2.default;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2304,7 +2305,7 @@ _module2.default.factory('avPermissionsResource', AvUserPermissionsResourceFacto
 exports.default = _module2.default;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2378,7 +2379,7 @@ _module2.default.factory('avProvidersResource', ProvidersResourceFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2430,7 +2431,7 @@ _module2.default.service('AvProxyResource', ProxyResourceFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2527,7 +2528,7 @@ _module2.default.factory('avRegionsResource', AvRegionsFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2602,7 +2603,7 @@ _module2.default.factory('avUserPermissionsResource', AvUserPermissionsResourceF
 exports.default = _module2.default;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2663,7 +2664,7 @@ _module2.default.factory('avUsersResource', UserServiceFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2679,11 +2680,11 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _lodash = __webpack_require__(57);
+var _lodash = __webpack_require__(58);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _lodash3 = __webpack_require__(58);
+var _lodash3 = __webpack_require__(59);
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
@@ -2691,7 +2692,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(33);
+__webpack_require__(34);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2839,7 +2840,7 @@ _module2.default.factory('avUserAuthorizations', AvUserAuthorizationsFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -4024,10 +4025,10 @@ function noop() {
 
 module.exports = union;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -6484,21 +6485,21 @@ function property(path) {
 
 module.exports = find;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)(module)))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(91);
+__webpack_require__(98);
 
-__webpack_require__(145);
+__webpack_require__(154);
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6535,7 +6536,7 @@ _module2.default.constant('AV_VAL', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6547,11 +6548,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(23);
+__webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6622,17 +6623,6 @@ _module2.default.factory('avValPattern', function (avValUtils) {
 });
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(63);
-
-__webpack_require__(66);
-
-/***/ }),
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6641,8 +6631,19 @@ __webpack_require__(66);
 
 __webpack_require__(64);
 
+__webpack_require__(67);
+
 /***/ }),
 /* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(65);
+
+/***/ }),
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6654,11 +6655,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(24);
-
 __webpack_require__(25);
 
-var _template = __webpack_require__(65);
+__webpack_require__(26);
+
+var _template = __webpack_require__(66);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -6737,7 +6738,7 @@ _module2.default.directive('avLoader', function () {
 exports.default = _module2.default;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/animation/loader/template.html';
@@ -6746,7 +6747,7 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6756,9 +6757,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-__webpack_require__(24);
-
 __webpack_require__(25);
+
+__webpack_require__(26);
 
 var _module = __webpack_require__(0);
 
@@ -6827,7 +6828,7 @@ _module2.default.directive('avAnimate', function () {
 exports.default = _module2.default;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6928,38 +6929,38 @@ function indexOf(arr, obj, start) {
 }
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(26);
-
-__webpack_require__(69);
-
 __webpack_require__(27);
 
-__webpack_require__(74);
+__webpack_require__(70);
 
 __webpack_require__(28);
 
 __webpack_require__(75);
 
+__webpack_require__(29);
+
+__webpack_require__(76);
+
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {
 
-var _jquery = __webpack_require__(4);
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-__webpack_require__(70);
+__webpack_require__(71);
 
-__webpack_require__(27);
+__webpack_require__(28);
 
 var _module = __webpack_require__(0);
 
@@ -7112,11 +7113,11 @@ _module2.default.directive('avDropdown', function ($timeout) {
     }
   };
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 70 */,
-/* 71 */
+/* 71 */,
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -9514,10 +9515,10 @@ function property(path) {
 
 module.exports = findIndex;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)(module)))
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -11869,10 +11870,10 @@ function stubFalse() {
 
 module.exports = matches;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)(module)))
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -12458,10 +12459,10 @@ function stubFalse() {
 
 module.exports = isEmpty;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)(module)))
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12642,7 +12643,7 @@ _module2.default.factory('AvSelectResource', SelectResourceFactory);
 exports.default = _module2.default;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12660,11 +12661,11 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _organizationsSelect = __webpack_require__(76);
+var _organizationsSelect = __webpack_require__(77);
 
 var _organizationsSelect2 = _interopRequireDefault(_organizationsSelect);
 
-__webpack_require__(28);
+__webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12703,7 +12704,7 @@ _module2.default.directive('avSelectOrganizations', function () {
 exports.default = _module2.default;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/dropdown/organizations-select.html';
@@ -12712,7 +12713,7 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12731,13 +12732,12 @@ _module2.default.constant('AV_MASK', {
 });
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 79 */,
 /* 80 */,
 /* 81 */,
 /* 82 */,
@@ -12745,26 +12745,33 @@ _module2.default.constant('AV_MASK', {
 /* 84 */,
 /* 85 */,
 /* 86 */,
-/* 87 */
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(88);
+__webpack_require__(95);
 
-__webpack_require__(137);
+__webpack_require__(146);
 
-__webpack_require__(138);
+__webpack_require__(147);
 
-__webpack_require__(89);
+__webpack_require__(96);
 
-__webpack_require__(139);
+__webpack_require__(148);
 
-__webpack_require__(141);
+__webpack_require__(150);
 
 /***/ }),
-/* 88 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12834,7 +12841,7 @@ _module2.default.provider('avAnalyticsConfig', AvAnalyticsConfigProvider);
 exports.default = _module2.default;
 
 /***/ }),
-/* 89 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12850,7 +12857,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _utils = __webpack_require__(12);
+var _utils = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12957,8 +12964,8 @@ _module2.default.factory('avAnalyticsUtils', function (avAnalyticsConfig, $log) 
 });
 
 /***/ }),
-/* 90 */,
-/* 91 */
+/* 97 */,
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12968,7 +12975,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _rules = __webpack_require__(91);
+var _rules = __webpack_require__(98);
 
 var _rules2 = _interopRequireDefault(_rules);
 
@@ -12979,7 +12986,7 @@ _module2.default.factory('avRules', function () {
 });
 
 /***/ }),
-/* 92 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12995,7 +13002,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _utils = __webpack_require__(67);
+var _utils = __webpack_require__(68);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13190,8 +13197,8 @@ _module2.default.factory('AvBlock', function (avBlockConfig, $timeout, $document
 });
 
 /***/ }),
-/* 93 */,
-/* 94 */
+/* 100 */,
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13222,7 +13229,7 @@ _module2.default.factory('avTemplateCache', function ($q, $templateCache, $http)
 });
 
 /***/ }),
-/* 95 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13274,7 +13281,7 @@ _module2.default.constant('AV_MODAL', {
 });
 
 /***/ }),
-/* 96 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13284,7 +13291,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _modal = __webpack_require__(189);
+var _modal = __webpack_require__(198);
 
 var _modal2 = _interopRequireDefault(_modal);
 
@@ -13303,8 +13310,8 @@ _module2.default.directive('avModal', function () {
 });
 
 /***/ }),
-/* 97 */,
-/* 98 */
+/* 104 */,
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13314,7 +13321,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _jquery = __webpack_require__(4);
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -13322,7 +13329,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(35);
+__webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13392,7 +13399,7 @@ _module2.default.factory('avValBootstrapAdapter', function (AV_BOOTSTRAP_ADAPTER
 });
 
 /***/ }),
-/* 99 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13404,9 +13411,9 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(35);
+__webpack_require__(36);
 
-__webpack_require__(98);
+__webpack_require__(105);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13459,8 +13466,8 @@ _module2.default.provider('avValAdapter', function () {
 });
 
 /***/ }),
-/* 100 */,
-/* 101 */
+/* 107 */,
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13478,9 +13485,9 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _utils = __webpack_require__(12);
+var _utils = __webpack_require__(13);
 
-__webpack_require__(59);
+__webpack_require__(60);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13686,13 +13693,6 @@ _module2.default.directive('avValField', function ($log, avVal, avValAdapter, AV
 });
 
 /***/ }),
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
 /* 109 */,
 /* 110 */,
 /* 111 */,
@@ -13715,7 +13715,16 @@ _module2.default.directive('avValField', function ($log, avVal, avValAdapter, AV
 /* 128 */,
 /* 129 */,
 /* 130 */,
-/* 131 */
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13726,41 +13735,41 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.availityConfig = exports.availityUi = exports.availity = undefined;
 
-__webpack_require__(132);
+__webpack_require__(141);
 
-__webpack_require__(155);
+__webpack_require__(164);
 
 var availity = exports.availity = 'availity';
 var availityUi = exports.availityUi = 'availity.ui';
 var availityConfig = exports.availityConfig = 'availity.config';
 
 /***/ }),
-/* 132 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(87);
+__webpack_require__(94);
+
+__webpack_require__(34);
+
+__webpack_require__(57);
+
+__webpack_require__(151);
 
 __webpack_require__(33);
 
-__webpack_require__(56);
+__webpack_require__(13);
 
-__webpack_require__(142);
-
-__webpack_require__(32);
-
-__webpack_require__(12);
-
-__webpack_require__(59);
+__webpack_require__(60);
 
 /***/ }),
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13780,7 +13789,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(88);
+__webpack_require__(95);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13929,7 +13938,7 @@ _module2.default.provider('avAnalytics', AvAnalyticsProvider);
 exports.default = _module2.default;
 
 /***/ }),
-/* 138 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13948,7 +13957,7 @@ _module.run(function (avAnalytics) {
 });
 
 /***/ }),
-/* 139 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13960,15 +13969,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _tracekit = __webpack_require__(90);
+var _tracekit = __webpack_require__(97);
 
 var _tracekit2 = _interopRequireDefault(_tracekit);
 
-var _jquery = __webpack_require__(4);
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -13976,7 +13985,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(20);
+__webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14090,7 +14099,7 @@ var AvExceptionAnalyticsProvider = function () {
               host: document.domain,
               screenWidth: (0, _jquery2.default)(window).width(),
               screenHeight: (0, _jquery2.default)(window).height(),
-              sdkVersion: "2.7.1"
+              sdkVersion: "3.0.0"
             };
 
             return this.log(message);
@@ -14169,8 +14178,8 @@ _module2.default.run(function (avExceptionAnalytics) {
 exports.default = _module2.default;
 
 /***/ }),
-/* 140 */,
-/* 141 */
+/* 149 */,
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14186,7 +14195,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(20);
+__webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14235,7 +14244,7 @@ _module2.default.factory('avSplunkAnalytics', function ($log, avLogMessagesResou
 exports.default = _module2.default;
 
 /***/ }),
-/* 142 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14247,11 +14256,11 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _jquery = __webpack_require__(4);
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _lodash = __webpack_require__(143);
+var _lodash = __webpack_require__(152);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -14259,7 +14268,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(144);
+__webpack_require__(153);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14448,7 +14457,7 @@ _module2.default.run(function (avMessages) {
 });
 
 /***/ }),
-/* 143 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -14829,10 +14838,10 @@ function toNumber(value) {
 
 module.exports = debounce;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 144 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14862,7 +14871,7 @@ _module2.default.constant('AV_MESSAGES', {
 });
 
 /***/ }),
-/* 145 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14878,11 +14887,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(146);
+__webpack_require__(155);
 
-__webpack_require__(60);
+__webpack_require__(61);
 
-__webpack_require__(147);
+__webpack_require__(156);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14971,7 +14980,7 @@ var AvValProvider = function () {
 _module2.default.provider('avVal', AvValProvider);
 
 /***/ }),
-/* 146 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15003,32 +15012,32 @@ _module2.default.value('avValConfig', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 147 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(148);
+__webpack_require__(157);
 
-__webpack_require__(149);
+__webpack_require__(158);
 
-__webpack_require__(150);
+__webpack_require__(159);
 
-__webpack_require__(151);
+__webpack_require__(160);
 
-__webpack_require__(61);
+__webpack_require__(62);
 
-__webpack_require__(152);
+__webpack_require__(161);
 
-__webpack_require__(153);
+__webpack_require__(162);
 
-__webpack_require__(154);
+__webpack_require__(163);
 
-__webpack_require__(23);
+__webpack_require__(24);
 
 /***/ }),
-/* 148 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15040,7 +15049,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -15048,13 +15057,13 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(60);
+__webpack_require__(61);
 
-__webpack_require__(23);
+__webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15093,7 +15102,7 @@ _module2.default.factory('avValDate', function (AV_VAL, avValUtils) {
 });
 
 /***/ }),
-/* 149 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15105,7 +15114,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -15113,13 +15122,13 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(60);
+__webpack_require__(61);
 
-__webpack_require__(23);
+__webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15207,7 +15216,7 @@ _module2.default.factory('avValDateRange', function (AV_VAL, avValUtils) {
 });
 
 /***/ }),
-/* 150 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15219,11 +15228,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(61);
+__webpack_require__(62);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15264,7 +15273,7 @@ _module2.default.factory('avValEmail', function (avValPattern) {
 });
 
 /***/ }),
-/* 151 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15276,7 +15285,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -15355,7 +15364,7 @@ _module2.default.factory('avValNpi', function (avValUtils) {
 });
 
 /***/ }),
-/* 152 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15367,11 +15376,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(61);
+__webpack_require__(62);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15410,7 +15419,7 @@ _module2.default.factory('avValPhone', function (avValPattern) {
 });
 
 /***/ }),
-/* 153 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15422,11 +15431,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-__webpack_require__(23);
+__webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15481,7 +15490,7 @@ _module2.default.factory('avValRequired', function (avValUtils) {
 });
 
 /***/ }),
-/* 154 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15493,7 +15502,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _validator = __webpack_require__(15);
+var _validator = __webpack_require__(16);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -15556,7 +15565,7 @@ _module2.default.factory('avValSize', function (avValUtils) {
 });
 
 /***/ }),
-/* 155 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15564,55 +15573,55 @@ _module2.default.factory('avValSize', function (avValUtils) {
 
 __webpack_require__(0);
 
-__webpack_require__(156);
+__webpack_require__(165);
 
-__webpack_require__(62);
+__webpack_require__(63);
 
-__webpack_require__(160);
+__webpack_require__(169);
 
-__webpack_require__(168);
-
-__webpack_require__(175);
-
-__webpack_require__(68);
-
-__webpack_require__(77);
-
-__webpack_require__(181);
+__webpack_require__(177);
 
 __webpack_require__(184);
 
-__webpack_require__(187);
-
-__webpack_require__(191);
-
-__webpack_require__(193);
-
-__webpack_require__(198);
-
-__webpack_require__(94);
-
-__webpack_require__(204);
-
-__webpack_require__(208);
+__webpack_require__(69);
 
 __webpack_require__(78);
 
+__webpack_require__(190);
+
+__webpack_require__(193);
+
+__webpack_require__(196);
+
+__webpack_require__(200);
+
+__webpack_require__(202);
+
+__webpack_require__(207);
+
+__webpack_require__(101);
+
+__webpack_require__(213);
+
+__webpack_require__(217);
+
+__webpack_require__(79);
+
 /***/ }),
-/* 156 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(157);
+__webpack_require__(166);
 
-__webpack_require__(158);
+__webpack_require__(167);
 
-__webpack_require__(159);
+__webpack_require__(168);
 
 /***/ }),
-/* 157 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15628,7 +15637,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(89);
+__webpack_require__(96);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15673,7 +15682,7 @@ var AvAnalyticsController = function () {
 _module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 
 /***/ }),
-/* 158 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15700,7 +15709,7 @@ _module2.default.directive('avAnalytics', function () {
 });
 
 /***/ }),
-/* 159 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15714,7 +15723,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(87);
+__webpack_require__(94);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15751,23 +15760,23 @@ _module2.default.directive('avAnalyticsOn', function (avAnalyticsConfig, avAnaly
 });
 
 /***/ }),
-/* 160 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(161);
+__webpack_require__(170);
 
-__webpack_require__(163);
+__webpack_require__(172);
 
-__webpack_require__(164);
+__webpack_require__(173);
 
-__webpack_require__(165);
+__webpack_require__(174);
 
-__webpack_require__(92);
+__webpack_require__(99);
 
-__webpack_require__(166);
+__webpack_require__(175);
 
 var _module = __webpack_require__(0);
 
@@ -15793,14 +15802,14 @@ _module2.default.run(function ($document, avBlockConfig, $templateCache) {
 // import './integration';
 
 /***/ }),
-/* 161 */
+/* 170 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 162 */,
-/* 163 */
+/* 171 */,
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15816,7 +15825,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _utils = __webpack_require__(67);
+var _utils = __webpack_require__(68);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15969,7 +15978,7 @@ _module2.default.directive('avBlock', function () {
 });
 
 /***/ }),
-/* 164 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15985,9 +15994,9 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(92);
+__webpack_require__(99);
 
-var _utils = __webpack_require__(67);
+var _utils = __webpack_require__(68);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16086,7 +16095,7 @@ _module2.default.factory('avBlockManager', function ($injector) {
 });
 
 /***/ }),
-/* 165 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16137,7 +16146,7 @@ _module2.default.directive('avBlockContainer', function (avBlockConfig) {
 });
 
 /***/ }),
-/* 166 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16151,7 +16160,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _block = __webpack_require__(167);
+var _block = __webpack_require__(176);
 
 var _block2 = _interopRequireDefault(_block);
 
@@ -16170,7 +16179,7 @@ _module2.default.constant('avBlockConfig', {
 });
 
 /***/ }),
-/* 167 */
+/* 176 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/block/block.html';
@@ -16179,26 +16188,26 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 168 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(169);
+__webpack_require__(178);
 
-__webpack_require__(170);
+__webpack_require__(179);
 
-__webpack_require__(171);
+__webpack_require__(180);
 
-__webpack_require__(172);
+__webpack_require__(181);
 
-__webpack_require__(173);
+__webpack_require__(182);
 
-__webpack_require__(174);
+__webpack_require__(183);
 
 /***/ }),
-/* 169 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16238,7 +16247,7 @@ function dateConfig($provide) {
 _module2.default.config(dateConfig);
 
 /***/ }),
-/* 170 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16258,7 +16267,7 @@ _module2.default.constant('AV_DATEPICKER', {
 });
 
 /***/ }),
-/* 171 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16310,7 +16319,7 @@ var AvDatepickerConfig = function () {
 _module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 /***/ }),
-/* 172 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16322,11 +16331,11 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _jquery = __webpack_require__(4);
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _moment = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -16517,7 +16526,7 @@ var AvDatepickerController = function () {
 _module2.default.controller('AvDatepickerController', AvDatepickerController);
 
 /***/ }),
-/* 173 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16533,7 +16542,7 @@ var _angular = __webpack_require__(1);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-__webpack_require__(93);
+__webpack_require__(100);
 
 var _module = __webpack_require__(0);
 
@@ -16619,32 +16628,32 @@ _module2.default.directive('avDatepicker', function ($window, $log, AV_DATEPICKE
 exports.default = _module2.default;
 
 /***/ }),
-/* 174 */
+/* 183 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 175 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(176);
+__webpack_require__(185);
 
-__webpack_require__(177);
+__webpack_require__(186);
 
-__webpack_require__(178);
+__webpack_require__(187);
 
 /***/ }),
-/* 176 */
+/* 185 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 177 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16711,7 +16720,7 @@ _module2.default.provider('avDimmerConfig', AvDimmerConfig);
 exports.default = _module2.default;
 
 /***/ }),
-/* 178 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16725,7 +16734,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _controller = __webpack_require__(179);
+var _controller = __webpack_require__(188);
 
 var _controller2 = _interopRequireDefault(_controller);
 
@@ -16744,7 +16753,7 @@ _module2.default.directive('avDimmer', function () {
 exports.default = _module2.default;
 
 /***/ }),
-/* 179 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16833,17 +16842,17 @@ var AvDimmerController = function () {
 exports.default = AvDimmerController;
 
 /***/ }),
-/* 180 */,
-/* 181 */
+/* 189 */,
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(182);
+__webpack_require__(191);
 
 /***/ }),
-/* 182 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16859,7 +16868,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(183);
+__webpack_require__(192);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16928,22 +16937,22 @@ _module2.default.directive('avHidePermission', function () {
 });
 
 /***/ }),
-/* 183 */
+/* 192 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 184 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(185);
+__webpack_require__(194);
 
 /***/ }),
-/* 185 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16957,11 +16966,11 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _spaces = __webpack_require__(186);
+var _spaces = __webpack_require__(195);
 
 var _spaces2 = _interopRequireDefault(_spaces);
 
-__webpack_require__(34);
+__webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17024,7 +17033,7 @@ _module2.default.directive('avSpacesBreadcrumbs', function ($location, avSpacesR
 exports.default = _module2.default;
 
 /***/ }),
-/* 186 */
+/* 195 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/breadcrumbs/spaces.html';
@@ -17033,20 +17042,20 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 187 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(188);
+__webpack_require__(197);
 
-__webpack_require__(96);
+__webpack_require__(103);
 
-__webpack_require__(95);
+__webpack_require__(102);
 
 /***/ }),
-/* 188 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17062,15 +17071,15 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(94);
+__webpack_require__(101);
 
-__webpack_require__(95);
+__webpack_require__(102);
 
-__webpack_require__(96);
+__webpack_require__(103);
 
-__webpack_require__(190);
+__webpack_require__(199);
 
-var _utils = __webpack_require__(12);
+var _utils = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17314,7 +17323,7 @@ var ModalFactory = function ModalFactory($rootScope, $timeout, $compile, $contro
 _module2.default.factory('AvModal', ModalFactory);
 
 /***/ }),
-/* 189 */
+/* 198 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/modal/modal.html';
@@ -17323,7 +17332,7 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 190 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17398,13 +17407,13 @@ _module2.default.factory('avModalManager', function () {
 });
 
 /***/ }),
-/* 191 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(97);
+__webpack_require__(104);
 
 var _module = __webpack_require__(0);
 
@@ -17415,23 +17424,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _module2.default.requires.push('ng.shims.placeholder');
 
 /***/ }),
-/* 192 */,
-/* 193 */
+/* 201 */,
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(194);
+__webpack_require__(203);
 
-__webpack_require__(195);
+__webpack_require__(204);
 
-__webpack_require__(196);
+__webpack_require__(205);
 
-__webpack_require__(197);
+__webpack_require__(206);
 
 /***/ }),
-/* 194 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17448,7 +17457,7 @@ _module2.default.constant('AV_POPOVER', {
 });
 
 /***/ }),
-/* 195 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17493,7 +17502,7 @@ var AvPopoverConfig = function () {
 _module2.default.provider('avPopoverConfig', AvPopoverConfig);
 
 /***/ }),
-/* 196 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17582,7 +17591,7 @@ var AvPopoverController = function () {
 _module2.default.controller('AvPopoverController', AvPopoverController);
 
 /***/ }),
-/* 197 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17621,24 +17630,24 @@ _module2.default.directive('avPopover', function () {
 });
 
 /***/ }),
-/* 198 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(199);
+__webpack_require__(208);
 
-__webpack_require__(200);
+__webpack_require__(209);
 
-__webpack_require__(201);
+__webpack_require__(210);
 
-__webpack_require__(202);
+__webpack_require__(211);
 
-__webpack_require__(203);
+__webpack_require__(212);
 
 /***/ }),
-/* 199 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17655,7 +17664,7 @@ _module2.default.constant('AV_TOOLTIP', {
 });
 
 /***/ }),
-/* 200 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17700,7 +17709,7 @@ var AvTooltipConfig = function () {
 _module2.default.provider('avTooltipConfig', AvTooltipConfig);
 
 /***/ }),
-/* 201 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17789,7 +17798,7 @@ var AvTooltipController = function () {
 _module2.default.controller('AvTooltipController', AvTooltipController);
 
 /***/ }),
-/* 202 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17828,7 +17837,7 @@ _module2.default.directive('avTooltip', function () {
 });
 
 /***/ }),
-/* 203 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17849,26 +17858,26 @@ var inlineHelp = {
 _module2.default.component('inlineHelp', inlineHelp);
 
 /***/ }),
-/* 204 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(98);
+__webpack_require__(105);
 
-__webpack_require__(99);
+__webpack_require__(106);
 
-__webpack_require__(35);
+__webpack_require__(36);
 
-__webpack_require__(205);
+__webpack_require__(214);
 
-__webpack_require__(101);
+__webpack_require__(108);
 
-__webpack_require__(207);
+__webpack_require__(216);
 
 /***/ }),
-/* 205 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17880,7 +17889,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(100);
+__webpack_require__(107);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17941,8 +17950,8 @@ _module2.default.directive('avValContainer', function () {
 });
 
 /***/ }),
-/* 206 */,
-/* 207 */
+/* 215 */,
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17956,13 +17965,13 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(59);
+__webpack_require__(60);
 
-__webpack_require__(35);
+__webpack_require__(36);
 
-__webpack_require__(99);
+__webpack_require__(106);
 
-__webpack_require__(101);
+__webpack_require__(108);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18123,18 +18132,18 @@ _module2.default.directive('avValForm', function ($log, $timeout, $parse, AV_VAL
 });
 
 /***/ }),
-/* 208 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(209);
+__webpack_require__(218);
 
-__webpack_require__(210);
+__webpack_require__(219);
 
 /***/ }),
-/* 209 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18170,7 +18179,7 @@ _module2.default.directive('avOnFileChange', function () {
 });
 
 /***/ }),
-/* 210 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18180,11 +18189,11 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _uploadProgressBar = __webpack_require__(211);
+var _uploadProgressBar = __webpack_require__(220);
 
 var _uploadProgressBar2 = _interopRequireDefault(_uploadProgressBar);
 
-var _templatePasswordPrompt = __webpack_require__(212);
+var _templatePasswordPrompt = __webpack_require__(221);
 
 var _templatePasswordPrompt2 = _interopRequireDefault(_templatePasswordPrompt);
 
@@ -18250,7 +18259,7 @@ _module2.default.directive('avUploadProgressBar', function (AvModal) {
 });
 
 /***/ }),
-/* 211 */
+/* 220 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/uploads/upload-progress-bar.html';
@@ -18259,7 +18268,7 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ }),
-/* 212 */
+/* 221 */
 /***/ (function(module, exports) {
 
 var path = 'src/ui/uploads/template-password-prompt.html';
@@ -18268,5 +18277,5 @@ window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, htm
 module.exports = path;
 
 /***/ })
-],[131]);
+],[140]);
 //# sourceMappingURL=availity-angular.js.map

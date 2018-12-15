@@ -77,5 +77,5 @@ demo.config($locationProvider => {
 });
 
 demo.run($httpBackend => {
-  $httpBackend.whenRoute('POST', '/api/v1/log-messages').respond({'logMessage': 'OK'});
+  $httpBackend.when('POST', '/api/v1/log-messages').respond({'logMessage': 'OK'});
 });

@@ -9,7 +9,7 @@ demo.controller('DemoAuthenticationController', ($scope, demoAuthenticationServi
 
 demo.run($httpBackend => {
   $httpBackend
-    .whenRoute('GET', /\/api\/internal\/v1\/axi-user-permissions\?permissionId=(7100|8100|9100).*&sessionBust=.*/)
+    .when('GET', /\/api\/internal\/v1\/axi-user-permissions\?permissionId=(7100|8100|9100).*&sessionBust=.*/)
     .respond(response);
 });
 
