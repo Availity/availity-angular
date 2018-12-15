@@ -17,27 +17,27 @@ demo.controller('DemoDropdownController', ($scope, demoDropdownService) => {
 demo.run($httpBackend => {
 
   $httpBackend
-    .whenRoute('GET', /\/api\/v1\/photos\?offset=.*&q=a.*/)
+    .when('GET', /\/api\/v1\/photos\?offset=.*&q=a.*/)
     .respond(photos1);
 
   $httpBackend
-    .whenRoute('GET', /\/api\/v1\/photos\?offset=.*&q=.*/)
+    .when('GET', /\/api\/v1\/photos\?offset=.*&q=.*/)
     .respond(photos2);
 
   $httpBackend
-    .whenRoute('GET', /\/api\/sdk\/platform\/v1\/users\/me.*/)
+    .when('GET', /\/api\/sdk\/platform\/v1\/users\/me.*/)
     .respond(user);
 
   $httpBackend
-    .whenRoute('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=.*&q=.*/)
+    .when('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=.*&q=.*/)
     .respond(organizations3);
 
   $httpBackend
-    .whenRoute('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=0.*/)
+    .when('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=0.*/)
     .respond(organizations1);
 
   $httpBackend
-    .whenRoute('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=50.*/)
+    .when('GET', /\/api\/sdk\/platform\/v1\/organizations\?offset=50.*/)
     .respond(organizations2);
 
 });
