@@ -1,3 +1,13 @@
+<a name="3.0.1-alpha.1"></a>
+## [3.0.1-alpha.1](https://github.com/Availity/availity-angular/compare/v3.0.0...v3.0.1-alpha.1) (2019-04-08)
+
+
+### Features
+
+* added dma log service ([22305ea](https://github.com/Availity/availity-angular/commit/22305ea))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/Availity/availity-angular/compare/v2.7.2...v3.0.0) (2018-12-15)
 

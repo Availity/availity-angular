@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v3.0.0 (12/15/2018)
+ * availity-angular v3.0.1-alpha.1 (04/08/2019)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -14099,7 +14099,7 @@ var AvExceptionAnalyticsProvider = function () {
               host: document.domain,
               screenWidth: (0, _jquery2.default)(window).width(),
               screenHeight: (0, _jquery2.default)(window).height(),
-              sdkVersion: "3.0.0"
+              sdkVersion: "3.0.1-alpha.1"
             };
 
             return this.log(message);
