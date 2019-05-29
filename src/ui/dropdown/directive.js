@@ -89,7 +89,7 @@ ngModule.directive('avDropdown', ($timeout) => {
               avDropdown.setViewValue(e);
             }
 
-          }, false, 0);
+          }, false, avDropdown.options.quietMillis || 0);
 
         }
 
