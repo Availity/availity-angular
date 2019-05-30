@@ -1,3 +1,13 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/Availity/availity-angular/compare/v3.0.0...v3.1.0) (2019-05-30)
+
+
+### Features
+
+* **dropdown:** add quietMillis support ([3d3c7d2](https://github.com/Availity/availity-angular/commit/3d3c7d2))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/Availity/availity-angular/compare/v2.7.2...v3.0.0) (2018-12-15)
 
