@@ -1,6 +1,6 @@
 /**
- * availity-angular v0.10.0 -- June-11
- * Copyright 2015 Availity, LLC 
+ * availity-angular v0.10.0 -- April-02
+ * Copyright 2020 Availity, LLC 
  */
 
 // Source: /lib/ui/index.js

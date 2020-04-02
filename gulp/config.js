@@ -36,7 +36,7 @@ module.exports = {
   lib: {
     name: 'availity-angular.js',
     src: [
-     './lib/core/index.js',
+      './lib/core/index.js',
       './lib/core/utils/strings.js',
       './lib/core/utils/uuid.js',
       './lib/core/utils/urls.js',
@@ -53,6 +53,7 @@ module.exports = {
       './lib/core/api/api-organizations.js',
       './lib/core/api/api-codes.js',
       './lib/core/api/api-user-permissions.js',
+      './lib/core/api/api-regions.js',
       './lib/core/authorizations/user-authorizations.js',
       './lib/core/session/session.js',
       './lib/core/idle/idle.js',

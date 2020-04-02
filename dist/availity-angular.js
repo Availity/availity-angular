@@ -1,6 +1,6 @@
 /**
- * availity-angular v0.10.0 -- June-11
- * Copyright 2015 Availity, LLC 
+ * availity-angular v0.10.0 -- April-02
+ * Copyright 2020 Availity, LLC 
  */
 
 // Source: /lib/core/index.js
@@ -1079,6 +1079,43 @@
   };
 
   availity.core.factory('avUserPermissionsResource', AvUserPermissionsResourceFactory);
+
+})(window);
+
+// Source: /lib/core/api/api-regions.js
+(function (root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  var AvRegionsResourceFactory = function (AvApiResource) {
+
+    var AvRegionsResource = function () {
+      AvApiResource.call(this, {
+        path: '/api/sdk/platform',
+        version: '/v1',
+        url: '/regions'
+      });
+    };
+
+    angular.extend(AvRegionsResource.prototype, AvApiResource.prototype, {
+
+      changeRegion: function (region) {
+        return this.update(region, {}, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        });
+      }
+
+    });
+
+    return new AvRegionsResource();
+
+  };
+
+  availity.core.factory('avRegionsResource', AvRegionsResourceFactory);
 
 })(window);
 
