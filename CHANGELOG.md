@@ -1,3 +1,8 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/Availity/availity-angular/compare/v3.1.0...v3.1.1) (2020-06-30)
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/Availity/availity-angular/compare/v3.0.0...v3.1.0) (2019-05-30)
 
