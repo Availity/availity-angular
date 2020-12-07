@@ -1,3 +1,8 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/Availity/availity-angular/compare/v4.0.0...v4.0.1) (2020-12-07)
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/Availity/availity-angular/compare/v3.1.1...v4.0.0) (2020-06-30)
 
