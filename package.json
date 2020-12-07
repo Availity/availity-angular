@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "lib/index.js",
   "keywords": [
     "angular",
@@ -160,10 +160,10 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.4",
     "angular": "1.8.x",
-    "angular-animate": "1.7.x",
-    "angular-mocks": "1.7.x",
-    "angular-sanitize": "1.7.x",
-    "angular-shims-placeholder": "^0.4.7",
+    "angular-animate": "^1.8.0",
+    "angular-mocks": "^1.8.0",
+    "angular-sanitize": "^1.8.0",
+    "angular-shims-placeholder": "^0.4.8",
     "angular-ui-mask": "^1.8.7",
     "availity-uikit": "^2.1.0",
     "bootstrap": "^3.4.0",
