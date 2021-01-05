@@ -4327,4 +4327,30 @@ pre[class*="language-"] {
   }
 }
 
+.alert {
+  margin-bottom: 0;
+  text-align: center;
+  padding: 8px;
+  color: #fff;
+  background: #1c1c1c;
+  border-color: #000;
+}
+.alert-info {
+  color: #ffffff;
+  font-size: 18px;
+  background-color: #e79140;
+  border-color: #e79140;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert a {
+  color: #ffffff;
+  font-size: 18px;
+}
+
 /*# sourceMappingURL=docs.css.map*/
