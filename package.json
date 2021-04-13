@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "main": "lib/index.js",
   "keywords": [
     "angular",
@@ -158,7 +158,7 @@
     "yargs": "^10.1.1"
   },
   "dependencies": {
-    "@uirouter/angularjs": "^1.0.4",
+    "@uirouter/angularjs": "^1.0.29",
     "angular": "1.8.2",
     "angular-animate": "^1.8.2",
     "angular-mocks": "^1.8.2",
