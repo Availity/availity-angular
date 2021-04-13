@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "4.0.1",
+  "version": "4.1.1",
   "main": "lib/index.js",
   "keywords": [
     "angular",
@@ -158,17 +158,17 @@
     "yargs": "^10.1.1"
   },
   "dependencies": {
-    "@uirouter/angularjs": "^1.0.4",
-    "angular": "1.8.x",
-    "angular-animate": "^1.8.0",
-    "angular-mocks": "^1.8.0",
-    "angular-sanitize": "^1.8.0",
+    "@uirouter/angularjs": "^1.0.29",
+    "angular": "1.8.2",
+    "angular-animate": "^1.8.2",
+    "angular-mocks": "^1.8.2",
+    "angular-sanitize": "^1.8.2",
     "angular-shims-placeholder": "^0.4.8",
     "angular-ui-mask": "^1.8.7",
-    "availity-uikit": "^2.1.0",
+    "availity-uikit": "^2.2.0",
     "bootstrap": "^3.4.0",
     "bootstrap-datepicker": "^1.7.1",
-    "jquery": "^3.0.0",
+    "jquery": "^3.6.0",
     "lodash.debounce": "^4.0.8",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",

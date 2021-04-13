@@ -1,3 +1,19 @@
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/Availity/availity-angular/compare/v4.1.0...v4.1.1) (2021-04-13)
+
+
+
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/Availity/availity-angular/compare/v4.0.1...v4.1.0) (2021-04-12)
+
+
+### Features
+
+* upgraded angualar from 1.8.0 to 1.8.2 ([cc4d684](https://github.com/Availity/availity-angular/commit/cc4d684))
+* upgraded jquery from 3.3.1 to 3.6.0 ([c146068](https://github.com/Availity/availity-angular/commit/c146068))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/Availity/availity-angular/compare/v4.0.0...v4.0.1) (2020-12-07)
 
