@@ -187,56 +187,6 @@
       "action": "install",
       "resolves": [
         {
-          "id": 1164,
-          "path": "karma-coverage>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1179,
-          "path": "karma-coverage>istanbul>handlebars>optimist>minimist",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1300,
-          "path": "karma-coverage>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1316,
-          "path": "karma-coverage>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1324,
-          "path": "karma-coverage>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1325,
-          "path": "karma-coverage>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        }
-      ],
-      "module": "karma-coverage",
-      "target": "2.0.3"
-    },
-    {
-      "isMajor": true,
-      "action": "install",
-      "resolves": [
-        {
           "id": 1213,
           "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-angular>compare-func>dot-prop",
           "dev": true,
@@ -289,56 +239,6 @@
       ],
       "module": "minimatch",
       "target": "3.0.4",
-      "depth": 5
-    },
-    {
-      "action": "update",
-      "resolves": [
-        {
-          "id": 1164,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1179,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars>optimist>minimist",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1300,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1316,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1324,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1325,
-          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        }
-      ],
-      "module": "handlebars",
-      "target": "4.7.7",
       "depth": 5
     },
     {
@@ -1313,22 +1213,8 @@
           "bundled": false
         },
         {
-          "id": 1164,
-          "path": "isparta-loader>isparta>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
           "id": 1300,
           "path": "babel-istanbul-loader>babel-istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1300,
-          "path": "isparta-loader>isparta>istanbul>handlebars",
           "dev": true,
           "optional": false,
           "bundled": false
@@ -1341,13 +1227,6 @@
           "bundled": false
         },
         {
-          "id": 1316,
-          "path": "isparta-loader>isparta>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
           "id": 1324,
           "path": "babel-istanbul-loader>babel-istanbul>handlebars",
           "dev": true,
@@ -1355,22 +1234,8 @@
           "bundled": false
         },
         {
-          "id": 1324,
-          "path": "isparta-loader>isparta>istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
           "id": 1325,
           "path": "babel-istanbul-loader>babel-istanbul>handlebars",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1325,
-          "path": "isparta-loader>isparta>istanbul>handlebars",
           "dev": true,
           "optional": false,
           "bundled": false
@@ -1384,13 +1249,6 @@
         {
           "id": 1179,
           "path": "babel-istanbul-loader>babel-istanbul>handlebars>optimist>minimist",
-          "dev": true,
-          "optional": false,
-          "bundled": false
-        },
-        {
-          "id": 1179,
-          "path": "isparta-loader>isparta>istanbul>handlebars>optimist>minimist",
           "dev": true,
           "optional": false,
           "bundled": false
@@ -3198,10 +3056,7 @@
         {
           "version": "4.0.14",
           "paths": [
-            "babel-istanbul-loader>babel-istanbul>handlebars",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-            "isparta-loader>isparta>istanbul>handlebars",
-            "karma-coverage>istanbul>handlebars"
+            "babel-istanbul-loader>babel-istanbul>handlebars"
           ]
         }
       ],
@@ -3245,9 +3100,6 @@
           "version": "0.0.10",
           "paths": [
             "babel-istanbul-loader>babel-istanbul>handlebars>optimist>minimist",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars>optimist>minimist",
-            "isparta-loader>isparta>istanbul>handlebars>optimist>minimist",
-            "karma-coverage>istanbul>handlebars>optimist>minimist",
             "gitbook-cli>optimist>minimist",
             "karma>optimist>minimist"
           ]
@@ -3438,10 +3290,7 @@
         {
           "version": "4.0.14",
           "paths": [
-            "babel-istanbul-loader>babel-istanbul>handlebars",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-            "isparta-loader>isparta>istanbul>handlebars",
-            "karma-coverage>istanbul>handlebars"
+            "babel-istanbul-loader>babel-istanbul>handlebars"
           ]
         }
       ],
@@ -3482,10 +3331,7 @@
         {
           "version": "4.0.14",
           "paths": [
-            "babel-istanbul-loader>babel-istanbul>handlebars",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-            "isparta-loader>isparta>istanbul>handlebars",
-            "karma-coverage>istanbul>handlebars"
+            "babel-istanbul-loader>babel-istanbul>handlebars"
           ]
         }
       ],
@@ -3526,10 +3372,7 @@
         {
           "version": "4.0.14",
           "paths": [
-            "babel-istanbul-loader>babel-istanbul>handlebars",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-            "isparta-loader>isparta>istanbul>handlebars",
-            "karma-coverage>istanbul>handlebars"
+            "babel-istanbul-loader>babel-istanbul>handlebars"
           ]
         }
       ],
@@ -3570,10 +3413,7 @@
         {
           "version": "4.0.14",
           "paths": [
-            "babel-istanbul-loader>babel-istanbul>handlebars",
-            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
-            "isparta-loader>isparta>istanbul>handlebars",
-            "karma-coverage>istanbul>handlebars"
+            "babel-istanbul-loader>babel-istanbul>handlebars"
           ]
         }
       ],
@@ -4339,15 +4179,15 @@
   "metadata": {
     "vulnerabilities": {
       "info": 0,
-      "low": 75,
-      "moderate": 82,
-      "high": 78,
+      "low": 72,
+      "moderate": 79,
+      "high": 66,
       "critical": 0
     },
     "dependencies": 29,
-    "devDependencies": 2705,
+    "devDependencies": 2707,
     "optionalDependencies": 385,
-    "totalDependencies": 2734
+    "totalDependencies": 2736
   },
-  "runId": "7f11171a-00c5-4f8a-a6ee-ff6a38bc45ff"
+  "runId": "dfeb9121-b20f-4ba5-9c19-881b4a152a65"
 }
