@@ -1,3 +1,11 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/Availity/availity-angular/compare/v4.1.2...v4.2.0) (2021-04-14)
+
+### Features
+
+* remove package-lock.json rebuild node9 without artifactory.availity.com ([7199789](https://github.com/Availity/availity-angular/commit/7199789))
+
+
 <a name="4.1.3"></a>
 ## [4.1.3](https://github.com/Availity/availity-angular/compare/v4.1.2...v4.1.3) (2021-04-14)
 
