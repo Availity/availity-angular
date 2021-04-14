@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v3.0.1-alpha.1 (04/08/2019)
+ * availity-angular v4.1.3 (04/14/2021)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -6496,7 +6496,7 @@ module.exports = find;
 
 __webpack_require__(98);
 
-__webpack_require__(154);
+__webpack_require__(155);
 
 /***/ }),
 /* 61 */
@@ -6741,9 +6741,9 @@ exports.default = _module2.default;
 /* 66 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<div class=\"loading-indicator\">\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n</div>\n";;
 var path = 'src/ui/animation/loader/template.html';
-var html = "<div class=\"loading-indicator\">\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n  <span class=\"loading-bullet\">&bull;</span>\n</div>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ }),
@@ -7044,7 +7044,7 @@ _module2.default.directive('avDropdown', function ($timeout) {
             } else {
               avDropdown.setViewValue(e);
             }
-          }, false, 0);
+          }, false, avDropdown.options.quietMillis || 0);
         }
       });
 
@@ -12707,9 +12707,9 @@ exports.default = _module2.default;
 /* 77 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<input\n  type=\"hidden\"\n  class=\"form-control\"\n  av-dropdown\n  options=\"dropdownOptions\"\n>\n";;
 var path = 'src/ui/dropdown/organizations-select.html';
-var html = "<input\n  type=\"hidden\"\n  class=\"form-control\"\n  av-dropdown\n  options=\"dropdownOptions\"\n>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ }),
@@ -12760,15 +12760,15 @@ _module2.default.constant('AV_MASK', {
 
 __webpack_require__(95);
 
-__webpack_require__(146);
-
 __webpack_require__(147);
-
-__webpack_require__(96);
 
 __webpack_require__(148);
 
-__webpack_require__(150);
+__webpack_require__(96);
+
+__webpack_require__(149);
+
+__webpack_require__(151);
 
 /***/ }),
 /* 95 */
@@ -13291,7 +13291,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _modal = __webpack_require__(198);
+var _modal = __webpack_require__(199);
 
 var _modal2 = _interopRequireDefault(_modal);
 
@@ -13724,7 +13724,8 @@ _module2.default.directive('avValField', function ($log, avVal, avValAdapter, AV
 /* 137 */,
 /* 138 */,
 /* 139 */,
-/* 140 */
+/* 140 */,
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13735,16 +13736,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.availityConfig = exports.availityUi = exports.availity = undefined;
 
-__webpack_require__(141);
+__webpack_require__(142);
 
-__webpack_require__(164);
+__webpack_require__(165);
 
 var availity = exports.availity = 'availity';
 var availityUi = exports.availityUi = 'availity.ui';
 var availityConfig = exports.availityConfig = 'availity.config';
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13756,7 +13757,7 @@ __webpack_require__(34);
 
 __webpack_require__(57);
 
-__webpack_require__(151);
+__webpack_require__(152);
 
 __webpack_require__(33);
 
@@ -13765,11 +13766,11 @@ __webpack_require__(13);
 __webpack_require__(60);
 
 /***/ }),
-/* 142 */,
 /* 143 */,
 /* 144 */,
 /* 145 */,
-/* 146 */
+/* 146 */,
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13938,7 +13939,7 @@ _module2.default.provider('avAnalytics', AvAnalyticsProvider);
 exports.default = _module2.default;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13957,7 +13958,7 @@ _module.run(function (avAnalytics) {
 });
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14099,7 +14100,7 @@ var AvExceptionAnalyticsProvider = function () {
               host: document.domain,
               screenWidth: (0, _jquery2.default)(window).width(),
               screenHeight: (0, _jquery2.default)(window).height(),
-              sdkVersion: "3.0.1-alpha.1"
+              sdkVersion: "4.1.3"
             };
 
             return this.log(message);
@@ -14178,8 +14179,8 @@ _module2.default.run(function (avExceptionAnalytics) {
 exports.default = _module2.default;
 
 /***/ }),
-/* 149 */,
-/* 150 */
+/* 150 */,
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14244,7 +14245,7 @@ _module2.default.factory('avSplunkAnalytics', function ($log, avLogMessagesResou
 exports.default = _module2.default;
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14260,7 +14261,7 @@ var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _lodash = __webpack_require__(152);
+var _lodash = __webpack_require__(153);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -14268,7 +14269,7 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(153);
+__webpack_require__(154);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14457,7 +14458,7 @@ _module2.default.run(function (avMessages) {
 });
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -14841,7 +14842,7 @@ module.exports = debounce;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14871,7 +14872,7 @@ _module2.default.constant('AV_MESSAGES', {
 });
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14887,11 +14888,11 @@ var _module = __webpack_require__(2);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(155);
+__webpack_require__(156);
 
 __webpack_require__(61);
 
-__webpack_require__(156);
+__webpack_require__(157);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14980,7 +14981,7 @@ var AvValProvider = function () {
 _module2.default.provider('avVal', AvValProvider);
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15012,13 +15013,11 @@ _module2.default.value('avValConfig', {
 exports.default = _module2.default;
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-__webpack_require__(157);
 
 __webpack_require__(158);
 
@@ -15026,18 +15025,20 @@ __webpack_require__(159);
 
 __webpack_require__(160);
 
-__webpack_require__(62);
-
 __webpack_require__(161);
+
+__webpack_require__(62);
 
 __webpack_require__(162);
 
 __webpack_require__(163);
 
+__webpack_require__(164);
+
 __webpack_require__(24);
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15102,7 +15103,7 @@ _module2.default.factory('avValDate', function (AV_VAL, avValUtils) {
 });
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15216,7 +15217,7 @@ _module2.default.factory('avValDateRange', function (AV_VAL, avValUtils) {
 });
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15273,7 +15274,7 @@ _module2.default.factory('avValEmail', function (avValPattern) {
 });
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15364,7 +15365,7 @@ _module2.default.factory('avValNpi', function (avValUtils) {
 });
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15419,7 +15420,7 @@ _module2.default.factory('avValPhone', function (avValPattern) {
 });
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15490,7 +15491,7 @@ _module2.default.factory('avValRequired', function (avValUtils) {
 });
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15565,7 +15566,7 @@ _module2.default.factory('avValSize', function (avValUtils) {
 });
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15573,55 +15574,55 @@ _module2.default.factory('avValSize', function (avValUtils) {
 
 __webpack_require__(0);
 
-__webpack_require__(165);
+__webpack_require__(166);
 
 __webpack_require__(63);
 
-__webpack_require__(169);
+__webpack_require__(170);
 
-__webpack_require__(177);
+__webpack_require__(178);
 
-__webpack_require__(184);
+__webpack_require__(185);
 
 __webpack_require__(69);
 
 __webpack_require__(78);
 
-__webpack_require__(190);
+__webpack_require__(191);
 
-__webpack_require__(193);
+__webpack_require__(194);
 
-__webpack_require__(196);
+__webpack_require__(197);
 
-__webpack_require__(200);
+__webpack_require__(201);
 
-__webpack_require__(202);
+__webpack_require__(203);
 
-__webpack_require__(207);
+__webpack_require__(208);
 
 __webpack_require__(101);
 
-__webpack_require__(213);
+__webpack_require__(214);
 
-__webpack_require__(217);
+__webpack_require__(218);
 
 __webpack_require__(79);
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(166);
-
 __webpack_require__(167);
 
 __webpack_require__(168);
 
+__webpack_require__(169);
+
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15682,7 +15683,7 @@ var AvAnalyticsController = function () {
 _module2.default.controller('AvAnalyticsController', AvAnalyticsController);
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15709,7 +15710,7 @@ _module2.default.directive('avAnalytics', function () {
 });
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15760,23 +15761,23 @@ _module2.default.directive('avAnalyticsOn', function (avAnalyticsConfig, avAnaly
 });
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(170);
-
-__webpack_require__(172);
+__webpack_require__(171);
 
 __webpack_require__(173);
 
 __webpack_require__(174);
 
+__webpack_require__(175);
+
 __webpack_require__(99);
 
-__webpack_require__(175);
+__webpack_require__(176);
 
 var _module = __webpack_require__(0);
 
@@ -15802,14 +15803,14 @@ _module2.default.run(function ($document, avBlockConfig, $templateCache) {
 // import './integration';
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 171 */,
-/* 172 */
+/* 172 */,
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15978,7 +15979,7 @@ _module2.default.directive('avBlock', function () {
 });
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16095,7 +16096,7 @@ _module2.default.factory('avBlockManager', function ($injector) {
 });
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16146,7 +16147,7 @@ _module2.default.directive('avBlockContainer', function (avBlockConfig) {
 });
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16160,7 +16161,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _block = __webpack_require__(176);
+var _block = __webpack_require__(177);
 
 var _block2 = _interopRequireDefault(_block);
 
@@ -16179,22 +16180,20 @@ _module2.default.constant('avBlockConfig', {
 });
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<div class=\"av-block-overlay\"></div>\n<div\n  class=\"av-block-message-container\"\n  aria-live=\"assertive\"\n  aria-atomic=\"true\">\n  <div class=\"av-block-message\">\n    <av-loader ng-if=\"state.blockCount > 0\"></av-loader>\n  </div>\n</div>\n";;
 var path = 'src/ui/block/block.html';
-var html = "<div class=\"av-block-overlay\"></div>\n<div\n  class=\"av-block-message-container\"\n  aria-live=\"assertive\"\n  aria-atomic=\"true\">\n  <div class=\"av-block-message\">\n    <av-loader ng-if=\"state.blockCount > 0\"></av-loader>\n  </div>\n</div>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-__webpack_require__(178);
 
 __webpack_require__(179);
 
@@ -16206,8 +16205,10 @@ __webpack_require__(182);
 
 __webpack_require__(183);
 
+__webpack_require__(184);
+
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16247,7 +16248,7 @@ function dateConfig($provide) {
 _module2.default.config(dateConfig);
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16267,7 +16268,7 @@ _module2.default.constant('AV_DATEPICKER', {
 });
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16319,7 +16320,7 @@ var AvDatepickerConfig = function () {
 _module2.default.provider('avDatepickerConfig', AvDatepickerConfig);
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16526,7 +16527,7 @@ var AvDatepickerController = function () {
 _module2.default.controller('AvDatepickerController', AvDatepickerController);
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16628,32 +16629,32 @@ _module2.default.directive('avDatepicker', function ($window, $log, AV_DATEPICKE
 exports.default = _module2.default;
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(185);
-
 __webpack_require__(186);
 
 __webpack_require__(187);
 
+__webpack_require__(188);
+
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16720,7 +16721,7 @@ _module2.default.provider('avDimmerConfig', AvDimmerConfig);
 exports.default = _module2.default;
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16734,7 +16735,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _controller = __webpack_require__(188);
+var _controller = __webpack_require__(189);
 
 var _controller2 = _interopRequireDefault(_controller);
 
@@ -16753,7 +16754,7 @@ _module2.default.directive('avDimmer', function () {
 exports.default = _module2.default;
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16842,17 +16843,17 @@ var AvDimmerController = function () {
 exports.default = AvDimmerController;
 
 /***/ }),
-/* 189 */,
-/* 190 */
+/* 190 */,
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(191);
+__webpack_require__(192);
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16868,7 +16869,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-__webpack_require__(192);
+__webpack_require__(193);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16937,22 +16938,22 @@ _module2.default.directive('avHidePermission', function () {
 });
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(194);
+__webpack_require__(195);
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16966,7 +16967,7 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _spaces = __webpack_require__(195);
+var _spaces = __webpack_require__(196);
 
 var _spaces2 = _interopRequireDefault(_spaces);
 
@@ -17033,29 +17034,29 @@ _module2.default.directive('avSpacesBreadcrumbs', function ($location, avSpacesR
 exports.default = _module2.default;
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<ul class=\"breadcrumb breadcrumb-space\">\n  <li>\n    <a href=\"/public/apps/dashboard\" target=\"newBody\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"home\"\n      av-analytics-category=\"home breadcrumb\">\n      Home\n    </a>\n  </li>\n  <li ng-if=\"spaceName\">\n    <a ng-href=\"{{spaceUrl}}\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"{{spaceId}}\"\n      av-analytics-category=\"page breadcrumb\">{{spaceName}}</a>\n  </li>\n  <li class=\"active\">\n    {{pageName}}\n  </li>\n</ul>\n";;
 var path = 'src/ui/breadcrumbs/spaces.html';
-var html = "<ul class=\"breadcrumb breadcrumb-space\">\n  <li>\n    <a href=\"/public/apps/dashboard\" target=\"newBody\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"home\"\n      av-analytics-category=\"home breadcrumb\">\n      Home\n    </a>\n  </li>\n  <li ng-if=\"spaceName\">\n    <a ng-href=\"{{spaceUrl}}\"\n      av-analytics-on=\"click\"\n      av-analytics-action=\"click\"\n      av-analytics-label=\"{{spaceId}}\"\n      av-analytics-category=\"page breadcrumb\">{{spaceName}}</a>\n  </li>\n  <li class=\"active\">\n    {{pageName}}\n  </li>\n</ul>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(197);
+__webpack_require__(198);
 
 __webpack_require__(103);
 
 __webpack_require__(102);
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17077,7 +17078,7 @@ __webpack_require__(102);
 
 __webpack_require__(103);
 
-__webpack_require__(199);
+__webpack_require__(200);
 
 var _utils = __webpack_require__(13);
 
@@ -17323,16 +17324,16 @@ var ModalFactory = function ModalFactory($rootScope, $timeout, $compile, $contro
 _module2.default.factory('AvModal', ModalFactory);
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<div class=\"modal fade\" role=\"dialog\" tabindex=\"-1\">\n  <div class=\"modal-dialog\" ng-class=\"{'modal-lg': size === 'lg', 'modal-sm': size === 'sm'}\">\n    <div class=\"modal-content\" ng-transclude>\n      <!--\n      <div class=\"modal-header\"></div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n      -->\n    </div>\n  </div>\n</div>\n\n";;
 var path = 'src/ui/modal/modal.html';
-var html = "<div class=\"modal fade\" role=\"dialog\" tabindex=\"-1\">\n  <div class=\"modal-dialog\" ng-class=\"{'modal-lg': size === 'lg', 'modal-sm': size === 'sm'}\">\n    <div class=\"modal-content\" ng-transclude>\n      <!--\n      <div class=\"modal-header\"></div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n      -->\n    </div>\n  </div>\n</div>\n\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17407,7 +17408,7 @@ _module2.default.factory('avModalManager', function () {
 });
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17424,14 +17425,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _module2.default.requires.push('ng.shims.placeholder');
 
 /***/ }),
-/* 201 */,
-/* 202 */
+/* 202 */,
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-__webpack_require__(203);
 
 __webpack_require__(204);
 
@@ -17439,8 +17438,10 @@ __webpack_require__(205);
 
 __webpack_require__(206);
 
+__webpack_require__(207);
+
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17457,7 +17458,7 @@ _module2.default.constant('AV_POPOVER', {
 });
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17502,7 +17503,7 @@ var AvPopoverConfig = function () {
 _module2.default.provider('avPopoverConfig', AvPopoverConfig);
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17591,7 +17592,7 @@ var AvPopoverController = function () {
 _module2.default.controller('AvPopoverController', AvPopoverController);
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17630,13 +17631,11 @@ _module2.default.directive('avPopover', function () {
 });
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-__webpack_require__(208);
 
 __webpack_require__(209);
 
@@ -17646,8 +17645,10 @@ __webpack_require__(211);
 
 __webpack_require__(212);
 
+__webpack_require__(213);
+
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17664,7 +17665,7 @@ _module2.default.constant('AV_TOOLTIP', {
 });
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17709,7 +17710,7 @@ var AvTooltipConfig = function () {
 _module2.default.provider('avTooltipConfig', AvTooltipConfig);
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17798,7 +17799,7 @@ var AvTooltipController = function () {
 _module2.default.controller('AvTooltipController', AvTooltipController);
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17837,7 +17838,7 @@ _module2.default.directive('avTooltip', function () {
 });
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17858,7 +17859,7 @@ var inlineHelp = {
 _module2.default.component('inlineHelp', inlineHelp);
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17870,14 +17871,14 @@ __webpack_require__(106);
 
 __webpack_require__(36);
 
-__webpack_require__(214);
+__webpack_require__(215);
 
 __webpack_require__(108);
 
-__webpack_require__(216);
+__webpack_require__(217);
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17950,8 +17951,8 @@ _module2.default.directive('avValContainer', function () {
 });
 
 /***/ }),
-/* 215 */,
-/* 216 */
+/* 216 */,
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18132,18 +18133,18 @@ _module2.default.directive('avValForm', function ($log, $timeout, $parse, AV_VAL
 });
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(218);
-
 __webpack_require__(219);
 
+__webpack_require__(220);
+
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18179,7 +18180,7 @@ _module2.default.directive('avOnFileChange', function () {
 });
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18189,11 +18190,11 @@ var _module = __webpack_require__(0);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _uploadProgressBar = __webpack_require__(220);
+var _uploadProgressBar = __webpack_require__(221);
 
 var _uploadProgressBar2 = _interopRequireDefault(_uploadProgressBar);
 
-var _templatePasswordPrompt = __webpack_require__(221);
+var _templatePasswordPrompt = __webpack_require__(222);
 
 var _templatePasswordPrompt2 = _interopRequireDefault(_templatePasswordPrompt);
 
@@ -18259,23 +18260,23 @@ _module2.default.directive('avUploadProgressBar', function (AvModal) {
 });
 
 /***/ }),
-/* 220 */
-/***/ (function(module, exports) {
-
-var path = 'src/ui/uploads/upload-progress-bar.html';
-var html = "<div ng-if=\"!upload.errorMessage\" ng-class=\"{'progress': true, 'progress-complete': percentage === 100}\">\n  <div ng-class=\"{'progress-bar progress-bar-success': true, 'progress-bar-danger': error}\" role=\"progressbar\" aria-valuenow=\"{{percentage}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{'width': percentage + '%'}\">\n    <span class=\"sr-only\">{{percentage}}% Complete</span>\n  </div>\n</div>\n<span ng-if=\"upload.errorMessage\" class=\"text-danger\">{{upload.errorMessage}}</span>\n<!-- file password -->\n<div ng-if=\"upload.status === 'encrypted'\" class=\"password-required\">\n    <button type=\"button\" class=\"btn btn-primary btn-sm btn-password-prompt\" data-toggle=\"modal\" data-target=\"#{{upload.id}}\" ng-click=\"showModal()\">\n      Enter password\n    </button>\n  </div>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-module.exports = path;
-
-/***/ }),
 /* 221 */
 /***/ (function(module, exports) {
 
+var _module_exports = "<div ng-if=\"!upload.errorMessage\" ng-class=\"{'progress': true, 'progress-complete': percentage === 100}\">\n  <div ng-class=\"{'progress-bar progress-bar-success': true, 'progress-bar-danger': error}\" role=\"progressbar\" aria-valuenow=\"{{percentage}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{'width': percentage + '%'}\">\n    <span class=\"sr-only\">{{percentage}}% Complete</span>\n  </div>\n</div>\n<span ng-if=\"upload.errorMessage\" class=\"text-danger\">{{upload.errorMessage}}</span>\n<!-- file password -->\n<div ng-if=\"upload.status === 'encrypted'\" class=\"password-required\">\n    <button type=\"button\" class=\"btn btn-primary btn-sm btn-password-prompt\" data-toggle=\"modal\" data-target=\"#{{upload.id}}\" ng-click=\"showModal()\">\n      Enter password\n    </button>\n  </div>\n";;
+var path = 'src/ui/uploads/upload-progress-bar.html';
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
+module.exports = path;
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports) {
+
+var _module_exports = "<div class=\"modal fade password-modal\" id=\"{{upload.id}}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">×</span><span class=\"sr-only\">Close</span></button>\n          <h4 class=\"modal-title\" id=\"myModalLabel\">Enter Password</h4>\n        </div>\n        <form ng-submit=\"verifyPassword()\">\n          <div class=\"modal-body\">\n            Password: <input ng-model=\"upload.password\" type=\"password\"/>\n          </div>\n        </form>\n        <div class=\"modal-footer\">\n          <input type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" ng-click=\"verifyPassword()\" value=\"Ok\"></input>\n        </div>\n      </div>\n    </div>\n  </div>\n";;
 var path = 'src/ui/uploads/template-password-prompt.html';
-var html = "<div class=\"modal fade password-modal\" id=\"{{upload.id}}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">×</span><span class=\"sr-only\">Close</span></button>\n          <h4 class=\"modal-title\" id=\"myModalLabel\">Enter Password</h4>\n        </div>\n        <form ng-submit=\"verifyPassword()\">\n          <div class=\"modal-body\">\n            Password: <input ng-model=\"upload.password\" type=\"password\"/>\n          </div>\n        </form>\n        <div class=\"modal-footer\">\n          <input type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" ng-click=\"verifyPassword()\" value=\"Ok\"></input>\n        </div>\n      </div>\n    </div>\n  </div>\n";
-window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, _module_exports) }]);
 module.exports = path;
 
 /***/ })
-],[140]);
+],[141]);
 //# sourceMappingURL=availity-angular.js.map

@@ -6,10 +6,10 @@
     <p>Utility method that fixes <code>window.print()</code> for IE9-11 and Firefox from within an <code>iframe</code></p>
     <button class="btn btn-default" ng-click="vm.onPrint()">Print</button>
   </div>
-  <code class="language-javascript" ng-non-bindable="">
+  <code class="language-javascript" ng-non-bindable>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> print <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;availity-angular/lib/core/utils&apos;</span><span class="token punctuation">;</span>
 
-  app<span class="token punctuation">.</span><span class="token function">controller</span><span class="token punctuation">(</span><span class="token string">&apos;DemoUtilsController&apos;</span><span class="token punctuation">,</span> $scope <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  app<span class="token punctuation">.</span><span class="token function">controller</span><span class="token punctuation">(</span><span class="token string">&apos;DemoUtilsController&apos;</span><span class="token punctuation">,</span> <span class="token parameter">$scope</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
     $scope<span class="token punctuation">.</span>vm <span class="token operator">=</span> <span class="token punctuation">{</span>
       <span class="token function">onPrint</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>

@@ -1,10 +1,51 @@
-<a name="3.0.1-alpha.1"></a>
-## [3.0.1-alpha.1](https://github.com/Availity/availity-angular/compare/v3.0.0...v3.0.1-alpha.1) (2019-04-08)
+<a name="4.1.3"></a>
+## [4.1.3](https://github.com/Availity/availity-angular/compare/v4.1.2...v4.1.3) (2021-04-14)
+
+
+
+<a name="4.1.2"></a>
+## [4.1.2](https://github.com/Availity/availity-angular/compare/v4.1.1...v4.1.2) (2021-04-13)
+
+
+
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/Availity/availity-angular/compare/v4.1.0...v4.1.1) (2021-04-13)
+
+
+
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/Availity/availity-angular/compare/v4.0.1...v4.1.0) (2021-04-12)
 
 
 ### Features
 
-* added dma log service ([22305ea](https://github.com/Availity/availity-angular/commit/22305ea))
+* upgraded angualar from 1.8.0 to 1.8.2 ([cc4d684](https://github.com/Availity/availity-angular/commit/cc4d684))
+* upgraded jquery from 3.3.1 to 3.6.0 ([c146068](https://github.com/Availity/availity-angular/commit/c146068))
+
+
+
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/Availity/availity-angular/compare/v4.0.0...v4.0.1) (2020-12-07)
+
+
+
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/Availity/availity-angular/compare/v3.1.1...v4.0.0) (2020-06-30)
+
+
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/Availity/availity-angular/compare/v3.1.0...v3.1.1) (2020-06-30)
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/Availity/availity-angular/compare/v3.0.0...v3.1.0) (2019-05-30)
+
+
+### Features
+
+* **dropdown:** add quietMillis support ([3d3c7d2](https://github.com/Availity/availity-angular/commit/3d3c7d2))
 
 
 

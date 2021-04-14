@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v3.0.1-alpha.1 (04/08/2019)
+ * availity-angular v4.1.3 (04/14/2021)
  * (c) Availity, LLC
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -103,7 +103,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 222);
+/******/ 	return __webpack_require__(__webpack_require__.s = 223);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -111,7 +111,7 @@
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["angular"] = __webpack_require__(142);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["angular"] = __webpack_require__(143);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
@@ -119,7 +119,7 @@
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(144);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(145);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
@@ -177,13 +177,21 @@
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__coreservices__ = __webpack_require__(10);
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 /**
  * Random utility functions used in the UI-Router code
  *
  * These functions are exported, but are subject to change without notice.
  *
- * @preferred @publicapi @module common
- */ /** */
+ * @packageDocumentation
+ * @preferred
+ */
 
 
 
@@ -314,7 +322,7 @@ function defaults(opts) {
     for (var _i = 1; _i < arguments.length; _i++) {
         defaultsList[_i - 1] = arguments[_i];
     }
-    var defaultVals = extend.apply(void 0, [{}].concat(defaultsList.reverse()));
+    var defaultVals = extend.apply(void 0, __spreadArrays([{}], defaultsList.reverse()));
     return extend(defaultVals, pick(opts || {}, Object.keys(defaultVals)));
 }
 /** Reduce function that merges each element of the list into a single object, using extend */
@@ -728,13 +736,14 @@ var silentRejection = function (error) { return silenceUncaughtInPromise(__WEBPA
 /* harmony export (immutable) */ __webpack_exports__["e"] = isInjectable;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return isPromise; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hof__ = __webpack_require__(6);
-/** Predicates
+/**
+ * Predicates
  *
  * These predicates return true/false based on the input.
  * Although these functions are exported, they are subject to change without notice.
  *
- * @module common_predicates
- */ /** */
+ * @packageDocumentation
+ */
 
 var toStr = Object.prototype.toString;
 var tis = function (t) { return function (x) { return typeof x === t; }; };
@@ -796,8 +805,15 @@ var isPromise = Object(__WEBPACK_IMPORTED_MODULE_0__hof__["b" /* and */])(isObje
  *
  * These utility functions are exported, but are subject to change without notice.
  *
- * @module common_hof
- */ /** */
+ * @packageDocumentation
+ */
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 /**
  * Returns a new function for [Partial Application](https://en.wikipedia.org/wiki/Partial_application) of the original function.
  *
@@ -836,22 +852,17 @@ var isPromise = Object(__WEBPACK_IMPORTED_MODULE_0__hof__["b" /* and */])(isObje
  *
  * ```
  *
- * Stolen from: http://stackoverflow.com/questions/4394747/javascript-curry-function
- *
  * @param fn
  * @returns {*|function(): (*|any)}
  */
 function curry(fn) {
-    var initial_args = [].slice.apply(arguments, [1]);
-    var func_args_length = fn.length;
-    function curried(args) {
-        if (args.length >= func_args_length)
-            return fn.apply(null, args);
-        return function () {
-            return curried(args.concat([].slice.apply(arguments)));
-        };
-    }
-    return curried(initial_args);
+    return function curried() {
+        if (arguments.length >= fn.length) {
+            return fn.apply(this, arguments);
+        }
+        var args = Array.prototype.slice.call(arguments);
+        return curried.bind.apply(curried, __spreadArrays([this], args));
+    };
 }
 /**
  * Given a varargs list of functions, returns a function that composes the argument functions, right-to-left
@@ -1124,7 +1135,6 @@ function pattern(struct) {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_7__trace__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_7__trace__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "_39", function() { return __WEBPACK_IMPORTED_MODULE_7__trace__["c"]; });
-/** @publicapi @module common */ /** */
 
 
 
@@ -1289,30 +1299,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Trace", function() { return __WEBPACK_IMPORTED_MODULE_0__common_index__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "trace", function() { return __WEBPACK_IMPORTED_MODULE_0__common_index__["_39"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__params_index__ = __webpack_require__(83);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DefType", function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Param", function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamTypes", function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateParams", function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamType", function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__path_index__ = __webpack_require__(241);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_1__params_index__) if(["root","fromJson","toJson","forEach","extend","equals","identity","noop","createProxyFunctions","inherit","inArray","_inArray","removeFrom","_removeFrom","pushTo","_pushTo","deregAll","defaults","mergeR","ancestors","pick","omit","pluck","filter","find","mapObj","map","values","allTrueR","anyTrueR","unnestR","flattenR","pushR","uniqR","unnest","flatten","assertPredicate","assertMap","assertFn","pairs","arrayTuples","applyPairs","tail","copy","_extend","silenceUncaughtInPromise","silentRejection","makeStub","services","Glob","curry","compose","pipe","prop","propEq","parse","not","and","or","all","any","is","eq","val","invoke","pattern","isUndefined","isDefined","isNull","isNullOrUndefined","isFunction","isNumber","isString","isObject","isArray","isDate","isRegExp","isInjectable","isPromise","Queue","maxLength","padString","kebobString","functionToString","fnToString","stringify","beforeAfterSubstr","hostRegex","stripLastPathElement","splitHash","splitQuery","splitEqual","trimHashVal","splitOnDelim","joinNeighborsR","Category","Trace","trace","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_1__params_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__path_index__ = __webpack_require__(244);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PathNode", function() { return __WEBPACK_IMPORTED_MODULE_2__path_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PathUtils", function() { return __WEBPACK_IMPORTED_MODULE_2__path_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__resolve_index__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__resolve_index__ = __webpack_require__(113);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resolvePolicies", function() { return __WEBPACK_IMPORTED_MODULE_3__resolve_index__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "defaultResolvePolicy", function() { return __WEBPACK_IMPORTED_MODULE_3__resolve_index__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Resolvable", function() { return __WEBPACK_IMPORTED_MODULE_3__resolve_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "NATIVE_INJECTOR_TOKEN", function() { return __WEBPACK_IMPORTED_MODULE_3__resolve_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ResolveContext", function() { return __WEBPACK_IMPORTED_MODULE_3__resolve_index__["c"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_index__ = __webpack_require__(86);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resolvablesBuilder", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["h"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateBuilder", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateObject", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateMatcher", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateQueueManager", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateRegistry", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["f"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TargetState", function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__["g"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transition_index__ = __webpack_require__(251);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_4__state_index__) if(["root","fromJson","toJson","forEach","extend","equals","identity","noop","createProxyFunctions","inherit","inArray","_inArray","removeFrom","_removeFrom","pushTo","_pushTo","deregAll","defaults","mergeR","ancestors","pick","omit","pluck","filter","find","mapObj","map","values","allTrueR","anyTrueR","unnestR","flattenR","pushR","uniqR","unnest","flatten","assertPredicate","assertMap","assertFn","pairs","arrayTuples","applyPairs","tail","copy","_extend","silenceUncaughtInPromise","silentRejection","makeStub","services","Glob","curry","compose","pipe","prop","propEq","parse","not","and","or","all","any","is","eq","val","invoke","pattern","isUndefined","isDefined","isNull","isNullOrUndefined","isFunction","isNumber","isString","isObject","isArray","isDate","isRegExp","isInjectable","isPromise","Queue","maxLength","padString","kebobString","functionToString","fnToString","stringify","beforeAfterSubstr","hostRegex","stripLastPathElement","splitHash","splitQuery","splitEqual","trimHashVal","splitOnDelim","joinNeighborsR","Category","Trace","trace","PathNode","PathUtils","resolvePolicies","defaultResolvePolicy","Resolvable","NATIVE_INJECTOR_TOKEN","ResolveContext","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_4__state_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transition_index__ = __webpack_require__(255);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionHookPhase", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["h"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionHookScope", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["i"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HookBuilder", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["a"]; });
@@ -1326,43 +1325,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionEventType", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["f"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "defaultTransOpts", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["k"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionService", function() { return __WEBPACK_IMPORTED_MODULE_5__transition_index__["j"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__url_index__ = __webpack_require__(252);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["h"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcher", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamFactory", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcherFactory", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRouter", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["f"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRuleFactory", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["g"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__["i"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__view_index__ = __webpack_require__(253);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return __WEBPACK_IMPORTED_MODULE_7__view_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__globals__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__url_index__ = __webpack_require__(256);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_6__url_index__) if(["root","fromJson","toJson","forEach","extend","equals","identity","noop","createProxyFunctions","inherit","inArray","_inArray","removeFrom","_removeFrom","pushTo","_pushTo","deregAll","defaults","mergeR","ancestors","pick","omit","pluck","filter","find","mapObj","map","values","allTrueR","anyTrueR","unnestR","flattenR","pushR","uniqR","unnest","flatten","assertPredicate","assertMap","assertFn","pairs","arrayTuples","applyPairs","tail","copy","_extend","silenceUncaughtInPromise","silentRejection","makeStub","services","Glob","curry","compose","pipe","prop","propEq","parse","not","and","or","all","any","is","eq","val","invoke","pattern","isUndefined","isDefined","isNull","isNullOrUndefined","isFunction","isNumber","isString","isObject","isArray","isDate","isRegExp","isInjectable","isPromise","Queue","maxLength","padString","kebobString","functionToString","fnToString","stringify","beforeAfterSubstr","hostRegex","stripLastPathElement","splitHash","splitQuery","splitEqual","trimHashVal","splitOnDelim","joinNeighborsR","Category","Trace","trace","PathNode","PathUtils","resolvePolicies","defaultResolvePolicy","Resolvable","NATIVE_INJECTOR_TOKEN","ResolveContext","TransitionHookPhase","TransitionHookScope","HookBuilder","matchState","RegisteredHook","makeEvent","RejectType","Rejection","Transition","TransitionHook","TransitionEventType","defaultTransOpts","TransitionService","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_6__url_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__view_index__ = __webpack_require__(258);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_7__view_index__) if(["root","fromJson","toJson","forEach","extend","equals","identity","noop","createProxyFunctions","inherit","inArray","_inArray","removeFrom","_removeFrom","pushTo","_pushTo","deregAll","defaults","mergeR","ancestors","pick","omit","pluck","filter","find","mapObj","map","values","allTrueR","anyTrueR","unnestR","flattenR","pushR","uniqR","unnest","flatten","assertPredicate","assertMap","assertFn","pairs","arrayTuples","applyPairs","tail","copy","_extend","silenceUncaughtInPromise","silentRejection","makeStub","services","Glob","curry","compose","pipe","prop","propEq","parse","not","and","or","all","any","is","eq","val","invoke","pattern","isUndefined","isDefined","isNull","isNullOrUndefined","isFunction","isNumber","isString","isObject","isArray","isDate","isRegExp","isInjectable","isPromise","Queue","maxLength","padString","kebobString","functionToString","fnToString","stringify","beforeAfterSubstr","hostRegex","stripLastPathElement","splitHash","splitQuery","splitEqual","trimHashVal","splitOnDelim","joinNeighborsR","Category","Trace","trace","PathNode","PathUtils","resolvePolicies","defaultResolvePolicy","Resolvable","NATIVE_INJECTOR_TOKEN","ResolveContext","TransitionHookPhase","TransitionHookScope","HookBuilder","matchState","RegisteredHook","makeEvent","RejectType","Rejection","Transition","TransitionHook","TransitionEventType","defaultTransOpts","TransitionService","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_7__view_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__globals__ = __webpack_require__(125);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouterGlobals", function() { return __WEBPACK_IMPORTED_MODULE_8__globals__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__router__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__router__ = __webpack_require__(121);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vanilla__ = __webpack_require__(254);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$q", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$injector", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseLocationServices", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HashLocationService", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationService", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["g"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PushStateLocationService", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["h"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["f"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BrowserLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "keyValsToObjectR", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["l"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getParams", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["j"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["o"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "buildUrl", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["i"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "locationPluginFactory", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["m"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "servicesPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["q"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hashLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["k"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pushStateLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["p"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "memoryLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__["n"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__interface__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vanilla__ = __webpack_require__(260);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_10__vanilla__) if(["root","fromJson","toJson","forEach","extend","equals","identity","noop","createProxyFunctions","inherit","inArray","_inArray","removeFrom","_removeFrom","pushTo","_pushTo","deregAll","defaults","mergeR","ancestors","pick","omit","pluck","filter","find","mapObj","map","values","allTrueR","anyTrueR","unnestR","flattenR","pushR","uniqR","unnest","flatten","assertPredicate","assertMap","assertFn","pairs","arrayTuples","applyPairs","tail","copy","_extend","silenceUncaughtInPromise","silentRejection","makeStub","services","Glob","curry","compose","pipe","prop","propEq","parse","not","and","or","all","any","is","eq","val","invoke","pattern","isUndefined","isDefined","isNull","isNullOrUndefined","isFunction","isNumber","isString","isObject","isArray","isDate","isRegExp","isInjectable","isPromise","Queue","maxLength","padString","kebobString","functionToString","fnToString","stringify","beforeAfterSubstr","hostRegex","stripLastPathElement","splitHash","splitQuery","splitEqual","trimHashVal","splitOnDelim","joinNeighborsR","Category","Trace","trace","PathNode","PathUtils","resolvePolicies","defaultResolvePolicy","Resolvable","NATIVE_INJECTOR_TOKEN","ResolveContext","TransitionHookPhase","TransitionHookScope","HookBuilder","matchState","RegisteredHook","makeEvent","RejectType","Rejection","Transition","TransitionHook","TransitionEventType","defaultTransOpts","TransitionService","UIRouterGlobals","UIRouter","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_10__vanilla__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__interface__ = __webpack_require__(264);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouterPluginBase", function() { return __WEBPACK_IMPORTED_MODULE_11__interface__["a"]; });
-/** @publicapi @module common */ /** */
 
 
 
@@ -1435,8 +1409,8 @@ module.exports = function(module) {
  *
  * Although these functions are exported, they are subject to change without notice.
  *
- * @module common_strings
- */ /** */
+ * @packageDocumentation
+ */
 
 
 
@@ -1571,7 +1545,7 @@ function joinNeighborsR(acc, x) {
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["moment"] = __webpack_require__(149);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["moment"] = __webpack_require__(150);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
@@ -1586,6 +1560,7 @@ function joinNeighborsR(acc, x) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__strings__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__safeConsole__ = __webpack_require__(111);
 /**
  * # Transition tracing (debug)
  *
@@ -1618,33 +1593,26 @@ function joinNeighborsR(acc, x) {
  * app.run($trace => $trace.enable());
  * ```
  *
- * @publicapi @module trace
+ * @packageDocumentation
  */
-/* tslint:disable:no-console */
 
 
 
-/** @hidden */
+
 function uiViewString(uiview) {
     if (!uiview)
         return 'ui-view (defunct)';
     var state = uiview.creationContext ? uiview.creationContext.name || '(root)' : '(none)';
     return "[ui-view#" + uiview.id + " " + uiview.$type + ":" + uiview.fqn + " (" + uiview.name + "@" + state + ")]";
 }
-/** @hidden */
 var viewConfigString = function (viewConfig) {
     var view = viewConfig.viewDecl;
     var state = view.$context.name || '(root)';
     return "[View#" + viewConfig.$id + " from '" + state + "' state]: target ui-view: '" + view.$uiViewName + "@" + view.$uiViewContextAnchor + "'";
 };
-/** @hidden */
 function normalizedCat(input) {
     return Object(__WEBPACK_IMPORTED_MODULE_1__common_predicates__["h" /* isNumber */])(input) ? Category[input] : Category[Category[input]];
 }
-/** @hidden */
-var consoleLog = Function.prototype.bind.call(console.log, console);
-/** @hidden */
-var consoletable = Object(__WEBPACK_IMPORTED_MODULE_1__common_predicates__["d" /* isFunction */])(console.table) ? console.table.bind(console) : consoleLog.bind(console);
 /**
  * Trace categories Enum
  *
@@ -1667,23 +1635,20 @@ var Category;
     Category[Category["VIEWCONFIG"] = 4] = "VIEWCONFIG";
 })(Category || (Category = {}));
 
-/** @hidden */
 var _tid = Object(__WEBPACK_IMPORTED_MODULE_0__common_hof__["k" /* parse */])('$id');
-/** @hidden */
 var _rid = Object(__WEBPACK_IMPORTED_MODULE_0__common_hof__["k" /* parse */])('router.$id');
-/** @hidden */
 var transLbl = function (trans) { return "Transition #" + _tid(trans) + "-" + _rid(trans); };
 /**
  * Prints UI-Router Transition trace information to the console.
  */
 var Trace = /** @class */ (function () {
-    /** @hidden */
+    /** @internal */
     function Trace() {
-        /** @hidden */
+        /** @internal */
         this._enabled = {};
         this.approximateDigests = 0;
     }
-    /** @hidden */
+    /** @internal */
     Trace.prototype._set = function (enabled, categories) {
         var _this = this;
         if (!categories.length) {
@@ -1720,75 +1685,75 @@ var Trace = /** @class */ (function () {
     Trace.prototype.enabled = function (category) {
         return !!this._enabled[normalizedCat(category)];
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceTransitionStart = function (trans) {
         if (!this.enabled(Category.TRANSITION))
             return;
-        console.log(transLbl(trans) + ": Started  -> " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ": Started  -> " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceTransitionIgnored = function (trans) {
         if (!this.enabled(Category.TRANSITION))
             return;
-        console.log(transLbl(trans) + ": Ignored  <> " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ": Ignored  <> " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceHookInvocation = function (step, trans, options) {
         if (!this.enabled(Category.HOOK))
             return;
         var event = Object(__WEBPACK_IMPORTED_MODULE_0__common_hof__["k" /* parse */])('traceData.hookType')(options) || 'internal', context = Object(__WEBPACK_IMPORTED_MODULE_0__common_hof__["k" /* parse */])('traceData.context.state.name')(options) || Object(__WEBPACK_IMPORTED_MODULE_0__common_hof__["k" /* parse */])('traceData.context')(options) || 'unknown', name = Object(__WEBPACK_IMPORTED_MODULE_2__strings__["c" /* functionToString */])(step.registeredHook.callback);
-        console.log(transLbl(trans) + ":   Hook -> " + event + " context: " + context + ", " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, name));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ":   Hook -> " + event + " context: " + context + ", " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, name));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceHookResult = function (hookResult, trans, transitionOptions) {
         if (!this.enabled(Category.HOOK))
             return;
-        console.log(transLbl(trans) + ":   <- Hook returned: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(hookResult)));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ":   <- Hook returned: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(hookResult)));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceResolvePath = function (path, when, trans) {
         if (!this.enabled(Category.RESOLVE))
             return;
-        console.log(transLbl(trans) + ":         Resolving " + path + " (" + when + ")");
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ":         Resolving " + path + " (" + when + ")");
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceResolvableResolved = function (resolvable, trans) {
         if (!this.enabled(Category.RESOLVE))
             return;
-        console.log(transLbl(trans) + ":               <- Resolved  " + resolvable + " to: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(resolvable.data)));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ":               <- Resolved  " + resolvable + " to: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(resolvable.data)));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceError = function (reason, trans) {
         if (!this.enabled(Category.TRANSITION))
             return;
-        console.log(transLbl(trans) + ": <- Rejected " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans) + ", reason: " + reason);
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ": <- Rejected " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans) + ", reason: " + reason);
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceSuccess = function (finalState, trans) {
         if (!this.enabled(Category.TRANSITION))
             return;
-        console.log(transLbl(trans) + ": <- Success  " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans) + ", final state: " + finalState.name);
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log(transLbl(trans) + ": <- Success  " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["m" /* stringify */])(trans) + ", final state: " + finalState.name);
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceUIViewEvent = function (event, viewData, extra) {
         if (extra === void 0) { extra = ''; }
         if (!this.enabled(Category.UIVIEW))
             return;
-        console.log("ui-view: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["h" /* padString */])(30, event) + " " + uiViewString(viewData) + extra);
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log("ui-view: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["h" /* padString */])(30, event) + " " + uiViewString(viewData) + extra);
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceUIViewConfigUpdated = function (viewData, context) {
         if (!this.enabled(Category.UIVIEW))
             return;
         this.traceUIViewEvent('Updating', viewData, " with ViewConfig from context='" + context + "'");
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceUIViewFill = function (viewData, html) {
         if (!this.enabled(Category.UIVIEW))
             return;
         this.traceUIViewEvent('Fill', viewData, " with: " + Object(__WEBPACK_IMPORTED_MODULE_2__strings__["g" /* maxLength */])(200, html));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceViewSync = function (pairs) {
         if (!this.enabled(Category.VIEWCONFIG))
             return;
@@ -1796,26 +1761,26 @@ var Trace = /** @class */ (function () {
         var cfgheader = 'view config state (view name)';
         var mapping = pairs
             .map(function (_a) {
-            var uiView = _a.uiView, viewConfig = _a.viewConfig;
             var _b;
+            var uiView = _a.uiView, viewConfig = _a.viewConfig;
             var uiv = uiView && uiView.fqn;
             var cfg = viewConfig && viewConfig.viewDecl.$context.name + ": (" + viewConfig.viewDecl.$name + ")";
             return _b = {}, _b[uivheader] = uiv, _b[cfgheader] = cfg, _b;
         })
             .sort(function (a, b) { return (a[uivheader] || '').localeCompare(b[uivheader] || ''); });
-        consoletable(mapping);
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].table(mapping);
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceViewServiceEvent = function (event, viewConfig) {
         if (!this.enabled(Category.VIEWCONFIG))
             return;
-        console.log("VIEWCONFIG: " + event + " " + viewConfigString(viewConfig));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log("VIEWCONFIG: " + event + " " + viewConfigString(viewConfig));
     };
-    /** @internalapi called by ui-router code */
+    /** @internal called by ui-router code */
     Trace.prototype.traceViewServiceUIViewEvent = function (event, viewData) {
         if (!this.enabled(Category.VIEWCONFIG))
             return;
-        console.log("VIEWCONFIG: " + event + " " + uiViewString(viewData));
+        __WEBPACK_IMPORTED_MODULE_3__safeConsole__["a" /* safeConsole */].log("VIEWCONFIG: " + event + " " + uiViewString(viewData));
     };
     return Trace;
 }());
@@ -1857,11 +1822,11 @@ var trace = new Trace();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_strings__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_hof__ = __webpack_require__(6);
-/** @publicapi @module transition */ /** */
 
 
 
 
+/** An enum for Transition Rejection reasons */
 var RejectType;
 (function (RejectType) {
     /**
@@ -1902,11 +1867,11 @@ var RejectType;
     RejectType[RejectType["ERROR"] = 6] = "ERROR";
 })(RejectType || (RejectType = {}));
 
-/** @hidden */
+/** @internal */
 var id = 0;
 var Rejection = /** @class */ (function () {
     function Rejection(type, message, detail) {
-        /** @hidden */
+        /** @internal */
         this.$id = id++;
         this.type = type;
         this.message = message;
@@ -7612,19 +7577,15 @@ var TransitionHookScope;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_coreservices__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__paramType__ = __webpack_require__(84);
-/** @publicapi @module params */ /** */
 
 
 
 
 
-/** @hidden */
 var hasOwn = Object.prototype.hasOwnProperty;
-/** @hidden */
 var isShorthand = function (cfg) {
     return ['value', 'type', 'squash', 'array', 'dynamic'].filter(hasOwn.bind(cfg || {})).length === 0;
 };
-/** @internalapi */
 var DefType;
 (function (DefType) {
     DefType[DefType["PATH"] = 0] = "PATH";
@@ -7632,7 +7593,6 @@ var DefType;
     DefType[DefType["CONFIG"] = 2] = "CONFIG";
 })(DefType || (DefType = {}));
 
-/** @internalapi */
 function getParamDeclaration(paramName, location, state) {
     var noReloadOnSearch = (state.reloadOnSearch === false && location === DefType.SEARCH) || undefined;
     var dynamic = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["t" /* find */])([state.dynamic, noReloadOnSearch], __WEBPACK_IMPORTED_MODULE_2__common_predicates__["c" /* isDefined */]);
@@ -7640,7 +7600,6 @@ function getParamDeclaration(paramName, location, state) {
     var paramConfig = unwrapShorthand(state && state.params && state.params[paramName]);
     return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["r" /* extend */])(defaultConfig, paramConfig);
 }
-/** @hidden */
 function unwrapShorthand(cfg) {
     cfg = isShorthand(cfg) ? { value: cfg } : cfg;
     getStaticDefaultValue['__cacheable'] = true;
@@ -7650,7 +7609,6 @@ function unwrapShorthand(cfg) {
     var $$fn = Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["e" /* isInjectable */])(cfg.value) ? cfg.value : getStaticDefaultValue;
     return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["r" /* extend */])(cfg, { $$fn: $$fn });
 }
-/** @hidden */
 function getType(cfg, urlType, location, id, paramTypes) {
     if (cfg.type && urlType && urlType.name !== 'string')
         throw new Error("Param '" + id + "' has two type configurations.");
@@ -7670,10 +7628,7 @@ function getType(cfg, urlType, location, id, paramTypes) {
     }
     return cfg.type instanceof __WEBPACK_IMPORTED_MODULE_4__paramType__["a" /* ParamType */] ? cfg.type : paramTypes.type(cfg.type);
 }
-/**
- * @internalapi
- * returns false, true, or the squash value to indicate the "default parameter url squash policy".
- */
+/** returns false, true, or the squash value to indicate the "default parameter url squash policy". */
 function getSquashPolicy(config, isOptional, defaultPolicy) {
     var squash = config.squash;
     if (!isOptional || squash === false)
@@ -7684,7 +7639,6 @@ function getSquashPolicy(config, isOptional, defaultPolicy) {
         return squash;
     throw new Error("Invalid squash policy: '" + squash + "'. Valid policies: false, true, or arbitrary string");
 }
-/** @internalapi */
 function getReplace(config, arrayMode, isOptional, squash) {
     var defaultPolicy = [
         { from: '', to: isOptional || arrayMode ? undefined : '' },
@@ -7696,7 +7650,6 @@ function getReplace(config, arrayMode, isOptional, squash) {
     var configuredKeys = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["B" /* map */])(replace, Object(__WEBPACK_IMPORTED_MODULE_1__common_hof__["n" /* prop */])('from'));
     return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["s" /* filter */])(defaultPolicy, function (item) { return configuredKeys.indexOf(item.from) === -1; }).concat(replace);
 }
-/** @internalapi */
 var Param = /** @class */ (function () {
     function Param(id, type, location, urlConfig, state) {
         var config = getParamDeclaration(id, location, state);
@@ -7829,7 +7782,6 @@ var Param = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_strings__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common__ = __webpack_require__(7);
-/** @publicapi @module state */ /** */
 
 
 
@@ -7875,7 +7827,7 @@ var TargetState = /** @class */ (function () {
      * @param _params Parameters for the target state
      * @param _options Transition options.
      *
-     * @internalapi
+     * @internal
      */
     function TargetState(_stateRegistry, _identifier, _params, _options) {
         this._stateRegistry = _stateRegistry;
@@ -7966,7 +7918,9 @@ var TargetState = /** @class */ (function () {
         return new TargetState(this._stateRegistry, this._identifier, this._params, newOpts);
     };
     /** Returns true if the object has a state property that might be a state or state name */
-    TargetState.isDef = function (obj) { return obj && obj.state && (Object(__WEBPACK_IMPORTED_MODULE_0__common_predicates__["l" /* isString */])(obj.state) || Object(__WEBPACK_IMPORTED_MODULE_0__common_predicates__["l" /* isString */])(obj.state.name)); };
+    TargetState.isDef = function (obj) {
+        return obj && obj.state && (Object(__WEBPACK_IMPORTED_MODULE_0__common_predicates__["l" /* isString */])(obj.state) || (Object(__WEBPACK_IMPORTED_MODULE_0__common_predicates__["i" /* isObject */])(obj.state) && Object(__WEBPACK_IMPORTED_MODULE_0__common_predicates__["l" /* isString */])(obj.state.name)));
+    };
     return TargetState;
 }());
 
@@ -7987,7 +7941,6 @@ var TargetState = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_coreservices__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rejectFactory__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__state_targetState__ = __webpack_require__(31);
-/** @publicapi @module transition */ /** */
 
 
 
@@ -8003,7 +7956,6 @@ var defaultOptions = {
     traceData: {},
     bind: null,
 };
-/** @hidden */
 var TransitionHook = /** @class */ (function () {
     function TransitionHook(transition, stateContext, registeredHook, options) {
         var _this = this;
@@ -8201,7 +8153,6 @@ var TransitionHook = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_targetState__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pathNode__ = __webpack_require__(85);
-/** @internalapi @module path */ /** */
 
 
 
@@ -8236,7 +8187,9 @@ var PathUtils = /** @class */ (function () {
      */
     PathUtils.applyViewConfigs = function ($view, path, states) {
         // Only apply the viewConfigs to the nodes for the given states
-        path.filter(function (node) { return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["z" /* inArray */])(states, node.state); }).forEach(function (node) {
+        path
+            .filter(function (node) { return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["z" /* inArray */])(states, node.state); })
+            .forEach(function (node) {
             var viewDecls = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["U" /* values */])(node.state.views || {});
             var subPath = PathUtils.subPath(path, function (n) { return n === node; });
             var viewConfigs = viewDecls.map(function (view) { return $view.createViewConfig(subPath, view); });
@@ -8381,7 +8334,6 @@ var PathUtils = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_trace__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_strings__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_predicates__ = __webpack_require__(5);
-/** @publicapi @module resolve */ /** */
 
 
 
@@ -8454,25 +8406,10 @@ var Resolvable = /** @class */ (function () {
         };
         // Invokes the resolve function passing the resolved dependencies as arguments
         var invokeResolveFn = function (resolvedDeps) { return _this.resolveFn.apply(null, resolvedDeps); };
-        /**
-         * For RXWAIT policy:
-         *
-         * Given an observable returned from a resolve function:
-         * - enables .cache() mode (this allows multicast subscribers)
-         * - then calls toPromise() (this triggers subscribe() and thus fetches)
-         * - Waits for the promise, then return the cached observable (not the first emitted value).
-         */
-        var waitForRx = function (observable$) {
-            var cached = observable$.cache(1);
-            return cached
-                .take(1)
-                .toPromise()
-                .then(function () { return cached; });
-        };
-        // If the resolve policy is RXWAIT, wait for the observable to emit something. otherwise pass through.
         var node = resolveContext.findNode(this);
         var state = node && node.state;
-        var maybeWaitForRx = this.getPolicy(state).async === 'RXWAIT' ? waitForRx : __WEBPACK_IMPORTED_MODULE_0__common_common__["y" /* identity */];
+        var asyncPolicy = this.getPolicy(state).async;
+        var customAsyncPolicy = Object(__WEBPACK_IMPORTED_MODULE_4__common_predicates__["d" /* isFunction */])(asyncPolicy) ? asyncPolicy : __WEBPACK_IMPORTED_MODULE_0__common_common__["y" /* identity */];
         // After the final value has been resolved, update the state of the Resolvable
         var applyResolvedValue = function (resolvedValue) {
             _this.data = resolvedValue;
@@ -8486,7 +8423,7 @@ var Resolvable = /** @class */ (function () {
             .when()
             .then(getResolvableDependencies)
             .then(invokeResolveFn)
-            .then(maybeWaitForRx)
+            .then(customAsyncPolicy)
             .then(applyResolvedValue));
     };
     /**
@@ -8521,12 +8458,11 @@ var Resolvable = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_trace__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_coreservices__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__resolvable__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__path_pathUtils__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_strings__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common__ = __webpack_require__(7);
-/** @publicapi @module resolve */ /** */
 
 
 
@@ -8698,7 +8634,7 @@ var ResolveContext = /** @class */ (function () {
     return ResolveContext;
 }());
 
-/** @internalapi */
+/** @internal */
 var UIInjectorImpl = /** @class */ (function () {
     function UIInjectorImpl(context) {
         this.context = context;
@@ -8742,14 +8678,12 @@ var UIInjectorImpl = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__params_param__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_strings__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common__ = __webpack_require__(7);
-/** @publicapi @module url */ /** */
 
 
 
 
 
 
-/** @hidden */
 function quoteRegExp(str, param) {
     var surroundPattern = ['', ''], result = str.replace(/[\\\[\]\^$*+?.()|{}]/g, '\\$&');
     if (!param)
@@ -8768,15 +8702,13 @@ function quoteRegExp(str, param) {
     }
     return result + surroundPattern[0] + param.type.pattern.source + surroundPattern[1];
 }
-/** @hidden */
 var memoizeTo = function (obj, _prop, fn) { return (obj[_prop] = obj[_prop] || fn()); };
-/** @hidden */
 var splitOnSlash = Object(__WEBPACK_IMPORTED_MODULE_4__common_strings__["k" /* splitOnDelim */])('/');
-/** @hidden */
 var defaultConfig = {
     state: { params: {} },
     strict: true,
     caseInsensitive: true,
+    decodeParams: true,
 };
 /**
  * Matches URLs against patterns.
@@ -8838,15 +8770,15 @@ var UrlMatcher = /** @class */ (function () {
      */
     function UrlMatcher(pattern, paramTypes, paramFactory, config) {
         var _this = this;
-        /** @hidden */
+        /** @internal */
         this._cache = { path: [this] };
-        /** @hidden */
+        /** @internal */
         this._children = [];
-        /** @hidden */
+        /** @internal */
         this._params = [];
-        /** @hidden */
+        /** @internal */
         this._segments = [];
-        /** @hidden */
+        /** @internal */
         this._compiled = [];
         this.config = config = Object(__WEBPACK_IMPORTED_MODULE_5__common__["y" /* defaults */])(config, defaultConfig);
         this.pattern = pattern;
@@ -8926,17 +8858,12 @@ var UrlMatcher = /** @class */ (function () {
         this._segments.push(segment);
         this._compiled = patterns.map(function (_pattern) { return quoteRegExp.apply(null, _pattern); }).concat(quoteRegExp(segment));
     }
-    /** @hidden */
+    /** @internal */
     UrlMatcher.encodeDashes = function (str) {
         // Replace dashes with encoded "\-"
-        return encodeURIComponent(str).replace(/-/g, function (c) {
-            return "%5C%" + c
-                .charCodeAt(0)
-                .toString(16)
-                .toUpperCase();
-        });
+        return encodeURIComponent(str).replace(/-/g, function (c) { return "%5C%" + c.charCodeAt(0).toString(16).toUpperCase(); });
     };
-    /** @hidden Given a matcher, return an array with the matcher's path segments and path params, in order */
+    /** @internal Given a matcher, return an array with the matcher's path segments and path params, in order */
     UrlMatcher.pathSegmentsAndParams = function (matcher) {
         var staticSegments = matcher._segments;
         var pathParams = matcher._params.filter(function (p) { return p.location === __WEBPACK_IMPORTED_MODULE_3__params_param__["a" /* DefType */].PATH; });
@@ -8944,7 +8871,7 @@ var UrlMatcher = /** @class */ (function () {
             .reduce(__WEBPACK_IMPORTED_MODULE_0__common_common__["T" /* unnestR */], [])
             .filter(function (x) { return x !== '' && Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["c" /* isDefined */])(x); });
     };
-    /** @hidden Given a matcher, return an array with the matcher's query params */
+    /** @internal Given a matcher, return an array with the matcher's query params */
     UrlMatcher.queryParams = function (matcher) {
         return matcher._params.filter(function (p) { return p.location === __WEBPACK_IMPORTED_MODULE_3__params_param__["a" /* DefType */].SEARCH; });
     };
@@ -9033,13 +8960,27 @@ var UrlMatcher = /** @class */ (function () {
         };
         return url;
     };
-    /** @hidden */
+    /** @internal */
     UrlMatcher.prototype.isRoot = function () {
         return this._cache.path[0] === this;
     };
     /** Returns the input pattern string */
     UrlMatcher.prototype.toString = function () {
         return this.pattern;
+    };
+    UrlMatcher.prototype._getDecodedParamValue = function (value, param) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["c" /* isDefined */])(value)) {
+            if (this.config.decodeParams && !param.type.raw) {
+                if (Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["a" /* isArray */])(value)) {
+                    value = value.map(function (paramValue) { return decodeURIComponent(paramValue); });
+                }
+                else {
+                    value = decodeURIComponent(value);
+                }
+            }
+            value = param.type.decode(value);
+        }
+        return param.value(value);
     };
     /**
      * Tests the specified url/path against this matcher.
@@ -9086,12 +9027,7 @@ var UrlMatcher = /** @class */ (function () {
         if (nPathSegments !== match.length - 1)
             throw new Error("Unbalanced capture group in route '" + this.pattern + "'");
         function decodePathArray(paramVal) {
-            var reverseString = function (str) {
-                return str
-                    .split('')
-                    .reverse()
-                    .join('');
-            };
+            var reverseString = function (str) { return str.split('').reverse().join(''); };
             var unquoteDashes = function (str) { return str.replace(/\\-/g, '-'); };
             var split = reverseString(paramVal).split(/-(?!\\)/);
             var allReversed = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["B" /* map */])(split, reverseString);
@@ -9107,9 +9043,7 @@ var UrlMatcher = /** @class */ (function () {
             }
             if (value && param.array === true)
                 value = decodePathArray(value);
-            if (Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["c" /* isDefined */])(value))
-                value = param.type.decode(value);
-            values[param.id] = param.value(value);
+            values[param.id] = this._getDecodedParamValue(value, param);
         }
         searchParams.forEach(function (param) {
             var value = search[param.id];
@@ -9117,16 +9051,14 @@ var UrlMatcher = /** @class */ (function () {
                 if (param.replace[j].from === value)
                     value = param.replace[j].to;
             }
-            if (Object(__WEBPACK_IMPORTED_MODULE_2__common_predicates__["c" /* isDefined */])(value))
-                value = param.type.decode(value);
-            values[param.id] = param.value(value);
+            values[param.id] = _this._getDecodedParamValue(value, param);
         });
         if (hash)
             values['#'] = hash;
         return values;
     };
     /**
-     * @hidden
+     * @internal
      * Returns all the [[Param]] objects of all path and search parameters of this pattern in order of appearance.
      *
      * @returns {Array.<Param>}  An array of [[Param]] objects. Must be treated as read-only. If the
@@ -9139,7 +9071,7 @@ var UrlMatcher = /** @class */ (function () {
         return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["S" /* unnest */])(this._cache.path.map(function (matcher) { return matcher._params; }));
     };
     /**
-     * @hidden
+     * @internal
      * Returns a single parameter from this UrlMatcher by id
      *
      * @param id
@@ -9270,7 +9202,7 @@ var UrlMatcher = /** @class */ (function () {
         // Concat the pathstring with the queryString (if exists) and the hashString (if exists)
         return pathString + (queryString ? "?" + queryString : '') + (values['#'] ? '#' + values['#'] : '');
     };
-    /** @hidden */
+    /** @internal */
     UrlMatcher.nameValidator = /^\w+([-.]+\w+)*(?:\[\])?$/;
     return UrlMatcher;
 }());
@@ -9285,7 +9217,6 @@ var UrlMatcher = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseLocationServices; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(92);
-/** @internalapi @module vanilla */ /** */
 
 
 /** A base `LocationServices` */
@@ -9358,7 +9289,7 @@ var BaseLocationServices = /** @class */ (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery, $) {$ = jQuery = __webpack_require__(3);
-module.exports = __webpack_require__(189);
+module.exports = __webpack_require__(190);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(3)))
 
 /***/ }),
@@ -9379,11 +9310,13 @@ module.exports = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_core__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__statebuilders_views__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templateFactory__ = __webpack_require__(258);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__stateProvider__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__statebuilders_onEnterExitRetain__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locationServices__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__urlRouterProvider__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templateFactory__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__stateProvider__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__statebuilders_onEnterExitRetain__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locationServices__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__urlRouterProvider__ = __webpack_require__(139);
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * # Angular 1 types
  *
@@ -9408,7 +9341,7 @@ var mod_util = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.r
 var mod_rtr = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.router', ['ui.router.util']);
 var mod_state = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.state', ['ui.router.router', 'ui.router.util', 'ui.router.angular1']);
 var mod_main = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router', ['ui.router.init', 'ui.router.state', 'ui.router.angular1']);
-var mod_cmpt = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.compat', ['ui.router']); // tslint:disable-line
+var mod_cmpt = __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.compat', ['ui.router']);
 var router = null;
 $uiRouterProvider.$inject = ['$locationProvider'];
 /** This angular 1 provider instantiates a Router and exposes its services via the angular injector */
@@ -9422,6 +9355,8 @@ function $uiRouterProvider($locationProvider) {
     router.stateRegistry.decorator('onRetain', Object(__WEBPACK_IMPORTED_MODULE_5__statebuilders_onEnterExitRetain__["a" /* getStateHookBuilder */])('onRetain'));
     router.stateRegistry.decorator('onEnter', Object(__WEBPACK_IMPORTED_MODULE_5__statebuilders_onEnterExitRetain__["a" /* getStateHookBuilder */])('onEnter'));
     router.viewService._pluginapi._viewConfigFactory('ng1', Object(__WEBPACK_IMPORTED_MODULE_2__statebuilders_views__["b" /* getNg1ViewConfigFactory */])());
+    // Disable decoding of params by UrlMatcherFactory because $location already handles this
+    router.urlService.config._decodeParams = false;
     var ng1LocationService = (router.locationService = router.locationConfig = new __WEBPACK_IMPORTED_MODULE_6__locationServices__["a" /* Ng1LocationServices */]($locationProvider));
     __WEBPACK_IMPORTED_MODULE_6__locationServices__["a" /* Ng1LocationServices */].monkeyPatchPathParameterType(router);
     // backwards compat: also expose router instance as $uiRouterProvider.router
@@ -9450,7 +9385,7 @@ function runBlock($injector, $q, $uiRouter) {
     __WEBPACK_IMPORTED_MODULE_1__uirouter_core__["services"].$injector = $injector;
     __WEBPACK_IMPORTED_MODULE_1__uirouter_core__["services"].$q = $q;
     // https://github.com/angular-ui/ui-router/issues/3678
-    if (!$injector.hasOwnProperty('strictDi')) {
+    if (!Object.prototype.hasOwnProperty.call($injector, 'strictDi')) {
         try {
             $injector.invoke(function (checkStrictDi) { });
         }
@@ -9513,7 +9448,6 @@ var getLocals = function (ctx) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Glob; });
-/** @publicapi @module core */
 /**
  * Matches state names using glob-like pattern strings.
  *
@@ -9561,6 +9495,7 @@ var getLocals = function (ctx) {
  * | `'**.X'`    | `'X'` , `'A.X'` , `'Z.Y.X'`                   | `'A'` , `'A.login.Z'`             |
  * | `'A.**.X'`  | `'A.X'` , `'A.B.X'` , `'A.B.C.X'`             | `'A'` , `'A.B.C'`                 |
  *
+ * @packageDocumentation
  */
 var Glob = /** @class */ (function () {
     function Glob(text) {
@@ -9601,7 +9536,6 @@ var Glob = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Queue; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(4);
-/** @publicapi @module common */ /** */
 
 var Queue = /** @class */ (function () {
     function Queue(_items, _limit) {
@@ -9657,15 +9591,27 @@ var Queue = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__param__ = __webpack_require__(30);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__param__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__param__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__paramTypes__ = __webpack_require__(240);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__paramTypes__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateParams__ = __webpack_require__(111);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__stateParams__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__paramType__ = __webpack_require__(84);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__paramType__["a"]; });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__param__ = __webpack_require__(30);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DefType", function() { return __WEBPACK_IMPORTED_MODULE_1__param__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Param", function() { return __WEBPACK_IMPORTED_MODULE_1__param__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paramTypes__ = __webpack_require__(243);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamTypes", function() { return __WEBPACK_IMPORTED_MODULE_2__paramTypes__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stateParams__ = __webpack_require__(112);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateParams", function() { return __WEBPACK_IMPORTED_MODULE_3__stateParams__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__paramType__ = __webpack_require__(84);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamType", function() { return __WEBPACK_IMPORTED_MODULE_4__paramType__["a"]; });
+/**
+ * This module contains code for State Parameters.
+ *
+ * See [[ParamDeclaration]]
+ *
+ * @packageDocumentation @preferred
+ */
+
 
 
 
@@ -9680,7 +9626,6 @@ var Queue = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParamType; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_predicates__ = __webpack_require__(5);
-/** @publicapi @module params */ /** */
 
 
 /**
@@ -9705,7 +9650,6 @@ var Queue = /** @class */ (function () {
  *
  * var paramType = new ParamType(paramTypeDef);
  * ```
- * @internalapi
  */
 var ParamType = /** @class */ (function () {
     /**
@@ -9769,10 +9713,7 @@ var ParamType = /** @class */ (function () {
     return ParamType;
 }());
 
-/**
- * Wraps up a `ParamType` object to handle array values.
- * @internalapi
- */
+/** Wraps up a `ParamType` object to handle array values. */
 function ArrayType(type, mode) {
     var _this = this;
     // Wrap non-array value as array
@@ -9839,7 +9780,6 @@ function ArrayType(type, mode) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__params_param__ = __webpack_require__(30);
-/** @internalapi @module path */ /** */
 
 
 
@@ -9922,21 +9862,46 @@ var PathNode = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateBuilder__ = __webpack_require__(114);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__stateBuilder__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_0__stateBuilder__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateObject__ = __webpack_require__(87);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__stateObject__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateMatcher__ = __webpack_require__(115);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__stateMatcher__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stateQueueManager__ = __webpack_require__(116);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__stateQueueManager__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__stateRegistry__ = __webpack_require__(117);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__stateRegistry__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stateService__ = __webpack_require__(118);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__stateService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__targetState__ = __webpack_require__(31);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_6__targetState__["a"]; });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateBuilder__ = __webpack_require__(115);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resolvablesBuilder", function() { return __WEBPACK_IMPORTED_MODULE_1__stateBuilder__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateBuilder", function() { return __WEBPACK_IMPORTED_MODULE_1__stateBuilder__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateObject__ = __webpack_require__(87);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateObject", function() { return __WEBPACK_IMPORTED_MODULE_2__stateObject__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stateMatcher__ = __webpack_require__(116);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateMatcher", function() { return __WEBPACK_IMPORTED_MODULE_3__stateMatcher__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__stateQueueManager__ = __webpack_require__(117);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateQueueManager", function() { return __WEBPACK_IMPORTED_MODULE_4__stateQueueManager__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stateRegistry__ = __webpack_require__(118);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateRegistry", function() { return __WEBPACK_IMPORTED_MODULE_5__stateRegistry__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__stateService__ = __webpack_require__(119);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return __WEBPACK_IMPORTED_MODULE_6__stateService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__targetState__ = __webpack_require__(31);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TargetState", function() { return __WEBPACK_IMPORTED_MODULE_7__targetState__["a"]; });
+/**
+ * # The state subsystem
+ *
+ * This subsystem implements the ui-router state tree
+ *
+ * - The [[StateService]] has state-related service methods such as:
+ *   - [[StateService.get]]: Get a registered [[StateDeclaration]] object
+ *   - [[StateService.go]]: Transition from the current state to a new state
+ *   - [[StateService.reload]]: Reload the current state
+ *   - [[StateService.target]]: Get a [[TargetState]] (useful when redirecting from a Transition Hook)
+ *   - [[StateService.onInvalid]]: Register a callback for when a transition to an invalid state is started
+ *   - [[StateService.defaultErrorHandler]]: Register a global callback for when a transition errors
+ * - The [[StateDeclaration]] interface defines the shape of a state declaration
+ * - The [[StateRegistry]] contains all the registered states
+ *   - States can be added/removed using the [[StateRegistry.register]] and [[StateRegistry.deregister]]
+ *     - Note: Bootstrap state registration differs by front-end framework.
+ *   - Get notified of state registration/deregistration using [[StateRegistry.onStatesChanged]].
+ *
+ * @packageDocumentation
+ */
+
 
 
 
@@ -10061,6 +10026,8 @@ var StateObject = /** @class */ (function () {
     StateObject.isStateClass = function (stateDecl) {
         return Object(__WEBPACK_IMPORTED_MODULE_3__common_predicates__["d" /* isFunction */])(stateDecl) && stateDecl['__uiRouterState'] === true;
     };
+    /** Predicate which returns true if the object is a [[StateDeclaration]] object */
+    StateObject.isStateDeclaration = function (obj) { return Object(__WEBPACK_IMPORTED_MODULE_3__common_predicates__["d" /* isFunction */])(obj['$$state']); };
     /** Predicate which returns true if the object is an internal [[StateObject]] object */
     StateObject.isState = function (obj) { return Object(__WEBPACK_IMPORTED_MODULE_3__common_predicates__["i" /* isObject */])(obj['__stateObjectCache']); };
     return StateObject;
@@ -10078,22 +10045,21 @@ var StateObject = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transition__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hookRegistry__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hooks_coreResolvables__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hooks_redirectTo__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hooks_onEnterExitRetain__ = __webpack_require__(244);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__hooks_resolve__ = __webpack_require__(245);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__hooks_views__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__hooks_updateGlobals__ = __webpack_require__(247);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__hooks_url__ = __webpack_require__(248);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__hooks_lazyLoad__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__transitionEventType__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hooks_coreResolvables__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hooks_redirectTo__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hooks_onEnterExitRetain__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__hooks_resolve__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__hooks_views__ = __webpack_require__(250);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__hooks_updateGlobals__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__hooks_url__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__hooks_lazyLoad__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__transitionEventType__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__transitionHook__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__common_hof__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__hooks_ignoredTransition__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__hooks_invalidTransition__ = __webpack_require__(250);
-/** @publicapi @module transition */ /** */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__hooks_ignoredTransition__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__hooks_invalidTransition__ = __webpack_require__(254);
 
 
 
@@ -10125,6 +10091,7 @@ var defaultTransOpts = {
     inherit: false,
     notify: true,
     reload: false,
+    supercede: true,
     custom: {},
     current: function () { return null; },
     source: 'unknown',
@@ -10137,17 +10104,19 @@ var defaultTransOpts = {
  * - It also has a factory function for creating new [[Transition]] objects, (used internally by the [[StateService]]).
  *
  * At bootstrap, [[UIRouter]] creates a single instance (singleton) of this class.
+ *
+ * This API is located at `router.transitionService` ([[UIRouter.transitionService]])
  */
 var TransitionService = /** @class */ (function () {
-    /** @hidden */
+    /** @internal */
     function TransitionService(_router) {
-        /** @hidden */
+        /** @internal */
         this._transitionCount = 0;
-        /** @hidden The transition hook types, such as `onEnter`, `onStart`, etc */
+        /** The transition hook types, such as `onEnter`, `onStart`, etc */
         this._eventTypes = [];
-        /** @hidden The registered transition hooks */
+        /** @internal The registered transition hooks */
         this._registeredHooks = {};
-        /** @hidden The  paths on a criteria object */
+        /** The  paths on a criteria object */
         this._criteriaPaths = {};
         this._router = _router;
         this.$view = _router.viewService;
@@ -10181,7 +10150,7 @@ var TransitionService = /** @class */ (function () {
      *
      * The hook's return value is ignored
      *
-     * @internalapi
+     * @internal
      * @param criteria defines which Transitions the Hook should be invoked for.
      * @param callback the hook function which will be invoked.
      * @param options the registration options
@@ -10224,7 +10193,7 @@ var TransitionService = /** @class */ (function () {
     };
     /**
      * dispose
-     * @internalapi
+     * @internal
      */
     TransitionService.prototype.dispose = function (router) {
         Object(__WEBPACK_IMPORTED_MODULE_14__common_common__["U" /* values */])(this._registeredHooks).forEach(function (hooksArray) {
@@ -10240,6 +10209,7 @@ var TransitionService = /** @class */ (function () {
      * This is a factory function for creating new Transition objects.
      * It is used internally by the [[StateService]] and should generally not be called by application code.
      *
+     * @internal
      * @param fromPath the path to the current state (the from state)
      * @param targetState the target state (destination)
      * @returns a Transition
@@ -10247,7 +10217,7 @@ var TransitionService = /** @class */ (function () {
     TransitionService.prototype.create = function (fromPath, targetState) {
         return new __WEBPACK_IMPORTED_MODULE_1__transition__["a" /* Transition */](fromPath, targetState, this._router);
     };
-    /** @hidden */
+    /** @internal */
     TransitionService.prototype._defineCoreEvents = function () {
         var Phase = __WEBPACK_IMPORTED_MODULE_0__interface__["a" /* TransitionHookPhase */];
         var TH = __WEBPACK_IMPORTED_MODULE_12__transitionHook__["a" /* TransitionHook */];
@@ -10264,7 +10234,7 @@ var TransitionService = /** @class */ (function () {
         this._defineEvent('onSuccess', Phase.SUCCESS, 0, paths.to, NORMAL_SORT, TH.LOG_REJECTED_RESULT, TH.LOG_ERROR, SYNCHRONOUS);
         this._defineEvent('onError', Phase.ERROR, 0, paths.to, NORMAL_SORT, TH.LOG_REJECTED_RESULT, TH.LOG_ERROR, SYNCHRONOUS);
     };
-    /** @hidden */
+    /** @internal */
     TransitionService.prototype._defineCorePaths = function () {
         var STATE = __WEBPACK_IMPORTED_MODULE_0__interface__["b" /* TransitionHookScope */].STATE, TRANSITION = __WEBPACK_IMPORTED_MODULE_0__interface__["b" /* TransitionHookScope */].TRANSITION;
         this._definePathType('to', TRANSITION);
@@ -10273,7 +10243,7 @@ var TransitionService = /** @class */ (function () {
         this._definePathType('retained', STATE);
         this._definePathType('entering', STATE);
     };
-    /** @hidden */
+    /** @internal */
     TransitionService.prototype._defineEvent = function (name, hookPhase, hookOrder, criteriaMatchPath, reverseSort, getResultHandler, getErrorHandler, synchronous) {
         if (reverseSort === void 0) { reverseSort = false; }
         if (getResultHandler === void 0) { getResultHandler = __WEBPACK_IMPORTED_MODULE_12__transitionHook__["a" /* TransitionHook */].HANDLE_RESULT; }
@@ -10283,8 +10253,7 @@ var TransitionService = /** @class */ (function () {
         this._eventTypes.push(eventType);
         Object(__WEBPACK_IMPORTED_MODULE_2__hookRegistry__["b" /* makeEvent */])(this, this, eventType);
     };
-    /** @hidden */
-    // tslint:disable-next-line
+    /** @internal */
     TransitionService.prototype._getEvents = function (phase) {
         var transitionHookTypes = Object(__WEBPACK_IMPORTED_MODULE_13__common_predicates__["c" /* isDefined */])(phase)
             ? this._eventTypes.filter(function (type) { return type.hookPhase === phase; })
@@ -10305,21 +10274,21 @@ var TransitionService = /** @class */ (function () {
      * It was defined by calling `defineTreeChangesCriterion('to', TransitionHookScope.TRANSITION)`
      * Only the tail of the `to` path is checked against the criteria and returned as part of the match.
      *
-     * @hidden
+     * @internal
      */
     TransitionService.prototype._definePathType = function (name, hookScope) {
         this._criteriaPaths[name] = { name: name, scope: hookScope };
     };
-    /** * @hidden */
+    /** @internal */
     // tslint:disable-next-line
     TransitionService.prototype._getPathTypes = function () {
         return this._criteriaPaths;
     };
-    /** @hidden */
+    /** @internal */
     TransitionService.prototype.getHooks = function (hookName) {
         return this._registeredHooks[hookName];
     };
-    /** @hidden */
+    /** @internal */
     TransitionService.prototype._registerCoreTransitionHooks = function () {
         var fns = this._deregisterHookFns;
         fns.addCoreResolves = Object(__WEBPACK_IMPORTED_MODULE_3__hooks_coreResolvables__["a" /* registerAddCoreResolvables */])(this);
@@ -10365,14 +10334,13 @@ var TransitionService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interface__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__transitionHook__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__hookRegistry__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__hookBuilder__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__hookBuilder__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__path_pathUtils__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__params_param__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__resolve_resolvable__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__resolve_resolveContext__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__rejectFactory__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__common__ = __webpack_require__(7);
-/** @publicapi @module transition */ /** */
 
 
 
@@ -10389,7 +10357,7 @@ var TransitionService = /** @class */ (function () {
 
 
 
-/** @hidden */
+/** @internal */
 var stateSelf = Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('self');
 /**
  * Represents a transition between two states.
@@ -10405,16 +10373,17 @@ var Transition = /** @class */ (function () {
      *
      * If the target state is not valid, an error is thrown.
      *
-     * @internalapi
+     * @internal
      *
      * @param fromPath The path of [[PathNode]]s from which the transition is leaving.  The last node in the `fromPath`
      *        encapsulates the "from state".
      * @param targetState The target state and parameters being transitioned to (also, the transition options)
      * @param router The [[UIRouter]] instance
+     * @internal
      */
     function Transition(fromPath, targetState, router) {
         var _this = this;
-        /** @hidden */
+        /** @internal */
         this._deferred = __WEBPACK_IMPORTED_MODULE_1__common_coreservices__["b" /* services */].$q.defer();
         /**
          * This promise is resolved or rejected based on the outcome of the Transition.
@@ -10423,9 +10392,9 @@ var Transition = /** @class */ (function () {
          * When the transition is unsuccessful, the promise is rejected with the [[Rejection]] or javascript error
          */
         this.promise = this._deferred.promise;
-        /** @hidden Holds the hook registration functions such as those passed to Transition.onStart() */
+        /** @internal Holds the hook registration functions such as those passed to Transition.onStart() */
         this._registeredHooks = {};
-        /** @hidden */
+        /** @internal */
         this._hookBuilder = new __WEBPACK_IMPORTED_MODULE_9__hookBuilder__["a" /* HookBuilder */](this);
         /** Checks if this transition is currently active/running. */
         this.isActive = function () { return _this.router.globals.transition === _this; };
@@ -10444,7 +10413,7 @@ var Transition = /** @class */ (function () {
         __WEBPACK_IMPORTED_MODULE_7__transitionHook__["a" /* TransitionHook */].invokeHooks(onCreateHooks, function () { return null; });
         this.applyViewConfigs(router);
     }
-    /** @hidden */
+    /** @internal */
     Transition.prototype.onBefore = function (criteria, callback, options) {
         return;
     };
@@ -10476,7 +10445,7 @@ var Transition = /** @class */ (function () {
     Transition.prototype.onError = function (criteria, callback, options) {
         return;
     };
-    /** @hidden
+    /** @internal
      * Creates the transition-level hook registration functions
      * (which can then be used to register hooks)
      */
@@ -10487,7 +10456,7 @@ var Transition = /** @class */ (function () {
             .filter(function (type) { return type.hookPhase !== __WEBPACK_IMPORTED_MODULE_6__interface__["a" /* TransitionHookPhase */].CREATE; })
             .forEach(function (type) { return Object(__WEBPACK_IMPORTED_MODULE_8__hookRegistry__["b" /* makeEvent */])(_this, _this.router.transitionService, type); });
     };
-    /** @internalapi */
+    /** @internal */
     Transition.prototype.getHooks = function (hookName) {
         return this._registeredHooks[hookName];
     };
@@ -10496,16 +10465,14 @@ var Transition = /** @class */ (function () {
         __WEBPACK_IMPORTED_MODULE_10__path_pathUtils__["a" /* PathUtils */].applyViewConfigs(router.transitionService.$view, this._treeChanges.to, enteringStates);
     };
     /**
-     * @internalapi
-     *
+     * @internal
      * @returns the internal from [State] object
      */
     Transition.prototype.$from = function () {
         return Object(__WEBPACK_IMPORTED_MODULE_3__common_common__["P" /* tail */])(this._treeChanges.from).state;
     };
     /**
-     * @internalapi
-     *
+     * @internal
      * @returns the internal to [State] object
      */
     Transition.prototype.$to = function () {
@@ -10550,8 +10517,8 @@ var Transition = /** @class */ (function () {
             // TODO: Also compare parameters
             return this.is({ to: compare.$to().name, from: compare.$from().name });
         }
-        return !((compare.to && !Object(__WEBPACK_IMPORTED_MODULE_8__hookRegistry__["c" /* matchState */])(this.$to(), compare.to)) ||
-            (compare.from && !Object(__WEBPACK_IMPORTED_MODULE_8__hookRegistry__["c" /* matchState */])(this.$from(), compare.from)));
+        return !((compare.to && !Object(__WEBPACK_IMPORTED_MODULE_8__hookRegistry__["c" /* matchState */])(this.$to(), compare.to, this)) ||
+            (compare.from && !Object(__WEBPACK_IMPORTED_MODULE_8__hookRegistry__["c" /* matchState */])(this.$from(), compare.from, this)));
     };
     Transition.prototype.params = function (pathname) {
         if (pathname === void 0) { pathname = 'to'; }
@@ -10781,9 +10748,7 @@ var Transition = /** @class */ (function () {
      * @returns an array of states that will be exited during this transition.
      */
     Transition.prototype.exiting = function () {
-        return Object(__WEBPACK_IMPORTED_MODULE_3__common_common__["B" /* map */])(this._treeChanges.exiting, Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('state'))
-            .map(stateSelf)
-            .reverse();
+        return Object(__WEBPACK_IMPORTED_MODULE_3__common_common__["B" /* map */])(this._treeChanges.exiting, Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('state')).map(stateSelf).reverse();
     };
     /**
      * Gets the states being retained.
@@ -10810,10 +10775,7 @@ var Transition = /** @class */ (function () {
         if (pathname === void 0) { pathname = 'entering'; }
         var path = this._treeChanges[pathname];
         path = !state ? path : path.filter(Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["o" /* propEq */])('state', state));
-        return path
-            .map(Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('views'))
-            .filter(__WEBPACK_IMPORTED_MODULE_3__common_common__["y" /* identity */])
-            .reduce(__WEBPACK_IMPORTED_MODULE_3__common_common__["T" /* unnestR */], []);
+        return path.map(Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('views')).filter(__WEBPACK_IMPORTED_MODULE_3__common_common__["y" /* identity */]).reduce(__WEBPACK_IMPORTED_MODULE_3__common_common__["T" /* unnestR */], []);
     };
     Transition.prototype.treeChanges = function (pathname) {
         return pathname ? this._treeChanges[pathname] : this._treeChanges;
@@ -10824,7 +10786,7 @@ var Transition = /** @class */ (function () {
      * This transition can be returned from a [[TransitionService]] hook to
      * redirect a transition to a new state and/or set of parameters.
      *
-     * @internalapi
+     * @internal
      *
      * @returns Returns a new [[Transition]] instance.
      */
@@ -10868,7 +10830,7 @@ var Transition = /** @class */ (function () {
         });
         return newTransition;
     };
-    /** @hidden If a transition doesn't exit/enter any states, returns any [[Param]] whose value changed */
+    /** @internal If a transition doesn't exit/enter any states, returns any [[Param]] whose value changed */
     Transition.prototype._changedParams = function () {
         var tc = this._treeChanges;
         /** Return undefined if it's not a "dynamic" transition, for the following reasons */
@@ -10917,7 +10879,7 @@ var Transition = /** @class */ (function () {
     Transition.prototype.ignored = function () {
         return !!this._ignoredReason();
     };
-    /** @hidden */
+    /** @internal */
     Transition.prototype._ignoredReason = function () {
         var pending = this.router.globals.transition;
         var reloadState = this._options.reloadState;
@@ -10939,7 +10901,7 @@ var Transition = /** @class */ (function () {
      *
      * This method is generally called from the [[StateService.transitionTo]]
      *
-     * @internalapi
+     * @internal
      *
      * @returns a promise for a successful transition.
      */
@@ -11042,7 +11004,7 @@ var Transition = /** @class */ (function () {
         var id = this.$id, from = Object(__WEBPACK_IMPORTED_MODULE_4__common_predicates__["i" /* isObject */])(fromStateOrName) ? fromStateOrName.name : fromStateOrName, fromParams = Object(__WEBPACK_IMPORTED_MODULE_2__common_strings__["m" /* stringify */])(avoidEmptyHash(this._treeChanges.from.map(Object(__WEBPACK_IMPORTED_MODULE_5__common_hof__["n" /* prop */])('paramValues')).reduce(__WEBPACK_IMPORTED_MODULE_3__common_common__["D" /* mergeR */], {}))), toValid = this.valid() ? '' : '(X) ', to = Object(__WEBPACK_IMPORTED_MODULE_4__common_predicates__["i" /* isObject */])(toStateOrName) ? toStateOrName.name : toStateOrName, toParams = Object(__WEBPACK_IMPORTED_MODULE_2__common_strings__["m" /* stringify */])(avoidEmptyHash(this.params()));
         return "Transition#" + id + "( '" + from + "'" + fromParams + " -> " + toValid + "'" + to + "'" + toParams + " )";
     };
-    /** @hidden */
+    /** @internal */
     Transition.diToken = Transition;
     return Transition;
 }());
@@ -11059,13 +11021,12 @@ var Transition = /** @class */ (function () {
 /* harmony export (immutable) */ __webpack_exports__["b"] = makeEvent;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface__ = __webpack_require__(20);
-/** @publicapi @module transition */ /** */
 
 
 /**
  * Determines if the given state matches the matchCriteria
  *
- * @hidden
+ * @internal
  *
  * @param state a State Object to test against
  * @param criterion
@@ -11075,7 +11036,7 @@ var Transition = /** @class */ (function () {
  * - If a function, matchState calls the function with the state and returns true if the function's result is truthy.
  * @returns {boolean}
  */
-function matchState(state, criterion) {
+function matchState(state, criterion, transition) {
     var toMatch = Object(__WEBPACK_IMPORTED_MODULE_0__common__["_2" /* isString */])(criterion) ? [criterion] : criterion;
     function matchGlobs(_state) {
         var globStrings = toMatch;
@@ -11088,10 +11049,9 @@ function matchState(state, criterion) {
         return false;
     }
     var matchFn = (Object(__WEBPACK_IMPORTED_MODULE_0__common__["U" /* isFunction */])(toMatch) ? toMatch : matchGlobs);
-    return !!matchFn(state);
+    return !!matchFn(state, transition);
 }
 /**
- * @internalapi
  * The registration data for a registered transition hook
  */
 var RegisteredHook = /** @class */ (function () {
@@ -11123,10 +11083,10 @@ var RegisteredHook = /** @class */ (function () {
      * with `entering: (state) => true` which only matches when a state is actually
      * being entered.
      */
-    RegisteredHook.prototype._matchingNodes = function (nodes, criterion) {
+    RegisteredHook.prototype._matchingNodes = function (nodes, criterion, transition) {
         if (criterion === true)
             return nodes;
-        var matching = nodes.filter(function (node) { return matchState(node.state, criterion); });
+        var matching = nodes.filter(function (node) { return matchState(node.state, criterion, transition); });
         return matching.length ? matching : null;
     };
     /**
@@ -11161,7 +11121,7 @@ var RegisteredHook = /** @class */ (function () {
      * };
      * ```
      */
-    RegisteredHook.prototype._getMatchingNodes = function (treeChanges) {
+    RegisteredHook.prototype._getMatchingNodes = function (treeChanges, transition) {
         var _this = this;
         var criteria = Object(__WEBPACK_IMPORTED_MODULE_0__common__["C" /* extend */])(this._getDefaultMatchCriteria(), this.matchCriteria);
         var paths = Object(__WEBPACK_IMPORTED_MODULE_0__common__["_45" /* values */])(this.tranSvc._pluginapi._getPathTypes());
@@ -11171,7 +11131,7 @@ var RegisteredHook = /** @class */ (function () {
             var isStateHook = pathtype.scope === __WEBPACK_IMPORTED_MODULE_1__interface__["b" /* TransitionHookScope */].STATE;
             var path = treeChanges[pathtype.name] || [];
             var nodes = isStateHook ? path : [Object(__WEBPACK_IMPORTED_MODULE_0__common__["_37" /* tail */])(path)];
-            mn[pathtype.name] = _this._matchingNodes(nodes, criteria[pathtype.name]);
+            mn[pathtype.name] = _this._matchingNodes(nodes, criteria[pathtype.name], transition);
             return mn;
         }, {});
     };
@@ -11181,8 +11141,8 @@ var RegisteredHook = /** @class */ (function () {
      * @returns an IMatchingNodes object, or null. If an IMatchingNodes object is returned, its values
      * are the matching [[PathNode]]s for each [[HookMatchCriterion]] (to, from, exiting, retained, entering)
      */
-    RegisteredHook.prototype.matches = function (treeChanges) {
-        var matches = this._getMatchingNodes(treeChanges);
+    RegisteredHook.prototype.matches = function (treeChanges, transition) {
+        var matches = this._getMatchingNodes(treeChanges, transition);
         // Check if all the criteria matched the TreeChanges object
         var allMatched = Object(__WEBPACK_IMPORTED_MODULE_0__common__["_45" /* values */])(matches).every(__WEBPACK_IMPORTED_MODULE_0__common__["M" /* identity */]);
         return allMatched ? matches : null;
@@ -11194,7 +11154,7 @@ var RegisteredHook = /** @class */ (function () {
     return RegisteredHook;
 }());
 
-/** @hidden Return a registration function of the requested type. */
+/** Return a registration function of the requested type. */
 function makeEvent(registry, transitionService, eventType) {
     // Create the object which holds the registered transition hooks.
     var _registeredHooks = (registry._registeredHooks = registry._registeredHooks || {});
@@ -11224,7 +11184,6 @@ function makeEvent(registry, transitionService, eventType) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_stateObject__ = __webpack_require__(87);
-/** @publicapi @module url */ /** */
 
 
 
@@ -11239,7 +11198,6 @@ function makeEvent(registry, transitionService, eventType) {
  * - [[UrlMatcher]]
  * - `RegExp`
  * - [[StateObject]]
- * @internalapi
  */
 var UrlRuleFactory = /** @class */ (function () {
     function UrlRuleFactory(router) {
@@ -11250,11 +11208,11 @@ var UrlRuleFactory = /** @class */ (function () {
     };
     UrlRuleFactory.prototype.create = function (what, handler) {
         var _this = this;
-        var isState = __WEBPACK_IMPORTED_MODULE_4__state_stateObject__["a" /* StateObject */].isState;
+        var isState = __WEBPACK_IMPORTED_MODULE_4__state_stateObject__["a" /* StateObject */].isState, isStateDeclaration = __WEBPACK_IMPORTED_MODULE_4__state_stateObject__["a" /* StateObject */].isStateDeclaration;
         var makeRule = Object(__WEBPACK_IMPORTED_MODULE_3__common_hof__["l" /* pattern */])([
             [__WEBPACK_IMPORTED_MODULE_1__common_predicates__["l" /* isString */], function (_what) { return makeRule(_this.compile(_what)); }],
             [Object(__WEBPACK_IMPORTED_MODULE_3__common_hof__["h" /* is */])(__WEBPACK_IMPORTED_MODULE_0__urlMatcher__["a" /* UrlMatcher */]), function (_what) { return _this.fromUrlMatcher(_what, handler); }],
-            [isState, function (_what) { return _this.fromState(_what, _this.router); }],
+            [Object(__WEBPACK_IMPORTED_MODULE_3__common_hof__["j" /* or */])(isState, isStateDeclaration), function (_what) { return _this.fromState(_what, _this.router); }],
             [Object(__WEBPACK_IMPORTED_MODULE_3__common_hof__["h" /* is */])(RegExp), function (_what) { return _this.fromRegExp(_what, handler); }],
             [__WEBPACK_IMPORTED_MODULE_1__common_predicates__["d" /* isFunction */], function (_what) { return new BaseUrlRule(_what, handler); }],
         ]);
@@ -11335,7 +11293,8 @@ var UrlRuleFactory = /** @class */ (function () {
      * // Starts a transition to 'foo' with params: { fooId: '123', barId: '456' }
      * ```
      */
-    UrlRuleFactory.prototype.fromState = function (state, router) {
+    UrlRuleFactory.prototype.fromState = function (stateOrDecl, router) {
+        var state = __WEBPACK_IMPORTED_MODULE_4__state_stateObject__["a" /* StateObject */].isStateDeclaration(stateOrDecl) ? stateOrDecl.$$state() : stateOrDecl;
         /**
          * Handles match by transitioning to matched state
          *
@@ -11410,7 +11369,7 @@ var UrlRuleFactory = /** @class */ (function () {
  * A base rule which calls `match`
  *
  * The value from the `match` function is passed through to the `handler`.
- * @internalapi
+ * @internal
  */
 var BaseUrlRule = /** @class */ (function () {
     function BaseUrlRule(match, handler) {
@@ -11436,7 +11395,6 @@ var BaseUrlRule = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return buildUrl; });
 /* harmony export (immutable) */ __webpack_exports__["d"] = locationPluginFactory;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
-/** @internalapi @module vanilla */ /** */
 
 var keyValsToObjectR = function (accum, _a) {
     var key = _a[0], val = _a[1];
@@ -11452,11 +11410,7 @@ var keyValsToObjectR = function (accum, _a) {
     return accum;
 };
 var getParams = function (queryString) {
-    return queryString
-        .split('&')
-        .filter(__WEBPACK_IMPORTED_MODULE_0__common__["M" /* identity */])
-        .map(__WEBPACK_IMPORTED_MODULE_0__common__["_31" /* splitEqual */])
-        .reduce(keyValsToObjectR, {});
+    return queryString.split('&').filter(__WEBPACK_IMPORTED_MODULE_0__common__["M" /* identity */]).map(__WEBPACK_IMPORTED_MODULE_0__common__["_31" /* splitEqual */]).reduce(keyValsToObjectR, {});
 };
 function parseUrl(url) {
     var orEmptyString = function (x) { return x || ''; };
@@ -11500,6 +11454,7 @@ function locationPluginFactory(name, isHtml5, serviceClass, configurationClass) 
 /* harmony export (immutable) */ __webpack_exports__["c"] = ng1ViewsBuilder;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Ng1ViewConfig; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_core__ = __webpack_require__(11);
+/** @publicapi @module ng1 */ /** */
 
 /** @internalapi */
 function getNg1ViewConfigFactory() {
@@ -11749,6 +11704,7 @@ TraceKit.report = (function reportModuleWrapper() {
      */
     function subscribe(handler) {
         installGlobalHandler();
+        installGlobalUnhandledRejectionHandler();
         handlers.push(handler);
     }
 
@@ -11765,8 +11721,8 @@ TraceKit.report = (function reportModuleWrapper() {
         }
 
         if (handlers.length === 0) {
-            window.onerror = _oldOnerrorHandler;
-            _onErrorHandlerInstalled = false;
+            uninstallGlobalHandler();
+            uninstallGlobalUnhandledRejectionHandler();
         }
     }
 
@@ -11799,6 +11755,7 @@ TraceKit.report = (function reportModuleWrapper() {
     }
 
     var _oldOnerrorHandler, _onErrorHandlerInstalled;
+    var _oldOnunhandledrejectionHandler, _onUnhandledRejectionHandlerInstalled;
 
     /**
      * Ensures all global unhandled exceptions are recorded.
@@ -11856,6 +11813,18 @@ TraceKit.report = (function reportModuleWrapper() {
     }
 
     /**
+     * Ensures all unhandled rejections are recorded.
+     * @param {PromiseRejectionEvent} e event.
+     * @memberof TraceKit.report
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onunhandledrejection
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/PromiseRejectionEvent
+     */
+    function traceKitWindowOnUnhandledRejection(e) {
+        var stack = TraceKit.computeStackTrace(e.reason);
+        notifyHandlers(stack, true, e.reason);
+    }
+
+    /**
      * Install a global onerror handler
      * @memberof TraceKit.report
      */
@@ -11867,6 +11836,42 @@ TraceKit.report = (function reportModuleWrapper() {
         _oldOnerrorHandler = window.onerror;
         window.onerror = traceKitWindowOnError;
         _onErrorHandlerInstalled = true;
+    }
+
+    /**
+     * Uninstall the global onerror handler
+     * @memberof TraceKit.report
+     */
+    function uninstallGlobalHandler() {
+        if (_onErrorHandlerInstalled) {
+            window.onerror = _oldOnerrorHandler;
+            _onErrorHandlerInstalled = false;
+        }
+    }
+
+    /**
+     * Install a global onunhandledrejection handler
+     * @memberof TraceKit.report
+     */
+    function installGlobalUnhandledRejectionHandler() {
+        if (_onUnhandledRejectionHandlerInstalled === true) {
+            return;
+        }
+
+        _oldOnunhandledrejectionHandler = window.onunhandledrejection;
+        window.onunhandledrejection = traceKitWindowOnUnhandledRejection;
+        _onUnhandledRejectionHandlerInstalled = true;
+    }
+
+    /**
+     * Uninstall the global onunhandledrejection handler
+     * @memberof TraceKit.report
+     */
+    function uninstallGlobalUnhandledRejectionHandler() {
+        if (_onUnhandledRejectionHandlerInstalled) {
+            window.onunhandledrejection = _oldOnunhandledrejectionHandler;
+            _onUnhandledRejectionHandlerInstalled = false;
+        }
     }
 
     /**
@@ -12909,7 +12914,7 @@ if (true) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Datepicker for Bootstrap v1.8.0 (https://github.com/uxsolutions/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.9.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
@@ -13002,6 +13007,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
+
+		this._events = [];
+		this._secondaryEvents = [];
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -13011,7 +13020,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		this.element = $(element);
 		this.isInput = this.element.is('input');
 		this.inputField = this.isInput ? this.element : this.element.find('input');
-		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
+		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .input-group-append, .input-group-prepend, .btn') : false;
 		if (this.component && this.component.length === 0)
 			this.component = false;
 		this.isInline = !this.component && this.element.is('div');
@@ -13221,8 +13230,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				o.defaultViewDate = UTCToday();
 			}
 		},
-		_events: [],
-		_secondaryEvents: [],
 		_applyEvents: function(evs){
 			for (var i=0, el, ch, ev; i < evs.length; i++){
 				el = evs[i][0];
@@ -13378,7 +13385,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		},
 
 		show: function(){
-			if (this.inputField.prop('disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
+			if (this.inputField.is(':disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
@@ -13875,7 +13882,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        todayDate = UTCToday(),
+        titleBtnVisible = (this.o.todayBtn === true || this.o.todayBtn === 'linked') && todayDate >= this.o.startDate && todayDate <= this.o.endDate && !this.weekOfDateIsDisabled(todayDate),
 				tooltip,
 				before;
 			if (isNaN(year) || isNaN(month))
@@ -13884,7 +13893,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
-						.css('display', this.o.todayBtn === true || this.o.todayBtn === 'linked' ? 'table-cell' : 'none');
+            .css('display', titleBtnVisible ? 'table-cell' : 'none');
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
@@ -14064,12 +14073,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					factor *= 10;
 					/* falls through */
 				case 1:
-					prevIsDisabled = Math.floor(year / factor) * factor < startYear;
+					prevIsDisabled = Math.floor(year / factor) * factor <= startYear;
 					nextIsDisabled = Math.floor(year / factor) * factor + factor > endYear;
 					break;
 				case 0:
-					prevIsDisabled = year <= startYear && month < startMonth;
-					nextIsDisabled = year >= endYear && month > endMonth;
+					prevIsDisabled = year <= startYear && month <= startMonth;
+					nextIsDisabled = year >= endYear && month >= endMonth;
 					break;
 			}
 
@@ -14916,7 +14925,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.8.0';
+	$.fn.datepicker.version = '1.9.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
@@ -14955,7 +14964,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(201);
+__webpack_require__(202);
 module.exports = 'ng.shims.placeholder';
 
 
@@ -14965,7 +14974,7 @@ module.exports = 'ng.shims.placeholder';
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(215);
+__webpack_require__(216);
 module.exports = 'ngSanitize';
 
 
@@ -14974,7 +14983,7 @@ module.exports = 'ngSanitize';
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(239);
+__webpack_require__(240);
 module.exports = 'ngAnimate';
 
 
@@ -14984,186 +14993,34 @@ module.exports = 'ngAnimate';
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services__ = __webpack_require__(80);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "watchDigests", function() { return __WEBPACK_IMPORTED_MODULE_0__services__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getLocals", function() { return __WEBPACK_IMPORTED_MODULE_0__services__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__statebuilders_views__ = __webpack_require__(93);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getNg1ViewConfigFactory", function() { return __WEBPACK_IMPORTED_MODULE_1__statebuilders_views__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ng1ViewsBuilder", function() { return __WEBPACK_IMPORTED_MODULE_1__statebuilders_views__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Ng1ViewConfig", function() { return __WEBPACK_IMPORTED_MODULE_1__statebuilders_views__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateProvider__ = __webpack_require__(137);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateProvider", function() { return __WEBPACK_IMPORTED_MODULE_2__stateProvider__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__urlRouterProvider__ = __webpack_require__(138);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRouterProvider", function() { return __WEBPACK_IMPORTED_MODULE_3__urlRouterProvider__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__injectables__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__injectables___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__injectables__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_stateDirectives__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__stateFilters__ = __webpack_require__(263);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__directives_viewDirective__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__viewScroll__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__uirouter_core__ = __webpack_require__(11);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "core", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlRules"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlConfig"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouterGlobals", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UIRouterGlobals"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UIRouter"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UIRouterPluginBase", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UIRouterPluginBase"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "root", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["root"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "fromJson", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["fromJson"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "toJson", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["toJson"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["forEach"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["extend"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["equals"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["identity"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "noop", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["noop"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "createProxyFunctions", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["createProxyFunctions"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "inherit", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["inherit"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "inArray", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["inArray"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "_inArray", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["_inArray"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "removeFrom", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["removeFrom"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "_removeFrom", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["_removeFrom"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pushTo", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pushTo"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "_pushTo", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["_pushTo"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "deregAll", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["deregAll"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "defaults", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["defaults"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "mergeR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["mergeR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ancestors", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ancestors"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pick", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pick"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "omit", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["omit"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pluck", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pluck"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["filter"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "find", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["find"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "mapObj", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["mapObj"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "map", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["map"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "values", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["values"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "allTrueR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["allTrueR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "anyTrueR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["anyTrueR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "unnestR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["unnestR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "flattenR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["flattenR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pushR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pushR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "uniqR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["uniqR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "unnest", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["unnest"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "flatten", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["flatten"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "assertPredicate", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["assertPredicate"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "assertMap", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["assertMap"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "assertFn", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["assertFn"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pairs", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pairs"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "arrayTuples", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["arrayTuples"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "applyPairs", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["applyPairs"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "tail", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["tail"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["copy"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "_extend", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["_extend"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "silenceUncaughtInPromise", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["silenceUncaughtInPromise"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "silentRejection", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["silentRejection"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "makeStub", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["makeStub"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "services", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["services"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Glob", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Glob"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "curry", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["curry"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["compose"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pipe", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pipe"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "prop", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["prop"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "propEq", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["propEq"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["parse"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "not", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["not"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "and", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["and"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "or", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["or"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "all", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["all"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "any", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["any"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "is", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["is"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "eq", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["eq"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "val", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["val"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "invoke", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["invoke"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pattern", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pattern"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isUndefined", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isUndefined"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isDefined", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isDefined"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isNull", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isNull"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isNullOrUndefined", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isNullOrUndefined"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isFunction", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isFunction"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isNumber"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isString"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isObject"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isArray", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isArray"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isDate", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isDate"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isRegExp", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isRegExp"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isInjectable", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isInjectable"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isPromise", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["isPromise"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Queue", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Queue"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "maxLength", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["maxLength"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "padString", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["padString"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "kebobString", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["kebobString"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "functionToString", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["functionToString"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "fnToString", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["fnToString"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["stringify"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "beforeAfterSubstr", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["beforeAfterSubstr"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hostRegex", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["hostRegex"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "stripLastPathElement", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["stripLastPathElement"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "splitHash", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["splitHash"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "splitQuery", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["splitQuery"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "splitEqual", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["splitEqual"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "trimHashVal", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["trimHashVal"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "splitOnDelim", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["splitOnDelim"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "joinNeighborsR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["joinNeighborsR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Category", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Category"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Trace", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Trace"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "trace", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["trace"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DefType", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["DefType"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Param", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Param"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamTypes", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ParamTypes"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateParams", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateParams"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamType", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ParamType"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PathNode", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["PathNode"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PathUtils", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["PathUtils"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resolvePolicies", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["resolvePolicies"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "defaultResolvePolicy", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["defaultResolvePolicy"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Resolvable", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Resolvable"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "NATIVE_INJECTOR_TOKEN", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["NATIVE_INJECTOR_TOKEN"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ResolveContext", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ResolveContext"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resolvablesBuilder", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["resolvablesBuilder"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateBuilder", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateBuilder"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateObject", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateObject"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateMatcher", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateMatcher"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateQueueManager", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateQueueManager"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateRegistry", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateRegistry"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["StateService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TargetState", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TargetState"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionHookPhase", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TransitionHookPhase"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionHookScope", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TransitionHookScope"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HookBuilder", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["HookBuilder"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "matchState", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["matchState"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RegisteredHook", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["RegisteredHook"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "makeEvent", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["makeEvent"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RejectType", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["RejectType"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Rejection", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Rejection"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Transition", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["Transition"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionHook", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TransitionHook"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionEventType", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TransitionEventType"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "defaultTransOpts", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["defaultTransOpts"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TransitionService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["TransitionService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcher", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlMatcher"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamFactory", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ParamFactory"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcherFactory", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlMatcherFactory"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlRouter"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRuleFactory", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlRuleFactory"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["BaseUrlRule"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["UrlService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["ViewService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$q", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["$q"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$injector", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["$injector"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseLocationServices", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["BaseLocationServices"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HashLocationService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["HashLocationService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["MemoryLocationService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PushStateLocationService", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["PushStateLocationService"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["MemoryLocationConfig"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BrowserLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["BrowserLocationConfig"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "keyValsToObjectR", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["keyValsToObjectR"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getParams", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["getParams"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["parseUrl"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "buildUrl", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["buildUrl"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "locationPluginFactory", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["locationPluginFactory"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "servicesPlugin", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["servicesPlugin"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hashLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["hashLocationPlugin"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pushStateLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["pushStateLocationPlugin"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "memoryLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_9__uirouter_core__["memoryLocationPlugin"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(["core","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services__ = __webpack_require__(80);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "watchDigests", function() { return __WEBPACK_IMPORTED_MODULE_1__services__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getLocals", function() { return __WEBPACK_IMPORTED_MODULE_1__services__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__statebuilders_views__ = __webpack_require__(93);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getNg1ViewConfigFactory", function() { return __WEBPACK_IMPORTED_MODULE_2__statebuilders_views__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ng1ViewsBuilder", function() { return __WEBPACK_IMPORTED_MODULE_2__statebuilders_views__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Ng1ViewConfig", function() { return __WEBPACK_IMPORTED_MODULE_2__statebuilders_views__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stateProvider__ = __webpack_require__(138);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StateProvider", function() { return __WEBPACK_IMPORTED_MODULE_3__stateProvider__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__urlRouterProvider__ = __webpack_require__(139);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRouterProvider", function() { return __WEBPACK_IMPORTED_MODULE_4__urlRouterProvider__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__injectables__ = __webpack_require__(268);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__injectables___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__injectables__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__directives_stateDirectives__ = __webpack_require__(269);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__stateFilters__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__directives_viewDirective__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__viewScroll__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__uirouter_core__ = __webpack_require__(11);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "core", function() { return __WEBPACK_IMPORTED_MODULE_10__uirouter_core__; });
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_10__uirouter_core__) if(["core","watchDigests","getLocals","getNg1ViewConfigFactory","ng1ViewsBuilder","Ng1ViewConfig","StateProvider","UrlRouterProvider","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_10__uirouter_core__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/**
+ * Main entry point for angular 1.x build
+ * @publicapi @module ng1
+ */ /** */
+
 
 
 
@@ -15184,11 +15041,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return safeConsole; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(4);
+/**
+ * workaround for missing console object in IE9 when dev tools haven't been opened o_O
+ * @packageDocumentation
+ */
+/* tslint:disable:no-console */
+
+var noopConsoleStub = { log: __WEBPACK_IMPORTED_MODULE_0__common__["E" /* noop */], error: __WEBPACK_IMPORTED_MODULE_0__common__["E" /* noop */], table: __WEBPACK_IMPORTED_MODULE_0__common__["E" /* noop */] };
+function ie9Console(console) {
+    var bound = function (fn) { return Function.prototype.bind.call(fn, console); };
+    return {
+        log: bound(console.log),
+        error: bound(console.log),
+        table: bound(console.log),
+    };
+}
+function fallbackConsole(console) {
+    var log = console.log.bind(console);
+    var error = console.error ? console.error.bind(console) : log;
+    var table = console.table ? console.table.bind(console) : log;
+    return { log: log, error: error, table: table };
+}
+function getSafeConsole() {
+    // @ts-ignore
+    var isIE9 = typeof document !== 'undefined' && document.documentMode && document.documentMode === 9;
+    if (isIE9) {
+        return window && window.console ? ie9Console(window.console) : noopConsoleStub;
+    }
+    else if (!console.table || !console.error) {
+        return fallbackConsole(console);
+    }
+    else {
+        return console;
+    }
+}
+var safeConsole = getSafeConsole();
+//# sourceMappingURL=safeConsole.js.map
+
+/***/ }),
+/* 112 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StateParams; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
-/** @publicapi @module params */ /** */
 
-/** @internalapi */
 var StateParams = /** @class */ (function () {
     function StateParams(params) {
         if (params === void 0) { params = {}; }
@@ -15226,11 +15125,11 @@ var StateParams = /** @class */ (function () {
 //# sourceMappingURL=stateParams.js.map
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(114);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__interface__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__resolvable__ = __webpack_require__(38);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__resolvable__["a"]; });
@@ -15238,19 +15137,17 @@ var StateParams = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resolveContext__ = __webpack_require__(39);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__resolveContext__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__resolveContext__["b"]; });
-/** @publicapi @module resolve */ /** */
 
 
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return resolvePolicies; });
-/** @internalapi */
 var resolvePolicies = {
     when: {
         LAZY: 'LAZY',
@@ -15259,13 +15156,12 @@ var resolvePolicies = {
     async: {
         WAIT: 'WAIT',
         NOWAIT: 'NOWAIT',
-        RXWAIT: 'RXWAIT',
     },
 };
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15277,7 +15173,6 @@ var resolvePolicies = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__resolve_resolvable__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_coreservices__ = __webpack_require__(10);
-/** @publicapi @module state */ /** */
 
 
 
@@ -15305,15 +15200,18 @@ function dataBuilder(state) {
 }
 var getUrlBuilder = function ($urlMatcherFactoryProvider, root) {
     return function urlBuilder(stateObject) {
-        var state = stateObject.self;
+        var stateDec = stateObject.self;
         // For future states, i.e., states whose name ends with `.**`,
         // match anything that starts with the url prefix
-        if (state && state.url && state.name && state.name.match(/\.\*\*$/)) {
-            state.url += '{remainder:any}'; // match any path (.*)
+        if (stateDec && stateDec.url && stateDec.name && stateDec.name.match(/\.\*\*$/)) {
+            var newStateDec = {};
+            Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["m" /* copy */])(stateDec, newStateDec);
+            newStateDec.url += '{remainder:any}'; // match any path (.*)
+            stateDec = newStateDec;
         }
         var parent = stateObject.parent;
-        var parsed = parseUrl(state.url);
-        var url = !parsed ? state.url : $urlMatcherFactoryProvider.compile(parsed.val, { state: state });
+        var parsed = parseUrl(stateDec.url);
+        var url = !parsed ? stateDec.url : $urlMatcherFactoryProvider.compile(parsed.val, { state: stateDec });
         if (!url)
             return null;
         if (!$urlMatcherFactoryProvider.isMatcher(url))
@@ -15445,7 +15343,7 @@ function resolvablesBuilder(state) {
     return items.map(item2Resolvable);
 }
 /**
- * @internalapi A internal global service
+ * A internal global service
  *
  * StateBuilder is a factory for the internal [[StateObject]] objects.
  *
@@ -15487,16 +15385,6 @@ var StateBuilder = /** @class */ (function () {
             resolvables: [resolvablesBuilder],
         };
     }
-    /**
-     * Registers a [[BuilderFunction]] for a specific [[StateObject]] property (e.g., `parent`, `url`, or `path`).
-     * More than one BuilderFunction can be registered for a given property.
-     *
-     * The BuilderFunction(s) will be used to define the property on any subsequently built [[StateObject]] objects.
-     *
-     * @param name The name of the State property being registered for.
-     * @param fn The BuilderFunction which will be used to build the State property
-     * @returns a function which deregisters the BuilderFunction
-     */
     StateBuilder.prototype.builder = function (name, fn) {
         var builders = this.builders;
         var array = builders[name] || [];
@@ -15564,14 +15452,15 @@ var StateBuilder = /** @class */ (function () {
 //# sourceMappingURL=stateBuilder.js.map
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StateMatcher; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_common__ = __webpack_require__(4);
-/** @publicapi @module state */ /** */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_safeConsole__ = __webpack_require__(111);
+
 
 
 var StateMatcher = /** @class */ (function () {
@@ -15598,8 +15487,7 @@ var StateMatcher = /** @class */ (function () {
             var _states = Object(__WEBPACK_IMPORTED_MODULE_1__common_common__["U" /* values */])(this._states);
             var matches = _states.filter(function (_state) { return _state.__stateObjectCache.nameGlob && _state.__stateObjectCache.nameGlob.matches(name); });
             if (matches.length > 1) {
-                // tslint:disable-next-line:no-console
-                console.log("stateMatcher.find: Found multiple matches for " + name + " using glob: ", matches.map(function (match) { return match.name; }));
+                __WEBPACK_IMPORTED_MODULE_2__common_safeConsole__["a" /* safeConsole */].error("stateMatcher.find: Found multiple matches for " + name + " using glob: ", matches.map(function (match) { return match.name; }));
             }
             return matches[0];
         }
@@ -15634,17 +15522,15 @@ var StateMatcher = /** @class */ (function () {
 //# sourceMappingURL=stateMatcher.js.map
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StateQueueManager; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateObject__ = __webpack_require__(87);
-/** @publicapi @module state */ /** */
 
 
-/** @internalapi */
 var StateQueueManager = /** @class */ (function () {
     function StateQueueManager(router, states, builder, listeners) {
         this.router = router;
@@ -15653,7 +15539,6 @@ var StateQueueManager = /** @class */ (function () {
         this.listeners = listeners;
         this.queue = [];
     }
-    /** @internalapi */
     StateQueueManager.prototype.dispose = function () {
         this.queue = [];
     };
@@ -15678,7 +15563,9 @@ var StateQueueManager = /** @class */ (function () {
         var getState = function (name) { return _this.states.hasOwnProperty(name) && _this.states[name]; };
         var notifyListeners = function () {
             if (registered.length) {
-                _this.listeners.forEach(function (listener) { return listener('registered', registered.map(function (s) { return s.self; })); });
+                _this.listeners.forEach(function (listener) {
+                    return listener('registered', registered.map(function (s) { return s.self; }));
+                });
             }
         };
         while (queue.length > 0) {
@@ -15732,34 +15619,39 @@ var StateQueueManager = /** @class */ (function () {
 //# sourceMappingURL=stateQueueManager.js.map
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StateRegistry; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateMatcher__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateBuilder__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateQueueManager__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateMatcher__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateBuilder__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateQueueManager__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_hof__ = __webpack_require__(6);
-/** @publicapi @module state */ /** */
 
 
 
 
 
+/**
+ * A registry for all of the application's [[StateDeclaration]]s
+ *
+ * This API is found at `router.stateRegistry` ([[UIRouter.stateRegistry]])
+ */
 var StateRegistry = /** @class */ (function () {
-    /** @internalapi */
+    /** @internal */
     function StateRegistry(router) {
         this.router = router;
         this.states = {};
+        /** @internal */
         this.listeners = [];
         this.matcher = new __WEBPACK_IMPORTED_MODULE_0__stateMatcher__["a" /* StateMatcher */](this.states);
         this.builder = new __WEBPACK_IMPORTED_MODULE_1__stateBuilder__["a" /* StateBuilder */](this.matcher, router.urlMatcherFactory);
         this.stateQueue = new __WEBPACK_IMPORTED_MODULE_2__stateQueueManager__["a" /* StateQueueManager */](router, this.states, this.builder, this.listeners);
         this._registerRoot();
     }
-    /** @internalapi */
+    /** @internal */
     StateRegistry.prototype._registerRoot = function () {
         var rootStateDef = {
             name: '',
@@ -15773,7 +15665,7 @@ var StateRegistry = /** @class */ (function () {
         var _root = (this._root = this.stateQueue.register(rootStateDef));
         _root.navigable = null;
     };
-    /** @internalapi */
+    /** @internal */
     StateRegistry.prototype.dispose = function () {
         var _this = this;
         this.stateQueue.dispose();
@@ -15843,7 +15735,7 @@ var StateRegistry = /** @class */ (function () {
     StateRegistry.prototype.register = function (stateDefinition) {
         return this.stateQueue.register(stateDefinition);
     };
-    /** @hidden */
+    /** @internal */
     StateRegistry.prototype._deregisterTree = function (state) {
         var _this = this;
         var all = this.get().map(function (s) { return s.$$state(); });
@@ -15879,7 +15771,9 @@ var StateRegistry = /** @class */ (function () {
         if (!_state)
             throw new Error("Can't deregister state; not found: " + stateOrName);
         var deregisteredStates = this._deregisterTree(_state.$$state());
-        this.listeners.forEach(function (listener) { return listener('deregistered', deregisteredStates.map(function (s) { return s.self; })); });
+        this.listeners.forEach(function (listener) {
+            return listener('deregistered', deregisteredStates.map(function (s) { return s.self; }));
+        });
         return deregisteredStates;
     };
     StateRegistry.prototype.get = function (stateOrName, base) {
@@ -15889,8 +15783,18 @@ var StateRegistry = /** @class */ (function () {
         var found = this.matcher.find(stateOrName, base);
         return (found && found.self) || null;
     };
-    StateRegistry.prototype.decorator = function (name, func) {
-        return this.builder.builder(name, func);
+    /**
+     * Registers a [[BuilderFunction]] for a specific [[StateObject]] property (e.g., `parent`, `url`, or `path`).
+     * More than one BuilderFunction can be registered for a given property.
+     *
+     * The BuilderFunction(s) will be used to define the property on any subsequently built [[StateObject]] objects.
+     *
+     * @param property The name of the State property being registered for.
+     * @param builderFunction The BuilderFunction which will be used to build the State property
+     * @returns a function which deregisters the BuilderFunction
+     */
+    StateRegistry.prototype.decorator = function (property, builderFunction) {
+        return this.builder.builder(property, builderFunction);
     };
     return StateRegistry;
 }());
@@ -15898,7 +15802,7 @@ var StateRegistry = /** @class */ (function () {
 //# sourceMappingURL=stateRegistry.js.map
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15915,9 +15819,8 @@ var StateRegistry = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__params_param__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__common_glob__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__resolve_resolveContext__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__hooks_lazyLoad__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__hooks_lazyLoad__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__common_hof__ = __webpack_require__(6);
-/** @publicapi @module state */ /** */
 
 
 
@@ -15933,18 +15836,17 @@ var StateRegistry = /** @class */ (function () {
 
 
 /**
- * Provides state related service functions
+ * Provides services related to ui-router states.
  *
- * This class provides services related to ui-router states.
- * An instance of this class is located on the global [[UIRouter]] object.
+ * This API is located at `router.stateService` ([[UIRouter.stateService]])
  */
 var StateService = /** @class */ (function () {
-    /** @internalapi */
-    function StateService(/** @hidden */ router) {
+    /** @internal */
+    function StateService(/** @internal */ router) {
         this.router = router;
-        /** @internalapi */
+        /** @internal */
         this.invalidCallbacks = [];
-        /** @hidden */
+        /** @internal */
         this._defaultErrorHandler = function $defaultErrorHandler($error$) {
             if ($error$ instanceof Error && $error$.stack) {
                 console.error($error$);
@@ -15967,51 +15869,51 @@ var StateService = /** @class */ (function () {
         /**
          * The [[Transition]] currently in progress (or null)
          *
-         * This is a passthrough through to [[UIRouterGlobals.transition]]
+         * @deprecated This is a passthrough through to [[UIRouterGlobals.transition]]
          */
         get: function () {
             return this.router.globals.transition;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StateService.prototype, "params", {
         /**
          * The latest successful state parameters
          *
-         * This is a passthrough through to [[UIRouterGlobals.params]]
+         * @deprecated This is a passthrough through to [[UIRouterGlobals.params]]
          */
         get: function () {
             return this.router.globals.params;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StateService.prototype, "current", {
         /**
          * The current [[StateDeclaration]]
          *
-         * This is a passthrough through to [[UIRouterGlobals.current]]
+         * @deprecated This is a passthrough through to [[UIRouterGlobals.current]]
          */
         get: function () {
             return this.router.globals.current;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StateService.prototype, "$current", {
         /**
-         * The current [[StateObject]]
+         * The current [[StateObject]] (an internal API)
          *
-         * This is a passthrough through to [[UIRouterGlobals.$current]]
+         * @deprecated This is a passthrough through to [[UIRouterGlobals.$current]]
          */
         get: function () {
             return this.router.globals.$current;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
-    /** @internalapi */
+    /** @internal */
     StateService.prototype.dispose = function () {
         this.defaultErrorHandler(__WEBPACK_IMPORTED_MODULE_0__common_common__["E" /* noop */]);
         this.invalidCallbacks = [];
@@ -16025,7 +15927,7 @@ var StateService = /** @class */ (function () {
      *
      * If a callback returns an TargetState, then it is used as arguments to $state.transitionTo() and the result returned.
      *
-     * @internalapi
+     * @internal
      */
     StateService.prototype._handleInvalidTargetState = function (fromPath, toState) {
         var _this = this;
@@ -16204,6 +16106,7 @@ var StateService = /** @class */ (function () {
             throw new Error("No such reload state '" + (Object(__WEBPACK_IMPORTED_MODULE_1__common_predicates__["l" /* isString */])(options.reload) ? options.reload : options.reload.name) + "'");
         return new __WEBPACK_IMPORTED_MODULE_8__targetState__["a" /* TargetState */](this.router.stateRegistry, identifier, params, options);
     };
+    /** @internal */
     StateService.prototype.getCurrentPath = function () {
         var _this = this;
         var globals = this.router.globals;
@@ -16249,6 +16152,9 @@ var StateService = /** @class */ (function () {
             return this._handleInvalidTargetState(currentPath, ref);
         if (!ref.valid())
             return Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["O" /* silentRejection */])(ref.error());
+        if (options.supercede === false && getCurrent()) {
+            return (__WEBPACK_IMPORTED_MODULE_7__transition_rejectFactory__["b" /* Rejection */].ignored('Another transition is in progress and supercede has been set to false in TransitionOptions for the transition. So the transition was ignored in favour of the existing one in progress.').toPromise());
+        }
         /**
          * Special handling for Ignored, Aborted, and Redirected transitions
          *
@@ -16260,7 +16166,7 @@ var StateService = /** @class */ (function () {
          */
         var rejectedTransitionHandler = function (trans) { return function (error) {
             if (error instanceof __WEBPACK_IMPORTED_MODULE_7__transition_rejectFactory__["b" /* Rejection */]) {
-                var isLatest = router.globals.lastStartedTransitionId === trans.$id;
+                var isLatest = router.globals.lastStartedTransitionId <= trans.$id;
                 if (error.type === __WEBPACK_IMPORTED_MODULE_7__transition_rejectFactory__["a" /* RejectType */].IGNORED) {
                     isLatest && router.urlRouter.update();
                     // Consider ignored `Transition.run()` as a successful `transitionTo`
@@ -16483,7 +16389,7 @@ var StateService = /** @class */ (function () {
 //# sourceMappingURL=stateService.js.map
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16492,7 +16398,6 @@ var StateService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__interface__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__transitionHook__ = __webpack_require__(32);
-/** @publicapi @module transition */ /** */
 
 
 
@@ -16509,7 +16414,6 @@ var StateService = /** @class */ (function () {
  * The HookBuilder constructor is given the $transitions service and a Transition instance.  Thus, a HookBuilder
  * instance may only be used for one specific Transition object. (side note: the _treeChanges accessor is private
  * in the Transition class, so we must also provide the Transition's _treeChanges)
- *
  */
 var HookBuilder = /** @class */ (function () {
     function HookBuilder(transition) {
@@ -16537,7 +16441,7 @@ var HookBuilder = /** @class */ (function () {
         var transition = this.transition;
         var treeChanges = transition.treeChanges();
         // Find all the matching registered hooks for a given hook type
-        var matchingHooks = this.getMatchingHooks(hookType, treeChanges);
+        var matchingHooks = this.getMatchingHooks(hookType, treeChanges, transition);
         if (!matchingHooks)
             return [];
         var baseHookOptions = {
@@ -16546,7 +16450,7 @@ var HookBuilder = /** @class */ (function () {
         };
         var makeTransitionHooks = function (hook) {
             // Fetch the Nodes that caused this hook to match.
-            var matches = hook.matches(treeChanges);
+            var matches = hook.matches(treeChanges, transition);
             // Select the PathNode[] that will be used as TransitionHook context objects
             var matchingNodes = matches[hookType.criteriaMatchPath.name];
             // Return an array of HookTuples
@@ -16577,7 +16481,7 @@ var HookBuilder = /** @class */ (function () {
      *
      * @returns an array of matched [[RegisteredHook]]s
      */
-    HookBuilder.prototype.getMatchingHooks = function (hookType, treeChanges) {
+    HookBuilder.prototype.getMatchingHooks = function (hookType, treeChanges, transition) {
         var isCreate = hookType.hookPhase === __WEBPACK_IMPORTED_MODULE_2__interface__["a" /* TransitionHookPhase */].CREATE;
         // Instance and Global hook registries
         var $transitions = this.transition.router.transitionService;
@@ -16586,7 +16490,7 @@ var HookBuilder = /** @class */ (function () {
             .map(function (reg) { return reg.getHooks(hookType.name); }) // Get named hooks from registries
             .filter(Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["l" /* assertPredicate */])(__WEBPACK_IMPORTED_MODULE_1__common_predicates__["a" /* isArray */], "broken event named: " + hookType.name)) // Sanity check
             .reduce(__WEBPACK_IMPORTED_MODULE_0__common_common__["T" /* unnestR */], []) // Un-nest RegisteredHook[][] to RegisteredHook[] array
-            .filter(function (hook) { return hook.matches(treeChanges); }); // Only those satisfying matchCriteria
+            .filter(function (hook) { return hook.matches(treeChanges, transition); }); // Only those satisfying matchCriteria
     };
     return HookBuilder;
 }());
@@ -16611,24 +16515,23 @@ function tupleSort(reverseDepthSort) {
 //# sourceMappingURL=hookBuilder.js.map
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UIRouter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__url_urlMatcherFactory__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__url_urlRouter__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__url_urlMatcherFactory__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__url_urlRouter__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transition_transitionService__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__view_view__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_stateRegistry__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__state_stateService__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__globals__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__view_view__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_stateRegistry__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__state_stateService__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__globals__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_predicates__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__url_urlService__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__url_urlService__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__common_trace__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__common__ = __webpack_require__(7);
-/** @publicapi @module core */ /** */
 
 
 
@@ -16641,30 +16544,20 @@ function tupleSort(reverseDepthSort) {
 
 
 
-/** @hidden */
+/** @internal */
 var _routerInstance = 0;
-/** @hidden */
+/** @internal */
 var locSvcFns = ['url', 'path', 'search', 'hash', 'onChange'];
-/** @hidden */
+/** @internal */
 var locCfgFns = ['port', 'protocol', 'host', 'baseHref', 'html5Mode', 'hashPrefix'];
-/** @hidden */
+/** @internal */
 var locationServiceStub = Object(__WEBPACK_IMPORTED_MODULE_11__common__["_6" /* makeStub */])('LocationServices', locSvcFns);
-/** @hidden */
+/** @internal */
 var locationConfigStub = Object(__WEBPACK_IMPORTED_MODULE_11__common__["_6" /* makeStub */])('LocationConfig', locCfgFns);
 /**
- * The master class used to instantiate an instance of UI-Router.
+ * An instance of UI-Router.
  *
- * UI-Router (for each specific framework) will create an instance of this class during bootstrap.
- * This class instantiates and wires the UI-Router services together.
- *
- * After a new instance of the UIRouter class is created, it should be configured for your app.
- * For instance, app states should be registered with the [[UIRouter.stateRegistry]].
- *
- * ---
- *
- * Normally the framework code will bootstrap UI-Router.
- * If you are bootstrapping UIRouter manually, tell it to monitor the URL by calling
- * [[UrlService.listen]] then [[UrlService.sync]].
+ * This object contains references to service APIs which define your application's routing behavior.
  */
 var UIRouter = /** @class */ (function () {
     /**
@@ -16672,23 +16565,23 @@ var UIRouter = /** @class */ (function () {
      *
      * @param locationService a [[LocationServices]] implementation
      * @param locationConfig a [[LocationConfig]] implementation
-     * @internalapi
+     * @internal
      */
     function UIRouter(locationService, locationConfig) {
         if (locationService === void 0) { locationService = locationServiceStub; }
         if (locationConfig === void 0) { locationConfig = locationConfigStub; }
         this.locationService = locationService;
         this.locationConfig = locationConfig;
-        /** @hidden */ this.$id = _routerInstance++;
-        /** @hidden */ this._disposed = false;
-        /** @hidden */ this._disposables = [];
-        /** Provides trace information to the console */
+        /** @internal */ this.$id = _routerInstance++;
+        /** @internal */ this._disposed = false;
+        /** @internal */ this._disposables = [];
+        /** Enable/disable tracing to the javascript console */
         this.trace = __WEBPACK_IMPORTED_MODULE_10__common_trace__["c" /* trace */];
         /** Provides services related to ui-view synchronization */
         this.viewService = new __WEBPACK_IMPORTED_MODULE_3__view_view__["a" /* ViewService */](this);
-        /** Global router state */
+        /** An object that contains global router state, such as the current state and params */
         this.globals = new __WEBPACK_IMPORTED_MODULE_6__globals__["a" /* UIRouterGlobals */]();
-        /** Provides services related to Transitions */
+        /** A service that exposes global Transition Hooks */
         this.transitionService = new __WEBPACK_IMPORTED_MODULE_2__transition_transitionService__["a" /* TransitionService */](this);
         /**
          * Deprecated for public use. Use [[urlService]] instead.
@@ -16706,7 +16599,7 @@ var UIRouter = /** @class */ (function () {
         this.stateRegistry = new __WEBPACK_IMPORTED_MODULE_4__state_stateRegistry__["a" /* StateRegistry */](this);
         /** Provides services related to states */
         this.stateService = new __WEBPACK_IMPORTED_MODULE_5__state_stateService__["a" /* StateService */](this);
-        /** @hidden plugin instances are registered here */
+        /** @internal plugin instances are registered here */
         this._plugins = {};
         this.viewService._pluginapi._rootViewContext(this.stateRegistry.root());
         this.globals.$current = this.stateRegistry.root();
@@ -16731,6 +16624,7 @@ var UIRouter = /** @class */ (function () {
      *
      * Or, if a `disposable` object is provided, calls `dispose(this)` on that object only.
      *
+     * @internal
      * @param disposable (optional) the disposable to dispose
      */
     UIRouter.prototype.dispose = function (disposable) {
@@ -16818,7 +16712,7 @@ var UIRouter = /** @class */ (function () {
 //# sourceMappingURL=router.js.map
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16827,31 +16721,32 @@ var UIRouter = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlMatcher__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__params__ = __webpack_require__(83);
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
-/** @publicapi @module url */ /** */
 
 
 
-/** @internalapi */
 var ParamFactory = /** @class */ (function () {
     function ParamFactory(router) {
         this.router = router;
     }
     ParamFactory.prototype.fromConfig = function (id, type, state) {
-        return new __WEBPACK_IMPORTED_MODULE_2__params__["b" /* Param */](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["a" /* DefType */].CONFIG, this.router.urlService.config, state);
+        return new __WEBPACK_IMPORTED_MODULE_2__params__["Param"](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["DefType"].CONFIG, this.router.urlService.config, state);
     };
     ParamFactory.prototype.fromPath = function (id, type, state) {
-        return new __WEBPACK_IMPORTED_MODULE_2__params__["b" /* Param */](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["a" /* DefType */].PATH, this.router.urlService.config, state);
+        return new __WEBPACK_IMPORTED_MODULE_2__params__["Param"](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["DefType"].PATH, this.router.urlService.config, state);
     };
     ParamFactory.prototype.fromSearch = function (id, type, state) {
-        return new __WEBPACK_IMPORTED_MODULE_2__params__["b" /* Param */](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["a" /* DefType */].SEARCH, this.router.urlService.config, state);
+        return new __WEBPACK_IMPORTED_MODULE_2__params__["Param"](id, type, __WEBPACK_IMPORTED_MODULE_2__params__["DefType"].SEARCH, this.router.urlService.config, state);
     };
     return ParamFactory;
 }());
@@ -16861,16 +16756,17 @@ var ParamFactory = /** @class */ (function () {
  *
  * The factory is available to ng1 services as
  * `$urlMatcherFactory` or ng1 providers as `$urlMatcherFactoryProvider`.
- *
- * @internalapi
  */
 var UrlMatcherFactory = /** @class */ (function () {
     // TODO: move implementations to UrlConfig (urlService.config)
-    function UrlMatcherFactory(/** @hidden */ router) {
+    function UrlMatcherFactory(/** @internal */ router) {
         var _this = this;
         this.router = router;
-        /** @internalapi Creates a new [[Param]] for a given location (DefType) */
+        /** Creates a new [[Param]] for a given location (DefType) */
         this.paramFactory = new ParamFactory(this.router);
+        // TODO: Check if removal of this will break anything, then remove these
+        this.UrlMatcher = __WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a" /* UrlMatcher */];
+        this.Param = __WEBPACK_IMPORTED_MODULE_2__params__["Param"];
         /** @deprecated use [[UrlConfig.caseInsensitive]] */
         this.caseInsensitive = function (value) { return _this.router.urlService.config.caseInsensitive(value); };
         /** @deprecated use [[UrlConfig.defaultSquashPolicy]] */
@@ -16881,7 +16777,6 @@ var UrlMatcherFactory = /** @class */ (function () {
         this.type = function (name, definition, definitionFn) {
             return _this.router.urlService.config.type(name, definition, definitionFn) || _this;
         };
-        Object(__WEBPACK_IMPORTED_MODULE_0__common__["C" /* extend */])(this, { UrlMatcher: __WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a" /* UrlMatcher */], Param: __WEBPACK_IMPORTED_MODULE_2__params__["b" /* Param */] });
     }
     /**
      * Creates a [[UrlMatcher]] for the specified pattern.
@@ -16895,7 +16790,11 @@ var UrlMatcherFactory = /** @class */ (function () {
         // backward-compatible support for config.params -> config.state.params
         var params = config && !config.state && config.params;
         config = params ? __assign({ state: { params: params } }, config) : config;
-        var globalConfig = { strict: urlConfig._isStrictMode, caseInsensitive: urlConfig._isCaseInsensitive };
+        var globalConfig = {
+            strict: urlConfig._isStrictMode,
+            caseInsensitive: urlConfig._isCaseInsensitive,
+            decodeParams: urlConfig._decodeParams,
+        };
         return new __WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a" /* UrlMatcher */](pattern, urlConfig.paramTypes, this.paramFactory, Object(__WEBPACK_IMPORTED_MODULE_0__common__["C" /* extend */])(globalConfig, config));
     };
     /**
@@ -16912,11 +16811,11 @@ var UrlMatcherFactory = /** @class */ (function () {
         var result = true;
         Object(__WEBPACK_IMPORTED_MODULE_0__common__["I" /* forEach */])(__WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a" /* UrlMatcher */].prototype, function (val, name) {
             if (Object(__WEBPACK_IMPORTED_MODULE_0__common__["U" /* isFunction */])(val))
-                result = result && (Object(__WEBPACK_IMPORTED_MODULE_0__common__["T" /* isDefined */])(object[name]) && Object(__WEBPACK_IMPORTED_MODULE_0__common__["U" /* isFunction */])(object[name]));
+                result = result && Object(__WEBPACK_IMPORTED_MODULE_0__common__["T" /* isDefined */])(object[name]) && Object(__WEBPACK_IMPORTED_MODULE_0__common__["U" /* isFunction */])(object[name]);
         });
         return result;
     };
-    /** @hidden */
+    /** @internal */
     UrlMatcherFactory.prototype.$get = function () {
         var urlConfig = this.router.urlService.config;
         urlConfig.paramTypes.enqueue = false;
@@ -16929,17 +16828,15 @@ var UrlMatcherFactory = /** @class */ (function () {
 //# sourceMappingURL=urlMatcherFactory.js.map
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UrlRouter; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlRule__ = __webpack_require__(91);
-/** @publicapi @module url */ /** */
 
 
-/** @hidden */
 function appendBasePath(url, isHtml5, absolute, baseHref) {
     if (baseHref === '/')
         return url;
@@ -16956,12 +16853,10 @@ function appendBasePath(url, isHtml5, absolute, baseHref) {
  * This class is now considered to be an internal API
  * Use the [[UrlService]] instead.
  * For configuring URL rules, use the [[UrlRules]] which can be found as [[UrlService.rules]].
- *
- * @internalapi
  */
 var UrlRouter = /** @class */ (function () {
-    /** @hidden */
-    function UrlRouter(/** @hidden */ router) {
+    /** @internal */
+    function UrlRouter(/** @internal */ router) {
         var _this = this;
         this.router = router;
         // Delegate these calls to [[UrlService]]
@@ -16994,10 +16889,7 @@ var UrlRouter = /** @class */ (function () {
         this.when = function (matcher, handler, options) { return _this.router.urlService.rules.when(matcher, handler, options); };
         this.urlRuleFactory = new __WEBPACK_IMPORTED_MODULE_1__urlRule__["b" /* UrlRuleFactory */](router);
     }
-    /**
-     * Internal API.
-     * @internalapi
-     */
+    /** Internal API. */
     UrlRouter.prototype.update = function (read) {
         var $url = this.router.locationService;
         if (read) {
@@ -17013,7 +16905,7 @@ var UrlRouter = /** @class */ (function () {
      *
      * Pushes a new location to the browser history.
      *
-     * @internalapi
+     * @internal
      * @param urlMatcher
      * @param params
      * @param options
@@ -17065,7 +16957,7 @@ var UrlRouter = /** @class */ (function () {
         get: function () {
             return this.router.urlService.interceptDeferred;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return UrlRouter;
@@ -17074,7 +16966,7 @@ var UrlRouter = /** @class */ (function () {
 //# sourceMappingURL=urlRouter.js.map
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17083,7 +16975,6 @@ var UrlRouter = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_trace__ = __webpack_require__(17);
-/** @publicapi @module view */ /** */
 
 
 
@@ -17105,15 +16996,15 @@ var UrlRouter = /** @class */ (function () {
  *
  */
 var ViewService = /** @class */ (function () {
-    /** @hidden */
-    function ViewService(/** @hidden */ router) {
+    /** @internal */
+    function ViewService(/** @internal */ router) {
         var _this = this;
         this.router = router;
-        /** @hidden */ this._uiViews = [];
-        /** @hidden */ this._viewConfigs = [];
-        /** @hidden */ this._viewConfigFactories = {};
-        /** @hidden */ this._listeners = [];
-        /** @internalapi */
+        /** @internal */ this._uiViews = [];
+        /** @internal */ this._viewConfigs = [];
+        /** @internal */ this._viewConfigFactories = {};
+        /** @internal */ this._listeners = [];
+        /** @internal */
         this._pluginapi = {
             _rootViewContext: this._rootViewContext.bind(this),
             _viewConfigFactory: this._viewConfigFactory.bind(this),
@@ -17168,11 +17059,11 @@ var ViewService = /** @class */ (function () {
         }
         return { uiViewName: uiViewName, uiViewContextAnchor: uiViewContextAnchor };
     };
-    /** @hidden */
+    /** @internal */
     ViewService.prototype._rootViewContext = function (context) {
         return (this._rootContext = context || this._rootContext);
     };
-    /** @hidden */
+    /** @internal */
     ViewService.prototype._viewConfigFactory = function (viewType, factory) {
         this._viewConfigFactories[viewType] = factory;
     };
@@ -17349,7 +17240,7 @@ var ViewService = /** @class */ (function () {
      * - And the remaining segments [ "$default", "bar" ].join("."_ of the ViewConfig's target name match
      *   the tail of the ui-view's fqn "default.bar"
      *
-     * @internalapi
+     * @internal
      */
     ViewService.matches = function (uiViewsByFqn, uiView) { return function (viewConfig) {
         // Don't supply an ng1 ui-view with an ng2 ViewConfig, etc
@@ -17376,14 +17267,13 @@ var ViewService = /** @class */ (function () {
 //# sourceMappingURL=view.js.map
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UIRouterGlobals; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__params_stateParams__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__params_stateParams__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_queue__ = __webpack_require__(82);
-/** @publicapi @module core */ /** */
 
 
 /**
@@ -17400,11 +17290,11 @@ var UIRouterGlobals = /** @class */ (function () {
          * The parameter values from the latest successful transition
          */
         this.params = new __WEBPACK_IMPORTED_MODULE_0__params_stateParams__["a" /* StateParams */]();
-        /** @internalapi */
+        /** @internal */
         this.lastStartedTransitionId = -1;
-        /** @internalapi */
+        /** @internal */
         this.transitionHistory = new __WEBPACK_IMPORTED_MODULE_1__common_queue__["a" /* Queue */]([], 1);
-        /** @internalapi */
+        /** @internal */
         this.successfulTransitions = new __WEBPACK_IMPORTED_MODULE_1__common_queue__["a" /* Queue */]([], 1);
     }
     UIRouterGlobals.prototype.dispose = function () {
@@ -17418,26 +17308,28 @@ var UIRouterGlobals = /** @class */ (function () {
 //# sourceMappingURL=globals.js.map
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UrlService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlRules__ = __webpack_require__(126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__urlConfig__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlRules__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__urlConfig__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(86);
 
 
 
 
-/** API for URL management */
+/**
+ * API for URL management
+ */
 var UrlService = /** @class */ (function () {
-    /** @hidden */
-    function UrlService(/** @hidden */ router) {
+    /** @internal */
+    function UrlService(/** @internal */ router) {
         var _this = this;
         this.router = router;
-        /** @hidden */ this.interceptDeferred = false;
+        /** @internal */ this.interceptDeferred = false;
         /**
          * The nested [[UrlRules]] API for managing URL rules and rewrites
          *
@@ -17531,7 +17423,7 @@ var UrlService = /** @class */ (function () {
          */
         this.hash = function () { return _this.router.locationService.hash(); };
         /**
-         * @internalapi
+         * @internal
          *
          * Registers a low level url change handler
          *
@@ -17547,7 +17439,7 @@ var UrlService = /** @class */ (function () {
          */
         this.onChange = function (callback) { return _this.router.locationService.onChange(callback); };
     }
-    /** @hidden */
+    /** @internal */
     UrlService.prototype.dispose = function () {
         this.listen(false);
         this.rules.dispose();
@@ -17588,8 +17480,8 @@ var UrlService = /** @class */ (function () {
         var best = this.match(url);
         var applyResult = Object(__WEBPACK_IMPORTED_MODULE_0__common__["_18" /* pattern */])([
             [__WEBPACK_IMPORTED_MODULE_0__common__["_2" /* isString */], function (newurl) { return urlService.url(newurl, true); }],
-            [__WEBPACK_IMPORTED_MODULE_3__state__["g" /* TargetState */].isDef, function (def) { return stateService.go(def.state, def.params, def.options); }],
-            [Object(__WEBPACK_IMPORTED_MODULE_0__common__["Q" /* is */])(__WEBPACK_IMPORTED_MODULE_3__state__["g" /* TargetState */]), function (target) { return stateService.go(target.state(), target.params(), target.options()); }],
+            [__WEBPACK_IMPORTED_MODULE_3__state__["TargetState"].isDef, function (def) { return stateService.go(def.state, def.params, def.options); }],
+            [Object(__WEBPACK_IMPORTED_MODULE_0__common__["Q" /* is */])(__WEBPACK_IMPORTED_MODULE_3__state__["TargetState"]), function (target) { return stateService.go(target.state(), target.params(), target.options()); }],
         ]);
         applyResult(best && best.rule.handler(best.match, url, this.router));
     };
@@ -17622,7 +17514,8 @@ var UrlService = /** @class */ (function () {
             delete this._stopListeningFn;
         }
         else {
-            return (this._stopListeningFn = this._stopListeningFn || this.router.urlService.onChange(function (evt) { return _this.sync(evt); }));
+            return (this._stopListeningFn =
+                this._stopListeningFn || this.router.urlService.onChange(function (evt) { return _this.sync(evt); }));
         }
     };
     /**
@@ -17690,7 +17583,7 @@ var UrlService = /** @class */ (function () {
 //# sourceMappingURL=urlService.js.map
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17703,18 +17596,14 @@ var UrlService = /** @class */ (function () {
 
 
 
-/** @hidden */
 var prioritySort = function (a, b) { return (b.priority || 0) - (a.priority || 0); };
-/** @hidden */
 var typeSort = function (a, b) {
     var weights = { STATE: 4, URLMATCHER: 4, REGEXP: 3, RAW: 2, OTHER: 1 };
     return (weights[a.type] || 0) - (weights[b.type] || 0);
 };
-/** @hidden */
 var urlMatcherSort = function (a, b) {
     return !a.urlMatcher || !b.urlMatcher ? 0 : __WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a" /* UrlMatcher */].compare(a.urlMatcher, b.urlMatcher);
 };
-/** @hidden */
 var idSort = function (a, b) {
     // Identically sorted STATE and URLMATCHER best rule will be chosen by `matchPriority` after each rule matches the URL
     var useMatchPriority = { STATE: true, URLMATCHER: true };
@@ -17732,8 +17621,6 @@ var idSort = function (a, b) {
  * - Rule registration order (for rule types other than STATE and URLMATCHER)
  *   - Equally sorted State and UrlMatcher rules will each match the URL.
  *     Then, the *best* match is chosen based on how many parameter values were matched.
- *
- * @publicapi
  */
 var defaultRuleSortFn;
 defaultRuleSortFn = function (a, b) {
@@ -17748,9 +17635,8 @@ defaultRuleSortFn = function (a, b) {
         return cmp;
     return idSort(a, b);
 };
-/** @hidden */
 function getHandlerFn(handler) {
-    if (!Object(__WEBPACK_IMPORTED_MODULE_2__common__["U" /* isFunction */])(handler) && !Object(__WEBPACK_IMPORTED_MODULE_2__common__["_2" /* isString */])(handler) && !Object(__WEBPACK_IMPORTED_MODULE_2__common__["Q" /* is */])(__WEBPACK_IMPORTED_MODULE_0__state__["g" /* TargetState */])(handler) && !__WEBPACK_IMPORTED_MODULE_0__state__["g" /* TargetState */].isDef(handler)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_2__common__["U" /* isFunction */])(handler) && !Object(__WEBPACK_IMPORTED_MODULE_2__common__["_2" /* isString */])(handler) && !Object(__WEBPACK_IMPORTED_MODULE_2__common__["Q" /* is */])(__WEBPACK_IMPORTED_MODULE_0__state__["TargetState"])(handler) && !__WEBPACK_IMPORTED_MODULE_0__state__["TargetState"].isDef(handler)) {
         throw new Error("'handler' must be a string, function, TargetState, or have a state: 'newtarget' property");
     }
     return Object(__WEBPACK_IMPORTED_MODULE_2__common__["U" /* isFunction */])(handler) ? handler : Object(__WEBPACK_IMPORTED_MODULE_2__common__["_44" /* val */])(handler);
@@ -17763,20 +17649,18 @@ function getHandlerFn(handler) {
  *
  * The most commonly used methods are [[otherwise]] and [[when]].
  *
- * This API is a property of [[UrlService]] as [[UrlService.rules]]
- *
- * @publicapi
+ * This API is found at `router.urlService.rules` (see: [[UIRouter.urlService]], [[URLService.rules]])
  */
 var UrlRules = /** @class */ (function () {
-    /** @hidden */
-    function UrlRules(/** @hidden */ router) {
+    /** @internal */
+    function UrlRules(/** @internal */ router) {
         this.router = router;
-        /** @hidden */ this._sortFn = defaultRuleSortFn;
-        /** @hidden */ this._rules = [];
-        /** @hidden */ this._id = 0;
+        /** @internal */ this._sortFn = defaultRuleSortFn;
+        /** @internal */ this._rules = [];
+        /** @internal */ this._id = 0;
         this.urlRuleFactory = new __WEBPACK_IMPORTED_MODULE_3__urlRule__["b" /* UrlRuleFactory */](router);
     }
-    /** @hidden */
+    /** @internal */
     UrlRules.prototype.dispose = function (router) {
         this._rules = [];
         delete this._otherwiseFn;
@@ -17965,11 +17849,11 @@ var UrlRules = /** @class */ (function () {
         this._rules = sorted;
         this._sorted = true;
     };
-    /** @hidden */
+    /** @internal */
     UrlRules.prototype.ensureSorted = function () {
         this._sorted || this.sort();
     };
-    /** @hidden */
+    /** @internal */
     UrlRules.prototype.stableSort = function (arr, compareFn) {
         var arrOfWrapper = arr.map(function (elem, idx) { return ({ elem: elem, idx: idx }); });
         arrOfWrapper.sort(function (wrapperA, wrapperB) {
@@ -18050,7 +17934,7 @@ var UrlRules = /** @class */ (function () {
 //# sourceMappingURL=urlRules.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18070,17 +17954,18 @@ var UrlRules = /** @class */ (function () {
  * This information can be used to build absolute URLs, such as
  * `https://example.com:443/basepath/state/substate?param1=a#hashvalue`;
  *
- * This API is a property of [[UrlService]] as [[UrlService.config]].
+ * This API is found at `router.urlService.config` (see: [[UIRouter.urlService]], [[URLService.config]])
  */
 var UrlConfig = /** @class */ (function () {
-    /** @hidden */ function UrlConfig(/** @hidden */ router) {
+    /** @internal */ function UrlConfig(/** @internal */ router) {
         var _this = this;
         this.router = router;
-        /** @hidden */ this.paramTypes = new __WEBPACK_IMPORTED_MODULE_0__params__["d" /* ParamTypes */]();
-        /** @hidden */ this._isCaseInsensitive = false;
-        /** @hidden */ this._isStrictMode = true;
-        /** @hidden */ this._defaultSquashPolicy = false;
-        /** @internalapi */ this.dispose = function () { return _this.paramTypes.dispose(); };
+        /** @internal */ this.paramTypes = new __WEBPACK_IMPORTED_MODULE_0__params__["ParamTypes"]();
+        /** @internal */ this._decodeParams = true;
+        /** @internal */ this._isCaseInsensitive = false;
+        /** @internal */ this._isStrictMode = true;
+        /** @internal */ this._defaultSquashPolicy = false;
+        /** @internal */ this.dispose = function () { return _this.paramTypes.dispose(); };
         // Delegate these calls to the current LocationConfig implementation
         /**
          * Gets the base Href, e.g., `http://localhost/approot/`
@@ -18215,7 +18100,7 @@ var UrlConfig = /** @class */ (function () {
 //# sourceMappingURL=urlConfig.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18241,7 +18126,7 @@ var UrlConfig = /** @class */ (function () {
  * ```
  * .state('abc', {
  *   component: 'fooComponent',
- *   lazyLoad: () => System.import('./fooComponent')
+ *   lazyLoad: () => import('./fooComponent')
  *   });
  * ```
  *
@@ -18319,7 +18204,7 @@ function lazyLoadState(transition, state) {
 //# sourceMappingURL=lazyLoad.js.map
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18329,8 +18214,6 @@ function lazyLoadState(transition, state) {
 /**
  * This class defines a type of hook, such as `onBefore` or `onEnter`.
  * Plugins can define custom hook types, such as sticky states does for `onInactive`.
- *
- * @interalapi
  */
 var TransitionEventType = /** @class */ (function () {
     /* tslint:disable:no-inferrable-types */
@@ -18354,13 +18237,12 @@ var TransitionEventType = /** @class */ (function () {
 //# sourceMappingURL=transitionEventType.js.map
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return $q; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_index__ = __webpack_require__(7);
-/** @internalapi @module vanilla */ /** */
 
 /**
  * An angular1-like promise api
@@ -18417,13 +18299,12 @@ var $q = {
 //# sourceMappingURL=q.js.map
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return $injector; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_index__ = __webpack_require__(7);
-/** @internalapi @module vanilla */ /** */
 
 // globally available injectables
 var globals = {};
@@ -18519,7 +18400,7 @@ var $injector = {
 //# sourceMappingURL=injector.js.map
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18527,16 +18408,18 @@ var $injector = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseLocationService__ = __webpack_require__(41);
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/** @internalapi @module vanilla */ /** */
 
 
 /** A `LocationServices` that uses the browser hash "#" to get/set the current location */
@@ -18563,23 +18446,25 @@ var HashLocationService = /** @class */ (function (_super) {
 //# sourceMappingURL=hashLocationService.js.map
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MemoryLocationService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseLocationService__ = __webpack_require__(41);
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/** @internalapi @module vanilla */ /** */
 
 /** A `LocationServices` that gets/sets the current location from an in-memory object */
 var MemoryLocationService = /** @class */ (function (_super) {
@@ -18599,7 +18484,7 @@ var MemoryLocationService = /** @class */ (function (_super) {
 //# sourceMappingURL=memoryLocationService.js.map
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18607,9 +18492,12 @@ var MemoryLocationService = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseLocationService__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common__ = __webpack_require__(7);
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -18681,7 +18569,7 @@ var PushStateLocationService = /** @class */ (function (_super) {
 //# sourceMappingURL=pushStateLocationService.js.map
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18713,14 +18601,12 @@ var MemoryLocationConfig = /** @class */ (function () {
 //# sourceMappingURL=memoryLocationConfig.js.map
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BrowserLocationConfig; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_predicates__ = __webpack_require__(5);
-/** @internalapi @module vanilla */
-/** */
 
 /** A `LocationConfig` that delegates to the browser's `location` object */
 var BrowserLocationConfig = /** @class */ (function () {
@@ -18758,7 +18644,7 @@ var BrowserLocationConfig = /** @class */ (function () {
     BrowserLocationConfig.prototype.getBaseHref = function () {
         var baseTag = document.getElementsByTagName('base')[0];
         if (baseTag && baseTag.href) {
-            return baseTag.href.replace(/^(https?:)?\/\/[^/]*/, '');
+            return baseTag.href.replace(/^([^/:]*:)?\/\/[^/]*/, '');
         }
         return this._isHtml5 ? '/' : location.pathname || '/';
     };
@@ -18769,7 +18655,7 @@ var BrowserLocationConfig = /** @class */ (function () {
 //# sourceMappingURL=browserLocationConfig.js.map
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18915,7 +18801,7 @@ var StateProvider = /** @class */ (function () {
 //# sourceMappingURL=stateProvider.js.map
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19119,24 +19005,24 @@ var UrlRouterProvider = /** @class */ (function () {
 //# sourceMappingURL=urlRouterProvider.js.map
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = __webpack_require__(1);
-var mask = __webpack_require__(267);
+var mask = __webpack_require__(274);
 
 module.exports = 'ui.mask';
 
 
 /***/ }),
-/* 140 */,
 /* 141 */,
-/* 142 */
+/* 142 */,
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(143);
+__webpack_require__(144);
 module.exports = angular;
 
 
@@ -19144,12 +19030,12 @@ module.exports = angular;
 module.exports = angular;
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**
- * @license AngularJS v1.7.5
- * (c) 2010-2018 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.8.2
+ * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
 (function(window) {'use strict';
@@ -19186,7 +19072,7 @@ var minErrConfig = {
  *   non-positive or non-numeric value, removes the max depth limit.
  *   Default: 5
  *
- * * `urlErrorParamsEnabled`  **{Boolean}** - Specifies wether the generated error url will
+ * * `urlErrorParamsEnabled`  **{Boolean}** - Specifies whether the generated error url will
  *   contain the parameters of the thrown error. Disabling the parameters can be useful if the
  *   generated error url is very long.
  *
@@ -19236,7 +19122,7 @@ function isValidObjectMaxDepth(maxDepth) {
  * Since data will be parsed statically during a build step, some restrictions
  * are applied with respect to how minErr instances are created and called.
  * Instances should have names of the form namespaceMinErr for a minErr created
- * using minErr('namespace') . Error codes, namespaces and template strings
+ * using minErr('namespace'). Error codes, namespaces and template strings
  * should all be static strings, not variables or general expressions.
  *
  * @param {string} module The namespace to use for the new minErr instance.
@@ -19248,7 +19134,7 @@ function isValidObjectMaxDepth(maxDepth) {
 function minErr(module, ErrorConstructor) {
   ErrorConstructor = ErrorConstructor || Error;
 
-  var url = 'https://errors.angularjs.org/1.7.5/';
+  var url = 'https://errors.angularjs.org/1.8.2/';
   var regex = url.replace('.', '\\.') + '[\\s\\S]*';
   var errRegExp = new RegExp(regex, 'g');
 
@@ -19381,6 +19267,7 @@ function minErr(module, ErrorConstructor) {
   hasOwnProperty,
   createMap,
   stringify,
+  UNSAFE_restoreLegacyJqLiteXHTMLReplacement,
 
   NODE_TYPE_ELEMENT,
   NODE_TYPE_ATTRIBUTE,
@@ -19630,8 +19517,10 @@ function baseExtend(dst, objs, deep) {
         } else if (isElement(src)) {
           dst[key] = src.clone();
         } else {
-          if (!isObject(dst[key])) dst[key] = isArray(src) ? [] : {};
-          baseExtend(dst[key], [src], true);
+          if (key !== '__proto__') {
+            if (!isObject(dst[key])) dst[key] = isArray(src) ? [] : {};
+            baseExtend(dst[key], [src], true);
+          }
         }
       } else {
         dst[key] = src;
@@ -19684,8 +19573,8 @@ function extend(dst) {
 * sinceVersion="1.6.5"
 * This function is deprecated, but will not be removed in the 1.x lifecycle.
 * There are edge cases (see {@link angular.merge#known-issues known issues}) that are not
-* supported by this function. We suggest
-* using [lodash's merge()](https://lodash.com/docs/4.17.4#merge) instead.
+* supported by this function. We suggest using another, similar library for all-purpose merging,
+* such as [lodash's merge()](https://lodash.com/docs/4.17.4#merge).
 *
 * @knownIssue
 * This is a list of (known) object types that are not handled correctly by this function:
@@ -19693,6 +19582,8 @@ function extend(dst) {
 * - [`MediaStream`](https://developer.mozilla.org/docs/Web/API/MediaStream)
 * - [`CanvasGradient`](https://developer.mozilla.org/docs/Web/API/CanvasGradient)
 * - AngularJS {@link $rootScope.Scope scopes};
+*
+* `angular.merge` also does not support merging objects with circular references.
 *
 * @param {Object} dst Destination object.
 * @param {...Object} src Source object(s).
@@ -20071,7 +19962,9 @@ function arrayRemove(array, value) {
  * @kind function
  *
  * @description
- * Creates a deep copy of `source`, which should be an object or an array.
+ * Creates a deep copy of `source`, which should be an object or an array. This functions is used
+ * internally, mostly in the change-detection code. It is not intended as an all-purpose copy
+ * function, and has several limitations (see below).
  *
  * * If no destination is supplied, a copy of the object or array is created.
  * * If a destination is provided, all of its elements (for arrays) or properties (for objects)
@@ -20085,6 +19978,25 @@ function arrayRemove(array, value) {
  *   Only enumerable properties are taken into account. Non-enumerable properties (both on `source`
  *   and on `destination`) will be ignored.
  * </div>
+ *
+ * <div class="alert alert-warning">
+ *   `angular.copy` does not check if destination and source are of the same type. It's the
+ *   developer's responsibility to make sure they are compatible.
+ * </div>
+ *
+ * @knownIssue
+ * This is a non-exhaustive list of object types / features that are not handled correctly by
+ * `angular.copy`. Note that since this functions is used by the change detection code, this
+ * means binding or watching objects of these types (or that include these types) might not work
+ * correctly.
+ * - [`File`](https://developer.mozilla.org/docs/Web/API/File)
+ * - [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)
+ * - [`ImageData`](https://developer.mozilla.org/docs/Web/API/ImageData)
+ * - [`MediaStream`](https://developer.mozilla.org/docs/Web/API/MediaStream)
+ * - [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)
+ * - [`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+ * - [`getter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get)/
+ *   [`setter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)
  *
  * @param {*} source The source that will be used to make a copy. Can be any type, including
  *     primitives, `null`, and `undefined`.
@@ -20794,7 +20706,7 @@ function allowAutoBootstrap(document) {
     link.href = src.value;
 
     if (document.location.origin === link.origin) {
-      // Same-origin resources are always allowed, even for non-whitelisted schemes.
+      // Same-origin resources are always allowed, even for banned URL schemes.
       return true;
     }
     // Disabled bootstrapping unless angular.js was loaded from a known scheme used on the web.
@@ -20984,13 +20896,8 @@ function angularInit(element, bootstrap) {
   });
   if (appElement) {
     if (!isAutoBootstrapAllowed) {
-      try {
-        window.console.error('AngularJS: disabling automatic bootstrap. <script> protocol indicates ' +
+      window.console.error('AngularJS: disabling automatic bootstrap. <script> protocol indicates ' +
           'an extension, document.location.href does not match.');
-      } catch (e) {
-        // Support: Safari 11 w/ Webdriver
-        // The console.error will throw and make the test fail
-      }
       return;
     }
     config.strictDi = getNgAttribute(appElement, 'strict-di') !== null;
@@ -21215,6 +21122,26 @@ function bindJQuery() {
 
   // Prevent double-proxying.
   bindJQueryFired = true;
+}
+
+/**
+ * @ngdoc function
+ * @name angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement
+ * @module ng
+ * @kind function
+ *
+ * @description
+ * Restores the pre-1.8 behavior of jqLite that turns XHTML-like strings like
+ * `<div /><span />` to `<div></div><span></span>` instead of `<div><span></span></div>`.
+ * The new behavior is a security fix. Thus, if you need to call this function, please try to adjust
+ * your code for this change and remove your use of this function as soon as possible.
+
+ * Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read the
+ * [jQuery 3.5 upgrade guide](https://jquery.com/upgrade-guide/3.5/) for more details
+ * about the workarounds.
+ */
+function UNSAFE_restoreLegacyJqLiteXHTMLReplacement() {
+  JQLite.legacyXHTMLReplacement = true;
 }
 
 /**
@@ -21824,7 +21751,7 @@ function toDebugString(obj, maxDepth) {
 
   htmlAnchorDirective,
   inputDirective,
-  inputDirective,
+  hiddenInputBrowserCacheDirective,
   formDirective,
   scriptDirective,
   selectDirective,
@@ -21936,11 +21863,11 @@ function toDebugString(obj, maxDepth) {
 var version = {
   // These placeholder strings will be replaced by grunt's `build` task.
   // They need to be double- or single-quoted.
-  full: '1.7.5',
+  full: '1.8.2',
   major: 1,
-  minor: 7,
-  dot: 5,
-  codeName: 'anti-prettification'
+  minor: 8,
+  dot: 2,
+  codeName: 'meteoric-mining'
 };
 
 
@@ -21973,6 +21900,7 @@ function publishExternalAPI(angular) {
     'callbacks': {$$counter: 0},
     'getTestability': getTestability,
     'reloadWithDebugInfo': reloadWithDebugInfo,
+    'UNSAFE_restoreLegacyJqLiteXHTMLReplacement': UNSAFE_restoreLegacyJqLiteXHTMLReplacement,
     '$$minErr': minErr,
     '$$csp': csp,
     '$$encodeUriSegment': encodeUriSegment,
@@ -22038,7 +21966,8 @@ function publishExternalAPI(angular) {
             ngModelOptions: ngModelOptionsDirective
         }).
         directive({
-          ngInclude: ngIncludeFillContentDirective
+          ngInclude: ngIncludeFillContentDirective,
+          input: hiddenInputBrowserCacheDirective
         }).
         directive(ngAttributeAliasDirectives).
         directive(ngEventDirectives);
@@ -22089,7 +22018,7 @@ function publishExternalAPI(angular) {
       });
     }
   ])
-  .info({ angularVersion: '1.7.5' });
+  .info({ angularVersion: '1.8.2' });
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -22182,6 +22111,16 @@ function publishExternalAPI(angular) {
  * - [`val()`](http://api.jquery.com/val/)
  * - [`wrap()`](http://api.jquery.com/wrap/)
  *
+ * jqLite also provides a method restoring pre-1.8 insecure treatment of XHTML-like tags.
+ * This legacy behavior turns input like `<div /><span />` to `<div></div><span></span>`
+ * instead of `<div><span></span></div>` like version 1.8 & newer do. To restore it, invoke:
+ * ```js
+ * angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement();
+ * ```
+ * Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read the
+ * [jQuery 3.5 upgrade guide](https://jquery.com/upgrade-guide/3.5/) for more details
+ * about the workarounds.
+ *
  * ## jQuery/jqLite Extras
  * AngularJS also provides the following additional methods and events to both jQuery and jqLite:
  *
@@ -22261,20 +22200,36 @@ var HTML_REGEXP = /<|&#?\w+;/;
 var TAG_NAME_REGEXP = /<([\w:-]+)/;
 var XHTML_TAG_REGEXP = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi;
 
+// Table parts need to be wrapped with `<table>` or they're
+// stripped to their contents when put in a div.
+// XHTML parsers do not magically insert elements in the
+// same way that tag soup parsers do, so we cannot shorten
+// this by omitting <tbody> or other required elements.
 var wrapMap = {
-  'option': [1, '<select multiple="multiple">', '</select>'],
-
-  'thead': [1, '<table>', '</table>'],
-  'col': [2, '<table><colgroup>', '</colgroup></table>'],
-  'tr': [2, '<table><tbody>', '</tbody></table>'],
-  'td': [3, '<table><tbody><tr>', '</tr></tbody></table>'],
-  '_default': [0, '', '']
+  thead: ['table'],
+  col: ['colgroup', 'table'],
+  tr: ['tbody', 'table'],
+  td: ['tr', 'tbody', 'table']
 };
 
-wrapMap.optgroup = wrapMap.option;
 wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
 
+// Support: IE <10 only
+// IE 9 requires an option wrapper & it needs to have the whole table structure
+// set up in advance; assigning `"<td></td>"` to `tr.innerHTML` doesn't work, etc.
+var wrapMapIE9 = {
+  option: [1, '<select multiple="multiple">', '</select>'],
+  _default: [0, '', '']
+};
+
+for (var key in wrapMap) {
+  var wrapMapValueClosing = wrapMap[key];
+  var wrapMapValue = wrapMapValueClosing.slice().reverse();
+  wrapMapIE9[key] = [wrapMapValue.length, '<' + wrapMapValue.join('><') + '>', '</' + wrapMapValueClosing.join('></') + '>'];
+}
+
+wrapMapIE9.optgroup = wrapMapIE9.option;
 
 function jqLiteIsTextNode(html) {
   return !HTML_REGEXP.test(html);
@@ -22295,7 +22250,7 @@ function jqLiteHasData(node) {
 }
 
 function jqLiteBuildFragment(html, context) {
-  var tmp, tag, wrap,
+  var tmp, tag, wrap, finalHtml,
       fragment = context.createDocumentFragment(),
       nodes = [], i;
 
@@ -22306,13 +22261,30 @@ function jqLiteBuildFragment(html, context) {
     // Convert html into DOM nodes
     tmp = fragment.appendChild(context.createElement('div'));
     tag = (TAG_NAME_REGEXP.exec(html) || ['', ''])[1].toLowerCase();
-    wrap = wrapMap[tag] || wrapMap._default;
-    tmp.innerHTML = wrap[1] + html.replace(XHTML_TAG_REGEXP, '<$1></$2>') + wrap[2];
+    finalHtml = JQLite.legacyXHTMLReplacement ?
+      html.replace(XHTML_TAG_REGEXP, '<$1></$2>') :
+      html;
 
-    // Descend through wrappers to the right content
-    i = wrap[0];
-    while (i--) {
-      tmp = tmp.lastChild;
+    if (msie < 10) {
+      wrap = wrapMapIE9[tag] || wrapMapIE9._default;
+      tmp.innerHTML = wrap[1] + finalHtml + wrap[2];
+
+      // Descend through wrappers to the right content
+      i = wrap[0];
+      while (i--) {
+        tmp = tmp.firstChild;
+      }
+    } else {
+      wrap = wrapMap[tag] || [];
+
+      // Create wrappers & descend into them
+      i = wrap.length;
+      while (--i > -1) {
+        tmp.appendChild(window.document.createElement(wrap[i]));
+        tmp = tmp.firstChild;
+      }
+
+      tmp.innerHTML = finalHtml;
     }
 
     nodes = concat(nodes, tmp.childNodes);
@@ -25740,6 +25712,9 @@ function Browser(window, document, $log, $sniffer, $$taskTrackerFactory) {
     if (url) {
       var sameState = lastHistoryState === state;
 
+      // Normalize the inputted URL
+      url = urlResolve(url).href;
+
       // Don't change anything if previous and current URLs and states match. This also prevents
       // IE<10 from getting into redirect loop when in LocationHashbangInHtml5Url mode.
       // See https://github.com/angular/angular.js/commit/ffb2701
@@ -26587,7 +26562,7 @@ function $TemplateCacheProvider() {
  *
  * This example show how you might use `$doCheck` to trigger changes in your component's inputs even if the
  * actual identity of the component doesn't change. (Be aware that cloning and deep equality checks on large
- * arrays or objects can have a negative impact on your application performance)
+ * arrays or objects can have a negative impact on your application performance.)
  *
  * <example name="doCheckArrayExample" module="do-check-module">
  *   <file name="index.html">
@@ -26910,7 +26885,7 @@ function $TemplateCacheProvider() {
  * would result in the whole app "stalling" until all templates are loaded asynchronously - even in the
  * case when only one deeply nested directive has `templateUrl`.
  *
- * Template loading is asynchronous even if the template has been preloaded into the {@link $templateCache}
+ * Template loading is asynchronous even if the template has been preloaded into the {@link $templateCache}.
  *
  * You can specify `templateUrl` as a string representing the URL or as a function which takes two
  * arguments `tElement` and `tAttrs` (described in the `compile` function api below) and returns
@@ -26971,7 +26946,7 @@ function $TemplateCacheProvider() {
  * own templates or compile functions. Compiling these directives results in an infinite loop and
  * stack overflow errors.
  *
- * This can be avoided by manually using $compile in the postLink function to imperatively compile
+ * This can be avoided by manually using `$compile` in the postLink function to imperatively compile
  * a directive's template instead of relying on automatic template compilation via `template` or
  * `templateUrl` declaration or manual compilation inside the compile function.
  * </div>
@@ -27075,17 +27050,17 @@ function $TemplateCacheProvider() {
  *
  * * `true` - transclude the content (i.e. the child nodes) of the directive's element.
  * * `'element'` - transclude the whole of the directive's element including any directives on this
- *   element that defined at a lower priority than this directive. When used, the `template`
+ *   element that are defined at a lower priority than this directive. When used, the `template`
  *   property is ignored.
  * * **`{...}` (an object hash):** - map elements of the content onto transclusion "slots" in the template.
  *
- * **Mult-slot transclusion** is declared by providing an object for the `transclude` property.
+ * **Multi-slot transclusion** is declared by providing an object for the `transclude` property.
  *
  * This object is a map where the keys are the name of the slot to fill and the value is an element selector
  * used to match the HTML to the slot. The element selector should be in normalized form (e.g. `myElement`)
  * and will match the standard element variants (e.g. `my-element`, `my:element`, `data-my-element`, etc).
  *
- * For further information check out the guide on {@link guide/directive#matching-directives Matching Directives}
+ * For further information check out the guide on {@link guide/directive#matching-directives Matching Directives}.
  *
  * If the element selector is prefixed with a `?` then that slot is optional.
  *
@@ -27110,7 +27085,7 @@ function $TemplateCacheProvider() {
  * </div>
  *
  * If you want to manually control the insertion and removal of the transcluded content in your directive
- * then you must use this transclude function. When you call a transclude function it returns a a jqLite/JQuery
+ * then you must use this transclude function. When you call a transclude function it returns a jqLite/JQuery
  * object that contains the compiled DOM, which is linked to the correct transclusion scope.
  *
  * When you call a transclusion function you can pass in a **clone attach function**. This function accepts
@@ -27195,8 +27170,8 @@ function $TemplateCacheProvider() {
  * The {@link ng.$compile.directive.Attributes Attributes} object - passed as a parameter in the
  * `link()` or `compile()` functions. It has a variety of uses.
  *
- * * *Accessing normalized attribute names:* Directives like 'ngBind' can be expressed in many ways:
- *   'ng:bind', `data-ng-bind`, or 'x-ng-bind'. The attributes object allows for normalized access
+ * * *Accessing normalized attribute names:* Directives like `ngBind` can be expressed in many ways:
+ *   `ng:bind`, `data-ng-bind`, or `x-ng-bind`. The attributes object allows for normalized access
  *   to the attributes.
  *
  * * *Directive inter-communication:* All directives share the same instance of the attributes
@@ -27237,25 +27212,24 @@ function $TemplateCacheProvider() {
    <file name="index.html">
     <script>
       angular.module('compileExample', [], function($compileProvider) {
-        // configure new 'compile' directive by passing a directive
-        // factory function. The factory function injects the '$compile'
+        // Configure new 'compile' directive by passing a directive
+        // factory function. The factory function injects '$compile'.
         $compileProvider.directive('compile', function($compile) {
-          // directive factory creates a link function
+          // The directive factory creates a link function.
           return function(scope, element, attrs) {
             scope.$watch(
               function(scope) {
-                 // watch the 'compile' expression for changes
+                // Watch the 'compile' expression for changes.
                 return scope.$eval(attrs.compile);
               },
               function(value) {
-                // when the 'compile' expression changes
-                // assign it into the current DOM
+                // When the 'compile' expression changes
+                // assign it into the current DOM.
                 element.html(value);
 
-                // compile the new DOM and link it to the current
-                // scope.
-                // NOTE: we only compile .childNodes so that
-                // we don't get into infinite loop compiling ourselves
+                // Compile the new DOM and link it to the current scope.
+                // NOTE: we only compile '.childNodes' so that we
+                // don't get into an infinite loop compiling ourselves.
                 $compile(element.contents())(scope);
               }
             );
@@ -27328,13 +27302,13 @@ function $TemplateCacheProvider() {
  *        }
  *        ```
  *      * `futureParentElement` - defines the parent to which the `cloneAttachFn` will add
- *        the cloned elements; only needed for transcludes that are allowed to contain non html
- *        elements (e.g. SVG elements). See also the directive.controller property.
+ *        the cloned elements; only needed for transcludes that are allowed to contain non HTML
+ *        elements (e.g. SVG elements). See also the `directive.controller` property.
  *
  * Calling the linking function returns the element of the template. It is either the original
  * element passed in, or the clone of the element if the `cloneAttachFn` is provided.
  *
- * After linking the view is not updated until after a call to $digest which typically is done by
+ * After linking the view is not updated until after a call to `$digest`, which typically is done by
  * AngularJS automatically.
  *
  * If you need access to the bound view, there are two ways to do it:
@@ -27342,21 +27316,23 @@ function $TemplateCacheProvider() {
  * - If you are not asking the linking function to clone the template, create the DOM element(s)
  *   before you send them to the compiler and keep this reference around.
  *   ```js
- *     var element = $compile('<p>{{total}}</p>')(scope);
+ *     var element = angular.element('<p>{{total}}</p>');
+ *     $compile(element)(scope);
  *   ```
  *
  * - if on the other hand, you need the element to be cloned, the view reference from the original
  *   example would not point to the clone, but rather to the original template that was cloned. In
- *   this case, you can access the clone via the cloneAttachFn:
+ *   this case, you can access the clone either via the `cloneAttachFn` or the value returned by the
+ *   linking function:
  *   ```js
- *     var templateElement = angular.element('<p>{{total}}</p>'),
- *         scope = ....;
- *
+ *     var templateElement = angular.element('<p>{{total}}</p>');
  *     var clonedElement = $compile(templateElement)(scope, function(clonedElement, scope) {
- *       //attach the clone to DOM document at the right place
+ *       // Attach the clone to DOM document at the right place.
  *     });
  *
- *     //now we have reference to the cloned DOM via `clonedElement`
+ *     // Now we have reference to the cloned DOM via `clonedElement`.
+ *     // NOTE: The `clonedElement` returned by the linking function is the same as the
+ *     //       `clonedElement` passed to `cloneAttachFn`.
  *   ```
  *
  *
@@ -27407,7 +27383,7 @@ function $TemplateCacheProvider() {
  *
  * When the original node and the replace template declare the same directive(s), they will be
  * {@link guide/compiler#double-compilation-and-how-to-avoid-it compiled twice} because the compiler
- * does not deduplicate them. In many cases, this is not noticable, but e.g. {@link ngModel} will
+ * does not deduplicate them. In many cases, this is not noticeable, but e.g. {@link ngModel} will
  * attach `$formatters` and `$parsers` twice.
  *
  * See issue [#2573](https://github.com/angular/angular.js/issues/2573).
@@ -27487,8 +27463,8 @@ function $TemplateCacheProvider() {
  *
  * Based on the context, other options may exist to mark a value as trusted / configure the behavior
  * of {@link ng.$sce}. For example, to restrict the `RESOURCE_URL` context to specific origins, use
- * the {@link $sceDelegateProvider#resourceUrlWhitelist resourceUrlWhitelist()}
- * and {@link $sceDelegateProvider#resourceUrlBlacklist resourceUrlBlacklist()}.
+ * the {@link $sceDelegateProvider#trustedResourceUrlList trustedResourceUrlList()}
+ * and {@link $sceDelegateProvider#bannedResourceUrlList bannedResourceUrlList()}.
  *
  * {@link ng.$sce#what-trusted-context-types-are-supported- Find out more about the different context types}.
  *
@@ -27497,7 +27473,7 @@ function $TemplateCacheProvider() {
  * By default, `$sce` will throw an error if it detects untrusted HTML content, and will not bind the
  * content.
  * However, if you include the {@link ngSanitize ngSanitize module}, it will try to sanitize the
- * potentially dangerous HTML, e.g. strip non-whitelisted tags and attributes when binding to
+ * potentially dangerous HTML, e.g. strip non-trusted tags and attributes when binding to
  * `innerHTML`.
  *
  * @example
@@ -27882,9 +27858,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * @description
    * Register a new directive with the compiler.
    *
-   * @param {string|Object} name Name of the directive in camel-case (i.e. <code>ngBind</code> which
-   *    will match as <code>ng-bind</code>), or an object map of directives where the keys are the
-   *    names and the values are the factories.
+   * @param {string|Object} name Name of the directive in camel-case (i.e. `ngBind` which will match
+   *    as `ng-bind`), or an object map of directives where the keys are the names and the values
+   *    are the factories.
    * @param {Function|Array} directiveFactory An injectable directive factory function. See the
    *    {@link guide/directive directive guide} and the {@link $compile compile API} for more info.
    * @returns {ng.$compileProvider} Self for chaining.
@@ -28079,30 +28055,81 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
   /**
    * @ngdoc method
-   * @name $compileProvider#aHrefSanitizationWhitelist
+   * @name $compileProvider#aHrefSanitizationTrustedUrlList
    * @kind function
    *
    * @description
-   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
+   * Retrieves or overrides the default regular expression that is used for determining trusted safe
    * urls during a[href] sanitization.
    *
    * The sanitization is a security measure aimed at preventing XSS attacks via html links.
    *
    * Any url about to be assigned to a[href] via data-binding is first normalized and turned into
-   * an absolute url. Afterwards, the url is matched against the `aHrefSanitizationWhitelist`
+   * an absolute url. Afterwards, the url is matched against the `aHrefSanitizationTrustedUrlList`
    * regular expression. If a match is found, the original url is written into the dom. Otherwise,
    * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
    *
-   * @param {RegExp=} regexp New regexp to whitelist urls with.
+   * @param {RegExp=} regexp New regexp to trust urls with.
    * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
    *    chaining otherwise.
    */
-  this.aHrefSanitizationWhitelist = function(regexp) {
+  this.aHrefSanitizationTrustedUrlList = function(regexp) {
     if (isDefined(regexp)) {
-      $$sanitizeUriProvider.aHrefSanitizationWhitelist(regexp);
+      $$sanitizeUriProvider.aHrefSanitizationTrustedUrlList(regexp);
       return this;
     } else {
-      return $$sanitizeUriProvider.aHrefSanitizationWhitelist();
+      return $$sanitizeUriProvider.aHrefSanitizationTrustedUrlList();
+    }
+  };
+
+
+  /**
+   * @ngdoc method
+   * @name $compileProvider#aHrefSanitizationWhitelist
+   * @kind function
+   *
+   * @deprecated
+   * sinceVersion="1.8.1"
+   *
+   * This method is deprecated. Use {@link $compileProvider#aHrefSanitizationTrustedUrlList
+   * aHrefSanitizationTrustedUrlList} instead.
+   */
+  Object.defineProperty(this, 'aHrefSanitizationWhitelist', {
+    get: function() {
+      return this.aHrefSanitizationTrustedUrlList;
+    },
+    set: function(value) {
+      this.aHrefSanitizationTrustedUrlList = value;
+    }
+  });
+
+
+  /**
+   * @ngdoc method
+   * @name $compileProvider#imgSrcSanitizationTrustedUrlList
+   * @kind function
+   *
+   * @description
+   * Retrieves or overrides the default regular expression that is used for determining trusted safe
+   * urls during img[src] sanitization.
+   *
+   * The sanitization is a security measure aimed at prevent XSS attacks via html links.
+   *
+   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
+   * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationTrustedUrlList`
+   * regular expression. If a match is found, the original url is written into the dom. Otherwise,
+   * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
+   *
+   * @param {RegExp=} regexp New regexp to trust urls with.
+   * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
+   *    chaining otherwise.
+   */
+  this.imgSrcSanitizationTrustedUrlList = function(regexp) {
+    if (isDefined(regexp)) {
+      $$sanitizeUriProvider.imgSrcSanitizationTrustedUrlList(regexp);
+      return this;
+    } else {
+      return $$sanitizeUriProvider.imgSrcSanitizationTrustedUrlList();
     }
   };
 
@@ -28112,29 +28139,20 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * @name $compileProvider#imgSrcSanitizationWhitelist
    * @kind function
    *
-   * @description
-   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during img[src] sanitization.
+   * @deprecated
+   * sinceVersion="1.8.1"
    *
-   * The sanitization is a security measure aimed at prevent XSS attacks via html links.
-   *
-   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
-   * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationWhitelist`
-   * regular expression. If a match is found, the original url is written into the dom. Otherwise,
-   * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
-   *
-   * @param {RegExp=} regexp New regexp to whitelist urls with.
-   * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
-   *    chaining otherwise.
+   * This method is deprecated. Use {@link $compileProvider#imgSrcSanitizationTrustedUrlList
+   * imgSrcSanitizationTrustedUrlList} instead.
    */
-  this.imgSrcSanitizationWhitelist = function(regexp) {
-    if (isDefined(regexp)) {
-      $$sanitizeUriProvider.imgSrcSanitizationWhitelist(regexp);
-      return this;
-    } else {
-      return $$sanitizeUriProvider.imgSrcSanitizationWhitelist();
+  Object.defineProperty(this, 'imgSrcSanitizationWhitelist', {
+    get: function() {
+      return this.imgSrcSanitizationTrustedUrlList;
+    },
+    set: function(value) {
+      this.imgSrcSanitizationTrustedUrlList = value;
     }
-  };
+  });
 
   /**
    * @ngdoc method
@@ -28613,7 +28631,16 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             this.$$element.removeAttr(attrName);
           } else {
             if (SIMPLE_ATTR_NAME.test(attrName)) {
-              this.$$element.attr(attrName, value);
+              // jQuery skips special boolean attrs treatment in XML nodes for
+              // historical reasons and hence AngularJS cannot freely call
+              // `.attr(attrName, false) with such attributes. To avoid issues
+              // in XHTML, call `removeAttr` in such cases instead.
+              // See https://github.com/jquery/jquery/issues/4249
+              if (booleanKey && value === false) {
+                this.$$element.removeAttr(attrName);
+              } else {
+                this.$$element.attr(attrName, value);
+              }
             } else {
               setSpecialAttr(this.$$element[0], attrName, value);
             }
@@ -30210,7 +30237,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             pre: function ngPropPreLinkFn(scope, $element) {
               function applyPropValue() {
                 var propValue = ngPropGetter(scope);
-                $element.prop(propName, sanitizer(propValue));
+                $element[0][propName] = sanitizer(propValue);
               }
 
               applyPropValue();
@@ -31377,7 +31404,7 @@ function $HttpProvider() {
 
   /**
    * @ngdoc property
-   * @name $httpProvider#xsrfWhitelistedOrigins
+   * @name $httpProvider#xsrfTrustedOrigins
    * @description
    *
    * Array containing URLs whose origins are trusted to receive the XSRF token. See the
@@ -31391,7 +31418,7 @@ function $HttpProvider() {
    * Examples: `http://example.com`, `https://api.example.com:9876`
    *
    * <div class="alert alert-warning">
-   *   It is not possible to whitelist specific URLs/paths. The `path`, `query` and `fragment` parts
+   *   It is not possible to trust specific URLs/paths. The `path`, `query` and `fragment` parts
    *   of a URL will be ignored. For example, `https://foo.com/path/bar?query=baz#fragment` will be
    *   treated as `https://foo.com`, meaning that **all** requests to URLs starting with
    *   `https://foo.com/` will include the XSRF token.
@@ -31402,9 +31429,9 @@ function $HttpProvider() {
    * ```js
    * // App served from `https://example.com/`.
    * angular.
-   *   module('xsrfWhitelistedOriginsExample', []).
+   *   module('xsrfTrustedOriginsExample', []).
    *   config(['$httpProvider', function($httpProvider) {
-   *     $httpProvider.xsrfWhitelistedOrigins.push('https://api.example.com');
+   *     $httpProvider.xsrfTrustedOrigins.push('https://api.example.com');
    *   }]).
    *   run(['$http', function($http) {
    *     // The XSRF token will be sent.
@@ -31415,7 +31442,27 @@ function $HttpProvider() {
    *   }]);
    * ```
    */
-  var xsrfWhitelistedOrigins = this.xsrfWhitelistedOrigins = [];
+  var xsrfTrustedOrigins = this.xsrfTrustedOrigins = [];
+
+  /**
+   * @ngdoc property
+   * @name $httpProvider#xsrfWhitelistedOrigins
+   * @description
+   *
+   * @deprecated
+   * sinceVersion="1.8.1"
+   *
+   * This property is deprecated. Use {@link $httpProvider#xsrfTrustedOrigins xsrfTrustedOrigins}
+   * instead.
+   */
+  Object.defineProperty(this, 'xsrfWhitelistedOrigins', {
+    get: function() {
+      return this.xsrfTrustedOrigins;
+    },
+    set: function(origins) {
+      this.xsrfTrustedOrigins = origins;
+    }
+  });
 
   this.$get = ['$browser', '$httpBackend', '$$cookieReader', '$cacheFactory', '$rootScope', '$q', '$injector', '$sce',
       function($browser, $httpBackend, $$cookieReader, $cacheFactory, $rootScope, $q, $injector, $sce) {
@@ -31443,7 +31490,7 @@ function $HttpProvider() {
     /**
      * A function to check request URLs against a list of allowed origins.
      */
-    var urlIsAllowedOrigin = urlIsAllowedOriginFactory(xsrfWhitelistedOrigins);
+    var urlIsAllowedOrigin = urlIsAllowedOriginFactory(xsrfTrustedOrigins);
 
     /**
      * @ngdoc service
@@ -31817,16 +31864,16 @@ function $HttpProvider() {
      * The header will &mdash; by default &mdash; **not** be set for cross-domain requests. This
      * prevents unauthorized servers (e.g. malicious or compromised 3rd-party APIs) from gaining
      * access to your users' XSRF tokens and exposing them to Cross Site Request Forgery. If you
-     * want to, you can whitelist additional origins to also receive the XSRF token, by adding them
-     * to {@link ng.$httpProvider#xsrfWhitelistedOrigins xsrfWhitelistedOrigins}. This might be
+     * want to, you can trust additional origins to also receive the XSRF token, by adding them
+     * to {@link ng.$httpProvider#xsrfTrustedOrigins xsrfTrustedOrigins}. This might be
      * useful, for example, if your application, served from `example.com`, needs to access your API
      * at `api.example.com`.
-     * See {@link ng.$httpProvider#xsrfWhitelistedOrigins $httpProvider.xsrfWhitelistedOrigins} for
+     * See {@link ng.$httpProvider#xsrfTrustedOrigins $httpProvider.xsrfTrustedOrigins} for
      * more details.
      *
      * <div class="alert alert-danger">
      *   **Warning**<br />
-     *   Only whitelist origins that you have control over and make sure you understand the
+     *   Only trusted origins that you have control over and make sure you understand the
      *   implications of doing so.
      * </div>
      *
@@ -31953,8 +32000,8 @@ function $HttpProvider() {
 <file name="script.js">
   angular.module('httpExample', [])
     .config(['$sceDelegateProvider', function($sceDelegateProvider) {
-      // We must whitelist the JSONP endpoint that we are using to show that we trust it
-      $sceDelegateProvider.resourceUrlWhitelist([
+      // We must add the JSONP endpoint that we are using to the trusted list to show that we trust it
+      $sceDelegateProvider.trustedResourceUrlList([
         'self',
         'https://angularjs.org/**'
       ]);
@@ -32211,8 +32258,8 @@ function $HttpProvider() {
      *
      * Note that, since JSONP requests are sensitive because the response is given full access to the browser,
      * the url must be declared, via {@link $sce} as a trusted resource URL.
-     * You can trust a URL by adding it to the whitelist via
-     * {@link $sceDelegateProvider#resourceUrlWhitelist  `$sceDelegateProvider.resourceUrlWhitelist`} or
+     * You can trust a URL by adding it to the trusted resource URL list via
+     * {@link $sceDelegateProvider#trustedResourceUrlList  `$sceDelegateProvider.trustedResourceUrlList`} or
      * by explicitly trusting the URL via {@link $sce#trustAsResourceUrl `$sce.trustAsResourceUrl(url)`}.
      *
      * You should avoid generating the URL for the JSONP request from user provided data.
@@ -32999,7 +33046,7 @@ function $InterpolateProvider() {
 
       // Provide a quick exit and simplified result function for text with no interpolation
       if (!text.length || text.indexOf(startSymbol) === -1) {
-        if (mustHaveExpression && !contextAllowsConcatenation) return;
+        if (mustHaveExpression) return;
 
         var unescapedText = unescapeText(text);
         if (contextAllowsConcatenation) {
@@ -37387,7 +37434,13 @@ function markQStateExceptionHandled(state) {
   state.pur = true;
 }
 function markQExceptionHandled(q) {
-  markQStateExceptionHandled(q.$$state);
+  // Built-in `$q` promises will always have a `$$state` property. This check is to allow
+  // overwriting `$q` with a different promise library (e.g. Bluebird + angular-bluebird-promises).
+  // (Currently, this is the only method that might be called with a promise, even if it is not
+  // created by the built-in `$q`.)
+  if (q.$$state) {
+    markQStateExceptionHandled(q.$$state);
+  }
 }
 
 /** @this */
@@ -38942,12 +38995,12 @@ function $RootScopeProvider() {
  */
 function $$SanitizeUriProvider() {
 
-  var aHrefSanitizationWhitelist = /^\s*(https?|s?ftp|mailto|tel|file):/,
-    imgSrcSanitizationWhitelist = /^\s*((https?|ftp|file|blob):|data:image\/)/;
+  var aHrefSanitizationTrustedUrlList = /^\s*(https?|s?ftp|mailto|tel|file):/,
+    imgSrcSanitizationTrustedUrlList = /^\s*((https?|ftp|file|blob):|data:image\/)/;
 
   /**
    * @description
-   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
+   * Retrieves or overrides the default regular expression that is used for determining trusted safe
    * urls during a[href] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via HTML anchor links.
@@ -38956,27 +39009,27 @@ function $$SanitizeUriProvider() {
    * the $sce.URL security context. When interpolation occurs a call is made to `$sce.trustAsUrl(url)`
    * which in turn may call `$$sanitizeUri(url, isMedia)` to sanitize the potentially malicious URL.
    *
-   * If the URL matches the `aHrefSanitizationWhitelist` regular expression, it is returned unchanged.
+   * If the URL matches the `aHrefSanitizationTrustedUrlList` regular expression, it is returned unchanged.
    *
    * If there is no match the URL is returned prefixed with `'unsafe:'` to ensure that when it is written
    * to the DOM it is inactive and potentially malicious code will not be executed.
    *
-   * @param {RegExp=} regexp New regexp to whitelist urls with.
+   * @param {RegExp=} regexp New regexp to trust urls with.
    * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
    *    chaining otherwise.
    */
-  this.aHrefSanitizationWhitelist = function(regexp) {
+  this.aHrefSanitizationTrustedUrlList = function(regexp) {
     if (isDefined(regexp)) {
-      aHrefSanitizationWhitelist = regexp;
+      aHrefSanitizationTrustedUrlList = regexp;
       return this;
     }
-    return aHrefSanitizationWhitelist;
+    return aHrefSanitizationTrustedUrlList;
   };
 
 
   /**
    * @description
-   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
+   * Retrieves or overrides the default regular expression that is used for determining trusted safe
    * urls during img[src] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via HTML image src links.
@@ -38986,27 +39039,28 @@ function $$SanitizeUriProvider() {
    * `$sce.trustAsMediaUrl(url)` which in turn may call `$$sanitizeUri(url, isMedia)` to sanitize
    * the potentially malicious URL.
    *
-   * If the URL matches the `aImgSanitizationWhitelist` regular expression, it is returned unchanged.
+   * If the URL matches the `imgSrcSanitizationTrustedUrlList` regular expression, it is returned
+   * unchanged.
    *
    * If there is no match the URL is returned prefixed with `'unsafe:'` to ensure that when it is written
    * to the DOM it is inactive and potentially malicious code will not be executed.
    *
-   * @param {RegExp=} regexp New regexp to whitelist urls with.
+   * @param {RegExp=} regexp New regexp to trust urls with.
    * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
    *    chaining otherwise.
    */
-  this.imgSrcSanitizationWhitelist = function(regexp) {
+  this.imgSrcSanitizationTrustedUrlList = function(regexp) {
     if (isDefined(regexp)) {
-      imgSrcSanitizationWhitelist = regexp;
+      imgSrcSanitizationTrustedUrlList = regexp;
       return this;
     }
-    return imgSrcSanitizationWhitelist;
+    return imgSrcSanitizationTrustedUrlList;
   };
 
   this.$get = function() {
     return function sanitizeUri(uri, isMediaUrl) {
       // if (!uri) return uri;
-      var regex = isMediaUrl ? imgSrcSanitizationWhitelist : aHrefSanitizationWhitelist;
+      var regex = isMediaUrl ? imgSrcSanitizationTrustedUrlList : aHrefSanitizationTrustedUrlList;
       var normalizedVal = urlResolve(uri && uri.trim()).href;
       if (normalizedVal !== '' && !normalizedVal.match(regex)) {
         return 'unsafe:' + normalizedVal;
@@ -39134,10 +39188,10 @@ function adjustMatchers(matchers) {
  * The default instance of `$sceDelegate` should work out of the box with little pain.  While you
  * can override it completely to change the behavior of `$sce`, the common case would
  * involve configuring the {@link ng.$sceDelegateProvider $sceDelegateProvider} instead by setting
- * your own whitelists and blacklists for trusting URLs used for loading AngularJS resources such as
- * templates.  Refer {@link ng.$sceDelegateProvider#resourceUrlWhitelist
- * $sceDelegateProvider.resourceUrlWhitelist} and {@link
- * ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
+ * your own trusted and banned resource lists for trusting URLs used for loading AngularJS resources
+ * such as templates.  Refer {@link ng.$sceDelegateProvider#trustedResourceUrlList
+ * $sceDelegateProvider.trustedResourceUrlList} and {@link
+ * ng.$sceDelegateProvider#bannedResourceUrlList $sceDelegateProvider.bannedResourceUrlList}
  */
 
 /**
@@ -39150,12 +39204,12 @@ function adjustMatchers(matchers) {
  * The `$sceDelegateProvider` provider allows developers to configure the {@link ng.$sceDelegate
  * $sceDelegate service}, used as a delegate for {@link ng.$sce Strict Contextual Escaping (SCE)}.
  *
- * The `$sceDelegateProvider` allows one to get/set the whitelists and blacklists used to ensure
- * that the URLs used for sourcing AngularJS templates and other script-running URLs are safe (all
- * places that use the `$sce.RESOURCE_URL` context). See
- * {@link ng.$sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist}
- * and
- * {@link ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist},
+ * The `$sceDelegateProvider` allows one to get/set the `trustedResourceUrlList` and
+ * `bannedResourceUrlList` used to ensure that the URLs used for sourcing AngularJS templates and
+ * other script-running URLs are safe (all places that use the `$sce.RESOURCE_URL` context). See
+ * {@link ng.$sceDelegateProvider#trustedResourceUrlList
+ * $sceDelegateProvider.trustedResourceUrlList} and
+ * {@link ng.$sceDelegateProvider#bannedResourceUrlList $sceDelegateProvider.bannedResourceUrlList},
  *
  * For the general details about this service in AngularJS, read the main page for {@link ng.$sce
  * Strict Contextual Escaping (SCE)}.
@@ -39171,64 +39225,117 @@ function adjustMatchers(matchers) {
  *
  * ```
  *  angular.module('myApp', []).config(function($sceDelegateProvider) {
- *    $sceDelegateProvider.resourceUrlWhitelist([
+ *    $sceDelegateProvider.trustedResourceUrlList([
  *      // Allow same origin resource loads.
  *      'self',
  *      // Allow loading from our assets domain.  Notice the difference between * and **.
  *      'http://srv*.assets.example.com/**'
  *    ]);
  *
- *    // The blacklist overrides the whitelist so the open redirect here is blocked.
- *    $sceDelegateProvider.resourceUrlBlacklist([
+ *    // The banned resource URL list overrides the trusted resource URL list so the open redirect
+ *    // here is blocked.
+ *    $sceDelegateProvider.bannedResourceUrlList([
  *      'http://myapp.example.com/clickThru**'
  *    ]);
  *  });
  * ```
- * Note that an empty whitelist will block every resource URL from being loaded, and will require
+ * Note that an empty trusted resource URL list will block every resource URL from being loaded, and will require
  * you to manually mark each one as trusted with `$sce.trustAsResourceUrl`. However, templates
  * requested by {@link ng.$templateRequest $templateRequest} that are present in
  * {@link ng.$templateCache $templateCache} will not go through this check. If you have a mechanism
  * to populate your templates in that cache at config time, then it is a good idea to remove 'self'
- * from that whitelist. This helps to mitigate the security impact of certain types of issues, like
- * for instance attacker-controlled `ng-includes`.
+ * from the trusted resource URL lsit. This helps to mitigate the security impact of certain types
+ * of issues, like for instance attacker-controlled `ng-includes`.
  */
 
 function $SceDelegateProvider() {
   this.SCE_CONTEXTS = SCE_CONTEXTS;
 
   // Resource URLs can also be trusted by policy.
-  var resourceUrlWhitelist = ['self'],
-      resourceUrlBlacklist = [];
+  var trustedResourceUrlList = ['self'],
+      bannedResourceUrlList = [];
+
+  /**
+   * @ngdoc method
+   * @name $sceDelegateProvider#trustedResourceUrlList
+   * @kind function
+   *
+   * @param {Array=} trustedResourceUrlList When provided, replaces the trustedResourceUrlList with
+   *     the value provided.  This must be an array or null.  A snapshot of this array is used so
+   *     further changes to the array are ignored.
+   *     Follow {@link ng.$sce#resourceUrlPatternItem this link} for a description of the items
+   *     allowed in this array.
+   *
+   * @return {Array} The currently set trusted resource URL array.
+   *
+   * @description
+   * Sets/Gets the list trusted of resource URLs.
+   *
+   * The **default value** when no `trustedResourceUrlList` has been explicitly set is `['self']`
+   * allowing only same origin resource requests.
+   *
+   * <div class="alert alert-warning">
+   * **Note:** the default `trustedResourceUrlList` of 'self' is not recommended if your app shares
+   * its origin with other apps! It is a good idea to limit it to only your application's directory.
+   * </div>
+   */
+  this.trustedResourceUrlList = function(value) {
+    if (arguments.length) {
+      trustedResourceUrlList = adjustMatchers(value);
+    }
+    return trustedResourceUrlList;
+  };
 
   /**
    * @ngdoc method
    * @name $sceDelegateProvider#resourceUrlWhitelist
    * @kind function
    *
-   * @param {Array=} whitelist When provided, replaces the resourceUrlWhitelist with the value
-   *     provided.  This must be an array or null.  A snapshot of this array is used so further
-   *     changes to the array are ignored.
-   *     Follow {@link ng.$sce#resourceUrlPatternItem this link} for a description of the items
-   *     allowed in this array.
+   * @deprecated
+   * sinceVersion="1.8.1"
    *
-   * @return {Array} The currently set whitelist array.
+   * This method is deprecated. Use {@link $sceDelegateProvider#trustedResourceUrlList
+   * trustedResourceUrlList} instead.
+   */
+  Object.defineProperty(this, 'resourceUrlWhitelist', {
+    get: function() {
+      return this.trustedResourceUrlList;
+    },
+    set: function(value) {
+      this.trustedResourceUrlList = value;
+    }
+  });
+
+  /**
+   * @ngdoc method
+   * @name $sceDelegateProvider#bannedResourceUrlList
+   * @kind function
+   *
+   * @param {Array=} bannedResourceUrlList When provided, replaces the `bannedResourceUrlList` with
+   *     the value provided. This must be an array or null. A snapshot of this array is used so
+   *     further changes to the array are ignored.</p><p>
+   *     Follow {@link ng.$sce#resourceUrlPatternItem this link} for a description of the items
+   *     allowed in this array.</p><p>
+   *     The typical usage for the `bannedResourceUrlList` is to **block
+   *     [open redirects](http://cwe.mitre.org/data/definitions/601.html)** served by your domain as
+   *     these would otherwise be trusted but actually return content from the redirected domain.
+   *     </p><p>
+   *     Finally, **the banned resource URL list overrides the trusted resource URL list** and has
+   *     the final say.
+   *
+   * @return {Array} The currently set `bannedResourceUrlList` array.
    *
    * @description
-   * Sets/Gets the whitelist of trusted resource URLs.
+   * Sets/Gets the `bannedResourceUrlList` of trusted resource URLs.
    *
-   * The **default value** when no whitelist has been explicitly set is `['self']` allowing only
-   * same origin resource requests.
-   *
-   * <div class="alert alert-warning">
-   * **Note:** the default whitelist of 'self' is not recommended if your app shares its origin
-   * with other apps! It is a good idea to limit it to only your application's directory.
-   * </div>
+   * The **default value** when no trusted resource URL list has been explicitly set is the empty
+   * array (i.e. there is no `bannedResourceUrlList`.)
    */
-  this.resourceUrlWhitelist = function(value) {
+  this.bannedResourceUrlList = function(value) {
     if (arguments.length) {
-      resourceUrlWhitelist = adjustMatchers(value);
+      bannedResourceUrlList = adjustMatchers(value);
     }
-    return resourceUrlWhitelist;
+    return bannedResourceUrlList;
   };
 
   /**
@@ -39236,32 +39343,20 @@ function $SceDelegateProvider() {
    * @name $sceDelegateProvider#resourceUrlBlacklist
    * @kind function
    *
-   * @param {Array=} blacklist When provided, replaces the resourceUrlBlacklist with the value
-   *     provided.  This must be an array or null.  A snapshot of this array is used so further
-   *     changes to the array are ignored.</p><p>
-   *     Follow {@link ng.$sce#resourceUrlPatternItem this link} for a description of the items
-   *     allowed in this array.</p><p>
-   *     The typical usage for the blacklist is to **block
-   *     [open redirects](http://cwe.mitre.org/data/definitions/601.html)** served by your domain as
-   *     these would otherwise be trusted but actually return content from the redirected domain.
-   *     </p><p>
-   *     Finally, **the blacklist overrides the whitelist** and has the final say.
+   * @deprecated
+   * sinceVersion="1.8.1"
    *
-   * @return {Array} The currently set blacklist array.
-   *
-   * @description
-   * Sets/Gets the blacklist of trusted resource URLs.
-   *
-   * The **default value** when no whitelist has been explicitly set is the empty array (i.e. there
-   * is no blacklist.)
+   * This method is deprecated. Use {@link $sceDelegateProvider#bannedResourceUrlList
+   * bannedResourceUrlList} instead.
    */
-
-  this.resourceUrlBlacklist = function(value) {
-    if (arguments.length) {
-      resourceUrlBlacklist = adjustMatchers(value);
+  Object.defineProperty(this, 'resourceUrlBlacklist', {
+    get: function() {
+      return this.bannedResourceUrlList;
+    },
+    set: function(value) {
+      this.bannedResourceUrlList = value;
     }
-    return resourceUrlBlacklist;
-  };
+  });
 
   this.$get = ['$injector', '$$sanitizeUri', function($injector, $$sanitizeUri) {
 
@@ -39286,17 +39381,17 @@ function $SceDelegateProvider() {
     function isResourceUrlAllowedByPolicy(url) {
       var parsedUrl = urlResolve(url.toString());
       var i, n, allowed = false;
-      // Ensure that at least one item from the whitelist allows this url.
-      for (i = 0, n = resourceUrlWhitelist.length; i < n; i++) {
-        if (matchUrl(resourceUrlWhitelist[i], parsedUrl)) {
+      // Ensure that at least one item from the trusted resource URL list allows this url.
+      for (i = 0, n = trustedResourceUrlList.length; i < n; i++) {
+        if (matchUrl(trustedResourceUrlList[i], parsedUrl)) {
           allowed = true;
           break;
         }
       }
       if (allowed) {
-        // Ensure that no item from the blacklist blocked this url.
-        for (i = 0, n = resourceUrlBlacklist.length; i < n; i++) {
-          if (matchUrl(resourceUrlBlacklist[i], parsedUrl)) {
+        // Ensure that no item from the banned resource URL list has blocked this url.
+        for (i = 0, n = bannedResourceUrlList.length; i < n; i++) {
+          if (matchUrl(bannedResourceUrlList[i], parsedUrl)) {
             allowed = false;
             break;
           }
@@ -39417,9 +39512,9 @@ function $SceDelegateProvider() {
      * The contexts that can be sanitized are $sce.MEDIA_URL, $sce.URL and $sce.HTML. The first two are available
      * by default, and the third one relies on the `$sanitize` service (which may be loaded through
      * the `ngSanitize` module). Furthermore, for $sce.RESOURCE_URL context, a plain string may be
-     * accepted if the resource url policy defined by {@link ng.$sceDelegateProvider#resourceUrlWhitelist
-     * `$sceDelegateProvider.resourceUrlWhitelist`} and {@link ng.$sceDelegateProvider#resourceUrlBlacklist
-     * `$sceDelegateProvider.resourceUrlBlacklist`} accepts that resource.
+     * accepted if the resource url policy defined by {@link ng.$sceDelegateProvider#trustedResourceUrlList
+     * `$sceDelegateProvider.trustedResourceUrlList`} and {@link ng.$sceDelegateProvider#bannedResourceUrlList
+     * `$sceDelegateProvider.bannedResourceUrlList`} accepts that resource.
      *
      * This function will throw if the safe type isn't appropriate for this context, or if the
      * value given cannot be accepted in the context (which might be caused by sanitization not
@@ -39513,9 +39608,9 @@ function $SceDelegateProvider() {
  *
  * To systematically block XSS security bugs, AngularJS treats all values as untrusted by default in
  * HTML or sensitive URL bindings. When binding untrusted values, AngularJS will automatically
- * run security checks on them (sanitizations, whitelists, depending on context), or throw when it
- * cannot guarantee the security of the result. That behavior depends strongly on contexts: HTML
- * can be sanitized, but template URLs cannot, for instance.
+ * run security checks on them (sanitizations, trusted URL resource, depending on context), or throw
+ * when it cannot guarantee the security of the result. That behavior depends strongly on contexts:
+ * HTML can be sanitized, but template URLs cannot, for instance.
  *
  * To illustrate this, consider the `ng-bind-html` directive. It renders its value directly as HTML:
  * we call that the *context*. When given an untrusted input, AngularJS will attempt to sanitize it
@@ -39594,8 +39689,8 @@ function $SceDelegateProvider() {
  * By default, AngularJS only loads templates from the same domain and protocol as the application
  * document.  This is done by calling {@link ng.$sce#getTrustedResourceUrl
  * $sce.getTrustedResourceUrl} on the template URL.  To load templates from other domains and/or
- * protocols, you may either {@link ng.$sceDelegateProvider#resourceUrlWhitelist whitelist
- * them} or {@link ng.$sce#trustAsResourceUrl wrap it} into a trusted value.
+ * protocols, you may either add them to the {@link ng.$sceDelegateProvider#trustedResourceUrlList
+ * trustedResourceUrlList} or {@link ng.$sce#trustAsResourceUrl wrap them} into trusted values.
  *
  * *Please note*:
  * The browser's
@@ -39623,8 +39718,8 @@ function $SceDelegateProvider() {
  * templates in `ng-include` from your application's domain without having to even know about SCE.
  * It blocks loading templates from other domains or loading templates over http from an https
  * served document.  You can change these by setting your own custom {@link
- * ng.$sceDelegateProvider#resourceUrlWhitelist whitelists} and {@link
- * ng.$sceDelegateProvider#resourceUrlBlacklist blacklists} for matching such URLs.
+ * ng.$sceDelegateProvider#trustedResourceUrlList trusted resource URL list} and {@link
+ * ng.$sceDelegateProvider#bannedResourceUrlList banned resource URL list} for matching such URLs.
  *
  * This significantly reduces the overhead.  It is far easier to pay the small overhead and have an
  * application that's secure and can be audited to verify that with much more ease than bolting
@@ -39639,7 +39734,7 @@ function $SceDelegateProvider() {
  * | `$sce.CSS`          | For CSS that's safe to source into the application.  Currently unused.  Feel free to use it in your own directives. |
  * | `$sce.MEDIA_URL`    | For URLs that are safe to render as media. Is automatically converted from string by sanitizing when needed. |
  * | `$sce.URL`          | For URLs that are safe to follow as links. Is automatically converted from string by sanitizing when needed. Note that `$sce.URL` makes a stronger statement about the URL than `$sce.MEDIA_URL` does and therefore contexts requiring values trusted for `$sce.URL` can be used anywhere that values trusted for `$sce.MEDIA_URL` are required.|
- * | `$sce.RESOURCE_URL` | For URLs that are not only safe to follow as links, but whose contents are also safe to include in your application.  Examples include `ng-include`, `src` / `ngSrc` bindings for tags other than `IMG` (e.g. `IFRAME`, `OBJECT`, etc.)  <br><br>Note that `$sce.RESOURCE_URL` makes a stronger statement about the URL than `$sce.URL` or `$sce.MEDIA_URL` do and therefore contexts requiring values trusted for `$sce.RESOURCE_URL` can be used anywhere that values trusted for `$sce.URL` or `$sce.MEDIA_URL` are required. <br><br> The {@link $sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider#resourceUrlWhitelist()} and {@link $sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider#resourceUrlBlacklist()} can be used to restrict trusted origins for `RESOURCE_URL` |
+ * | `$sce.RESOURCE_URL` | For URLs that are not only safe to follow as links, but whose contents are also safe to include in your application.  Examples include `ng-include`, `src` / `ngSrc` bindings for tags other than `IMG` (e.g. `IFRAME`, `OBJECT`, etc.)  <br><br>Note that `$sce.RESOURCE_URL` makes a stronger statement about the URL than `$sce.URL` or `$sce.MEDIA_URL` do and therefore contexts requiring values trusted for `$sce.RESOURCE_URL` can be used anywhere that values trusted for `$sce.URL` or `$sce.MEDIA_URL` are required. <br><br> The {@link $sceDelegateProvider#trustedResourceUrlList $sceDelegateProvider#trustedResourceUrlList()} and {@link $sceDelegateProvider#bannedResourceUrlList $sceDelegateProvider#bannedResourceUrlList()} can be used to restrict trusted origins for `RESOURCE_URL` |
  * | `$sce.JS`           | For JavaScript that is safe to execute in your application's context.  Currently unused.  Feel free to use it in your own directives. |
  *
  *
@@ -39657,7 +39752,7 @@ function $SceDelegateProvider() {
  * There are no CSS or JS context bindings in AngularJS currently, so their corresponding `$sce.trustAs`
  * functions aren't useful yet. This might evolve.
  *
- * ### Format of items in {@link ng.$sceDelegateProvider#resourceUrlWhitelist resourceUrlWhitelist}/{@link ng.$sceDelegateProvider#resourceUrlBlacklist Blacklist} <a name="resourceUrlPatternItem"></a>
+ * ### Format of items in {@link ng.$sceDelegateProvider#trustedResourceUrlList trustedResourceUrlList}/{@link ng.$sceDelegateProvider#bannedResourceUrlList bannedResourceUrlList} <a name="resourceUrlPatternItem"></a>
  *
  *  Each element in these arrays must be one of the following:
  *
@@ -39671,7 +39766,7 @@ function $SceDelegateProvider() {
  *      match themselves.
  *    - `*`: matches zero or more occurrences of any character other than one of the following 6
  *      characters: '`:`', '`/`', '`.`', '`?`', '`&`' and '`;`'.  It's a useful wildcard for use
- *      in a whitelist.
+ *      for matching resource URL lists.
  *    - `**`: matches zero or more occurrences of *any* character.  As such, it's not
  *      appropriate for use in a scheme, domain, etc. as it would match too much.  (e.g.
  *      http://**.example.com/ would match http://evil.com/?ignore=.example.com/ and that might
@@ -40475,10 +40570,10 @@ function $TemplateRequestProvider() {
         handleRequestFn.totalPendingRequests++;
 
         // We consider the template cache holds only trusted templates, so
-        // there's no need to go through whitelisting again for keys that already
-        // are included in there. This also makes AngularJS accept any script
-        // directive, no matter its name. However, we still need to unwrap trusted
-        // types.
+        // there's no need to go through adding the template again to the trusted
+        // resources for keys that already are included in there. This also makes
+        // AngularJS accept any script directive, no matter its name. However, we
+        // still need to unwrap trusted types.
         if (!isString(tpl) || isUndefined($templateCache.get(tpl))) {
           tpl = $sce.getTrustedResourceUrl(tpl);
         }
@@ -40768,6 +40863,12 @@ var urlParsingNode = window.document.createElement('a');
 var originUrl = urlResolve(window.location.href);
 var baseUrlParsingNode;
 
+urlParsingNode.href = 'http://[::1]';
+
+// Support: IE 9-11 only, Edge 16-17 only (fixed in 18 Preview)
+// IE/Edge don't wrap IPv6 addresses' hostnames in square brackets
+// when parsed out of an anchor element.
+var ipv6InBrackets = urlParsingNode.hostname === '[::1]';
 
 /**
  *
@@ -40830,13 +40931,19 @@ function urlResolve(url) {
 
   urlParsingNode.setAttribute('href', href);
 
+  var hostname = urlParsingNode.hostname;
+
+  if (!ipv6InBrackets && hostname.indexOf(':') > -1) {
+    hostname = '[' + hostname + ']';
+  }
+
   return {
     href: urlParsingNode.href,
     protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
     host: urlParsingNode.host,
     search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
     hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-    hostname: urlParsingNode.hostname,
+    hostname: hostname,
     port: urlParsingNode.port,
     pathname: (urlParsingNode.pathname.charAt(0) === '/')
       ? urlParsingNode.pathname
@@ -40871,20 +40978,20 @@ function urlIsSameOriginAsBaseUrl(requestUrl) {
 }
 
 /**
- * Create a function that can check a URL's origin against a list of allowed/whitelisted origins.
+ * Create a function that can check a URL's origin against a list of allowed/trusted origins.
  * The current location's origin is implicitly trusted.
  *
- * @param {string[]} whitelistedOriginUrls - A list of URLs (strings), whose origins are trusted.
+ * @param {string[]} trustedOriginUrls - A list of URLs (strings), whose origins are trusted.
  *
  * @returns {Function} - A function that receives a URL (string or parsed URL object) and returns
  *     whether it is of an allowed origin.
  */
-function urlIsAllowedOriginFactory(whitelistedOriginUrls) {
-  var parsedAllowedOriginUrls = [originUrl].concat(whitelistedOriginUrls.map(urlResolve));
+function urlIsAllowedOriginFactory(trustedOriginUrls) {
+  var parsedAllowedOriginUrls = [originUrl].concat(trustedOriginUrls.map(urlResolve));
 
   /**
    * Check whether the specified URL (string or parsed URL object) has an origin that is allowed
-   * based on a list of whitelisted-origin URLs. The current location's origin is implicitly
+   * based on a list of trusted-origin URLs. The current location's origin is implicitly
    * trusted.
    *
    * @param {string|Object} requestUrl - The URL to be checked (provided as a string that will be
@@ -43281,7 +43388,6 @@ var htmlAnchorDirective = valueFn({
       </file>
     </example>
  *
- * @element INPUT
  * @param {expression} ngDisabled If the {@link guide/expression expression} is truthy,
  *     then the `disabled` attribute will be set on the element
  */
@@ -43508,7 +43614,7 @@ forEach(ALIASED_ATTR, function(htmlAttr, ngAttr) {
 // ng-src, ng-srcset, ng-href are interpolated
 forEach(['src', 'srcset', 'href'], function(attrName) {
   var normalized = directiveNormalize('ng-' + attrName);
-  ngAttributeAliasDirectives[normalized] = function() {
+  ngAttributeAliasDirectives[normalized] = ['$sce', function($sce) {
     return {
       priority: 99, // it needs to run after the attributes are interpolated
       link: function(scope, element, attr) {
@@ -43521,6 +43627,10 @@ forEach(['src', 'srcset', 'href'], function(attrName) {
           attr.$attr[name] = 'xlink:href';
           propName = null;
         }
+
+        // We need to sanitize the url at least once, in case it is a constant
+        // non-interpolated attribute.
+        attr.$set(normalized, $sce.getTrustedMediaUrl(attr[normalized]));
 
         attr.$observe(normalized, function(value) {
           if (!value) {
@@ -43541,7 +43651,7 @@ forEach(['src', 'srcset', 'href'], function(attrName) {
         });
       }
     };
-  };
+  }];
 });
 
 /* global -nullFormCtrl, -PENDING_CLASS, -SUBMITTED_CLASS
@@ -45179,8 +45289,10 @@ var inputType = {
    *
    * <div class="alert alert-warning">
    * **Note:** `input[email]` uses a regex to validate email addresses that is derived from the regex
-   * used in Chromium. If you need stricter validation (e.g. requiring a top-level domain), you can
-   * use `ng-pattern` or modify the built-in validators (see the {@link guide/forms Forms guide})
+   * used in Chromium, which may not fulfill your app's requirements.
+   * If you need stricter (e.g. requiring a top-level domain), or more relaxed validation
+   * (e.g. allowing IPv6 address literals) you can use `ng-pattern` or
+   * modify the built-in validators (see the {@link guide/forms Forms guide}).
    * </div>
    *
    * @param {string} ngModel Assignable AngularJS expression to data-bind to.
@@ -45767,7 +45879,7 @@ function createDateParser(regexp, mapping) {
 }
 
 function createDateInputType(type, regexp, parseDate, format) {
-  return function dynamicDateInputType(scope, element, attr, ctrl, $sniffer, $browser, $filter) {
+  return function dynamicDateInputType(scope, element, attr, ctrl, $sniffer, $browser, $filter, $parse) {
     badInputChecker(scope, element, attr, ctrl, type);
     baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 
@@ -45810,24 +45922,34 @@ function createDateInputType(type, regexp, parseDate, format) {
     });
 
     if (isDefined(attr.min) || attr.ngMin) {
-      var minVal;
+      var minVal = attr.min || $parse(attr.ngMin)(scope);
+      var parsedMinVal = parseObservedDateValue(minVal);
+
       ctrl.$validators.min = function(value) {
-        return !isValidDate(value) || isUndefined(minVal) || parseDate(value) >= minVal;
+        return !isValidDate(value) || isUndefined(parsedMinVal) || parseDate(value) >= parsedMinVal;
       };
       attr.$observe('min', function(val) {
-        minVal = parseObservedDateValue(val);
-        ctrl.$validate();
+        if (val !== minVal) {
+          parsedMinVal = parseObservedDateValue(val);
+          minVal = val;
+          ctrl.$validate();
+        }
       });
     }
 
     if (isDefined(attr.max) || attr.ngMax) {
-      var maxVal;
+      var maxVal = attr.max || $parse(attr.ngMax)(scope);
+      var parsedMaxVal = parseObservedDateValue(maxVal);
+
       ctrl.$validators.max = function(value) {
-        return !isValidDate(value) || isUndefined(maxVal) || parseDate(value) <= maxVal;
+        return !isValidDate(value) || isUndefined(parsedMaxVal) || parseDate(value) <= parsedMaxVal;
       };
       attr.$observe('max', function(val) {
-        maxVal = parseObservedDateValue(val);
-        ctrl.$validate();
+        if (val !== maxVal) {
+          parsedMaxVal = parseObservedDateValue(val);
+          maxVal = val;
+          ctrl.$validate();
+        }
       });
     }
 
@@ -45979,50 +46101,68 @@ function isValidForStep(viewValue, stepBase, step) {
   return (value - stepBase) % step === 0;
 }
 
-function numberInputType(scope, element, attr, ctrl, $sniffer, $browser) {
+function numberInputType(scope, element, attr, ctrl, $sniffer, $browser, $filter, $parse) {
   badInputChecker(scope, element, attr, ctrl, 'number');
   numberFormatterParser(ctrl);
   baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
 
-  var minVal;
-  var maxVal;
+  var parsedMinVal;
 
   if (isDefined(attr.min) || attr.ngMin) {
+    var minVal = attr.min || $parse(attr.ngMin)(scope);
+    parsedMinVal = parseNumberAttrVal(minVal);
+
     ctrl.$validators.min = function(modelValue, viewValue) {
-      return ctrl.$isEmpty(viewValue) || isUndefined(minVal) || viewValue >= minVal;
+      return ctrl.$isEmpty(viewValue) || isUndefined(parsedMinVal) || viewValue >= parsedMinVal;
     };
 
     attr.$observe('min', function(val) {
-      minVal = parseNumberAttrVal(val);
-      // TODO(matsko): implement validateLater to reduce number of validations
-      ctrl.$validate();
+      if (val !== minVal) {
+        parsedMinVal = parseNumberAttrVal(val);
+        minVal = val;
+        // TODO(matsko): implement validateLater to reduce number of validations
+        ctrl.$validate();
+      }
     });
   }
 
   if (isDefined(attr.max) || attr.ngMax) {
+    var maxVal = attr.max || $parse(attr.ngMax)(scope);
+    var parsedMaxVal = parseNumberAttrVal(maxVal);
+
     ctrl.$validators.max = function(modelValue, viewValue) {
-      return ctrl.$isEmpty(viewValue) || isUndefined(maxVal) || viewValue <= maxVal;
+      return ctrl.$isEmpty(viewValue) || isUndefined(parsedMaxVal) || viewValue <= parsedMaxVal;
     };
 
     attr.$observe('max', function(val) {
-      maxVal = parseNumberAttrVal(val);
-      // TODO(matsko): implement validateLater to reduce number of validations
-      ctrl.$validate();
+      if (val !== maxVal) {
+        parsedMaxVal = parseNumberAttrVal(val);
+        maxVal = val;
+        // TODO(matsko): implement validateLater to reduce number of validations
+        ctrl.$validate();
+      }
     });
   }
 
   if (isDefined(attr.step) || attr.ngStep) {
-    var stepVal;
+    var stepVal = attr.step || $parse(attr.ngStep)(scope);
+    var parsedStepVal = parseNumberAttrVal(stepVal);
+
     ctrl.$validators.step = function(modelValue, viewValue) {
-      return ctrl.$isEmpty(viewValue) || isUndefined(stepVal) ||
-             isValidForStep(viewValue, minVal || 0, stepVal);
+      return ctrl.$isEmpty(viewValue) || isUndefined(parsedStepVal) ||
+        isValidForStep(viewValue, parsedMinVal || 0, parsedStepVal);
     };
 
     attr.$observe('step', function(val) {
-      stepVal = parseNumberAttrVal(val);
       // TODO(matsko): implement validateLater to reduce number of validations
-      ctrl.$validate();
+      if (val !== stepVal) {
+        parsedStepVal = parseNumberAttrVal(val);
+        stepVal = val;
+        ctrl.$validate();
+      }
+
     });
+
   }
 }
 
@@ -46052,6 +46192,8 @@ function rangeInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     originalRender;
 
   if (hasMinAttr) {
+    minVal = parseNumberAttrVal(attr.min);
+
     ctrl.$validators.min = supportsRange ?
       // Since all browsers set the input to a valid value, we don't need to check validity
       function noopMinValidator() { return true; } :
@@ -46064,6 +46206,8 @@ function rangeInputType(scope, element, attr, ctrl, $sniffer, $browser) {
   }
 
   if (hasMaxAttr) {
+    maxVal = parseNumberAttrVal(attr.max);
+
     ctrl.$validators.max = supportsRange ?
       // Since all browsers set the input to a valid value, we don't need to check validity
       function noopMaxValidator() { return true; } :
@@ -46076,6 +46220,8 @@ function rangeInputType(scope, element, attr, ctrl, $sniffer, $browser) {
   }
 
   if (hasStepAttr) {
+    stepVal = parseNumberAttrVal(attr.step);
+
     ctrl.$validators.step = supportsRange ?
       function nativeStepValidator() {
         // Currently, only FF implements the spec on step change correctly (i.e. adjusting the
@@ -46097,7 +46243,13 @@ function rangeInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     // attribute value when the input is first rendered, so that the browser can adjust the
     // input value based on the min/max value
     element.attr(htmlAttrName, attr[htmlAttrName]);
-    attr.$observe(htmlAttrName, changeFn);
+    var oldVal = attr[htmlAttrName];
+    attr.$observe(htmlAttrName, function wrappedObserver(val) {
+      if (val !== oldVal) {
+        oldVal = val;
+        changeFn(val);
+      }
+    });
   }
 
   function minChange(val) {
@@ -46151,11 +46303,11 @@ function rangeInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     }
 
     // Some browsers don't adjust the input value correctly, but set the stepMismatch error
-    if (supportsRange && ctrl.$viewValue !== element.val()) {
-      ctrl.$setViewValue(element.val());
-    } else {
+    if (!supportsRange) {
       // TODO(matsko): implement validateLater to reduce number of validations
       ctrl.$validate();
+    } else if (ctrl.$viewValue !== element.val()) {
+      ctrl.$setViewValue(element.val());
     }
   }
 }
@@ -46461,6 +46613,48 @@ var inputDirective = ['$browser', '$sniffer', '$filter', '$parse',
     }
   };
 }];
+
+
+var hiddenInputBrowserCacheDirective = function() {
+  var valueProperty = {
+    configurable: true,
+    enumerable: false,
+    get: function() {
+      return this.getAttribute('value') || '';
+    },
+    set: function(val) {
+      this.setAttribute('value', val);
+    }
+  };
+
+  return {
+    restrict: 'E',
+    priority: 200,
+    compile: function(_, attr) {
+      if (lowercase(attr.type) !== 'hidden') {
+        return;
+      }
+
+      return {
+        pre: function(scope, element, attr, ctrls) {
+          var node = element[0];
+
+          // Support: Edge
+          // Moving the DOM around prevents autofillling
+          if (node.parentNode) {
+            node.parentNode.insertBefore(node, node.nextSibling);
+          }
+
+          // Support: FF, IE
+          // Avoiding direct assignment to .value prevents autofillling
+          if (Object.defineProperty) {
+            Object.defineProperty(node, 'value', valueProperty);
+          }
+        }
+      };
+    }
+  };
+};
 
 
 
@@ -48544,9 +48738,9 @@ var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
  * By default, the template URL is restricted to the same domain and protocol as the
  * application document. This is done by calling {@link $sce#getTrustedResourceUrl
  * $sce.getTrustedResourceUrl} on it. To load templates from other domains or protocols
- * you may either {@link ng.$sceDelegateProvider#resourceUrlWhitelist whitelist them} or
- * {@link $sce#trustAsResourceUrl wrap them} as trusted values. Refer to AngularJS's {@link
- * ng.$sce Strict Contextual Escaping}.
+ * you may either add them to your {@link ng.$sceDelegateProvider#trustedResourceUrlList trusted
+ * resource URL list} or {@link $sce#trustAsResourceUrl wrap them} as trusted values. Refer to
+ * AngularJS's {@link ng.$sce Strict Contextual Escaping}.
  *
  * In addition, the browser's
  * [Same Origin Policy](https://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy_for_XMLHttpRequest)
@@ -49603,6 +49797,7 @@ NgModelController.prototype = {
    * `$modelValue`, i.e. either the last parsed value or the last value set from the scope.
    */
   $validate: function() {
+
     // ignore $validate before model is initialized
     if (isNumberNaN(this.$modelValue)) {
       return;
@@ -52615,7 +52810,7 @@ var ngRefDirective = ['$parse', function($parse) {
  *     For example: `item in items | filter:x as results` will store the fragment of the repeated items as `results`, but only after
  *     the items have been processed through the filter.
  *
- *     Please note that `as [variable name] is not an operator but rather a part of ngRepeat
+ *     Please note that `as [variable name]` is not an operator but rather a part of ngRepeat
  *     micro-syntax so it can be used only after all filters (and not as operator, inside an expression).
  *
  *     For example: `item in items | filter : x | orderBy : order | limitTo : limit as results track by item.id` .
@@ -52737,6 +52932,13 @@ var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $ani
     return block.clone[block.clone.length - 1];
   };
 
+  var trackByIdArrayFn = function($scope, key, value) {
+    return hashKey(value);
+  };
+
+  var trackByIdObjFn = function($scope, key) {
+    return key;
+  };
 
   return {
     restrict: 'A',
@@ -52776,31 +52978,22 @@ var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $ani
           aliasAs);
       }
 
-      var trackByExpGetter, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn;
-      var hashFnLocals = {$id: hashKey};
+      var trackByIdExpFn;
 
       if (trackByExp) {
-        trackByExpGetter = $parse(trackByExp);
-      } else {
-        trackByIdArrayFn = function(key, value) {
-          return hashKey(value);
-        };
-        trackByIdObjFn = function(key) {
-          return key;
+        var hashFnLocals = {$id: hashKey};
+        var trackByExpGetter = $parse(trackByExp);
+
+        trackByIdExpFn = function($scope, key, value, index) {
+          // assign key, value, and $index to the locals so that they can be used in hash functions
+          if (keyIdentifier) hashFnLocals[keyIdentifier] = key;
+          hashFnLocals[valueIdentifier] = value;
+          hashFnLocals.$index = index;
+          return trackByExpGetter($scope, hashFnLocals);
         };
       }
 
       return function ngRepeatLink($scope, $element, $attr, ctrl, $transclude) {
-
-        if (trackByExpGetter) {
-          trackByIdExpFn = function(key, value, index) {
-            // assign key, value, and $index to the locals so that they can be used in hash functions
-            if (keyIdentifier) hashFnLocals[keyIdentifier] = key;
-            hashFnLocals[valueIdentifier] = value;
-            hashFnLocals.$index = index;
-            return trackByExpGetter($scope, hashFnLocals);
-          };
-        }
 
         // Store a list of elements from previous run. This is a hash where key is the item from the
         // iterator, and the value is objects with following properties.
@@ -52855,7 +53048,7 @@ var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $ani
           for (index = 0; index < collectionLength; index++) {
             key = (collection === collectionKeys) ? index : collectionKeys[index];
             value = collection[key];
-            trackById = trackByIdFn(key, value, index);
+            trackById = trackByIdFn($scope, key, value, index);
             if (lastBlockMap[trackById]) {
               // found previously seen block
               block = lastBlockMap[trackById];
@@ -52875,6 +53068,12 @@ var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $ani
               nextBlockOrder[index] = {id: trackById, scope: undefined, clone: undefined};
               nextBlockMap[trackById] = true;
             }
+          }
+
+          // Clear the value property from the hashFnLocals object to prevent a reference to the last value
+          // being leaked into the ngRepeatCompile function scope
+          if (hashFnLocals) {
+            hashFnLocals[valueIdentifier] = undefined;
           }
 
           // remove leftover items
@@ -53420,11 +53619,11 @@ var ngHideDirective = ['$animate', function($animate) {
        var colorSpan = element(by.css('span'));
 
        it('should check ng-style', function() {
-         expect(colorSpan.getCssValue('color')).toBe('rgba(0, 0, 0, 1)');
+         expect(colorSpan.getCssValue('color')).toMatch(/rgba\(0, 0, 0, 1\)|rgb\(0, 0, 0\)/);
          element(by.css('input[value=\'set color\']')).click();
-         expect(colorSpan.getCssValue('color')).toBe('rgba(255, 0, 0, 1)');
+         expect(colorSpan.getCssValue('color')).toMatch(/rgba\(255, 0, 0, 1\)|rgb\(255, 0, 0\)/);
          element(by.css('input[value=clear]')).click();
-         expect(colorSpan.getCssValue('color')).toBe('rgba(0, 0, 0, 1)');
+         expect(colorSpan.getCssValue('color')).toMatch(/rgba\(0, 0, 0, 1\)|rgb\(0, 0, 0\)/);
        });
      </file>
    </example>
@@ -53432,7 +53631,7 @@ var ngHideDirective = ['$animate', function($animate) {
 var ngStyleDirective = ngDirective(function(scope, element, attr) {
   scope.$watchCollection(attr.ngStyle, function ngStyleWatchAction(newStyles, oldStyles) {
     if (oldStyles && (newStyles !== oldStyles)) {
-      forEach(oldStyles, function(val, style) { element.css(style, '');});
+      forEach(oldStyles, function(val, style) { element.css(style, ''); });
     }
     if (newStyles) element.css(newStyles);
   });
@@ -54894,24 +55093,35 @@ var optionDirective = ['$interpolate', function($interpolate) {
  *   </file>
  * </example>
  */
-var requiredDirective = function() {
+var requiredDirective = ['$parse', function($parse) {
   return {
     restrict: 'A',
     require: '?ngModel',
     link: function(scope, elm, attr, ctrl) {
       if (!ctrl) return;
-      attr.required = true; // force truthy in case we are on non input element
+      // For boolean attributes like required, presence means true
+      var value = attr.hasOwnProperty('required') || $parse(attr.ngRequired)(scope);
+
+      if (!attr.ngRequired) {
+        // force truthy in case we are on non input element
+        // (input elements do this automatically for boolean attributes like required)
+        attr.required = true;
+      }
 
       ctrl.$validators.required = function(modelValue, viewValue) {
-        return !attr.required || !ctrl.$isEmpty(viewValue);
+        return !value || !ctrl.$isEmpty(viewValue);
       };
 
-      attr.$observe('required', function() {
-        ctrl.$validate();
+      attr.$observe('required', function(newVal) {
+
+        if (value !== newVal) {
+          value = newVal;
+          ctrl.$validate();
+        }
       });
     }
   };
-};
+}];
 
 /**
  * @ngdoc directive
@@ -54994,36 +55204,59 @@ var requiredDirective = function() {
  *   </file>
  * </example>
  */
-var patternDirective = function() {
+var patternDirective = ['$parse', function($parse) {
   return {
     restrict: 'A',
     require: '?ngModel',
-    link: function(scope, elm, attr, ctrl) {
-      if (!ctrl) return;
+    compile: function(tElm, tAttr) {
+      var patternExp;
+      var parseFn;
 
-      var regexp, patternExp = attr.ngPattern || attr.pattern;
-      attr.$observe('pattern', function(regex) {
-        if (isString(regex) && regex.length > 0) {
-          regex = new RegExp('^' + regex + '$');
+      if (tAttr.ngPattern) {
+        patternExp = tAttr.ngPattern;
+
+        // ngPattern might be a scope expression, or an inlined regex, which is not parsable.
+        // We get value of the attribute here, so we can compare the old and the new value
+        // in the observer to avoid unnecessary validations
+        if (tAttr.ngPattern.charAt(0) === '/' && REGEX_STRING_REGEXP.test(tAttr.ngPattern)) {
+          parseFn = function() { return tAttr.ngPattern; };
+        } else {
+          parseFn = $parse(tAttr.ngPattern);
+        }
+      }
+
+      return function(scope, elm, attr, ctrl) {
+        if (!ctrl) return;
+
+        var attrVal = attr.pattern;
+
+        if (attr.ngPattern) {
+          attrVal = parseFn(scope);
+        } else {
+          patternExp = attr.pattern;
         }
 
-        if (regex && !regex.test) {
-          throw minErr('ngPattern')('noregexp',
-            'Expected {0} to be a RegExp but was {1}. Element: {2}', patternExp,
-            regex, startingTag(elm));
-        }
+        var regexp = parsePatternAttr(attrVal, patternExp, elm);
 
-        regexp = regex || undefined;
-        ctrl.$validate();
-      });
+        attr.$observe('pattern', function(newVal) {
+          var oldRegexp = regexp;
 
-      ctrl.$validators.pattern = function(modelValue, viewValue) {
-        // HTML5 pattern constraint validates the input value, so we validate the viewValue
-        return ctrl.$isEmpty(viewValue) || isUndefined(regexp) || regexp.test(viewValue);
+          regexp = parsePatternAttr(newVal, patternExp, elm);
+
+          if ((oldRegexp && oldRegexp.toString()) !== (regexp && regexp.toString())) {
+            ctrl.$validate();
+          }
+        });
+
+        ctrl.$validators.pattern = function(modelValue, viewValue) {
+          // HTML5 pattern constraint validates the input value, so we validate the viewValue
+          return ctrl.$isEmpty(viewValue) || isUndefined(regexp) || regexp.test(viewValue);
+        };
       };
     }
+
   };
-};
+}];
 
 /**
  * @ngdoc directive
@@ -55096,25 +55329,29 @@ var patternDirective = function() {
  *   </file>
  * </example>
  */
-var maxlengthDirective = function() {
+var maxlengthDirective = ['$parse', function($parse) {
   return {
     restrict: 'A',
     require: '?ngModel',
     link: function(scope, elm, attr, ctrl) {
       if (!ctrl) return;
 
-      var maxlength = -1;
+      var maxlength = attr.maxlength || $parse(attr.ngMaxlength)(scope);
+      var maxlengthParsed = parseLength(maxlength);
+
       attr.$observe('maxlength', function(value) {
-        var intVal = toInt(value);
-        maxlength = isNumberNaN(intVal) ? -1 : intVal;
-        ctrl.$validate();
+        if (maxlength !== value) {
+          maxlengthParsed = parseLength(value);
+          maxlength = value;
+          ctrl.$validate();
+        }
       });
       ctrl.$validators.maxlength = function(modelValue, viewValue) {
-        return (maxlength < 0) || ctrl.$isEmpty(viewValue) || (viewValue.length <= maxlength);
+        return (maxlengthParsed < 0) || ctrl.$isEmpty(viewValue) || (viewValue.length <= maxlengthParsed);
       };
     }
   };
-};
+}];
 
 /**
  * @ngdoc directive
@@ -55185,24 +55422,52 @@ var maxlengthDirective = function() {
  *   </file>
  * </example>
  */
-var minlengthDirective = function() {
+var minlengthDirective = ['$parse', function($parse) {
   return {
     restrict: 'A',
     require: '?ngModel',
     link: function(scope, elm, attr, ctrl) {
       if (!ctrl) return;
 
-      var minlength = 0;
+      var minlength = attr.minlength || $parse(attr.ngMinlength)(scope);
+      var minlengthParsed = parseLength(minlength) || -1;
+
       attr.$observe('minlength', function(value) {
-        minlength = toInt(value) || 0;
-        ctrl.$validate();
+        if (minlength !== value) {
+          minlengthParsed = parseLength(value) || -1;
+          minlength = value;
+          ctrl.$validate();
+        }
+
       });
       ctrl.$validators.minlength = function(modelValue, viewValue) {
-        return ctrl.$isEmpty(viewValue) || viewValue.length >= minlength;
+        return ctrl.$isEmpty(viewValue) || viewValue.length >= minlengthParsed;
       };
     }
   };
-};
+}];
+
+
+function parsePatternAttr(regex, patternExp, elm) {
+  if (!regex) return undefined;
+
+  if (isString(regex)) {
+    regex = new RegExp('^' + regex + '$');
+  }
+
+  if (!regex.test) {
+    throw minErr('ngPattern')('noregexp',
+      'Expected {0} to be a RegExp but was {1}. Element: {2}', patternExp,
+      regex, startingTag(elm));
+  }
+
+  return regex;
+}
+
+function parseLength(val) {
+  var intVal = toInt(val);
+  return isNumberNaN(intVal) ? -1 : intVal;
+}
 
 if (window.angular.bootstrap) {
   // AngularJS is already loaded, so we can return here...
@@ -55367,32 +55632,32 @@ $provide.value("$locale", {
 
 })(window);
 
-!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend(window.angular.element('<style>').text('@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}'));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(145);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(146);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.3.1
+ * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
  * https://sizzlejs.com/
  *
- * Copyright JS Foundation and other contributors
+ * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2018-01-20T17:24Z
+ * Date: 2021-03-02T17:08Z
  */
 ( function( global, factory ) {
 
@@ -55430,13 +55695,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 var arr = [];
 
-var document = window.document;
-
 var getProto = Object.getPrototypeOf;
 
 var slice = arr.slice;
 
-var concat = arr.concat;
+var flat = arr.flat ? function( array ) {
+	return arr.flat.call( array );
+} : function( array ) {
+	return arr.concat.apply( [], array );
+};
+
 
 var push = arr.push;
 
@@ -55456,12 +55724,16 @@ var support = {};
 
 var isFunction = function isFunction( obj ) {
 
-      // Support: Chrome <=57, Firefox <=52
-      // In some browsers, typeof returns "function" for HTML <object> elements
-      // (i.e., `typeof document.createElement( "object" ) === "function"`).
-      // We don't want to classify *any* DOM node as a function.
-      return typeof obj === "function" && typeof obj.nodeType !== "number";
-  };
+		// Support: Chrome <=57, Firefox <=52
+		// In some browsers, typeof returns "function" for HTML <object> elements
+		// (i.e., `typeof document.createElement( "object" ) === "function"`).
+		// We don't want to classify *any* DOM node as a function.
+		// Support: QtWeb <=3.8.5, WebKit <=534.34, wkhtmltopdf tool <=0.12.5
+		// Plus for old WebKit, typeof returns "function" for HTML collections
+		// (e.g., `typeof document.getElementsByTagName("div") === "function"`). (gh-4756)
+		return typeof obj === "function" && typeof obj.nodeType !== "number" &&
+			typeof obj.item !== "function";
+	};
 
 
 var isWindow = function isWindow( obj ) {
@@ -55469,25 +55741,40 @@ var isWindow = function isWindow( obj ) {
 	};
 
 
+var document = window.document;
+
 
 
 	var preservedScriptAttributes = {
 		type: true,
 		src: true,
+		nonce: true,
 		noModule: true
 	};
 
-	function DOMEval( code, doc, node ) {
+	function DOMEval( code, node, doc ) {
 		doc = doc || document;
 
-		var i,
+		var i, val,
 			script = doc.createElement( "script" );
 
 		script.text = code;
 		if ( node ) {
 			for ( i in preservedScriptAttributes ) {
-				if ( node[ i ] ) {
-					script[ i ] = node[ i ];
+
+				// Support: Firefox 64+, Edge 18+
+				// Some browsers don't support the "nonce" property on scripts.
+				// On the other hand, just using `getAttribute` is not enough as
+				// the `nonce` attribute is reset to an empty string whenever it
+				// becomes browsing-context connected.
+				// See https://github.com/whatwg/html/issues/2369
+				// See https://html.spec.whatwg.org/#nonce-attributes
+				// The `node.getAttribute` check was added for the sake of
+				// `jQuery.globalEval` so that it can fake a nonce-containing node
+				// via an object.
+				val = node[ i ] || node.getAttribute && node.getAttribute( i );
+				if ( val ) {
+					script.setAttribute( i, val );
 				}
 			}
 		}
@@ -55512,7 +55799,7 @@ function toType( obj ) {
 
 
 var
-	version = "3.3.1",
+	version = "3.6.0",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -55520,11 +55807,7 @@ var
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
 		return new jQuery.fn.init( selector, context );
-	},
-
-	// Support: Android <=4.0 only
-	// Make sure we trim BOM and NBSP
-	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+	};
 
 jQuery.fn = jQuery.prototype = {
 
@@ -55590,6 +55873,18 @@ jQuery.fn = jQuery.prototype = {
 		return this.eq( -1 );
 	},
 
+	even: function() {
+		return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+			return ( i + 1 ) % 2;
+		} ) );
+	},
+
+	odd: function() {
+		return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+			return i % 2;
+		} ) );
+	},
+
 	eq: function( i ) {
 		var len = this.length,
 			j = +i + ( i < 0 ? len : 0 );
@@ -55641,25 +55936,28 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 			// Extend the base object
 			for ( name in options ) {
-				src = target[ name ];
 				copy = options[ name ];
 
+				// Prevent Object.prototype pollution
 				// Prevent never-ending loop
-				if ( target === copy ) {
+				if ( name === "__proto__" || target === copy ) {
 					continue;
 				}
 
 				// Recurse if we're merging plain objects or arrays
 				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
 					( copyIsArray = Array.isArray( copy ) ) ) ) {
+					src = target[ name ];
 
-					if ( copyIsArray ) {
-						copyIsArray = false;
-						clone = src && Array.isArray( src ) ? src : [];
-
+					// Ensure proper type for the source value
+					if ( copyIsArray && !Array.isArray( src ) ) {
+						clone = [];
+					} else if ( !copyIsArray && !jQuery.isPlainObject( src ) ) {
+						clone = {};
 					} else {
-						clone = src && jQuery.isPlainObject( src ) ? src : {};
+						clone = src;
 					}
+					copyIsArray = false;
 
 					// Never move original objects, clone them
 					target[ name ] = jQuery.extend( deep, clone, copy );
@@ -55712,9 +56010,6 @@ jQuery.extend( {
 	},
 
 	isEmptyObject: function( obj ) {
-
-		/* eslint-disable no-unused-vars */
-		// See https://github.com/eslint/eslint/issues/6125
 		var name;
 
 		for ( name in obj ) {
@@ -55723,9 +56018,10 @@ jQuery.extend( {
 		return true;
 	},
 
-	// Evaluates a script in a global context
-	globalEval: function( code ) {
-		DOMEval( code );
+	// Evaluates a script in a provided context; falls back to the global one
+	// if not specified.
+	globalEval: function( code, options, doc ) {
+		DOMEval( code, { nonce: options && options.nonce }, doc );
 	},
 
 	each: function( obj, callback ) {
@@ -55749,13 +56045,6 @@ jQuery.extend( {
 		return obj;
 	},
 
-	// Support: Android <=4.0 only
-	trim: function( text ) {
-		return text == null ?
-			"" :
-			( text + "" ).replace( rtrim, "" );
-	},
-
 	// results is for internal usage only
 	makeArray: function( arr, results ) {
 		var ret = results || [];
@@ -55764,7 +56053,7 @@ jQuery.extend( {
 			if ( isArrayLike( Object( arr ) ) ) {
 				jQuery.merge( ret,
 					typeof arr === "string" ?
-					[ arr ] : arr
+						[ arr ] : arr
 				);
 			} else {
 				push.call( ret, arr );
@@ -55842,7 +56131,7 @@ jQuery.extend( {
 		}
 
 		// Flatten any nested arrays
-		return concat.apply( [], ret );
+		return flat( ret );
 	},
 
 	// A global GUID counter for objects
@@ -55859,9 +56148,9 @@ if ( typeof Symbol === "function" ) {
 
 // Populate the class2type map
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
-function( i, name ) {
-	class2type[ "[object " + name + "]" ] = name.toLowerCase();
-} );
+	function( _i, name ) {
+		class2type[ "[object " + name + "]" ] = name.toLowerCase();
+	} );
 
 function isArrayLike( obj ) {
 
@@ -55881,17 +56170,16 @@ function isArrayLike( obj ) {
 }
 var Sizzle =
 /*!
- * Sizzle CSS Selector Engine v2.3.3
+ * Sizzle CSS Selector Engine v2.3.6
  * https://sizzlejs.com/
  *
- * Copyright jQuery Foundation and other contributors
+ * Copyright JS Foundation and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * https://js.foundation/
  *
- * Date: 2016-08-08
+ * Date: 2021-02-16
  */
-(function( window ) {
-
+( function( window ) {
 var i,
 	support,
 	Expr,
@@ -55922,6 +56210,7 @@ var i,
 	classCache = createCache(),
 	tokenCache = createCache(),
 	compilerCache = createCache(),
+	nonnativeSelectorCache = createCache(),
 	sortOrder = function( a, b ) {
 		if ( a === b ) {
 			hasDuplicate = true;
@@ -55930,61 +56219,71 @@ var i,
 	},
 
 	// Instance methods
-	hasOwn = ({}).hasOwnProperty,
+	hasOwn = ( {} ).hasOwnProperty,
 	arr = [],
 	pop = arr.pop,
-	push_native = arr.push,
+	pushNative = arr.push,
 	push = arr.push,
 	slice = arr.slice,
+
 	// Use a stripped-down indexOf as it's faster than native
 	// https://jsperf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
 			len = list.length;
 		for ( ; i < len; i++ ) {
-			if ( list[i] === elem ) {
+			if ( list[ i ] === elem ) {
 				return i;
 			}
 		}
 		return -1;
 	},
 
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" +
+		"ismap|loop|multiple|open|readonly|required|scoped",
 
 	// Regular expressions
 
 	// http://www.w3.org/TR/css3-selectors/#whitespace
 	whitespace = "[\\x20\\t\\r\\n\\f]",
 
-	// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
-	identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
+	// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
+	identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace +
+		"?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
 
 	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
 	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
+
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
-		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
-		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
-		"*\\]",
+
+		// "Attribute values must be CSS identifiers [capture 5]
+		// or strings [capture 3 or capture 4]"
+		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" +
+		whitespace + "*\\]",
 
 	pseudos = ":(" + identifier + ")(?:\\((" +
+
 		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
 		// 1. quoted (capture 3; capture 4 or capture 5)
 		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
+
 		// 2. simple (capture 6)
 		"((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" +
+
 		// 3. anything else (capture 2)
 		".*" +
 		")\\)|)",
 
 	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
 	rwhitespace = new RegExp( whitespace + "+", "g" ),
-	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
+	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" +
+		whitespace + "+$", "g" ),
 
 	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
-	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*" ),
-
-	rattributeQuotes = new RegExp( "=" + whitespace + "*([^\\]'\"]*?)" + whitespace + "*\\]", "g" ),
+	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace +
+		"*" ),
+	rdescend = new RegExp( whitespace + "|>" ),
 
 	rpseudo = new RegExp( pseudos ),
 	ridentifier = new RegExp( "^" + identifier + "$" ),
@@ -55995,16 +56294,19 @@ var i,
 		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
 		"ATTR": new RegExp( "^" + attributes ),
 		"PSEUDO": new RegExp( "^" + pseudos ),
-		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
-			"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
-			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
+		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" +
+			whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" +
+			whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
 		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
+
 		// For use in libraries implementing .is()
 		// We use this for POS matching in `select`
-		"needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
-			whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
+		"needsContext": new RegExp( "^" + whitespace +
+			"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace +
+			"*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 	},
 
+	rhtml = /HTML$/i,
 	rinputs = /^(?:input|select|textarea|button)$/i,
 	rheader = /^h\d$/i,
 
@@ -56017,18 +56319,21 @@ var i,
 
 	// CSS escapes
 	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
-	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
-	funescape = function( _, escaped, escapedWhitespace ) {
-		var high = "0x" + escaped - 0x10000;
-		// NaN means non-codepoint
-		// Support: Firefox<24
-		// Workaround erroneous numeric interpretation of +"0x"
-		return high !== high || escapedWhitespace ?
-			escaped :
+	runescape = new RegExp( "\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\([^\\r\\n\\f])", "g" ),
+	funescape = function( escape, nonHex ) {
+		var high = "0x" + escape.slice( 1 ) - 0x10000;
+
+		return nonHex ?
+
+			// Strip the backslash prefix from a non-hex escape sequence
+			nonHex :
+
+			// Replace a hexadecimal escape sequence with the encoded Unicode code point
+			// Support: IE <=11+
+			// For values outside the Basic Multilingual Plane (BMP), manually construct a
+			// surrogate pair
 			high < 0 ?
-				// BMP codepoint
 				String.fromCharCode( high + 0x10000 ) :
-				// Supplemental Plane codepoint (surrogate pair)
 				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
 	},
 
@@ -56044,7 +56349,8 @@ var i,
 			}
 
 			// Control characters and (dependent upon position) numbers get escaped as code points
-			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
+			return ch.slice( 0, -1 ) + "\\" +
+				ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
 		}
 
 		// Other potentially-special ASCII characters get backslash-escaped
@@ -56059,9 +56365,9 @@ var i,
 		setDocument();
 	},
 
-	disabledAncestor = addCombinator(
+	inDisabledFieldset = addCombinator(
 		function( elem ) {
-			return elem.disabled === true && ("form" in elem || "label" in elem);
+			return elem.disabled === true && elem.nodeName.toLowerCase() === "fieldset";
 		},
 		{ dir: "parentNode", next: "legend" }
 	);
@@ -56069,18 +56375,20 @@ var i,
 // Optimize for push.apply( _, NodeList )
 try {
 	push.apply(
-		(arr = slice.call( preferredDoc.childNodes )),
+		( arr = slice.call( preferredDoc.childNodes ) ),
 		preferredDoc.childNodes
 	);
+
 	// Support: Android<4.0
 	// Detect silently failing push.apply
+	// eslint-disable-next-line no-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
 	push = { apply: arr.length ?
 
 		// Leverage slice if possible
 		function( target, els ) {
-			push_native.apply( target, slice.call(els) );
+			pushNative.apply( target, slice.call( els ) );
 		} :
 
 		// Support: IE<9
@@ -56088,8 +56396,9 @@ try {
 		function( target, els ) {
 			var j = target.length,
 				i = 0;
+
 			// Can't trust NodeList.length
-			while ( (target[j++] = els[i++]) ) {}
+			while ( ( target[ j++ ] = els[ i++ ] ) ) {}
 			target.length = j - 1;
 		}
 	};
@@ -56113,24 +56422,21 @@ function Sizzle( selector, context, results, seed ) {
 
 	// Try to shortcut find operations (as opposed to filters) in HTML documents
 	if ( !seed ) {
-
-		if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
-			setDocument( context );
-		}
+		setDocument( context );
 		context = context || document;
 
 		if ( documentIsHTML ) {
 
 			// If the selector is sufficiently simple, try using a "get*By*" DOM method
 			// (excepting DocumentFragment context, where the methods don't exist)
-			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
+			if ( nodeType !== 11 && ( match = rquickExpr.exec( selector ) ) ) {
 
 				// ID selector
-				if ( (m = match[1]) ) {
+				if ( ( m = match[ 1 ] ) ) {
 
 					// Document context
 					if ( nodeType === 9 ) {
-						if ( (elem = context.getElementById( m )) ) {
+						if ( ( elem = context.getElementById( m ) ) ) {
 
 							// Support: IE, Opera, Webkit
 							// TODO: identify versions
@@ -56149,7 +56455,7 @@ function Sizzle( selector, context, results, seed ) {
 						// Support: IE, Opera, Webkit
 						// TODO: identify versions
 						// getElementById can match elements by name instead of ID
-						if ( newContext && (elem = newContext.getElementById( m )) &&
+						if ( newContext && ( elem = newContext.getElementById( m ) ) &&
 							contains( context, elem ) &&
 							elem.id === m ) {
 
@@ -56159,12 +56465,12 @@ function Sizzle( selector, context, results, seed ) {
 					}
 
 				// Type selector
-				} else if ( match[2] ) {
+				} else if ( match[ 2 ] ) {
 					push.apply( results, context.getElementsByTagName( selector ) );
 					return results;
 
 				// Class selector
-				} else if ( (m = match[3]) && support.getElementsByClassName &&
+				} else if ( ( m = match[ 3 ] ) && support.getElementsByClassName &&
 					context.getElementsByClassName ) {
 
 					push.apply( results, context.getElementsByClassName( m ) );
@@ -56174,50 +56480,62 @@ function Sizzle( selector, context, results, seed ) {
 
 			// Take advantage of querySelectorAll
 			if ( support.qsa &&
-				!compilerCache[ selector + " " ] &&
-				(!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
+				!nonnativeSelectorCache[ selector + " " ] &&
+				( !rbuggyQSA || !rbuggyQSA.test( selector ) ) &&
 
-				if ( nodeType !== 1 ) {
-					newContext = context;
-					newSelector = selector;
-
-				// qSA looks outside Element context, which is not what we want
-				// Thanks to Andrew Dupont for this workaround technique
-				// Support: IE <=8
+				// Support: IE 8 only
 				// Exclude object elements
-				} else if ( context.nodeName.toLowerCase() !== "object" ) {
+				( nodeType !== 1 || context.nodeName.toLowerCase() !== "object" ) ) {
 
-					// Capture the context ID, setting it first if necessary
-					if ( (nid = context.getAttribute( "id" )) ) {
-						nid = nid.replace( rcssescape, fcssescape );
-					} else {
-						context.setAttribute( "id", (nid = expando) );
+				newSelector = selector;
+				newContext = context;
+
+				// qSA considers elements outside a scoping root when evaluating child or
+				// descendant combinators, which is not what we want.
+				// In such cases, we work around the behavior by prefixing every selector in the
+				// list with an ID selector referencing the scope context.
+				// The technique has to be used as well when a leading combinator is used
+				// as such selectors are not recognized by querySelectorAll.
+				// Thanks to Andrew Dupont for this technique.
+				if ( nodeType === 1 &&
+					( rdescend.test( selector ) || rcombinators.test( selector ) ) ) {
+
+					// Expand context for sibling selectors
+					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
+						context;
+
+					// We can use :scope instead of the ID hack if the browser
+					// supports it & if we're not changing the context.
+					if ( newContext !== context || !support.scope ) {
+
+						// Capture the context ID, setting it first if necessary
+						if ( ( nid = context.getAttribute( "id" ) ) ) {
+							nid = nid.replace( rcssescape, fcssescape );
+						} else {
+							context.setAttribute( "id", ( nid = expando ) );
+						}
 					}
 
 					// Prefix every selector in the list
 					groups = tokenize( selector );
 					i = groups.length;
 					while ( i-- ) {
-						groups[i] = "#" + nid + " " + toSelector( groups[i] );
+						groups[ i ] = ( nid ? "#" + nid : ":scope" ) + " " +
+							toSelector( groups[ i ] );
 					}
 					newSelector = groups.join( "," );
-
-					// Expand context for sibling selectors
-					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
-						context;
 				}
 
-				if ( newSelector ) {
-					try {
-						push.apply( results,
-							newContext.querySelectorAll( newSelector )
-						);
-						return results;
-					} catch ( qsaError ) {
-					} finally {
-						if ( nid === expando ) {
-							context.removeAttribute( "id" );
-						}
+				try {
+					push.apply( results,
+						newContext.querySelectorAll( newSelector )
+					);
+					return results;
+				} catch ( qsaError ) {
+					nonnativeSelectorCache( selector, true );
+				} finally {
+					if ( nid === expando ) {
+						context.removeAttribute( "id" );
 					}
 				}
 			}
@@ -56238,12 +56556,14 @@ function createCache() {
 	var keys = [];
 
 	function cache( key, value ) {
+
 		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
+
 			// Only keep the most recent entries
 			delete cache[ keys.shift() ];
 		}
-		return (cache[ key + " " ] = value);
+		return ( cache[ key + " " ] = value );
 	}
 	return cache;
 }
@@ -56262,17 +56582,19 @@ function markFunction( fn ) {
  * @param {Function} fn Passed the created element and returns a boolean result
  */
 function assert( fn ) {
-	var el = document.createElement("fieldset");
+	var el = document.createElement( "fieldset" );
 
 	try {
 		return !!fn( el );
-	} catch (e) {
+	} catch ( e ) {
 		return false;
 	} finally {
+
 		// Remove from its parent by default
 		if ( el.parentNode ) {
 			el.parentNode.removeChild( el );
 		}
+
 		// release memory in IE
 		el = null;
 	}
@@ -56284,11 +56606,11 @@ function assert( fn ) {
  * @param {Function} handler The method that will be applied
  */
 function addHandle( attrs, handler ) {
-	var arr = attrs.split("|"),
+	var arr = attrs.split( "|" ),
 		i = arr.length;
 
 	while ( i-- ) {
-		Expr.attrHandle[ arr[i] ] = handler;
+		Expr.attrHandle[ arr[ i ] ] = handler;
 	}
 }
 
@@ -56310,7 +56632,7 @@ function siblingCheck( a, b ) {
 
 	// Check if b follows a
 	if ( cur ) {
-		while ( (cur = cur.nextSibling) ) {
+		while ( ( cur = cur.nextSibling ) ) {
 			if ( cur === b ) {
 				return -1;
 			}
@@ -56338,7 +56660,7 @@ function createInputPseudo( type ) {
 function createButtonPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
-		return (name === "input" || name === "button") && elem.type === type;
+		return ( name === "input" || name === "button" ) && elem.type === type;
 	};
 }
 
@@ -56381,7 +56703,7 @@ function createDisabledPseudo( disabled ) {
 					// Where there is no isDisabled, check manually
 					/* jshint -W018 */
 					elem.isDisabled !== !disabled &&
-						disabledAncestor( elem ) === disabled;
+					inDisabledFieldset( elem ) === disabled;
 			}
 
 			return elem.disabled === disabled;
@@ -56403,21 +56725,21 @@ function createDisabledPseudo( disabled ) {
  * @param {Function} fn
  */
 function createPositionalPseudo( fn ) {
-	return markFunction(function( argument ) {
+	return markFunction( function( argument ) {
 		argument = +argument;
-		return markFunction(function( seed, matches ) {
+		return markFunction( function( seed, matches ) {
 			var j,
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
 
 			// Match elements found at the specified indexes
 			while ( i-- ) {
-				if ( seed[ (j = matchIndexes[i]) ] ) {
-					seed[j] = !(matches[j] = seed[j]);
+				if ( seed[ ( j = matchIndexes[ i ] ) ] ) {
+					seed[ j ] = !( matches[ j ] = seed[ j ] );
 				}
 			}
-		});
-	});
+		} );
+	} );
 }
 
 /**
@@ -56438,10 +56760,13 @@ support = Sizzle.support = {};
  * @returns {Boolean} True iff elem is a non-HTML XML node
  */
 isXML = Sizzle.isXML = function( elem ) {
-	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833)
-	var documentElement = elem && (elem.ownerDocument || elem).documentElement;
-	return documentElement ? documentElement.nodeName !== "HTML" : false;
+	var namespace = elem && elem.namespaceURI,
+		docElem = elem && ( elem.ownerDocument || elem ).documentElement;
+
+	// Support: IE <=8
+	// Assume HTML when documentElement doesn't yet exist, such as inside loading iframes
+	// https://bugs.jquery.com/ticket/4833
+	return !rhtml.test( namespace || docElem && docElem.nodeName || "HTML" );
 };
 
 /**
@@ -56454,7 +56779,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 		doc = node ? node.ownerDocument || node : preferredDoc;
 
 	// Return early if doc is invalid or already selected
-	if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( doc == document || doc.nodeType !== 9 || !doc.documentElement ) {
 		return document;
 	}
 
@@ -56463,10 +56792,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 	docElem = document.documentElement;
 	documentIsHTML = !isXML( document );
 
-	// Support: IE 9-11, Edge
+	// Support: IE 9 - 11+, Edge 12 - 18+
 	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
-	if ( preferredDoc !== document &&
-		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( preferredDoc != document &&
+		( subWindow = document.defaultView ) && subWindow.top !== subWindow ) {
 
 		// Support: IE 11, Edge
 		if ( subWindow.addEventListener ) {
@@ -56478,25 +56811,36 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 	}
 
+	// Support: IE 8 - 11+, Edge 12 - 18+, Chrome <=16 - 25 only, Firefox <=3.6 - 31 only,
+	// Safari 4 - 5 only, Opera <=11.6 - 12.x only
+	// IE/Edge & older browsers don't support the :scope pseudo-class.
+	// Support: Safari 6.0 only
+	// Safari 6.0 supports :scope but it's an alias of :root there.
+	support.scope = assert( function( el ) {
+		docElem.appendChild( el ).appendChild( document.createElement( "div" ) );
+		return typeof el.querySelectorAll !== "undefined" &&
+			!el.querySelectorAll( ":scope fieldset div" ).length;
+	} );
+
 	/* Attributes
 	---------------------------------------------------------------------- */
 
 	// Support: IE<8
 	// Verify that getAttribute really returns attributes and not properties
 	// (excepting IE8 booleans)
-	support.attributes = assert(function( el ) {
+	support.attributes = assert( function( el ) {
 		el.className = "i";
-		return !el.getAttribute("className");
-	});
+		return !el.getAttribute( "className" );
+	} );
 
 	/* getElement(s)By*
 	---------------------------------------------------------------------- */
 
 	// Check if getElementsByTagName("*") returns only elements
-	support.getElementsByTagName = assert(function( el ) {
-		el.appendChild( document.createComment("") );
-		return !el.getElementsByTagName("*").length;
-	});
+	support.getElementsByTagName = assert( function( el ) {
+		el.appendChild( document.createComment( "" ) );
+		return !el.getElementsByTagName( "*" ).length;
+	} );
 
 	// Support: IE<9
 	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
@@ -56505,38 +56849,38 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
-	support.getById = assert(function( el ) {
+	support.getById = assert( function( el ) {
 		docElem.appendChild( el ).id = expando;
 		return !document.getElementsByName || !document.getElementsByName( expando ).length;
-	});
+	} );
 
 	// ID filter and find
 	if ( support.getById ) {
-		Expr.filter["ID"] = function( id ) {
+		Expr.filter[ "ID" ] = function( id ) {
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
-				return elem.getAttribute("id") === attrId;
+				return elem.getAttribute( "id" ) === attrId;
 			};
 		};
-		Expr.find["ID"] = function( id, context ) {
+		Expr.find[ "ID" ] = function( id, context ) {
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var elem = context.getElementById( id );
 				return elem ? [ elem ] : [];
 			}
 		};
 	} else {
-		Expr.filter["ID"] =  function( id ) {
+		Expr.filter[ "ID" ] =  function( id ) {
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
 				var node = typeof elem.getAttributeNode !== "undefined" &&
-					elem.getAttributeNode("id");
+					elem.getAttributeNode( "id" );
 				return node && node.value === attrId;
 			};
 		};
 
 		// Support: IE 6 - 7 only
 		// getElementById is not reliable as a find shortcut
-		Expr.find["ID"] = function( id, context ) {
+		Expr.find[ "ID" ] = function( id, context ) {
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var node, i, elems,
 					elem = context.getElementById( id );
@@ -56544,7 +56888,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				if ( elem ) {
 
 					// Verify the id attribute
-					node = elem.getAttributeNode("id");
+					node = elem.getAttributeNode( "id" );
 					if ( node && node.value === id ) {
 						return [ elem ];
 					}
@@ -56552,8 +56896,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 					// Fall back on getElementsByName
 					elems = context.getElementsByName( id );
 					i = 0;
-					while ( (elem = elems[i++]) ) {
-						node = elem.getAttributeNode("id");
+					while ( ( elem = elems[ i++ ] ) ) {
+						node = elem.getAttributeNode( "id" );
 						if ( node && node.value === id ) {
 							return [ elem ];
 						}
@@ -56566,7 +56910,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	}
 
 	// Tag
-	Expr.find["TAG"] = support.getElementsByTagName ?
+	Expr.find[ "TAG" ] = support.getElementsByTagName ?
 		function( tag, context ) {
 			if ( typeof context.getElementsByTagName !== "undefined" ) {
 				return context.getElementsByTagName( tag );
@@ -56581,12 +56925,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			var elem,
 				tmp = [],
 				i = 0,
+
 				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
 				results = context.getElementsByTagName( tag );
 
 			// Filter out possible comments
 			if ( tag === "*" ) {
-				while ( (elem = results[i++]) ) {
+				while ( ( elem = results[ i++ ] ) ) {
 					if ( elem.nodeType === 1 ) {
 						tmp.push( elem );
 					}
@@ -56598,7 +56943,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		};
 
 	// Class
-	Expr.find["CLASS"] = support.getElementsByClassName && function( className, context ) {
+	Expr.find[ "CLASS" ] = support.getElementsByClassName && function( className, context ) {
 		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
 			return context.getElementsByClassName( className );
 		}
@@ -56619,10 +56964,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// See https://bugs.jquery.com/ticket/13378
 	rbuggyQSA = [];
 
-	if ( (support.qsa = rnative.test( document.querySelectorAll )) ) {
+	if ( ( support.qsa = rnative.test( document.querySelectorAll ) ) ) {
+
 		// Build QSA regex
 		// Regex strategy adopted from Diego Perini
-		assert(function( el ) {
+		assert( function( el ) {
+
+			var input;
+
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
 			// setting a boolean content attribute,
@@ -56636,78 +56985,98 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Nothing should be selected when empty strings follow ^= or $= or *=
 			// The test attribute must be unknown in Opera but "safe" for WinRT
 			// https://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
-			if ( el.querySelectorAll("[msallowcapture^='']").length ) {
+			if ( el.querySelectorAll( "[msallowcapture^='']" ).length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
 			}
 
 			// Support: IE8
 			// Boolean attributes and "value" are not treated correctly
-			if ( !el.querySelectorAll("[selected]").length ) {
+			if ( !el.querySelectorAll( "[selected]" ).length ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
 			}
 
 			// Support: Chrome<29, Android<4.4, Safari<7.0+, iOS<7.0+, PhantomJS<1.9.8+
 			if ( !el.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
-				rbuggyQSA.push("~=");
+				rbuggyQSA.push( "~=" );
+			}
+
+			// Support: IE 11+, Edge 15 - 18+
+			// IE 11/Edge don't find elements on a `[name='']` query in some cases.
+			// Adding a temporary attribute to the document before the selection works
+			// around the issue.
+			// Interestingly, IE 10 & older don't seem to have the issue.
+			input = document.createElement( "input" );
+			input.setAttribute( "name", "" );
+			el.appendChild( input );
+			if ( !el.querySelectorAll( "[name='']" ).length ) {
+				rbuggyQSA.push( "\\[" + whitespace + "*name" + whitespace + "*=" +
+					whitespace + "*(?:''|\"\")" );
 			}
 
 			// Webkit/Opera - :checked should return selected option elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			// IE8 throws error here and will not see later tests
-			if ( !el.querySelectorAll(":checked").length ) {
-				rbuggyQSA.push(":checked");
+			if ( !el.querySelectorAll( ":checked" ).length ) {
+				rbuggyQSA.push( ":checked" );
 			}
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
 			// In-page `selector#id sibling-combinator selector` fails
 			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
-				rbuggyQSA.push(".#.+[+~]");
+				rbuggyQSA.push( ".#.+[+~]" );
 			}
-		});
 
-		assert(function( el ) {
+			// Support: Firefox <=3.6 - 5 only
+			// Old Firefox doesn't throw on a badly-escaped identifier.
+			el.querySelectorAll( "\\\f" );
+			rbuggyQSA.push( "[\\r\\n\\f]" );
+		} );
+
+		assert( function( el ) {
 			el.innerHTML = "<a href='' disabled='disabled'></a>" +
 				"<select disabled='disabled'><option/></select>";
 
 			// Support: Windows 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
-			var input = document.createElement("input");
+			var input = document.createElement( "input" );
 			input.setAttribute( "type", "hidden" );
 			el.appendChild( input ).setAttribute( "name", "D" );
 
 			// Support: IE8
 			// Enforce case-sensitivity of name attribute
-			if ( el.querySelectorAll("[name=d]").length ) {
+			if ( el.querySelectorAll( "[name=d]" ).length ) {
 				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
 			}
 
 			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
 			// IE8 throws error here and will not see later tests
-			if ( el.querySelectorAll(":enabled").length !== 2 ) {
+			if ( el.querySelectorAll( ":enabled" ).length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
 			// Support: IE9-11+
 			// IE's :disabled selector does not pick up the children of disabled fieldsets
 			docElem.appendChild( el ).disabled = true;
-			if ( el.querySelectorAll(":disabled").length !== 2 ) {
+			if ( el.querySelectorAll( ":disabled" ).length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
+			// Support: Opera 10 - 11 only
 			// Opera 10-11 does not throw on post-comma invalid pseudos
-			el.querySelectorAll("*,:x");
-			rbuggyQSA.push(",.*:");
-		});
+			el.querySelectorAll( "*,:x" );
+			rbuggyQSA.push( ",.*:" );
+		} );
 	}
 
-	if ( (support.matchesSelector = rnative.test( (matches = docElem.matches ||
+	if ( ( support.matchesSelector = rnative.test( ( matches = docElem.matches ||
 		docElem.webkitMatchesSelector ||
 		docElem.mozMatchesSelector ||
 		docElem.oMatchesSelector ||
-		docElem.msMatchesSelector) )) ) {
+		docElem.msMatchesSelector ) ) ) ) {
 
-		assert(function( el ) {
+		assert( function( el ) {
+
 			// Check to see if it's possible to do matchesSelector
 			// on a disconnected node (IE 9)
 			support.disconnectedMatch = matches.call( el, "*" );
@@ -56716,11 +57085,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Gecko does not error, returns false instead
 			matches.call( el, "[s!='']:x" );
 			rbuggyMatches.push( "!=", pseudos );
-		});
+		} );
 	}
 
-	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
-	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join("|") );
+	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join( "|" ) );
+	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join( "|" ) );
 
 	/* Contains
 	---------------------------------------------------------------------- */
@@ -56737,11 +57106,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 				adown.contains ?
 					adown.contains( bup ) :
 					a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
-			));
+			) );
 		} :
 		function( a, b ) {
 			if ( b ) {
-				while ( (b = b.parentNode) ) {
+				while ( ( b = b.parentNode ) ) {
 					if ( b === a ) {
 						return true;
 					}
@@ -56770,7 +57139,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 
 		// Calculate position if both inputs belong to the same document
-		compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
+		// Support: IE 11+, Edge 17 - 18+
+		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+		// two documents; shallow comparisons work.
+		// eslint-disable-next-line eqeqeq
+		compare = ( a.ownerDocument || a ) == ( b.ownerDocument || b ) ?
 			a.compareDocumentPosition( b ) :
 
 			// Otherwise we know they are disconnected
@@ -56778,13 +57151,24 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Disconnected nodes
 		if ( compare & 1 ||
-			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
+			( !support.sortDetached && b.compareDocumentPosition( a ) === compare ) ) {
 
 			// Choose the first element that is related to our preferred document
-			if ( a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a) ) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ( a == document || a.ownerDocument == preferredDoc &&
+				contains( preferredDoc, a ) ) {
 				return -1;
 			}
-			if ( b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b) ) {
+
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ( b == document || b.ownerDocument == preferredDoc &&
+				contains( preferredDoc, b ) ) {
 				return 1;
 			}
 
@@ -56797,6 +57181,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		return compare & 4 ? -1 : 1;
 	} :
 	function( a, b ) {
+
 		// Exit early if the nodes are identical
 		if ( a === b ) {
 			hasDuplicate = true;
@@ -56812,8 +57197,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Parentless nodes are either documents or disconnected
 		if ( !aup || !bup ) {
-			return a === document ? -1 :
-				b === document ? 1 :
+
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			/* eslint-disable eqeqeq */
+			return a == document ? -1 :
+				b == document ? 1 :
+				/* eslint-enable eqeqeq */
 				aup ? -1 :
 				bup ? 1 :
 				sortInput ?
@@ -56827,26 +57218,32 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Otherwise we need full lists of their ancestors for comparison
 		cur = a;
-		while ( (cur = cur.parentNode) ) {
+		while ( ( cur = cur.parentNode ) ) {
 			ap.unshift( cur );
 		}
 		cur = b;
-		while ( (cur = cur.parentNode) ) {
+		while ( ( cur = cur.parentNode ) ) {
 			bp.unshift( cur );
 		}
 
 		// Walk down the tree looking for a discrepancy
-		while ( ap[i] === bp[i] ) {
+		while ( ap[ i ] === bp[ i ] ) {
 			i++;
 		}
 
 		return i ?
+
 			// Do a sibling check if the nodes have a common ancestor
-			siblingCheck( ap[i], bp[i] ) :
+			siblingCheck( ap[ i ], bp[ i ] ) :
 
 			// Otherwise nodes in our document sort first
-			ap[i] === preferredDoc ? -1 :
-			bp[i] === preferredDoc ? 1 :
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			/* eslint-disable eqeqeq */
+			ap[ i ] == preferredDoc ? -1 :
+			bp[ i ] == preferredDoc ? 1 :
+			/* eslint-enable eqeqeq */
 			0;
 	};
 
@@ -56858,16 +57255,10 @@ Sizzle.matches = function( expr, elements ) {
 };
 
 Sizzle.matchesSelector = function( elem, expr ) {
-	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
-		setDocument( elem );
-	}
-
-	// Make sure that attribute selectors are quoted
-	expr = expr.replace( rattributeQuotes, "='$1']" );
+	setDocument( elem );
 
 	if ( support.matchesSelector && documentIsHTML &&
-		!compilerCache[ expr + " " ] &&
+		!nonnativeSelectorCache[ expr + " " ] &&
 		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
 		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
 
@@ -56876,32 +57267,46 @@ Sizzle.matchesSelector = function( elem, expr ) {
 
 			// IE 9's matchesSelector returns false on disconnected nodes
 			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
-					// fragment in IE 9
-					elem.document && elem.document.nodeType !== 11 ) {
+
+				// As well, disconnected nodes are said to be in a document
+				// fragment in IE 9
+				elem.document && elem.document.nodeType !== 11 ) {
 				return ret;
 			}
-		} catch (e) {}
+		} catch ( e ) {
+			nonnativeSelectorCache( expr, true );
+		}
 	}
 
 	return Sizzle( expr, document, null, [ elem ] ).length > 0;
 };
 
 Sizzle.contains = function( context, elem ) {
+
 	// Set document vars if needed
-	if ( ( context.ownerDocument || context ) !== document ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( ( context.ownerDocument || context ) != document ) {
 		setDocument( context );
 	}
 	return contains( context, elem );
 };
 
 Sizzle.attr = function( elem, name ) {
+
 	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( ( elem.ownerDocument || elem ) != document ) {
 		setDocument( elem );
 	}
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
+
 		// Don't get fooled by Object.prototype properties (jQuery #13807)
 		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
@@ -56911,13 +57316,13 @@ Sizzle.attr = function( elem, name ) {
 		val :
 		support.attributes || !documentIsHTML ?
 			elem.getAttribute( name ) :
-			(val = elem.getAttributeNode(name)) && val.specified ?
+			( val = elem.getAttributeNode( name ) ) && val.specified ?
 				val.value :
 				null;
 };
 
 Sizzle.escape = function( sel ) {
-	return (sel + "").replace( rcssescape, fcssescape );
+	return ( sel + "" ).replace( rcssescape, fcssescape );
 };
 
 Sizzle.error = function( msg ) {
@@ -56940,7 +57345,7 @@ Sizzle.uniqueSort = function( results ) {
 	results.sort( sortOrder );
 
 	if ( hasDuplicate ) {
-		while ( (elem = results[i++]) ) {
+		while ( ( elem = results[ i++ ] ) ) {
 			if ( elem === results[ i ] ) {
 				j = duplicates.push( i );
 			}
@@ -56968,17 +57373,21 @@ getText = Sizzle.getText = function( elem ) {
 		nodeType = elem.nodeType;
 
 	if ( !nodeType ) {
+
 		// If no nodeType, this is expected to be an array
-		while ( (node = elem[i++]) ) {
+		while ( ( node = elem[ i++ ] ) ) {
+
 			// Do not traverse comment nodes
 			ret += getText( node );
 		}
 	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+
 		// Use textContent for elements
 		// innerText usage removed for consistency of new lines (jQuery #11153)
 		if ( typeof elem.textContent === "string" ) {
 			return elem.textContent;
 		} else {
+
 			// Traverse its children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				ret += getText( elem );
@@ -56987,6 +57396,7 @@ getText = Sizzle.getText = function( elem ) {
 	} else if ( nodeType === 3 || nodeType === 4 ) {
 		return elem.nodeValue;
 	}
+
 	// Do not include comment or processing instruction nodes
 
 	return ret;
@@ -57014,19 +57424,21 @@ Expr = Sizzle.selectors = {
 
 	preFilter: {
 		"ATTR": function( match ) {
-			match[1] = match[1].replace( runescape, funescape );
+			match[ 1 ] = match[ 1 ].replace( runescape, funescape );
 
 			// Move the given value to match[3] whether quoted or unquoted
-			match[3] = ( match[3] || match[4] || match[5] || "" ).replace( runescape, funescape );
+			match[ 3 ] = ( match[ 3 ] || match[ 4 ] ||
+				match[ 5 ] || "" ).replace( runescape, funescape );
 
-			if ( match[2] === "~=" ) {
-				match[3] = " " + match[3] + " ";
+			if ( match[ 2 ] === "~=" ) {
+				match[ 3 ] = " " + match[ 3 ] + " ";
 			}
 
 			return match.slice( 0, 4 );
 		},
 
 		"CHILD": function( match ) {
+
 			/* matches from matchExpr["CHILD"]
 				1 type (only|nth|...)
 				2 what (child|of-type)
@@ -57037,22 +57449,25 @@ Expr = Sizzle.selectors = {
 				7 sign of y-component
 				8 y of y-component
 			*/
-			match[1] = match[1].toLowerCase();
+			match[ 1 ] = match[ 1 ].toLowerCase();
 
-			if ( match[1].slice( 0, 3 ) === "nth" ) {
+			if ( match[ 1 ].slice( 0, 3 ) === "nth" ) {
+
 				// nth-* requires argument
-				if ( !match[3] ) {
-					Sizzle.error( match[0] );
+				if ( !match[ 3 ] ) {
+					Sizzle.error( match[ 0 ] );
 				}
 
 				// numeric x and y parameters for Expr.filter.CHILD
 				// remember that false/true cast respectively to 0/1
-				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
-				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
+				match[ 4 ] = +( match[ 4 ] ?
+					match[ 5 ] + ( match[ 6 ] || 1 ) :
+					2 * ( match[ 3 ] === "even" || match[ 3 ] === "odd" ) );
+				match[ 5 ] = +( ( match[ 7 ] + match[ 8 ] ) || match[ 3 ] === "odd" );
 
-			// other types prohibit arguments
-			} else if ( match[3] ) {
-				Sizzle.error( match[0] );
+				// other types prohibit arguments
+			} else if ( match[ 3 ] ) {
+				Sizzle.error( match[ 0 ] );
 			}
 
 			return match;
@@ -57060,26 +57475,28 @@ Expr = Sizzle.selectors = {
 
 		"PSEUDO": function( match ) {
 			var excess,
-				unquoted = !match[6] && match[2];
+				unquoted = !match[ 6 ] && match[ 2 ];
 
-			if ( matchExpr["CHILD"].test( match[0] ) ) {
+			if ( matchExpr[ "CHILD" ].test( match[ 0 ] ) ) {
 				return null;
 			}
 
 			// Accept quoted arguments as-is
-			if ( match[3] ) {
-				match[2] = match[4] || match[5] || "";
+			if ( match[ 3 ] ) {
+				match[ 2 ] = match[ 4 ] || match[ 5 ] || "";
 
 			// Strip excess characters from unquoted arguments
 			} else if ( unquoted && rpseudo.test( unquoted ) &&
+
 				// Get excess from tokenize (recursively)
-				(excess = tokenize( unquoted, true )) &&
+				( excess = tokenize( unquoted, true ) ) &&
+
 				// advance to the next closing parenthesis
-				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
+				( excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length ) ) {
 
 				// excess is a negative index
-				match[0] = match[0].slice( 0, excess );
-				match[2] = unquoted.slice( 0, excess );
+				match[ 0 ] = match[ 0 ].slice( 0, excess );
+				match[ 2 ] = unquoted.slice( 0, excess );
 			}
 
 			// Return only captures needed by the pseudo filter method (type and argument)
@@ -57092,7 +57509,9 @@ Expr = Sizzle.selectors = {
 		"TAG": function( nodeNameSelector ) {
 			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
 			return nodeNameSelector === "*" ?
-				function() { return true; } :
+				function() {
+					return true;
+				} :
 				function( elem ) {
 					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
 				};
@@ -57102,10 +57521,16 @@ Expr = Sizzle.selectors = {
 			var pattern = classCache[ className + " " ];
 
 			return pattern ||
-				(pattern = new RegExp( "(^|" + whitespace + ")" + className + "(" + whitespace + "|$)" )) &&
-				classCache( className, function( elem ) {
-					return pattern.test( typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "" );
-				});
+				( pattern = new RegExp( "(^|" + whitespace +
+					")" + className + "(" + whitespace + "|$)" ) ) && classCache(
+						className, function( elem ) {
+							return pattern.test(
+								typeof elem.className === "string" && elem.className ||
+								typeof elem.getAttribute !== "undefined" &&
+									elem.getAttribute( "class" ) ||
+								""
+							);
+				} );
 		},
 
 		"ATTR": function( name, operator, check ) {
@@ -57121,6 +57546,8 @@ Expr = Sizzle.selectors = {
 
 				result += "";
 
+				/* eslint-disable max-len */
+
 				return operator === "=" ? result === check :
 					operator === "!=" ? result !== check :
 					operator === "^=" ? check && result.indexOf( check ) === 0 :
@@ -57129,10 +57556,12 @@ Expr = Sizzle.selectors = {
 					operator === "~=" ? ( " " + result.replace( rwhitespace, " " ) + " " ).indexOf( check ) > -1 :
 					operator === "|=" ? result === check || result.slice( 0, check.length + 1 ) === check + "-" :
 					false;
+				/* eslint-enable max-len */
+
 			};
 		},
 
-		"CHILD": function( type, what, argument, first, last ) {
+		"CHILD": function( type, what, _argument, first, last ) {
 			var simple = type.slice( 0, 3 ) !== "nth",
 				forward = type.slice( -4 ) !== "last",
 				ofType = what === "of-type";
@@ -57144,7 +57573,7 @@ Expr = Sizzle.selectors = {
 					return !!elem.parentNode;
 				} :
 
-				function( elem, context, xml ) {
+				function( elem, _context, xml ) {
 					var cache, uniqueCache, outerCache, node, nodeIndex, start,
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
@@ -57158,7 +57587,7 @@ Expr = Sizzle.selectors = {
 						if ( simple ) {
 							while ( dir ) {
 								node = elem;
-								while ( (node = node[ dir ]) ) {
+								while ( ( node = node[ dir ] ) ) {
 									if ( ofType ?
 										node.nodeName.toLowerCase() === name :
 										node.nodeType === 1 ) {
@@ -57166,6 +57595,7 @@ Expr = Sizzle.selectors = {
 										return false;
 									}
 								}
+
 								// Reverse direction for :only-* (if we haven't yet done so)
 								start = dir = type === "only" && !start && "nextSibling";
 							}
@@ -57181,22 +57611,22 @@ Expr = Sizzle.selectors = {
 
 							// ...in a gzip-friendly way
 							node = parent;
-							outerCache = node[ expando ] || (node[ expando ] = {});
+							outerCache = node[ expando ] || ( node[ expando ] = {} );
 
 							// Support: IE <9 only
 							// Defend against cloned attroperties (jQuery gh-1709)
 							uniqueCache = outerCache[ node.uniqueID ] ||
-								(outerCache[ node.uniqueID ] = {});
+								( outerCache[ node.uniqueID ] = {} );
 
 							cache = uniqueCache[ type ] || [];
 							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 							diff = nodeIndex && cache[ 2 ];
 							node = nodeIndex && parent.childNodes[ nodeIndex ];
 
-							while ( (node = ++nodeIndex && node && node[ dir ] ||
+							while ( ( node = ++nodeIndex && node && node[ dir ] ||
 
 								// Fallback to seeking `elem` from the start
-								(diff = nodeIndex = 0) || start.pop()) ) {
+								( diff = nodeIndex = 0 ) || start.pop() ) ) {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
@@ -57206,16 +57636,18 @@ Expr = Sizzle.selectors = {
 							}
 
 						} else {
+
 							// Use previously-cached element index if available
 							if ( useCache ) {
+
 								// ...in a gzip-friendly way
 								node = elem;
-								outerCache = node[ expando ] || (node[ expando ] = {});
+								outerCache = node[ expando ] || ( node[ expando ] = {} );
 
 								// Support: IE <9 only
 								// Defend against cloned attroperties (jQuery gh-1709)
 								uniqueCache = outerCache[ node.uniqueID ] ||
-									(outerCache[ node.uniqueID ] = {});
+									( outerCache[ node.uniqueID ] = {} );
 
 								cache = uniqueCache[ type ] || [];
 								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
@@ -57225,9 +57657,10 @@ Expr = Sizzle.selectors = {
 							// xml :nth-child(...)
 							// or :nth-last-child(...) or :nth(-last)?-of-type(...)
 							if ( diff === false ) {
+
 								// Use the same loop as above to seek `elem` from the start
-								while ( (node = ++nodeIndex && node && node[ dir ] ||
-									(diff = nodeIndex = 0) || start.pop()) ) {
+								while ( ( node = ++nodeIndex && node && node[ dir ] ||
+									( diff = nodeIndex = 0 ) || start.pop() ) ) {
 
 									if ( ( ofType ?
 										node.nodeName.toLowerCase() === name :
@@ -57236,12 +57669,13 @@ Expr = Sizzle.selectors = {
 
 										// Cache the index of each encountered element
 										if ( useCache ) {
-											outerCache = node[ expando ] || (node[ expando ] = {});
+											outerCache = node[ expando ] ||
+												( node[ expando ] = {} );
 
 											// Support: IE <9 only
 											// Defend against cloned attroperties (jQuery gh-1709)
 											uniqueCache = outerCache[ node.uniqueID ] ||
-												(outerCache[ node.uniqueID ] = {});
+												( outerCache[ node.uniqueID ] = {} );
 
 											uniqueCache[ type ] = [ dirruns, diff ];
 										}
@@ -57262,6 +57696,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"PSEUDO": function( pseudo, argument ) {
+
 			// pseudo-class names are case-insensitive
 			// http://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
@@ -57281,15 +57716,15 @@ Expr = Sizzle.selectors = {
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
 				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
-					markFunction(function( seed, matches ) {
+					markFunction( function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
 							i = matched.length;
 						while ( i-- ) {
-							idx = indexOf( seed, matched[i] );
-							seed[ idx ] = !( matches[ idx ] = matched[i] );
+							idx = indexOf( seed, matched[ i ] );
+							seed[ idx ] = !( matches[ idx ] = matched[ i ] );
 						}
-					}) :
+					} ) :
 					function( elem ) {
 						return fn( elem, 0, args );
 					};
@@ -57300,8 +57735,10 @@ Expr = Sizzle.selectors = {
 	},
 
 	pseudos: {
+
 		// Potentially complex pseudos
-		"not": markFunction(function( selector ) {
+		"not": markFunction( function( selector ) {
+
 			// Trim the selector passed to compile
 			// to avoid treating leading and trailing
 			// spaces as combinators
@@ -57310,39 +57747,40 @@ Expr = Sizzle.selectors = {
 				matcher = compile( selector.replace( rtrim, "$1" ) );
 
 			return matcher[ expando ] ?
-				markFunction(function( seed, matches, context, xml ) {
+				markFunction( function( seed, matches, _context, xml ) {
 					var elem,
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
 
 					// Match elements unmatched by `matcher`
 					while ( i-- ) {
-						if ( (elem = unmatched[i]) ) {
-							seed[i] = !(matches[i] = elem);
+						if ( ( elem = unmatched[ i ] ) ) {
+							seed[ i ] = !( matches[ i ] = elem );
 						}
 					}
-				}) :
-				function( elem, context, xml ) {
-					input[0] = elem;
+				} ) :
+				function( elem, _context, xml ) {
+					input[ 0 ] = elem;
 					matcher( input, null, xml, results );
+
 					// Don't keep the element (issue #299)
-					input[0] = null;
+					input[ 0 ] = null;
 					return !results.pop();
 				};
-		}),
+		} ),
 
-		"has": markFunction(function( selector ) {
+		"has": markFunction( function( selector ) {
 			return function( elem ) {
 				return Sizzle( selector, elem ).length > 0;
 			};
-		}),
+		} ),
 
-		"contains": markFunction(function( text ) {
+		"contains": markFunction( function( text ) {
 			text = text.replace( runescape, funescape );
 			return function( elem ) {
-				return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( text ) > -1;
+				return ( elem.textContent || getText( elem ) ).indexOf( text ) > -1;
 			};
-		}),
+		} ),
 
 		// "Whether an element is represented by a :lang() selector
 		// is based solely on the element's language value
@@ -57352,25 +57790,26 @@ Expr = Sizzle.selectors = {
 		// The identifier C does not have to be a valid language name."
 		// http://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
+
 			// lang value must be a valid identifier
-			if ( !ridentifier.test(lang || "") ) {
+			if ( !ridentifier.test( lang || "" ) ) {
 				Sizzle.error( "unsupported lang: " + lang );
 			}
 			lang = lang.replace( runescape, funescape ).toLowerCase();
 			return function( elem ) {
 				var elemLang;
 				do {
-					if ( (elemLang = documentIsHTML ?
+					if ( ( elemLang = documentIsHTML ?
 						elem.lang :
-						elem.getAttribute("xml:lang") || elem.getAttribute("lang")) ) {
+						elem.getAttribute( "xml:lang" ) || elem.getAttribute( "lang" ) ) ) {
 
 						elemLang = elemLang.toLowerCase();
 						return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
 					}
-				} while ( (elem = elem.parentNode) && elem.nodeType === 1 );
+				} while ( ( elem = elem.parentNode ) && elem.nodeType === 1 );
 				return false;
 			};
-		}),
+		} ),
 
 		// Miscellaneous
 		"target": function( elem ) {
@@ -57383,7 +57822,9 @@ Expr = Sizzle.selectors = {
 		},
 
 		"focus": function( elem ) {
-			return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
+			return elem === document.activeElement &&
+				( !document.hasFocus || document.hasFocus() ) &&
+				!!( elem.type || elem.href || ~elem.tabIndex );
 		},
 
 		// Boolean properties
@@ -57391,16 +57832,20 @@ Expr = Sizzle.selectors = {
 		"disabled": createDisabledPseudo( true ),
 
 		"checked": function( elem ) {
+
 			// In CSS3, :checked should return both checked and selected elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
-			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
+			return ( nodeName === "input" && !!elem.checked ) ||
+				( nodeName === "option" && !!elem.selected );
 		},
 
 		"selected": function( elem ) {
+
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
 			if ( elem.parentNode ) {
+				// eslint-disable-next-line no-unused-expressions
 				elem.parentNode.selectedIndex;
 			}
 
@@ -57409,6 +57854,7 @@ Expr = Sizzle.selectors = {
 
 		// Contents
 		"empty": function( elem ) {
+
 			// http://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
@@ -57422,7 +57868,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"parent": function( elem ) {
-			return !Expr.pseudos["empty"]( elem );
+			return !Expr.pseudos[ "empty" ]( elem );
 		},
 
 		// Element/input types
@@ -57446,57 +57892,62 @@ Expr = Sizzle.selectors = {
 
 				// Support: IE<8
 				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
+				( ( attr = elem.getAttribute( "type" ) ) == null ||
+					attr.toLowerCase() === "text" );
 		},
 
 		// Position-in-collection
-		"first": createPositionalPseudo(function() {
+		"first": createPositionalPseudo( function() {
 			return [ 0 ];
-		}),
+		} ),
 
-		"last": createPositionalPseudo(function( matchIndexes, length ) {
+		"last": createPositionalPseudo( function( _matchIndexes, length ) {
 			return [ length - 1 ];
-		}),
+		} ),
 
-		"eq": createPositionalPseudo(function( matchIndexes, length, argument ) {
+		"eq": createPositionalPseudo( function( _matchIndexes, length, argument ) {
 			return [ argument < 0 ? argument + length : argument ];
-		}),
+		} ),
 
-		"even": createPositionalPseudo(function( matchIndexes, length ) {
+		"even": createPositionalPseudo( function( matchIndexes, length ) {
 			var i = 0;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"odd": createPositionalPseudo(function( matchIndexes, length ) {
+		"odd": createPositionalPseudo( function( matchIndexes, length ) {
 			var i = 1;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"lt": createPositionalPseudo(function( matchIndexes, length, argument ) {
-			var i = argument < 0 ? argument + length : argument;
+		"lt": createPositionalPseudo( function( matchIndexes, length, argument ) {
+			var i = argument < 0 ?
+				argument + length :
+				argument > length ?
+					length :
+					argument;
 			for ( ; --i >= 0; ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"gt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+		"gt": createPositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ? argument + length : argument;
 			for ( ; ++i < length; ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		})
+		} )
 	}
 };
 
-Expr.pseudos["nth"] = Expr.pseudos["eq"];
+Expr.pseudos[ "nth" ] = Expr.pseudos[ "eq" ];
 
 // Add button/input type pseudos
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
@@ -57527,37 +57978,39 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	while ( soFar ) {
 
 		// Comma and first run
-		if ( !matched || (match = rcomma.exec( soFar )) ) {
+		if ( !matched || ( match = rcomma.exec( soFar ) ) ) {
 			if ( match ) {
+
 				// Don't consume trailing commas as valid
-				soFar = soFar.slice( match[0].length ) || soFar;
+				soFar = soFar.slice( match[ 0 ].length ) || soFar;
 			}
-			groups.push( (tokens = []) );
+			groups.push( ( tokens = [] ) );
 		}
 
 		matched = false;
 
 		// Combinators
-		if ( (match = rcombinators.exec( soFar )) ) {
+		if ( ( match = rcombinators.exec( soFar ) ) ) {
 			matched = match.shift();
-			tokens.push({
+			tokens.push( {
 				value: matched,
+
 				// Cast descendant combinators to space
-				type: match[0].replace( rtrim, " " )
-			});
+				type: match[ 0 ].replace( rtrim, " " )
+			} );
 			soFar = soFar.slice( matched.length );
 		}
 
 		// Filters
 		for ( type in Expr.filter ) {
-			if ( (match = matchExpr[ type ].exec( soFar )) && (!preFilters[ type ] ||
-				(match = preFilters[ type ]( match ))) ) {
+			if ( ( match = matchExpr[ type ].exec( soFar ) ) && ( !preFilters[ type ] ||
+				( match = preFilters[ type ]( match ) ) ) ) {
 				matched = match.shift();
-				tokens.push({
+				tokens.push( {
 					value: matched,
 					type: type,
 					matches: match
-				});
+				} );
 				soFar = soFar.slice( matched.length );
 			}
 		}
@@ -57574,6 +58027,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 		soFar.length :
 		soFar ?
 			Sizzle.error( selector ) :
+
 			// Cache the tokens
 			tokenCache( selector, groups ).slice( 0 );
 };
@@ -57583,7 +58037,7 @@ function toSelector( tokens ) {
 		len = tokens.length,
 		selector = "";
 	for ( ; i < len; i++ ) {
-		selector += tokens[i].value;
+		selector += tokens[ i ].value;
 	}
 	return selector;
 }
@@ -57596,9 +58050,10 @@ function addCombinator( matcher, combinator, base ) {
 		doneName = done++;
 
 	return combinator.first ?
+
 		// Check against closest ancestor/preceding element
 		function( elem, context, xml ) {
-			while ( (elem = elem[ dir ]) ) {
+			while ( ( elem = elem[ dir ] ) ) {
 				if ( elem.nodeType === 1 || checkNonElements ) {
 					return matcher( elem, context, xml );
 				}
@@ -57613,7 +58068,7 @@ function addCombinator( matcher, combinator, base ) {
 
 			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
 			if ( xml ) {
-				while ( (elem = elem[ dir ]) ) {
+				while ( ( elem = elem[ dir ] ) ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
 						if ( matcher( elem, context, xml ) ) {
 							return true;
@@ -57621,27 +58076,29 @@ function addCombinator( matcher, combinator, base ) {
 					}
 				}
 			} else {
-				while ( (elem = elem[ dir ]) ) {
+				while ( ( elem = elem[ dir ] ) ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
-						outerCache = elem[ expando ] || (elem[ expando ] = {});
+						outerCache = elem[ expando ] || ( elem[ expando ] = {} );
 
 						// Support: IE <9 only
 						// Defend against cloned attroperties (jQuery gh-1709)
-						uniqueCache = outerCache[ elem.uniqueID ] || (outerCache[ elem.uniqueID ] = {});
+						uniqueCache = outerCache[ elem.uniqueID ] ||
+							( outerCache[ elem.uniqueID ] = {} );
 
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
 							elem = elem[ dir ] || elem;
-						} else if ( (oldCache = uniqueCache[ key ]) &&
+						} else if ( ( oldCache = uniqueCache[ key ] ) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
 							// Assign to newCache so results back-propagate to previous elements
-							return (newCache[ 2 ] = oldCache[ 2 ]);
+							return ( newCache[ 2 ] = oldCache[ 2 ] );
 						} else {
+
 							// Reuse newcache so results back-propagate to previous elements
 							uniqueCache[ key ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
-							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
+							if ( ( newCache[ 2 ] = matcher( elem, context, xml ) ) ) {
 								return true;
 							}
 						}
@@ -57657,20 +58114,20 @@ function elementMatcher( matchers ) {
 		function( elem, context, xml ) {
 			var i = matchers.length;
 			while ( i-- ) {
-				if ( !matchers[i]( elem, context, xml ) ) {
+				if ( !matchers[ i ]( elem, context, xml ) ) {
 					return false;
 				}
 			}
 			return true;
 		} :
-		matchers[0];
+		matchers[ 0 ];
 }
 
 function multipleContexts( selector, contexts, results ) {
 	var i = 0,
 		len = contexts.length;
 	for ( ; i < len; i++ ) {
-		Sizzle( selector, contexts[i], results );
+		Sizzle( selector, contexts[ i ], results );
 	}
 	return results;
 }
@@ -57683,7 +58140,7 @@ function condense( unmatched, map, filter, context, xml ) {
 		mapped = map != null;
 
 	for ( ; i < len; i++ ) {
-		if ( (elem = unmatched[i]) ) {
+		if ( ( elem = unmatched[ i ] ) ) {
 			if ( !filter || filter( elem, context, xml ) ) {
 				newUnmatched.push( elem );
 				if ( mapped ) {
@@ -57703,14 +58160,18 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 	if ( postFinder && !postFinder[ expando ] ) {
 		postFinder = setMatcher( postFinder, postSelector );
 	}
-	return markFunction(function( seed, results, context, xml ) {
+	return markFunction( function( seed, results, context, xml ) {
 		var temp, i, elem,
 			preMap = [],
 			postMap = [],
 			preexisting = results.length,
 
 			// Get initial elements from seed or context
-			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
+			elems = seed || multipleContexts(
+				selector || "*",
+				context.nodeType ? [ context ] : context,
+				[]
+			),
 
 			// Prefilter to get matcher input, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
@@ -57718,6 +58179,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				elems,
 
 			matcherOut = matcher ?
+
 				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
 				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
 
@@ -57741,8 +58203,8 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			// Un-match failing elements by moving them back to matcherIn
 			i = temp.length;
 			while ( i-- ) {
-				if ( (elem = temp[i]) ) {
-					matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
+				if ( ( elem = temp[ i ] ) ) {
+					matcherOut[ postMap[ i ] ] = !( matcherIn[ postMap[ i ] ] = elem );
 				}
 			}
 		}
@@ -57750,25 +58212,27 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 		if ( seed ) {
 			if ( postFinder || preFilter ) {
 				if ( postFinder ) {
+
 					// Get the final matcherOut by condensing this intermediate into postFinder contexts
 					temp = [];
 					i = matcherOut.length;
 					while ( i-- ) {
-						if ( (elem = matcherOut[i]) ) {
+						if ( ( elem = matcherOut[ i ] ) ) {
+
 							// Restore matcherIn since elem is not yet a final match
-							temp.push( (matcherIn[i] = elem) );
+							temp.push( ( matcherIn[ i ] = elem ) );
 						}
 					}
-					postFinder( null, (matcherOut = []), temp, xml );
+					postFinder( null, ( matcherOut = [] ), temp, xml );
 				}
 
 				// Move matched elements from seed to results to keep them synchronized
 				i = matcherOut.length;
 				while ( i-- ) {
-					if ( (elem = matcherOut[i]) &&
-						(temp = postFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
+					if ( ( elem = matcherOut[ i ] ) &&
+						( temp = postFinder ? indexOf( seed, elem ) : preMap[ i ] ) > -1 ) {
 
-						seed[temp] = !(results[temp] = elem);
+						seed[ temp ] = !( results[ temp ] = elem );
 					}
 				}
 			}
@@ -57786,14 +58250,14 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				push.apply( results, matcherOut );
 			}
 		}
-	});
+	} );
 }
 
 function matcherFromTokens( tokens ) {
 	var checkContext, matcher, j,
 		len = tokens.length,
-		leadingRelative = Expr.relative[ tokens[0].type ],
-		implicitRelative = leadingRelative || Expr.relative[" "],
+		leadingRelative = Expr.relative[ tokens[ 0 ].type ],
+		implicitRelative = leadingRelative || Expr.relative[ " " ],
 		i = leadingRelative ? 1 : 0,
 
 		// The foundational matcher ensures that elements are reachable from top-level context(s)
@@ -57805,38 +58269,43 @@ function matcherFromTokens( tokens ) {
 		}, implicitRelative, true ),
 		matchers = [ function( elem, context, xml ) {
 			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
-				(checkContext = context).nodeType ?
+				( checkContext = context ).nodeType ?
 					matchContext( elem, context, xml ) :
 					matchAnyContext( elem, context, xml ) );
+
 			// Avoid hanging onto element (issue #299)
 			checkContext = null;
 			return ret;
 		} ];
 
 	for ( ; i < len; i++ ) {
-		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
-			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
+		if ( ( matcher = Expr.relative[ tokens[ i ].type ] ) ) {
+			matchers = [ addCombinator( elementMatcher( matchers ), matcher ) ];
 		} else {
-			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
+			matcher = Expr.filter[ tokens[ i ].type ].apply( null, tokens[ i ].matches );
 
 			// Return special upon seeing a positional matcher
 			if ( matcher[ expando ] ) {
+
 				// Find the next relative operator (if any) for proper handling
 				j = ++i;
 				for ( ; j < len; j++ ) {
-					if ( Expr.relative[ tokens[j].type ] ) {
+					if ( Expr.relative[ tokens[ j ].type ] ) {
 						break;
 					}
 				}
 				return setMatcher(
 					i > 1 && elementMatcher( matchers ),
 					i > 1 && toSelector(
-						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
-						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
+
+					// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+					tokens
+						.slice( 0, i - 1 )
+						.concat( { value: tokens[ i - 2 ].type === " " ? "*" : "" } )
 					).replace( rtrim, "$1" ),
 					matcher,
 					i < j && matcherFromTokens( tokens.slice( i, j ) ),
-					j < len && matcherFromTokens( (tokens = tokens.slice( j )) ),
+					j < len && matcherFromTokens( ( tokens = tokens.slice( j ) ) ),
 					j < len && toSelector( tokens )
 				);
 			}
@@ -57857,28 +58326,40 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				unmatched = seed && [],
 				setMatched = [],
 				contextBackup = outermostContext,
+
 				// We must always have either seed elements or outermost context
-				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
+				elems = seed || byElement && Expr.find[ "TAG" ]( "*", outermost ),
+
 				// Use integer dirruns iff this is the outermost matcher
-				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
+				dirrunsUnique = ( dirruns += contextBackup == null ? 1 : Math.random() || 0.1 ),
 				len = elems.length;
 
 			if ( outermost ) {
-				outermostContext = context === document || context || outermost;
+
+				// Support: IE 11+, Edge 17 - 18+
+				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+				// two documents; shallow comparisons work.
+				// eslint-disable-next-line eqeqeq
+				outermostContext = context == document || context || outermost;
 			}
 
 			// Add elements passing elementMatchers directly to results
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
-			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
+			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
 				if ( byElement && elem ) {
 					j = 0;
-					if ( !context && elem.ownerDocument !== document ) {
+
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					if ( !context && elem.ownerDocument != document ) {
 						setDocument( elem );
 						xml = !documentIsHTML;
 					}
-					while ( (matcher = elementMatchers[j++]) ) {
-						if ( matcher( elem, context || document, xml) ) {
+					while ( ( matcher = elementMatchers[ j++ ] ) ) {
+						if ( matcher( elem, context || document, xml ) ) {
 							results.push( elem );
 							break;
 						}
@@ -57890,8 +58371,9 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 				// Track unmatched elements for set filters
 				if ( bySet ) {
+
 					// They will have gone through all possible matchers
-					if ( (elem = !matcher && elem) ) {
+					if ( ( elem = !matcher && elem ) ) {
 						matchedCount--;
 					}
 
@@ -57915,16 +58397,17 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			// numerically zero.
 			if ( bySet && i !== matchedCount ) {
 				j = 0;
-				while ( (matcher = setMatchers[j++]) ) {
+				while ( ( matcher = setMatchers[ j++ ] ) ) {
 					matcher( unmatched, setMatched, context, xml );
 				}
 
 				if ( seed ) {
+
 					// Reintegrate element matches to eliminate the need for sorting
 					if ( matchedCount > 0 ) {
 						while ( i-- ) {
-							if ( !(unmatched[i] || setMatched[i]) ) {
-								setMatched[i] = pop.call( results );
+							if ( !( unmatched[ i ] || setMatched[ i ] ) ) {
+								setMatched[ i ] = pop.call( results );
 							}
 						}
 					}
@@ -57965,13 +58448,14 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		cached = compilerCache[ selector + " " ];
 
 	if ( !cached ) {
+
 		// Generate a function of recursive functions that can be used to check each element
 		if ( !match ) {
 			match = tokenize( selector );
 		}
 		i = match.length;
 		while ( i-- ) {
-			cached = matcherFromTokens( match[i] );
+			cached = matcherFromTokens( match[ i ] );
 			if ( cached[ expando ] ) {
 				setMatchers.push( cached );
 			} else {
@@ -57980,7 +58464,10 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		}
 
 		// Cache the compiled function
-		cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+		cached = compilerCache(
+			selector,
+			matcherFromGroupMatchers( elementMatchers, setMatchers )
+		);
 
 		// Save selector and tokenization
 		cached.selector = selector;
@@ -58000,7 +58487,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 select = Sizzle.select = function( selector, context, results, seed ) {
 	var i, tokens, token, type, find,
 		compiled = typeof selector === "function" && selector,
-		match = !seed && tokenize( (selector = compiled.selector || selector) );
+		match = !seed && tokenize( ( selector = compiled.selector || selector ) );
 
 	results = results || [];
 
@@ -58009,11 +58496,12 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	if ( match.length === 1 ) {
 
 		// Reduce context if the leading compound selector is an ID
-		tokens = match[0] = match[0].slice( 0 );
-		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[1].type ] ) {
+		tokens = match[ 0 ] = match[ 0 ].slice( 0 );
+		if ( tokens.length > 2 && ( token = tokens[ 0 ] ).type === "ID" &&
+			context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[ 1 ].type ] ) {
 
-			context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
+			context = ( Expr.find[ "ID" ]( token.matches[ 0 ]
+				.replace( runescape, funescape ), context ) || [] )[ 0 ];
 			if ( !context ) {
 				return results;
 
@@ -58026,20 +58514,22 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 
 		// Fetch a seed set for right-to-left matching
-		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
+		i = matchExpr[ "needsContext" ].test( selector ) ? 0 : tokens.length;
 		while ( i-- ) {
-			token = tokens[i];
+			token = tokens[ i ];
 
 			// Abort if we hit a combinator
-			if ( Expr.relative[ (type = token.type) ] ) {
+			if ( Expr.relative[ ( type = token.type ) ] ) {
 				break;
 			}
-			if ( (find = Expr.find[ type ]) ) {
+			if ( ( find = Expr.find[ type ] ) ) {
+
 				// Search, expanding context for leading sibling combinators
-				if ( (seed = find(
-					token.matches[0].replace( runescape, funescape ),
-					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
-				)) ) {
+				if ( ( seed = find(
+					token.matches[ 0 ].replace( runescape, funescape ),
+					rsibling.test( tokens[ 0 ].type ) && testContext( context.parentNode ) ||
+						context
+				) ) ) {
 
 					// If seed is empty or no tokens remain, we can return early
 					tokens.splice( i, 1 );
@@ -58070,7 +58560,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 // One-time assignments
 
 // Sort stability
-support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
+support.sortStable = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
 
 // Support: Chrome 14-35+
 // Always assume duplicates if they aren't passed to the comparison function
@@ -58081,58 +58571,59 @@ setDocument();
 
 // Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
 // Detached nodes confoundingly follow *each other*
-support.sortDetached = assert(function( el ) {
+support.sortDetached = assert( function( el ) {
+
 	// Should return 1, but returns 4 (following)
-	return el.compareDocumentPosition( document.createElement("fieldset") ) & 1;
-});
+	return el.compareDocumentPosition( document.createElement( "fieldset" ) ) & 1;
+} );
 
 // Support: IE<8
 // Prevent attribute/property "interpolation"
 // https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
-if ( !assert(function( el ) {
+if ( !assert( function( el ) {
 	el.innerHTML = "<a href='#'></a>";
-	return el.firstChild.getAttribute("href") === "#" ;
-}) ) {
+	return el.firstChild.getAttribute( "href" ) === "#";
+} ) ) {
 	addHandle( "type|href|height|width", function( elem, name, isXML ) {
 		if ( !isXML ) {
 			return elem.getAttribute( name, name.toLowerCase() === "type" ? 1 : 2 );
 		}
-	});
+	} );
 }
 
 // Support: IE<9
 // Use defaultValue in place of getAttribute("value")
-if ( !support.attributes || !assert(function( el ) {
+if ( !support.attributes || !assert( function( el ) {
 	el.innerHTML = "<input/>";
 	el.firstChild.setAttribute( "value", "" );
 	return el.firstChild.getAttribute( "value" ) === "";
-}) ) {
-	addHandle( "value", function( elem, name, isXML ) {
+} ) ) {
+	addHandle( "value", function( elem, _name, isXML ) {
 		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
 			return elem.defaultValue;
 		}
-	});
+	} );
 }
 
 // Support: IE<9
 // Use getAttributeNode to fetch booleans when getAttribute lies
-if ( !assert(function( el ) {
-	return el.getAttribute("disabled") == null;
-}) ) {
+if ( !assert( function( el ) {
+	return el.getAttribute( "disabled" ) == null;
+} ) ) {
 	addHandle( booleans, function( elem, name, isXML ) {
 		var val;
 		if ( !isXML ) {
 			return elem[ name ] === true ? name.toLowerCase() :
-					(val = elem.getAttributeNode( name )) && val.specified ?
+				( val = elem.getAttributeNode( name ) ) && val.specified ?
 					val.value :
-				null;
+					null;
 		}
-	});
+	} );
 }
 
 return Sizzle;
 
-})( window );
+} )( window );
 
 
 
@@ -58185,9 +58676,9 @@ var rneedsContext = jQuery.expr.match.needsContext;
 
 function nodeName( elem, name ) {
 
-  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+	return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 
-};
+}
 var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 
 
@@ -58501,7 +58992,7 @@ jQuery.each( {
 	parents: function( elem ) {
 		return dir( elem, "parentNode" );
 	},
-	parentsUntil: function( elem, i, until ) {
+	parentsUntil: function( elem, _i, until ) {
 		return dir( elem, "parentNode", until );
 	},
 	next: function( elem ) {
@@ -58516,10 +59007,10 @@ jQuery.each( {
 	prevAll: function( elem ) {
 		return dir( elem, "previousSibling" );
 	},
-	nextUntil: function( elem, i, until ) {
+	nextUntil: function( elem, _i, until ) {
 		return dir( elem, "nextSibling", until );
 	},
-	prevUntil: function( elem, i, until ) {
+	prevUntil: function( elem, _i, until ) {
 		return dir( elem, "previousSibling", until );
 	},
 	siblings: function( elem ) {
@@ -58529,18 +59020,24 @@ jQuery.each( {
 		return siblings( elem.firstChild );
 	},
 	contents: function( elem ) {
-        if ( nodeName( elem, "iframe" ) ) {
-            return elem.contentDocument;
-        }
+		if ( elem.contentDocument != null &&
 
-        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
-        // Treat the template element as a regular one in browsers that
-        // don't support it.
-        if ( nodeName( elem, "template" ) ) {
-            elem = elem.content || elem;
-        }
+			// Support: IE 11+
+			// <object> elements with no `data` attribute has an object
+			// `contentDocument` with a `null` prototype.
+			getProto( elem.contentDocument ) ) {
 
-        return jQuery.merge( [], elem.childNodes );
+			return elem.contentDocument;
+		}
+
+		// Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+		// Treat the template element as a regular one in browsers that
+		// don't support it.
+		if ( nodeName( elem, "template" ) ) {
+			elem = elem.content || elem;
+		}
+
+		return jQuery.merge( [], elem.childNodes );
 	}
 }, function( name, fn ) {
 	jQuery.fn[ name ] = function( until, selector ) {
@@ -58872,7 +59369,7 @@ jQuery.extend( {
 					var fns = arguments;
 
 					return jQuery.Deferred( function( newDefer ) {
-						jQuery.each( tuples, function( i, tuple ) {
+						jQuery.each( tuples, function( _i, tuple ) {
 
 							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
 							var fn = isFunction( fns[ tuple[ 4 ] ] ) && fns[ tuple[ 4 ] ];
@@ -59152,8 +59649,8 @@ jQuery.extend( {
 			resolveContexts = Array( i ),
 			resolveValues = slice.call( arguments ),
 
-			// the master Deferred
-			master = jQuery.Deferred(),
+			// the primary Deferred
+			primary = jQuery.Deferred(),
 
 			// subordinate callback factory
 			updateFunc = function( i ) {
@@ -59161,30 +59658,30 @@ jQuery.extend( {
 					resolveContexts[ i ] = this;
 					resolveValues[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
 					if ( !( --remaining ) ) {
-						master.resolveWith( resolveContexts, resolveValues );
+						primary.resolveWith( resolveContexts, resolveValues );
 					}
 				};
 			};
 
 		// Single- and empty arguments are adopted like Promise.resolve
 		if ( remaining <= 1 ) {
-			adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+			adoptValue( singleValue, primary.done( updateFunc( i ) ).resolve, primary.reject,
 				!remaining );
 
 			// Use .then() to unwrap secondary thenables (cf. gh-3000)
-			if ( master.state() === "pending" ||
+			if ( primary.state() === "pending" ||
 				isFunction( resolveValues[ i ] && resolveValues[ i ].then ) ) {
 
-				return master.then();
+				return primary.then();
 			}
 		}
 
 		// Multiple arguments are aggregated like Promise.all array elements
 		while ( i-- ) {
-			adoptValue( resolveValues[ i ], updateFunc( i ), master.reject );
+			adoptValue( resolveValues[ i ], updateFunc( i ), primary.reject );
 		}
 
-		return master.promise();
+		return primary.promise();
 	}
 } );
 
@@ -59325,7 +59822,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 			// ...except when executing function values
 			} else {
 				bulk = fn;
-				fn = function( elem, key, value ) {
+				fn = function( elem, _key, value ) {
 					return bulk.call( jQuery( elem ), value );
 				};
 			}
@@ -59335,8 +59832,8 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 			for ( ; i < len; i++ ) {
 				fn(
 					elems[ i ], key, raw ?
-					value :
-					value.call( elems[ i ], i, fn( elems[ i ], key ) )
+						value :
+						value.call( elems[ i ], i, fn( elems[ i ], key ) )
 				);
 			}
 		}
@@ -59360,7 +59857,7 @@ var rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([a-z])/g;
 
 // Used by camelCase as callback to replace()
-function fcamelCase( all, letter ) {
+function fcamelCase( _all, letter ) {
 	return letter.toUpperCase();
 }
 
@@ -59849,6 +60346,26 @@ var rcssNum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" );
 
 var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
 
+var documentElement = document.documentElement;
+
+
+
+	var isAttached = function( elem ) {
+			return jQuery.contains( elem.ownerDocument, elem );
+		},
+		composed = { composed: true };
+
+	// Support: IE 9 - 11+, Edge 12 - 18+, iOS 10.0 - 10.2 only
+	// Check attachment across shadow DOM boundaries when possible (gh-3504)
+	// Support: iOS 10.0-10.2 only
+	// Early iOS 10 versions support `attachShadow` but not `getRootNode`,
+	// leading to errors. We need to check for `getRootNode`.
+	if ( documentElement.getRootNode ) {
+		isAttached = function( elem ) {
+			return jQuery.contains( elem.ownerDocument, elem ) ||
+				elem.getRootNode( composed ) === elem.ownerDocument;
+		};
+	}
 var isHiddenWithinTree = function( elem, el ) {
 
 		// isHiddenWithinTree might be called from jQuery#filter function;
@@ -59863,31 +60380,10 @@ var isHiddenWithinTree = function( elem, el ) {
 			// Support: Firefox <=43 - 45
 			// Disconnected elements can have computed display: none, so first confirm that elem is
 			// in the document.
-			jQuery.contains( elem.ownerDocument, elem ) &&
+			isAttached( elem ) &&
 
 			jQuery.css( elem, "display" ) === "none";
 	};
-
-var swap = function( elem, options, callback, args ) {
-	var ret, name,
-		old = {};
-
-	// Remember the old values, and insert the new ones
-	for ( name in options ) {
-		old[ name ] = elem.style[ name ];
-		elem.style[ name ] = options[ name ];
-	}
-
-	ret = callback.apply( elem, args || [] );
-
-	// Revert the old values
-	for ( name in options ) {
-		elem.style[ name ] = old[ name ];
-	}
-
-	return ret;
-};
-
 
 
 
@@ -59905,7 +60401,8 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
 		// Starting value computation is required for potential unit mismatches
-		initialInUnit = ( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
+		initialInUnit = elem.nodeType &&
+			( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
 			rcssNum.exec( jQuery.css( elem, prop ) );
 
 	if ( initialInUnit && initialInUnit[ 3 ] !== unit ) {
@@ -60052,17 +60549,46 @@ jQuery.fn.extend( {
 } );
 var rcheckableType = ( /^(?:checkbox|radio)$/i );
 
-var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]+)/i );
+var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]*)/i );
 
 var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 
 
 
-// We have to close these tags to support XHTML (#13200)
-var wrapMap = {
+( function() {
+	var fragment = document.createDocumentFragment(),
+		div = fragment.appendChild( document.createElement( "div" ) ),
+		input = document.createElement( "input" );
+
+	// Support: Android 4.0 - 4.3 only
+	// Check state lost if the name is set (#11217)
+	// Support: Windows Web Apps (WWA)
+	// `name` and `type` must use .setAttribute for WWA (#14901)
+	input.setAttribute( "type", "radio" );
+	input.setAttribute( "checked", "checked" );
+	input.setAttribute( "name", "t" );
+
+	div.appendChild( input );
+
+	// Support: Android <=4.1 only
+	// Older WebKit doesn't clone checked state correctly in fragments
+	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
+
+	// Support: IE <=11 only
+	// Make sure textarea (and checkbox) defaultValue is properly cloned
+	div.innerHTML = "<textarea>x</textarea>";
+	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
 
 	// Support: IE <=9 only
-	option: [ 1, "<select multiple='multiple'>", "</select>" ],
+	// IE <=9 replaces <option> tags with their contents when inserted outside of
+	// the select element.
+	div.innerHTML = "<option></option>";
+	support.option = !!div.lastChild;
+} )();
+
+
+// We have to close these tags to support XHTML (#13200)
+var wrapMap = {
 
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
@@ -60075,11 +60601,13 @@ var wrapMap = {
 	_default: [ 0, "", "" ]
 };
 
-// Support: IE <=9 only
-wrapMap.optgroup = wrapMap.option;
-
 wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
+
+// Support: IE <=9 only
+if ( !support.option ) {
+	wrapMap.optgroup = wrapMap.option = [ 1, "<select multiple='multiple'>", "</select>" ];
+}
 
 
 function getAll( context, tag ) {
@@ -60124,7 +60652,7 @@ function setGlobalEval( elems, refElements ) {
 var rhtml = /<|&#?\w+;/;
 
 function buildFragment( elems, context, scripts, selection, ignored ) {
-	var elem, tmp, tag, wrap, contains, j,
+	var elem, tmp, tag, wrap, attached, j,
 		fragment = context.createDocumentFragment(),
 		nodes = [],
 		i = 0,
@@ -60188,13 +60716,13 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			continue;
 		}
 
-		contains = jQuery.contains( elem.ownerDocument, elem );
+		attached = isAttached( elem );
 
 		// Append to fragment
 		tmp = getAll( fragment.appendChild( elem ), "script" );
 
 		// Preserve script evaluation history
-		if ( contains ) {
+		if ( attached ) {
 			setGlobalEval( tmp );
 		}
 
@@ -60213,38 +60741,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 }
 
 
-( function() {
-	var fragment = document.createDocumentFragment(),
-		div = fragment.appendChild( document.createElement( "div" ) ),
-		input = document.createElement( "input" );
-
-	// Support: Android 4.0 - 4.3 only
-	// Check state lost if the name is set (#11217)
-	// Support: Windows Web Apps (WWA)
-	// `name` and `type` must use .setAttribute for WWA (#14901)
-	input.setAttribute( "type", "radio" );
-	input.setAttribute( "checked", "checked" );
-	input.setAttribute( "name", "t" );
-
-	div.appendChild( input );
-
-	// Support: Android <=4.1 only
-	// Older WebKit doesn't clone checked state correctly in fragments
-	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
-
-	// Support: IE <=11 only
-	// Make sure textarea (and checkbox) defaultValue is properly cloned
-	div.innerHTML = "<textarea>x</textarea>";
-	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
-} )();
-var documentElement = document.documentElement;
-
-
-
-var
-	rkeyEvent = /^key/,
-	rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
-	rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
+var rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
 
 function returnTrue() {
 	return true;
@@ -60254,8 +60751,19 @@ function returnFalse() {
 	return false;
 }
 
+// Support: IE <=9 - 11+
+// focus() and blur() are asynchronous, except when they are no-op.
+// So expect focus to be synchronous when the element is already active,
+// and blur to be synchronous when the element is not already active.
+// (focus and blur are always synchronous in other supported browsers,
+// this just defines when we can count on it).
+function expectSync( elem, type ) {
+	return ( elem === safeActiveElement() ) === ( type === "focus" );
+}
+
 // Support: IE <=9 only
-// See #13393 for more info
+// Accessing document.activeElement can throw unexpectedly
+// https://bugs.jquery.com/ticket/13393
 function safeActiveElement() {
 	try {
 		return document.activeElement;
@@ -60338,8 +60846,8 @@ jQuery.event = {
 			special, handlers, type, namespaces, origType,
 			elemData = dataPriv.get( elem );
 
-		// Don't attach events to noData or text/comment nodes (but allow plain objects)
-		if ( !elemData ) {
+		// Only attach events to objects that accept data
+		if ( !acceptData( elem ) ) {
 			return;
 		}
 
@@ -60363,7 +60871,7 @@ jQuery.event = {
 
 		// Init the element's event structure and main handler, if this is the first
 		if ( !( events = elemData.events ) ) {
-			events = elemData.events = {};
+			events = elemData.events = Object.create( null );
 		}
 		if ( !( eventHandle = elemData.handle ) ) {
 			eventHandle = elemData.handle = function( e ) {
@@ -60521,12 +61029,15 @@ jQuery.event = {
 
 	dispatch: function( nativeEvent ) {
 
-		// Make a writable jQuery.Event from the native event object
-		var event = jQuery.event.fix( nativeEvent );
-
 		var i, j, ret, matched, handleObj, handlerQueue,
 			args = new Array( arguments.length ),
-			handlers = ( dataPriv.get( this, "events" ) || {} )[ event.type ] || [],
+
+			// Make a writable jQuery.Event from the native event object
+			event = jQuery.event.fix( nativeEvent ),
+
+			handlers = (
+				dataPriv.get( this, "events" ) || Object.create( null )
+			)[ event.type ] || [],
 			special = jQuery.event.special[ event.type ] || {};
 
 		// Use the fix-ed jQuery.Event rather than the (read-only) native event
@@ -60555,9 +61066,10 @@ jQuery.event = {
 			while ( ( handleObj = matched.handlers[ j++ ] ) &&
 				!event.isImmediatePropagationStopped() ) {
 
-				// Triggered event must either 1) have no namespace, or 2) have namespace(s)
-				// a subset or equal to those in the bound event (both can have no namespace).
-				if ( !event.rnamespace || event.rnamespace.test( handleObj.namespace ) ) {
+				// If the event is namespaced, then each handler is only invoked if it is
+				// specially universal or its namespaces are a superset of the event's.
+				if ( !event.rnamespace || handleObj.namespace === false ||
+					event.rnamespace.test( handleObj.namespace ) ) {
 
 					event.handleObj = handleObj;
 					event.data = handleObj.data;
@@ -60649,12 +61161,12 @@ jQuery.event = {
 			get: isFunction( hook ) ?
 				function() {
 					if ( this.originalEvent ) {
-							return hook( this.originalEvent );
+						return hook( this.originalEvent );
 					}
 				} :
 				function() {
 					if ( this.originalEvent ) {
-							return this.originalEvent[ name ];
+						return this.originalEvent[ name ];
 					}
 				},
 
@@ -60681,39 +61193,51 @@ jQuery.event = {
 			// Prevent triggered image.load events from bubbling to window.load
 			noBubble: true
 		},
-		focus: {
-
-			// Fire native event if possible so blur/focus sequence is correct
-			trigger: function() {
-				if ( this !== safeActiveElement() && this.focus ) {
-					this.focus();
-					return false;
-				}
-			},
-			delegateType: "focusin"
-		},
-		blur: {
-			trigger: function() {
-				if ( this === safeActiveElement() && this.blur ) {
-					this.blur();
-					return false;
-				}
-			},
-			delegateType: "focusout"
-		},
 		click: {
 
-			// For checkbox, fire native event so checked state will be right
-			trigger: function() {
-				if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
-					this.click();
-					return false;
+			// Utilize native event to ensure correct state for checkable inputs
+			setup: function( data ) {
+
+				// For mutual compressibility with _default, replace `this` access with a local var.
+				// `|| data` is dead code meant only to preserve the variable through minification.
+				var el = this || data;
+
+				// Claim the first handler
+				if ( rcheckableType.test( el.type ) &&
+					el.click && nodeName( el, "input" ) ) {
+
+					// dataPriv.set( el, "click", ... )
+					leverageNative( el, "click", returnTrue );
 				}
+
+				// Return false to allow normal processing in the caller
+				return false;
+			},
+			trigger: function( data ) {
+
+				// For mutual compressibility with _default, replace `this` access with a local var.
+				// `|| data` is dead code meant only to preserve the variable through minification.
+				var el = this || data;
+
+				// Force setup before triggering a click
+				if ( rcheckableType.test( el.type ) &&
+					el.click && nodeName( el, "input" ) ) {
+
+					leverageNative( el, "click" );
+				}
+
+				// Return non-false to allow normal event-path propagation
+				return true;
 			},
 
-			// For cross-browser consistency, don't fire native .click() on links
+			// For cross-browser consistency, suppress native .click() on links
+			// Also prevent it if we're currently inside a leveraged native-event stack
 			_default: function( event ) {
-				return nodeName( event.target, "a" );
+				var target = event.target;
+				return rcheckableType.test( target.type ) &&
+					target.click && nodeName( target, "input" ) &&
+					dataPriv.get( target, "click" ) ||
+					nodeName( target, "a" );
 			}
 		},
 
@@ -60729,6 +61253,99 @@ jQuery.event = {
 		}
 	}
 };
+
+// Ensure the presence of an event listener that handles manually-triggered
+// synthetic events by interrupting progress until reinvoked in response to
+// *native* events that it fires directly, ensuring that state changes have
+// already occurred before other listeners are invoked.
+function leverageNative( el, type, expectSync ) {
+
+	// Missing expectSync indicates a trigger call, which must force setup through jQuery.event.add
+	if ( !expectSync ) {
+		if ( dataPriv.get( el, type ) === undefined ) {
+			jQuery.event.add( el, type, returnTrue );
+		}
+		return;
+	}
+
+	// Register the controller as a special universal handler for all event namespaces
+	dataPriv.set( el, type, false );
+	jQuery.event.add( el, type, {
+		namespace: false,
+		handler: function( event ) {
+			var notAsync, result,
+				saved = dataPriv.get( this, type );
+
+			if ( ( event.isTrigger & 1 ) && this[ type ] ) {
+
+				// Interrupt processing of the outer synthetic .trigger()ed event
+				// Saved data should be false in such cases, but might be a leftover capture object
+				// from an async native handler (gh-4350)
+				if ( !saved.length ) {
+
+					// Store arguments for use when handling the inner native event
+					// There will always be at least one argument (an event object), so this array
+					// will not be confused with a leftover capture object.
+					saved = slice.call( arguments );
+					dataPriv.set( this, type, saved );
+
+					// Trigger the native event and capture its result
+					// Support: IE <=9 - 11+
+					// focus() and blur() are asynchronous
+					notAsync = expectSync( this, type );
+					this[ type ]();
+					result = dataPriv.get( this, type );
+					if ( saved !== result || notAsync ) {
+						dataPriv.set( this, type, false );
+					} else {
+						result = {};
+					}
+					if ( saved !== result ) {
+
+						// Cancel the outer synthetic event
+						event.stopImmediatePropagation();
+						event.preventDefault();
+
+						// Support: Chrome 86+
+						// In Chrome, if an element having a focusout handler is blurred by
+						// clicking outside of it, it invokes the handler synchronously. If
+						// that handler calls `.remove()` on the element, the data is cleared,
+						// leaving `result` undefined. We need to guard against this.
+						return result && result.value;
+					}
+
+				// If this is an inner synthetic event for an event with a bubbling surrogate
+				// (focus or blur), assume that the surrogate already propagated from triggering the
+				// native event and prevent that from happening again here.
+				// This technically gets the ordering wrong w.r.t. to `.trigger()` (in which the
+				// bubbling surrogate propagates *after* the non-bubbling base), but that seems
+				// less bad than duplication.
+				} else if ( ( jQuery.event.special[ type ] || {} ).delegateType ) {
+					event.stopPropagation();
+				}
+
+			// If this is a native event triggered above, everything is now in order
+			// Fire an inner synthetic event with the original arguments
+			} else if ( saved.length ) {
+
+				// ...and capture the result
+				dataPriv.set( this, type, {
+					value: jQuery.event.trigger(
+
+						// Support: IE <=9 - 11+
+						// Extend with the prototype to reset the above stopImmediatePropagation()
+						jQuery.extend( saved[ 0 ], jQuery.Event.prototype ),
+						saved.slice( 1 ),
+						this
+					)
+				} );
+
+				// Abort handling of the native event
+				event.stopImmediatePropagation();
+			}
+		}
+	} );
+}
 
 jQuery.removeEvent = function( elem, type, handle ) {
 
@@ -60842,6 +61459,7 @@ jQuery.each( {
 	shiftKey: true,
 	view: true,
 	"char": true,
+	code: true,
 	charCode: true,
 	key: true,
 	keyCode: true,
@@ -60858,35 +61476,41 @@ jQuery.each( {
 	targetTouches: true,
 	toElement: true,
 	touches: true,
-
-	which: function( event ) {
-		var button = event.button;
-
-		// Add which for key events
-		if ( event.which == null && rkeyEvent.test( event.type ) ) {
-			return event.charCode != null ? event.charCode : event.keyCode;
-		}
-
-		// Add which for click: 1 === left; 2 === middle; 3 === right
-		if ( !event.which && button !== undefined && rmouseEvent.test( event.type ) ) {
-			if ( button & 1 ) {
-				return 1;
-			}
-
-			if ( button & 2 ) {
-				return 3;
-			}
-
-			if ( button & 4 ) {
-				return 2;
-			}
-
-			return 0;
-		}
-
-		return event.which;
-	}
+	which: true
 }, jQuery.event.addProp );
+
+jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateType ) {
+	jQuery.event.special[ type ] = {
+
+		// Utilize native event if possible so blur/focus sequence is correct
+		setup: function() {
+
+			// Claim the first handler
+			// dataPriv.set( this, "focus", ... )
+			// dataPriv.set( this, "blur", ... )
+			leverageNative( this, type, expectSync );
+
+			// Return false to allow normal processing in the caller
+			return false;
+		},
+		trigger: function() {
+
+			// Force setup before trigger
+			leverageNative( this, type );
+
+			// Return non-false to allow normal event-path propagation
+			return true;
+		},
+
+		// Suppress native focus or blur as it's already being fired
+		// in leverageNative.
+		_default: function() {
+			return true;
+		},
+
+		delegateType: delegateType
+	};
+} );
 
 // Create mouseenter/leave events using mouseover/out and event-time checks
 // so that event delegation works in jQuery.
@@ -60973,13 +61597,6 @@ jQuery.fn.extend( {
 
 var
 
-	/* eslint-disable max-len */
-
-	// See https://github.com/eslint/eslint/issues/3229
-	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-
-	/* eslint-enable */
-
 	// Support: IE <=10 - 11, Edge 12 - 13 only
 	// In IE/Edge using regex groups here causes severe slowdowns.
 	// See https://connect.microsoft.com/IE/feedback/details/1736512/
@@ -61016,7 +61633,7 @@ function restoreScript( elem ) {
 }
 
 function cloneCopyEvent( src, dest ) {
-	var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
+	var i, l, type, pdataOld, udataOld, udataCur, events;
 
 	if ( dest.nodeType !== 1 ) {
 		return;
@@ -61024,13 +61641,11 @@ function cloneCopyEvent( src, dest ) {
 
 	// 1. Copy private data: events, handlers, etc.
 	if ( dataPriv.hasData( src ) ) {
-		pdataOld = dataPriv.access( src );
-		pdataCur = dataPriv.set( dest, pdataOld );
+		pdataOld = dataPriv.get( src );
 		events = pdataOld.events;
 
 		if ( events ) {
-			delete pdataCur.handle;
-			pdataCur.events = {};
+			dataPriv.remove( dest, "handle events" );
 
 			for ( type in events ) {
 				for ( i = 0, l = events[ type ].length; i < l; i++ ) {
@@ -61066,7 +61681,7 @@ function fixInput( src, dest ) {
 function domManip( collection, args, callback, ignored ) {
 
 	// Flatten any nested arrays
-	args = concat.apply( [], args );
+	args = flat( args );
 
 	var fragment, first, scripts, hasScripts, node, doc,
 		i = 0,
@@ -61138,11 +61753,13 @@ function domManip( collection, args, callback, ignored ) {
 						if ( node.src && ( node.type || "" ).toLowerCase()  !== "module" ) {
 
 							// Optional AJAX dependency, but won't run scripts if not present
-							if ( jQuery._evalUrl ) {
-								jQuery._evalUrl( node.src );
+							if ( jQuery._evalUrl && !node.noModule ) {
+								jQuery._evalUrl( node.src, {
+									nonce: node.nonce || node.getAttribute( "nonce" )
+								}, doc );
 							}
 						} else {
-							DOMEval( node.textContent.replace( rcleanScript, "" ), doc, node );
+							DOMEval( node.textContent.replace( rcleanScript, "" ), node, doc );
 						}
 					}
 				}
@@ -61164,7 +61781,7 @@ function remove( elem, selector, keepData ) {
 		}
 
 		if ( node.parentNode ) {
-			if ( keepData && jQuery.contains( node.ownerDocument, node ) ) {
+			if ( keepData && isAttached( node ) ) {
 				setGlobalEval( getAll( node, "script" ) );
 			}
 			node.parentNode.removeChild( node );
@@ -61176,13 +61793,13 @@ function remove( elem, selector, keepData ) {
 
 jQuery.extend( {
 	htmlPrefilter: function( html ) {
-		return html.replace( rxhtmlTag, "<$1></$2>" );
+		return html;
 	},
 
 	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
 		var i, l, srcElements, destElements,
 			clone = elem.cloneNode( true ),
-			inPage = jQuery.contains( elem.ownerDocument, elem );
+			inPage = isAttached( elem );
 
 		// Fix IE cloning issues
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
@@ -61438,6 +62055,27 @@ var getStyles = function( elem ) {
 		return view.getComputedStyle( elem );
 	};
 
+var swap = function( elem, options, callback ) {
+	var ret, name,
+		old = {};
+
+	// Remember the old values, and insert the new ones
+	for ( name in options ) {
+		old[ name ] = elem.style[ name ];
+		elem.style[ name ] = options[ name ];
+	}
+
+	ret = callback.call( elem );
+
+	// Revert the old values
+	for ( name in options ) {
+		elem.style[ name ] = old[ name ];
+	}
+
+	return ret;
+};
+
+
 var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 
 
@@ -61478,8 +62116,10 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 
 		// Support: IE 9 only
 		// Detect overflow:scroll screwiness (gh-3699)
+		// Support: Chrome <=64
+		// Don't get tricked when zoom affects offsetWidth (gh-4029)
 		div.style.position = "absolute";
-		scrollboxSizeVal = div.offsetWidth === 36 || "absolute";
+		scrollboxSizeVal = roundPixelMeasures( div.offsetWidth / 3 ) === 12;
 
 		documentElement.removeChild( container );
 
@@ -61493,7 +62133,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 	}
 
 	var pixelPositionVal, boxSizingReliableVal, scrollboxSizeVal, pixelBoxStylesVal,
-		reliableMarginLeftVal,
+		reliableTrDimensionsVal, reliableMarginLeftVal,
 		container = document.createElement( "div" ),
 		div = document.createElement( "div" );
 
@@ -61528,6 +62168,54 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		scrollboxSize: function() {
 			computeStyleTests();
 			return scrollboxSizeVal;
+		},
+
+		// Support: IE 9 - 11+, Edge 15 - 18+
+		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// set in CSS while `offset*` properties report correct values.
+		// Behavior in IE 9 is more subtle than in newer versions & it passes
+		// some versions of this test; make sure not to make it pass there!
+		//
+		// Support: Firefox 70+
+		// Only Firefox includes border widths
+		// in computed dimensions. (gh-4529)
+		reliableTrDimensions: function() {
+			var table, tr, trChild, trStyle;
+			if ( reliableTrDimensionsVal == null ) {
+				table = document.createElement( "table" );
+				tr = document.createElement( "tr" );
+				trChild = document.createElement( "div" );
+
+				table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
+				tr.style.cssText = "border:1px solid";
+
+				// Support: Chrome 86+
+				// Height set through cssText does not get applied.
+				// Computed height then comes back as 0.
+				tr.style.height = "1px";
+				trChild.style.height = "9px";
+
+				// Support: Android 8 Chrome 86+
+				// In our bodyBackground.html iframe,
+				// display for all div elements is set to "inline",
+				// which causes a problem only in Android 8 Chrome 86.
+				// Ensuring the div is display: block
+				// gets around this issue.
+				trChild.style.display = "block";
+
+				documentElement
+					.appendChild( table )
+					.appendChild( tr )
+					.appendChild( trChild );
+
+				trStyle = window.getComputedStyle( tr );
+				reliableTrDimensionsVal = ( parseInt( trStyle.height, 10 ) +
+					parseInt( trStyle.borderTopWidth, 10 ) +
+					parseInt( trStyle.borderBottomWidth, 10 ) ) === tr.offsetHeight;
+
+				documentElement.removeChild( table );
+			}
+			return reliableTrDimensionsVal;
 		}
 	} );
 } )();
@@ -61550,7 +62238,7 @@ function curCSS( elem, name, computed ) {
 	if ( computed ) {
 		ret = computed.getPropertyValue( name ) || computed[ name ];
 
-		if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
+		if ( ret === "" && !isAttached( elem ) ) {
 			ret = jQuery.style( elem, name );
 		}
 
@@ -61606,29 +62294,12 @@ function addGetHookIf( conditionFn, hookFn ) {
 }
 
 
-var
+var cssPrefixes = [ "Webkit", "Moz", "ms" ],
+	emptyStyle = document.createElement( "div" ).style,
+	vendorProps = {};
 
-	// Swappable if display is none or starts with table
-	// except "table", "table-cell", or "table-caption"
-	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
-	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
-	rcustomProp = /^--/,
-	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
-	cssNormalTransform = {
-		letterSpacing: "0",
-		fontWeight: "400"
-	},
-
-	cssPrefixes = [ "Webkit", "Moz", "ms" ],
-	emptyStyle = document.createElement( "div" ).style;
-
-// Return a css property mapped to a potentially vendor prefixed property
+// Return a vendor-prefixed property or undefined
 function vendorPropName( name ) {
-
-	// Shortcut for names that are not vendor prefixed
-	if ( name in emptyStyle ) {
-		return name;
-	}
 
 	// Check for vendor prefixed names
 	var capName = name[ 0 ].toUpperCase() + name.slice( 1 ),
@@ -61642,17 +62313,34 @@ function vendorPropName( name ) {
 	}
 }
 
-// Return a property mapped along what jQuery.cssProps suggests or to
-// a vendor prefixed property.
+// Return a potentially-mapped jQuery.cssProps or vendor prefixed property
 function finalPropName( name ) {
-	var ret = jQuery.cssProps[ name ];
-	if ( !ret ) {
-		ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+	var final = jQuery.cssProps[ name ] || vendorProps[ name ];
+
+	if ( final ) {
+		return final;
 	}
-	return ret;
+	if ( name in emptyStyle ) {
+		return name;
+	}
+	return vendorProps[ name ] = vendorPropName( name ) || name;
 }
 
-function setPositiveNumber( elem, value, subtract ) {
+
+var
+
+	// Swappable if display is none or starts with table
+	// except "table", "table-cell", or "table-caption"
+	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
+	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+	rcustomProp = /^--/,
+	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
+	cssNormalTransform = {
+		letterSpacing: "0",
+		fontWeight: "400"
+	};
+
+function setPositiveNumber( _elem, value, subtract ) {
 
 	// Any relative (+/-) values have already been
 	// normalized at this point
@@ -61723,7 +62411,10 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 			delta -
 			extra -
 			0.5
-		) );
+
+		// If offsetWidth/offsetHeight is unknown, then we can't determine content-box scroll gutter
+		// Use an explicit zero to avoid NaN (gh-3964)
+		) ) || 0;
 	}
 
 	return delta;
@@ -61733,9 +62424,16 @@ function getWidthOrHeight( elem, dimension, extra ) {
 
 	// Start with computed style
 	var styles = getStyles( elem ),
+
+		// To avoid forcing a reflow, only fetch boxSizing if we need it (gh-4322).
+		// Fake content-box until we know it's needed to know the true value.
+		boxSizingNeeded = !support.boxSizingReliable() || extra,
+		isBorderBox = boxSizingNeeded &&
+			jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+		valueIsBorderBox = isBorderBox,
+
 		val = curCSS( elem, dimension, styles ),
-		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
-		valueIsBorderBox = isBorderBox;
+		offsetProp = "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 );
 
 	// Support: Firefox <=54
 	// Return a confounding non-pixel value or feign ignorance, as appropriate.
@@ -61746,22 +62444,38 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		val = "auto";
 	}
 
-	// Check for style in case a browser which returns unreliable values
-	// for getComputedStyle silently falls back to the reliable elem.style
-	valueIsBorderBox = valueIsBorderBox &&
-		( support.boxSizingReliable() || val === elem.style[ dimension ] );
 
-	// Fall back to offsetWidth/offsetHeight when value is "auto"
-	// This happens for inline elements with no explicit setting (gh-3571)
-	// Support: Android <=4.1 - 4.3 only
-	// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
-	if ( val === "auto" ||
-		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) {
+	// Support: IE 9 - 11 only
+	// Use offsetWidth/offsetHeight for when box sizing is unreliable.
+	// In those cases, the computed value can be trusted to be border-box.
+	if ( ( !support.boxSizingReliable() && isBorderBox ||
 
-		val = elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ];
+		// Support: IE 10 - 11+, Edge 15 - 18+
+		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// set in CSS while `offset*` properties report correct values.
+		// Interestingly, in some cases IE 9 doesn't suffer from this issue.
+		!support.reliableTrDimensions() && nodeName( elem, "tr" ) ||
 
-		// offsetWidth/offsetHeight provide border-box values
-		valueIsBorderBox = true;
+		// Fall back to offsetWidth/offsetHeight when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
+		val === "auto" ||
+
+		// Support: Android <=4.1 - 4.3 only
+		// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
+		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) &&
+
+		// Make sure the element is visible & connected
+		elem.getClientRects().length ) {
+
+		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+
+		// Where available, offsetWidth/offsetHeight approximate border box dimensions.
+		// Where not available (e.g., SVG), assume unreliable box-sizing and interpret the
+		// retrieved value as a content box dimension.
+		valueIsBorderBox = offsetProp in elem;
+		if ( valueIsBorderBox ) {
+			val = elem[ offsetProp ];
+		}
 	}
 
 	// Normalize "" and auto
@@ -61807,6 +62521,13 @@ jQuery.extend( {
 		"flexGrow": true,
 		"flexShrink": true,
 		"fontWeight": true,
+		"gridArea": true,
+		"gridColumn": true,
+		"gridColumnEnd": true,
+		"gridColumnStart": true,
+		"gridRow": true,
+		"gridRowEnd": true,
+		"gridRowStart": true,
 		"lineHeight": true,
 		"opacity": true,
 		"order": true,
@@ -61862,7 +62583,9 @@ jQuery.extend( {
 			}
 
 			// If a number was passed in, add the unit (except for certain CSS properties)
-			if ( type === "number" ) {
+			// The isCustomProp check can be removed in jQuery 4.0 when we only auto-append
+			// "px" to a few hardcoded values.
+			if ( type === "number" && !isCustomProp ) {
 				value += ret && ret[ 3 ] || ( jQuery.cssNumber[ origName ] ? "" : "px" );
 			}
 
@@ -61936,7 +62659,7 @@ jQuery.extend( {
 	}
 } );
 
-jQuery.each( [ "height", "width" ], function( i, dimension ) {
+jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 	jQuery.cssHooks[ dimension ] = {
 		get: function( elem, computed, extra ) {
 			if ( computed ) {
@@ -61952,28 +62675,39 @@ jQuery.each( [ "height", "width" ], function( i, dimension ) {
 					// Running getBoundingClientRect on a disconnected node
 					// in IE throws an error.
 					( !elem.getClientRects().length || !elem.getBoundingClientRect().width ) ?
-						swap( elem, cssShow, function() {
-							return getWidthOrHeight( elem, dimension, extra );
-						} ) :
-						getWidthOrHeight( elem, dimension, extra );
+					swap( elem, cssShow, function() {
+						return getWidthOrHeight( elem, dimension, extra );
+					} ) :
+					getWidthOrHeight( elem, dimension, extra );
 			}
 		},
 
 		set: function( elem, value, extra ) {
 			var matches,
 				styles = getStyles( elem ),
-				isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
-				subtract = extra && boxModelAdjustment(
-					elem,
-					dimension,
-					extra,
-					isBorderBox,
-					styles
-				);
+
+				// Only read styles.position if the test has a chance to fail
+				// to avoid forcing a reflow.
+				scrollboxSizeBuggy = !support.scrollboxSize() &&
+					styles.position === "absolute",
+
+				// To avoid forcing a reflow, only fetch boxSizing if we need it (gh-3991)
+				boxSizingNeeded = scrollboxSizeBuggy || extra,
+				isBorderBox = boxSizingNeeded &&
+					jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+				subtract = extra ?
+					boxModelAdjustment(
+						elem,
+						dimension,
+						extra,
+						isBorderBox,
+						styles
+					) :
+					0;
 
 			// Account for unreliable border-box dimensions by comparing offset* to computed and
 			// faking a content-box to get border and padding (gh-3699)
-			if ( isBorderBox && support.scrollboxSize() === styles.position ) {
+			if ( isBorderBox && scrollboxSizeBuggy ) {
 				subtract -= Math.ceil(
 					elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
 					parseFloat( styles[ dimension ] ) -
@@ -62003,7 +62737,7 @@ jQuery.cssHooks.marginLeft = addGetHookIf( support.reliableMarginLeft,
 					swap( elem, { marginLeft: 0 }, function() {
 						return elem.getBoundingClientRect().left;
 					} )
-				) + "px";
+			) + "px";
 		}
 	}
 );
@@ -62141,9 +62875,9 @@ Tween.propHooks = {
 			// Use .style if available and use plain properties where available.
 			if ( jQuery.fx.step[ tween.prop ] ) {
 				jQuery.fx.step[ tween.prop ]( tween );
-			} else if ( tween.elem.nodeType === 1 &&
-				( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null ||
-					jQuery.cssHooks[ tween.prop ] ) ) {
+			} else if ( tween.elem.nodeType === 1 && (
+				jQuery.cssHooks[ tween.prop ] ||
+					tween.elem.style[ finalPropName( tween.prop ) ] != null ) ) {
 				jQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
 			} else {
 				tween.elem[ tween.prop ] = tween.now;
@@ -62387,7 +63121,7 @@ function defaultPrefilter( elem, props, opts ) {
 
 			anim.done( function() {
 
-			/* eslint-enable no-loop-func */
+				/* eslint-enable no-loop-func */
 
 				// The final step of a "hide" animation is actually hiding the element
 				if ( !hidden ) {
@@ -62507,7 +63241,7 @@ function Animation( elem, properties, options ) {
 			tweens: [],
 			createTween: function( prop, end ) {
 				var tween = jQuery.Tween( elem, animation.opts, prop, end,
-						animation.opts.specialEasing[ prop ] || animation.opts.easing );
+					animation.opts.specialEasing[ prop ] || animation.opts.easing );
 				animation.tweens.push( tween );
 				return tween;
 			},
@@ -62680,7 +63414,8 @@ jQuery.fn.extend( {
 					anim.stop( true );
 				}
 			};
-			doAnimation.finish = doAnimation;
+
+		doAnimation.finish = doAnimation;
 
 		return empty || optall.queue === false ?
 			this.each( doAnimation ) :
@@ -62698,7 +63433,7 @@ jQuery.fn.extend( {
 			clearQueue = type;
 			type = undefined;
 		}
-		if ( clearQueue && type !== false ) {
+		if ( clearQueue ) {
 			this.queue( type || "fx", [] );
 		}
 
@@ -62781,7 +63516,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-jQuery.each( [ "toggle", "show", "hide" ], function( i, name ) {
+jQuery.each( [ "toggle", "show", "hide" ], function( _i, name ) {
 	var cssFn = jQuery.fn[ name ];
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
@@ -63002,7 +63737,7 @@ boolHook = {
 	}
 };
 
-jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) {
+jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( _i, name ) {
 	var getter = attrHandle[ name ] || jQuery.find.attr;
 
 	attrHandle[ name ] = function( elem, name, isXML ) {
@@ -63320,8 +64055,8 @@ jQuery.fn.extend( {
 				if ( this.setAttribute ) {
 					this.setAttribute( "class",
 						className || value === false ?
-						"" :
-						dataPriv.get( this, "__className__" ) || ""
+							"" :
+							dataPriv.get( this, "__className__" ) || ""
 					);
 				}
 			}
@@ -63336,7 +64071,7 @@ jQuery.fn.extend( {
 		while ( ( elem = this[ i++ ] ) ) {
 			if ( elem.nodeType === 1 &&
 				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( className ) > -1 ) {
-					return true;
+				return true;
 			}
 		}
 
@@ -63626,7 +64361,7 @@ jQuery.extend( jQuery.event, {
 				special.bindType || type;
 
 			// jQuery handler
-			handle = ( dataPriv.get( cur, "events" ) || {} )[ event.type ] &&
+			handle = ( dataPriv.get( cur, "events" ) || Object.create( null ) )[ event.type ] &&
 				dataPriv.get( cur, "handle" );
 			if ( handle ) {
 				handle.apply( cur, data );
@@ -63737,7 +64472,10 @@ if ( !support.focusin ) {
 
 		jQuery.event.special[ fix ] = {
 			setup: function() {
-				var doc = this.ownerDocument || this,
+
+				// Handle: regular nodes (via `this.ownerDocument`), window
+				// (via `this.document`) & document (via `this`).
+				var doc = this.ownerDocument || this.document || this,
 					attaches = dataPriv.access( doc, fix );
 
 				if ( !attaches ) {
@@ -63746,7 +64484,7 @@ if ( !support.focusin ) {
 				dataPriv.access( doc, fix, ( attaches || 0 ) + 1 );
 			},
 			teardown: function() {
-				var doc = this.ownerDocument || this,
+				var doc = this.ownerDocument || this.document || this,
 					attaches = dataPriv.access( doc, fix ) - 1;
 
 				if ( !attaches ) {
@@ -63762,7 +64500,7 @@ if ( !support.focusin ) {
 }
 var location = window.location;
 
-var nonce = Date.now();
+var nonce = { guid: Date.now() };
 
 var rquery = ( /\?/ );
 
@@ -63770,7 +64508,7 @@ var rquery = ( /\?/ );
 
 // Cross-browser xml parsing
 jQuery.parseXML = function( data ) {
-	var xml;
+	var xml, parserErrorElem;
 	if ( !data || typeof data !== "string" ) {
 		return null;
 	}
@@ -63779,12 +64517,17 @@ jQuery.parseXML = function( data ) {
 	// IE throws on parseFromString with invalid input.
 	try {
 		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
-	} catch ( e ) {
-		xml = undefined;
-	}
+	} catch ( e ) {}
 
-	if ( !xml || xml.getElementsByTagName( "parsererror" ).length ) {
-		jQuery.error( "Invalid XML: " + data );
+	parserErrorElem = xml && xml.getElementsByTagName( "parsererror" )[ 0 ];
+	if ( !xml || parserErrorElem ) {
+		jQuery.error( "Invalid XML: " + (
+			parserErrorElem ?
+				jQuery.map( parserErrorElem.childNodes, function( el ) {
+					return el.textContent;
+				} ).join( "\n" ) :
+				data
+		) );
 	}
 	return xml;
 };
@@ -63850,6 +64593,10 @@ jQuery.param = function( a, traditional ) {
 				encodeURIComponent( value == null ? "" : value );
 		};
 
+	if ( a == null ) {
+		return "";
+	}
+
 	// If an array was passed in, assume that it is an array of form elements.
 	if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 
@@ -63881,16 +64628,14 @@ jQuery.fn.extend( {
 			// Can add propHook for "elements" to filter or add form elements
 			var elements = jQuery.prop( this, "elements" );
 			return elements ? jQuery.makeArray( elements ) : this;
-		} )
-		.filter( function() {
+		} ).filter( function() {
 			var type = this.type;
 
 			// Use .is( ":disabled" ) so that fieldset[disabled] works
 			return this.name && !jQuery( this ).is( ":disabled" ) &&
 				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
 				( this.checked || !rcheckableType.test( type ) );
-		} )
-		.map( function( i, elem ) {
+		} ).map( function( _i, elem ) {
 			var val = jQuery( this ).val();
 
 			if ( val == null ) {
@@ -63943,7 +64688,8 @@ var
 
 	// Anchor tag for parsing the document origin
 	originAnchor = document.createElement( "a" );
-	originAnchor.href = location.href;
+
+originAnchor.href = location.href;
 
 // Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
 function addToPrefiltersOrTransports( structure ) {
@@ -64324,8 +65070,8 @@ jQuery.extend( {
 			// Context for global events is callbackContext if it is a DOM node or jQuery collection
 			globalEventContext = s.context &&
 				( callbackContext.nodeType || callbackContext.jquery ) ?
-					jQuery( callbackContext ) :
-					jQuery.event,
+				jQuery( callbackContext ) :
+				jQuery.event,
 
 			// Deferreds
 			deferred = jQuery.Deferred(),
@@ -64352,12 +65098,14 @@ jQuery.extend( {
 						if ( !responseHeaders ) {
 							responseHeaders = {};
 							while ( ( match = rheaders.exec( responseHeadersString ) ) ) {
-								responseHeaders[ match[ 1 ].toLowerCase() ] = match[ 2 ];
+								responseHeaders[ match[ 1 ].toLowerCase() + " " ] =
+									( responseHeaders[ match[ 1 ].toLowerCase() + " " ] || [] )
+										.concat( match[ 2 ] );
 							}
 						}
-						match = responseHeaders[ key.toLowerCase() ];
+						match = responseHeaders[ key.toLowerCase() + " " ];
 					}
-					return match == null ? null : match;
+					return match == null ? null : match.join( ", " );
 				},
 
 				// Raw string
@@ -64501,7 +65249,8 @@ jQuery.extend( {
 			// Add or update anti-cache param if needed
 			if ( s.cache === false ) {
 				cacheURL = cacheURL.replace( rantiCache, "$1" );
-				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce++ ) + uncached;
+				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce.guid++ ) +
+					uncached;
 			}
 
 			// Put hash and anti-cache on the URL that will be requested (gh-1732)
@@ -64634,6 +65383,13 @@ jQuery.extend( {
 				response = ajaxHandleResponses( s, jqXHR, responses );
 			}
 
+			// Use a noop converter for missing script but not if jsonp
+			if ( !isSuccess &&
+				jQuery.inArray( "script", s.dataTypes ) > -1 &&
+				jQuery.inArray( "json", s.dataTypes ) < 0 ) {
+				s.converters[ "text script" ] = function() {};
+			}
+
 			// Convert no matter what (that way responseXXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
@@ -64724,7 +65480,7 @@ jQuery.extend( {
 	}
 } );
 
-jQuery.each( [ "get", "post" ], function( i, method ) {
+jQuery.each( [ "get", "post" ], function( _i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
 
 		// Shift arguments if data argument was omitted
@@ -64745,8 +65501,17 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 	};
 } );
 
+jQuery.ajaxPrefilter( function( s ) {
+	var i;
+	for ( i in s.headers ) {
+		if ( i.toLowerCase() === "content-type" ) {
+			s.contentType = s.headers[ i ] || "";
+		}
+	}
+} );
 
-jQuery._evalUrl = function( url ) {
+
+jQuery._evalUrl = function( url, options, doc ) {
 	return jQuery.ajax( {
 		url: url,
 
@@ -64756,7 +65521,16 @@ jQuery._evalUrl = function( url ) {
 		cache: true,
 		async: false,
 		global: false,
-		"throws": true
+
+		// Only evaluate the response if it is successful (gh-4126)
+		// dataFilter is not invoked for failure responses, so using it instead
+		// of the default converter is kludgy but it works.
+		converters: {
+			"text script": function() {}
+		},
+		dataFilter: function( response ) {
+			jQuery.globalEval( response, options, doc );
+		}
 	} );
 };
 
@@ -65039,24 +65813,21 @@ jQuery.ajaxPrefilter( "script", function( s ) {
 // Bind script tag hack transport
 jQuery.ajaxTransport( "script", function( s ) {
 
-	// This transport only deals with cross domain requests
-	if ( s.crossDomain ) {
+	// This transport only deals with cross domain or forced-by-attrs requests
+	if ( s.crossDomain || s.scriptAttrs ) {
 		var script, callback;
 		return {
 			send: function( _, complete ) {
-				script = jQuery( "<script>" ).prop( {
-					charset: s.scriptCharset,
-					src: s.url
-				} ).on(
-					"load error",
-					callback = function( evt ) {
+				script = jQuery( "<script>" )
+					.attr( s.scriptAttrs || {} )
+					.prop( { charset: s.scriptCharset, src: s.url } )
+					.on( "load error", callback = function( evt ) {
 						script.remove();
 						callback = null;
 						if ( evt ) {
 							complete( evt.type === "error" ? 404 : 200, evt.type );
 						}
-					}
-				);
+					} );
 
 				// Use native DOM manipulation to avoid our domManip AJAX trickery
 				document.head.appendChild( script[ 0 ] );
@@ -65080,7 +65851,7 @@ var oldCallbacks = [],
 jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
+		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce.guid++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
@@ -65297,23 +66068,6 @@ jQuery.fn.load = function( url, params, callback ) {
 
 
 
-// Attach a bunch of functions for handling common AJAX events
-jQuery.each( [
-	"ajaxStart",
-	"ajaxStop",
-	"ajaxComplete",
-	"ajaxError",
-	"ajaxSuccess",
-	"ajaxSend"
-], function( i, type ) {
-	jQuery.fn[ type ] = function( fn ) {
-		return this.on( type, fn );
-	};
-} );
-
-
-
-
 jQuery.expr.pseudos.animated = function( elem ) {
 	return jQuery.grep( jQuery.timers, function( fn ) {
 		return elem === fn.elem;
@@ -65520,7 +66274,7 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 // Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
 // getComputedStyle returns percent when specified for top/left/bottom/right;
 // rather than make the css module depend on the offset module, just check for it here
-jQuery.each( [ "top", "left" ], function( i, prop ) {
+jQuery.each( [ "top", "left" ], function( _i, prop ) {
 	jQuery.cssHooks[ prop ] = addGetHookIf( support.pixelPosition,
 		function( elem, computed ) {
 			if ( computed ) {
@@ -65538,8 +66292,11 @@ jQuery.each( [ "top", "left" ], function( i, prop ) {
 
 // Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
 jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
-	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
-		function( defaultExtra, funcName ) {
+	jQuery.each( {
+		padding: "inner" + name,
+		content: type,
+		"": "outer" + name
+	}, function( defaultExtra, funcName ) {
 
 		// Margin is only for outerHeight, outerWidth
 		jQuery.fn[ funcName ] = function( margin, value ) {
@@ -65583,23 +66340,17 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 } );
 
 
-jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
-	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
-	function( i, name ) {
-
-	// Handle event binding
-	jQuery.fn[ name ] = function( data, fn ) {
-		return arguments.length > 0 ?
-			this.on( name, null, data, fn ) :
-			this.trigger( name );
+jQuery.each( [
+	"ajaxStart",
+	"ajaxStop",
+	"ajaxComplete",
+	"ajaxError",
+	"ajaxSuccess",
+	"ajaxSend"
+], function( _i, type ) {
+	jQuery.fn[ type ] = function( fn ) {
+		return this.on( type, fn );
 	};
-} );
-
-jQuery.fn.extend( {
-	hover: function( fnOver, fnOut ) {
-		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
-	}
 } );
 
 
@@ -65623,8 +66374,34 @@ jQuery.fn.extend( {
 		return arguments.length === 1 ?
 			this.off( selector, "**" ) :
 			this.off( types, selector || "**", fn );
+	},
+
+	hover: function( fnOver, fnOut ) {
+		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 	}
 } );
+
+jQuery.each(
+	( "blur focus focusin focusout resize scroll click dblclick " +
+	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
+	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
+	function( _i, name ) {
+
+		// Handle event binding
+		jQuery.fn[ name ] = function( data, fn ) {
+			return arguments.length > 0 ?
+				this.on( name, null, data, fn ) :
+				this.trigger( name );
+		};
+	}
+);
+
+
+
+
+// Support: Android <=4.0 only
+// Make sure we trim BOM and NBSP
+var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
 
 // Bind a function to a context, optionally partially applying any
 // arguments.
@@ -65688,6 +66465,11 @@ jQuery.isNumeric = function( obj ) {
 		!isNaN( obj - parseFloat( obj ) );
 };
 
+jQuery.trim = function( text ) {
+	return text == null ?
+		"" :
+		( text + "" ).replace( rtrim, "" );
+};
 
 
 
@@ -65737,7 +66519,7 @@ jQuery.noConflict = function( deep ) {
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
-if ( !noGlobal ) {
+if ( typeof noGlobal === "undefined" ) {
 	window.jQuery = window.$ = jQuery;
 }
 
@@ -65749,13 +66531,17 @@ return jQuery;
 
 
 /***/ }),
-/* 146 */,
 /* 147 */,
 /* 148 */,
-/* 149 */
+/* 149 */,
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
+//! version : 2.29.1
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
 
 ;(function (global, factory) {
      true ? module.exports = factory() :
@@ -65765,33 +66551,43 @@ return jQuery;
 
     var hookCallback;
 
-    function hooks () {
+    function hooks() {
         return hookCallback.apply(null, arguments);
     }
 
     // This is done to register the method called with moment()
     // without creating circular dependencies.
-    function setHookCallback (callback) {
+    function setHookCallback(callback) {
         hookCallback = callback;
     }
 
     function isArray(input) {
-        return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
+        return (
+            input instanceof Array ||
+            Object.prototype.toString.call(input) === '[object Array]'
+        );
     }
 
     function isObject(input) {
         // IE8 will treat undefined and null as object if it wasn't for
         // input != null
-        return input != null && Object.prototype.toString.call(input) === '[object Object]';
+        return (
+            input != null &&
+            Object.prototype.toString.call(input) === '[object Object]'
+        );
+    }
+
+    function hasOwnProp(a, b) {
+        return Object.prototype.hasOwnProperty.call(a, b);
     }
 
     function isObjectEmpty(obj) {
         if (Object.getOwnPropertyNames) {
-            return (Object.getOwnPropertyNames(obj).length === 0);
+            return Object.getOwnPropertyNames(obj).length === 0;
         } else {
             var k;
             for (k in obj) {
-                if (obj.hasOwnProperty(k)) {
+                if (hasOwnProp(obj, k)) {
                     return false;
                 }
             }
@@ -65804,23 +66600,26 @@ return jQuery;
     }
 
     function isNumber(input) {
-        return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
+        return (
+            typeof input === 'number' ||
+            Object.prototype.toString.call(input) === '[object Number]'
+        );
     }
 
     function isDate(input) {
-        return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
+        return (
+            input instanceof Date ||
+            Object.prototype.toString.call(input) === '[object Date]'
+        );
     }
 
     function map(arr, fn) {
-        var res = [], i;
+        var res = [],
+            i;
         for (i = 0; i < arr.length; ++i) {
             res.push(fn(arr[i], i));
         }
         return res;
-    }
-
-    function hasOwnProp(a, b) {
-        return Object.prototype.hasOwnProperty.call(a, b);
     }
 
     function extend(a, b) {
@@ -65841,27 +66640,29 @@ return jQuery;
         return a;
     }
 
-    function createUTC (input, format, locale, strict) {
+    function createUTC(input, format, locale, strict) {
         return createLocalOrUTC(input, format, locale, strict, true).utc();
     }
 
     function defaultParsingFlags() {
         // We need to deep clone this object.
         return {
-            empty           : false,
-            unusedTokens    : [],
-            unusedInput     : [],
-            overflow        : -2,
-            charsLeftOver   : 0,
-            nullInput       : false,
-            invalidMonth    : null,
-            invalidFormat   : false,
-            userInvalidated : false,
-            iso             : false,
-            parsedDateParts : [],
-            meridiem        : null,
-            rfc2822         : false,
-            weekdayMismatch : false
+            empty: false,
+            unusedTokens: [],
+            unusedInput: [],
+            overflow: -2,
+            charsLeftOver: 0,
+            nullInput: false,
+            invalidEra: null,
+            invalidMonth: null,
+            invalidFormat: false,
+            userInvalidated: false,
+            iso: false,
+            parsedDateParts: [],
+            era: null,
+            meridiem: null,
+            rfc2822: false,
+            weekdayMismatch: false,
         };
     }
 
@@ -65877,10 +66678,11 @@ return jQuery;
         some = Array.prototype.some;
     } else {
         some = function (fun) {
-            var t = Object(this);
-            var len = t.length >>> 0;
+            var t = Object(this),
+                len = t.length >>> 0,
+                i;
 
-            for (var i = 0; i < len; i++) {
+            for (i = 0; i < len; i++) {
                 if (i in t && fun.call(this, t[i], i, t)) {
                     return true;
                 }
@@ -65892,23 +66694,26 @@ return jQuery;
 
     function isValid(m) {
         if (m._isValid == null) {
-            var flags = getParsingFlags(m);
-            var parsedParts = some.call(flags.parsedDateParts, function (i) {
-                return i != null;
-            });
-            var isNowValid = !isNaN(m._d.getTime()) &&
-                flags.overflow < 0 &&
-                !flags.empty &&
-                !flags.invalidMonth &&
-                !flags.invalidWeekday &&
-                !flags.weekdayMismatch &&
-                !flags.nullInput &&
-                !flags.invalidFormat &&
-                !flags.userInvalidated &&
-                (!flags.meridiem || (flags.meridiem && parsedParts));
+            var flags = getParsingFlags(m),
+                parsedParts = some.call(flags.parsedDateParts, function (i) {
+                    return i != null;
+                }),
+                isNowValid =
+                    !isNaN(m._d.getTime()) &&
+                    flags.overflow < 0 &&
+                    !flags.empty &&
+                    !flags.invalidEra &&
+                    !flags.invalidMonth &&
+                    !flags.invalidWeekday &&
+                    !flags.weekdayMismatch &&
+                    !flags.nullInput &&
+                    !flags.invalidFormat &&
+                    !flags.userInvalidated &&
+                    (!flags.meridiem || (flags.meridiem && parsedParts));
 
             if (m._strict) {
-                isNowValid = isNowValid &&
+                isNowValid =
+                    isNowValid &&
                     flags.charsLeftOver === 0 &&
                     flags.unusedTokens.length === 0 &&
                     flags.bigHour === undefined;
@@ -65916,20 +66721,18 @@ return jQuery;
 
             if (Object.isFrozen == null || !Object.isFrozen(m)) {
                 m._isValid = isNowValid;
-            }
-            else {
+            } else {
                 return isNowValid;
             }
         }
         return m._isValid;
     }
 
-    function createInvalid (flags) {
+    function createInvalid(flags) {
         var m = createUTC(NaN);
         if (flags != null) {
             extend(getParsingFlags(m), flags);
-        }
-        else {
+        } else {
             getParsingFlags(m).userInvalidated = true;
         }
 
@@ -65938,7 +66741,8 @@ return jQuery;
 
     // Plugins that add properties should also add the key here (null value),
     // so we can properly clone ourselves.
-    var momentProperties = hooks.momentProperties = [];
+    var momentProperties = (hooks.momentProperties = []),
+        updateInProgress = false;
 
     function copyConfig(to, from) {
         var i, prop, val;
@@ -65987,8 +66791,6 @@ return jQuery;
         return to;
     }
 
-    var updateInProgress = false;
-
     // Moment prototype object
     function Moment(config) {
         copyConfig(this, config);
@@ -66005,48 +66807,18 @@ return jQuery;
         }
     }
 
-    function isMoment (obj) {
-        return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
-    }
-
-    function absFloor (number) {
-        if (number < 0) {
-            // -0 -> 0
-            return Math.ceil(number) || 0;
-        } else {
-            return Math.floor(number);
-        }
-    }
-
-    function toInt(argumentForCoercion) {
-        var coercedNumber = +argumentForCoercion,
-            value = 0;
-
-        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-            value = absFloor(coercedNumber);
-        }
-
-        return value;
-    }
-
-    // compare two arrays, return the number of differences
-    function compareArrays(array1, array2, dontConvert) {
-        var len = Math.min(array1.length, array2.length),
-            lengthDiff = Math.abs(array1.length - array2.length),
-            diffs = 0,
-            i;
-        for (i = 0; i < len; i++) {
-            if ((dontConvert && array1[i] !== array2[i]) ||
-                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
-                diffs++;
-            }
-        }
-        return diffs + lengthDiff;
+    function isMoment(obj) {
+        return (
+            obj instanceof Moment || (obj != null && obj._isAMomentObject != null)
+        );
     }
 
     function warn(msg) {
-        if (hooks.suppressDeprecationWarnings === false &&
-                (typeof console !==  'undefined') && console.warn) {
+        if (
+            hooks.suppressDeprecationWarnings === false &&
+            typeof console !== 'undefined' &&
+            console.warn
+        ) {
             console.warn('Deprecation warning: ' + msg);
         }
     }
@@ -66059,14 +66831,18 @@ return jQuery;
                 hooks.deprecationHandler(null, msg);
             }
             if (firstTime) {
-                var args = [];
-                var arg;
-                for (var i = 0; i < arguments.length; i++) {
+                var args = [],
+                    arg,
+                    i,
+                    key;
+                for (i = 0; i < arguments.length; i++) {
                     arg = '';
                     if (typeof arguments[i] === 'object') {
                         arg += '\n[' + i + '] ';
-                        for (var key in arguments[0]) {
-                            arg += key + ': ' + arguments[0][key] + ', ';
+                        for (key in arguments[0]) {
+                            if (hasOwnProp(arguments[0], key)) {
+                                arg += key + ': ' + arguments[0][key] + ', ';
+                            }
                         }
                         arg = arg.slice(0, -2); // Remove trailing comma and space
                     } else {
@@ -66074,7 +66850,13 @@ return jQuery;
                     }
                     args.push(arg);
                 }
-                warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+                warn(
+                    msg +
+                        '\nArguments: ' +
+                        Array.prototype.slice.call(args).join('') +
+                        '\n' +
+                        new Error().stack
+                );
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -66097,17 +66879,22 @@ return jQuery;
     hooks.deprecationHandler = null;
 
     function isFunction(input) {
-        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+        return (
+            (typeof Function !== 'undefined' && input instanceof Function) ||
+            Object.prototype.toString.call(input) === '[object Function]'
+        );
     }
 
-    function set (config) {
+    function set(config) {
         var prop, i;
         for (i in config) {
-            prop = config[i];
-            if (isFunction(prop)) {
-                this[i] = prop;
-            } else {
-                this['_' + i] = prop;
+            if (hasOwnProp(config, i)) {
+                prop = config[i];
+                if (isFunction(prop)) {
+                    this[i] = prop;
+                } else {
+                    this['_' + i] = prop;
+                }
             }
         }
         this._config = config;
@@ -66116,11 +66903,14 @@ return jQuery;
         // TODO: Remove "ordinalParse" fallback in next major release.
         this._dayOfMonthOrdinalParseLenient = new RegExp(
             (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
-                '|' + (/\d{1,2}/).source);
+                '|' +
+                /\d{1,2}/.source
+        );
     }
 
     function mergeConfigs(parentConfig, childConfig) {
-        var res = extend({}, parentConfig), prop;
+        var res = extend({}, parentConfig),
+            prop;
         for (prop in childConfig) {
             if (hasOwnProp(childConfig, prop)) {
                 if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
@@ -66135,9 +66925,11 @@ return jQuery;
             }
         }
         for (prop in parentConfig) {
-            if (hasOwnProp(parentConfig, prop) &&
-                    !hasOwnProp(childConfig, prop) &&
-                    isObject(parentConfig[prop])) {
+            if (
+                hasOwnProp(parentConfig, prop) &&
+                !hasOwnProp(childConfig, prop) &&
+                isObject(parentConfig[prop])
+            ) {
                 // make sure changes to properties don't modify parent config
                 res[prop] = extend({}, res[prop]);
             }
@@ -66157,7 +66949,8 @@ return jQuery;
         keys = Object.keys;
     } else {
         keys = function (obj) {
-            var i, res = [];
+            var i,
+                res = [];
             for (i in obj) {
                 if (hasOwnProp(obj, i)) {
                     res.push(i);
@@ -66168,29 +66961,139 @@ return jQuery;
     }
 
     var defaultCalendar = {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
-        sameElse : 'L'
+        sameDay: '[Today at] LT',
+        nextDay: '[Tomorrow at] LT',
+        nextWeek: 'dddd [at] LT',
+        lastDay: '[Yesterday at] LT',
+        lastWeek: '[Last] dddd [at] LT',
+        sameElse: 'L',
     };
 
-    function calendar (key, mom, now) {
+    function calendar(key, mom, now) {
         var output = this._calendar[key] || this._calendar['sameElse'];
         return isFunction(output) ? output.call(mom, now) : output;
     }
 
+    function zeroFill(number, targetLength, forceSign) {
+        var absNumber = '' + Math.abs(number),
+            zerosToFill = targetLength - absNumber.length,
+            sign = number >= 0;
+        return (
+            (sign ? (forceSign ? '+' : '') : '-') +
+            Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) +
+            absNumber
+        );
+    }
+
+    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
+        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
+        formatFunctions = {},
+        formatTokenFunctions = {};
+
+    // token:    'M'
+    // padded:   ['MM', 2]
+    // ordinal:  'Mo'
+    // callback: function () { this.month() + 1 }
+    function addFormatToken(token, padded, ordinal, callback) {
+        var func = callback;
+        if (typeof callback === 'string') {
+            func = function () {
+                return this[callback]();
+            };
+        }
+        if (token) {
+            formatTokenFunctions[token] = func;
+        }
+        if (padded) {
+            formatTokenFunctions[padded[0]] = function () {
+                return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
+            };
+        }
+        if (ordinal) {
+            formatTokenFunctions[ordinal] = function () {
+                return this.localeData().ordinal(
+                    func.apply(this, arguments),
+                    token
+                );
+            };
+        }
+    }
+
+    function removeFormattingTokens(input) {
+        if (input.match(/\[[\s\S]/)) {
+            return input.replace(/^\[|\]$/g, '');
+        }
+        return input.replace(/\\/g, '');
+    }
+
+    function makeFormatFunction(format) {
+        var array = format.match(formattingTokens),
+            i,
+            length;
+
+        for (i = 0, length = array.length; i < length; i++) {
+            if (formatTokenFunctions[array[i]]) {
+                array[i] = formatTokenFunctions[array[i]];
+            } else {
+                array[i] = removeFormattingTokens(array[i]);
+            }
+        }
+
+        return function (mom) {
+            var output = '',
+                i;
+            for (i = 0; i < length; i++) {
+                output += isFunction(array[i])
+                    ? array[i].call(mom, format)
+                    : array[i];
+            }
+            return output;
+        };
+    }
+
+    // format date using native date object
+    function formatMoment(m, format) {
+        if (!m.isValid()) {
+            return m.localeData().invalidDate();
+        }
+
+        format = expandFormat(format, m.localeData());
+        formatFunctions[format] =
+            formatFunctions[format] || makeFormatFunction(format);
+
+        return formatFunctions[format](m);
+    }
+
+    function expandFormat(format, locale) {
+        var i = 5;
+
+        function replaceLongDateFormatTokens(input) {
+            return locale.longDateFormat(input) || input;
+        }
+
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
+            format = format.replace(
+                localFormattingTokens,
+                replaceLongDateFormatTokens
+            );
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
+        }
+
+        return format;
+    }
+
     var defaultLongDateFormat = {
-        LTS  : 'h:mm:ss A',
-        LT   : 'h:mm A',
-        L    : 'MM/DD/YYYY',
-        LL   : 'MMMM D, YYYY',
-        LLL  : 'MMMM D, YYYY h:mm A',
-        LLLL : 'dddd, MMMM D, YYYY h:mm A'
+        LTS: 'h:mm:ss A',
+        LT: 'h:mm A',
+        L: 'MM/DD/YYYY',
+        LL: 'MMMM D, YYYY',
+        LLL: 'MMMM D, YYYY h:mm A',
+        LLLL: 'dddd, MMMM D, YYYY h:mm A',
     };
 
-    function longDateFormat (key) {
+    function longDateFormat(key) {
         var format = this._longDateFormat[key],
             formatUpper = this._longDateFormat[key.toUpperCase()];
 
@@ -66198,64 +67101,79 @@ return jQuery;
             return format;
         }
 
-        this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
-            return val.slice(1);
-        });
+        this._longDateFormat[key] = formatUpper
+            .match(formattingTokens)
+            .map(function (tok) {
+                if (
+                    tok === 'MMMM' ||
+                    tok === 'MM' ||
+                    tok === 'DD' ||
+                    tok === 'dddd'
+                ) {
+                    return tok.slice(1);
+                }
+                return tok;
+            })
+            .join('');
 
         return this._longDateFormat[key];
     }
 
     var defaultInvalidDate = 'Invalid date';
 
-    function invalidDate () {
+    function invalidDate() {
         return this._invalidDate;
     }
 
-    var defaultOrdinal = '%d';
-    var defaultDayOfMonthOrdinalParse = /\d{1,2}/;
+    var defaultOrdinal = '%d',
+        defaultDayOfMonthOrdinalParse = /\d{1,2}/;
 
-    function ordinal (number) {
+    function ordinal(number) {
         return this._ordinal.replace('%d', number);
     }
 
     var defaultRelativeTime = {
-        future : 'in %s',
-        past   : '%s ago',
-        s  : 'a few seconds',
-        ss : '%d seconds',
-        m  : 'a minute',
-        mm : '%d minutes',
-        h  : 'an hour',
-        hh : '%d hours',
-        d  : 'a day',
-        dd : '%d days',
-        M  : 'a month',
-        MM : '%d months',
-        y  : 'a year',
-        yy : '%d years'
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%d seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        w: 'a week',
+        ww: '%d weeks',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years',
     };
 
-    function relativeTime (number, withoutSuffix, string, isFuture) {
+    function relativeTime(number, withoutSuffix, string, isFuture) {
         var output = this._relativeTime[string];
-        return (isFunction(output)) ?
-            output(number, withoutSuffix, string, isFuture) :
-            output.replace(/%d/i, number);
+        return isFunction(output)
+            ? output(number, withoutSuffix, string, isFuture)
+            : output.replace(/%d/i, number);
     }
 
-    function pastFuture (diff, output) {
+    function pastFuture(diff, output) {
         var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
         return isFunction(format) ? format(output) : format.replace(/%s/i, output);
     }
 
     var aliases = {};
 
-    function addUnitAlias (unit, shorthand) {
+    function addUnitAlias(unit, shorthand) {
         var lowerCase = unit.toLowerCase();
         aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
     }
 
     function normalizeUnits(units) {
-        return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
+        return typeof units === 'string'
+            ? aliases[units] || aliases[units.toLowerCase()]
+            : undefined;
     }
 
     function normalizeObjectUnits(inputObject) {
@@ -66282,9 +67200,12 @@ return jQuery;
     }
 
     function getPrioritizedUnits(unitsObj) {
-        var units = [];
-        for (var u in unitsObj) {
-            units.push({unit: u, priority: priorities[u]});
+        var units = [],
+            u;
+        for (u in unitsObj) {
+            if (hasOwnProp(unitsObj, u)) {
+                units.push({ unit: u, priority: priorities[u] });
+            }
         }
         units.sort(function (a, b) {
             return a.priority - b.priority;
@@ -66292,137 +67213,127 @@ return jQuery;
         return units;
     }
 
-    function zeroFill(number, targetLength, forceSign) {
-        var absNumber = '' + Math.abs(number),
-            zerosToFill = targetLength - absNumber.length,
-            sign = number >= 0;
-        return (sign ? (forceSign ? '+' : '') : '-') +
-            Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
-
-    var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
-
-    var formatFunctions = {};
-
-    var formatTokenFunctions = {};
-
-    // token:    'M'
-    // padded:   ['MM', 2]
-    // ordinal:  'Mo'
-    // callback: function () { this.month() + 1 }
-    function addFormatToken (token, padded, ordinal, callback) {
-        var func = callback;
-        if (typeof callback === 'string') {
-            func = function () {
-                return this[callback]();
-            };
-        }
-        if (token) {
-            formatTokenFunctions[token] = func;
-        }
-        if (padded) {
-            formatTokenFunctions[padded[0]] = function () {
-                return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
-            };
-        }
-        if (ordinal) {
-            formatTokenFunctions[ordinal] = function () {
-                return this.localeData().ordinal(func.apply(this, arguments), token);
-            };
+    function absFloor(number) {
+        if (number < 0) {
+            // -0 -> 0
+            return Math.ceil(number) || 0;
+        } else {
+            return Math.floor(number);
         }
     }
 
-    function removeFormattingTokens(input) {
-        if (input.match(/\[[\s\S]/)) {
-            return input.replace(/^\[|\]$/g, '');
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            value = absFloor(coercedNumber);
         }
-        return input.replace(/\\/g, '');
+
+        return value;
     }
 
-    function makeFormatFunction(format) {
-        var array = format.match(formattingTokens), i, length;
-
-        for (i = 0, length = array.length; i < length; i++) {
-            if (formatTokenFunctions[array[i]]) {
-                array[i] = formatTokenFunctions[array[i]];
+    function makeGetSet(unit, keepTime) {
+        return function (value) {
+            if (value != null) {
+                set$1(this, unit, value);
+                hooks.updateOffset(this, keepTime);
+                return this;
             } else {
-                array[i] = removeFormattingTokens(array[i]);
+                return get(this, unit);
             }
-        }
-
-        return function (mom) {
-            var output = '', i;
-            for (i = 0; i < length; i++) {
-                output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
-            }
-            return output;
         };
     }
 
-    // format date using native date object
-    function formatMoment(m, format) {
-        if (!m.isValid()) {
-            return m.localeData().invalidDate();
-        }
-
-        format = expandFormat(format, m.localeData());
-        formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
-
-        return formatFunctions[format](m);
+    function get(mom, unit) {
+        return mom.isValid()
+            ? mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]()
+            : NaN;
     }
 
-    function expandFormat(format, locale) {
-        var i = 5;
-
-        function replaceLongDateFormatTokens(input) {
-            return locale.longDateFormat(input) || input;
+    function set$1(mom, unit, value) {
+        if (mom.isValid() && !isNaN(value)) {
+            if (
+                unit === 'FullYear' &&
+                isLeapYear(mom.year()) &&
+                mom.month() === 1 &&
+                mom.date() === 29
+            ) {
+                value = toInt(value);
+                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](
+                    value,
+                    mom.month(),
+                    daysInMonth(value, mom.month())
+                );
+            } else {
+                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+            }
         }
-
-        localFormattingTokens.lastIndex = 0;
-        while (i >= 0 && localFormattingTokens.test(format)) {
-            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
-            localFormattingTokens.lastIndex = 0;
-            i -= 1;
-        }
-
-        return format;
     }
 
-    var match1         = /\d/;            //       0 - 9
-    var match2         = /\d\d/;          //      00 - 99
-    var match3         = /\d{3}/;         //     000 - 999
-    var match4         = /\d{4}/;         //    0000 - 9999
-    var match6         = /[+-]?\d{6}/;    // -999999 - 999999
-    var match1to2      = /\d\d?/;         //       0 - 99
-    var match3to4      = /\d\d\d\d?/;     //     999 - 9999
-    var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
-    var match1to3      = /\d{1,3}/;       //       0 - 999
-    var match1to4      = /\d{1,4}/;       //       0 - 9999
-    var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
+    // MOMENTS
 
-    var matchUnsigned  = /\d+/;           //       0 - inf
-    var matchSigned    = /[+-]?\d+/;      //    -inf - inf
-
-    var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
-    var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
-
-    var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
-
-    // any word (or two) characters or numbers including two/three word month in arabic.
-    // includes scottish gaelic two word and hyphenated months
-    var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
-
-    var regexes = {};
-
-    function addRegexToken (token, regex, strictRegex) {
-        regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
-            return (isStrict && strictRegex) ? strictRegex : regex;
-        };
+    function stringGet(units) {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+            return this[units]();
+        }
+        return this;
     }
 
-    function getParseRegexForToken (token, config) {
+    function stringSet(units, value) {
+        if (typeof units === 'object') {
+            units = normalizeObjectUnits(units);
+            var prioritized = getPrioritizedUnits(units),
+                i;
+            for (i = 0; i < prioritized.length; i++) {
+                this[prioritized[i].unit](units[prioritized[i].unit]);
+            }
+        } else {
+            units = normalizeUnits(units);
+            if (isFunction(this[units])) {
+                return this[units](value);
+            }
+        }
+        return this;
+    }
+
+    var match1 = /\d/, //       0 - 9
+        match2 = /\d\d/, //      00 - 99
+        match3 = /\d{3}/, //     000 - 999
+        match4 = /\d{4}/, //    0000 - 9999
+        match6 = /[+-]?\d{6}/, // -999999 - 999999
+        match1to2 = /\d\d?/, //       0 - 99
+        match3to4 = /\d\d\d\d?/, //     999 - 9999
+        match5to6 = /\d\d\d\d\d\d?/, //   99999 - 999999
+        match1to3 = /\d{1,3}/, //       0 - 999
+        match1to4 = /\d{1,4}/, //       0 - 9999
+        match1to6 = /[+-]?\d{1,6}/, // -999999 - 999999
+        matchUnsigned = /\d+/, //       0 - inf
+        matchSigned = /[+-]?\d+/, //    -inf - inf
+        matchOffset = /Z|[+-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
+        matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi, // +00 -00 +00:00 -00:00 +0000 -0000 or Z
+        matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
+        // any word (or two) characters or numbers including two/three word month in arabic.
+        // includes scottish gaelic two word and hyphenated months
+        matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
+        regexes;
+
+    regexes = {};
+
+    function addRegexToken(token, regex, strictRegex) {
+        regexes[token] = isFunction(regex)
+            ? regex
+            : function (isStrict, localeData) {
+                  return isStrict && strictRegex ? strictRegex : regex;
+              };
+    }
+
+    function getParseRegexForToken(token, config) {
         if (!hasOwnProp(regexes, token)) {
             return new RegExp(unescapeFormat(token));
         }
@@ -66432,9 +67343,19 @@ return jQuery;
 
     // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
     function unescapeFormat(s) {
-        return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
-            return p1 || p2 || p3 || p4;
-        }));
+        return regexEscape(
+            s
+                .replace('\\', '')
+                .replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (
+                    matched,
+                    p1,
+                    p2,
+                    p3,
+                    p4
+                ) {
+                    return p1 || p2 || p3 || p4;
+                })
+        );
     }
 
     function regexEscape(s) {
@@ -66443,8 +67364,9 @@ return jQuery;
 
     var tokens = {};
 
-    function addParseToken (token, callback) {
-        var i, func = callback;
+    function addParseToken(token, callback) {
+        var i,
+            func = callback;
         if (typeof token === 'string') {
             token = [token];
         }
@@ -66458,7 +67380,7 @@ return jQuery;
         }
     }
 
-    function addWeekParseToken (token, callback) {
+    function addWeekParseToken(token, callback) {
         addParseToken(token, function (input, array, config, token) {
             config._w = config._w || {};
             callback(input, config._w, config, token);
@@ -66471,136 +67393,15 @@ return jQuery;
         }
     }
 
-    var YEAR = 0;
-    var MONTH = 1;
-    var DATE = 2;
-    var HOUR = 3;
-    var MINUTE = 4;
-    var SECOND = 5;
-    var MILLISECOND = 6;
-    var WEEK = 7;
-    var WEEKDAY = 8;
-
-    // FORMATTING
-
-    addFormatToken('Y', 0, 0, function () {
-        var y = this.year();
-        return y <= 9999 ? '' + y : '+' + y;
-    });
-
-    addFormatToken(0, ['YY', 2], 0, function () {
-        return this.year() % 100;
-    });
-
-    addFormatToken(0, ['YYYY',   4],       0, 'year');
-    addFormatToken(0, ['YYYYY',  5],       0, 'year');
-    addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
-
-    // ALIASES
-
-    addUnitAlias('year', 'y');
-
-    // PRIORITIES
-
-    addUnitPriority('year', 1);
-
-    // PARSING
-
-    addRegexToken('Y',      matchSigned);
-    addRegexToken('YY',     match1to2, match2);
-    addRegexToken('YYYY',   match1to4, match4);
-    addRegexToken('YYYYY',  match1to6, match6);
-    addRegexToken('YYYYYY', match1to6, match6);
-
-    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-    addParseToken('YYYY', function (input, array) {
-        array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-    });
-    addParseToken('YY', function (input, array) {
-        array[YEAR] = hooks.parseTwoDigitYear(input);
-    });
-    addParseToken('Y', function (input, array) {
-        array[YEAR] = parseInt(input, 10);
-    });
-
-    // HELPERS
-
-    function daysInYear(year) {
-        return isLeapYear(year) ? 366 : 365;
-    }
-
-    function isLeapYear(year) {
-        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-    }
-
-    // HOOKS
-
-    hooks.parseTwoDigitYear = function (input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-    };
-
-    // MOMENTS
-
-    var getSetYear = makeGetSet('FullYear', true);
-
-    function getIsLeapYear () {
-        return isLeapYear(this.year());
-    }
-
-    function makeGetSet (unit, keepTime) {
-        return function (value) {
-            if (value != null) {
-                set$1(this, unit, value);
-                hooks.updateOffset(this, keepTime);
-                return this;
-            } else {
-                return get(this, unit);
-            }
-        };
-    }
-
-    function get (mom, unit) {
-        return mom.isValid() ?
-            mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
-    }
-
-    function set$1 (mom, unit, value) {
-        if (mom.isValid() && !isNaN(value)) {
-            if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
-                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
-            }
-            else {
-                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-            }
-        }
-    }
-
-    // MOMENTS
-
-    function stringGet (units) {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) {
-            return this[units]();
-        }
-        return this;
-    }
-
-
-    function stringSet (units, value) {
-        if (typeof units === 'object') {
-            units = normalizeObjectUnits(units);
-            var prioritized = getPrioritizedUnits(units);
-            for (var i = 0; i < prioritized.length; i++) {
-                this[prioritized[i].unit](units[prioritized[i].unit]);
-            }
-        } else {
-            units = normalizeUnits(units);
-            if (isFunction(this[units])) {
-                return this[units](value);
-            }
-        }
-        return this;
-    }
+    var YEAR = 0,
+        MONTH = 1,
+        DATE = 2,
+        HOUR = 3,
+        MINUTE = 4,
+        SECOND = 5,
+        MILLISECOND = 6,
+        WEEK = 7,
+        WEEKDAY = 8;
 
     function mod(n, x) {
         return ((n % x) + x) % x;
@@ -66629,7 +67430,11 @@ return jQuery;
         }
         var modMonth = mod(month, 12);
         year += (month - modMonth) / 12;
-        return modMonth === 1 ? (isLeapYear(year) ? 29 : 28) : (31 - modMonth % 7 % 2);
+        return modMonth === 1
+            ? isLeapYear(year)
+                ? 29
+                : 28
+            : 31 - ((modMonth % 7) % 2);
     }
 
     // FORMATTING
@@ -66656,9 +67461,9 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('M',    match1to2);
-    addRegexToken('MM',   match1to2, match2);
-    addRegexToken('MMM',  function (isStrict, locale) {
+    addRegexToken('M', match1to2);
+    addRegexToken('MM', match1to2, match2);
+    addRegexToken('MMM', function (isStrict, locale) {
         return locale.monthsShortRegex(isStrict);
     });
     addRegexToken('MMMM', function (isStrict, locale) {
@@ -66681,29 +67486,49 @@ return jQuery;
 
     // LOCALES
 
-    var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
-    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
-    function localeMonths (m, format) {
+    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
+            '_'
+        ),
+        defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split(
+            '_'
+        ),
+        MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,
+        defaultMonthsShortRegex = matchWord,
+        defaultMonthsRegex = matchWord;
+
+    function localeMonths(m, format) {
         if (!m) {
-            return isArray(this._months) ? this._months :
-                this._months['standalone'];
+            return isArray(this._months)
+                ? this._months
+                : this._months['standalone'];
         }
-        return isArray(this._months) ? this._months[m.month()] :
-            this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
+        return isArray(this._months)
+            ? this._months[m.month()]
+            : this._months[
+                  (this._months.isFormat || MONTHS_IN_FORMAT).test(format)
+                      ? 'format'
+                      : 'standalone'
+              ][m.month()];
     }
 
-    var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
-    function localeMonthsShort (m, format) {
+    function localeMonthsShort(m, format) {
         if (!m) {
-            return isArray(this._monthsShort) ? this._monthsShort :
-                this._monthsShort['standalone'];
+            return isArray(this._monthsShort)
+                ? this._monthsShort
+                : this._monthsShort['standalone'];
         }
-        return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
-            this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+        return isArray(this._monthsShort)
+            ? this._monthsShort[m.month()]
+            : this._monthsShort[
+                  MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'
+              ][m.month()];
     }
 
     function handleStrictParse(monthName, format, strict) {
-        var i, ii, mom, llc = monthName.toLocaleLowerCase();
+        var i,
+            ii,
+            mom,
+            llc = monthName.toLocaleLowerCase();
         if (!this._monthsParse) {
             // this is not used
             this._monthsParse = [];
@@ -66711,7 +67536,10 @@ return jQuery;
             this._shortMonthsParse = [];
             for (i = 0; i < 12; ++i) {
                 mom = createUTC([2000, i]);
-                this._shortMonthsParse[i] = this.monthsShort(mom, '').toLocaleLowerCase();
+                this._shortMonthsParse[i] = this.monthsShort(
+                    mom,
+                    ''
+                ).toLocaleLowerCase();
                 this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
             }
         }
@@ -66743,7 +67571,7 @@ return jQuery;
         }
     }
 
-    function localeMonthsParse (monthName, format, strict) {
+    function localeMonthsParse(monthName, format, strict) {
         var i, mom, regex;
 
         if (this._monthsParseExact) {
@@ -66763,17 +67591,32 @@ return jQuery;
             // make the regex if we don't have it already
             mom = createUTC([2000, i]);
             if (strict && !this._longMonthsParse[i]) {
-                this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
-                this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+                this._longMonthsParse[i] = new RegExp(
+                    '^' + this.months(mom, '').replace('.', '') + '$',
+                    'i'
+                );
+                this._shortMonthsParse[i] = new RegExp(
+                    '^' + this.monthsShort(mom, '').replace('.', '') + '$',
+                    'i'
+                );
             }
             if (!strict && !this._monthsParse[i]) {
-                regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+                regex =
+                    '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
                 this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
             }
             // test the regex
-            if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+            if (
+                strict &&
+                format === 'MMMM' &&
+                this._longMonthsParse[i].test(monthName)
+            ) {
                 return i;
-            } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+            } else if (
+                strict &&
+                format === 'MMM' &&
+                this._shortMonthsParse[i].test(monthName)
+            ) {
                 return i;
             } else if (!strict && this._monthsParse[i].test(monthName)) {
                 return i;
@@ -66783,7 +67626,7 @@ return jQuery;
 
     // MOMENTS
 
-    function setMonth (mom, value) {
+    function setMonth(mom, value) {
         var dayOfMonth;
 
         if (!mom.isValid()) {
@@ -66808,7 +67651,7 @@ return jQuery;
         return mom;
     }
 
-    function getSetMonth (value) {
+    function getSetMonth(value) {
         if (value != null) {
             setMonth(this, value);
             hooks.updateOffset(this, true);
@@ -66818,12 +67661,11 @@ return jQuery;
         }
     }
 
-    function getDaysInMonth () {
+    function getDaysInMonth() {
         return daysInMonth(this.year(), this.month());
     }
 
-    var defaultMonthsShortRegex = matchWord;
-    function monthsShortRegex (isStrict) {
+    function monthsShortRegex(isStrict) {
         if (this._monthsParseExact) {
             if (!hasOwnProp(this, '_monthsRegex')) {
                 computeMonthsParse.call(this);
@@ -66837,13 +67679,13 @@ return jQuery;
             if (!hasOwnProp(this, '_monthsShortRegex')) {
                 this._monthsShortRegex = defaultMonthsShortRegex;
             }
-            return this._monthsShortStrictRegex && isStrict ?
-                this._monthsShortStrictRegex : this._monthsShortRegex;
+            return this._monthsShortStrictRegex && isStrict
+                ? this._monthsShortStrictRegex
+                : this._monthsShortRegex;
         }
     }
 
-    var defaultMonthsRegex = matchWord;
-    function monthsRegex (isStrict) {
+    function monthsRegex(isStrict) {
         if (this._monthsParseExact) {
             if (!hasOwnProp(this, '_monthsRegex')) {
                 computeMonthsParse.call(this);
@@ -66857,18 +67699,22 @@ return jQuery;
             if (!hasOwnProp(this, '_monthsRegex')) {
                 this._monthsRegex = defaultMonthsRegex;
             }
-            return this._monthsStrictRegex && isStrict ?
-                this._monthsStrictRegex : this._monthsRegex;
+            return this._monthsStrictRegex && isStrict
+                ? this._monthsStrictRegex
+                : this._monthsRegex;
         }
     }
 
-    function computeMonthsParse () {
+    function computeMonthsParse() {
         function cmpLenRev(a, b) {
             return b.length - a.length;
         }
 
-        var shortPieces = [], longPieces = [], mixedPieces = [],
-            i, mom;
+        var shortPieces = [],
+            longPieces = [],
+            mixedPieces = [],
+            i,
+            mom;
         for (i = 0; i < 12; i++) {
             // make the regex if we don't have it already
             mom = createUTC([2000, i]);
@@ -66892,29 +67738,112 @@ return jQuery;
 
         this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
         this._monthsShortRegex = this._monthsRegex;
-        this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-        this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+        this._monthsStrictRegex = new RegExp(
+            '^(' + longPieces.join('|') + ')',
+            'i'
+        );
+        this._monthsShortStrictRegex = new RegExp(
+            '^(' + shortPieces.join('|') + ')',
+            'i'
+        );
     }
 
-    function createDate (y, m, d, h, M, s, ms) {
+    // FORMATTING
+
+    addFormatToken('Y', 0, 0, function () {
+        var y = this.year();
+        return y <= 9999 ? zeroFill(y, 4) : '+' + y;
+    });
+
+    addFormatToken(0, ['YY', 2], 0, function () {
+        return this.year() % 100;
+    });
+
+    addFormatToken(0, ['YYYY', 4], 0, 'year');
+    addFormatToken(0, ['YYYYY', 5], 0, 'year');
+    addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+    // ALIASES
+
+    addUnitAlias('year', 'y');
+
+    // PRIORITIES
+
+    addUnitPriority('year', 1);
+
+    // PARSING
+
+    addRegexToken('Y', matchSigned);
+    addRegexToken('YY', match1to2, match2);
+    addRegexToken('YYYY', match1to4, match4);
+    addRegexToken('YYYYY', match1to6, match6);
+    addRegexToken('YYYYYY', match1to6, match6);
+
+    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+    addParseToken('YYYY', function (input, array) {
+        array[YEAR] =
+            input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+    });
+    addParseToken('YY', function (input, array) {
+        array[YEAR] = hooks.parseTwoDigitYear(input);
+    });
+    addParseToken('Y', function (input, array) {
+        array[YEAR] = parseInt(input, 10);
+    });
+
+    // HELPERS
+
+    function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+    }
+
+    // HOOKS
+
+    hooks.parseTwoDigitYear = function (input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    };
+
+    // MOMENTS
+
+    var getSetYear = makeGetSet('FullYear', true);
+
+    function getIsLeapYear() {
+        return isLeapYear(this.year());
+    }
+
+    function createDate(y, m, d, h, M, s, ms) {
         // can't just apply() to create a date:
         // https://stackoverflow.com/q/181348
-        var date = new Date(y, m, d, h, M, s, ms);
-
+        var date;
         // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
-            date.setFullYear(y);
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            date = new Date(y + 400, m, d, h, M, s, ms);
+            if (isFinite(date.getFullYear())) {
+                date.setFullYear(y);
+            }
+        } else {
+            date = new Date(y, m, d, h, M, s, ms);
         }
+
         return date;
     }
 
-    function createUTCDate (y) {
-        var date = new Date(Date.UTC.apply(null, arguments));
-
+    function createUTCDate(y) {
+        var date, args;
         // the Date.UTC function remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
-            date.setUTCFullYear(y);
+        if (y < 100 && y >= 0) {
+            args = Array.prototype.slice.call(arguments);
+            // preserve leap years using a full 400 year cycle, then reset
+            args[0] = y + 400;
+            date = new Date(Date.UTC.apply(null, args));
+            if (isFinite(date.getUTCFullYear())) {
+                date.setUTCFullYear(y);
+            }
+        } else {
+            date = new Date(Date.UTC.apply(null, arguments));
         }
+
         return date;
     }
 
@@ -66933,7 +67862,8 @@ return jQuery;
         var localWeekday = (7 + weekday - dow) % 7,
             weekOffset = firstWeekOffset(year, dow, doy),
             dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
-            resYear, resDayOfYear;
+            resYear,
+            resDayOfYear;
 
         if (dayOfYear <= 0) {
             resYear = year - 1;
@@ -66948,14 +67878,15 @@ return jQuery;
 
         return {
             year: resYear,
-            dayOfYear: resDayOfYear
+            dayOfYear: resDayOfYear,
         };
     }
 
     function weekOfYear(mom, dow, doy) {
         var weekOffset = firstWeekOffset(mom.year(), dow, doy),
             week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
-            resWeek, resYear;
+            resWeek,
+            resYear;
 
         if (week < 1) {
             resYear = mom.year() - 1;
@@ -66970,7 +67901,7 @@ return jQuery;
 
         return {
             week: resWeek,
-            year: resYear
+            year: resYear,
         };
     }
 
@@ -66997,12 +67928,17 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('w',  match1to2);
+    addRegexToken('w', match1to2);
     addRegexToken('ww', match1to2, match2);
-    addRegexToken('W',  match1to2);
+    addRegexToken('W', match1to2);
     addRegexToken('WW', match1to2, match2);
 
-    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
+    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (
+        input,
+        week,
+        config,
+        token
+    ) {
         week[token.substr(0, 1)] = toInt(input);
     });
 
@@ -67010,31 +67946,31 @@ return jQuery;
 
     // LOCALES
 
-    function localeWeek (mom) {
+    function localeWeek(mom) {
         return weekOfYear(mom, this._week.dow, this._week.doy).week;
     }
 
     var defaultLocaleWeek = {
-        dow : 0, // Sunday is the first day of the week.
-        doy : 6  // The week that contains Jan 6th is the first week of the year.
+        dow: 0, // Sunday is the first day of the week.
+        doy: 6, // The week that contains Jan 6th is the first week of the year.
     };
 
-    function localeFirstDayOfWeek () {
+    function localeFirstDayOfWeek() {
         return this._week.dow;
     }
 
-    function localeFirstDayOfYear () {
+    function localeFirstDayOfYear() {
         return this._week.doy;
     }
 
     // MOMENTS
 
-    function getSetWeek (input) {
+    function getSetWeek(input) {
         var week = this.localeData().week(this);
         return input == null ? week : this.add((input - week) * 7, 'd');
     }
 
-    function getSetISOWeek (input) {
+    function getSetISOWeek(input) {
         var week = weekOfYear(this, 1, 4).week;
         return input == null ? week : this.add((input - week) * 7, 'd');
     }
@@ -67071,16 +68007,16 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('d',    match1to2);
-    addRegexToken('e',    match1to2);
-    addRegexToken('E',    match1to2);
-    addRegexToken('dd',   function (isStrict, locale) {
+    addRegexToken('d', match1to2);
+    addRegexToken('e', match1to2);
+    addRegexToken('E', match1to2);
+    addRegexToken('dd', function (isStrict, locale) {
         return locale.weekdaysMinRegex(isStrict);
     });
-    addRegexToken('ddd',   function (isStrict, locale) {
+    addRegexToken('ddd', function (isStrict, locale) {
         return locale.weekdaysShortRegex(isStrict);
     });
-    addRegexToken('dddd',   function (isStrict, locale) {
+    addRegexToken('dddd', function (isStrict, locale) {
         return locale.weekdaysRegex(isStrict);
     });
 
@@ -67125,29 +68061,55 @@ return jQuery;
     }
 
     // LOCALES
-
-    var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-    function localeWeekdays (m, format) {
-        if (!m) {
-            return isArray(this._weekdays) ? this._weekdays :
-                this._weekdays['standalone'];
-        }
-        return isArray(this._weekdays) ? this._weekdays[m.day()] :
-            this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
+    function shiftWeekdays(ws, n) {
+        return ws.slice(n, 7).concat(ws.slice(0, n));
     }
 
-    var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
-    function localeWeekdaysShort (m) {
-        return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+    var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split(
+            '_'
+        ),
+        defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        defaultWeekdaysRegex = matchWord,
+        defaultWeekdaysShortRegex = matchWord,
+        defaultWeekdaysMinRegex = matchWord;
+
+    function localeWeekdays(m, format) {
+        var weekdays = isArray(this._weekdays)
+            ? this._weekdays
+            : this._weekdays[
+                  m && m !== true && this._weekdays.isFormat.test(format)
+                      ? 'format'
+                      : 'standalone'
+              ];
+        return m === true
+            ? shiftWeekdays(weekdays, this._week.dow)
+            : m
+            ? weekdays[m.day()]
+            : weekdays;
     }
 
-    var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
-    function localeWeekdaysMin (m) {
-        return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+    function localeWeekdaysShort(m) {
+        return m === true
+            ? shiftWeekdays(this._weekdaysShort, this._week.dow)
+            : m
+            ? this._weekdaysShort[m.day()]
+            : this._weekdaysShort;
+    }
+
+    function localeWeekdaysMin(m) {
+        return m === true
+            ? shiftWeekdays(this._weekdaysMin, this._week.dow)
+            : m
+            ? this._weekdaysMin[m.day()]
+            : this._weekdaysMin;
     }
 
     function handleStrictParse$1(weekdayName, format, strict) {
-        var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
+        var i,
+            ii,
+            mom,
+            llc = weekdayName.toLocaleLowerCase();
         if (!this._weekdaysParse) {
             this._weekdaysParse = [];
             this._shortWeekdaysParse = [];
@@ -67155,8 +68117,14 @@ return jQuery;
 
             for (i = 0; i < 7; ++i) {
                 mom = createUTC([2000, 1]).day(i);
-                this._minWeekdaysParse[i] = this.weekdaysMin(mom, '').toLocaleLowerCase();
-                this._shortWeekdaysParse[i] = this.weekdaysShort(mom, '').toLocaleLowerCase();
+                this._minWeekdaysParse[i] = this.weekdaysMin(
+                    mom,
+                    ''
+                ).toLocaleLowerCase();
+                this._shortWeekdaysParse[i] = this.weekdaysShort(
+                    mom,
+                    ''
+                ).toLocaleLowerCase();
                 this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
             }
         }
@@ -67210,7 +68178,7 @@ return jQuery;
         }
     }
 
-    function localeWeekdaysParse (weekdayName, format, strict) {
+    function localeWeekdaysParse(weekdayName, format, strict) {
         var i, mom, regex;
 
         if (this._weekdaysParseExact) {
@@ -67229,20 +68197,47 @@ return jQuery;
 
             mom = createUTC([2000, 1]).day(i);
             if (strict && !this._fullWeekdaysParse[i]) {
-                this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\\.?') + '$', 'i');
-                this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\\.?') + '$', 'i');
-                this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\\.?') + '$', 'i');
+                this._fullWeekdaysParse[i] = new RegExp(
+                    '^' + this.weekdays(mom, '').replace('.', '\\.?') + '$',
+                    'i'
+                );
+                this._shortWeekdaysParse[i] = new RegExp(
+                    '^' + this.weekdaysShort(mom, '').replace('.', '\\.?') + '$',
+                    'i'
+                );
+                this._minWeekdaysParse[i] = new RegExp(
+                    '^' + this.weekdaysMin(mom, '').replace('.', '\\.?') + '$',
+                    'i'
+                );
             }
             if (!this._weekdaysParse[i]) {
-                regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
+                regex =
+                    '^' +
+                    this.weekdays(mom, '') +
+                    '|^' +
+                    this.weekdaysShort(mom, '') +
+                    '|^' +
+                    this.weekdaysMin(mom, '');
                 this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
             }
             // test the regex
-            if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+            if (
+                strict &&
+                format === 'dddd' &&
+                this._fullWeekdaysParse[i].test(weekdayName)
+            ) {
                 return i;
-            } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+            } else if (
+                strict &&
+                format === 'ddd' &&
+                this._shortWeekdaysParse[i].test(weekdayName)
+            ) {
                 return i;
-            } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+            } else if (
+                strict &&
+                format === 'dd' &&
+                this._minWeekdaysParse[i].test(weekdayName)
+            ) {
                 return i;
             } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
                 return i;
@@ -67252,7 +68247,7 @@ return jQuery;
 
     // MOMENTS
 
-    function getSetDayOfWeek (input) {
+    function getSetDayOfWeek(input) {
         if (!this.isValid()) {
             return input != null ? this : NaN;
         }
@@ -67265,7 +68260,7 @@ return jQuery;
         }
     }
 
-    function getSetLocaleDayOfWeek (input) {
+    function getSetLocaleDayOfWeek(input) {
         if (!this.isValid()) {
             return input != null ? this : NaN;
         }
@@ -67273,7 +68268,7 @@ return jQuery;
         return input == null ? weekday : this.add(input - weekday, 'd');
     }
 
-    function getSetISODayOfWeek (input) {
+    function getSetISODayOfWeek(input) {
         if (!this.isValid()) {
             return input != null ? this : NaN;
         }
@@ -67290,8 +68285,7 @@ return jQuery;
         }
     }
 
-    var defaultWeekdaysRegex = matchWord;
-    function weekdaysRegex (isStrict) {
+    function weekdaysRegex(isStrict) {
         if (this._weekdaysParseExact) {
             if (!hasOwnProp(this, '_weekdaysRegex')) {
                 computeWeekdaysParse.call(this);
@@ -67305,13 +68299,13 @@ return jQuery;
             if (!hasOwnProp(this, '_weekdaysRegex')) {
                 this._weekdaysRegex = defaultWeekdaysRegex;
             }
-            return this._weekdaysStrictRegex && isStrict ?
-                this._weekdaysStrictRegex : this._weekdaysRegex;
+            return this._weekdaysStrictRegex && isStrict
+                ? this._weekdaysStrictRegex
+                : this._weekdaysRegex;
         }
     }
 
-    var defaultWeekdaysShortRegex = matchWord;
-    function weekdaysShortRegex (isStrict) {
+    function weekdaysShortRegex(isStrict) {
         if (this._weekdaysParseExact) {
             if (!hasOwnProp(this, '_weekdaysRegex')) {
                 computeWeekdaysParse.call(this);
@@ -67325,13 +68319,13 @@ return jQuery;
             if (!hasOwnProp(this, '_weekdaysShortRegex')) {
                 this._weekdaysShortRegex = defaultWeekdaysShortRegex;
             }
-            return this._weekdaysShortStrictRegex && isStrict ?
-                this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
+            return this._weekdaysShortStrictRegex && isStrict
+                ? this._weekdaysShortStrictRegex
+                : this._weekdaysShortRegex;
         }
     }
 
-    var defaultWeekdaysMinRegex = matchWord;
-    function weekdaysMinRegex (isStrict) {
+    function weekdaysMinRegex(isStrict) {
         if (this._weekdaysParseExact) {
             if (!hasOwnProp(this, '_weekdaysRegex')) {
                 computeWeekdaysParse.call(this);
@@ -67345,25 +68339,32 @@ return jQuery;
             if (!hasOwnProp(this, '_weekdaysMinRegex')) {
                 this._weekdaysMinRegex = defaultWeekdaysMinRegex;
             }
-            return this._weekdaysMinStrictRegex && isStrict ?
-                this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
+            return this._weekdaysMinStrictRegex && isStrict
+                ? this._weekdaysMinStrictRegex
+                : this._weekdaysMinRegex;
         }
     }
 
-
-    function computeWeekdaysParse () {
+    function computeWeekdaysParse() {
         function cmpLenRev(a, b) {
             return b.length - a.length;
         }
 
-        var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [],
-            i, mom, minp, shortp, longp;
+        var minPieces = [],
+            shortPieces = [],
+            longPieces = [],
+            mixedPieces = [],
+            i,
+            mom,
+            minp,
+            shortp,
+            longp;
         for (i = 0; i < 7; i++) {
             // make the regex if we don't have it already
             mom = createUTC([2000, 1]).day(i);
-            minp = this.weekdaysMin(mom, '');
-            shortp = this.weekdaysShort(mom, '');
-            longp = this.weekdays(mom, '');
+            minp = regexEscape(this.weekdaysMin(mom, ''));
+            shortp = regexEscape(this.weekdaysShort(mom, ''));
+            longp = regexEscape(this.weekdays(mom, ''));
             minPieces.push(minp);
             shortPieces.push(shortp);
             longPieces.push(longp);
@@ -67377,19 +68378,23 @@ return jQuery;
         shortPieces.sort(cmpLenRev);
         longPieces.sort(cmpLenRev);
         mixedPieces.sort(cmpLenRev);
-        for (i = 0; i < 7; i++) {
-            shortPieces[i] = regexEscape(shortPieces[i]);
-            longPieces[i] = regexEscape(longPieces[i]);
-            mixedPieces[i] = regexEscape(mixedPieces[i]);
-        }
 
         this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
         this._weekdaysShortRegex = this._weekdaysRegex;
         this._weekdaysMinRegex = this._weekdaysRegex;
 
-        this._weekdaysStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-        this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
-        this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
+        this._weekdaysStrictRegex = new RegExp(
+            '^(' + longPieces.join('|') + ')',
+            'i'
+        );
+        this._weekdaysShortStrictRegex = new RegExp(
+            '^(' + shortPieces.join('|') + ')',
+            'i'
+        );
+        this._weekdaysMinStrictRegex = new RegExp(
+            '^(' + minPieces.join('|') + ')',
+            'i'
+        );
     }
 
     // FORMATTING
@@ -67411,8 +68416,12 @@ return jQuery;
     });
 
     addFormatToken('hmmss', 0, 0, function () {
-        return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
-            zeroFill(this.seconds(), 2);
+        return (
+            '' +
+            hFormat.apply(this) +
+            zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2)
+        );
     });
 
     addFormatToken('Hmm', 0, 0, function () {
@@ -67420,13 +68429,21 @@ return jQuery;
     });
 
     addFormatToken('Hmmss', 0, 0, function () {
-        return '' + this.hours() + zeroFill(this.minutes(), 2) +
-            zeroFill(this.seconds(), 2);
+        return (
+            '' +
+            this.hours() +
+            zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2)
+        );
     });
 
-    function meridiem (token, lowercase) {
+    function meridiem(token, lowercase) {
         addFormatToken(token, 0, 0, function () {
-            return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
+            return this.localeData().meridiem(
+                this.hours(),
+                this.minutes(),
+                lowercase
+            );
         });
     }
 
@@ -67442,15 +68459,15 @@ return jQuery;
 
     // PARSING
 
-    function matchMeridiem (isStrict, locale) {
+    function matchMeridiem(isStrict, locale) {
         return locale._meridiemParse;
     }
 
-    addRegexToken('a',  matchMeridiem);
-    addRegexToken('A',  matchMeridiem);
-    addRegexToken('H',  match1to2);
-    addRegexToken('h',  match1to2);
-    addRegexToken('k',  match1to2);
+    addRegexToken('a', matchMeridiem);
+    addRegexToken('A', matchMeridiem);
+    addRegexToken('H', match1to2);
+    addRegexToken('h', match1to2);
+    addRegexToken('k', match1to2);
     addRegexToken('HH', match1to2, match2);
     addRegexToken('hh', match1to2, match2);
     addRegexToken('kk', match1to2, match2);
@@ -67480,8 +68497,8 @@ return jQuery;
         getParsingFlags(config).bigHour = true;
     });
     addParseToken('hmmss', function (input, array, config) {
-        var pos1 = input.length - 4;
-        var pos2 = input.length - 2;
+        var pos1 = input.length - 4,
+            pos2 = input.length - 2;
         array[HOUR] = toInt(input.substr(0, pos1));
         array[MINUTE] = toInt(input.substr(pos1, 2));
         array[SECOND] = toInt(input.substr(pos2));
@@ -67493,8 +68510,8 @@ return jQuery;
         array[MINUTE] = toInt(input.substr(pos));
     });
     addParseToken('Hmmss', function (input, array, config) {
-        var pos1 = input.length - 4;
-        var pos2 = input.length - 2;
+        var pos1 = input.length - 4,
+            pos2 = input.length - 2;
         array[HOUR] = toInt(input.substr(0, pos1));
         array[MINUTE] = toInt(input.substr(pos1, 2));
         array[SECOND] = toInt(input.substr(pos2));
@@ -67502,29 +68519,26 @@ return jQuery;
 
     // LOCALES
 
-    function localeIsPM (input) {
+    function localeIsPM(input) {
         // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
         // Using charAt should be more compatible.
-        return ((input + '').toLowerCase().charAt(0) === 'p');
+        return (input + '').toLowerCase().charAt(0) === 'p';
     }
 
-    var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
-    function localeMeridiem (hours, minutes, isLower) {
+    var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i,
+        // Setting the hour should keep the time, because the user explicitly
+        // specified which hour they want. So trying to maintain the same hour (in
+        // a new timezone) makes sense. Adding/subtracting hours does not follow
+        // this rule.
+        getSetHour = makeGetSet('Hours', true);
+
+    function localeMeridiem(hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'pm' : 'PM';
         } else {
             return isLower ? 'am' : 'AM';
         }
     }
-
-
-    // MOMENTS
-
-    // Setting the hour should keep the time, because the user explicitly
-    // specified which hour they want. So trying to maintain the same hour (in
-    // a new timezone) makes sense. Adding/subtracting hours does not follow
-    // this rule.
-    var getSetHour = makeGetSet('Hours', true);
 
     var baseConfig = {
         calendar: defaultCalendar,
@@ -67543,13 +68557,24 @@ return jQuery;
         weekdaysMin: defaultLocaleWeekdaysMin,
         weekdaysShort: defaultLocaleWeekdaysShort,
 
-        meridiemParse: defaultLocaleMeridiemParse
+        meridiemParse: defaultLocaleMeridiemParse,
     };
 
     // internal storage for locale config files
-    var locales = {};
-    var localeFamilies = {};
-    var globalLocale;
+    var locales = {},
+        localeFamilies = {},
+        globalLocale;
+
+    function commonPrefix(arr1, arr2) {
+        var i,
+            minl = Math.min(arr1.length, arr2.length);
+        for (i = 0; i < minl; i += 1) {
+            if (arr1[i] !== arr2[i]) {
+                return i;
+            }
+        }
+        return minl;
+    }
 
     function normalizeLocale(key) {
         return key ? key.toLowerCase().replace('_', '-') : key;
@@ -67559,7 +68584,11 @@ return jQuery;
     // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
     // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
     function chooseLocale(names) {
-        var i = 0, j, next, locale, split;
+        var i = 0,
+            j,
+            next,
+            locale,
+            split;
 
         while (i < names.length) {
             split = normalizeLocale(names[i]).split('-');
@@ -67571,7 +68600,11 @@ return jQuery;
                 if (locale) {
                     return locale;
                 }
-                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                if (
+                    next &&
+                    next.length >= j &&
+                    commonPrefix(split, next) >= j - 1
+                ) {
                     //the next array item is better than a shallower substring of this one
                     break;
                 }
@@ -67583,16 +68616,25 @@ return jQuery;
     }
 
     function loadLocale(name) {
-        var oldLocale = null;
+        var oldLocale = null,
+            aliasedRequire;
         // TODO: Find a better way to register and load all the locales in Node
-        if (!locales[name] && (typeof module !== 'undefined') &&
-                module && module.exports) {
+        if (
+            locales[name] === undefined &&
+            typeof module !== 'undefined' &&
+            module &&
+            module.exports
+        ) {
             try {
                 oldLocale = globalLocale._abbr;
-                var aliasedRequire = require;
+                aliasedRequire = require;
                 !(function webpackMissingModule() { var e = new Error("Cannot find module \"./locale\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
                 getSetGlobalLocale(oldLocale);
-            } catch (e) {}
+            } catch (e) {
+                // mark as not found to avoid repeating expensive file require call causing high CPU
+                // when trying to find en-US, en_US, en-us for every format call
+                locales[name] = null; // null means not found
+            }
         }
         return locales[name];
     }
@@ -67600,24 +68642,24 @@ return jQuery;
     // This function will load locale and then set the global locale.  If
     // no arguments are passed in, it will simply return the current global
     // locale key.
-    function getSetGlobalLocale (key, values) {
+    function getSetGlobalLocale(key, values) {
         var data;
         if (key) {
             if (isUndefined(values)) {
                 data = getLocale(key);
-            }
-            else {
+            } else {
                 data = defineLocale(key, values);
             }
 
             if (data) {
                 // moment.duration._locale = moment._locale = data;
                 globalLocale = data;
-            }
-            else {
-                if ((typeof console !==  'undefined') && console.warn) {
+            } else {
+                if (typeof console !== 'undefined' && console.warn) {
                     //warn user if arguments are passed but the locale could not be set
-                    console.warn('Locale ' + key +  ' not found. Did you forget to load it?');
+                    console.warn(
+                        'Locale ' + key + ' not found. Did you forget to load it?'
+                    );
                 }
             }
         }
@@ -67625,16 +68667,19 @@ return jQuery;
         return globalLocale._abbr;
     }
 
-    function defineLocale (name, config) {
+    function defineLocale(name, config) {
         if (config !== null) {
-            var locale, parentConfig = baseConfig;
+            var locale,
+                parentConfig = baseConfig;
             config.abbr = name;
             if (locales[name] != null) {
-                deprecateSimple('defineLocaleOverride',
-                        'use moment.updateLocale(localeName, config) to change ' +
+                deprecateSimple(
+                    'defineLocaleOverride',
+                    'use moment.updateLocale(localeName, config) to change ' +
                         'an existing locale. moment.defineLocale(localeName, ' +
                         'config) should only be used for creating a new locale ' +
-                        'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+                        'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.'
+                );
                 parentConfig = locales[name]._config;
             } else if (config.parentLocale != null) {
                 if (locales[config.parentLocale] != null) {
@@ -67649,7 +68694,7 @@ return jQuery;
                         }
                         localeFamilies[config.parentLocale].push({
                             name: name,
-                            config: config
+                            config: config,
                         });
                         return null;
                     }
@@ -67668,7 +68713,6 @@ return jQuery;
             // created, so we won't end up with the child locale set.
             getSetGlobalLocale(name);
 
-
             return locales[name];
         } else {
             // useful for testing
@@ -67679,16 +68723,30 @@ return jQuery;
 
     function updateLocale(name, config) {
         if (config != null) {
-            var locale, tmpLocale, parentConfig = baseConfig;
-            // MERGE
-            tmpLocale = loadLocale(name);
-            if (tmpLocale != null) {
-                parentConfig = tmpLocale._config;
+            var locale,
+                tmpLocale,
+                parentConfig = baseConfig;
+
+            if (locales[name] != null && locales[name].parentLocale != null) {
+                // Update existing child locale in-place to avoid memory-leaks
+                locales[name].set(mergeConfigs(locales[name]._config, config));
+            } else {
+                // MERGE
+                tmpLocale = loadLocale(name);
+                if (tmpLocale != null) {
+                    parentConfig = tmpLocale._config;
+                }
+                config = mergeConfigs(parentConfig, config);
+                if (tmpLocale == null) {
+                    // updateLocale is called for creating a new locale
+                    // Set abbr so it will have a name (getters return
+                    // undefined otherwise).
+                    config.abbr = name;
+                }
+                locale = new Locale(config);
+                locale.parentLocale = locales[name];
+                locales[name] = locale;
             }
-            config = mergeConfigs(parentConfig, config);
-            locale = new Locale(config);
-            locale.parentLocale = locales[name];
-            locales[name] = locale;
 
             // backwards compat for now: also set the locale
             getSetGlobalLocale(name);
@@ -67697,6 +68755,9 @@ return jQuery;
             if (locales[name] != null) {
                 if (locales[name].parentLocale != null) {
                     locales[name] = locales[name].parentLocale;
+                    if (name === getSetGlobalLocale()) {
+                        getSetGlobalLocale(name);
+                    }
                 } else if (locales[name] != null) {
                     delete locales[name];
                 }
@@ -67706,7 +68767,7 @@ return jQuery;
     }
 
     // returns locale data
-    function getLocale (key) {
+    function getLocale(key) {
         var locale;
 
         if (key && key._locale && key._locale._abbr) {
@@ -67733,21 +68794,35 @@ return jQuery;
         return keys(locales);
     }
 
-    function checkOverflow (m) {
-        var overflow;
-        var a = m._a;
+    function checkOverflow(m) {
+        var overflow,
+            a = m._a;
 
         if (a && getParsingFlags(m).overflow === -2) {
             overflow =
-                a[MONTH]       < 0 || a[MONTH]       > 11  ? MONTH :
-                a[DATE]        < 1 || a[DATE]        > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
-                a[HOUR]        < 0 || a[HOUR]        > 24 || (a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0)) ? HOUR :
-                a[MINUTE]      < 0 || a[MINUTE]      > 59  ? MINUTE :
-                a[SECOND]      < 0 || a[SECOND]      > 59  ? SECOND :
-                a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
-                -1;
+                a[MONTH] < 0 || a[MONTH] > 11
+                    ? MONTH
+                    : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH])
+                    ? DATE
+                    : a[HOUR] < 0 ||
+                      a[HOUR] > 24 ||
+                      (a[HOUR] === 24 &&
+                          (a[MINUTE] !== 0 ||
+                              a[SECOND] !== 0 ||
+                              a[MILLISECOND] !== 0))
+                    ? HOUR
+                    : a[MINUTE] < 0 || a[MINUTE] > 59
+                    ? MINUTE
+                    : a[SECOND] < 0 || a[SECOND] > 59
+                    ? SECOND
+                    : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
+                    ? MILLISECOND
+                    : -1;
 
-            if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+            if (
+                getParsingFlags(m)._overflowDayOfYear &&
+                (overflow < YEAR || overflow > DATE)
+            ) {
                 overflow = DATE;
             }
             if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
@@ -67763,199 +68838,64 @@ return jQuery;
         return m;
     }
 
-    // Pick the first defined of two or three arguments.
-    function defaults(a, b, c) {
-        if (a != null) {
-            return a;
-        }
-        if (b != null) {
-            return b;
-        }
-        return c;
-    }
-
-    function currentDateArray(config) {
-        // hooks is actually the exported moment object
-        var nowValue = new Date(hooks.now());
-        if (config._useUTC) {
-            return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-        }
-        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
-    }
-
-    // convert an array to a date.
-    // the array should mirror the parameters below
-    // note: all values past the year are optional and will default to the lowest possible value.
-    // [year, month, day , hour, minute, second, millisecond]
-    function configFromArray (config) {
-        var i, date, input = [], currentDate, expectedWeekday, yearToUse;
-
-        if (config._d) {
-            return;
-        }
-
-        currentDate = currentDateArray(config);
-
-        //compute day of the year from weeks and weekdays
-        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-            dayOfYearFromWeekInfo(config);
-        }
-
-        //if the day of the year is set, figure out what it is
-        if (config._dayOfYear != null) {
-            yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
-
-            if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
-                getParsingFlags(config)._overflowDayOfYear = true;
-            }
-
-            date = createUTCDate(yearToUse, 0, config._dayOfYear);
-            config._a[MONTH] = date.getUTCMonth();
-            config._a[DATE] = date.getUTCDate();
-        }
-
-        // Default to current date.
-        // * if no year, month, day of month are given, default to today
-        // * if day of month is given, default month and year
-        // * if month is given, default only year
-        // * if year is given, don't default anything
-        for (i = 0; i < 3 && config._a[i] == null; ++i) {
-            config._a[i] = input[i] = currentDate[i];
-        }
-
-        // Zero out whatever was not defaulted, including time
-        for (; i < 7; i++) {
-            config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
-        }
-
-        // Check for 24:00:00.000
-        if (config._a[HOUR] === 24 &&
-                config._a[MINUTE] === 0 &&
-                config._a[SECOND] === 0 &&
-                config._a[MILLISECOND] === 0) {
-            config._nextDay = true;
-            config._a[HOUR] = 0;
-        }
-
-        config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-        expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
-
-        // Apply timezone offset from input. The actual utcOffset can be changed
-        // with parseZone.
-        if (config._tzm != null) {
-            config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-        }
-
-        if (config._nextDay) {
-            config._a[HOUR] = 24;
-        }
-
-        // check for mismatching day of week
-        if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== expectedWeekday) {
-            getParsingFlags(config).weekdayMismatch = true;
-        }
-    }
-
-    function dayOfYearFromWeekInfo(config) {
-        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
-
-        w = config._w;
-        if (w.GG != null || w.W != null || w.E != null) {
-            dow = 1;
-            doy = 4;
-
-            // TODO: We need to take the current isoWeekYear, but that depends on
-            // how we interpret now (local, utc, fixed offset). So create
-            // a now version of current config (take local/utc/offset flags, and
-            // create now).
-            weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
-            week = defaults(w.W, 1);
-            weekday = defaults(w.E, 1);
-            if (weekday < 1 || weekday > 7) {
-                weekdayOverflow = true;
-            }
-        } else {
-            dow = config._locale._week.dow;
-            doy = config._locale._week.doy;
-
-            var curWeek = weekOfYear(createLocal(), dow, doy);
-
-            weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
-
-            // Default to current week.
-            week = defaults(w.w, curWeek.week);
-
-            if (w.d != null) {
-                // weekday -- low day numbers are considered next week
-                weekday = w.d;
-                if (weekday < 0 || weekday > 6) {
-                    weekdayOverflow = true;
-                }
-            } else if (w.e != null) {
-                // local weekday -- counting starts from beginning of week
-                weekday = w.e + dow;
-                if (w.e < 0 || w.e > 6) {
-                    weekdayOverflow = true;
-                }
-            } else {
-                // default to beginning of week
-                weekday = dow;
-            }
-        }
-        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
-            getParsingFlags(config)._overflowWeeks = true;
-        } else if (weekdayOverflow != null) {
-            getParsingFlags(config)._overflowWeekday = true;
-        } else {
-            temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
-            config._a[YEAR] = temp.year;
-            config._dayOfYear = temp.dayOfYear;
-        }
-    }
-
     // iso 8601 regex
     // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-    var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-
-    var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
-
-    var isoDates = [
-        ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
-        ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
-        ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
-        ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
-        ['YYYY-DDD', /\d{4}-\d{3}/],
-        ['YYYY-MM', /\d{4}-\d\d/, false],
-        ['YYYYYYMMDD', /[+-]\d{10}/],
-        ['YYYYMMDD', /\d{8}/],
-        // YYYYMM is NOT allowed by the standard
-        ['GGGG[W]WWE', /\d{4}W\d{3}/],
-        ['GGGG[W]WW', /\d{4}W\d{2}/, false],
-        ['YYYYDDD', /\d{7}/]
-    ];
-
-    // iso time formats and regexes
-    var isoTimes = [
-        ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
-        ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
-        ['HH:mm:ss', /\d\d:\d\d:\d\d/],
-        ['HH:mm', /\d\d:\d\d/],
-        ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
-        ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
-        ['HHmmss', /\d\d\d\d\d\d/],
-        ['HHmm', /\d\d\d\d/],
-        ['HH', /\d\d/]
-    ];
-
-    var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
+    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+        basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+        tzRegex = /Z|[+-]\d\d(?::?\d\d)?/,
+        isoDates = [
+            ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
+            ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
+            ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
+            ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
+            ['YYYY-DDD', /\d{4}-\d{3}/],
+            ['YYYY-MM', /\d{4}-\d\d/, false],
+            ['YYYYYYMMDD', /[+-]\d{10}/],
+            ['YYYYMMDD', /\d{8}/],
+            ['GGGG[W]WWE', /\d{4}W\d{3}/],
+            ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+            ['YYYYDDD', /\d{7}/],
+            ['YYYYMM', /\d{6}/, false],
+            ['YYYY', /\d{4}/, false],
+        ],
+        // iso time formats and regexes
+        isoTimes = [
+            ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+            ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+            ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+            ['HH:mm', /\d\d:\d\d/],
+            ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+            ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+            ['HHmmss', /\d\d\d\d\d\d/],
+            ['HHmm', /\d\d\d\d/],
+            ['HH', /\d\d/],
+        ],
+        aspNetJsonRegex = /^\/?Date\((-?\d+)/i,
+        // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
+        rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/,
+        obsOffsets = {
+            UT: 0,
+            GMT: 0,
+            EDT: -4 * 60,
+            EST: -5 * 60,
+            CDT: -5 * 60,
+            CST: -6 * 60,
+            MDT: -6 * 60,
+            MST: -7 * 60,
+            PDT: -7 * 60,
+            PST: -8 * 60,
+        };
 
     // date from iso format
     function configFromISO(config) {
-        var i, l,
+        var i,
+            l,
             string = config._i,
             match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
-            allowTime, dateFormat, timeFormat, tzFormat;
+            allowTime,
+            dateFormat,
+            timeFormat,
+            tzFormat;
 
         if (match) {
             getParsingFlags(config).iso = true;
@@ -68003,16 +68943,20 @@ return jQuery;
         }
     }
 
-    // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
-    var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/;
-
-    function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
+    function extractFromRFC2822Strings(
+        yearStr,
+        monthStr,
+        dayStr,
+        hourStr,
+        minuteStr,
+        secondStr
+    ) {
         var result = [
             untruncateYear(yearStr),
             defaultLocaleMonthsShort.indexOf(monthStr),
             parseInt(dayStr, 10),
             parseInt(hourStr, 10),
-            parseInt(minuteStr, 10)
+            parseInt(minuteStr, 10),
         ];
 
         if (secondStr) {
@@ -68034,14 +68978,22 @@ return jQuery;
 
     function preprocessRFC2822(s) {
         // Remove comments and folding whitespace and replace multiple-spaces with a single space
-        return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        return s
+            .replace(/\([^)]*\)|[\n\t]/g, ' ')
+            .replace(/(\s\s+)/g, ' ')
+            .replace(/^\s\s*/, '')
+            .replace(/\s\s*$/, '');
     }
 
     function checkWeekday(weekdayStr, parsedInput, config) {
         if (weekdayStr) {
-            // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
+            // TODO: Replace the vanilla JS Date object with an independent day-of-week check.
             var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
-                weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
+                weekdayActual = new Date(
+                    parsedInput[0],
+                    parsedInput[1],
+                    parsedInput[2]
+                ).getDay();
             if (weekdayProvided !== weekdayActual) {
                 getParsingFlags(config).weekdayMismatch = true;
                 config._isValid = false;
@@ -68051,19 +69003,6 @@ return jQuery;
         return true;
     }
 
-    var obsOffsets = {
-        UT: 0,
-        GMT: 0,
-        EDT: -4 * 60,
-        EST: -5 * 60,
-        CDT: -5 * 60,
-        CST: -6 * 60,
-        MDT: -6 * 60,
-        MST: -7 * 60,
-        PDT: -7 * 60,
-        PST: -8 * 60
-    };
-
     function calculateOffset(obsOffset, militaryOffset, numOffset) {
         if (obsOffset) {
             return obsOffsets[obsOffset];
@@ -68071,17 +69010,26 @@ return jQuery;
             // the only allowed military tz is Z
             return 0;
         } else {
-            var hm = parseInt(numOffset, 10);
-            var m = hm % 100, h = (hm - m) / 100;
+            var hm = parseInt(numOffset, 10),
+                m = hm % 100,
+                h = (hm - m) / 100;
             return h * 60 + m;
         }
     }
 
     // date and time from ref 2822 format
     function configFromRFC2822(config) {
-        var match = rfc2822.exec(preprocessRFC2822(config._i));
+        var match = rfc2822.exec(preprocessRFC2822(config._i)),
+            parsedArray;
         if (match) {
-            var parsedArray = extractFromRFC2822Strings(match[4], match[3], match[2], match[5], match[6], match[7]);
+            parsedArray = extractFromRFC2822Strings(
+                match[4],
+                match[3],
+                match[2],
+                match[5],
+                match[6],
+                match[7]
+            );
             if (!checkWeekday(match[1], parsedArray, config)) {
                 return;
             }
@@ -68098,10 +69046,9 @@ return jQuery;
         }
     }
 
-    // date from iso format or fallback
+    // date from 1) ASP.NET, 2) ISO, 3) RFC 2822 formats, or 4) optional fallback if parsing isn't strict
     function configFromString(config) {
         var matched = aspNetJsonRegex.exec(config._i);
-
         if (matched !== null) {
             config._d = new Date(+matched[1]);
             return;
@@ -68121,19 +69068,200 @@ return jQuery;
             return;
         }
 
-        // Final attempt, use Input Fallback
-        hooks.createFromInputFallback(config);
+        if (config._strict) {
+            config._isValid = false;
+        } else {
+            // Final attempt, use Input Fallback
+            hooks.createFromInputFallback(config);
+        }
     }
 
     hooks.createFromInputFallback = deprecate(
         'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
-        'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
-        'discouraged and will be removed in an upcoming major release. Please refer to ' +
-        'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+            'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+            'discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.',
         function (config) {
             config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
         }
     );
+
+    // Pick the first defined of two or three arguments.
+    function defaults(a, b, c) {
+        if (a != null) {
+            return a;
+        }
+        if (b != null) {
+            return b;
+        }
+        return c;
+    }
+
+    function currentDateArray(config) {
+        // hooks is actually the exported moment object
+        var nowValue = new Date(hooks.now());
+        if (config._useUTC) {
+            return [
+                nowValue.getUTCFullYear(),
+                nowValue.getUTCMonth(),
+                nowValue.getUTCDate(),
+            ];
+        }
+        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+    }
+
+    // convert an array to a date.
+    // the array should mirror the parameters below
+    // note: all values past the year are optional and will default to the lowest possible value.
+    // [year, month, day , hour, minute, second, millisecond]
+    function configFromArray(config) {
+        var i,
+            date,
+            input = [],
+            currentDate,
+            expectedWeekday,
+            yearToUse;
+
+        if (config._d) {
+            return;
+        }
+
+        currentDate = currentDateArray(config);
+
+        //compute day of the year from weeks and weekdays
+        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+            dayOfYearFromWeekInfo(config);
+        }
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear != null) {
+            yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+            if (
+                config._dayOfYear > daysInYear(yearToUse) ||
+                config._dayOfYear === 0
+            ) {
+                getParsingFlags(config)._overflowDayOfYear = true;
+            }
+
+            date = createUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
+        }
+
+        // Default to current date.
+        // * if no year, month, day of month are given, default to today
+        // * if day of month is given, default month and year
+        // * if month is given, default only year
+        // * if year is given, don't default anything
+        for (i = 0; i < 3 && config._a[i] == null; ++i) {
+            config._a[i] = input[i] = currentDate[i];
+        }
+
+        // Zero out whatever was not defaulted, including time
+        for (; i < 7; i++) {
+            config._a[i] = input[i] =
+                config._a[i] == null ? (i === 2 ? 1 : 0) : config._a[i];
+        }
+
+        // Check for 24:00:00.000
+        if (
+            config._a[HOUR] === 24 &&
+            config._a[MINUTE] === 0 &&
+            config._a[SECOND] === 0 &&
+            config._a[MILLISECOND] === 0
+        ) {
+            config._nextDay = true;
+            config._a[HOUR] = 0;
+        }
+
+        config._d = (config._useUTC ? createUTCDate : createDate).apply(
+            null,
+            input
+        );
+        expectedWeekday = config._useUTC
+            ? config._d.getUTCDay()
+            : config._d.getDay();
+
+        // Apply timezone offset from input. The actual utcOffset can be changed
+        // with parseZone.
+        if (config._tzm != null) {
+            config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+        }
+
+        if (config._nextDay) {
+            config._a[HOUR] = 24;
+        }
+
+        // check for mismatching day of week
+        if (
+            config._w &&
+            typeof config._w.d !== 'undefined' &&
+            config._w.d !== expectedWeekday
+        ) {
+            getParsingFlags(config).weekdayMismatch = true;
+        }
+    }
+
+    function dayOfYearFromWeekInfo(config) {
+        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
+
+        w = config._w;
+        if (w.GG != null || w.W != null || w.E != null) {
+            dow = 1;
+            doy = 4;
+
+            // TODO: We need to take the current isoWeekYear, but that depends on
+            // how we interpret now (local, utc, fixed offset). So create
+            // a now version of current config (take local/utc/offset flags, and
+            // create now).
+            weekYear = defaults(
+                w.GG,
+                config._a[YEAR],
+                weekOfYear(createLocal(), 1, 4).year
+            );
+            week = defaults(w.W, 1);
+            weekday = defaults(w.E, 1);
+            if (weekday < 1 || weekday > 7) {
+                weekdayOverflow = true;
+            }
+        } else {
+            dow = config._locale._week.dow;
+            doy = config._locale._week.doy;
+
+            curWeek = weekOfYear(createLocal(), dow, doy);
+
+            weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+            // Default to current week.
+            week = defaults(w.w, curWeek.week);
+
+            if (w.d != null) {
+                // weekday -- low day numbers are considered next week
+                weekday = w.d;
+                if (weekday < 0 || weekday > 6) {
+                    weekdayOverflow = true;
+                }
+            } else if (w.e != null) {
+                // local weekday -- counting starts from beginning of week
+                weekday = w.e + dow;
+                if (w.e < 0 || w.e > 6) {
+                    weekdayOverflow = true;
+                }
+            } else {
+                // default to beginning of week
+                weekday = dow;
+            }
+        }
+        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+            getParsingFlags(config)._overflowWeeks = true;
+        } else if (weekdayOverflow != null) {
+            getParsingFlags(config)._overflowWeekday = true;
+        } else {
+            temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+            config._a[YEAR] = temp.year;
+            config._dayOfYear = temp.dayOfYear;
+        }
+    }
 
     // constant that refers to the ISO standard
     hooks.ISO_8601 = function () {};
@@ -68157,64 +69285,81 @@ return jQuery;
 
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var string = '' + config._i,
-            i, parsedInput, tokens, token, skipped,
+            i,
+            parsedInput,
+            tokens,
+            token,
+            skipped,
             stringLength = string.length,
-            totalParsedInputLength = 0;
+            totalParsedInputLength = 0,
+            era;
 
-        tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
+        tokens =
+            expandFormat(config._f, config._locale).match(formattingTokens) || [];
 
         for (i = 0; i < tokens.length; i++) {
             token = tokens[i];
-            parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-            // console.log('token', token, 'parsedInput', parsedInput,
-            //         'regex', getParseRegexForToken(token, config));
+            parsedInput = (string.match(getParseRegexForToken(token, config)) ||
+                [])[0];
             if (parsedInput) {
                 skipped = string.substr(0, string.indexOf(parsedInput));
                 if (skipped.length > 0) {
                     getParsingFlags(config).unusedInput.push(skipped);
                 }
-                string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                string = string.slice(
+                    string.indexOf(parsedInput) + parsedInput.length
+                );
                 totalParsedInputLength += parsedInput.length;
             }
             // don't parse if it's not a known token
             if (formatTokenFunctions[token]) {
                 if (parsedInput) {
                     getParsingFlags(config).empty = false;
-                }
-                else {
+                } else {
                     getParsingFlags(config).unusedTokens.push(token);
                 }
                 addTimeToArrayFromToken(token, parsedInput, config);
-            }
-            else if (config._strict && !parsedInput) {
+            } else if (config._strict && !parsedInput) {
                 getParsingFlags(config).unusedTokens.push(token);
             }
         }
 
         // add remaining unparsed input length to the string
-        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
+        getParsingFlags(config).charsLeftOver =
+            stringLength - totalParsedInputLength;
         if (string.length > 0) {
             getParsingFlags(config).unusedInput.push(string);
         }
 
         // clear _12h flag if hour is <= 12
-        if (config._a[HOUR] <= 12 &&
+        if (
+            config._a[HOUR] <= 12 &&
             getParsingFlags(config).bigHour === true &&
-            config._a[HOUR] > 0) {
+            config._a[HOUR] > 0
+        ) {
             getParsingFlags(config).bigHour = undefined;
         }
 
         getParsingFlags(config).parsedDateParts = config._a.slice(0);
         getParsingFlags(config).meridiem = config._meridiem;
         // handle meridiem
-        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
+        config._a[HOUR] = meridiemFixWrap(
+            config._locale,
+            config._a[HOUR],
+            config._meridiem
+        );
+
+        // handle era
+        era = getParsingFlags(config).era;
+        if (era !== null) {
+            config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
+        }
 
         configFromArray(config);
         checkOverflow(config);
     }
 
-
-    function meridiemFixWrap (locale, hour, meridiem) {
+    function meridiemFixWrap(locale, hour, meridiem) {
         var isPm;
 
         if (meridiem == null) {
@@ -68243,10 +69388,11 @@ return jQuery;
     function configFromStringAndArray(config) {
         var tempConfig,
             bestMoment,
-
             scoreToBeat,
             i,
-            currentScore;
+            currentScore,
+            validFormatFound,
+            bestFormatIsValid = false;
 
         if (config._f.length === 0) {
             getParsingFlags(config).invalidFormat = true;
@@ -68256,6 +69402,7 @@ return jQuery;
 
         for (i = 0; i < config._f.length; i++) {
             currentScore = 0;
+            validFormatFound = false;
             tempConfig = copyConfig({}, config);
             if (config._useUTC != null) {
                 tempConfig._useUTC = config._useUTC;
@@ -68263,8 +69410,8 @@ return jQuery;
             tempConfig._f = config._f[i];
             configFromStringAndFormat(tempConfig);
 
-            if (!isValid(tempConfig)) {
-                continue;
+            if (isValid(tempConfig)) {
+                validFormatFound = true;
             }
 
             // if there is any input that was not parsed add a penalty for that format
@@ -68275,9 +69422,23 @@ return jQuery;
 
             getParsingFlags(tempConfig).score = currentScore;
 
-            if (scoreToBeat == null || currentScore < scoreToBeat) {
-                scoreToBeat = currentScore;
-                bestMoment = tempConfig;
+            if (!bestFormatIsValid) {
+                if (
+                    scoreToBeat == null ||
+                    currentScore < scoreToBeat ||
+                    validFormatFound
+                ) {
+                    scoreToBeat = currentScore;
+                    bestMoment = tempConfig;
+                    if (validFormatFound) {
+                        bestFormatIsValid = true;
+                    }
+                }
+            } else {
+                if (currentScore < scoreToBeat) {
+                    scoreToBeat = currentScore;
+                    bestMoment = tempConfig;
+                }
             }
         }
 
@@ -68289,15 +69450,19 @@ return jQuery;
             return;
         }
 
-        var i = normalizeObjectUnits(config._i);
-        config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
-            return obj && parseInt(obj, 10);
-        });
+        var i = normalizeObjectUnits(config._i),
+            dayOrDate = i.day === undefined ? i.date : i.day;
+        config._a = map(
+            [i.year, i.month, dayOrDate, i.hour, i.minute, i.second, i.millisecond],
+            function (obj) {
+                return obj && parseInt(obj, 10);
+            }
+        );
 
         configFromArray(config);
     }
 
-    function createFromConfig (config) {
+    function createFromConfig(config) {
         var res = new Moment(checkOverflow(prepareConfig(config)));
         if (res._nextDay) {
             // Adding is smart enough around DST
@@ -68308,14 +69473,14 @@ return jQuery;
         return res;
     }
 
-    function prepareConfig (config) {
+    function prepareConfig(config) {
         var input = config._i,
             format = config._f;
 
         config._locale = config._locale || getLocale(config._l);
 
         if (input === null || (format === undefined && input === '')) {
-            return createInvalid({nullInput: true});
+            return createInvalid({ nullInput: true });
         }
 
         if (typeof input === 'string') {
@@ -68330,7 +69495,7 @@ return jQuery;
             configFromStringAndArray(config);
         } else if (format) {
             configFromStringAndFormat(config);
-        }  else {
+        } else {
             configFromInput(config);
         }
 
@@ -68364,16 +69529,23 @@ return jQuery;
         }
     }
 
-    function createLocalOrUTC (input, format, locale, strict, isUTC) {
+    function createLocalOrUTC(input, format, locale, strict, isUTC) {
         var c = {};
+
+        if (format === true || format === false) {
+            strict = format;
+            format = undefined;
+        }
 
         if (locale === true || locale === false) {
             strict = locale;
             locale = undefined;
         }
 
-        if ((isObject(input) && isObjectEmpty(input)) ||
-                (isArray(input) && input.length === 0)) {
+        if (
+            (isObject(input) && isObjectEmpty(input)) ||
+            (isArray(input) && input.length === 0)
+        ) {
             input = undefined;
         }
         // object construction must be done this way.
@@ -68388,33 +69560,32 @@ return jQuery;
         return createFromConfig(c);
     }
 
-    function createLocal (input, format, locale, strict) {
+    function createLocal(input, format, locale, strict) {
         return createLocalOrUTC(input, format, locale, strict, false);
     }
 
     var prototypeMin = deprecate(
-        'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
-        function () {
-            var other = createLocal.apply(null, arguments);
-            if (this.isValid() && other.isValid()) {
-                return other < this ? this : other;
-            } else {
-                return createInvalid();
+            'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+            function () {
+                var other = createLocal.apply(null, arguments);
+                if (this.isValid() && other.isValid()) {
+                    return other < this ? this : other;
+                } else {
+                    return createInvalid();
+                }
             }
-        }
-    );
-
-    var prototypeMax = deprecate(
-        'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
-        function () {
-            var other = createLocal.apply(null, arguments);
-            if (this.isValid() && other.isValid()) {
-                return other > this ? this : other;
-            } else {
-                return createInvalid();
+        ),
+        prototypeMax = deprecate(
+            'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+            function () {
+                var other = createLocal.apply(null, arguments);
+                if (this.isValid() && other.isValid()) {
+                    return other > this ? this : other;
+                } else {
+                    return createInvalid();
+                }
             }
-        }
-    );
+        );
 
     // Pick a moment m from moments so that m[fn](other) is true for all
     // other. This relies on the function fn to be transitive.
@@ -68439,33 +69610,51 @@ return jQuery;
     }
 
     // TODO: Use [].sort instead?
-    function min () {
+    function min() {
         var args = [].slice.call(arguments, 0);
 
         return pickBy('isBefore', args);
     }
 
-    function max () {
+    function max() {
         var args = [].slice.call(arguments, 0);
 
         return pickBy('isAfter', args);
     }
 
     var now = function () {
-        return Date.now ? Date.now() : +(new Date());
+        return Date.now ? Date.now() : +new Date();
     };
 
-    var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+    var ordering = [
+        'year',
+        'quarter',
+        'month',
+        'week',
+        'day',
+        'hour',
+        'minute',
+        'second',
+        'millisecond',
+    ];
 
     function isDurationValid(m) {
-        for (var key in m) {
-            if (!(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+        var key,
+            unitHasDecimal = false,
+            i;
+        for (key in m) {
+            if (
+                hasOwnProp(m, key) &&
+                !(
+                    indexOf.call(ordering, key) !== -1 &&
+                    (m[key] == null || !isNaN(m[key]))
+                )
+            ) {
                 return false;
             }
         }
 
-        var unitHasDecimal = false;
-        for (var i = 0; i < ordering.length; ++i) {
+        for (i = 0; i < ordering.length; ++i) {
             if (m[ordering[i]]) {
                 if (unitHasDecimal) {
                     return false; // only allow non-integers for smallest unit
@@ -68487,7 +69676,7 @@ return jQuery;
         return createDuration(NaN);
     }
 
-    function Duration (duration) {
+    function Duration(duration) {
         var normalizedInput = normalizeObjectUnits(duration),
             years = normalizedInput.year || 0,
             quarters = normalizedInput.quarter || 0,
@@ -68502,20 +69691,18 @@ return jQuery;
         this._isValid = isDurationValid(normalizedInput);
 
         // representation for dateAddRemove
-        this._milliseconds = +milliseconds +
+        this._milliseconds =
+            +milliseconds +
             seconds * 1e3 + // 1000
             minutes * 6e4 + // 1000 * 60
             hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
         // Because of dateAddRemove treats 24 hours as different from a
         // day when working around DST, we need to store them separately
-        this._days = +days +
-            weeks * 7;
+        this._days = +days + weeks * 7;
         // It is impossible to translate months into days without knowing
         // which months you are are talking about, so we have to store
         // it separately.
-        this._months = +months +
-            quarters * 3 +
-            years * 12;
+        this._months = +months + quarters * 3 + years * 12;
 
         this._data = {};
 
@@ -68524,11 +69711,11 @@ return jQuery;
         this._bubble();
     }
 
-    function isDuration (obj) {
+    function isDuration(obj) {
         return obj instanceof Duration;
     }
 
-    function absRound (number) {
+    function absRound(number) {
         if (number < 0) {
             return Math.round(-1 * number) * -1;
         } else {
@@ -68536,17 +69723,39 @@ return jQuery;
         }
     }
 
+    // compare two arrays, return the number of differences
+    function compareArrays(array1, array2, dontConvert) {
+        var len = Math.min(array1.length, array2.length),
+            lengthDiff = Math.abs(array1.length - array2.length),
+            diffs = 0,
+            i;
+        for (i = 0; i < len; i++) {
+            if (
+                (dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))
+            ) {
+                diffs++;
+            }
+        }
+        return diffs + lengthDiff;
+    }
+
     // FORMATTING
 
-    function offset (token, separator) {
+    function offset(token, separator) {
         addFormatToken(token, 0, 0, function () {
-            var offset = this.utcOffset();
-            var sign = '+';
+            var offset = this.utcOffset(),
+                sign = '+';
             if (offset < 0) {
                 offset = -offset;
                 sign = '-';
             }
-            return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2);
+            return (
+                sign +
+                zeroFill(~~(offset / 60), 2) +
+                separator +
+                zeroFill(~~offset % 60, 2)
+            );
         });
     }
 
@@ -68555,7 +69764,7 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('Z',  matchShortOffset);
+    addRegexToken('Z', matchShortOffset);
     addRegexToken('ZZ', matchShortOffset);
     addParseToken(['Z', 'ZZ'], function (input, array, config) {
         config._useUTC = true;
@@ -68570,19 +69779,20 @@ return jQuery;
     var chunkOffset = /([\+\-]|\d\d)/gi;
 
     function offsetFromString(matcher, string) {
-        var matches = (string || '').match(matcher);
+        var matches = (string || '').match(matcher),
+            chunk,
+            parts,
+            minutes;
 
         if (matches === null) {
             return null;
         }
 
-        var chunk   = matches[matches.length - 1] || [];
-        var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
-        var minutes = +(parts[1] * 60) + toInt(parts[2]);
+        chunk = matches[matches.length - 1] || [];
+        parts = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+        minutes = +(parts[1] * 60) + toInt(parts[2]);
 
-        return minutes === 0 ?
-          0 :
-          parts[0] === '+' ? minutes : -minutes;
+        return minutes === 0 ? 0 : parts[0] === '+' ? minutes : -minutes;
     }
 
     // Return a moment from input, that is local/utc/zone equivalent to model.
@@ -68590,7 +69800,10 @@ return jQuery;
         var res, diff;
         if (model._isUTC) {
             res = model.clone();
-            diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
+            diff =
+                (isMoment(input) || isDate(input)
+                    ? input.valueOf()
+                    : createLocal(input).valueOf()) - res.valueOf();
             // Use low-level api, because this fn is low-level api.
             res._d.setTime(res._d.valueOf() + diff);
             hooks.updateOffset(res, false);
@@ -68600,10 +69813,10 @@ return jQuery;
         }
     }
 
-    function getDateOffset (m) {
+    function getDateOffset(m) {
         // On Firefox.24 Date#getTimezoneOffset returns a floating point.
         // https://github.com/moment/moment/pull/1871
-        return -Math.round(m._d.getTimezoneOffset() / 15) * 15;
+        return -Math.round(m._d.getTimezoneOffset());
     }
 
     // HOOKS
@@ -68624,7 +69837,7 @@ return jQuery;
     // a second time. In case it wants us to change the offset again
     // _changeInProgress == true case, then we have to adjust, because
     // there is no such time in the given timezone.
-    function getSetOffset (input, keepLocalTime, keepMinutes) {
+    function getSetOffset(input, keepLocalTime, keepMinutes) {
         var offset = this._offset || 0,
             localAdjust;
         if (!this.isValid()) {
@@ -68649,7 +69862,12 @@ return jQuery;
             }
             if (offset !== input) {
                 if (!keepLocalTime || this._changeInProgress) {
-                    addSubtract(this, createDuration(input - offset, 'm'), 1, false);
+                    addSubtract(
+                        this,
+                        createDuration(input - offset, 'm'),
+                        1,
+                        false
+                    );
                 } else if (!this._changeInProgress) {
                     this._changeInProgress = true;
                     hooks.updateOffset(this, true);
@@ -68662,7 +69880,7 @@ return jQuery;
         }
     }
 
-    function getSetZone (input, keepLocalTime) {
+    function getSetZone(input, keepLocalTime) {
         if (input != null) {
             if (typeof input !== 'string') {
                 input = -input;
@@ -68676,11 +69894,11 @@ return jQuery;
         }
     }
 
-    function setOffsetToUTC (keepLocalTime) {
+    function setOffsetToUTC(keepLocalTime) {
         return this.utcOffset(0, keepLocalTime);
     }
 
-    function setOffsetToLocal (keepLocalTime) {
+    function setOffsetToLocal(keepLocalTime) {
         if (this._isUTC) {
             this.utcOffset(0, keepLocalTime);
             this._isUTC = false;
@@ -68692,22 +69910,21 @@ return jQuery;
         return this;
     }
 
-    function setOffsetToParsedOffset () {
+    function setOffsetToParsedOffset() {
         if (this._tzm != null) {
             this.utcOffset(this._tzm, false, true);
         } else if (typeof this._i === 'string') {
             var tZone = offsetFromString(matchOffset, this._i);
             if (tZone != null) {
                 this.utcOffset(tZone);
-            }
-            else {
+            } else {
                 this.utcOffset(0, true);
             }
         }
         return this;
     }
 
-    function hasAlignedHourOffset (input) {
+    function hasAlignedHourOffset(input) {
         if (!this.isValid()) {
             return false;
         }
@@ -68716,27 +69933,28 @@ return jQuery;
         return (this.utcOffset() - input) % 60 === 0;
     }
 
-    function isDaylightSavingTime () {
+    function isDaylightSavingTime() {
         return (
             this.utcOffset() > this.clone().month(0).utcOffset() ||
             this.utcOffset() > this.clone().month(5).utcOffset()
         );
     }
 
-    function isDaylightSavingTimeShifted () {
+    function isDaylightSavingTimeShifted() {
         if (!isUndefined(this._isDSTShifted)) {
             return this._isDSTShifted;
         }
 
-        var c = {};
+        var c = {},
+            other;
 
         copyConfig(c, this);
         c = prepareConfig(c);
 
         if (c._a) {
-            var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
-            this._isDSTShifted = this.isValid() &&
-                compareArrays(c._a, other.toArray()) > 0;
+            other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+            this._isDSTShifted =
+                this.isValid() && compareArrays(c._a, other.toArray()) > 0;
         } else {
             this._isDSTShifted = false;
         }
@@ -68744,27 +69962,26 @@ return jQuery;
         return this._isDSTShifted;
     }
 
-    function isLocal () {
+    function isLocal() {
         return this.isValid() ? !this._isUTC : false;
     }
 
-    function isUtcOffset () {
+    function isUtcOffset() {
         return this.isValid() ? this._isUTC : false;
     }
 
-    function isUtc () {
+    function isUtc() {
         return this.isValid() ? this._isUTC && this._offset === 0 : false;
     }
 
     // ASP.NET json date format regex
-    var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
+    var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/,
+        // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+        // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+        // and further modified to allow for strings containing both week and day
+        isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
-    // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
-    // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-    // and further modified to allow for strings containing both week and day
-    var isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
-
-    function createDuration (input, key) {
+    function createDuration(input, key) {
         var duration = input,
             // matching against regexp is expensive, do it on demand
             match = null,
@@ -68774,42 +69991,49 @@ return jQuery;
 
         if (isDuration(input)) {
             duration = {
-                ms : input._milliseconds,
-                d  : input._days,
-                M  : input._months
+                ms: input._milliseconds,
+                d: input._days,
+                M: input._months,
             };
-        } else if (isNumber(input)) {
+        } else if (isNumber(input) || !isNaN(+input)) {
             duration = {};
             if (key) {
-                duration[key] = input;
+                duration[key] = +input;
             } else {
-                duration.milliseconds = input;
+                duration.milliseconds = +input;
             }
-        } else if (!!(match = aspNetRegex.exec(input))) {
-            sign = (match[1] === '-') ? -1 : 1;
+        } else if ((match = aspNetRegex.exec(input))) {
+            sign = match[1] === '-' ? -1 : 1;
             duration = {
-                y  : 0,
-                d  : toInt(match[DATE])                         * sign,
-                h  : toInt(match[HOUR])                         * sign,
-                m  : toInt(match[MINUTE])                       * sign,
-                s  : toInt(match[SECOND])                       * sign,
-                ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
+                y: 0,
+                d: toInt(match[DATE]) * sign,
+                h: toInt(match[HOUR]) * sign,
+                m: toInt(match[MINUTE]) * sign,
+                s: toInt(match[SECOND]) * sign,
+                ms: toInt(absRound(match[MILLISECOND] * 1000)) * sign, // the millisecond decimal point is included in the match
             };
-        } else if (!!(match = isoRegex.exec(input))) {
-            sign = (match[1] === '-') ? -1 : 1;
+        } else if ((match = isoRegex.exec(input))) {
+            sign = match[1] === '-' ? -1 : 1;
             duration = {
-                y : parseIso(match[2], sign),
-                M : parseIso(match[3], sign),
-                w : parseIso(match[4], sign),
-                d : parseIso(match[5], sign),
-                h : parseIso(match[6], sign),
-                m : parseIso(match[7], sign),
-                s : parseIso(match[8], sign)
+                y: parseIso(match[2], sign),
+                M: parseIso(match[3], sign),
+                w: parseIso(match[4], sign),
+                d: parseIso(match[5], sign),
+                h: parseIso(match[6], sign),
+                m: parseIso(match[7], sign),
+                s: parseIso(match[8], sign),
             };
-        } else if (duration == null) {// checks for null or undefined
+        } else if (duration == null) {
+            // checks for null or undefined
             duration = {};
-        } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
-            diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
+        } else if (
+            typeof duration === 'object' &&
+            ('from' in duration || 'to' in duration)
+        ) {
+            diffRes = momentsDifference(
+                createLocal(duration.from),
+                createLocal(duration.to)
+            );
 
             duration = {};
             duration.ms = diffRes.milliseconds;
@@ -68822,13 +70046,17 @@ return jQuery;
             ret._locale = input._locale;
         }
 
+        if (isDuration(input) && hasOwnProp(input, '_isValid')) {
+            ret._isValid = input._isValid;
+        }
+
         return ret;
     }
 
     createDuration.fn = Duration.prototype;
     createDuration.invalid = createInvalid$1;
 
-    function parseIso (inp, sign) {
+    function parseIso(inp, sign) {
         // We'd normally use ~~inp for this, but unfortunately it also
         // converts floats to ints.
         // inp may be undefined, so careful calling replace on it.
@@ -68838,15 +70066,15 @@ return jQuery;
     }
 
     function positiveMomentsDifference(base, other) {
-        var res = {milliseconds: 0, months: 0};
+        var res = {};
 
-        res.months = other.month() - base.month() +
-            (other.year() - base.year()) * 12;
+        res.months =
+            other.month() - base.month() + (other.year() - base.year()) * 12;
         if (base.clone().add(res.months, 'M').isAfter(other)) {
             --res.months;
         }
 
-        res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
+        res.milliseconds = +other - +base.clone().add(res.months, 'M');
 
         return res;
     }
@@ -68854,7 +70082,7 @@ return jQuery;
     function momentsDifference(base, other) {
         var res;
         if (!(base.isValid() && other.isValid())) {
-            return {milliseconds: 0, months: 0};
+            return { milliseconds: 0, months: 0 };
         }
 
         other = cloneWithOffset(other, base);
@@ -68875,19 +70103,27 @@ return jQuery;
             var dur, tmp;
             //invert the arguments, but complain about it
             if (period !== null && !isNaN(+period)) {
-                deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
-                'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
-                tmp = val; val = period; period = tmp;
+                deprecateSimple(
+                    name,
+                    'moment().' +
+                        name +
+                        '(period, number) is deprecated. Please use moment().' +
+                        name +
+                        '(number, period). ' +
+                        'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.'
+                );
+                tmp = val;
+                val = period;
+                period = tmp;
             }
 
-            val = typeof val === 'string' ? +val : val;
             dur = createDuration(val, period);
             addSubtract(this, dur, direction);
             return this;
         };
     }
 
-    function addSubtract (mom, duration, isAdding, updateOffset) {
+    function addSubtract(mom, duration, isAdding, updateOffset) {
         var milliseconds = duration._milliseconds,
             days = absRound(duration._days),
             months = absRound(duration._months);
@@ -68913,36 +70149,153 @@ return jQuery;
         }
     }
 
-    var add      = createAdder(1, 'add');
-    var subtract = createAdder(-1, 'subtract');
+    var add = createAdder(1, 'add'),
+        subtract = createAdder(-1, 'subtract');
+
+    function isString(input) {
+        return typeof input === 'string' || input instanceof String;
+    }
+
+    // type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
+    function isMomentInput(input) {
+        return (
+            isMoment(input) ||
+            isDate(input) ||
+            isString(input) ||
+            isNumber(input) ||
+            isNumberOrStringArray(input) ||
+            isMomentInputObject(input) ||
+            input === null ||
+            input === undefined
+        );
+    }
+
+    function isMomentInputObject(input) {
+        var objectTest = isObject(input) && !isObjectEmpty(input),
+            propertyTest = false,
+            properties = [
+                'years',
+                'year',
+                'y',
+                'months',
+                'month',
+                'M',
+                'days',
+                'day',
+                'd',
+                'dates',
+                'date',
+                'D',
+                'hours',
+                'hour',
+                'h',
+                'minutes',
+                'minute',
+                'm',
+                'seconds',
+                'second',
+                's',
+                'milliseconds',
+                'millisecond',
+                'ms',
+            ],
+            i,
+            property;
+
+        for (i = 0; i < properties.length; i += 1) {
+            property = properties[i];
+            propertyTest = propertyTest || hasOwnProp(input, property);
+        }
+
+        return objectTest && propertyTest;
+    }
+
+    function isNumberOrStringArray(input) {
+        var arrayTest = isArray(input),
+            dataTypeTest = false;
+        if (arrayTest) {
+            dataTypeTest =
+                input.filter(function (item) {
+                    return !isNumber(item) && isString(input);
+                }).length === 0;
+        }
+        return arrayTest && dataTypeTest;
+    }
+
+    function isCalendarSpec(input) {
+        var objectTest = isObject(input) && !isObjectEmpty(input),
+            propertyTest = false,
+            properties = [
+                'sameDay',
+                'nextDay',
+                'lastDay',
+                'nextWeek',
+                'lastWeek',
+                'sameElse',
+            ],
+            i,
+            property;
+
+        for (i = 0; i < properties.length; i += 1) {
+            property = properties[i];
+            propertyTest = propertyTest || hasOwnProp(input, property);
+        }
+
+        return objectTest && propertyTest;
+    }
 
     function getCalendarFormat(myMoment, now) {
         var diff = myMoment.diff(now, 'days', true);
-        return diff < -6 ? 'sameElse' :
-                diff < -1 ? 'lastWeek' :
-                diff < 0 ? 'lastDay' :
-                diff < 1 ? 'sameDay' :
-                diff < 2 ? 'nextDay' :
-                diff < 7 ? 'nextWeek' : 'sameElse';
+        return diff < -6
+            ? 'sameElse'
+            : diff < -1
+            ? 'lastWeek'
+            : diff < 0
+            ? 'lastDay'
+            : diff < 1
+            ? 'sameDay'
+            : diff < 2
+            ? 'nextDay'
+            : diff < 7
+            ? 'nextWeek'
+            : 'sameElse';
     }
 
-    function calendar$1 (time, formats) {
+    function calendar$1(time, formats) {
+        // Support for single parameter, formats only overload to the calendar function
+        if (arguments.length === 1) {
+            if (!arguments[0]) {
+                time = undefined;
+                formats = undefined;
+            } else if (isMomentInput(arguments[0])) {
+                time = arguments[0];
+                formats = undefined;
+            } else if (isCalendarSpec(arguments[0])) {
+                formats = arguments[0];
+                time = undefined;
+            }
+        }
         // We want to compare the start of today, vs this.
         // Getting start-of-today depends on whether we're local/utc/offset or not.
         var now = time || createLocal(),
             sod = cloneWithOffset(now, this).startOf('day'),
-            format = hooks.calendarFormat(this, sod) || 'sameElse';
+            format = hooks.calendarFormat(this, sod) || 'sameElse',
+            output =
+                formats &&
+                (isFunction(formats[format])
+                    ? formats[format].call(this, now)
+                    : formats[format]);
 
-        var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
-
-        return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
+        return this.format(
+            output || this.localeData().calendar(format, this, createLocal(now))
+        );
     }
 
-    function clone () {
+    function clone() {
         return new Moment(this);
     }
 
-    function isAfter (input, units) {
+    function isAfter(input, units) {
         var localInput = isMoment(input) ? input : createLocal(input);
         if (!(this.isValid() && localInput.isValid())) {
             return false;
@@ -68955,7 +70308,7 @@ return jQuery;
         }
     }
 
-    function isBefore (input, units) {
+    function isBefore(input, units) {
         var localInput = isMoment(input) ? input : createLocal(input);
         if (!(this.isValid() && localInput.isValid())) {
             return false;
@@ -68968,18 +70321,24 @@ return jQuery;
         }
     }
 
-    function isBetween (from, to, units, inclusivity) {
+    function isBetween(from, to, units, inclusivity) {
         var localFrom = isMoment(from) ? from : createLocal(from),
             localTo = isMoment(to) ? to : createLocal(to);
         if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
             return false;
         }
         inclusivity = inclusivity || '()';
-        return (inclusivity[0] === '(' ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) &&
-            (inclusivity[1] === ')' ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
+        return (
+            (inclusivity[0] === '('
+                ? this.isAfter(localFrom, units)
+                : !this.isBefore(localFrom, units)) &&
+            (inclusivity[1] === ')'
+                ? this.isBefore(localTo, units)
+                : !this.isAfter(localTo, units))
+        );
     }
 
-    function isSame (input, units) {
+    function isSame(input, units) {
         var localInput = isMoment(input) ? input : createLocal(input),
             inputMs;
         if (!(this.isValid() && localInput.isValid())) {
@@ -68990,22 +70349,23 @@ return jQuery;
             return this.valueOf() === localInput.valueOf();
         } else {
             inputMs = localInput.valueOf();
-            return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+            return (
+                this.clone().startOf(units).valueOf() <= inputMs &&
+                inputMs <= this.clone().endOf(units).valueOf()
+            );
         }
     }
 
-    function isSameOrAfter (input, units) {
+    function isSameOrAfter(input, units) {
         return this.isSame(input, units) || this.isAfter(input, units);
     }
 
-    function isSameOrBefore (input, units) {
+    function isSameOrBefore(input, units) {
         return this.isSame(input, units) || this.isBefore(input, units);
     }
 
-    function diff (input, units, asFloat) {
-        var that,
-            zoneDelta,
-            output;
+    function diff(input, units, asFloat) {
+        var that, zoneDelta, output;
 
         if (!this.isValid()) {
             return NaN;
@@ -69022,26 +70382,49 @@ return jQuery;
         units = normalizeUnits(units);
 
         switch (units) {
-            case 'year': output = monthDiff(this, that) / 12; break;
-            case 'month': output = monthDiff(this, that); break;
-            case 'quarter': output = monthDiff(this, that) / 3; break;
-            case 'second': output = (this - that) / 1e3; break; // 1000
-            case 'minute': output = (this - that) / 6e4; break; // 1000 * 60
-            case 'hour': output = (this - that) / 36e5; break; // 1000 * 60 * 60
-            case 'day': output = (this - that - zoneDelta) / 864e5; break; // 1000 * 60 * 60 * 24, negate dst
-            case 'week': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
-            default: output = this - that;
+            case 'year':
+                output = monthDiff(this, that) / 12;
+                break;
+            case 'month':
+                output = monthDiff(this, that);
+                break;
+            case 'quarter':
+                output = monthDiff(this, that) / 3;
+                break;
+            case 'second':
+                output = (this - that) / 1e3;
+                break; // 1000
+            case 'minute':
+                output = (this - that) / 6e4;
+                break; // 1000 * 60
+            case 'hour':
+                output = (this - that) / 36e5;
+                break; // 1000 * 60 * 60
+            case 'day':
+                output = (this - that - zoneDelta) / 864e5;
+                break; // 1000 * 60 * 60 * 24, negate dst
+            case 'week':
+                output = (this - that - zoneDelta) / 6048e5;
+                break; // 1000 * 60 * 60 * 24 * 7, negate dst
+            default:
+                output = this - that;
         }
 
         return asFloat ? output : absFloor(output);
     }
 
-    function monthDiff (a, b) {
+    function monthDiff(a, b) {
+        if (a.date() < b.date()) {
+            // end-of-month calculations work correct when the start month has more
+            // days than the end month.
+            return -monthDiff(b, a);
+        }
         // difference in months
-        var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
+        var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()),
             // b is in (anchor - 1 month, anchor + 1 month)
             anchor = a.clone().add(wholeMonthDiff, 'months'),
-            anchor2, adjust;
+            anchor2,
+            adjust;
 
         if (b - anchor < 0) {
             anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
@@ -69060,7 +70443,7 @@ return jQuery;
     hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
     hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
-    function toString () {
+    function toString() {
         return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
     }
 
@@ -69068,20 +70451,30 @@ return jQuery;
         if (!this.isValid()) {
             return null;
         }
-        var utc = keepOffset !== true;
-        var m = utc ? this.clone().utc() : this;
+        var utc = keepOffset !== true,
+            m = utc ? this.clone().utc() : this;
         if (m.year() < 0 || m.year() > 9999) {
-            return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
+            return formatMoment(
+                m,
+                utc
+                    ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+                    : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ'
+            );
         }
         if (isFunction(Date.prototype.toISOString)) {
             // native implementation is ~50x faster, use it when we can
             if (utc) {
                 return this.toDate().toISOString();
             } else {
-                return new Date(this.valueOf() + this.utcOffset() * 60 * 1000).toISOString().replace('Z', formatMoment(m, 'Z'));
+                return new Date(this.valueOf() + this.utcOffset() * 60 * 1000)
+                    .toISOString()
+                    .replace('Z', formatMoment(m, 'Z'));
             }
         }
-        return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+        return formatMoment(
+            m,
+            utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ'
+        );
     }
 
     /**
@@ -69090,64 +70483,76 @@ return jQuery;
      *
      * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
      */
-    function inspect () {
+    function inspect() {
         if (!this.isValid()) {
             return 'moment.invalid(/* ' + this._i + ' */)';
         }
-        var func = 'moment';
-        var zone = '';
+        var func = 'moment',
+            zone = '',
+            prefix,
+            year,
+            datetime,
+            suffix;
         if (!this.isLocal()) {
             func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
             zone = 'Z';
         }
-        var prefix = '[' + func + '("]';
-        var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-        var datetime = '-MM-DD[T]HH:mm:ss.SSS';
-        var suffix = zone + '[")]';
+        prefix = '[' + func + '("]';
+        year = 0 <= this.year() && this.year() <= 9999 ? 'YYYY' : 'YYYYYY';
+        datetime = '-MM-DD[T]HH:mm:ss.SSS';
+        suffix = zone + '[")]';
 
         return this.format(prefix + year + datetime + suffix);
     }
 
-    function format (inputString) {
+    function format(inputString) {
         if (!inputString) {
-            inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+            inputString = this.isUtc()
+                ? hooks.defaultFormatUtc
+                : hooks.defaultFormat;
         }
         var output = formatMoment(this, inputString);
         return this.localeData().postformat(output);
     }
 
-    function from (time, withoutSuffix) {
-        if (this.isValid() &&
-                ((isMoment(time) && time.isValid()) ||
-                 createLocal(time).isValid())) {
-            return createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
+    function from(time, withoutSuffix) {
+        if (
+            this.isValid() &&
+            ((isMoment(time) && time.isValid()) || createLocal(time).isValid())
+        ) {
+            return createDuration({ to: this, from: time })
+                .locale(this.locale())
+                .humanize(!withoutSuffix);
         } else {
             return this.localeData().invalidDate();
         }
     }
 
-    function fromNow (withoutSuffix) {
+    function fromNow(withoutSuffix) {
         return this.from(createLocal(), withoutSuffix);
     }
 
-    function to (time, withoutSuffix) {
-        if (this.isValid() &&
-                ((isMoment(time) && time.isValid()) ||
-                 createLocal(time).isValid())) {
-            return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+    function to(time, withoutSuffix) {
+        if (
+            this.isValid() &&
+            ((isMoment(time) && time.isValid()) || createLocal(time).isValid())
+        ) {
+            return createDuration({ from: this, to: time })
+                .locale(this.locale())
+                .humanize(!withoutSuffix);
         } else {
             return this.localeData().invalidDate();
         }
     }
 
-    function toNow (withoutSuffix) {
+    function toNow(withoutSuffix) {
         return this.to(createLocal(), withoutSuffix);
     }
 
     // If passed a locale key, it will set the locale for this
     // instance.  Otherwise, it will return the locale configuration
     // variables for this instance.
-    function locale (key) {
+    function locale(key) {
         var newLocaleData;
 
         if (key === undefined) {
@@ -69172,86 +70577,198 @@ return jQuery;
         }
     );
 
-    function localeData () {
+    function localeData() {
         return this._locale;
     }
 
-    function startOf (units) {
-        units = normalizeUnits(units);
-        // the following switch intentionally omits break keywords
-        // to utilize falling through the cases.
-        switch (units) {
-            case 'year':
-                this.month(0);
-                /* falls through */
-            case 'quarter':
-            case 'month':
-                this.date(1);
-                /* falls through */
-            case 'week':
-            case 'isoWeek':
-            case 'day':
-            case 'date':
-                this.hours(0);
-                /* falls through */
-            case 'hour':
-                this.minutes(0);
-                /* falls through */
-            case 'minute':
-                this.seconds(0);
-                /* falls through */
-            case 'second':
-                this.milliseconds(0);
-        }
+    var MS_PER_SECOND = 1000,
+        MS_PER_MINUTE = 60 * MS_PER_SECOND,
+        MS_PER_HOUR = 60 * MS_PER_MINUTE,
+        MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
 
-        // weeks are a special case
-        if (units === 'week') {
-            this.weekday(0);
-        }
-        if (units === 'isoWeek') {
-            this.isoWeekday(1);
-        }
-
-        // quarters are also special
-        if (units === 'quarter') {
-            this.month(Math.floor(this.month() / 3) * 3);
-        }
-
-        return this;
+    // actual modulo - handles negative numbers (for dates before 1970):
+    function mod$1(dividend, divisor) {
+        return ((dividend % divisor) + divisor) % divisor;
     }
 
-    function endOf (units) {
+    function localStartOfDate(y, m, d) {
+        // the date constructor remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            return new Date(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+            return new Date(y, m, d).valueOf();
+        }
+    }
+
+    function utcStartOfDate(y, m, d) {
+        // Date.UTC remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+            return Date.UTC(y, m, d);
+        }
+    }
+
+    function startOf(units) {
+        var time, startOfDate;
         units = normalizeUnits(units);
-        if (units === undefined || units === 'millisecond') {
+        if (units === undefined || units === 'millisecond' || !this.isValid()) {
             return this;
         }
 
-        // 'date' is an alias for 'day', so it should be considered as such.
-        if (units === 'date') {
-            units = 'day';
+        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
+        switch (units) {
+            case 'year':
+                time = startOfDate(this.year(), 0, 1);
+                break;
+            case 'quarter':
+                time = startOfDate(
+                    this.year(),
+                    this.month() - (this.month() % 3),
+                    1
+                );
+                break;
+            case 'month':
+                time = startOfDate(this.year(), this.month(), 1);
+                break;
+            case 'week':
+                time = startOfDate(
+                    this.year(),
+                    this.month(),
+                    this.date() - this.weekday()
+                );
+                break;
+            case 'isoWeek':
+                time = startOfDate(
+                    this.year(),
+                    this.month(),
+                    this.date() - (this.isoWeekday() - 1)
+                );
+                break;
+            case 'day':
+            case 'date':
+                time = startOfDate(this.year(), this.month(), this.date());
+                break;
+            case 'hour':
+                time = this._d.valueOf();
+                time -= mod$1(
+                    time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                    MS_PER_HOUR
+                );
+                break;
+            case 'minute':
+                time = this._d.valueOf();
+                time -= mod$1(time, MS_PER_MINUTE);
+                break;
+            case 'second':
+                time = this._d.valueOf();
+                time -= mod$1(time, MS_PER_SECOND);
+                break;
         }
 
-        return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
+        return this;
     }
 
-    function valueOf () {
-        return this._d.valueOf() - ((this._offset || 0) * 60000);
+    function endOf(units) {
+        var time, startOfDate;
+        units = normalizeUnits(units);
+        if (units === undefined || units === 'millisecond' || !this.isValid()) {
+            return this;
+        }
+
+        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
+        switch (units) {
+            case 'year':
+                time = startOfDate(this.year() + 1, 0, 1) - 1;
+                break;
+            case 'quarter':
+                time =
+                    startOfDate(
+                        this.year(),
+                        this.month() - (this.month() % 3) + 3,
+                        1
+                    ) - 1;
+                break;
+            case 'month':
+                time = startOfDate(this.year(), this.month() + 1, 1) - 1;
+                break;
+            case 'week':
+                time =
+                    startOfDate(
+                        this.year(),
+                        this.month(),
+                        this.date() - this.weekday() + 7
+                    ) - 1;
+                break;
+            case 'isoWeek':
+                time =
+                    startOfDate(
+                        this.year(),
+                        this.month(),
+                        this.date() - (this.isoWeekday() - 1) + 7
+                    ) - 1;
+                break;
+            case 'day':
+            case 'date':
+                time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
+                break;
+            case 'hour':
+                time = this._d.valueOf();
+                time +=
+                    MS_PER_HOUR -
+                    mod$1(
+                        time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                        MS_PER_HOUR
+                    ) -
+                    1;
+                break;
+            case 'minute':
+                time = this._d.valueOf();
+                time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
+                break;
+            case 'second':
+                time = this._d.valueOf();
+                time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
+                break;
+        }
+
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
+        return this;
     }
 
-    function unix () {
+    function valueOf() {
+        return this._d.valueOf() - (this._offset || 0) * 60000;
+    }
+
+    function unix() {
         return Math.floor(this.valueOf() / 1000);
     }
 
-    function toDate () {
+    function toDate() {
         return new Date(this.valueOf());
     }
 
-    function toArray () {
+    function toArray() {
         var m = this;
-        return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
+        return [
+            m.year(),
+            m.month(),
+            m.date(),
+            m.hour(),
+            m.minute(),
+            m.second(),
+            m.millisecond(),
+        ];
     }
 
-    function toObject () {
+    function toObject() {
         var m = this;
         return {
             years: m.year(),
@@ -69260,24 +70777,24 @@ return jQuery;
             hours: m.hours(),
             minutes: m.minutes(),
             seconds: m.seconds(),
-            milliseconds: m.milliseconds()
+            milliseconds: m.milliseconds(),
         };
     }
 
-    function toJSON () {
+    function toJSON() {
         // new Date(NaN).toJSON() === null
         return this.isValid() ? this.toISOString() : null;
     }
 
-    function isValid$2 () {
+    function isValid$2() {
         return isValid(this);
     }
 
-    function parsingFlags () {
+    function parsingFlags() {
         return extend({}, getParsingFlags(this));
     }
 
-    function invalidAt () {
+    function invalidAt() {
         return getParsingFlags(this).overflow;
     }
 
@@ -69287,8 +70804,289 @@ return jQuery;
             format: this._f,
             locale: this._locale,
             isUTC: this._isUTC,
-            strict: this._strict
+            strict: this._strict,
         };
+    }
+
+    addFormatToken('N', 0, 0, 'eraAbbr');
+    addFormatToken('NN', 0, 0, 'eraAbbr');
+    addFormatToken('NNN', 0, 0, 'eraAbbr');
+    addFormatToken('NNNN', 0, 0, 'eraName');
+    addFormatToken('NNNNN', 0, 0, 'eraNarrow');
+
+    addFormatToken('y', ['y', 1], 'yo', 'eraYear');
+    addFormatToken('y', ['yy', 2], 0, 'eraYear');
+    addFormatToken('y', ['yyy', 3], 0, 'eraYear');
+    addFormatToken('y', ['yyyy', 4], 0, 'eraYear');
+
+    addRegexToken('N', matchEraAbbr);
+    addRegexToken('NN', matchEraAbbr);
+    addRegexToken('NNN', matchEraAbbr);
+    addRegexToken('NNNN', matchEraName);
+    addRegexToken('NNNNN', matchEraNarrow);
+
+    addParseToken(['N', 'NN', 'NNN', 'NNNN', 'NNNNN'], function (
+        input,
+        array,
+        config,
+        token
+    ) {
+        var era = config._locale.erasParse(input, token, config._strict);
+        if (era) {
+            getParsingFlags(config).era = era;
+        } else {
+            getParsingFlags(config).invalidEra = input;
+        }
+    });
+
+    addRegexToken('y', matchUnsigned);
+    addRegexToken('yy', matchUnsigned);
+    addRegexToken('yyy', matchUnsigned);
+    addRegexToken('yyyy', matchUnsigned);
+    addRegexToken('yo', matchEraYearOrdinal);
+
+    addParseToken(['y', 'yy', 'yyy', 'yyyy'], YEAR);
+    addParseToken(['yo'], function (input, array, config, token) {
+        var match;
+        if (config._locale._eraYearOrdinalRegex) {
+            match = input.match(config._locale._eraYearOrdinalRegex);
+        }
+
+        if (config._locale.eraYearOrdinalParse) {
+            array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
+        } else {
+            array[YEAR] = parseInt(input, 10);
+        }
+    });
+
+    function localeEras(m, format) {
+        var i,
+            l,
+            date,
+            eras = this._eras || getLocale('en')._eras;
+        for (i = 0, l = eras.length; i < l; ++i) {
+            switch (typeof eras[i].since) {
+                case 'string':
+                    // truncate time
+                    date = hooks(eras[i].since).startOf('day');
+                    eras[i].since = date.valueOf();
+                    break;
+            }
+
+            switch (typeof eras[i].until) {
+                case 'undefined':
+                    eras[i].until = +Infinity;
+                    break;
+                case 'string':
+                    // truncate time
+                    date = hooks(eras[i].until).startOf('day').valueOf();
+                    eras[i].until = date.valueOf();
+                    break;
+            }
+        }
+        return eras;
+    }
+
+    function localeErasParse(eraName, format, strict) {
+        var i,
+            l,
+            eras = this.eras(),
+            name,
+            abbr,
+            narrow;
+        eraName = eraName.toUpperCase();
+
+        for (i = 0, l = eras.length; i < l; ++i) {
+            name = eras[i].name.toUpperCase();
+            abbr = eras[i].abbr.toUpperCase();
+            narrow = eras[i].narrow.toUpperCase();
+
+            if (strict) {
+                switch (format) {
+                    case 'N':
+                    case 'NN':
+                    case 'NNN':
+                        if (abbr === eraName) {
+                            return eras[i];
+                        }
+                        break;
+
+                    case 'NNNN':
+                        if (name === eraName) {
+                            return eras[i];
+                        }
+                        break;
+
+                    case 'NNNNN':
+                        if (narrow === eraName) {
+                            return eras[i];
+                        }
+                        break;
+                }
+            } else if ([name, abbr, narrow].indexOf(eraName) >= 0) {
+                return eras[i];
+            }
+        }
+    }
+
+    function localeErasConvertYear(era, year) {
+        var dir = era.since <= era.until ? +1 : -1;
+        if (year === undefined) {
+            return hooks(era.since).year();
+        } else {
+            return hooks(era.since).year() + (year - era.offset) * dir;
+        }
+    }
+
+    function getEraName() {
+        var i,
+            l,
+            val,
+            eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+            // truncate time
+            val = this.clone().startOf('day').valueOf();
+
+            if (eras[i].since <= val && val <= eras[i].until) {
+                return eras[i].name;
+            }
+            if (eras[i].until <= val && val <= eras[i].since) {
+                return eras[i].name;
+            }
+        }
+
+        return '';
+    }
+
+    function getEraNarrow() {
+        var i,
+            l,
+            val,
+            eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+            // truncate time
+            val = this.clone().startOf('day').valueOf();
+
+            if (eras[i].since <= val && val <= eras[i].until) {
+                return eras[i].narrow;
+            }
+            if (eras[i].until <= val && val <= eras[i].since) {
+                return eras[i].narrow;
+            }
+        }
+
+        return '';
+    }
+
+    function getEraAbbr() {
+        var i,
+            l,
+            val,
+            eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+            // truncate time
+            val = this.clone().startOf('day').valueOf();
+
+            if (eras[i].since <= val && val <= eras[i].until) {
+                return eras[i].abbr;
+            }
+            if (eras[i].until <= val && val <= eras[i].since) {
+                return eras[i].abbr;
+            }
+        }
+
+        return '';
+    }
+
+    function getEraYear() {
+        var i,
+            l,
+            dir,
+            val,
+            eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+            dir = eras[i].since <= eras[i].until ? +1 : -1;
+
+            // truncate time
+            val = this.clone().startOf('day').valueOf();
+
+            if (
+                (eras[i].since <= val && val <= eras[i].until) ||
+                (eras[i].until <= val && val <= eras[i].since)
+            ) {
+                return (
+                    (this.year() - hooks(eras[i].since).year()) * dir +
+                    eras[i].offset
+                );
+            }
+        }
+
+        return this.year();
+    }
+
+    function erasNameRegex(isStrict) {
+        if (!hasOwnProp(this, '_erasNameRegex')) {
+            computeErasParse.call(this);
+        }
+        return isStrict ? this._erasNameRegex : this._erasRegex;
+    }
+
+    function erasAbbrRegex(isStrict) {
+        if (!hasOwnProp(this, '_erasAbbrRegex')) {
+            computeErasParse.call(this);
+        }
+        return isStrict ? this._erasAbbrRegex : this._erasRegex;
+    }
+
+    function erasNarrowRegex(isStrict) {
+        if (!hasOwnProp(this, '_erasNarrowRegex')) {
+            computeErasParse.call(this);
+        }
+        return isStrict ? this._erasNarrowRegex : this._erasRegex;
+    }
+
+    function matchEraAbbr(isStrict, locale) {
+        return locale.erasAbbrRegex(isStrict);
+    }
+
+    function matchEraName(isStrict, locale) {
+        return locale.erasNameRegex(isStrict);
+    }
+
+    function matchEraNarrow(isStrict, locale) {
+        return locale.erasNarrowRegex(isStrict);
+    }
+
+    function matchEraYearOrdinal(isStrict, locale) {
+        return locale._eraYearOrdinalRegex || matchUnsigned;
+    }
+
+    function computeErasParse() {
+        var abbrPieces = [],
+            namePieces = [],
+            narrowPieces = [],
+            mixedPieces = [],
+            i,
+            l,
+            eras = this.eras();
+
+        for (i = 0, l = eras.length; i < l; ++i) {
+            namePieces.push(regexEscape(eras[i].name));
+            abbrPieces.push(regexEscape(eras[i].abbr));
+            narrowPieces.push(regexEscape(eras[i].narrow));
+
+            mixedPieces.push(regexEscape(eras[i].name));
+            mixedPieces.push(regexEscape(eras[i].abbr));
+            mixedPieces.push(regexEscape(eras[i].narrow));
+        }
+
+        this._erasRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+        this._erasNameRegex = new RegExp('^(' + namePieces.join('|') + ')', 'i');
+        this._erasAbbrRegex = new RegExp('^(' + abbrPieces.join('|') + ')', 'i');
+        this._erasNarrowRegex = new RegExp(
+            '^(' + narrowPieces.join('|') + ')',
+            'i'
+        );
     }
 
     // FORMATTING
@@ -69301,13 +71099,13 @@ return jQuery;
         return this.isoWeekYear() % 100;
     });
 
-    function addWeekYearFormatToken (token, getter) {
+    function addWeekYearFormatToken(token, getter) {
         addFormatToken(0, [token, token.length], 0, getter);
     }
 
-    addWeekYearFormatToken('gggg',     'weekYear');
-    addWeekYearFormatToken('ggggg',    'weekYear');
-    addWeekYearFormatToken('GGGG',  'isoWeekYear');
+    addWeekYearFormatToken('gggg', 'weekYear');
+    addWeekYearFormatToken('ggggg', 'weekYear');
+    addWeekYearFormatToken('GGGG', 'isoWeekYear');
     addWeekYearFormatToken('GGGGG', 'isoWeekYear');
 
     // ALIASES
@@ -69320,19 +71118,23 @@ return jQuery;
     addUnitPriority('weekYear', 1);
     addUnitPriority('isoWeekYear', 1);
 
-
     // PARSING
 
-    addRegexToken('G',      matchSigned);
-    addRegexToken('g',      matchSigned);
-    addRegexToken('GG',     match1to2, match2);
-    addRegexToken('gg',     match1to2, match2);
-    addRegexToken('GGGG',   match1to4, match4);
-    addRegexToken('gggg',   match1to4, match4);
-    addRegexToken('GGGGG',  match1to6, match6);
-    addRegexToken('ggggg',  match1to6, match6);
+    addRegexToken('G', matchSigned);
+    addRegexToken('g', matchSigned);
+    addRegexToken('GG', match1to2, match2);
+    addRegexToken('gg', match1to2, match2);
+    addRegexToken('GGGG', match1to4, match4);
+    addRegexToken('gggg', match1to4, match4);
+    addRegexToken('GGGGG', match1to6, match6);
+    addRegexToken('ggggg', match1to6, match6);
 
-    addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
+    addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (
+        input,
+        week,
+        config,
+        token
+    ) {
         week[token.substr(0, 2)] = toInt(input);
     });
 
@@ -69342,27 +71144,44 @@ return jQuery;
 
     // MOMENTS
 
-    function getSetWeekYear (input) {
-        return getSetWeekYearHelper.call(this,
-                input,
-                this.week(),
-                this.weekday(),
-                this.localeData()._week.dow,
-                this.localeData()._week.doy);
+    function getSetWeekYear(input) {
+        return getSetWeekYearHelper.call(
+            this,
+            input,
+            this.week(),
+            this.weekday(),
+            this.localeData()._week.dow,
+            this.localeData()._week.doy
+        );
     }
 
-    function getSetISOWeekYear (input) {
-        return getSetWeekYearHelper.call(this,
-                input, this.isoWeek(), this.isoWeekday(), 1, 4);
+    function getSetISOWeekYear(input) {
+        return getSetWeekYearHelper.call(
+            this,
+            input,
+            this.isoWeek(),
+            this.isoWeekday(),
+            1,
+            4
+        );
     }
 
-    function getISOWeeksInYear () {
+    function getISOWeeksInYear() {
         return weeksInYear(this.year(), 1, 4);
     }
 
-    function getWeeksInYear () {
+    function getISOWeeksInISOWeekYear() {
+        return weeksInYear(this.isoWeekYear(), 1, 4);
+    }
+
+    function getWeeksInYear() {
         var weekInfo = this.localeData()._week;
         return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+    }
+
+    function getWeeksInWeekYear() {
+        var weekInfo = this.localeData()._week;
+        return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
     }
 
     function getSetWeekYearHelper(input, week, weekday, dow, doy) {
@@ -69409,8 +71228,10 @@ return jQuery;
 
     // MOMENTS
 
-    function getSetQuarter (input) {
-        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
+    function getSetQuarter(input) {
+        return input == null
+            ? Math.ceil((this.month() + 1) / 3)
+            : this.month((input - 1) * 3 + (this.month() % 3));
     }
 
     // FORMATTING
@@ -69426,13 +71247,13 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('D',  match1to2);
+    addRegexToken('D', match1to2);
     addRegexToken('DD', match1to2, match2);
     addRegexToken('Do', function (isStrict, locale) {
         // TODO: Remove "ordinalParse" fallback in next major release.
-        return isStrict ?
-          (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
-          locale._dayOfMonthOrdinalParseLenient;
+        return isStrict
+            ? locale._dayOfMonthOrdinalParse || locale._ordinalParse
+            : locale._dayOfMonthOrdinalParseLenient;
     });
 
     addParseToken(['D', 'DD'], DATE);
@@ -69457,7 +71278,7 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('DDD',  match1to3);
+    addRegexToken('DDD', match1to3);
     addRegexToken('DDDD', match3);
     addParseToken(['DDD', 'DDDD'], function (input, array, config) {
         config._dayOfYear = toInt(input);
@@ -69467,9 +71288,12 @@ return jQuery;
 
     // MOMENTS
 
-    function getSetDayOfYear (input) {
-        var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
-        return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
+    function getSetDayOfYear(input) {
+        var dayOfYear =
+            Math.round(
+                (this.clone().startOf('day') - this.clone().startOf('year')) / 864e5
+            ) + 1;
+        return input == null ? dayOfYear : this.add(input - dayOfYear, 'd');
     }
 
     // FORMATTING
@@ -69486,7 +71310,7 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('m',  match1to2);
+    addRegexToken('m', match1to2);
     addRegexToken('mm', match1to2, match2);
     addParseToken(['m', 'mm'], MINUTE);
 
@@ -69508,7 +71332,7 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('s',  match1to2);
+    addRegexToken('s', match1to2);
     addRegexToken('ss', match1to2, match2);
     addParseToken(['s', 'ss'], SECOND);
 
@@ -69546,7 +71370,6 @@ return jQuery;
         return this.millisecond() * 1000000;
     });
 
-
     // ALIASES
 
     addUnitAlias('millisecond', 'ms');
@@ -69557,11 +71380,11 @@ return jQuery;
 
     // PARSING
 
-    addRegexToken('S',    match1to3, match1);
-    addRegexToken('SS',   match1to3, match2);
-    addRegexToken('SSS',  match1to3, match3);
+    addRegexToken('S', match1to3, match1);
+    addRegexToken('SS', match1to3, match2);
+    addRegexToken('SSS', match1to3, match3);
 
-    var token;
+    var token, getSetMillisecond;
     for (token = 'SSSS'; token.length <= 9; token += 'S') {
         addRegexToken(token, matchUnsigned);
     }
@@ -69573,155 +71396,186 @@ return jQuery;
     for (token = 'S'; token.length <= 9; token += 'S') {
         addParseToken(token, parseMs);
     }
-    // MOMENTS
 
-    var getSetMillisecond = makeGetSet('Milliseconds', false);
+    getSetMillisecond = makeGetSet('Milliseconds', false);
 
     // FORMATTING
 
-    addFormatToken('z',  0, 0, 'zoneAbbr');
+    addFormatToken('z', 0, 0, 'zoneAbbr');
     addFormatToken('zz', 0, 0, 'zoneName');
 
     // MOMENTS
 
-    function getZoneAbbr () {
+    function getZoneAbbr() {
         return this._isUTC ? 'UTC' : '';
     }
 
-    function getZoneName () {
+    function getZoneName() {
         return this._isUTC ? 'Coordinated Universal Time' : '';
     }
 
     var proto = Moment.prototype;
 
-    proto.add               = add;
-    proto.calendar          = calendar$1;
-    proto.clone             = clone;
-    proto.diff              = diff;
-    proto.endOf             = endOf;
-    proto.format            = format;
-    proto.from              = from;
-    proto.fromNow           = fromNow;
-    proto.to                = to;
-    proto.toNow             = toNow;
-    proto.get               = stringGet;
-    proto.invalidAt         = invalidAt;
-    proto.isAfter           = isAfter;
-    proto.isBefore          = isBefore;
-    proto.isBetween         = isBetween;
-    proto.isSame            = isSame;
-    proto.isSameOrAfter     = isSameOrAfter;
-    proto.isSameOrBefore    = isSameOrBefore;
-    proto.isValid           = isValid$2;
-    proto.lang              = lang;
-    proto.locale            = locale;
-    proto.localeData        = localeData;
-    proto.max               = prototypeMax;
-    proto.min               = prototypeMin;
-    proto.parsingFlags      = parsingFlags;
-    proto.set               = stringSet;
-    proto.startOf           = startOf;
-    proto.subtract          = subtract;
-    proto.toArray           = toArray;
-    proto.toObject          = toObject;
-    proto.toDate            = toDate;
-    proto.toISOString       = toISOString;
-    proto.inspect           = inspect;
-    proto.toJSON            = toJSON;
-    proto.toString          = toString;
-    proto.unix              = unix;
-    proto.valueOf           = valueOf;
-    proto.creationData      = creationData;
-    proto.year       = getSetYear;
+    proto.add = add;
+    proto.calendar = calendar$1;
+    proto.clone = clone;
+    proto.diff = diff;
+    proto.endOf = endOf;
+    proto.format = format;
+    proto.from = from;
+    proto.fromNow = fromNow;
+    proto.to = to;
+    proto.toNow = toNow;
+    proto.get = stringGet;
+    proto.invalidAt = invalidAt;
+    proto.isAfter = isAfter;
+    proto.isBefore = isBefore;
+    proto.isBetween = isBetween;
+    proto.isSame = isSame;
+    proto.isSameOrAfter = isSameOrAfter;
+    proto.isSameOrBefore = isSameOrBefore;
+    proto.isValid = isValid$2;
+    proto.lang = lang;
+    proto.locale = locale;
+    proto.localeData = localeData;
+    proto.max = prototypeMax;
+    proto.min = prototypeMin;
+    proto.parsingFlags = parsingFlags;
+    proto.set = stringSet;
+    proto.startOf = startOf;
+    proto.subtract = subtract;
+    proto.toArray = toArray;
+    proto.toObject = toObject;
+    proto.toDate = toDate;
+    proto.toISOString = toISOString;
+    proto.inspect = inspect;
+    if (typeof Symbol !== 'undefined' && Symbol.for != null) {
+        proto[Symbol.for('nodejs.util.inspect.custom')] = function () {
+            return 'Moment<' + this.format() + '>';
+        };
+    }
+    proto.toJSON = toJSON;
+    proto.toString = toString;
+    proto.unix = unix;
+    proto.valueOf = valueOf;
+    proto.creationData = creationData;
+    proto.eraName = getEraName;
+    proto.eraNarrow = getEraNarrow;
+    proto.eraAbbr = getEraAbbr;
+    proto.eraYear = getEraYear;
+    proto.year = getSetYear;
     proto.isLeapYear = getIsLeapYear;
-    proto.weekYear    = getSetWeekYear;
+    proto.weekYear = getSetWeekYear;
     proto.isoWeekYear = getSetISOWeekYear;
     proto.quarter = proto.quarters = getSetQuarter;
-    proto.month       = getSetMonth;
+    proto.month = getSetMonth;
     proto.daysInMonth = getDaysInMonth;
-    proto.week           = proto.weeks        = getSetWeek;
-    proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
-    proto.weeksInYear    = getWeeksInYear;
+    proto.week = proto.weeks = getSetWeek;
+    proto.isoWeek = proto.isoWeeks = getSetISOWeek;
+    proto.weeksInYear = getWeeksInYear;
+    proto.weeksInWeekYear = getWeeksInWeekYear;
     proto.isoWeeksInYear = getISOWeeksInYear;
-    proto.date       = getSetDayOfMonth;
-    proto.day        = proto.days             = getSetDayOfWeek;
-    proto.weekday    = getSetLocaleDayOfWeek;
+    proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
+    proto.date = getSetDayOfMonth;
+    proto.day = proto.days = getSetDayOfWeek;
+    proto.weekday = getSetLocaleDayOfWeek;
     proto.isoWeekday = getSetISODayOfWeek;
-    proto.dayOfYear  = getSetDayOfYear;
+    proto.dayOfYear = getSetDayOfYear;
     proto.hour = proto.hours = getSetHour;
     proto.minute = proto.minutes = getSetMinute;
     proto.second = proto.seconds = getSetSecond;
     proto.millisecond = proto.milliseconds = getSetMillisecond;
-    proto.utcOffset            = getSetOffset;
-    proto.utc                  = setOffsetToUTC;
-    proto.local                = setOffsetToLocal;
-    proto.parseZone            = setOffsetToParsedOffset;
+    proto.utcOffset = getSetOffset;
+    proto.utc = setOffsetToUTC;
+    proto.local = setOffsetToLocal;
+    proto.parseZone = setOffsetToParsedOffset;
     proto.hasAlignedHourOffset = hasAlignedHourOffset;
-    proto.isDST                = isDaylightSavingTime;
-    proto.isLocal              = isLocal;
-    proto.isUtcOffset          = isUtcOffset;
-    proto.isUtc                = isUtc;
-    proto.isUTC                = isUtc;
+    proto.isDST = isDaylightSavingTime;
+    proto.isLocal = isLocal;
+    proto.isUtcOffset = isUtcOffset;
+    proto.isUtc = isUtc;
+    proto.isUTC = isUtc;
     proto.zoneAbbr = getZoneAbbr;
     proto.zoneName = getZoneName;
-    proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
-    proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
-    proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
-    proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
-    proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
+    proto.dates = deprecate(
+        'dates accessor is deprecated. Use date instead.',
+        getSetDayOfMonth
+    );
+    proto.months = deprecate(
+        'months accessor is deprecated. Use month instead',
+        getSetMonth
+    );
+    proto.years = deprecate(
+        'years accessor is deprecated. Use year instead',
+        getSetYear
+    );
+    proto.zone = deprecate(
+        'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
+        getSetZone
+    );
+    proto.isDSTShifted = deprecate(
+        'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
+        isDaylightSavingTimeShifted
+    );
 
-    function createUnix (input) {
+    function createUnix(input) {
         return createLocal(input * 1000);
     }
 
-    function createInZone () {
+    function createInZone() {
         return createLocal.apply(null, arguments).parseZone();
     }
 
-    function preParsePostFormat (string) {
+    function preParsePostFormat(string) {
         return string;
     }
 
     var proto$1 = Locale.prototype;
 
-    proto$1.calendar        = calendar;
-    proto$1.longDateFormat  = longDateFormat;
-    proto$1.invalidDate     = invalidDate;
-    proto$1.ordinal         = ordinal;
-    proto$1.preparse        = preParsePostFormat;
-    proto$1.postformat      = preParsePostFormat;
-    proto$1.relativeTime    = relativeTime;
-    proto$1.pastFuture      = pastFuture;
-    proto$1.set             = set;
+    proto$1.calendar = calendar;
+    proto$1.longDateFormat = longDateFormat;
+    proto$1.invalidDate = invalidDate;
+    proto$1.ordinal = ordinal;
+    proto$1.preparse = preParsePostFormat;
+    proto$1.postformat = preParsePostFormat;
+    proto$1.relativeTime = relativeTime;
+    proto$1.pastFuture = pastFuture;
+    proto$1.set = set;
+    proto$1.eras = localeEras;
+    proto$1.erasParse = localeErasParse;
+    proto$1.erasConvertYear = localeErasConvertYear;
+    proto$1.erasAbbrRegex = erasAbbrRegex;
+    proto$1.erasNameRegex = erasNameRegex;
+    proto$1.erasNarrowRegex = erasNarrowRegex;
 
-    proto$1.months            =        localeMonths;
-    proto$1.monthsShort       =        localeMonthsShort;
-    proto$1.monthsParse       =        localeMonthsParse;
-    proto$1.monthsRegex       = monthsRegex;
-    proto$1.monthsShortRegex  = monthsShortRegex;
+    proto$1.months = localeMonths;
+    proto$1.monthsShort = localeMonthsShort;
+    proto$1.monthsParse = localeMonthsParse;
+    proto$1.monthsRegex = monthsRegex;
+    proto$1.monthsShortRegex = monthsShortRegex;
     proto$1.week = localeWeek;
     proto$1.firstDayOfYear = localeFirstDayOfYear;
     proto$1.firstDayOfWeek = localeFirstDayOfWeek;
 
-    proto$1.weekdays       =        localeWeekdays;
-    proto$1.weekdaysMin    =        localeWeekdaysMin;
-    proto$1.weekdaysShort  =        localeWeekdaysShort;
-    proto$1.weekdaysParse  =        localeWeekdaysParse;
+    proto$1.weekdays = localeWeekdays;
+    proto$1.weekdaysMin = localeWeekdaysMin;
+    proto$1.weekdaysShort = localeWeekdaysShort;
+    proto$1.weekdaysParse = localeWeekdaysParse;
 
-    proto$1.weekdaysRegex       =        weekdaysRegex;
-    proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
-    proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
+    proto$1.weekdaysRegex = weekdaysRegex;
+    proto$1.weekdaysShortRegex = weekdaysShortRegex;
+    proto$1.weekdaysMinRegex = weekdaysMinRegex;
 
     proto$1.isPM = localeIsPM;
     proto$1.meridiem = localeMeridiem;
 
-    function get$1 (format, index, field, setter) {
-        var locale = getLocale();
-        var utc = createUTC().set(setter, index);
+    function get$1(format, index, field, setter) {
+        var locale = getLocale(),
+            utc = createUTC().set(setter, index);
         return locale[field](utc, format);
     }
 
-    function listMonthsImpl (format, index, field) {
+    function listMonthsImpl(format, index, field) {
         if (isNumber(format)) {
             index = format;
             format = undefined;
@@ -69733,8 +71587,8 @@ return jQuery;
             return get$1(format, index, field, 'month');
         }
 
-        var i;
-        var out = [];
+        var i,
+            out = [];
         for (i = 0; i < 12; i++) {
             out[i] = get$1(format, i, field, 'month');
         }
@@ -69749,7 +71603,7 @@ return jQuery;
     // (true, 5)
     // (true, fmt, 5)
     // (true, fmt)
-    function listWeekdaysImpl (localeSorted, format, index, field) {
+    function listWeekdaysImpl(localeSorted, format, index, field) {
         if (typeof localeSorted === 'boolean') {
             if (isNumber(format)) {
                 index = format;
@@ -69771,97 +71625,127 @@ return jQuery;
         }
 
         var locale = getLocale(),
-            shift = localeSorted ? locale._week.dow : 0;
+            shift = localeSorted ? locale._week.dow : 0,
+            i,
+            out = [];
 
         if (index != null) {
             return get$1(format, (index + shift) % 7, field, 'day');
         }
 
-        var i;
-        var out = [];
         for (i = 0; i < 7; i++) {
             out[i] = get$1(format, (i + shift) % 7, field, 'day');
         }
         return out;
     }
 
-    function listMonths (format, index) {
+    function listMonths(format, index) {
         return listMonthsImpl(format, index, 'months');
     }
 
-    function listMonthsShort (format, index) {
+    function listMonthsShort(format, index) {
         return listMonthsImpl(format, index, 'monthsShort');
     }
 
-    function listWeekdays (localeSorted, format, index) {
+    function listWeekdays(localeSorted, format, index) {
         return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
     }
 
-    function listWeekdaysShort (localeSorted, format, index) {
+    function listWeekdaysShort(localeSorted, format, index) {
         return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
     }
 
-    function listWeekdaysMin (localeSorted, format, index) {
+    function listWeekdaysMin(localeSorted, format, index) {
         return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
     }
 
     getSetGlobalLocale('en', {
+        eras: [
+            {
+                since: '0001-01-01',
+                until: +Infinity,
+                offset: 1,
+                name: 'Anno Domini',
+                narrow: 'AD',
+                abbr: 'AD',
+            },
+            {
+                since: '0000-12-31',
+                until: -Infinity,
+                offset: 1,
+                name: 'Before Christ',
+                narrow: 'BC',
+                abbr: 'BC',
+            },
+        ],
         dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-        ordinal : function (number) {
+        ordinal: function (number) {
             var b = number % 10,
-                output = (toInt(number % 100 / 10) === 1) ? 'th' :
-                (b === 1) ? 'st' :
-                (b === 2) ? 'nd' :
-                (b === 3) ? 'rd' : 'th';
+                output =
+                    toInt((number % 100) / 10) === 1
+                        ? 'th'
+                        : b === 1
+                        ? 'st'
+                        : b === 2
+                        ? 'nd'
+                        : b === 3
+                        ? 'rd'
+                        : 'th';
             return number + output;
-        }
+        },
     });
 
     // Side effect imports
 
-    hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
-    hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
+    hooks.lang = deprecate(
+        'moment.lang is deprecated. Use moment.locale instead.',
+        getSetGlobalLocale
+    );
+    hooks.langData = deprecate(
+        'moment.langData is deprecated. Use moment.localeData instead.',
+        getLocale
+    );
 
     var mathAbs = Math.abs;
 
-    function abs () {
-        var data           = this._data;
+    function abs() {
+        var data = this._data;
 
         this._milliseconds = mathAbs(this._milliseconds);
-        this._days         = mathAbs(this._days);
-        this._months       = mathAbs(this._months);
+        this._days = mathAbs(this._days);
+        this._months = mathAbs(this._months);
 
-        data.milliseconds  = mathAbs(data.milliseconds);
-        data.seconds       = mathAbs(data.seconds);
-        data.minutes       = mathAbs(data.minutes);
-        data.hours         = mathAbs(data.hours);
-        data.months        = mathAbs(data.months);
-        data.years         = mathAbs(data.years);
+        data.milliseconds = mathAbs(data.milliseconds);
+        data.seconds = mathAbs(data.seconds);
+        data.minutes = mathAbs(data.minutes);
+        data.hours = mathAbs(data.hours);
+        data.months = mathAbs(data.months);
+        data.years = mathAbs(data.years);
 
         return this;
     }
 
-    function addSubtract$1 (duration, input, value, direction) {
+    function addSubtract$1(duration, input, value, direction) {
         var other = createDuration(input, value);
 
         duration._milliseconds += direction * other._milliseconds;
-        duration._days         += direction * other._days;
-        duration._months       += direction * other._months;
+        duration._days += direction * other._days;
+        duration._months += direction * other._months;
 
         return duration._bubble();
     }
 
     // supports only 2.0-style add(1, 's') or add(duration)
-    function add$1 (input, value) {
+    function add$1(input, value) {
         return addSubtract$1(this, input, value, 1);
     }
 
     // supports only 2.0-style subtract(1, 's') or subtract(duration)
-    function subtract$1 (input, value) {
+    function subtract$1(input, value) {
         return addSubtract$1(this, input, value, -1);
     }
 
-    function absCeil (number) {
+    function absCeil(number) {
         if (number < 0) {
             return Math.floor(number);
         } else {
@@ -69869,17 +71753,25 @@ return jQuery;
         }
     }
 
-    function bubble () {
-        var milliseconds = this._milliseconds;
-        var days         = this._days;
-        var months       = this._months;
-        var data         = this._data;
-        var seconds, minutes, hours, years, monthsFromDays;
+    function bubble() {
+        var milliseconds = this._milliseconds,
+            days = this._days,
+            months = this._months,
+            data = this._data,
+            seconds,
+            minutes,
+            hours,
+            years,
+            monthsFromDays;
 
         // if we have a mix of positive and negative values, bubble down first
         // check: https://github.com/moment/moment/issues/2166
-        if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
-                (milliseconds <= 0 && days <= 0 && months <= 0))) {
+        if (
+            !(
+                (milliseconds >= 0 && days >= 0 && months >= 0) ||
+                (milliseconds <= 0 && days <= 0 && months <= 0)
+            )
+        ) {
             milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
             days = 0;
             months = 0;
@@ -69889,14 +71781,14 @@ return jQuery;
         // examples of what that means.
         data.milliseconds = milliseconds % 1000;
 
-        seconds           = absFloor(milliseconds / 1000);
-        data.seconds      = seconds % 60;
+        seconds = absFloor(milliseconds / 1000);
+        data.seconds = seconds % 60;
 
-        minutes           = absFloor(seconds / 60);
-        data.minutes      = minutes % 60;
+        minutes = absFloor(seconds / 60);
+        data.minutes = minutes % 60;
 
-        hours             = absFloor(minutes / 60);
-        data.hours        = hours % 24;
+        hours = absFloor(minutes / 60);
+        data.hours = hours % 24;
 
         days += absFloor(hours / 24);
 
@@ -69909,56 +71801,70 @@ return jQuery;
         years = absFloor(months / 12);
         months %= 12;
 
-        data.days   = days;
+        data.days = days;
         data.months = months;
-        data.years  = years;
+        data.years = years;
 
         return this;
     }
 
-    function daysToMonths (days) {
+    function daysToMonths(days) {
         // 400 years have 146097 days (taking into account leap year rules)
         // 400 years have 12 months === 4800
-        return days * 4800 / 146097;
+        return (days * 4800) / 146097;
     }
 
-    function monthsToDays (months) {
+    function monthsToDays(months) {
         // the reverse of daysToMonths
-        return months * 146097 / 4800;
+        return (months * 146097) / 4800;
     }
 
-    function as (units) {
+    function as(units) {
         if (!this.isValid()) {
             return NaN;
         }
-        var days;
-        var months;
-        var milliseconds = this._milliseconds;
+        var days,
+            months,
+            milliseconds = this._milliseconds;
 
         units = normalizeUnits(units);
 
-        if (units === 'month' || units === 'year') {
-            days   = this._days   + milliseconds / 864e5;
+        if (units === 'month' || units === 'quarter' || units === 'year') {
+            days = this._days + milliseconds / 864e5;
             months = this._months + daysToMonths(days);
-            return units === 'month' ? months : months / 12;
+            switch (units) {
+                case 'month':
+                    return months;
+                case 'quarter':
+                    return months / 3;
+                case 'year':
+                    return months / 12;
+            }
         } else {
             // handle milliseconds separately because of floating point math errors (issue #1867)
             days = this._days + Math.round(monthsToDays(this._months));
             switch (units) {
-                case 'week'   : return days / 7     + milliseconds / 6048e5;
-                case 'day'    : return days         + milliseconds / 864e5;
-                case 'hour'   : return days * 24    + milliseconds / 36e5;
-                case 'minute' : return days * 1440  + milliseconds / 6e4;
-                case 'second' : return days * 86400 + milliseconds / 1000;
+                case 'week':
+                    return days / 7 + milliseconds / 6048e5;
+                case 'day':
+                    return days + milliseconds / 864e5;
+                case 'hour':
+                    return days * 24 + milliseconds / 36e5;
+                case 'minute':
+                    return days * 1440 + milliseconds / 6e4;
+                case 'second':
+                    return days * 86400 + milliseconds / 1000;
                 // Math.floor prevents floating point math errors here
-                case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
-                default: throw new Error('Unknown unit ' + units);
+                case 'millisecond':
+                    return Math.floor(days * 864e5) + milliseconds;
+                default:
+                    throw new Error('Unknown unit ' + units);
             }
         }
     }
 
     // TODO: Use this.as('ms')?
-    function valueOf$1 () {
+    function valueOf$1() {
         if (!this.isValid()) {
             return NaN;
         }
@@ -69970,26 +71876,27 @@ return jQuery;
         );
     }
 
-    function makeAs (alias) {
+    function makeAs(alias) {
         return function () {
             return this.as(alias);
         };
     }
 
-    var asMilliseconds = makeAs('ms');
-    var asSeconds      = makeAs('s');
-    var asMinutes      = makeAs('m');
-    var asHours        = makeAs('h');
-    var asDays         = makeAs('d');
-    var asWeeks        = makeAs('w');
-    var asMonths       = makeAs('M');
-    var asYears        = makeAs('y');
+    var asMilliseconds = makeAs('ms'),
+        asSeconds = makeAs('s'),
+        asMinutes = makeAs('m'),
+        asHours = makeAs('h'),
+        asDays = makeAs('d'),
+        asWeeks = makeAs('w'),
+        asMonths = makeAs('M'),
+        asQuarters = makeAs('Q'),
+        asYears = makeAs('y');
 
-    function clone$1 () {
+    function clone$1() {
         return createDuration(this);
     }
 
-    function get$2 (units) {
+    function get$2(units) {
         units = normalizeUnits(units);
         return this.isValid() ? this[units + 's']() : NaN;
     }
@@ -70000,53 +71907,63 @@ return jQuery;
         };
     }
 
-    var milliseconds = makeGetter('milliseconds');
-    var seconds      = makeGetter('seconds');
-    var minutes      = makeGetter('minutes');
-    var hours        = makeGetter('hours');
-    var days         = makeGetter('days');
-    var months       = makeGetter('months');
-    var years        = makeGetter('years');
+    var milliseconds = makeGetter('milliseconds'),
+        seconds = makeGetter('seconds'),
+        minutes = makeGetter('minutes'),
+        hours = makeGetter('hours'),
+        days = makeGetter('days'),
+        months = makeGetter('months'),
+        years = makeGetter('years');
 
-    function weeks () {
+    function weeks() {
         return absFloor(this.days() / 7);
     }
 
-    var round = Math.round;
-    var thresholds = {
-        ss: 44,         // a few seconds to seconds
-        s : 45,         // seconds to minute
-        m : 45,         // minutes to hour
-        h : 22,         // hours to day
-        d : 26,         // days to month
-        M : 11          // months to year
-    };
+    var round = Math.round,
+        thresholds = {
+            ss: 44, // a few seconds to seconds
+            s: 45, // seconds to minute
+            m: 45, // minutes to hour
+            h: 22, // hours to day
+            d: 26, // days to month/week
+            w: null, // weeks to month
+            M: 11, // months to year
+        };
 
     // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
     function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
         return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
-    function relativeTime$1 (posNegDuration, withoutSuffix, locale) {
-        var duration = createDuration(posNegDuration).abs();
-        var seconds  = round(duration.as('s'));
-        var minutes  = round(duration.as('m'));
-        var hours    = round(duration.as('h'));
-        var days     = round(duration.as('d'));
-        var months   = round(duration.as('M'));
-        var years    = round(duration.as('y'));
+    function relativeTime$1(posNegDuration, withoutSuffix, thresholds, locale) {
+        var duration = createDuration(posNegDuration).abs(),
+            seconds = round(duration.as('s')),
+            minutes = round(duration.as('m')),
+            hours = round(duration.as('h')),
+            days = round(duration.as('d')),
+            months = round(duration.as('M')),
+            weeks = round(duration.as('w')),
+            years = round(duration.as('y')),
+            a =
+                (seconds <= thresholds.ss && ['s', seconds]) ||
+                (seconds < thresholds.s && ['ss', seconds]) ||
+                (minutes <= 1 && ['m']) ||
+                (minutes < thresholds.m && ['mm', minutes]) ||
+                (hours <= 1 && ['h']) ||
+                (hours < thresholds.h && ['hh', hours]) ||
+                (days <= 1 && ['d']) ||
+                (days < thresholds.d && ['dd', days]);
 
-        var a = seconds <= thresholds.ss && ['s', seconds]  ||
-                seconds < thresholds.s   && ['ss', seconds] ||
-                minutes <= 1             && ['m']           ||
-                minutes < thresholds.m   && ['mm', minutes] ||
-                hours   <= 1             && ['h']           ||
-                hours   < thresholds.h   && ['hh', hours]   ||
-                days    <= 1             && ['d']           ||
-                days    < thresholds.d   && ['dd', days]    ||
-                months  <= 1             && ['M']           ||
-                months  < thresholds.M   && ['MM', months]  ||
-                years   <= 1             && ['y']           || ['yy', years];
+        if (thresholds.w != null) {
+            a =
+                a ||
+                (weeks <= 1 && ['w']) ||
+                (weeks < thresholds.w && ['ww', weeks]);
+        }
+        a = a ||
+            (months <= 1 && ['M']) ||
+            (months < thresholds.M && ['MM', months]) ||
+            (years <= 1 && ['y']) || ['yy', years];
 
         a[2] = withoutSuffix;
         a[3] = +posNegDuration > 0;
@@ -70055,11 +71972,11 @@ return jQuery;
     }
 
     // This function allows you to set the rounding function for relative time strings
-    function getSetRelativeTimeRounding (roundingFunction) {
+    function getSetRelativeTimeRounding(roundingFunction) {
         if (roundingFunction === undefined) {
             return round;
         }
-        if (typeof(roundingFunction) === 'function') {
+        if (typeof roundingFunction === 'function') {
             round = roundingFunction;
             return true;
         }
@@ -70067,7 +71984,7 @@ return jQuery;
     }
 
     // This function allows you to set a threshold for relative time strings
-    function getSetRelativeTimeThreshold (threshold, limit) {
+    function getSetRelativeTimeThreshold(threshold, limit) {
         if (thresholds[threshold] === undefined) {
             return false;
         }
@@ -70081,13 +71998,32 @@ return jQuery;
         return true;
     }
 
-    function humanize (withSuffix) {
+    function humanize(argWithSuffix, argThresholds) {
         if (!this.isValid()) {
             return this.localeData().invalidDate();
         }
 
-        var locale = this.localeData();
-        var output = relativeTime$1(this, !withSuffix, locale);
+        var withSuffix = false,
+            th = thresholds,
+            locale,
+            output;
+
+        if (typeof argWithSuffix === 'object') {
+            argThresholds = argWithSuffix;
+            argWithSuffix = false;
+        }
+        if (typeof argWithSuffix === 'boolean') {
+            withSuffix = argWithSuffix;
+        }
+        if (typeof argThresholds === 'object') {
+            th = Object.assign({}, thresholds, argThresholds);
+            if (argThresholds.s != null && argThresholds.ss == null) {
+                th.ss = argThresholds.s - 1;
+            }
+        }
+
+        locale = this.localeData();
+        output = relativeTime$1(this, !withSuffix, th, locale);
 
         if (withSuffix) {
             output = locale.pastFuture(+this, output);
@@ -70099,7 +72035,7 @@ return jQuery;
     var abs$1 = Math.abs;
 
     function sign(x) {
-        return ((x > 0) - (x < 0)) || +x;
+        return (x > 0) - (x < 0) || +x;
     }
 
     function toISOString$1() {
@@ -70114,30 +72050,18 @@ return jQuery;
             return this.localeData().invalidDate();
         }
 
-        var seconds = abs$1(this._milliseconds) / 1000;
-        var days         = abs$1(this._days);
-        var months       = abs$1(this._months);
-        var minutes, hours, years;
-
-        // 3600 seconds -> 60 minutes -> 1 hour
-        minutes           = absFloor(seconds / 60);
-        hours             = absFloor(minutes / 60);
-        seconds %= 60;
-        minutes %= 60;
-
-        // 12 months -> 1 year
-        years  = absFloor(months / 12);
-        months %= 12;
-
-
-        // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-        var Y = years;
-        var M = months;
-        var D = days;
-        var h = hours;
-        var m = minutes;
-        var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
-        var total = this.asSeconds();
+        var seconds = abs$1(this._milliseconds) / 1000,
+            days = abs$1(this._days),
+            months = abs$1(this._months),
+            minutes,
+            hours,
+            years,
+            s,
+            total = this.asSeconds(),
+            totalSign,
+            ymSign,
+            daysSign,
+            hmsSign;
 
         if (!total) {
             // this is the same as C#'s (Noda) and python (isodate)...
@@ -70145,59 +72069,77 @@ return jQuery;
             return 'P0D';
         }
 
-        var totalSign = total < 0 ? '-' : '';
-        var ymSign = sign(this._months) !== sign(total) ? '-' : '';
-        var daysSign = sign(this._days) !== sign(total) ? '-' : '';
-        var hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+        // 3600 seconds -> 60 minutes -> 1 hour
+        minutes = absFloor(seconds / 60);
+        hours = absFloor(minutes / 60);
+        seconds %= 60;
+        minutes %= 60;
 
-        return totalSign + 'P' +
-            (Y ? ymSign + Y + 'Y' : '') +
-            (M ? ymSign + M + 'M' : '') +
-            (D ? daysSign + D + 'D' : '') +
-            ((h || m || s) ? 'T' : '') +
-            (h ? hmsSign + h + 'H' : '') +
-            (m ? hmsSign + m + 'M' : '') +
-            (s ? hmsSign + s + 'S' : '');
+        // 12 months -> 1 year
+        years = absFloor(months / 12);
+        months %= 12;
+
+        // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+        s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
+
+        totalSign = total < 0 ? '-' : '';
+        ymSign = sign(this._months) !== sign(total) ? '-' : '';
+        daysSign = sign(this._days) !== sign(total) ? '-' : '';
+        hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+
+        return (
+            totalSign +
+            'P' +
+            (years ? ymSign + years + 'Y' : '') +
+            (months ? ymSign + months + 'M' : '') +
+            (days ? daysSign + days + 'D' : '') +
+            (hours || minutes || seconds ? 'T' : '') +
+            (hours ? hmsSign + hours + 'H' : '') +
+            (minutes ? hmsSign + minutes + 'M' : '') +
+            (seconds ? hmsSign + s + 'S' : '')
+        );
     }
 
     var proto$2 = Duration.prototype;
 
-    proto$2.isValid        = isValid$1;
-    proto$2.abs            = abs;
-    proto$2.add            = add$1;
-    proto$2.subtract       = subtract$1;
-    proto$2.as             = as;
+    proto$2.isValid = isValid$1;
+    proto$2.abs = abs;
+    proto$2.add = add$1;
+    proto$2.subtract = subtract$1;
+    proto$2.as = as;
     proto$2.asMilliseconds = asMilliseconds;
-    proto$2.asSeconds      = asSeconds;
-    proto$2.asMinutes      = asMinutes;
-    proto$2.asHours        = asHours;
-    proto$2.asDays         = asDays;
-    proto$2.asWeeks        = asWeeks;
-    proto$2.asMonths       = asMonths;
-    proto$2.asYears        = asYears;
-    proto$2.valueOf        = valueOf$1;
-    proto$2._bubble        = bubble;
-    proto$2.clone          = clone$1;
-    proto$2.get            = get$2;
-    proto$2.milliseconds   = milliseconds;
-    proto$2.seconds        = seconds;
-    proto$2.minutes        = minutes;
-    proto$2.hours          = hours;
-    proto$2.days           = days;
-    proto$2.weeks          = weeks;
-    proto$2.months         = months;
-    proto$2.years          = years;
-    proto$2.humanize       = humanize;
-    proto$2.toISOString    = toISOString$1;
-    proto$2.toString       = toISOString$1;
-    proto$2.toJSON         = toISOString$1;
-    proto$2.locale         = locale;
-    proto$2.localeData     = localeData;
+    proto$2.asSeconds = asSeconds;
+    proto$2.asMinutes = asMinutes;
+    proto$2.asHours = asHours;
+    proto$2.asDays = asDays;
+    proto$2.asWeeks = asWeeks;
+    proto$2.asMonths = asMonths;
+    proto$2.asQuarters = asQuarters;
+    proto$2.asYears = asYears;
+    proto$2.valueOf = valueOf$1;
+    proto$2._bubble = bubble;
+    proto$2.clone = clone$1;
+    proto$2.get = get$2;
+    proto$2.milliseconds = milliseconds;
+    proto$2.seconds = seconds;
+    proto$2.minutes = minutes;
+    proto$2.hours = hours;
+    proto$2.days = days;
+    proto$2.weeks = weeks;
+    proto$2.months = months;
+    proto$2.years = years;
+    proto$2.humanize = humanize;
+    proto$2.toISOString = toISOString$1;
+    proto$2.toString = toISOString$1;
+    proto$2.toJSON = toISOString$1;
+    proto$2.locale = locale;
+    proto$2.localeData = localeData;
 
-    proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
+    proto$2.toIsoString = deprecate(
+        'toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)',
+        toISOString$1
+    );
     proto$2.lang = lang;
-
-    // Side effect imports
 
     // FORMATTING
 
@@ -70209,58 +72151,57 @@ return jQuery;
     addRegexToken('x', matchSigned);
     addRegexToken('X', matchTimestamp);
     addParseToken('X', function (input, array, config) {
-        config._d = new Date(parseFloat(input, 10) * 1000);
+        config._d = new Date(parseFloat(input) * 1000);
     });
     addParseToken('x', function (input, array, config) {
         config._d = new Date(toInt(input));
     });
 
-    // Side effect imports
+    //! moment.js
 
-
-    hooks.version = '2.23.0';
+    hooks.version = '2.29.1';
 
     setHookCallback(createLocal);
 
-    hooks.fn                    = proto;
-    hooks.min                   = min;
-    hooks.max                   = max;
-    hooks.now                   = now;
-    hooks.utc                   = createUTC;
-    hooks.unix                  = createUnix;
-    hooks.months                = listMonths;
-    hooks.isDate                = isDate;
-    hooks.locale                = getSetGlobalLocale;
-    hooks.invalid               = createInvalid;
-    hooks.duration              = createDuration;
-    hooks.isMoment              = isMoment;
-    hooks.weekdays              = listWeekdays;
-    hooks.parseZone             = createInZone;
-    hooks.localeData            = getLocale;
-    hooks.isDuration            = isDuration;
-    hooks.monthsShort           = listMonthsShort;
-    hooks.weekdaysMin           = listWeekdaysMin;
-    hooks.defineLocale          = defineLocale;
-    hooks.updateLocale          = updateLocale;
-    hooks.locales               = listLocales;
-    hooks.weekdaysShort         = listWeekdaysShort;
-    hooks.normalizeUnits        = normalizeUnits;
-    hooks.relativeTimeRounding  = getSetRelativeTimeRounding;
+    hooks.fn = proto;
+    hooks.min = min;
+    hooks.max = max;
+    hooks.now = now;
+    hooks.utc = createUTC;
+    hooks.unix = createUnix;
+    hooks.months = listMonths;
+    hooks.isDate = isDate;
+    hooks.locale = getSetGlobalLocale;
+    hooks.invalid = createInvalid;
+    hooks.duration = createDuration;
+    hooks.isMoment = isMoment;
+    hooks.weekdays = listWeekdays;
+    hooks.parseZone = createInZone;
+    hooks.localeData = getLocale;
+    hooks.isDuration = isDuration;
+    hooks.monthsShort = listMonthsShort;
+    hooks.weekdaysMin = listWeekdaysMin;
+    hooks.defineLocale = defineLocale;
+    hooks.updateLocale = updateLocale;
+    hooks.locales = listLocales;
+    hooks.weekdaysShort = listWeekdaysShort;
+    hooks.normalizeUnits = normalizeUnits;
+    hooks.relativeTimeRounding = getSetRelativeTimeRounding;
     hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
-    hooks.calendarFormat        = getCalendarFormat;
-    hooks.prototype             = proto;
+    hooks.calendarFormat = getCalendarFormat;
+    hooks.prototype = proto;
 
     // currently HTML5 input type only supports 24-hour formats
     hooks.HTML5_FMT = {
-        DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm',             // <input type="datetime-local" />
-        DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss',  // <input type="datetime-local" step="1" />
-        DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS',   // <input type="datetime-local" step="0.001" />
-        DATE: 'YYYY-MM-DD',                             // <input type="date" />
-        TIME: 'HH:mm',                                  // <input type="time" />
-        TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
-        TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
-        WEEK: 'GGGG-[W]WW',                             // <input type="week" />
-        MONTH: 'YYYY-MM'                                // <input type="month" />
+        DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm', // <input type="datetime-local" />
+        DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss', // <input type="datetime-local" step="1" />
+        DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS', // <input type="datetime-local" step="0.001" />
+        DATE: 'YYYY-MM-DD', // <input type="date" />
+        TIME: 'HH:mm', // <input type="time" />
+        TIME_SECONDS: 'HH:mm:ss', // <input type="time" step="1" />
+        TIME_MS: 'HH:mm:ss.SSS', // <input type="time" step="0.001" />
+        WEEK: 'GGGG-[W]WW', // <input type="week" />
+        MONTH: 'YYYY-MM', // <input type="month" />
     };
 
     return hooks;
@@ -70270,7 +72211,6 @@ return jQuery;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ }),
-/* 150 */,
 /* 151 */,
 /* 152 */,
 /* 153 */,
@@ -70291,7 +72231,8 @@ return jQuery;
 /* 168 */,
 /* 169 */,
 /* 170 */,
-/* 171 */
+/* 171 */,
+/* 172 */
 /***/ (function(module, exports) {
 
 
@@ -70386,7 +72327,6 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 172 */,
 /* 173 */,
 /* 174 */,
 /* 175 */,
@@ -70403,7 +72343,8 @@ module.exports = function (css) {
 /* 186 */,
 /* 187 */,
 /* 188 */,
-/* 189 */
+/* 189 */,
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*
@@ -73951,7 +75892,6 @@ the specific language governing permissions and limitations under the Apache Lic
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 190 */,
 /* 191 */,
 /* 192 */,
 /* 193 */,
@@ -73962,7 +75902,8 @@ the specific language governing permissions and limitations under the Apache Lic
 /* 198 */,
 /* 199 */,
 /* 200 */,
-/* 201 */
+/* 201 */,
+/* 202 */
 /***/ (function(module, exports) {
 
 /*! angular-shims-placeholder - v0.4.8 - 2016-12-06
@@ -74278,7 +76219,6 @@ angular.module('ng.shims.placeholder', [])
 
 
 /***/ }),
-/* 202 */,
 /* 203 */,
 /* 204 */,
 /* 205 */,
@@ -74291,12 +76231,13 @@ angular.module('ng.shims.placeholder', [])
 /* 212 */,
 /* 213 */,
 /* 214 */,
-/* 215 */
+/* 215 */,
+/* 216 */
 /***/ (function(module, exports) {
 
 /**
- * @license AngularJS v1.7.5
- * (c) 2010-2018 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.8.2
+ * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -74342,12 +76283,12 @@ var htmlSanitizeWriter;
  * @description
  *   Sanitizes an html string by stripping all potentially dangerous tokens.
  *
- *   The input is sanitized by parsing the HTML into tokens. All safe tokens (from a whitelist) are
+ *   The input is sanitized by parsing the HTML into tokens. All safe tokens (from a trusted URI list) are
  *   then serialized back to a properly escaped HTML string. This means that no unsafe input can make
  *   it into the returned string.
  *
- *   The whitelist for URL sanitization of attribute values is configured using the functions
- *   `aHrefSanitizationWhitelist` and `imgSrcSanitizationWhitelist` of {@link $compileProvider}.
+ *   The trusted URIs for URL sanitization of attribute values is configured using the functions
+ *   `aHrefSanitizationTrustedUrlList` and `imgSrcSanitizationTrustedUrlList` of {@link $compileProvider}.
  *
  *   The input may also contain SVG markup if this is enabled via {@link $sanitizeProvider}.
  *
@@ -74578,8 +76519,8 @@ function $SanitizeProvider() {
    * **Note**:
    * The new attributes will not be treated as URI attributes, which means their values will not be
    * sanitized as URIs using `$compileProvider`'s
-   * {@link ng.$compileProvider#aHrefSanitizationWhitelist aHrefSanitizationWhitelist} and
-   * {@link ng.$compileProvider#imgSrcSanitizationWhitelist imgSrcSanitizationWhitelist}.
+   * {@link ng.$compileProvider#aHrefSanitizationTrustedUrlList aHrefSanitizationTrustedUrlList} and
+   * {@link ng.$compileProvider#imgSrcSanitizationTrustedUrlList imgSrcSanitizationTrustedUrlList}.
    *
    * <div class="alert alert-info">
    *   This method must be called during the {@link angular.Module#config config} phase. Once the
@@ -74722,50 +76663,28 @@ function $SanitizeProvider() {
   }
 
   /**
-   * Create an inert document that contains the dirty HTML that needs sanitizing
-   * Depending upon browser support we use one of three strategies for doing this.
-   * Support: Safari 10.x -> XHR strategy
-   * Support: Firefox -> DomParser strategy
+   * Create an inert document that contains the dirty HTML that needs sanitizing.
+   * We use the DOMParser API by default and fall back to createHTMLDocument if DOMParser is not
+   * available.
    */
   var getInertBodyElement /* function(html: string): HTMLBodyElement */ = (function(window, document) {
-    var inertDocument;
-    if (document && document.implementation) {
-      inertDocument = document.implementation.createHTMLDocument('inert');
-    } else {
+    if (isDOMParserAvailable()) {
+      return getInertBodyElement_DOMParser;
+    }
+
+    if (!document || !document.implementation) {
       throw $sanitizeMinErr('noinert', 'Can\'t create an inert html document');
     }
+    var inertDocument = document.implementation.createHTMLDocument('inert');
     var inertBodyElement = (inertDocument.documentElement || inertDocument.getDocumentElement()).querySelector('body');
+    return getInertBodyElement_InertDocument;
 
-    // Check for the Safari 10.1 bug - which allows JS to run inside the SVG G element
-    inertBodyElement.innerHTML = '<svg><g onload="this.parentNode.remove()"></g></svg>';
-    if (!inertBodyElement.querySelector('svg')) {
-      return getInertBodyElement_XHR;
-    } else {
-      // Check for the Firefox bug - which prevents the inner img JS from being sanitized
-      inertBodyElement.innerHTML = '<svg><p><style><img src="</style><img src=x onerror=alert(1)//">';
-      if (inertBodyElement.querySelector('svg img')) {
-        return getInertBodyElement_DOMParser;
-      } else {
-        return getInertBodyElement_InertDocument;
-      }
-    }
-
-    function getInertBodyElement_XHR(html) {
-      // We add this dummy element to ensure that the rest of the content is parsed as expected
-      // e.g. leading whitespace is maintained and tags like `<meta>` do not get hoisted to the `<head>` tag.
-      html = '<remove></remove>' + html;
+    function isDOMParserAvailable() {
       try {
-        html = encodeURI(html);
+        return !!getInertBodyElement_DOMParser('');
       } catch (e) {
-        return undefined;
+        return false;
       }
-      var xhr = new window.XMLHttpRequest();
-      xhr.responseType = 'document';
-      xhr.open('GET', 'data:text/html;charset=utf-8,' + html, false);
-      xhr.send(null);
-      var body = xhr.response.body;
-      body.firstChild.remove();
-      return body;
     }
 
     function getInertBodyElement_DOMParser(html) {
@@ -75007,7 +76926,7 @@ function sanitizeText(chars) {
 // define ngSanitize module and register $sanitize service
 angular.module('ngSanitize', [])
   .provider('$sanitize', $SanitizeProvider)
-  .info({ angularVersion: '1.7.5' });
+  .info({ angularVersion: '1.8.2' });
 
 /**
  * @ngdoc filter
@@ -75210,13 +77129,13 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 216 */,
 /* 217 */,
 /* 218 */,
 /* 219 */,
 /* 220 */,
 /* 221 */,
-/* 222 */
+/* 222 */,
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75224,9 +77143,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 __webpack_require__(3);
 
-__webpack_require__(223);
+__webpack_require__(224);
 
-__webpack_require__(236);
+__webpack_require__(237);
 
 __webpack_require__(15);
 
@@ -75250,16 +77169,15 @@ __webpack_require__(110);
 
 __webpack_require__(104);
 
-__webpack_require__(266);
+__webpack_require__(273);
 
-__webpack_require__(139);
+__webpack_require__(140);
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
-__webpack_require__(224)
 __webpack_require__(225)
 __webpack_require__(226)
 __webpack_require__(227)
@@ -75271,16 +77189,17 @@ __webpack_require__(232)
 __webpack_require__(233)
 __webpack_require__(234)
 __webpack_require__(235)
+__webpack_require__(236)
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: transition.js v3.4.0
+ * Bootstrap: transition.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#transitions
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -75339,14 +77258,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: alert.js v3.4.0
+ * Bootstrap: alert.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#alerts
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -75362,7 +77281,7 @@ __webpack_require__(235)
     $(el).on('click', dismiss, this.close)
   }
 
-  Alert.VERSION = '3.4.0'
+  Alert.VERSION = '3.4.1'
 
   Alert.TRANSITION_DURATION = 150
 
@@ -75441,14 +77360,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: button.js v3.4.0
+ * Bootstrap: button.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#buttons
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -75465,7 +77384,7 @@ __webpack_require__(235)
     this.isLoading = false
   }
 
-  Button.VERSION  = '3.4.0'
+  Button.VERSION  = '3.4.1'
 
   Button.DEFAULTS = {
     loadingText: 'loading...'
@@ -75573,14 +77492,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: carousel.js v3.4.0
+ * Bootstrap: carousel.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#carousel
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -75608,7 +77527,7 @@ __webpack_require__(235)
       .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
   }
 
-  Carousel.VERSION  = '3.4.0'
+  Carousel.VERSION  = '3.4.1'
 
   Carousel.TRANSITION_DURATION = 600
 
@@ -75826,14 +77745,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: collapse.js v3.4.0
+ * Bootstrap: collapse.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#collapse
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -75861,7 +77780,7 @@ __webpack_require__(235)
     if (this.options.toggle) this.toggle()
   }
 
-  Collapse.VERSION  = '3.4.0'
+  Collapse.VERSION  = '3.4.1'
 
   Collapse.TRANSITION_DURATION = 350
 
@@ -76045,14 +77964,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: dropdown.js v3.4.0
+ * Bootstrap: dropdown.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#dropdowns
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -76069,7 +77988,7 @@ __webpack_require__(235)
     $(element).on('click.bs.dropdown', this.toggle)
   }
 
-  Dropdown.VERSION = '3.4.0'
+  Dropdown.VERSION = '3.4.1'
 
   function getParent($this) {
     var selector = $this.attr('data-target')
@@ -76079,7 +77998,7 @@ __webpack_require__(235)
       selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }
 
-    var $parent = selector && $(document).find(selector)
+    var $parent = selector !== '#' ? $(document).find(selector) : null
 
     return $parent && $parent.length ? $parent : $this.parent()
   }
@@ -76217,14 +78136,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: modal.js v3.4.0
+ * Bootstrap: modal.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#modals
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -76256,7 +78175,7 @@ __webpack_require__(235)
     }
   }
 
-  Modal.VERSION = '3.4.0'
+  Modal.VERSION = '3.4.1'
 
   Modal.TRANSITION_DURATION = 300
   Modal.BACKDROP_TRANSITION_DURATION = 150
@@ -76582,21 +78501,151 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: tooltip.js v3.4.0
+ * Bootstrap: tooltip.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
-
 +function ($) {
   'use strict';
+
+  var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn']
+
+  var uriAttrs = [
+    'background',
+    'cite',
+    'href',
+    'itemtype',
+    'longdesc',
+    'poster',
+    'src',
+    'xlink:href'
+  ]
+
+  var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i
+
+  var DefaultWhitelist = {
+    // Global attributes allowed on any supplied element below.
+    '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
+    a: ['target', 'href', 'title', 'rel'],
+    area: [],
+    b: [],
+    br: [],
+    col: [],
+    code: [],
+    div: [],
+    em: [],
+    hr: [],
+    h1: [],
+    h2: [],
+    h3: [],
+    h4: [],
+    h5: [],
+    h6: [],
+    i: [],
+    img: ['src', 'alt', 'title', 'width', 'height'],
+    li: [],
+    ol: [],
+    p: [],
+    pre: [],
+    s: [],
+    small: [],
+    span: [],
+    sub: [],
+    sup: [],
+    strong: [],
+    u: [],
+    ul: []
+  }
+
+  /**
+   * A pattern that recognizes a commonly useful subset of URLs that are safe.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi
+
+  /**
+   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
+
+  function allowedAttribute(attr, allowedAttributeList) {
+    var attrName = attr.nodeName.toLowerCase()
+
+    if ($.inArray(attrName, allowedAttributeList) !== -1) {
+      if ($.inArray(attrName, uriAttrs) !== -1) {
+        return Boolean(attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN))
+      }
+
+      return true
+    }
+
+    var regExp = $(allowedAttributeList).filter(function (index, value) {
+      return value instanceof RegExp
+    })
+
+    // Check if a regular expression validates the attribute.
+    for (var i = 0, l = regExp.length; i < l; i++) {
+      if (attrName.match(regExp[i])) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
+    if (unsafeHtml.length === 0) {
+      return unsafeHtml
+    }
+
+    if (sanitizeFn && typeof sanitizeFn === 'function') {
+      return sanitizeFn(unsafeHtml)
+    }
+
+    // IE 8 and below don't support createHTMLDocument
+    if (!document.implementation || !document.implementation.createHTMLDocument) {
+      return unsafeHtml
+    }
+
+    var createdDocument = document.implementation.createHTMLDocument('sanitization')
+    createdDocument.body.innerHTML = unsafeHtml
+
+    var whitelistKeys = $.map(whiteList, function (el, i) { return i })
+    var elements = $(createdDocument.body).find('*')
+
+    for (var i = 0, len = elements.length; i < len; i++) {
+      var el = elements[i]
+      var elName = el.nodeName.toLowerCase()
+
+      if ($.inArray(elName, whitelistKeys) === -1) {
+        el.parentNode.removeChild(el)
+
+        continue
+      }
+
+      var attributeList = $.map(el.attributes, function (el) { return el })
+      var whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || [])
+
+      for (var j = 0, len2 = attributeList.length; j < len2; j++) {
+        if (!allowedAttribute(attributeList[j], whitelistedAttributes)) {
+          el.removeAttribute(attributeList[j].nodeName)
+        }
+      }
+    }
+
+    return createdDocument.body.innerHTML
+  }
 
   // TOOLTIP PUBLIC CLASS DEFINITION
   // ===============================
@@ -76613,7 +78662,7 @@ __webpack_require__(235)
     this.init('tooltip', element, options)
   }
 
-  Tooltip.VERSION  = '3.4.0'
+  Tooltip.VERSION  = '3.4.1'
 
   Tooltip.TRANSITION_DURATION = 150
 
@@ -76630,7 +78679,10 @@ __webpack_require__(235)
     viewport: {
       selector: 'body',
       padding: 0
-    }
+    },
+    sanitize : true,
+    sanitizeFn : null,
+    whiteList : DefaultWhitelist
   }
 
   Tooltip.prototype.init = function (type, element, options) {
@@ -76671,13 +78723,25 @@ __webpack_require__(235)
   }
 
   Tooltip.prototype.getOptions = function (options) {
-    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+    var dataAttributes = this.$element.data()
+
+    for (var dataAttr in dataAttributes) {
+      if (dataAttributes.hasOwnProperty(dataAttr) && $.inArray(dataAttr, DISALLOWED_ATTRIBUTES) !== -1) {
+        delete dataAttributes[dataAttr]
+      }
+    }
+
+    options = $.extend({}, this.getDefaults(), dataAttributes, options)
 
     if (options.delay && typeof options.delay == 'number') {
       options.delay = {
         show: options.delay,
         hide: options.delay
       }
+    }
+
+    if (options.sanitize) {
+      options.template = sanitizeHtml(options.template, options.whiteList, options.sanitizeFn)
     }
 
     return options
@@ -76893,7 +78957,16 @@ __webpack_require__(235)
     var $tip  = this.tip()
     var title = this.getTitle()
 
-    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+    if (this.options.html) {
+      if (this.options.sanitize) {
+        title = sanitizeHtml(title, this.options.whiteList, this.options.sanitizeFn)
+      }
+
+      $tip.find('.tooltip-inner').html(title)
+    } else {
+      $tip.find('.tooltip-inner').text(title)
+    }
+
     $tip.removeClass('fade in top bottom left right')
   }
 
@@ -77074,6 +79147,9 @@ __webpack_require__(235)
     })
   }
 
+  Tooltip.prototype.sanitizeHtml = function (unsafeHtml) {
+    return sanitizeHtml(unsafeHtml, this.options.whiteList, this.options.sanitizeFn)
+  }
 
   // TOOLTIP PLUGIN DEFINITION
   // =========================
@@ -77109,14 +79185,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: popover.js v3.4.0
+ * Bootstrap: popover.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#popovers
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -77133,7 +79209,7 @@ __webpack_require__(235)
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
 
-  Popover.VERSION  = '3.4.0'
+  Popover.VERSION  = '3.4.1'
 
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
@@ -77159,10 +79235,25 @@ __webpack_require__(235)
     var title   = this.getTitle()
     var content = this.getContent()
 
-    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
-    ](content)
+    if (this.options.html) {
+      var typeContent = typeof content
+
+      if (this.options.sanitize) {
+        title = this.sanitizeHtml(title)
+
+        if (typeContent === 'string') {
+          content = this.sanitizeHtml(content)
+        }
+      }
+
+      $tip.find('.popover-title').html(title)
+      $tip.find('.popover-content').children().detach().end()[
+        typeContent === 'string' ? 'html' : 'append'
+      ](content)
+    } else {
+      $tip.find('.popover-title').text(title)
+      $tip.find('.popover-content').children().detach().end().text(content)
+    }
 
     $tip.removeClass('fade top bottom left right in')
 
@@ -77224,14 +79315,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: scrollspy.js v3.4.0
+ * Bootstrap: scrollspy.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#scrollspy
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -77257,7 +79348,7 @@ __webpack_require__(235)
     this.process()
   }
 
-  ScrollSpy.VERSION  = '3.4.0'
+  ScrollSpy.VERSION  = '3.4.1'
 
   ScrollSpy.DEFAULTS = {
     offset: 10
@@ -77403,14 +79494,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: tab.js v3.4.0
+ * Bootstrap: tab.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tabs
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -77427,7 +79518,7 @@ __webpack_require__(235)
     // jscs:enable requireDollarBeforejQueryAssignment
   }
 
-  Tab.VERSION = '3.4.0'
+  Tab.VERSION = '3.4.1'
 
   Tab.TRANSITION_DURATION = 150
 
@@ -77565,14 +79656,14 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: affix.js v3.4.0
+ * Bootstrap: affix.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#affix
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -77600,7 +79691,7 @@ __webpack_require__(235)
     this.checkPosition()
   }
 
-  Affix.VERSION  = '3.4.0'
+  Affix.VERSION  = '3.4.1'
 
   Affix.RESET    = 'affix affix-top affix-bottom'
 
@@ -77736,32 +79827,32 @@ __webpack_require__(235)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__(237);__webpack_require__(238);
+__webpack_require__(238);__webpack_require__(239);
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var _jquery=__webpack_require__(3);var _jquery2=_interopRequireDefault(_jquery);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var exists=_jquery2.default.fn.modal&&_jquery2.default.fn.modal.Constructor;function override(){var _setScrollBar=_jquery2.default.fn.modal.Constructor.prototype.setScrollbar;_jquery2.default.fn.modal.Constructor.prototype.setScrollbar=function(){_setScrollBar.apply(this);if(this.bodyIsOverflowing){(0,_jquery2.default)('.navbar-fixed-top').css('padding-right',this.scrollbarWidth);}};var _resetScrollbar=_jquery2.default.fn.modal.Constructor.prototype.resetScrollbar;_jquery2.default.fn.modal.Constructor.prototype.resetScrollbar=function(){_resetScrollbar.apply(this);(0,_jquery2.default)('.navbar-fixed-top').css('padding-right','');};}if(exists){override();}
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports) {
 
 /**
- * @license AngularJS v1.7.5
- * (c) 2010-2018 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.8.2
+ * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -78095,15 +80186,6 @@ function clearGeneratedClasses(element, options) {
   }
 }
 
-function blockTransitions(node, duration) {
-  // we use a negative delay value since it performs blocking
-  // yet it doesn't kill any existing transitions running on the
-  // same element which makes this safe for class-based animations
-  var value = duration ? '-' + duration + 's' : '';
-  applyInlineStyle(node, [TRANSITION_DELAY_PROP, value]);
-  return [TRANSITION_DELAY_PROP, value];
-}
-
 function blockKeyframeAnimations(node, applyBlock) {
   var value = applyBlock ? 'paused' : '';
   var key = ANIMATION_PROP + ANIMATION_PLAYSTATE_KEY;
@@ -78122,6 +80204,17 @@ function concatWithSpace(a,b) {
   if (!b) return a;
   return a + ' ' + b;
 }
+
+var helpers = {
+  blockTransitions: function(node, duration) {
+    // we use a negative delay value since it performs blocking
+    // yet it doesn't kill any existing transitions running on the
+    // same element which makes this safe for class-based animations
+    var value = duration ? '-' + duration + 's' : '';
+    applyInlineStyle(node, [TRANSITION_DELAY_PROP, value]);
+    return [TRANSITION_DELAY_PROP, value];
+  }
+};
 
 var $$rAFSchedulerFactory = ['$$rAF', function($$rAF) {
   var queue, cancelFn;
@@ -78831,7 +80924,7 @@ var $AnimateCssProvider = ['$animateProvider', /** @this */ function($animatePro
       // that if there is no transition defined then nothing will happen and this will also allow
       // other transitions to be stacked on top of each other without any chopping them out.
       if (isFirst && !options.skipBlocking) {
-        blockTransitions(node, SAFE_FAST_FORWARD_DURATION_VALUE);
+        helpers.blockTransitions(node, SAFE_FAST_FORWARD_DURATION_VALUE);
       }
 
       var timings = computeTimings(node, fullClassName, cacheKey, !isStructural);
@@ -78917,7 +81010,7 @@ var $AnimateCssProvider = ['$animateProvider', /** @this */ function($animatePro
       if (flags.blockTransition || flags.blockKeyframeAnimation) {
         applyBlocking(maxDuration);
       } else if (!options.skipBlocking) {
-        blockTransitions(node, false);
+        helpers.blockTransitions(node, false);
       }
 
       // TODO(matsko): for 1.5 change this code to have an animator object for better debugging
@@ -78970,7 +81063,7 @@ var $AnimateCssProvider = ['$animateProvider', /** @this */ function($animatePro
         }
 
         blockKeyframeAnimations(node, false);
-        blockTransitions(node, false);
+        helpers.blockTransitions(node, false);
 
         forEach(temporaryStyles, function(entry) {
           // There is only one way to remove inline style properties entirely from elements.
@@ -79021,7 +81114,7 @@ var $AnimateCssProvider = ['$animateProvider', /** @this */ function($animatePro
 
       function applyBlocking(duration) {
         if (flags.blockTransition) {
-          blockTransitions(node, duration);
+          helpers.blockTransitions(node, duration);
         }
 
         if (flags.blockKeyframeAnimation) {
@@ -81208,7 +83301,8 @@ var ngAnimateSwapDirective = ['$animate', function($animate) {
     restrict: 'A',
     transclude: 'element',
     terminal: true,
-    priority: 600, // we use 600 here to ensure that the directive is caught before others
+    priority: 550, // We use 550 here to ensure that the directive is caught before others,
+                   // but after `ngIf` (at priority 600).
     link: function(scope, $element, attrs, ctrl, $transclude) {
       var previousElement, previousScope;
       scope.$watchCollection(attrs.ngAnimateSwap || attrs['for'], function(value) {
@@ -82010,7 +84104,7 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
   isFunction  = angular.isFunction;
   isElement   = angular.isElement;
 })
-  .info({ angularVersion: '1.7.5' })
+  .info({ angularVersion: '1.8.2' })
   .directive('ngAnimateSwap', ngAnimateSwapDirective)
 
   .directive('ngAnimateChildren', $$AnimateChildrenDirective)
@@ -82031,7 +84125,19 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 
 
 /***/ }),
-/* 240 */
+/* 241 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 243 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82041,7 +84147,6 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_hof__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_coreservices__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__paramType__ = __webpack_require__(84);
-/** @publicapi @module params */ /** */
 
 
 
@@ -82071,13 +84176,9 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
  * ```
  */
 var ParamTypes = /** @class */ (function () {
-    /** @internalapi */
     function ParamTypes() {
-        /** @hidden */
         this.enqueue = true;
-        /** @hidden */
         this.typeQueue = [];
-        /** @internalapi */
         this.defaultTypes = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["H" /* pick */])(ParamTypes.prototype, [
             'hash',
             'string',
@@ -82093,7 +84194,6 @@ var ParamTypes = /** @class */ (function () {
         var makeType = function (definition, name) { return new __WEBPACK_IMPORTED_MODULE_4__paramType__["a" /* ParamType */](Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["r" /* extend */])({ name: name }, definition)); };
         this.types = Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["A" /* inherit */])(Object(__WEBPACK_IMPORTED_MODULE_0__common_common__["B" /* map */])(this.defaultTypes, makeType), {});
     }
-    /** @internalapi */
     ParamTypes.prototype.dispose = function () {
         this.types = {};
     };
@@ -82115,7 +84215,6 @@ var ParamTypes = /** @class */ (function () {
         }
         return this;
     };
-    /** @internalapi */
     ParamTypes.prototype._flushTypeQueue = function () {
         while (this.typeQueue.length) {
             var type = this.typeQueue.shift();
@@ -82127,7 +84226,6 @@ var ParamTypes = /** @class */ (function () {
     return ParamTypes;
 }());
 
-/** @hidden */
 function initDefaultTypes() {
     var makeDefaultType = function (def) {
         var valToString = function (val) { return (val != null ? val.toString() : val); };
@@ -82203,7 +84301,7 @@ initDefaultTypes();
 //# sourceMappingURL=paramTypes.js.map
 
 /***/ }),
-/* 241 */
+/* 244 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82211,23 +84309,27 @@ initDefaultTypes();
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__pathNode__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pathUtils__ = __webpack_require__(37);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__pathUtils__["a"]; });
-/** @internalapi @module path */ /** */
 
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 242 */
+/* 245 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 246 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return registerAddCoreResolvables; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return treeChangesCleanup; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transition_transition__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resolve__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resolve__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common__ = __webpack_require__(7);
-/** @internalapi @module hooks */ /** */
 
 
 
@@ -82251,9 +84353,7 @@ var isTransition = Object(__WEBPACK_IMPORTED_MODULE_3__common__["N" /* inArray *
 // This function removes resolves for '$transition$' and `Transition` from the treeChanges.
 // Do not use this on current transitions, only on old ones.
 var treeChangesCleanup = function (trans) {
-    var nodes = Object(__WEBPACK_IMPORTED_MODULE_3__common__["_45" /* values */])(trans.treeChanges())
-        .reduce(__WEBPACK_IMPORTED_MODULE_3__common__["_43" /* unnestR */], [])
-        .reduce(__WEBPACK_IMPORTED_MODULE_3__common__["_41" /* uniqR */], []);
+    var nodes = Object(__WEBPACK_IMPORTED_MODULE_3__common__["_45" /* values */])(trans.treeChanges()).reduce(__WEBPACK_IMPORTED_MODULE_3__common__["_43" /* unnestR */], []).reduce(__WEBPACK_IMPORTED_MODULE_3__common__["_41" /* uniqR */], []);
     // If the resolvable is a Transition, return a new resolvable with null data
     var replaceTransitionWithNull = function (r) {
         return isTransition(r.token) ? __WEBPACK_IMPORTED_MODULE_2__resolve__["b" /* Resolvable */].fromData(r.token, null) : r;
@@ -82265,7 +84365,7 @@ var treeChangesCleanup = function (trans) {
 //# sourceMappingURL=coreResolvables.js.map
 
 /***/ }),
-/* 243 */
+/* 247 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82273,7 +84373,6 @@ var treeChangesCleanup = function (trans) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_predicates__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_coreservices__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_targetState__ = __webpack_require__(31);
-/** @internalapi @module hooks */ /** */
 
 
 
@@ -82310,7 +84409,7 @@ var registerRedirectToHook = function (transitionService) {
 //# sourceMappingURL=redirectTo.js.map
 
 /***/ }),
-/* 244 */
+/* 248 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82322,8 +84421,6 @@ var registerRedirectToHook = function (transitionService) {
  *
  * The returned function invokes the (for instance) state.onEnter hook when the
  * state is being entered.
- *
- * @hidden
  */
 function makeEnterExitRetainHook(hookName) {
     return function (transition, state) {
@@ -82374,7 +84471,7 @@ var registerOnEnterHook = function (transitionService) {
 //# sourceMappingURL=onEnterExitRetain.js.map
 
 /***/ }),
-/* 245 */
+/* 249 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82385,7 +84482,6 @@ var registerOnEnterHook = function (transitionService) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__resolve_resolveContext__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_hof__ = __webpack_require__(6);
-/** @internalapi @module hooks */ /** */
 
 
 
@@ -82415,10 +84511,7 @@ var registerEagerResolvePath = function (transitionService) {
  * See [[StateDeclaration.resolve]]
  */
 var lazyResolveState = function (trans, state) {
-    return new __WEBPACK_IMPORTED_MODULE_1__resolve_resolveContext__["b" /* ResolveContext */](trans.treeChanges().to)
-        .subContext(state.$$state())
-        .resolvePath('LAZY', trans)
-        .then(__WEBPACK_IMPORTED_MODULE_0__common_common__["E" /* noop */]);
+    return new __WEBPACK_IMPORTED_MODULE_1__resolve_resolveContext__["b" /* ResolveContext */](trans.treeChanges().to).subContext(state.$$state()).resolvePath('LAZY', trans).then(__WEBPACK_IMPORTED_MODULE_0__common_common__["E" /* noop */]);
 };
 var registerLazyResolveState = function (transitionService) {
     return transitionService.onEnter({ entering: Object(__WEBPACK_IMPORTED_MODULE_2__common_hof__["p" /* val */])(true) }, lazyResolveState, { priority: RESOLVE_HOOK_PRIORITY });
@@ -82442,7 +84535,7 @@ var registerResolveRemaining = function (transitionService) {
 //# sourceMappingURL=resolve.js.map
 
 /***/ }),
-/* 246 */
+/* 250 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82450,7 +84543,6 @@ var registerResolveRemaining = function (transitionService) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return registerActivateViews; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_common__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_coreservices__ = __webpack_require__(10);
-/** @internalapi @module hooks */ /** */
 
 
 /**
@@ -82497,7 +84589,7 @@ var registerActivateViews = function (transitionService) {
 //# sourceMappingURL=views.js.map
 
 /***/ }),
-/* 247 */
+/* 251 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82538,7 +84630,7 @@ var registerUpdateGlobalState = function (transitionService) {
 //# sourceMappingURL=updateGlobals.js.map
 
 /***/ }),
-/* 248 */
+/* 252 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82568,14 +84660,13 @@ var registerUpdateUrl = function (transitionService) {
 //# sourceMappingURL=url.js.map
 
 /***/ }),
-/* 249 */
+/* 253 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return registerIgnoredTransitionHook; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_trace__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transition_rejectFactory__ = __webpack_require__(19);
-/** @internalapi @module hooks */ /** */
 
 
 /**
@@ -82606,12 +84697,11 @@ var registerIgnoredTransitionHook = function (transitionService) {
 //# sourceMappingURL=ignoredTransition.js.map
 
 /***/ }),
-/* 250 */
+/* 254 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return registerInvalidTransitionHook; });
-/** @internalapi @module hooks */ /** */
 /**
  * A [[TransitionHookFn]] that rejects the Transition if it is invalid
  *
@@ -82630,14 +84720,14 @@ var registerInvalidTransitionHook = function (transitionService) {
 //# sourceMappingURL=invalidTransition.js.map
 
 /***/ }),
-/* 251 */
+/* 255 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(20);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_0__interface__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_0__interface__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hookBuilder__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hookBuilder__ = __webpack_require__(120);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__hookBuilder__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hookRegistry__ = __webpack_require__(90);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__hookRegistry__["a"]; });
@@ -82650,7 +84740,7 @@ var registerInvalidTransitionHook = function (transitionService) {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__transition__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transitionHook__ = __webpack_require__(32);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_5__transitionHook__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__transitionEventType__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__transitionEventType__ = __webpack_require__(130);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__transitionEventType__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__transitionService__ = __webpack_require__(88);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_7__transitionService__["a"]; });
@@ -82665,119 +84755,8 @@ var registerInvalidTransitionHook = function (transitionService) {
  * - [[Transition]]
  * - [[HookFn]], [[TransitionHookFn]], [[TransitionStateHookFn]], [[HookMatchCriteria]], [[HookResult]]
  *
- * @preferred @publicapi @module transition
- */ /** */
-
-
-
-
-
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 252 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__urlMatcher__ = __webpack_require__(40);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__urlMatcher__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlMatcherFactory__ = __webpack_require__(121);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__urlMatcherFactory__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1__urlMatcherFactory__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__urlRouter__ = __webpack_require__(122);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__urlRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__urlRule__ = __webpack_require__(91);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__urlRule__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__urlRule__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__urlService__ = __webpack_require__(125);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_4__urlService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__urlRules__ = __webpack_require__(126);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_5__urlRules__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__urlConfig__ = __webpack_require__(127);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__urlConfig__["a"]; });
-
-
-
-
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 253 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__view__ = __webpack_require__(123);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__view__["a"]; });
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 254 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vanilla_index__ = __webpack_require__(255);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["b"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["c"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["d"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["e"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["f"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["g"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["h"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["i"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["j"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["k"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["l"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["m"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["n"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["o"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["p"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__["q"]; });
-/** @internalapi @module vanilla */ /** */
-
-//# sourceMappingURL=vanilla.js.map
-
-/***/ }),
-/* 255 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__q__ = __webpack_require__(130);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__q__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injector__ = __webpack_require__(131);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__injector__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseLocationService__ = __webpack_require__(41);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__baseLocationService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hashLocationService__ = __webpack_require__(132);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_3__hashLocationService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__memoryLocationService__ = __webpack_require__(133);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_4__memoryLocationService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pushStateLocationService__ = __webpack_require__(134);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_5__pushStateLocationService__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__memoryLocationConfig__ = __webpack_require__(135);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__memoryLocationConfig__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__browserLocationConfig__ = __webpack_require__(136);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_7__browserLocationConfig__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils__ = __webpack_require__(92);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__["b"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__["c"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__["d"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__["e"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__plugins__ = __webpack_require__(256);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_9__plugins__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_9__plugins__["b"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_9__plugins__["c"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_9__plugins__["d"]; });
-
-
+ * @packageDocumentation @preferred
+ */
 
 
 
@@ -82793,20 +84772,152 @@ var registerInvalidTransitionHook = function (transitionService) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(["UrlRules","UrlConfig","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__urlMatcher__ = __webpack_require__(40);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcher", function() { return __WEBPACK_IMPORTED_MODULE_1__urlMatcher__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__urlMatcherFactory__ = __webpack_require__(122);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParamFactory", function() { return __WEBPACK_IMPORTED_MODULE_2__urlMatcherFactory__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlMatcherFactory", function() { return __WEBPACK_IMPORTED_MODULE_2__urlMatcherFactory__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__urlRouter__ = __webpack_require__(123);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__urlRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__urlRule__ = __webpack_require__(91);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlRuleFactory", function() { return __WEBPACK_IMPORTED_MODULE_4__urlRule__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return __WEBPACK_IMPORTED_MODULE_4__urlRule__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__urlService__ = __webpack_require__(126);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return __WEBPACK_IMPORTED_MODULE_5__urlService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__urlRules__ = __webpack_require__(127);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return __WEBPACK_IMPORTED_MODULE_6__urlRules__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__urlConfig__ = __webpack_require__(128);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return __WEBPACK_IMPORTED_MODULE_7__urlConfig__["a"]; });
+
+
+
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 258 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__view__ = __webpack_require__(124);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return __WEBPACK_IMPORTED_MODULE_1__view__["a"]; });
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 260 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vanilla_index__ = __webpack_require__(261);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__vanilla_index__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__vanilla_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+//# sourceMappingURL=vanilla.js.map
+
+/***/ }),
+/* 261 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__interface__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__interface__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__interface__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__q__ = __webpack_require__(131);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$q", function() { return __WEBPACK_IMPORTED_MODULE_1__q__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__injector__ = __webpack_require__(132);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "$injector", function() { return __WEBPACK_IMPORTED_MODULE_2__injector__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__baseLocationService__ = __webpack_require__(41);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BaseLocationServices", function() { return __WEBPACK_IMPORTED_MODULE_3__baseLocationService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hashLocationService__ = __webpack_require__(133);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HashLocationService", function() { return __WEBPACK_IMPORTED_MODULE_4__hashLocationService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__memoryLocationService__ = __webpack_require__(134);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationService", function() { return __WEBPACK_IMPORTED_MODULE_5__memoryLocationService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pushStateLocationService__ = __webpack_require__(135);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PushStateLocationService", function() { return __WEBPACK_IMPORTED_MODULE_6__pushStateLocationService__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__memoryLocationConfig__ = __webpack_require__(136);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MemoryLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_7__memoryLocationConfig__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__browserLocationConfig__ = __webpack_require__(137);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BrowserLocationConfig", function() { return __WEBPACK_IMPORTED_MODULE_8__browserLocationConfig__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils__ = __webpack_require__(92);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "keyValsToObjectR", function() { return __WEBPACK_IMPORTED_MODULE_9__utils__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "getParams", function() { return __WEBPACK_IMPORTED_MODULE_9__utils__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return __WEBPACK_IMPORTED_MODULE_9__utils__["e"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "buildUrl", function() { return __WEBPACK_IMPORTED_MODULE_9__utils__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "locationPluginFactory", function() { return __WEBPACK_IMPORTED_MODULE_9__utils__["d"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__plugins__ = __webpack_require__(263);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "servicesPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__plugins__["d"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "hashLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__plugins__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "pushStateLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__plugins__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "memoryLocationPlugin", function() { return __WEBPACK_IMPORTED_MODULE_10__plugins__["b"]; });
+/**
+ * Naive, pure JS implementation of core ui-router services
+ *
+ * @packageDocumentation
+ */
+
+
+
+
+
+
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports) {
+
+//# sourceMappingURL=interface.js.map
+
+/***/ }),
+/* 263 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (immutable) */ __webpack_exports__["d"] = servicesPlugin;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hashLocationPlugin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return pushStateLocationPlugin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return memoryLocationPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browserLocationConfig__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hashLocationService__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browserLocationConfig__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hashLocationService__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pushStateLocationService__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__memoryLocationService__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__memoryLocationConfig__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__injector__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__q__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pushStateLocationService__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__memoryLocationService__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__memoryLocationConfig__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__injector__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__q__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_coreservices__ = __webpack_require__(10);
-/** @internalapi @module vanilla */ /** */
 
 
 
@@ -82830,20 +84941,11 @@ var memoryLocationPlugin = Object(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* lo
 //# sourceMappingURL=plugins.js.map
 
 /***/ }),
-/* 257 */
+/* 264 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UIRouterPluginBase; });
-/**
- * # Core classes and interfaces
- *
- * The classes and interfaces that are core to ui-router and do not belong
- * to a more specific subsystem (such as resolve).
- *
- * @preferred @publicapi @module core
- */ /** */
-/** @internalapi */
 var UIRouterPluginBase = /** @class */ (function () {
     function UIRouterPluginBase() {
     }
@@ -82854,7 +84956,7 @@ var UIRouterPluginBase = /** @class */ (function () {
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 258 */
+/* 265 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83028,9 +85130,7 @@ var TemplateFactory = /** @class */ (function () {
             // some-attr="::$resolve.someResolveName"
             return attrName + "='" + prefix + "$resolve." + resolveName + "'";
         };
-        var attrs = getComponentBindings(component)
-            .map(attributeTpl)
-            .join(' ');
+        var attrs = getComponentBindings(component).map(attributeTpl).join(' ');
         var kebobName = kebob(component);
         return "<" + kebobName + " " + attrs + "></" + kebobName + ">";
     };
@@ -83065,7 +85165,7 @@ var scopeBindings = function (bindingsObj) {
 //# sourceMappingURL=templateFactory.js.map
 
 /***/ }),
-/* 259 */
+/* 266 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83085,7 +85185,7 @@ var scopeBindings = function (bindingsObj) {
  * @internalapi
  */
 var getStateHookBuilder = function (hookName) {
-    return function stateHookBuilder(stateObject, parentFn) {
+    return function stateHookBuilder(stateObject) {
         var hook = stateObject[hookName];
         var pathname = hookName === 'onExit' ? 'from' : 'to';
         function decoratedNg1Hook(trans, state) {
@@ -83100,7 +85200,7 @@ var getStateHookBuilder = function (hookName) {
 //# sourceMappingURL=onEnterExitRetain.js.map
 
 /***/ }),
-/* 260 */
+/* 267 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83142,6 +85242,7 @@ var Ng1LocationServices = /** @class */ (function () {
             return x != null ? x.toString().replace(/(~~|~2F)/g, function (m) { return ({ '~~': '~', '~2F': '/' }[m]); }) : x;
         };
     };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     Ng1LocationServices.prototype.dispose = function () { };
     Ng1LocationServices.prototype.onChange = function (callback) {
         var _this = this;
@@ -83186,7 +85287,7 @@ var Ng1LocationServices = /** @class */ (function () {
 //# sourceMappingURL=locationServices.js.map
 
 /***/ }),
-/* 261 */
+/* 268 */
 /***/ (function(module, exports) {
 
 /**
@@ -83505,12 +85606,14 @@ var $urlMatcherFactoryProvider;
 //# sourceMappingURL=injectables.js.map
 
 /***/ }),
-/* 262 */
+/* 269 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_core__ = __webpack_require__(11);
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable prefer-const */
 /**
  * # Angular 1 Directives
  *
@@ -83523,11 +85626,10 @@ var $urlMatcherFactoryProvider;
 
 /** @hidden */
 function parseStateRef(ref) {
-    var parsed;
     var paramsOnly = ref.match(/^\s*({[^}]*})\s*$/);
     if (paramsOnly)
         ref = '(' + paramsOnly[1] + ')';
-    parsed = ref.replace(/\n/g, ' ').match(/^\s*([^(]*?)\s*(\((.*)\))?\s*$/);
+    var parsed = ref.replace(/\n/g, ' ').match(/^\s*([^(]*?)\s*(\((.*)\))?\s*$/);
     if (!parsed || parsed.length !== 4)
         throw new Error("Invalid state ref '" + ref + "'");
     return { state: parsed[1] || null, paramExpr: parsed[3] || null };
@@ -83560,7 +85662,7 @@ function getTypeInfo(el) {
 function clickHook(el, $state, $timeout, type, getDef) {
     return function (e) {
         var button = e.which || e.button, target = getDef();
-        if (!(button > 1 || e.ctrlKey || e.metaKey || e.shiftKey || el.attr('target'))) {
+        if (!(button > 1 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || el.attr('target'))) {
             // HACK: This is to allow ng-clicks to be processed before the transition is initiated:
             var transition_1 = $timeout(function () {
                 if (!el.attr('disabled')) {
@@ -83753,7 +85855,6 @@ uiSrefDirective = [
                 var type = getTypeInfo(element);
                 var active = uiSrefActive[1] || uiSrefActive[0];
                 var unlinkInfoFn = null;
-                var hookFn;
                 var rawDef = {};
                 var getDef = function () { return processedDef($state, element, rawDef); };
                 var ref = parseStateRef(attrs.uiSref);
@@ -83780,7 +85881,7 @@ uiSrefDirective = [
                 scope.$on('$destroy', $uiRouter.transitionService.onSuccess({}, update));
                 if (!type.clickable)
                     return;
-                hookFn = clickHook(element, $state, $timeout, type, getDef);
+                var hookFn = clickHook(element, $state, $timeout, type, getDef);
                 bindEvents(element, scope, hookFn, rawDef.uiStateOpts);
             },
         };
@@ -84114,9 +86215,7 @@ uiSrefActiveDirective = [
                                 .map(splitClasses)
                                 .reduce(__WEBPACK_IMPORTED_MODULE_1__uirouter_core__["unnestR"], []);
                         };
-                        var allClasses = getClasses(states)
-                            .concat(splitClasses(activeEqClass))
-                            .reduce(__WEBPACK_IMPORTED_MODULE_1__uirouter_core__["uniqR"], []);
+                        var allClasses = getClasses(states).concat(splitClasses(activeEqClass)).reduce(__WEBPACK_IMPORTED_MODULE_1__uirouter_core__["uniqR"], []);
                         var fuzzyClasses = getClasses(states.filter(function (x) { return $state.includes(x.state.name, x.params); }));
                         var exactlyMatchesAny = !!states.filter(function (x) { return $state.is(x.state.name, x.params); }).length;
                         var exactClasses = exactlyMatchesAny ? splitClasses(activeEqClass) : [];
@@ -84142,7 +86241,7 @@ __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */]
 //# sourceMappingURL=stateDirectives.js.map
 
 /***/ }),
-/* 263 */
+/* 270 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84187,14 +86286,12 @@ function $IncludedByStateFilter($state) {
     includesFilter.$stateful = true;
     return includesFilter;
 }
-__WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */]
-    .module('ui.router.state')
-    .filter('isState', $IsStateFilter)
-    .filter('includedByState', $IncludedByStateFilter);
+__WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.state').filter('isState', $IsStateFilter).filter('includedByState', $IncludedByStateFilter);
+
 //# sourceMappingURL=stateFilters.js.map
 
 /***/ }),
-/* 264 */
+/* 271 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84334,6 +86431,7 @@ __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */]
  * ```
  */
 var uiView;
+// eslint-disable-next-line prefer-const
 uiView = [
     '$view',
     '$animate',
@@ -84341,7 +86439,7 @@ uiView = [
     '$interpolate',
     '$q',
     function $ViewDirective($view, $animate, $uiViewScroll, $interpolate, $q) {
-        function getRenderer(attrs, scope) {
+        function getRenderer() {
             return {
                 enter: function (element, target, cb) {
                     if (__WEBPACK_IMPORTED_MODULE_1__angular__["a" /* ng */].version.minor > 2) {
@@ -84376,8 +86474,8 @@ uiView = [
             transclude: 'element',
             compile: function (tElement, tAttrs, $transclude) {
                 return function (scope, $element, attrs) {
-                    var onloadExp = attrs['onload'] || '', autoScrollExp = attrs['autoscroll'], renderer = getRenderer(attrs, scope), inherited = $element.inheritedData('$uiView') || rootData, name = $interpolate(attrs['uiView'] || attrs['name'] || '')(scope) || '$default';
-                    var previousEl, currentEl, currentScope, viewConfig, unregister;
+                    var onloadExp = attrs['onload'] || '', autoScrollExp = attrs['autoscroll'], renderer = getRenderer(), inherited = $element.inheritedData('$uiView') || rootData, name = $interpolate(attrs['uiView'] || attrs['name'] || '')(scope) || '$default';
+                    var previousEl, currentEl, currentScope, viewConfig;
                     var activeUIView = {
                         $type: 'ng1',
                         id: directive.count++,
@@ -84406,7 +86504,7 @@ uiView = [
                     }
                     $element.data('$uiView', { $uiView: activeUIView });
                     updateView();
-                    unregister = $view.registerUIView(activeUIView);
+                    var unregister = $view.registerUIView(activeUIView);
                     scope.$on('$destroy', function () {
                         __WEBPACK_IMPORTED_MODULE_0__uirouter_core__["trace"].traceUIViewEvent('Destroying/Unregistering', activeUIView);
                         unregister();
@@ -84492,9 +86590,9 @@ uiView = [
         return directive;
     },
 ];
-$ViewDirectiveFill.$inject = ['$compile', '$controller', '$transitions', '$view', '$q', '$timeout'];
+$ViewDirectiveFill.$inject = ['$compile', '$controller', '$transitions', '$view', '$q'];
 /** @hidden */
-function $ViewDirectiveFill($compile, $controller, $transitions, $view, $q, $timeout) {
+function $ViewDirectiveFill($compile, $controller, $transitions, $view, $q) {
     var getControllerAs = Object(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["parse"])('viewDecl.controllerAs');
     var getResolveAs = Object(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["parse"])('viewDecl.resolveAs');
     return {
@@ -84563,7 +86661,8 @@ var _uiCanExitId = 0;
 /** @hidden TODO: move these callbacks to $view and/or `/hooks/components.ts` or something */
 function registerControllerCallbacks($q, $transitions, controllerInstance, $scope, cfg) {
     // Call $onInit() ASAP
-    if (Object(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["isFunction"])(controllerInstance.$onInit) && !(cfg.viewDecl.component && hasComponentImpl)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["isFunction"])(controllerInstance.$onInit) &&
+        !((cfg.viewDecl.component || cfg.viewDecl.componentProvider) && hasComponentImpl)) {
         controllerInstance.$onInit();
     }
     var viewState = Object(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["tail"])(cfg.path).state.self;
@@ -84581,14 +86680,8 @@ function registerControllerCallbacks($q, $transitions, controllerInstance, $scop
             var toParams = $transition$.params('to');
             var fromParams = $transition$.params('from');
             var getNodeSchema = function (node) { return node.paramSchema; };
-            var toSchema = $transition$
-                .treeChanges('to')
-                .map(getNodeSchema)
-                .reduce(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["unnestR"], []);
-            var fromSchema = $transition$
-                .treeChanges('from')
-                .map(getNodeSchema)
-                .reduce(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["unnestR"], []);
+            var toSchema = $transition$.treeChanges('to').map(getNodeSchema).reduce(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["unnestR"], []);
+            var fromSchema = $transition$.treeChanges('from').map(getNodeSchema).reduce(__WEBPACK_IMPORTED_MODULE_0__uirouter_core__["unnestR"], []);
             // Find the to params that have different values than the from params
             var changedToParams = toSchema.filter(function (param) {
                 var idx = fromSchema.indexOf(param);
@@ -84631,7 +86724,7 @@ __WEBPACK_IMPORTED_MODULE_1__angular__["a" /* ng */].module('ui.router.state').d
 //# sourceMappingURL=viewDirective.js.map
 
 /***/ }),
-/* 265 */
+/* 272 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84663,12 +86756,12 @@ __WEBPACK_IMPORTED_MODULE_0__angular__["a" /* ng */].module('ui.router.state').p
 //# sourceMappingURL=viewScroll.js.map
 
 /***/ }),
-/* 266 */
+/* 273 */
 /***/ (function(module, exports) {
 
 /**
- * @license AngularJS v1.7.5
- * (c) 2010-2018 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.8.2
+ * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {
@@ -85619,7 +87712,7 @@ angular.mock.TzDate.prototype = Date.prototype;
  * You need to require the `ngAnimateMock` module in your test suite for instance `beforeEach(module('ngAnimateMock'))`
  */
 angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
-  .info({ angularVersion: '1.7.5' })
+  .info({ angularVersion: '1.8.2' })
 
   .config(['$provide', function($provide) {
 
@@ -86341,12 +88434,12 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
 
   /**
    * @ngdoc method
-   * @name  $httpBackend#matchLatestDefinition
+   * @name  $httpBackend#matchLatestDefinitionEnabled
    * @description
    * This method can be used to change which mocked responses `$httpBackend` returns, when defining
    * them with {@link ngMock.$httpBackend#when $httpBackend.when()} (and shortcut methods).
    * By default, `$httpBackend` returns the first definition that matches. When setting
-   * `$http.matchLatestDefinition(true)`, it will use the last response that matches, i.e. the
+   * `$http.matchLatestDefinitionEnabled(true)`, it will use the last response that matches, i.e. the
    * one that was added last.
    *
    * ```js
@@ -86354,7 +88447,7 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
    * hb.when('GET', '/url1').respond(201, 'another', {});
    * hb('GET', '/url1'); // receives "content"
    *
-   * $http.matchLatestDefinition(true)
+   * $http.matchLatestDefinitionEnabled(true)
    * hb('GET', '/url1'); // receives "another"
    *
    * hb.when('GET', '/url1').respond(201, 'onemore', {});
@@ -86363,7 +88456,7 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
    *
    * This is useful if a you have a default response that is overriden inside specific tests.
    *
-   * Note that different from config methods on providers, `matchLatestDefinition()` can be changed
+   * Note that different from config methods on providers, `matchLatestDefinitionEnabled()` can be changed
    * even when the application is already running.
    *
    * @param  {Boolean=} value value to set, either `true` or `false`. Default is `false`.
@@ -86372,7 +88465,7 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
    *                                as a getter
    */
   $httpBackend.matchLatestDefinitionEnabled = function(value) {
-    if (isDefined(value)) {
+    if (angular.isDefined(value)) {
       matchLatestDefinition = value;
       return this;
     } else {
@@ -87337,7 +89430,7 @@ angular.module('ngMock', ['ng']).provider({
   $provide.decorator('$rootScope', angular.mock.$RootScopeDecorator);
   $provide.decorator('$controller', createControllerDecorator($compileProvider));
   $provide.decorator('$httpBackend', angular.mock.$httpBackendDecorator);
-}]).info({ angularVersion: '1.7.5' });
+}]).info({ angularVersion: '1.8.2' });
 
 /**
  * @ngdoc module
@@ -87352,7 +89445,7 @@ angular.module('ngMock', ['ng']).provider({
  */
 angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
   $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-}]).info({ angularVersion: '1.7.5' });
+}]).info({ angularVersion: '1.8.2' });
 
 /**
  * @ngdoc service
@@ -87641,13 +89734,13 @@ angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
  */
 /**
  * @ngdoc method
- * @name  $httpBackend#matchLatestDefinition
+ * @name  $httpBackend#matchLatestDefinitionEnabled
  * @module ngMockE2E
  * @description
  * This method can be used to change which mocked responses `$httpBackend` returns, when defining
  * them with {@link ngMock.$httpBackend#when $httpBackend.when()} (and shortcut methods).
  * By default, `$httpBackend` returns the first definition that matches. When setting
- * `$http.matchLatestDefinition(true)`, it will use the last response that matches, i.e. the
+ * `$http.matchLatestDefinitionEnabled(true)`, it will use the last response that matches, i.e. the
  * one that was added last.
  *
  * ```js
@@ -87655,7 +89748,7 @@ angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
  * hb.when('GET', '/url1').respond(201, 'another', {});
  * hb('GET', '/url1'); // receives "content"
  *
- * $http.matchLatestDefinition(true)
+ * $http.matchLatestDefinitionEnabled(true)
  * hb('GET', '/url1'); // receives "another"
  *
  * hb.when('GET', '/url1').respond(201, 'onemore', {});
@@ -87664,7 +89757,7 @@ angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
  *
  * This is useful if a you have a default response that is overriden inside specific tests.
  *
- * Note that different from config methods on providers, `matchLatestDefinition()` can be changed
+ * Note that different from config methods on providers, `matchLatestDefinitionEnabled()` can be changed
  * even when the application is already running.
  *
  * @param  {Boolean=} value value to set, either `true` or `false`. Default is `false`.
@@ -88426,7 +90519,7 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
 
 
 /***/ }),
-/* 267 */
+/* 274 */
 /***/ (function(module, exports) {
 
 /*!
@@ -89206,13 +91299,6 @@ angular.module('ui.mask', [])
 }());
 
 /***/ }),
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
 /* 275 */,
 /* 276 */,
 /* 277 */,
@@ -89247,7 +91333,14 @@ angular.module('ui.mask', [])
 /* 306 */,
 /* 307 */,
 /* 308 */,
-/* 309 */
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */
 /***/ (function(module, exports) {
 
 /*
@@ -89329,7 +91422,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 310 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -89385,7 +91478,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(171);
+var	fixUrls = __webpack_require__(172);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -89701,7 +91794,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 311 */
+/* 318 */
 /***/ (function(module, exports) {
 
 module.exports = function escape(url) {
