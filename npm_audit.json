@@ -1,0 +1,4353 @@
+{
+  "actions": [
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 534,
+          "path": "metalsmith-markdown>debug",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 812,
+          "path": "metalsmith-markdown>marked",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "metalsmith-markdown",
+      "target": "1.3.0"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 598,
+          "path": "karma>log4js>loggly>request>tunnel-agent",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        },
+        {
+          "id": 786,
+          "path": "karma>expand-braces>braces",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 880,
+          "path": "karma>log4js>axios",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "karma>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1555,
+          "path": "karma>log4js>loggly>request>bl",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        },
+        {
+          "id": 1594,
+          "path": "karma>log4js>axios",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        },
+        {
+          "id": 1609,
+          "path": "karma>socket.io",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1658,
+          "path": "karma>log4js>mailgun-js>proxy-agent>pac-proxy-agent>pac-resolver>netmask",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        }
+      ],
+      "module": "karma",
+      "target": "6.3.2"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 788,
+          "path": "css-loader>cssnano>postcss-svgo>svgo>js-yaml",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 813,
+          "path": "css-loader>cssnano>postcss-svgo>svgo>js-yaml",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "css-loader",
+      "target": "5.2.1"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 812,
+          "path": "marked",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "marked",
+      "target": "2.0.3"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 826,
+          "path": "webpack-bundle-analyzer",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "webpack-bundle-analyzer",
+      "target": "4.4.1"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1084,
+          "path": "webpack>yargs>os-locale>mem",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1500,
+          "path": "webpack>yargs>yargs-parser",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "webpack",
+      "target": "5.32.0"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1084,
+          "path": "yargs>os-locale>mem",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1500,
+          "path": "yargs>yargs-parser",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "yargs",
+      "target": "16.2.0"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1164,
+          "path": "karma-coverage>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "karma-coverage>istanbul>handlebars>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1300,
+          "path": "karma-coverage>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1316,
+          "path": "karma-coverage>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1324,
+          "path": "karma-coverage>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1325,
+          "path": "karma-coverage>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "karma-coverage",
+      "target": "2.0.3"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1213,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-angular>compare-func>dot-prop",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1213,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>compare-func>dot-prop",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1213,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-jshint>compare-func>dot-prop",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "conventional-changelog-cli",
+      "target": "2.1.1"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1500,
+          "path": "webpack-dev-server>yargs>yargs-parser",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "webpack-dev-server",
+      "target": "3.11.2"
+    },
+    {
+      "action": "update",
+      "resolves": [
+        {
+          "id": 118,
+          "path": "babel-istanbul-loader>babel-istanbul>fileset>glob>minimatch",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "minimatch",
+      "target": "3.0.4",
+      "depth": 5
+    },
+    {
+      "action": "update",
+      "resolves": [
+        {
+          "id": 1164,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1300,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1316,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1324,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1325,
+          "path": "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "handlebars",
+      "target": "4.7.7",
+      "depth": 5
+    },
+    {
+      "action": "review",
+      "module": "minimatch",
+      "resolves": [
+        {
+          "id": 118,
+          "path": "babel-istanbul-loader>babel-istanbul>fileset>minimatch",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "brace-expansion",
+      "resolves": [
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>fs-vacuum>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>fstream>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>node-gyp>fstream>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>node-gyp>tar>fstream>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>tar>fstream>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>node-gyp>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>rimraf>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>node-gyp>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>init-package-json>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>init-package-json>read-package-json>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>read-installed>read-package-json>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>read-package-json>glob>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 338,
+          "path": "gitbook-cli>npmi>npm>node-gyp>minimatch>brace-expansion",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "tough-cookie",
+      "resolves": [
+        {
+          "id": 525,
+          "path": "gitbook-cli>npm>node-gyp>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 525,
+          "path": "gitbook-cli>npm>npm-registry-client>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 525,
+          "path": "gitbook-cli>npm>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 525,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 525,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 525,
+          "path": "gitbook-cli>npmi>npm>request>tough-cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "moment",
+      "resolves": [
+        {
+          "id": 532,
+          "path": "metalsmith-mock>moment",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "timespan",
+      "resolves": [
+        {
+          "id": 533,
+          "path": "karma>log4js>loggly>timespan",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "debug",
+      "resolves": [
+        {
+          "id": 534,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>http-proxy-agent>debug",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 534,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent>debug",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 534,
+          "path": "metalsmith-permalinks>debug",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "ssri",
+      "resolves": [
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>cacache>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>pacote>cacache>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>cacache>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>npm-registry-client>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>pacote>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 565,
+          "path": "gitbook-cli>npm>ssri",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "hoek",
+      "resolves": [
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>node-gyp>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>npm-registry-client>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>node-gyp>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>npm-registry-client>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>node-gyp>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>npm-registry-client>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>node-gyp>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>npm-registry-client>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npm>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>request>hawk>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "gitbook-cli>npmi>npm>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 566,
+          "path": "karma>log4js>loggly>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "less>request>hawk>boom>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "karma>log4js>loggly>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "less>request>hawk>cryptiles>boom>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "karma>log4js>loggly>request>hawk>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "less>request>hawk>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "karma>log4js>loggly>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 566,
+          "path": "less>request>hawk>sntp>hoek",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "is-my-json-valid",
+      "resolves": [
+        {
+          "id": 572,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>har-validator>is-my-json-valid",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 572,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>har-validator>is-my-json-valid",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 572,
+          "path": "gitbook-cli>npmi>npm>request>har-validator>is-my-json-valid",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "lodash",
+      "resolves": [
+        {
+          "id": 577,
+          "path": "gitbook-cli>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 577,
+          "path": "metalsmith-mock>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 782,
+          "path": "gitbook-cli>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 782,
+          "path": "metalsmith-mock>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1065,
+          "path": "gitbook-cli>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1065,
+          "path": "metalsmith-mock>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1523,
+          "path": "gitbook-cli>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1523,
+          "path": "metalsmith-mock>lodash",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "https-proxy-agent",
+      "resolves": [
+        {
+          "id": 593,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1184,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "tunnel-agent",
+      "resolves": [
+        {
+          "id": 598,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>tunnel-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 598,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>tunnel-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 598,
+          "path": "gitbook-cli>npmi>npm>request>tunnel-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "sshpk",
+      "resolves": [
+        {
+          "id": 606,
+          "path": "gitbook-cli>npm>node-gyp>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 606,
+          "path": "gitbook-cli>npm>npm-registry-client>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 606,
+          "path": "gitbook-cli>npm>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 606,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 606,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 606,
+          "path": "gitbook-cli>npmi>npm>request>http-signature>sshpk",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "http-proxy-agent",
+      "resolves": [
+        {
+          "id": 607,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>http-proxy-agent",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "deep-extend",
+      "resolves": [
+        {
+          "id": 612,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>deep-extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 612,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>deep-extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "stringstream",
+      "resolves": [
+        {
+          "id": 664,
+          "path": "gitbook-cli>npm>node-gyp>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 664,
+          "path": "gitbook-cli>npm>npm-registry-client>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 664,
+          "path": "gitbook-cli>npm>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 664,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 664,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 664,
+          "path": "gitbook-cli>npmi>npm>request>stringstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "braces",
+      "resolves": [
+        {
+          "id": 786,
+          "path": "babel-cli>chokidar>anymatch>micromatch>braces",
+          "dev": true,
+          "optional": true,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "tar",
+      "resolves": [
+        {
+          "id": 803,
+          "path": "gitbook-cli>npm>node-gyp>tar",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 803,
+          "path": "gitbook-cli>npm>tar",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 803,
+          "path": "gitbook-cli>npmi>npm>node-gyp>tar",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 803,
+          "path": "gitbook-cli>npmi>npm>tar",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "fstream",
+      "resolves": [
+        {
+          "id": 886,
+          "path": "gitbook-cli>npm>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npm>fstream-npm>fstream-ignore>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npm>node-gyp>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npm>node-gyp>tar>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npm>tar>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npmi>npm>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npmi>npm>node-gyp>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npmi>npm>node-gyp>tar>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 886,
+          "path": "gitbook-cli>npmi>npm>tar>fstream",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "extend",
+      "resolves": [
+        {
+          "id": 996,
+          "path": "gitbook-cli>npm>node-gyp>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 996,
+          "path": "gitbook-cli>npm>npm-registry-client>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 996,
+          "path": "gitbook-cli>npm>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 996,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 996,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 996,
+          "path": "gitbook-cli>npmi>npm>request>extend",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "handlebars",
+      "resolves": [
+        {
+          "id": 1164,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1164,
+          "path": "isparta-loader>isparta>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1300,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1300,
+          "path": "isparta-loader>isparta>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1316,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1316,
+          "path": "isparta-loader>isparta>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1324,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1324,
+          "path": "isparta-loader>isparta>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1325,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1325,
+          "path": "isparta-loader>isparta>istanbul>handlebars",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "minimist",
+      "resolves": [
+        {
+          "id": 1179,
+          "path": "babel-istanbul-loader>babel-istanbul>handlebars>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "isparta-loader>isparta>istanbul>handlebars>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>optimist>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>cacache>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>cacache>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>cacache>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>move-concurrently>copy-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>cacache>move-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>cacache>move-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>cacache>move-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>move-concurrently>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>cmd-shim>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>fstream-npm>fstream-ignore>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>node-gyp>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>node-gyp>tar>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>tar>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>node-gyp>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>pacote>tar-fs>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>cmd-shim>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>node-gyp>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>node-gyp>tar>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>tar>fstream>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-cli>npmi>npm>node-gyp>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1179,
+          "path": "gitbook-plugin-prism>mkdirp>minimist",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "dot-prop",
+      "resolves": [
+        {
+          "id": 1213,
+          "path": "gitbook-cli>npm>update-notifier>configstore>dot-prop",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "npm",
+      "resolves": [
+        {
+          "id": 1434,
+          "path": "gitbook-cli>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1434,
+          "path": "gitbook-cli>npmi>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1436,
+          "path": "gitbook-cli>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1436,
+          "path": "gitbook-cli>npmi>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1437,
+          "path": "gitbook-cli>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1437,
+          "path": "gitbook-cli>npmi>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1543,
+          "path": "gitbook-cli>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1543,
+          "path": "gitbook-cli>npmi>npm",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "cryptiles",
+      "resolves": [
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npm>node-gyp>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npm>npm-registry-client>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npm>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "gitbook-cli>npmi>npm>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": true,
+          "optional": false
+        },
+        {
+          "id": 1464,
+          "path": "karma>log4js>loggly>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        },
+        {
+          "id": 1464,
+          "path": "less>request>hawk>cryptiles",
+          "dev": true,
+          "bundled": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "qs",
+      "resolves": [
+        {
+          "id": 1469,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>qs",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1469,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>qs",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1469,
+          "path": "gitbook-cli>npmi>npm>request>qs",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "bl",
+      "resolves": [
+        {
+          "id": 1555,
+          "path": "gitbook-cli>npm>pacote>tar-fs>tar-stream>bl",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1555,
+          "path": "gitbook-cli>npm>pacote>tar-stream>bl",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1555,
+          "path": "gitbook-cli>npmi>npm>node-gyp>request>bl",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1555,
+          "path": "gitbook-cli>npmi>npm>npm-registry-client>request>bl",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1555,
+          "path": "gitbook-cli>npmi>npm>request>bl",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "npm-user-validate",
+      "resolves": [
+        {
+          "id": 1572,
+          "path": "gitbook-cli>npm>npm-user-validate",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1572,
+          "path": "gitbook-cli>npmi>npm>npm-user-validate",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "ini",
+      "resolves": [
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npm>config-chain>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npm>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npmi>npm>config-chain>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1589,
+          "path": "gitbook-cli>npmi>npm>ini",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "y18n",
+      "resolves": [
+        {
+          "id": 1654,
+          "path": "gitbook-cli>npm>cacache>y18n",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1654,
+          "path": "gitbook-cli>npm>pacote>cacache>y18n",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        },
+        {
+          "id": 1654,
+          "path": "gitbook-cli>npm>pacote>make-fetch-happen>cacache>y18n",
+          "dev": true,
+          "optional": false,
+          "bundled": true
+        }
+      ]
+    }
+  ],
+  "advisories": {
+    "118": {
+      "findings": [
+        {
+          "version": "2.0.10",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>fileset>glob>minimatch",
+            "babel-istanbul-loader>babel-istanbul>fileset>minimatch"
+          ]
+        }
+      ],
+      "id": 118,
+      "created": "2016-05-25T16:37:20.000Z",
+      "updated": "2018-03-01T21:58:01.072Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Nick Starke"
+      },
+      "reported_by": {
+        "name": "Nick Starke"
+      },
+      "module_name": "minimatch",
+      "cves": [
+        "CVE-2016-10540"
+      ],
+      "vulnerable_versions": "<=3.0.1",
+      "patched_versions": ">=3.0.2",
+      "overview": "Affected versions of `minimatch` are vulnerable to regular expression denial of service attacks when user input is passed into the `pattern` argument of `minimatch(path, pattern)`.\n\n\n## Proof of Concept\n```\nvar minimatch = require(“minimatch”);\n\n// utility function for generating long strings\nvar genstr = function (len, chr) {\n  var result = “”;\n  for (i=0; i<=len; i++) {\n    result = result + chr;\n  }\n  return result;\n}\n\nvar exploit = “[!” + genstr(1000000, “\\\\”) + “A”;\n\n// minimatch exploit.\nconsole.log(“starting minimatch”);\nminimatch(“foo”, exploit);\nconsole.log(“finishing minimatch”);\n```",
+      "recommendation": "Update to version 3.0.2 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Multi.Library",
+        "exploitability": 4,
+        "affected_components": "Internal::Code::Function::minimatch({type:'args', key:0, vector:{type:'string'}})"
+      },
+      "url": "https://npmjs.com/advisories/118"
+    },
+    "338": {
+      "findings": [
+        {
+          "version": "1.1.6",
+          "paths": [
+            "gitbook-cli>npmi>npm>fs-vacuum>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>fstream>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>node-gyp>fstream>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>node-gyp>tar>fstream>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>tar>fstream>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>node-gyp>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>rimraf>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>node-gyp>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>init-package-json>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>init-package-json>read-package-json>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>read-installed>read-package-json>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>read-package-json>glob>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>minimatch>brace-expansion",
+            "gitbook-cli>npmi>npm>node-gyp>minimatch>brace-expansion"
+          ]
+        }
+      ],
+      "id": 338,
+      "created": "2017-04-25T18:07:05.988Z",
+      "updated": "2018-12-07T16:52:01.286Z",
+      "deleted": null,
+      "title": "ReDoS",
+      "found_by": {
+        "name": "myvyang"
+      },
+      "reported_by": {
+        "name": "myvyang"
+      },
+      "module_name": "brace-expansion",
+      "cves": [
+        "CVE-2017-16032"
+      ],
+      "vulnerable_versions": "<=1.1.6",
+      "patched_versions": ">=1.1.7",
+      "overview": "Affected versions of `brace-expansion` are vulnerable to a regular expression denial of service condition.\n\n## Proof of Concept\n\n```\nvar expand = require('brace-expansion');\nexpand('{,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\\n}');\n```",
+      "recommendation": "Update to version 1.1.7 or later.",
+      "references": "- [Issue #33](https://github.com/juliangruber/brace-expansion/issues/33)\n- [PR #35](https://github.com/juliangruber/brace-expansion/pull/35)\n- [PR #35](https://github.com/juliangruber/brace-expansion/pull/35/commits/b13381281cead487cbdbfd6a69fb097ea5e456c3)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Multi.Library",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/338"
+    },
+    "525": {
+      "findings": [
+        {
+          "version": "2.3.2",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>tough-cookie",
+            "gitbook-cli>npm>npm-registry-client>request>tough-cookie",
+            "gitbook-cli>npm>request>tough-cookie"
+          ]
+        },
+        {
+          "version": "2.3.1",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>tough-cookie",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>tough-cookie",
+            "gitbook-cli>npmi>npm>request>tough-cookie"
+          ]
+        }
+      ],
+      "id": 525,
+      "created": "2017-09-08T18:07:02.061Z",
+      "updated": "2019-06-24T14:57:19.055Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "tough-cookie",
+      "cves": [
+        "CVE-2017-15010"
+      ],
+      "vulnerable_versions": "<2.3.3",
+      "patched_versions": ">=2.3.3",
+      "overview": "Affected versions of `tough-cookie` are susceptible to a regular expression denial of service.\n\nThe amplification on this vulnerability is relatively low - it takes around 2 seconds for the engine to execute on a malicious input which is 50,000 characters in length.\n\nIf node was compiled using the `-DHTTP_MAX_HEADER_SIZE` however, the impact of the vulnerability can be significant, as the primary limitation for the vulnerability is the default max HTTP header length in node.",
+      "recommendation": "Update to version 2.3.3 or later.",
+      "references": "- [Issue #92](https://github.com/salesforce/tough-cookie/issues/92)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Network.Library",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/525"
+    },
+    "532": {
+      "findings": [
+        {
+          "version": "2.16.0",
+          "paths": [
+            "metalsmith-mock>moment"
+          ]
+        }
+      ],
+      "id": 532,
+      "created": "2017-09-21T20:40:00.889Z",
+      "updated": "2019-06-24T15:10:05.868Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "moment",
+      "cves": [],
+      "vulnerable_versions": "<2.19.3",
+      "patched_versions": ">=2.19.3",
+      "overview": "Affected versions of `moment` are vulnerable to a low severity regular expression denial of service when parsing dates as strings.",
+      "recommendation": "Update to version 2.19.3 or later.",
+      "references": "- [Issue #4163](https://github.com/moment/moment/issues/4163)\n- [PR #4326](https://github.com/moment/moment/pull/4326)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/532"
+    },
+    "533": {
+      "findings": [
+        {
+          "version": "2.3.0",
+          "paths": [
+            "karma>log4js>loggly>timespan"
+          ]
+        }
+      ],
+      "id": 533,
+      "created": "2017-09-21T20:44:30.777Z",
+      "updated": "2019-06-24T21:56:43.513Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "timespan",
+      "cves": [
+        "CVE-2017-16115"
+      ],
+      "vulnerable_versions": ">=0.0.0",
+      "patched_versions": "<0.0.0",
+      "overview": "Affected versions of `timespan` are vulnerable to a regular expression denial of service when parsing dates.\n\nThe amplification for this vulnerability is significant, with 50,000 characters resulting in the event loop being blocked for around 10 seconds.",
+      "recommendation": "No direct patch is available for this vulnerability.\n\nCurrently, the best available solution is to use a functionally equivalent alternative package.\n\nIt is also sufficient to ensure that user input is not being passed into `timespan`, or that the maximum length of such user input is drastically reduced. Limiting the input length to 150 characters should be sufficient in most cases.",
+      "references": "- [Issue #10](https://github.com/indexzero/TimeSpan.js/issues/10)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Multi.Library",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/533"
+    },
+    "534": {
+      "findings": [
+        {
+          "version": "2.6.8",
+          "paths": [
+            "gitbook-cli>npm>pacote>make-fetch-happen>http-proxy-agent>debug"
+          ]
+        },
+        {
+          "version": "2.6.8",
+          "paths": [
+            "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent>debug"
+          ]
+        },
+        {
+          "version": "0.7.4",
+          "paths": [
+            "metalsmith-markdown>debug"
+          ]
+        },
+        {
+          "version": "0.7.4",
+          "paths": [
+            "metalsmith-permalinks>debug"
+          ]
+        }
+      ],
+      "id": 534,
+      "created": "2017-09-25T18:55:55.956Z",
+      "updated": "2018-05-16T19:37:43.686Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "debug",
+      "cves": [
+        "CVE-2017-16137"
+      ],
+      "vulnerable_versions": "<= 2.6.8 || >= 3.0.0 <= 3.0.1",
+      "patched_versions": ">= 2.6.9 < 3.0.0 || >= 3.1.0",
+      "overview": "Affected versions of `debug` are vulnerable to regular expression denial of service when untrusted user input is passed into the `o` formatter. \n\nAs it takes 50,000 characters to block the event loop for 2 seconds, this issue is a low severity issue.",
+      "recommendation": "Version 2.x.x: Update to version 2.6.9 or later.\nVersion 3.x.x: Update to version 3.1.0 or later.\n",
+      "references": "- [Issue #501](https://github.com/visionmedia/debug/issues/501)\n- [PR #504](https://github.com/visionmedia/debug/pull/504)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/534"
+    },
+    "565": {
+      "findings": [
+        {
+          "version": "4.1.6",
+          "paths": [
+            "gitbook-cli>npm>cacache>ssri",
+            "gitbook-cli>npm>pacote>cacache>ssri",
+            "gitbook-cli>npm>pacote>make-fetch-happen>cacache>ssri",
+            "gitbook-cli>npm>npm-registry-client>ssri",
+            "gitbook-cli>npm>pacote>make-fetch-happen>ssri",
+            "gitbook-cli>npm>pacote>ssri",
+            "gitbook-cli>npm>ssri"
+          ]
+        }
+      ],
+      "id": 565,
+      "created": "2018-04-20T21:20:19.406Z",
+      "updated": "2019-08-13T17:17:29.913Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Jamie Davis"
+      },
+      "reported_by": {
+        "name": "Jamie Davis"
+      },
+      "module_name": "ssri",
+      "cves": [],
+      "vulnerable_versions": "<=5.2.1",
+      "patched_versions": ">=5.2.2",
+      "overview": "Version of `ssri` prior to 5.2.2 are vulnerable to regular expression denial of service (ReDoS) when using strict mode.",
+      "recommendation": "Update to version 5.2.2 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/565"
+    },
+    "566": {
+      "findings": [
+        {
+          "version": "2.16.3",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>hawk>boom>hoek",
+            "gitbook-cli>npm>npm-registry-client>request>hawk>boom>hoek",
+            "gitbook-cli>npm>request>hawk>boom>hoek",
+            "gitbook-cli>npm>node-gyp>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npm>npm-registry-client>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npm>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npm>node-gyp>request>hawk>hoek",
+            "gitbook-cli>npm>npm-registry-client>request>hawk>hoek",
+            "gitbook-cli>npm>request>hawk>hoek",
+            "gitbook-cli>npm>node-gyp>request>hawk>sntp>hoek",
+            "gitbook-cli>npm>npm-registry-client>request>hawk>sntp>hoek",
+            "gitbook-cli>npm>request>hawk>sntp>hoek"
+          ]
+        },
+        {
+          "version": "2.16.3",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>hawk>boom>hoek",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>boom>hoek",
+            "gitbook-cli>npmi>npm>request>hawk>boom>hoek",
+            "gitbook-cli>npmi>npm>node-gyp>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npmi>npm>request>hawk>cryptiles>boom>hoek",
+            "gitbook-cli>npmi>npm>node-gyp>request>hawk>hoek",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>hoek",
+            "gitbook-cli>npmi>npm>request>hawk>hoek",
+            "gitbook-cli>npmi>npm>node-gyp>request>hawk>sntp>hoek",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>sntp>hoek",
+            "gitbook-cli>npmi>npm>request>hawk>sntp>hoek"
+          ]
+        },
+        {
+          "version": "2.16.3",
+          "paths": [
+            "karma>log4js>loggly>request>hawk>boom>hoek",
+            "less>request>hawk>boom>hoek",
+            "karma>log4js>loggly>request>hawk>cryptiles>boom>hoek",
+            "less>request>hawk>cryptiles>boom>hoek",
+            "karma>log4js>loggly>request>hawk>hoek",
+            "less>request>hawk>hoek",
+            "karma>log4js>loggly>request>hawk>sntp>hoek",
+            "less>request>hawk>sntp>hoek"
+          ]
+        }
+      ],
+      "id": 566,
+      "created": "2018-04-20T21:25:58.421Z",
+      "updated": "2019-06-19T20:16:59.758Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "name": "HoLyVieR"
+      },
+      "reported_by": {
+        "name": "HoLyVieR"
+      },
+      "module_name": "hoek",
+      "cves": [
+        "CVE-2018-3728"
+      ],
+      "vulnerable_versions": "<= 4.2.0 || >= 5.0.0 < 5.0.3",
+      "patched_versions": "> 4.2.0 < 5.0.0 || >= 5.0.3",
+      "overview": "Versions of `hoek` prior to 4.2.1 and 5.0.3 are vulnerable to prototype pollution.\n\nThe `merge` function, and the `applyToDefaults` and `applyToDefaultsWithShallow` functions which leverage `merge` behind the scenes, are vulnerable to a prototype pollution attack when provided an _unvalidated_ payload created from a JSON string containing the `__proto__` property.\n\nThis can be demonstrated like so:\n\n```javascript\nvar Hoek = require('hoek');\nvar malicious_payload = '{\"__proto__\":{\"oops\":\"It works !\"}}';\n\nvar a = {};\nconsole.log(\"Before : \" + a.oops);\nHoek.merge({}, JSON.parse(malicious_payload));\nconsole.log(\"After : \" + a.oops);\n```\n\nThis type of attack can be used to overwrite existing properties causing a potential denial of service.",
+      "recommendation": "Update to version 4.2.1, 5.0.3 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/310439)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/566"
+    },
+    "572": {
+      "findings": [
+        {
+          "version": "2.13.1",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>har-validator>is-my-json-valid",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>har-validator>is-my-json-valid",
+            "gitbook-cli>npmi>npm>request>har-validator>is-my-json-valid"
+          ]
+        }
+      ],
+      "id": 572,
+      "created": "2018-04-20T21:45:29.766Z",
+      "updated": "2019-07-12T16:24:59.647Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Jamie Davis"
+      },
+      "reported_by": {
+        "name": "Jamie Davis"
+      },
+      "module_name": "is-my-json-valid",
+      "cves": [],
+      "vulnerable_versions": "<1.4.1 || >=2.0.0 <2.17.2",
+      "patched_versions": ">=1.4.1 <2.0.0 || >=2.17.2",
+      "overview": "Version of `is-my-json-valid` before 1.4.1 or 2.17.2 are vulnerable to regular expression denial of service (ReDoS) via the email validation function.",
+      "recommendation": "Update to version 1.4.1, 2.17.2 or later.",
+      "references": "- [GitHub PR #159](https://github.com/mafintosh/is-my-json-valid/pull/159)\n- [GitHub Commit #b3051b2](https://github.com/mafintosh/is-my-json-valid/commit/b3051b277f7caa08cd2edc6f74f50aeda65d2976)\n- [HackerOne Report](https://hackerone.com/reports/317548)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/572"
+    },
+    "577": {
+      "findings": [
+        {
+          "version": "4.17.4",
+          "paths": [
+            "gitbook-cli>lodash"
+          ]
+        },
+        {
+          "version": "4.16.6",
+          "paths": [
+            "metalsmith-mock>lodash"
+          ]
+        }
+      ],
+      "id": 577,
+      "created": "2018-04-24T14:27:02.796Z",
+      "updated": "2018-04-24T14:27:13.049Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "name": "Olivier Arteau (HoLyVieR)"
+      },
+      "reported_by": {
+        "name": "Olivier Arteau (HoLyVieR)"
+      },
+      "module_name": "lodash",
+      "cves": [
+        "CVE-2018-3721"
+      ],
+      "vulnerable_versions": "<4.17.5",
+      "patched_versions": ">=4.17.5",
+      "overview": "Versions of `lodash` before 4.17.5 are vulnerable to prototype pollution. \n\nThe vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `__proto__` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+      "recommendation": "Update to version 4.17.5 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/310443)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 1,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/577"
+    },
+    "593": {
+      "findings": [
+        {
+          "version": "2.0.0",
+          "paths": [
+            "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent"
+          ]
+        }
+      ],
+      "id": 593,
+      "created": "2018-04-24T15:54:57.432Z",
+      "updated": "2018-04-24T15:55:49.931Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "reported_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "module_name": "https-proxy-agent",
+      "cves": [],
+      "vulnerable_versions": "<=2.1.1",
+      "patched_versions": ">=2.2.0",
+      "overview": "Versions of `https-proxy-agent` before 2.2.0 are vulnerable to denial of service. This is due to unsanitized options (proxy.auth) being passed to `Buffer()`.",
+      "recommendation": "Update to version 2.2.0 or later.",
+      "references": "- [index.js Line 207](https://github.com/TooTallNate/node-https-proxy-agent/blob/2.1.1/index.js#L207)\n- [HackerOne Report](https://hackerone.com/reports/319532)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-20",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/593"
+    },
+    "598": {
+      "findings": [
+        {
+          "version": "0.4.3",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>tunnel-agent",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>tunnel-agent",
+            "gitbook-cli>npmi>npm>request>tunnel-agent"
+          ]
+        },
+        {
+          "version": "0.4.3",
+          "paths": [
+            "karma>log4js>loggly>request>tunnel-agent"
+          ]
+        }
+      ],
+      "id": 598,
+      "created": "2018-04-24T20:30:16.099Z",
+      "updated": "2018-04-24T20:31:15.816Z",
+      "deleted": null,
+      "title": "Memory Exposure",
+      "found_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "reported_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "module_name": "tunnel-agent",
+      "cves": [],
+      "vulnerable_versions": "<0.6.0",
+      "patched_versions": ">=0.6.0",
+      "overview": "Versions of `tunnel-agent` before 0.6.0 are vulnerable to memory exposure.\n\nThis is exploitable if user supplied input is provided to the auth value and is a number.\n\nProof-of-concept:\n```js\nrequire('request')({\n  method: 'GET',\n  uri: 'http://www.example.com',\n  tunnel: true,\n  proxy:{\n    protocol: 'http:',\n    host:'127.0.0.1',\n    port:8080,\n    auth:USERSUPPLIEDINPUT // number\n  }\n});\n```",
+      "recommendation": "Update to version 0.6.0 or later.",
+      "references": "- [GitHub Commit #9ca95ec](https://github.com/request/tunnel-agent/commit/9ca95ec7219daface8a6fc2674000653de0922c0)\n- [Proof of Concept](https://gist.github.com/ChALkeR/fd6b2c445834244e7d440a043f9d2ff4)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-20",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/598"
+    },
+    "606": {
+      "findings": [
+        {
+          "version": "1.13.1",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>http-signature>sshpk",
+            "gitbook-cli>npm>npm-registry-client>request>http-signature>sshpk",
+            "gitbook-cli>npm>request>http-signature>sshpk"
+          ]
+        },
+        {
+          "version": "1.9.2",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>http-signature>sshpk",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>http-signature>sshpk",
+            "gitbook-cli>npmi>npm>request>http-signature>sshpk"
+          ]
+        }
+      ],
+      "id": 606,
+      "created": "2018-04-24T22:25:08.333Z",
+      "updated": "2018-09-07T17:39:16.549Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "reported_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "module_name": "sshpk",
+      "cves": [
+        "CVE-2018-3737"
+      ],
+      "vulnerable_versions": "<1.13.2 || >=1.14.0 <1.14.1",
+      "patched_versions": ">=1.13.2 < 1.14.0 || >=1.14.1",
+      "overview": "Versions of `sshpk` before 1.13.2 or 1.14.1 are vulnerable to regular expression denial of service when parsing crafted invalid public keys.",
+      "recommendation": "Update to version 1.13.2, 1.14.1 or later.",
+      "references": "- https://github.com/joyent/node-sshpk/blob/v1.13.1/lib/formats/ssh.js#L17\n- [HackerOne Report](https://hackerone.com/reports/319593)\n- https://github.com/joyent/node-sshpk/commit/46065d38a5e6d1bccf86d3efb2fb83c14e3f9957",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/606"
+    },
+    "607": {
+      "findings": [
+        {
+          "version": "2.0.0",
+          "paths": [
+            "gitbook-cli>npm>pacote>make-fetch-happen>http-proxy-agent"
+          ]
+        }
+      ],
+      "id": 607,
+      "created": "2018-04-24T22:28:57.482Z",
+      "updated": "2018-04-24T22:28:57.482Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "reported_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "module_name": "http-proxy-agent",
+      "cves": [],
+      "vulnerable_versions": "<=2.0.0",
+      "patched_versions": ">=2.1.0",
+      "overview": "Versions of `http-proxy-agent` before 2.1.0 are vulnerable to denial of service and uninitialized memory leak when unsanitized options are passed to `Buffer`.",
+      "recommendation": "Update to version 2.1.0 or later.",
+      "references": "- https://github.com/TooTallNate/node-http-proxy-agent/blob/2.0.0/index.js#L80\n- [HackerOne Report](https://hackerone.com/reports/321631)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-20",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/607"
+    },
+    "612": {
+      "findings": [
+        {
+          "version": "0.4.2",
+          "paths": [
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>deep-extend"
+          ]
+        },
+        {
+          "version": "0.4.2",
+          "paths": [
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>deep-extend"
+          ]
+        }
+      ],
+      "id": 612,
+      "created": "2018-04-24T23:13:13.134Z",
+      "updated": "2018-05-08T01:46:15.050Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "name": "Olivier Arteau (HoLyVieR)"
+      },
+      "reported_by": {
+        "name": "Olivier Arteau (HoLyVieR)"
+      },
+      "module_name": "deep-extend",
+      "cves": [],
+      "vulnerable_versions": "<=0.5.0",
+      "patched_versions": ">=0.5.1",
+      "overview": "Versions of `deep-extend` before 0.5.1 are vulnerable to prototype pollution.",
+      "recommendation": "Update to version 0.5.1 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/311333)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 2,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/612"
+    },
+    "664": {
+      "findings": [
+        {
+          "version": "0.0.5",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>stringstream",
+            "gitbook-cli>npm>npm-registry-client>request>stringstream",
+            "gitbook-cli>npm>request>stringstream"
+          ]
+        },
+        {
+          "version": "0.0.5",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>stringstream",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>stringstream",
+            "gitbook-cli>npmi>npm>request>stringstream"
+          ]
+        }
+      ],
+      "id": 664,
+      "created": "2018-05-16T19:39:37.463Z",
+      "updated": "2018-05-22T15:03:12.999Z",
+      "deleted": null,
+      "title": "Out-of-bounds Read",
+      "found_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "reported_by": {
+        "name": "Сковорода Никита Андреевич"
+      },
+      "module_name": "stringstream",
+      "cves": [],
+      "vulnerable_versions": "<=0.0.5",
+      "patched_versions": ">=0.0.6",
+      "overview": "All versions of `stringstream` are vulnerable to out-of-bounds read as it allocates uninitialized Buffers when number is passed in input stream on Node.js 4.x and below.",
+      "recommendation": "No fix is currently available for this vulnerability. It is our recommendation to not install or use this module if user input is being passed in to `stringstream`.\n",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/321670)\n- https://github.com/mhart/StringStream/blob/v0.0.5/stringstream.js#L32",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-125",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 2,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/664"
+    },
+    "782": {
+      "findings": [
+        {
+          "version": "4.17.4",
+          "paths": [
+            "gitbook-cli>lodash"
+          ]
+        },
+        {
+          "version": "4.16.6",
+          "paths": [
+            "metalsmith-mock>lodash"
+          ]
+        }
+      ],
+      "id": 782,
+      "created": "2019-02-13T16:16:53.770Z",
+      "updated": "2019-06-27T14:01:44.172Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "asgerf"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "asgerf"
+      },
+      "module_name": "lodash",
+      "cves": [
+        "CVE-2018-16487"
+      ],
+      "vulnerable_versions": "<4.17.11",
+      "patched_versions": ">=4.17.11",
+      "overview": "Versions of `lodash` before 4.17.5 are vulnerable to prototype pollution. \n\nThe vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+      "recommendation": "Update to version 4.17.11 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/380873)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/782"
+    },
+    "786": {
+      "findings": [
+        {
+          "version": "1.8.5",
+          "paths": [
+            "babel-cli>chokidar>anymatch>micromatch>braces"
+          ]
+        },
+        {
+          "version": "0.1.5",
+          "paths": [
+            "karma>expand-braces>braces"
+          ]
+        }
+      ],
+      "id": 786,
+      "created": "2019-02-15T21:44:30.680Z",
+      "updated": "2019-04-02T18:18:29.356Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Santosh Rao"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Santosh Rao"
+      },
+      "module_name": "braces",
+      "cves": [],
+      "vulnerable_versions": "<2.3.1",
+      "patched_versions": ">=2.3.1",
+      "overview": "Versions of `braces` prior to 2.3.1 are vulnerable to Regular Expression Denial of Service (ReDoS). Untrusted input may cause catastrophic backtracking while matching regular expressions. This can cause the application to be unresponsive leading to Denial of Service.",
+      "recommendation": "Upgrade to version 2.3.1 or higher.",
+      "references": "- [GitHub Commit](https://github.com/micromatch/braces/commit/abdafb0cae1e0c00f184abbadc692f4eaa98f451)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-185",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/786"
+    },
+    "788": {
+      "findings": [
+        {
+          "version": "3.7.0",
+          "paths": [
+            "css-loader>cssnano>postcss-svgo>svgo>js-yaml"
+          ]
+        }
+      ],
+      "id": 788,
+      "created": "2019-03-18T21:29:08.514Z",
+      "updated": "2019-04-04T03:44:12.205Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "link": "https://sites.google.com/site/jensdietrich/",
+        "name": "Shawn Rasheed, Jens DIetrich"
+      },
+      "reported_by": {
+        "link": "https://conf.researchr.org/profile/shawnrasheed",
+        "name": "Shawn Rasheed"
+      },
+      "module_name": "js-yaml",
+      "cves": [],
+      "vulnerable_versions": "<3.13.0",
+      "patched_versions": ">=3.13.0",
+      "overview": "Versions of `js-yaml` prior to 3.13.0 are vulnerable to Denial of Service. By parsing a carefully-crafted YAML file, the node process stalls and may exhaust system resources leading to a Denial of Service.",
+      "recommendation": "Upgrade to version 3.13.0.",
+      "references": "",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 6,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/788"
+    },
+    "803": {
+      "findings": [
+        {
+          "version": "2.2.1",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>tar",
+            "gitbook-cli>npm>tar"
+          ]
+        },
+        {
+          "version": "2.2.1",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>tar",
+            "gitbook-cli>npmi>npm>tar"
+          ]
+        }
+      ],
+      "id": 803,
+      "created": "2019-04-04T03:31:56.572Z",
+      "updated": "2019-05-15T14:13:58.612Z",
+      "deleted": null,
+      "title": "Arbitrary File Overwrite",
+      "found_by": {
+        "link": "",
+        "name": "Max Justicz"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Max Justicz"
+      },
+      "module_name": "tar",
+      "cves": [],
+      "vulnerable_versions": "<2.2.2 || >=3.0.0 <4.4.2",
+      "patched_versions": ">=2.2.2 <3.0.0 || >=4.4.2",
+      "overview": "Versions of `tar` prior to 4.4.2 for 4.x and 2.2.2 for 2.x are vulnerable to Arbitrary File Overwrite. Extracting tarballs containing a hardlink to a file that already exists in the system, and a file that matches the hardlink will overwrite the system's file with the contents of the extracted file.",
+      "recommendation": "For tar 4.x, upgrade to version 4.4.2 or later.\nFor tar 2.x, upgrade to version 2.2.2 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/344595)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-59",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/803"
+    },
+    "812": {
+      "findings": [
+        {
+          "version": "0.3.19",
+          "paths": [
+            "marked",
+            "metalsmith-markdown>marked"
+          ]
+        }
+      ],
+      "id": 812,
+      "created": "2019-04-10T17:42:37.650Z",
+      "updated": "2019-04-10T17:42:37.650Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Anders Kaseorg"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anders Kaseorg"
+      },
+      "module_name": "marked",
+      "cves": [],
+      "vulnerable_versions": ">=0.3.14 <0.6.2",
+      "patched_versions": ">=0.6.2",
+      "overview": "Versions of `marked` prior to 0.6.2 and later than 0.3.14 are vulnerable to Regular Expression Denial of Service. Email addresses may be evaluated in quadratic time, allowing attackers to potentially crash the node process due to resource exhaustion.",
+      "recommendation": "Upgrade to version 0.6.2 or later.",
+      "references": "- [GitHub PR](https://github.com/markedjs/marked/pull/1460)\n- [Snyk Report](https://snyk.io/vuln/SNYK-JS-MARKED-174116)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/812"
+    },
+    "813": {
+      "findings": [
+        {
+          "version": "3.7.0",
+          "paths": [
+            "css-loader>cssnano>postcss-svgo>svgo>js-yaml"
+          ]
+        }
+      ],
+      "id": 813,
+      "created": "2019-04-10T19:02:51.064Z",
+      "updated": "2019-04-15T21:29:06.670Z",
+      "deleted": null,
+      "title": "Code Injection",
+      "found_by": {
+        "link": "",
+        "name": "Alex Kocharin"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Alex Kocharin"
+      },
+      "module_name": "js-yaml",
+      "cves": [],
+      "vulnerable_versions": "<3.13.1",
+      "patched_versions": ">=3.13.1",
+      "overview": "Versions of `js-yaml` prior to 3.13.1 are vulnerable to Code Injection. The `load()` function may execute arbitrary code injected through a malicious YAML file. Objects that have `toString` as key, JavaScript code as value and are used as explicit mapping keys allow attackers to execute the supplied code through the `load()` function. The `safeLoad()` function is unaffected.\n\nAn example payload is \n`{ toString: !<tag:yaml.org,2002:js/function> 'function (){return Date.now()}' } : 1` \nwhich returns the object \n{\n  \"1553107949161\": 1\n}",
+      "recommendation": "Upgrade to version 3.13.1.",
+      "references": "- [GitHub PR](https://github.com/nodeca/js-yaml/pull/480)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-94",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/813"
+    },
+    "826": {
+      "findings": [
+        {
+          "version": "2.13.1",
+          "paths": [
+            "webpack-bundle-analyzer"
+          ]
+        }
+      ],
+      "id": 826,
+      "created": "2019-04-19T22:21:35.087Z",
+      "updated": "2019-04-19T22:21:35.087Z",
+      "deleted": null,
+      "title": "Cross-Site Scripting",
+      "found_by": {
+        "link": "",
+        "name": "Yuriy Grunin"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Yuriy Grunin"
+      },
+      "module_name": "webpack-bundle-analyzer",
+      "cves": [],
+      "vulnerable_versions": "<3.3.2",
+      "patched_versions": ">=3.3.2",
+      "overview": "Versions of `webpack-bundle-analyzer` prior to 3.3.2 are vulnerable to Cross-Site Scripting. The package uses `JSON.stringify()` without properly escaping input which may lead to Cross-Site Scripting.",
+      "recommendation": "Upgrade to version 3.3.2 or later.",
+      "references": "- [GitHub PR](https://github.com/webpack-contrib/webpack-bundle-analyzer/pull/264)\n- [Snyk Report](https://snyk.io/vuln/SNYK-JS-WEBPACKBUNDLEANALYZER-174190)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-79",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/826"
+    },
+    "880": {
+      "findings": [
+        {
+          "version": "0.15.3",
+          "paths": [
+            "karma>log4js>axios"
+          ]
+        }
+      ],
+      "id": 880,
+      "created": "2019-05-06T19:14:45.155Z",
+      "updated": "2019-06-03T17:55:10.532Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "link": "https://nornagon.net/",
+        "name": "Jeremy Apthorp"
+      },
+      "reported_by": {
+        "link": "https://nornagon.net/",
+        "name": "Jeremy Apthorp"
+      },
+      "module_name": "axios",
+      "cves": [],
+      "vulnerable_versions": "<0.18.1",
+      "patched_versions": ">=0.18.1",
+      "overview": "Versions of `axios` prior to 0.18.1 are vulnerable to Denial of Service. If a request exceeds the `maxContentLength` property, the package prints an error but does not stop the request. This may cause high CPU usage and lead to Denial of Service.",
+      "recommendation": "Upgrade to 0.18.1 or later.",
+      "references": "- [Github Issue](https://github.com/axios/axios/issues/1098)\n- [Snyk Report](https://snyk.io/vuln/SNYK-JS-AXIOS-174505)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/880"
+    },
+    "886": {
+      "findings": [
+        {
+          "version": "1.0.11",
+          "paths": [
+            "gitbook-cli>npm>fstream",
+            "gitbook-cli>npm>fstream-npm>fstream-ignore>fstream",
+            "gitbook-cli>npm>node-gyp>fstream",
+            "gitbook-cli>npm>node-gyp>tar>fstream",
+            "gitbook-cli>npm>tar>fstream"
+          ]
+        },
+        {
+          "version": "1.0.10",
+          "paths": [
+            "gitbook-cli>npmi>npm>fstream",
+            "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream",
+            "gitbook-cli>npmi>npm>node-gyp>fstream",
+            "gitbook-cli>npmi>npm>node-gyp>tar>fstream",
+            "gitbook-cli>npmi>npm>tar>fstream"
+          ]
+        }
+      ],
+      "id": 886,
+      "created": "2019-05-15T14:22:26.820Z",
+      "updated": "2019-07-17T20:46:09.777Z",
+      "deleted": null,
+      "title": "Arbitrary File Overwrite",
+      "found_by": {
+        "link": "",
+        "name": "Max Justicz"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Max Justicz"
+      },
+      "module_name": "fstream",
+      "cves": [
+        "CVE-2019-13173"
+      ],
+      "vulnerable_versions": "<1.0.12",
+      "patched_versions": ">=1.0.12",
+      "overview": "Versions of `fstream` prior to 1.0.12 are vulnerable to Arbitrary File Overwrite. Extracting tarballs containing a hardlink to a file that already exists in the system and a file that matches the hardlink will overwrite the system's file with the contents of the extracted file. The `fstream.DirWriter()` function is vulnerable.",
+      "recommendation": "Upgrade to version 1.0.12 or later.",
+      "references": "- [GitHub Commit](https://github.com/npm/fstream/commit/6a77d2fa6e1462693cf8e46f930da96ec1b0bb22)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-59",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/886"
+    },
+    "996": {
+      "findings": [
+        {
+          "version": "3.0.1",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>extend",
+            "gitbook-cli>npm>npm-registry-client>request>extend",
+            "gitbook-cli>npm>request>extend"
+          ]
+        },
+        {
+          "version": "3.0.0",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>extend",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>extend",
+            "gitbook-cli>npmi>npm>request>extend"
+          ]
+        }
+      ],
+      "id": 996,
+      "created": "2019-06-19T00:18:20.635Z",
+      "updated": "2019-07-24T18:05:41.047Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "asgerf"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "asgerf"
+      },
+      "module_name": "extend",
+      "cves": [],
+      "vulnerable_versions": "<2.0.2 || >=3.0.0 <3.0.2",
+      "patched_versions": ">=2.0.2 <3.0.0 || >=3.0.2",
+      "overview": "Versions of `extend` prior to 3.0.2 (for 3.x) and 2.0.2 (for 2.x) are vulnerable to Prototype Pollution. The `extend()` function allows attackers to modify the prototype of Object causing the addition or modification of an existing property that will exist on all objects.\n\n",
+      "recommendation": "If you're using `extend` 3.x upgrade to 3.0.2 or later.\nIf you're using `extend` 2.x upgrade to 2.0.2 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/381185)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/996"
+    },
+    "1065": {
+      "findings": [
+        {
+          "version": "4.17.4",
+          "paths": [
+            "gitbook-cli>lodash"
+          ]
+        },
+        {
+          "version": "4.16.6",
+          "paths": [
+            "metalsmith-mock>lodash"
+          ]
+        }
+      ],
+      "id": 1065,
+      "created": "2019-07-15T17:22:56.990Z",
+      "updated": "2019-07-15T17:25:05.721Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Snyk Security Team"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Snyk Security Team"
+      },
+      "module_name": "lodash",
+      "cves": [
+        "CVE-2019-10744"
+      ],
+      "vulnerable_versions": "<4.17.12",
+      "patched_versions": ">=4.17.12",
+      "overview": "Versions of `lodash` before 4.17.12 are vulnerable to Prototype Pollution.  The function `defaultsDeep` allows a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+      "recommendation": "Update to version 4.17.12 or later.",
+      "references": "- [Snyk Advisory](https://snyk.io/vuln/SNYK-JS-LODASH-450202)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1065"
+    },
+    "1084": {
+      "findings": [
+        {
+          "version": "1.1.0",
+          "paths": [
+            "webpack>yargs>os-locale>mem",
+            "yargs>os-locale>mem"
+          ]
+        }
+      ],
+      "id": 1084,
+      "created": "2019-07-18T21:30:31.935Z",
+      "updated": "2019-11-19T23:31:37.349Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Juan Campa",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Juan Campa",
+        "email": ""
+      },
+      "module_name": "mem",
+      "cves": [],
+      "vulnerable_versions": "<4.0.0",
+      "patched_versions": ">=4.0.0",
+      "overview": "Versions of `mem` prior to 4.0.0 are vulnerable to Denial of Service (DoS).  The package fails to remove old values from the cache even after a value passes its `maxAge` property. This may allow attackers to exhaust the system's memory if they are able to abuse the application logging.",
+      "recommendation": "Upgrade to version 4.0.0 or later.",
+      "references": "- [Snyk Report](https://snyk.io/vuln/npm:mem:20180117)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 2,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1084"
+    },
+    "1164": {
+      "findings": [
+        {
+          "version": "4.0.14",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+            "isparta-loader>isparta>istanbul>handlebars",
+            "karma-coverage>istanbul>handlebars"
+          ]
+        }
+      ],
+      "id": 1164,
+      "created": "2019-09-16T15:14:43.509Z",
+      "updated": "2020-02-26T17:57:03.589Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "itszn",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "itszn",
+        "email": ""
+      },
+      "module_name": "handlebars",
+      "cves": [
+        "CVE-2019-19919"
+      ],
+      "vulnerable_versions": "<3.0.8 || >=4.0.0 <4.3.0",
+      "patched_versions": ">=3.0.8 <4.0.0 || >=4.3.0",
+      "overview": "Versions of `handlebars` prior to 3.0.8 or 4.3.0 are vulnerable to Prototype Pollution leading to Remote Code Execution. Templates may alter an Objects' `__proto__` and `__defineGetter__` properties, which may allow an attacker to execute arbitrary code through crafted payloads.",
+      "recommendation": "Upgrade to version 3.0.8, 4.3.0 or later.",
+      "references": "- [CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-19919)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 6,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1164"
+    },
+    "1179": {
+      "findings": [
+        {
+          "version": "0.0.10",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars>optimist>minimist",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars>optimist>minimist",
+            "isparta-loader>isparta>istanbul>handlebars>optimist>minimist",
+            "karma-coverage>istanbul>handlebars>optimist>minimist",
+            "gitbook-cli>optimist>minimist",
+            "karma>optimist>minimist"
+          ]
+        },
+        {
+          "version": "0.0.8",
+          "paths": [
+            "gitbook-cli>npm>cacache>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>cacache>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>make-fetch-happen>cacache>mkdirp>minimist",
+            "gitbook-cli>npm>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>make-fetch-happen>cacache>move-concurrently>copy-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>move-concurrently>copy-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>cacache>move-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>cacache>move-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>make-fetch-happen>cacache>move-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>move-concurrently>mkdirp>minimist",
+            "gitbook-cli>npm>cmd-shim>mkdirp>minimist",
+            "gitbook-cli>npm>fstream>mkdirp>minimist",
+            "gitbook-cli>npm>fstream-npm>fstream-ignore>fstream>mkdirp>minimist",
+            "gitbook-cli>npm>node-gyp>fstream>mkdirp>minimist",
+            "gitbook-cli>npm>node-gyp>tar>fstream>mkdirp>minimist",
+            "gitbook-cli>npm>tar>fstream>mkdirp>minimist",
+            "gitbook-cli>npm>mkdirp>minimist",
+            "gitbook-cli>npm>node-gyp>mkdirp>minimist",
+            "gitbook-cli>npm>pacote>tar-fs>mkdirp>minimist"
+          ]
+        },
+        {
+          "version": "1.2.0",
+          "paths": [
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>minimist"
+          ]
+        },
+        {
+          "version": "1.2.0",
+          "paths": [
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>minimist"
+          ]
+        },
+        {
+          "version": "0.0.8",
+          "paths": [
+            "gitbook-cli>npmi>npm>cmd-shim>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>fstream>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>fstream-npm>fstream-ignore>fstream>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>node-gyp>fstream>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>node-gyp>tar>fstream>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>tar>fstream>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>mkdirp>minimist",
+            "gitbook-cli>npmi>npm>node-gyp>mkdirp>minimist"
+          ]
+        },
+        {
+          "version": "0.0.8",
+          "paths": [
+            "gitbook-plugin-prism>mkdirp>minimist"
+          ]
+        }
+      ],
+      "id": 1179,
+      "created": "2019-09-23T15:01:43.049Z",
+      "updated": "2020-03-18T19:41:45.921Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "https://www.checkmarx.com/resources/blog/",
+        "name": "Checkmarx Research Team",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "https://www.checkmarx.com/resources/blog/",
+        "name": "Checkmarx Research Team",
+        "email": ""
+      },
+      "module_name": "minimist",
+      "cves": [],
+      "vulnerable_versions": "<0.2.1 || >=1.0.0 <1.2.3",
+      "patched_versions": ">=0.2.1 <1.0.0 || >=1.2.3",
+      "overview": "Affected versions of `minimist` are vulnerable to prototype pollution. Arguments are not properly sanitized, allowing an attacker to modify the prototype of `Object`, causing the addition or modification of an existing property that will exist on all objects.  \nParsing the argument `--__proto__.y=Polluted` adds a `y` property with value `Polluted` to all objects. The argument `--__proto__=Polluted` raises and uncaught error and crashes the application.  \nThis is exploitable if attackers have control over the arguments being passed to `minimist`.\n",
+      "recommendation": "Upgrade to versions 0.2.1, 1.2.3 or later.",
+      "references": "- [GitHub commit 1](https://github.com/substack/minimist/commit/4cf1354839cb972e38496d35e12f806eea92c11f#diff-a1e0ee62c91705696ddb71aa30ad4f95)\n- [GitHub commit 2](https://github.com/substack/minimist/commit/63e7ed05aa4b1889ec2f3b196426db4500cbda94)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 1,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1179"
+    },
+    "1184": {
+      "findings": [
+        {
+          "version": "2.0.0",
+          "paths": [
+            "gitbook-cli>npm>pacote>make-fetch-happen>https-proxy-agent"
+          ]
+        }
+      ],
+      "id": 1184,
+      "created": "2019-09-26T20:20:57.498Z",
+      "updated": "2019-10-22T14:33:42.791Z",
+      "deleted": null,
+      "title": "Machine-In-The-Middle",
+      "found_by": {
+        "link": "",
+        "name": "Kris Adler",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Kris Adler",
+        "email": ""
+      },
+      "module_name": "https-proxy-agent",
+      "cves": [],
+      "vulnerable_versions": "<2.2.3",
+      "patched_versions": ">=2.2.3",
+      "overview": "Versions of `https-proxy-agent` prior to 2.2.3 are vulnerable to Machine-In-The-Middle. The package fails to enforce TLS on the socket if the proxy server responds the to the request with a HTTP status different than 200. This allows an attacker with access to the proxy server to intercept unencrypted communications, which may include sensitive information such as credentials.",
+      "recommendation": "Upgrade to version 3.0.0 or 2.2.3.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/541502)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-300",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 8,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1184"
+    },
+    "1213": {
+      "findings": [
+        {
+          "version": "3.0.0",
+          "paths": [
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-angular>compare-func>dot-prop",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>compare-func>dot-prop",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-jshint>compare-func>dot-prop"
+          ]
+        },
+        {
+          "version": "4.1.1",
+          "paths": [
+            "gitbook-cli>npm>update-notifier>configstore>dot-prop"
+          ]
+        }
+      ],
+      "id": 1213,
+      "created": "2019-10-14T17:43:55.291Z",
+      "updated": "2020-08-17T14:06:09.214Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "module_name": "dot-prop",
+      "cves": [
+        "CVE-2020-8116"
+      ],
+      "vulnerable_versions": "<4.2.1 || >=5.0.0 <5.1.1",
+      "patched_versions": ">=4.2.1 <5.0.0 || >=5.1.1",
+      "overview": "Versions of `dot-prop` before 4.2.1 or 5.1.1 are vulnerable to prototype pollution. The function `set` does not restrict the modification of an Object's prototype, which may allow an attacker to add or modify an existing property that will exist on all objects.\n\n",
+      "recommendation": "Upgrade to version 4.2.1, 5.1.1 or later.",
+      "references": "- [GitHub advisory](https://github.com/advisories/GHSA-ff7x-qrg7-qggm)\n- [CVE](https://nvd.nist.gov/vuln/detail/CVE-2020-8116)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1213"
+    },
+    "1300": {
+      "findings": [
+        {
+          "version": "4.0.14",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+            "isparta-loader>isparta>istanbul>handlebars",
+            "karma-coverage>istanbul>handlebars"
+          ]
+        }
+      ],
+      "id": 1300,
+      "created": "2019-10-30T15:57:14.032Z",
+      "updated": "2020-02-24T16:20:25.230Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Nils Knappmeier",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Nils Knappmeier",
+        "email": ""
+      },
+      "module_name": "handlebars",
+      "cves": [],
+      "vulnerable_versions": ">=4.0.0 <4.4.5",
+      "patched_versions": ">=4.4.5",
+      "overview": "Affected versions of `handlebars` are vulnerable to Denial of Service. The package's parser may be forced into an endless loop while processing specially-crafted templates. This may allow attackers to exhaust system resources leading to Denial of Service.",
+      "recommendation": "Upgrade to version 4.4.5 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1300"
+    },
+    "1316": {
+      "findings": [
+        {
+          "version": "4.0.14",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+            "isparta-loader>isparta>istanbul>handlebars",
+            "karma-coverage>istanbul>handlebars"
+          ]
+        }
+      ],
+      "id": 1316,
+      "created": "2019-11-14T15:29:41.991Z",
+      "updated": "2020-02-26T17:53:41.428Z",
+      "deleted": null,
+      "title": "Arbitrary Code Execution",
+      "found_by": {
+        "link": "",
+        "name": "François Lajeunesse-Robert",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "François Lajeunesse-Robert",
+        "email": ""
+      },
+      "module_name": "handlebars",
+      "cves": [],
+      "vulnerable_versions": "<3.0.8 || >=4.0.0 <4.5.2",
+      "patched_versions": ">=3.0.8 <4.0.0 || >=4.5.2",
+      "overview": "Versions of `handlebars` prior to 3.0.8 or 4.5.2 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).\n\nThe following template can be used to demonstrate the vulnerability:  \n```{{#with \"constructor\"}}\n\t{{#with split as |a|}}\n\t\t{{pop (push \"alert('Vulnerable Handlebars JS');\")}}\n\t\t{{#with (concat (lookup join (slice 0 1)))}}\n\t\t\t{{#each (slice 2 3)}}\n\t\t\t\t{{#with (apply 0 a)}}\n\t\t\t\t\t{{.}}\n\t\t\t\t{{/with}}\n\t\t\t{{/each}}\n\t\t{{/with}}\n\t{{/with}}\n{{/with}}```",
+      "recommendation": "Upgrade to version 3.0.8, 4.5.2 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-79",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 6,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1316"
+    },
+    "1324": {
+      "findings": [
+        {
+          "version": "4.0.14",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+            "isparta-loader>isparta>istanbul>handlebars",
+            "karma-coverage>istanbul>handlebars"
+          ]
+        }
+      ],
+      "id": 1324,
+      "created": "2019-11-18T19:06:46.461Z",
+      "updated": "2020-02-26T17:51:49.573Z",
+      "deleted": null,
+      "title": "Arbitrary Code Execution",
+      "found_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "module_name": "handlebars",
+      "cves": [],
+      "vulnerable_versions": "<3.0.8 || >=4.0.0 <4.5.3",
+      "patched_versions": ">=3.0.8 <4.0.0 || >=4.5.3",
+      "overview": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It is due to an incomplete fix for a [previous issue](https://www.npmjs.com/advisories/1316). This vulnerability can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).",
+      "recommendation": "Upgrade to version 3.0.8, 4.5.3 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-79",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1324"
+    },
+    "1325": {
+      "findings": [
+        {
+          "version": "4.0.14",
+          "paths": [
+            "babel-istanbul-loader>babel-istanbul>handlebars",
+            "conventional-changelog-cli>conventional-changelog>conventional-changelog-core>conventional-changelog-writer>handlebars",
+            "isparta-loader>isparta>istanbul>handlebars",
+            "karma-coverage>istanbul>handlebars"
+          ]
+        }
+      ],
+      "id": 1325,
+      "created": "2019-11-18T19:42:01.445Z",
+      "updated": "2020-02-26T17:55:51.120Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Vladyslav Babkin",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Vladyslav Babkin",
+        "email": ""
+      },
+      "module_name": "handlebars",
+      "cves": [],
+      "vulnerable_versions": "<3.0.8 || >=4.0.0 <4.5.3",
+      "patched_versions": ">=3.0.8 <4.0.0 || >=4.5.3",
+      "overview": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to prototype pollution. It is possible to add or modify properties to the Object prototype through a malicious template. This may allow attackers to crash the application or execute Arbitrary Code in specific conditions.",
+      "recommendation": "Upgrade to version 3.0.8, 4.5.3 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1325"
+    },
+    "1434": {
+      "findings": [
+        {
+          "version": "5.1.0",
+          "paths": [
+            "gitbook-cli>npm"
+          ]
+        },
+        {
+          "version": "2.15.12",
+          "paths": [
+            "gitbook-cli>npmi>npm"
+          ]
+        }
+      ],
+      "id": 1434,
+      "created": "2019-12-11T20:44:48.336Z",
+      "updated": "2019-12-18T02:36:08.529Z",
+      "deleted": null,
+      "title": "Arbitrary File Write",
+      "found_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "module_name": "npm",
+      "cves": [],
+      "vulnerable_versions": "<6.13.3",
+      "patched_versions": ">=6.13.3",
+      "overview": "Versions of the npm CLI prior to 6.13.3 are vulnerable to an Arbitrary File Write. It fails to prevent access to folders outside of the intended node_modules folder through the bin field. A properly constructed entry in the package.json bin field would allow a package publisher to create files on a user's system when the package is installed. It is only possible to affect files that the user running `npm install` has access to and it is not possible to over write files that already exist on disk.\n\nThis behavior is still possible through install scripts. This vulnerability bypasses a user using the --ignore-scripts install option.",
+      "recommendation": "Upgrade to version 6.13.3 or later.",
+      "references": "- [npm blog post](https://blog.npmjs.org/post/189618601100/binary-planting-with-the-npm-cli)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-22",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1434"
+    },
+    "1436": {
+      "findings": [
+        {
+          "version": "5.1.0",
+          "paths": [
+            "gitbook-cli>npm"
+          ]
+        },
+        {
+          "version": "2.15.12",
+          "paths": [
+            "gitbook-cli>npmi>npm"
+          ]
+        }
+      ],
+      "id": 1436,
+      "created": "2019-12-11T20:56:33.472Z",
+      "updated": "2019-12-13T16:27:20.846Z",
+      "deleted": null,
+      "title": "Symlink reference outside of node_modules",
+      "found_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "module_name": "npm",
+      "cves": [],
+      "vulnerable_versions": "<6.13.3",
+      "patched_versions": ">=6.13.3",
+      "overview": "Versions of the npm CLI prior to 6.13.3 are vulnerable to a symlink reference outside of node_modules. It is possible for packages to create symlinks to files outside of the`node_modules` folder through the `bin` field upon installation. A properly constructed entry in the package.json bin field would allow a package publisher to create a symlink pointing to arbitrary files on a user’s system when the package is installed. Only files accessible by the user running the `npm install` are affected.  \n\nThis behavior is still possible through install scripts. This vulnerability bypasses a user using the --ignore-scripts install option.",
+      "recommendation": "Upgrade to version 6.13.3 or later.",
+      "references": "- [npm blog post](https://blog.npmjs.org/post/189618601100/binary-planting-with-the-npm-cli)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-552",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1436"
+    },
+    "1437": {
+      "findings": [
+        {
+          "version": "5.1.0",
+          "paths": [
+            "gitbook-cli>npm"
+          ]
+        },
+        {
+          "version": "2.15.12",
+          "paths": [
+            "gitbook-cli>npmi>npm"
+          ]
+        }
+      ],
+      "id": 1437,
+      "created": "2019-12-11T21:15:23.901Z",
+      "updated": "2019-12-13T16:26:11.872Z",
+      "deleted": null,
+      "title": "Global node_modules Binary Overwrite",
+      "found_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Daniel Ruf",
+        "email": ""
+      },
+      "module_name": "npm",
+      "cves": [],
+      "vulnerable_versions": "<6.13.4",
+      "patched_versions": ">=6.13.4",
+      "overview": "Versions of  the npm CLI prior to 6.13.4 are vulnerable to a Global node_modules Binary Overwrite. It fails to prevent existing globally-installed binaries to be overwritten by other package installations. \n\nFor example, if a package was installed globally and created a `serve` binary, any subsequent installs of packages that also create a `serve` binary would overwrite the first binary. This will not overwrite system binaries but only binaries put into the global node_modules directory.\n\nThis behavior is still allowed in local installations and also through install scripts. This vulnerability bypasses a user using the --ignore-scripts install option.",
+      "recommendation": "Upgrade to version 6.13.4 or later.",
+      "references": "- [npm blog post](https://blog.npmjs.org/post/189618601100/binary-planting-with-the-npm-cli)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-22",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1437"
+    },
+    "1464": {
+      "findings": [
+        {
+          "version": "2.0.5",
+          "paths": [
+            "gitbook-cli>npm>node-gyp>request>hawk>cryptiles",
+            "gitbook-cli>npm>npm-registry-client>request>hawk>cryptiles",
+            "gitbook-cli>npm>request>hawk>cryptiles"
+          ]
+        },
+        {
+          "version": "2.0.5",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>hawk>cryptiles",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>hawk>cryptiles",
+            "gitbook-cli>npmi>npm>request>hawk>cryptiles"
+          ]
+        },
+        {
+          "version": "2.0.5",
+          "paths": [
+            "karma>log4js>loggly>request>hawk>cryptiles",
+            "less>request>hawk>cryptiles"
+          ]
+        }
+      ],
+      "id": 1464,
+      "created": "2020-01-23T18:13:40.195Z",
+      "updated": "2020-01-30T20:36:38.722Z",
+      "deleted": null,
+      "title": "Insufficient Entropy",
+      "found_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "module_name": "cryptiles",
+      "cves": [
+        "CVE-2018-1000620"
+      ],
+      "vulnerable_versions": "<4.1.2",
+      "patched_versions": ">=4.1.2",
+      "overview": "Versions of `cryptiles` prior to 4.1.2 are vulnerable to Insufficient Entropy. The `randomDigits()` method does not provide sufficient entropy and its generates digits that are not evenly distributed.",
+      "recommendation": "Upgrade to version 4.1.2. The package is deprecated and has been moved to `@hapi/cryptiles` and it is strongly recommended to use the maintained package.",
+      "references": "- [GitHub PR](https://github.com/hapijs/cryptiles/issues/34)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-331",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1464"
+    },
+    "1469": {
+      "findings": [
+        {
+          "version": "6.2.1",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>qs",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>qs",
+            "gitbook-cli>npmi>npm>request>qs"
+          ]
+        }
+      ],
+      "id": 1469,
+      "created": "2020-02-10T19:09:50.604Z",
+      "updated": "2020-02-14T22:24:16.925Z",
+      "deleted": null,
+      "title": "Prototype Pollution Protection Bypass",
+      "found_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "module_name": "qs",
+      "cves": [
+        "CVE-2017-1000048"
+      ],
+      "vulnerable_versions": "<6.0.4 || >=6.1.0 <6.1.2 || >=6.2.0 <6.2.3 || >=6.3.0 <6.3.2",
+      "patched_versions": ">=6.0.4 <6.1.0 || >=6.1.2 <6.2.0 || >=6.2.3 <6.3.0 || >=6.3.2",
+      "overview": "Affected version of `qs` are vulnerable to Prototype Pollution because it is possible to bypass the protection. The `qs.parse` function fails to properly prevent an object's prototype to be altered when parsing arbitrary input. Input containing `[` or `]` may bypass the prototype pollution protection and alter the Object prototype. This allows attackers to override properties that will exist in all objects, which may lead to Denial of Service or Remote Code Execution in specific circumstances.",
+      "recommendation": "Upgrade to 6.0.4, 6.1.2, 6.2.3, 6.3.2 or later.",
+      "references": "- [GitHub Issue](https://github.com/ljharb/qs/issues/200)\n- [Snyk Report](https://snyk.io/vuln/npm:qs:20170213)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1469"
+    },
+    "1500": {
+      "findings": [
+        {
+          "version": "7.0.0",
+          "paths": [
+            "webpack>yargs>yargs-parser"
+          ]
+        },
+        {
+          "version": "4.2.1",
+          "paths": [
+            "webpack-dev-server>yargs>yargs-parser"
+          ]
+        },
+        {
+          "version": "8.1.0",
+          "paths": [
+            "yargs>yargs-parser"
+          ]
+        }
+      ],
+      "id": 1500,
+      "created": "2020-03-26T19:21:50.174Z",
+      "updated": "2020-05-01T01:05:15.020Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Snyk Security Team",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Snyk Security Team",
+        "email": ""
+      },
+      "module_name": "yargs-parser",
+      "cves": [],
+      "vulnerable_versions": "<13.1.2 || >=14.0.0 <15.0.1 || >=16.0.0 <18.1.2",
+      "patched_versions": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || >=18.1.2",
+      "overview": "Affected versions of `yargs-parser` are vulnerable to prototype pollution. Arguments are not properly sanitized, allowing an attacker to modify the prototype of `Object`, causing the addition or modification of an existing property that will exist on all objects.  \nParsing the argument `--foo.__proto__.bar baz'` adds a `bar` property with value `baz` to all objects. This is only exploitable if attackers have control over the arguments being passed to `yargs-parser`.\n",
+      "recommendation": "Upgrade to versions 13.1.2, 15.0.1, 18.1.1 or later.",
+      "references": "- [Snyk Report](https://snyk.io/vuln/SNYK-JS-YARGSPARSER-560381)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 1,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1500"
+    },
+    "1523": {
+      "findings": [
+        {
+          "version": "4.17.4",
+          "paths": [
+            "gitbook-cli>lodash"
+          ]
+        },
+        {
+          "version": "4.16.6",
+          "paths": [
+            "metalsmith-mock>lodash"
+          ]
+        }
+      ],
+      "id": 1523,
+      "created": "2020-05-20T01:36:49.357Z",
+      "updated": "2020-07-10T19:23:46.395Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "posix",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "posix",
+        "email": ""
+      },
+      "module_name": "lodash",
+      "cves": [
+        "CVE-2019-10744"
+      ],
+      "vulnerable_versions": "<4.17.19",
+      "patched_versions": ">=4.17.19",
+      "overview": "Versions of `lodash` prior to 4.17.19 are vulnerable to Prototype Pollution.  The function `zipObjectDeep` allows a malicious user to modify the prototype of `Object` if the property identifiers are user-supplied. Being affected by this issue requires zipping objects based on user-provided property arrays.  \n\nThis vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under specific circumstances.",
+      "recommendation": "Upgrade to version 4.17.19 or later.",
+      "references": "- [HackerOne Report](https://hackerone.com/reports/712065)\n- [GitHub Issue](https://github.com/lodash/lodash/issues/4744)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1523"
+    },
+    "1543": {
+      "findings": [
+        {
+          "version": "5.1.0",
+          "paths": [
+            "gitbook-cli>npm"
+          ]
+        },
+        {
+          "version": "2.15.12",
+          "paths": [
+            "gitbook-cli>npmi>npm"
+          ]
+        }
+      ],
+      "id": 1543,
+      "created": "2020-07-07T19:03:09.977Z",
+      "updated": "2020-07-07T19:06:00.551Z",
+      "deleted": null,
+      "title": "Sensitive Data Exposure",
+      "found_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Unknown",
+        "email": ""
+      },
+      "module_name": "npm",
+      "cves": [
+        "CVE-2020-15095"
+      ],
+      "vulnerable_versions": "<6.14.6",
+      "patched_versions": ">=6.14.6",
+      "overview": "Versions of the npm CLI prior to 6.14.6 are vulnerable to an information exposure vulnerability through log files. The CLI supports URLs like `<protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>`. The password value is not redacted and is printed to stdout and also to any generated log files.",
+      "recommendation": "Upgrade to version 6.14.6 or later.",
+      "references": "- [GitHub Advisory](https://github.com/npm/cli/security/advisories/GHSA-93f3-23rq-pjfp)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-532",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1543"
+    },
+    "1555": {
+      "findings": [
+        {
+          "version": "1.2.1",
+          "paths": [
+            "gitbook-cli>npm>pacote>tar-fs>tar-stream>bl",
+            "gitbook-cli>npm>pacote>tar-stream>bl"
+          ]
+        },
+        {
+          "version": "1.1.2",
+          "paths": [
+            "gitbook-cli>npmi>npm>node-gyp>request>bl",
+            "gitbook-cli>npmi>npm>npm-registry-client>request>bl",
+            "gitbook-cli>npmi>npm>request>bl"
+          ]
+        },
+        {
+          "version": "1.1.2",
+          "paths": [
+            "karma>log4js>loggly>request>bl"
+          ]
+        }
+      ],
+      "id": 1555,
+      "created": "2020-09-08T18:24:53.638Z",
+      "updated": "2020-09-08T19:15:40.690Z",
+      "deleted": null,
+      "title": "Remote Memory Exposure",
+      "found_by": {
+        "link": "",
+        "name": "chalker",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "chalker",
+        "email": ""
+      },
+      "module_name": "bl",
+      "cves": [],
+      "vulnerable_versions": "<1.2.3 || >2.0.0 < 2.2.1 || >=3.0.0 <3.0.1 || >= 4.0.0 <4.0.3",
+      "patched_versions": ">=1.2.3 <2.0.0 || >=2.2.1 <3.0.0 || >=3.0.1 <4.0.0 || >=4.0.3",
+      "overview": "A buffer over-read vulnerability exists in bl <4.0.3, <3.0.1 <2.2.1 and <1.2.3 which could allow an attacker to supply user input (even typed) that if it ends up in consume() argument and can become negative, the BufferList state can be corrupted, tricking it into exposing uninitialized memory via regular .slice() calls.",
+      "recommendation": "Upgrade to version 4.0.3, 3.0.1, 2.2.1 or 1.2.3.",
+      "references": "- https://github.com/advisories/GHSA-pp7h-53gx-mx7r\n- https://nvd.nist.gov/vuln/detail/CVE-2020-8244\n- https://github.com/rvagg/bl/commit/8a8c13c880e2bef519133ea43e0e9b78b5d0c91e\n- https://github.com/rvagg/bl/commit/d3e240e3b8ba4048d3c76ef5fb9dd1f8872d3190\n- https://github.com/rvagg/bl/commit/dacc4ac7d5fcd6201bcf26fbd886951be9537466\n- https://hackerone.com/reports/966347",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-126",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1555"
+    },
+    "1572": {
+      "findings": [
+        {
+          "version": "1.0.0",
+          "paths": [
+            "gitbook-cli>npm>npm-user-validate"
+          ]
+        },
+        {
+          "version": "0.1.5",
+          "paths": [
+            "gitbook-cli>npmi>npm>npm-user-validate"
+          ]
+        }
+      ],
+      "id": 1572,
+      "created": "2020-10-16T18:59:45.070Z",
+      "updated": "2020-10-16T19:01:38.728Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Yeting Li",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Yeting Li",
+        "email": ""
+      },
+      "module_name": "npm-user-validate",
+      "cves": [],
+      "vulnerable_versions": "< 1.0.1",
+      "patched_versions": ">=1.0.1",
+      "overview": "`npm-user-validate` before version `1.0.1` is vulnerable to a Regular Expression Denial of Service (REDos). The regex that validates user emails took exponentially longer to process long input strings beginning with `@` characters.\n\n#### Impact\nThe issue affects the `email` function. If you use this function to process arbitrary user input with no character limit the application may be susceptible to Denial of Service.\n\n#### Patches\nThe issue is patched in version 1.0.1 by improving the regular expression used and also enforcing a 254 character limit.\n\n#### Workarounds\nRestrict the character length to a reasonable degree before passing a value to `.email()`; Also, consider doing a more rigorous sanitizing/validation beforehand.",
+      "recommendation": "Upgrade to version 1.0.1 or later.",
+      "references": "- https://github.com/advisories/GHSA-xgh6-85xh-479p",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 2,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1572"
+    },
+    "1589": {
+      "findings": [
+        {
+          "version": "1.3.4",
+          "paths": [
+            "gitbook-cli>npm>config-chain>ini",
+            "gitbook-cli>npm>ini",
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-auth-token>rc>ini",
+            "gitbook-cli>npm>update-notifier>latest-version>package-json>registry-url>rc>ini"
+          ]
+        },
+        {
+          "version": "1.3.4",
+          "paths": [
+            "gitbook-cli>npmi>npm>config-chain>ini",
+            "gitbook-cli>npmi>npm>ini"
+          ]
+        }
+      ],
+      "id": 1589,
+      "created": "2020-12-09T22:25:48.568Z",
+      "updated": "2020-12-10T16:49:29.595Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Gur Shafriri",
+        "email": ""
+      },
+      "module_name": "ini",
+      "cves": [],
+      "vulnerable_versions": "<1.3.6",
+      "patched_versions": ">1.3.6",
+      "overview": "`ini` before version 1.3.6 has a Prototype Pollution vulnerability.\n\n### Impact\n\nIf an attacker submits a malicious INI file to an application that parses it with `ini.parse`, they will pollute the prototype on the application. This can be exploited further depending on the context.\n\n### Patches\n\nThis has been patched in 1.3.6\n\n### Steps to reproduce\n\npayload.ini\n```\n[__proto__]\npolluted = \"polluted\"\n```\n\npoc.js:\n```\nvar fs = require('fs')\nvar ini = require('ini')\n\nvar parsed = ini.parse(fs.readFileSync('./payload.ini', 'utf-8'))\nconsole.log(parsed)\nconsole.log(parsed.__proto__)\nconsole.log(polluted)\n```\n\n```\n> node poc.js\n{}\n{ polluted: 'polluted' }\n{ polluted: 'polluted' }\npolluted\n\n```",
+      "recommendation": "Upgrade to version 1.3.6 or later.",
+      "references": "- [Fix Commit](https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1)\n- [GitHub Advisory](https://github.com/advisories/GHSA-qqgx-2p2h-9c37)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1589"
+    },
+    "1594": {
+      "findings": [
+        {
+          "version": "0.15.3",
+          "paths": [
+            "karma>log4js>axios"
+          ]
+        }
+      ],
+      "id": 1594,
+      "created": "2021-01-04T21:04:59.346Z",
+      "updated": "2021-01-04T21:05:54.214Z",
+      "deleted": null,
+      "title": "Server-Side Request Forgery",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "axios",
+      "cves": [
+        "CVE-2020-28168"
+      ],
+      "vulnerable_versions": "<0.21.1",
+      "patched_versions": ">=0.21.1",
+      "overview": "The `axios` NPM package before 0.21.1 contains a Server-Side Request Forgery (SSRF) vulnerability where an attacker is able to bypass a proxy by providing a URL that responds with a redirect to a restricted host or IP address.",
+      "recommendation": "Upgrade to 0.21.1 or later.",
+      "references": "- [Github Issue](https://github.com/axios/axios/issues/3369)\n- [Fix commit](https://github.com/axios/axios/commit/c7329fefc890050edd51e40e469a154d0117fc55)\n- [GitHub Advisory](https://github.com/advisories/GHSA-4w2v-q235-vp99)\n- [Snyk Report](https://snyk.io/vuln/SNYK-JS-AXIOS-1038255)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-918",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1594"
+    },
+    "1609": {
+      "findings": [
+        {
+          "version": "2.0.4",
+          "paths": [
+            "karma>socket.io"
+          ]
+        }
+      ],
+      "id": 1609,
+      "created": "2021-02-19T22:40:51.214Z",
+      "updated": "2021-02-19T22:40:56.934Z",
+      "deleted": null,
+      "title": "Insecure Default Configuration",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "socket.io",
+      "cves": [
+        "CVE-2020-28481"
+      ],
+      "vulnerable_versions": "<2.4.0",
+      "patched_versions": ">=2.4.0",
+      "overview": "Affected versions of `socket.io` are vulnerable to Insecure Defaults due to CORS Misconfiguration. All domains are whitelisted by default.",
+      "recommendation": "Update to version 2.4.0 or later.",
+      "references": "- [GitHub Advisory](https://github.com/advisories/GHSA-fxwf-4rqh-v8g3)\n- [Snyk Advisory](https://snyk.io/vuln/SNYK-JS-SOCKETIO-1024859)",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-453",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1609"
+    },
+    "1654": {
+      "findings": [
+        {
+          "version": "3.2.1",
+          "paths": [
+            "gitbook-cli>npm>cacache>y18n",
+            "gitbook-cli>npm>pacote>cacache>y18n",
+            "gitbook-cli>npm>pacote>make-fetch-happen>cacache>y18n"
+          ]
+        }
+      ],
+      "id": 1654,
+      "created": "2021-03-12T23:16:43.813Z",
+      "updated": "2021-03-29T16:07:59.314Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "y18n",
+      "cves": [
+        "CVE-2020-7774"
+      ],
+      "vulnerable_versions": "<3.2.2||=4.0.0||>=5.0.0 <5.0.5",
+      "patched_versions": ">=5.0.5||>=4.0.1 <5.0.0||>=3.2.2 <4.0.0",
+      "overview": "`y18n` before versions 3.2.2, 4.0.1, and 5.0.5 is vulnerable to prototype pollution.\n\n## POC\n\n```\nconst y18n = require('y18n')();\n \ny18n.setLocale('__proto__');\ny18n.updateLocale({polluted: true});\n\nconsole.log(polluted); // true\n```",
+      "recommendation": "Upgrade to version 3.2.2, 4.0.1, 5.0.5 or later",
+      "references": "- [CVE](https://nvd.nist.gov/vuln/detail/CVE-2020-7774)\n- [Snyk Advisory](https://snyk.io/vuln/SNYK-JS-Y18N-1021887)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-1321",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 7,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1654"
+    },
+    "1658": {
+      "findings": [
+        {
+          "version": "1.0.6",
+          "paths": [
+            "karma>log4js>mailgun-js>proxy-agent>pac-proxy-agent>pac-resolver>netmask"
+          ]
+        }
+      ],
+      "id": 1658,
+      "created": "2021-03-29T21:35:07.018Z",
+      "updated": "2021-03-29T21:35:07.018Z",
+      "deleted": null,
+      "title": "netmask npm package vulnerable to octal input data",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "netmask",
+      "cves": [
+        "CVE-2021-28918"
+      ],
+      "vulnerable_versions": "<2.0.1",
+      "patched_versions": ">=2.0.1",
+      "overview": "`netmask` npm package is vulnerable to octal input data. This may lead to server-side request forgery, remote file inclusion, local file inclusion, and other vulnerabilities.",
+      "recommendation": "Upgrade to version 2.0.1 or later.",
+      "references": "- [GitHub Advisory](https://github.com/advisories/GHSA-pch5-whg9-qr2r)\n- [Researcher report](https://sick.codes/universal-netmask-npm-package-used-by-270000-projects-vulnerable-to-octal-input-data-server-side-request-forgery-remote-file-inclusion-local-file-inclusion-and-more-cve-2021-28918/)",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-20",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 8,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1658"
+    }
+  },
+  "muted": [],
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 75,
+      "moderate": 82,
+      "high": 78,
+      "critical": 0
+    },
+    "dependencies": 29,
+    "devDependencies": 2705,
+    "optionalDependencies": 385,
+    "totalDependencies": 2734
+  },
+  "runId": "1237d679-58a4-4ca4-8cca-227b3087144d"
+}
