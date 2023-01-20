@@ -12,7 +12,10 @@ ngModule.constant('AV_EXCEPTIONS', {
   TYPES: {
     EXCEPTION: 'exception'
   },
-  REPEAT_LIMIT_TIME: 5000
+  REPEAT_LIMIT_TIME: 5000,
+  BLACKLISTED_MESSAGES: [
+    'ResizeObserver loop limit exceeded'
+  ]
 });
 
 class AvExceptionAnalyticsProvider {
@@ -135,8 +138,21 @@ class AvExceptionAnalyticsProvider {
 
         const stacktrace = TraceKit.computeStackTrace(exception);
 
+        // Check for blacklisted messages to not log
+        if (stacktrace && stacktrace.message && this._isBlacklisted(stacktrace.message)) {
+          return;
+        }
+
         return this.onError(stacktrace);
 
+      }
+
+      _isBlacklisted(message) {
+        let isBlacklisted = false;
+        if (AV_EXCEPTIONS.BLACKLISTED_MESSAGES.includes(message)) {
+          isBlacklisted = true;
+        }
+        return isBlacklisted;
       }
 
       // Check to see if this error was reported within the last 5 seconds
