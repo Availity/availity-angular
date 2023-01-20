@@ -1,7 +1,7 @@
 {
   "name": "availity-angular",
   "description": "Availity Angular SDK",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "main": "lib/index.js",
   "keywords": [
     "angular",
