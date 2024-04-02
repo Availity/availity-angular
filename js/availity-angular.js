@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v4.1.3 (04/14/2021)
+ * availity-angular v4.3.0 (04/02/2024)
  * (c) Availity, LLC
  */
 webpackJsonp([0],[
@@ -13999,7 +13999,8 @@ _module2.default.constant('AV_EXCEPTIONS', {
   TYPES: {
     EXCEPTION: 'exception'
   },
-  REPEAT_LIMIT_TIME: 5000
+  REPEAT_LIMIT_TIME: 5000,
+  BLACKLISTED_MESSAGES: ['ResizeObserver loop limit exceeded']
 });
 
 var AvExceptionAnalyticsProvider = function () {
@@ -14100,7 +14101,7 @@ var AvExceptionAnalyticsProvider = function () {
               host: document.domain,
               screenWidth: (0, _jquery2.default)(window).width(),
               screenHeight: (0, _jquery2.default)(window).height(),
-              sdkVersion: "4.1.3"
+              sdkVersion: "4.3.0"
             };
 
             return this.log(message);
@@ -14126,7 +14127,21 @@ var AvExceptionAnalyticsProvider = function () {
 
             var stacktrace = _tracekit2.default.computeStackTrace(exception);
 
+            // Check for blacklisted messages to not log
+            if (stacktrace && stacktrace.message && this._isBlacklisted(stacktrace.message)) {
+              return;
+            }
+
             return this.onError(stacktrace);
+          }
+        }, {
+          key: '_isBlacklisted',
+          value: function _isBlacklisted(message) {
+            var isBlacklisted = false;
+            if (AV_EXCEPTIONS.BLACKLISTED_MESSAGES.includes(message)) {
+              isBlacklisted = true;
+            }
+            return isBlacklisted;
           }
 
           // Check to see if this error was reported within the last 5 seconds

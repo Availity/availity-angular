@@ -386,15 +386,15 @@
 <pre class="language-"><code class="lang-js">
 <span class="token keyword">import</span> tpl <span class="token keyword">from</span> <span class="token string">&apos;./template&apos;</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> modal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AvModal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  scope<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
-  templateUrl<span class="token operator">:</span> tpl
+  <span class="token literal-property property">scope</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
+  <span class="token literal-property property">templateUrl</span><span class="token operator">:</span> tpl
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><strong>Static</strong></p>
 <pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  show<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  scope<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
-  templateUrl<span class="token operator">:</span> tpl
+  <span class="token literal-property property">show</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">scope</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$scope<span class="token punctuation">,</span>
+  <span class="token literal-property property">templateUrl</span><span class="token operator">:</span> tpl
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="options">Options</h4>
@@ -411,8 +411,8 @@
 <h5 id="locals"><code>locals</code></h5>
 <p>Values become injectable in the controller based on their key names.</p>
 <pre class="language-"><code class="lang-js">AvModal<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>  
-  locals<span class="token operator">:</span> <span class="token punctuation">{</span>
-    someKey<span class="token operator">:</span> <span class="token string">&apos;This is a value passed in using locals, they become injectable values into the controller based on their key name.&apos;</span>
+  <span class="token literal-property property">locals</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">someKey</span><span class="token operator">:</span> <span class="token string">&apos;This is a value passed in using locals, they become injectable values into the controller based on their key name.&apos;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
@@ -462,7 +462,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modal","level":"1.7","depth":1,"next":{"title":"Dropdowns","level":"1.8","depth":1,"path":"src/ui/dropdown/README.md","ref":"src/ui/dropdown/README.md","articles":[]},"previous":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/modal/README.md","mtime":"2021-04-14T14:16:34.885Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-14T14:20:02.508Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Modal","level":"1.7","depth":1,"next":{"title":"Dropdowns","level":"1.8","depth":1,"path":"src/ui/dropdown/README.md","ref":"src/ui/dropdown/README.md","articles":[]},"previous":{"title":"Dimmer","level":"1.6","depth":1,"path":"src/ui/dimmer/README.md","ref":"src/ui/dimmer/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"src/ui/modal/README.md","mtime":"2024-03-27T15:09:42.935Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-02T19:29:01.489Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

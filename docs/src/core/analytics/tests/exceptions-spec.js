@@ -47,6 +47,7 @@ describe('avExceptionAnalyticsProvider', () => {
   describe('avExceptionAnalytics', () => {
 
     let exception;
+    let blacklistException;
 
     beforeEach(() => {
 
@@ -54,6 +55,12 @@ describe('avExceptionAnalyticsProvider', () => {
         throw new Error('mock error');
       } catch (e) {
         exception = e;
+      }
+
+      try {
+        throw new Error('ResizeObserver loop limit exceeded');
+      } catch (e) {
+        blacklistException = e;
       }
 
     });
@@ -69,6 +76,16 @@ describe('avExceptionAnalyticsProvider', () => {
 
       expect(message.errorName).toBe('Error');
       expect(message.errorMessage).toBe('mock error');
+
+    });
+
+    it('should blacklist and omit track exception event', () => {
+
+      $exceptionHandler(blacklistException);
+      expect(service.trackEvent).toHaveBeenCalled();
+      expect(service.trackEvent.calls.count()).toEqual(1);
+      expect(service.onError.calls.count()).toEqual(0);
+      expect(service.log.calls.count()).toEqual(0);
 
     });
 

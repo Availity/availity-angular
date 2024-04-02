@@ -1,6 +1,6 @@
 /*!
  * 
- * availity-angular v4.1.3 (04/14/2021)
+ * availity-angular v4.3.0 (04/02/2024)
  * (c) Availity, LLC
  */
 webpackJsonp([1],[

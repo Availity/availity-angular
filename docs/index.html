@@ -407,12 +407,71 @@
 <blockquote>
 <p>Other browsers should be supported as well but you may experience some issues.</p>
 </blockquote>
+<h2 id="migrating-to-angularjs-17x-to-182"><a name="angularjs18"></a> Migrating to angularjs 1.7.x to 1.8.2</h2>
+<p>Version 4.2.0 of availity-angular is migration from 1.7.x angular to 1.8.2. In addition, jquery is updated to 3.6.0, to
+satisfy security requirements. The primary change of what is fixed with security update can be explained with jquery
+upgrade guide located here <a href="https://jquery.com/upgrade-guide/3.5/" target="_blank">https://jquery.com/upgrade-guide/3.5/</a>.<br>Note: 1.7.x to 1.8.2 is really just an update underlying jquery component embeded in angularjs, and since
+availity-angular overrides this by including the full jquery. The real upgrade is just the jquery upgrade.</p>
+<p>Here is list of known issues with upgrade.</p>
+<ul>
+<li><p>Self-closing tags, like &quot;\<div> \<span> \<p>&quot;. As referenced in upgrade-guide, jquery no changes these tags. The
+result of which is if you have some template like following in your page it will not display and actually cause page
+to stop rendering due to unmatching tags.</p>
+<pre class="language-"><code class="lang-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>broken<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>This would display before tag.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-my-directive</span><span class="token punctuation">/&gt;</span></span> 
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>But directive and items after might not display.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>fixed<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Fix is to change to remove self closing empty html tag<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-my-directive</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> 
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Now this should display.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>nochange<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Tags that html supports as self closing tags do not need to change since they are not effected.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span>Example: All the following are valid<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">data-my-directive</span> <span class="token punctuation">/&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">data-my-directive</span> <span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-my-directive</span> <span class="token punctuation">/&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-my-directive</span> <span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Unfortunately not good solution to this fix besides just fixing tags. Luckily this regex from here seems to be pretty code at replacing.
+<a href="https://www.reddit.com/r/regex/comments/6mpc7b/replace_invalid_selfclosing_nonvoid_html_tags/" target="_blank">https://www.reddit.com/r/regex/comments/6mpc7b/replace_invalid_selfclosing_nonvoid_html_tags/</a>
+In editor that supports reg expression replace use following:</p>
+<pre class="language-"><code class="lang-text">find: &lt;(?!area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)([a-z|A-Z|_|\-|:|0-9]+)([^&gt;]*)\/&gt;
+replace: &lt;$1$2&gt;&lt;/$1&gt;
+</code></pre>
+</span></div></p></li>
+<li><p>bootstrap-datapicker issue. One issue noticed on upgrading is that some projects where getting issue where
+AvDatepicker was no longer working. This seemed to be dependency resolution where bootstrap-datepicker was pulling in
+one version of jquery and application was using 3.6 version. The fix was to force resolution to same version using
+resolution block.</p>
+<pre class="language-"><code>  &quot;resolutions&quot;: {
+    &quot;jquery&quot;: &quot;3.6.0&quot;
+  }
+</code></pre></li>
+<li><p>uglify-js 3.11.x issue. Although not related angularjs upgrade an issue was noticed with dependencies. After some
+effort it was found with uglify-js 3.11.x or greater, the signature of some constructors where changed. In particular
+the av-block directive&apos;s BlockController was effected causing console error &quot;regExp --&gt; regExpProvider not found&quot;.
+Error would only show up on production builds of project. The fix for this is locking in ugligfy-js to 3.10.4.</p>
+<pre class="language-"><code> &quot;resolutions&quot;: {
+   &quot;jquery&quot;: &quot;3.6.0&quot;,
+   &quot;uglify-js&quot;: &quot;3.10.4&quot;,
+   &quot;uglifyjs-webpack-plugin&quot;: &quot;2.2.0&quot;
+ },
+</code></pre></li>
+</ul>
 <h2 id="quickstart">Quickstart</h2>
 <p>Install the Availity Angular SDK with npm.</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span> availity-angular --save
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span> availity-angular <span class="token parameter variable">--save</span>
 </code></pre>
 <h2 id="acknowledgments">Acknowledgments</h2>
-<p>The Availity Angular lib was heavily inspired by multiple open source frameworks.  If for some reason a library could not be used directly (IE9 limitation), we&apos;ve reused that projects code directly in this project.  Please check out the libs below for some beautifully written code.</p>
+<p>The Availity Angular lib was heavily inspired by multiple open source frameworks. If for some reason a library could not
+be used directly (IE9 limitation), we&apos;ve reused that projects code directly in this project. Please check out the libs
+below for some beautifully written code.</p>
 <ul>
 <li><a href="https://github.com/mgcrea/angular-strap" target="_blank">Angular Strap</a></li>
 <li><a href="https://github.com/angular-ui/bootstrap" target="_blank">Angular Bootstrap</a></li>
@@ -467,7 +526,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Read Me","level":"1.1","depth":1,"next":{"title":"API","level":"1.2","depth":1,"path":"src/core/api/README.md","ref":"src/core/api/README.md","articles":[{"title":"Organizations","level":"1.2.1","depth":2,"path":"src/core/api/docs/organizations.md","ref":"src/core/api/docs/organizations.md","articles":[]},{"title":"Permissions","level":"1.2.2","depth":2,"path":"src/core/api/docs/permisions.md","ref":"src/core/api/docs/permisions.md","articles":[]},{"title":"Regions","level":"1.2.3","depth":2,"path":"src/core/api/docs/regions.md","ref":"src/core/api/docs/regions.md","articles":[]},{"title":"Spaces","level":"1.2.4","depth":2,"path":"src/core/api/docs/spaces.md","ref":"src/core/api/docs/spaces.md","articles":[]},{"title":"Permissions (legacy)","level":"1.2.5","depth":2,"path":"src/core/api/docs/user-permissions.md","ref":"src/core/api/docs/user-permissions.md","articles":[]},{"title":"Users","level":"1.2.6","depth":2,"path":"src/core/api/docs/uers.md","ref":"src/core/api/docs/uers.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"README.md","mtime":"2021-04-14T14:16:34.795Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-14T14:20:02.508Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Read Me","level":"1.1","depth":1,"next":{"title":"API","level":"1.2","depth":1,"path":"src/core/api/README.md","ref":"src/core/api/README.md","articles":[{"title":"Organizations","level":"1.2.1","depth":2,"path":"src/core/api/docs/organizations.md","ref":"src/core/api/docs/organizations.md","articles":[]},{"title":"Permissions","level":"1.2.2","depth":2,"path":"src/core/api/docs/permisions.md","ref":"src/core/api/docs/permisions.md","articles":[]},{"title":"Regions","level":"1.2.3","depth":2,"path":"src/core/api/docs/regions.md","ref":"src/core/api/docs/regions.md","articles":[]},{"title":"Spaces","level":"1.2.4","depth":2,"path":"src/core/api/docs/spaces.md","ref":"src/core/api/docs/spaces.md","articles":[]},{"title":"Permissions (legacy)","level":"1.2.5","depth":2,"path":"src/core/api/docs/user-permissions.md","ref":"src/core/api/docs/user-permissions.md","articles":[]},{"title":"Users","level":"1.2.6","depth":2,"path":"src/core/api/docs/uers.md","ref":"src/core/api/docs/uers.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["syntax-highlighting/assets/css/prism/prism-base16-ocean.dark.css"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Availity Angular SDK","links":{"sidebar":{"Home":"https://github.com/Availity/availity-angular"},"sharing":{"facebook":false,"twitter":false}},"gitbook":"3.x.x"},"file":{"path":"README.md","mtime":"2024-03-27T15:09:42.853Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-02T19:29:01.489Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
