@@ -123,7 +123,7 @@
     "less-plugin-npm-import": "^2.1.0",
     "lodash.size": "^4.2.0",
     "lodash.uniqueid": "^4.0.1",
-    "marked": "^0.3.12",
+    "marked": "^4.0.10",
     "metalsmith": "^2.3.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-define": "^2.1.3",
